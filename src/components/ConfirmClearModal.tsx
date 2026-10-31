@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import { AlertTriangle, Trash2, X, Wallet, CreditCard, Receipt, PiggyBank, CheckSquare, Square } from 'lucide-react';
+import { ClearDataOptions } from '../utils/clearData';
+export type { ClearDataOptions } from '../utils/clearData';
 
-export interface ClearDataOptions {
-  clearWalletBalances: boolean; // Dinero en las cuentas (poner saldos a 0)
-  clearAllWallets: boolean;     // Todas las cuentas (eliminar las carteras)
-  clearTransactions: boolean;   // Movimientos (borrar historial de transacciones)
-  clearBudgets: boolean;        // Presupuestos (borrar asignaciones presupuestarias)
-  clearDebts: boolean;          // Deudas (borrar préstamos y deudas compartidas)
-}
 
 interface ConfirmClearModalProps {
   isOpen: boolean;
@@ -259,7 +254,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
         {/* Warning notice */}
         <p className="text-[11px] text-rose-300/80 text-center font-medium bg-rose-500/10 py-1.5 px-3 rounded-xl border border-rose-500/20">
-          ⚠️ Esta acción eliminará permanentemente los datos seleccionados.
+          Se guardará una copia recuperable antes de borrar. Si no se puede guardar, se cancelará la operación.
         </p>
 
         {/* Action Buttons */}

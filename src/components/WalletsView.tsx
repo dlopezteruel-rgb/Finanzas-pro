@@ -278,6 +278,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
       {/* Edit / Add Wallet Modal */}
       <WalletModal
+        wallets={wallets}
         isOpen={isWalletModalOpen}
         onClose={() => {
           setIsWalletModalOpen(false);

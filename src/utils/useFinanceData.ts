@@ -1,51 +1,52 @@
-import { useEffect, useRef, useState } from 'react';
-import { Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup } from './backup';
-
-const legacyKeys: Record<keyof FinanceData, string> = {
-  theme: 'finanzas_pro_theme', transactions: 'finanzas_pro_transactions_v2',
-  budgetPlans: 'finanzas_pro_plans_v2', budgetGroups: 'finanzas_pro_groups_v2',
-  contacts: 'finanzas_pro_contacts_v2', loans: 'finanzas_pro_loans_v2', wallets: 'finanzas_pro_wallets_v2',
-};
-
-export function loadFinanceData(storage: Pick<Storage, 'getItem'>, defaults: FinanceData): FinanceData {
-  const active = storage.getItem(DATA_KEY);
-  if (active !== null) return parseBackup(active);
-  const data = { ...defaults };
-  for (const field of Object.keys(legacyKeys) as (keyof FinanceData)[]) {
-    const saved = storage.getItem(legacyKeys[field]);
-    if (saved !== null) (data as any)[field] = field === 'theme' ? saved : JSON.parse(saved);
-  }
-  // No migration deletes or overwrites the original keys.
-  return parseBackup(JSON.stringify(makeBackup(data)));
-}
+import { useEffect, useState } from 'react';
+import { DATA_KEY, FinanceData, StorageConflictError } from './backup';
+import { browserExclusiveWrite, FinanceStore, RestorationInput } from './financeStore';
+export { loadFinanceData } from './financeStore';
 
 export function useFinanceData(defaults: FinanceData) {
   const [initial] = useState(() => {
-    try { return { data: loadFinanceData(localStorage, defaults), error: '' }; }
-    catch (error) { return { data: defaults, error: `No se han podido cargar los datos: ${error instanceof Error ? error.message : 'almacenamiento no disponible'}. Los datos guardados no se han sobrescrito.` }; }
+    try {
+      const store = new FinanceStore(localStorage, defaults, browserExclusiveWrite);
+      return { store, data: store.data, error: '' };
+    } catch (error) {
+      return { store: null, data: defaults, error: `No se han podido cargar los datos: ${error instanceof Error ? error.message : 'almacenamiento no disponible'}. Los datos guardados no se han sobrescrito.` };
+    }
   });
   const [data, setData] = useState<FinanceData>(initial.data);
   const [saveError, setSaveError] = useState('');
-  const current = useRef(data);
-  current.current = data;
-  const firstRender = useRef(true);
+  const [conflict, setConflict] = useState(false);
+
+  function reportError(error: unknown) {
+    if (error instanceof StorageConflictError) setConflict(true);
+    setSaveError(error instanceof Error ? error.message : 'No se pudieron guardar los cambios. Los datos anteriores se conservan.');
+  }
 
   useEffect(() => {
-    // Loading does not rewrite legacy data or a damaged active snapshot.
-    if (firstRender.current) { firstRender.current = false; return; }
-    if (initial.error) return;
-    try { localStorage.setItem(DATA_KEY, JSON.stringify(makeBackup(data))); setSaveError(''); }
-    catch { setSaveError('No se pudieron guardar los cambios en este navegador. Exporta una copia antes de cerrar la página.'); }
-  }, [data, initial.error]);
+    const check = () => {
+      if (initial.store?.checkForConflict()) {
+        setConflict(true);
+        setSaveError(new StorageConflictError().message);
+      }
+    };
+    const changed = (event: StorageEvent) => {
+      if (event.storageArea === localStorage && (event.key === DATA_KEY || event.key === null)) check();
+    };
+    window.addEventListener('storage', changed);
+    window.addEventListener('focus', check);
+    check();
+    return () => { window.removeEventListener('storage', changed); window.removeEventListener('focus', check); };
+  }, [initial.store]);
 
   function update<K extends keyof FinanceData>(field: K, value: FinanceData[K] | ((previous: FinanceData[K]) => FinanceData[K])) {
-    setData(previous => ({ ...previous, [field]: typeof value === 'function' ? value(previous[field]) : value }));
+    if (!initial.store) return Promise.resolve(false);
+    return initial.store.update(field, value)
+      .then(saved => { setData(saved); setSaveError(''); return true; })
+      .catch(error => { reportError(error); return false; });
   }
-  function restore(next: Backup) {
-    const restored = commitRestoration(localStorage, current.current, next);
-    current.current = restored;
-    setData(restored);
-    setSaveError('');
+  async function restore(next: RestorationInput) {
+    if (!initial.store) throw new Error(initial.error);
+    try { setData(await initial.store.restore(next)); setSaveError(''); }
+    catch (error) { reportError(error); throw error; }
   }
-  return { data, update, restore, loadError: initial.error, saveError };
+  return { data, update, restore, conflict, loadError: initial.error, saveError };
 }

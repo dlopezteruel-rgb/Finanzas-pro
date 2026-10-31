@@ -7,6 +7,7 @@ interface WalletModalProps {
   isOpen: boolean;
   onClose: () => void;
   walletToEdit?: Wallet | null;
+  wallets: Wallet[];
   currentCalculatedBalance?: number;
   onSaveWallet: (wallet: Wallet) => void;
   onDeleteWallet?: (walletId: string) => void;
@@ -27,6 +28,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   isOpen,
   onClose,
   walletToEdit,
+  wallets,
   currentCalculatedBalance,
   onSaveWallet,
   onDeleteWallet,
@@ -43,6 +45,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   const [isCalibratingCurrent, setIsCalibratingCurrent] = useState(false);
   const [targetCurrentBalance, setTargetCurrentBalance] = useState('');
   const [confirmDelete, setConfirmDelete] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (walletToEdit) {
@@ -65,6 +68,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
       setTargetCurrentBalance('0');
     }
     setConfirmDelete(false);
+    setError('');
     setIsCalibratingCurrent(false);
   }, [walletToEdit, currentCalculatedBalance, isOpen]);
 
@@ -73,6 +77,10 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
+    if (wallets.some(w => w.id !== walletToEdit?.id && w.name.trim().toUpperCase() === name.trim().toUpperCase())) {
+      setError('Ya existe una cartera con ese nombre. Elige un nombre diferente.');
+      return;
+    }
 
     let finalInitialBalance = parseFloat(initialBalance.replace(',', '.'));
     if (isNaN(finalInitialBalance)) finalInitialBalance = 0;
@@ -139,6 +147,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {error && <p role="alert" className="text-amber-300">{error}</p>}
           {/* Name & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -147,6 +156,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                 type="text"
                 required
                 placeholder="ej. BBVA, REVOLUT, EFECTIVO"
+                aria-label="Nombre de la cuenta"
                 value={name}
                 onChange={e => setName(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white uppercase focus:outline-none focus:border-sky-500 font-bold"

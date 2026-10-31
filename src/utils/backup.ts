@@ -156,16 +156,41 @@ export function backupWarnings(data: FinanceData): string[] {
   return warnings;
 }
 
-type StorageAccess = Pick<Storage, 'getItem' | 'setItem' | 'key' | 'length'>;
+export type StorageAccess = Pick<Storage, 'getItem' | 'setItem' | 'key' | 'length'>;
+
+export class StorageConflictError extends Error {
+  constructor() {
+    super('Otra pestaña ha cambiado los datos. No se ha guardado esta operación. Recarga para trabajar con la última versión.');
+  }
+}
+
+export function assertStorageRevision(storage: StorageAccess, expected: string | null) {
+  if (storage.getItem(DATA_KEY) !== expected) throw new StorageConflictError();
+}
+
+// The revision is internal. Downloads retain the existing portable 2.5 format.
+export function serializeSnapshot(data: FinanceData): string {
+  return JSON.stringify({ ...makeBackup(data), revision: crypto.randomUUID() });
+}
+
+export function parseSnapshot(content: string): FinanceData {
+  const snapshot = JSON.parse(content);
+  const { revision, ...backup } = snapshot;
+  if (revision !== undefined && (typeof revision !== 'string' || !revision)) throw new Error('Revisión local inválida.');
+  validateBackup(backup);
+  return backup;
+}
 
 /** One active key makes replacement atomic; a failed write never applies React state. */
-export function commitRestoration(storage: StorageAccess, current: FinanceData, next: Backup): FinanceData {
+export function commitRestoration(storage: StorageAccess, current: FinanceData, next: Backup, expected?: string | null): FinanceData {
   validateBackup(next);
-  const serialized = JSON.stringify(next);
+  if (expected !== undefined) assertStorageRevision(storage, expected);
+  const serialized = serializeSnapshot(next);
   const recovery = JSON.stringify(makeBackup(current));
   const key = `${RECOVERY_PREFIX}${new Date().toISOString()}_${crypto.randomUUID()}`;
   storage.setItem(key, recovery);
   if (storage.getItem(key) !== recovery) throw new Error('No se pudo verificar la copia de recuperación.');
+  if (expected !== undefined) assertStorageRevision(storage, expected);
   storage.setItem(DATA_KEY, serialized);
   return next;
 }

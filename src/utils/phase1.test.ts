@@ -1,8 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { classifyChatIntent, proposeChatMovement } from './chatRegistration';
-import { confirmOnce } from './confirmation';
-import { Backup, commitRestoration, DATA_KEY, makeBackup, parseBackup, recoveryCopies, validateBackup } from './backup';
+import { confirmOnce, confirmOnceAsync } from './confirmation';
+import { Backup, commitRestoration, DATA_KEY, makeBackup, parseBackup, parseSnapshot, recoveryCopies, validateBackup, StorageConflictError } from './backup';
+import { ExclusiveWrite, FinanceStore } from './financeStore';
+import { clearedData, ClearDataOptions } from './clearData';
 import { loadFinanceData } from './useFinanceData';
 import { BUDGET_GROUPS } from '../constants/categories';
 import { INITIAL_TRANSACTIONS, INITIAL_BUDGET_PLANS, INITIAL_CONTACTS, INITIAL_LOANS, INITIAL_WALLETS } from './seedData';
@@ -115,7 +117,8 @@ test('la sustitución completa guarda una copia recuperable y conserva las clave
   storage.setItem('finanzas_pro_transactions_v2', JSON.stringify(previous.transactions));
   const restored = commitRestoration(storage, previous, next);
   assert.deepEqual(restored, next);
-  assert.deepEqual(JSON.parse(storage.getItem(DATA_KEY)!), next);
+  const persisted = parseSnapshot(storage.getItem(DATA_KEY)!);
+  for (const key of ['theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'] as const) assert.deepEqual(persisted[key], next[key]);
   assert.deepEqual(parseBackup(recoveryCopies(storage)[0].content).transactions, previous.transactions);
   assert.equal(storage.getItem('finanzas_pro_transactions_v2'), JSON.stringify(previous.transactions));
 });
@@ -146,4 +149,139 @@ test('las claves antiguas se leen sin borrarse y el snapshot activo tiene preced
   const active = fixture();
   storage.setItem(DATA_KEY, JSON.stringify(active));
   assert.deepEqual(loadFinanceData(storage, defaults), active);
+});
+
+function sharedLock(): ExclusiveWrite {
+  let tail = Promise.resolve();
+  return write => {
+    const result = tail.then(write);
+    tail = result.then(() => {}, () => {});
+    return result;
+  };
+}
+test('el dominio rechaza nombres de cartera duplicados sin cambiar estado ni persistencia', async () => {
+  const storage = new MemoryStorage(), original = fixture();
+  const store = new FinanceStore(storage, original, sharedLock());
+  const before = store.data;
+  await assert.rejects(store.update('wallets', wallets => [...wallets, { ...wallets[0], id: 'duplicate', name: ` ${wallets[0].name.toLowerCase()} ` }]), /duplicados/);
+  assert.equal(store.data, before);
+  assert.equal(storage.getItem(DATA_KEY), null);
+  await store.update('wallets', wallets => [...wallets, { ...wallets[0], id: 'new-wallet', name: 'NUEVA' }]);
+  const reloaded = new FinanceStore(storage, original, sharedLock());
+  assert.equal(reloaded.data.wallets.at(-1)?.name, 'NUEVA');
+  await reloaded.update('wallets', wallets => wallets.map(w => ({ ...w, color: '#ffffff' })));
+  assert.equal(reloaded.data.wallets.length, original.wallets.length + 1);
+});
+test('validar antes de guardar evita persistir un movimiento inválido', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  const before = store.data;
+  await assert.rejects(store.update('transactions', transactions => [{ ...transactions[0], amount: NaN }, ...transactions.slice(1)]), /amount/);
+  assert.equal(store.data, before);
+  assert.equal(storage.length, 0);
+});
+test('los datos antiguos duplicados se conservan sin reemplazo ni borrado', () => {
+  const storage = new MemoryStorage(), original = fixture();
+  const duplicates = [...original.wallets, { ...original.wallets[0], id: 'other' }];
+  storage.setItem('finanzas_pro_wallets_v2', JSON.stringify(duplicates));
+  const before = [...storage.values];
+  assert.throws(() => new FinanceStore(storage, original, sharedLock()), /duplicados/);
+  assert.deepEqual([...storage.values], before);
+});
+test('dos escrituras simultáneas de pestañas distintas no pierden cambios silenciosamente', async () => {
+  const storage = new MemoryStorage(), lock = sharedLock(), original = fixture();
+  const a = new FinanceStore(storage, original, lock), b = new FinanceStore(storage, original, lock);
+  const results = await Promise.allSettled([a.update('theme', 'light'), b.update('transactions', [])]);
+  assert.equal(results[0].status, 'fulfilled');
+  assert.equal(results[1].status, 'rejected');
+  assert.ok(results[1].status === 'rejected' && results[1].reason instanceof StorageConflictError);
+  assert.equal(parseSnapshot(storage.getItem(DATA_KEY)!).theme, 'light');
+  assert.deepEqual(parseSnapshot(storage.getItem(DATA_KEY)!).transactions, original.transactions);
+});
+test('una pestaña obsoleta tampoco puede sobrescribir una restauración aunque no reciba storage', async () => {
+  const storage = new MemoryStorage(), lock = sharedLock(), original = fixture();
+  const a = new FinanceStore(storage, original, lock), b = new FinanceStore(storage, original, lock);
+  const replacement = fixture(); replacement.transactions = [];
+  await a.restore(replacement);
+  const before = [...storage.values];
+  await assert.rejects(b.update('theme', 'light'), StorageConflictError);
+  await assert.rejects(b.restore(original), StorageConflictError);
+  assert.deepEqual([...storage.values], before);
+  assert.ok(b.checkForConflict());
+});
+test('las actualizaciones consecutivas de una pestaña usan el último estado confirmado', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  await Promise.all([
+    store.update('contacts', contacts => [...contacts, { id: 'one', name: 'Uno', createdAt: '2026-11-01' }]),
+    store.update('contacts', contacts => [...contacts, { id: 'two', name: 'Dos', createdAt: '2026-11-01' }]),
+  ]);
+  assert.deepEqual(store.data.contacts.slice(-2).map(c => c.id), ['one', 'two']);
+});
+test('cada restauración cambia la revisión aunque su contenido financiero sea igual', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  const data = fixture();
+  await store.restore(data); const first = storage.getItem(DATA_KEY);
+  await store.restore(data);
+  assert.notEqual(storage.getItem(DATA_KEY), first);
+  assert.equal(recoveryCopies(storage).length, 2);
+});
+const clearOptions: ClearDataOptions = { clearAllWallets: true, clearWalletBalances: true, clearTransactions: true, clearBudgets: true, clearDebts: true };
+test('cancelar el borrado no modifica ningún dato ni crea copias', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  const before = store.data;
+  const guard = confirmOnceAsync(async () => { await store.restore(makeBackup(clearedData(store.data, clearOptions))); });
+  guard.cancel(); await guard.confirm(undefined);
+  assert.equal(storage.length, 0);
+  assert.equal(store.data, before);
+});
+test('borrar conserva una copia completa recuperable antes de vaciar las colecciones', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  const before = structuredClone(store.data);
+  const cleared = clearedData(store.data, clearOptions);
+  assert.deepEqual(store.data, before);
+  await store.restore(makeBackup(cleared));
+  assert.deepEqual(parseBackup(recoveryCopies(storage)[0].content).transactions, before.transactions);
+  assert.deepEqual(store.data.transactions, []);
+  assert.deepEqual(store.data.wallets, []);
+  assert.deepEqual(store.data.contacts, before.contacts);
+});
+for (const failure of ['recovery', 'active']) {
+  test(`borrado con fallo en ${failure} conserva estado y snapshot`, async () => {
+    const storage = new MemoryStorage(), original = fixture();
+    storage.setItem(DATA_KEY, JSON.stringify(original));
+    const store = new FinanceStore(storage, original, sharedLock());
+    const before = store.data, raw = storage.getItem(DATA_KEY);
+    storage.fail = key => failure === 'active' ? key === DATA_KEY : key !== DATA_KEY;
+    await assert.rejects(store.restore(makeBackup(clearedData(store.data, clearOptions))));
+    assert.equal(store.data, before);
+    assert.equal(storage.getItem(DATA_KEY), raw);
+  });
+}
+test('la confirmación asíncrona bloquea dobles clics mientras el guardado está pendiente', async () => {
+  let calls = 0;
+  let release!: () => void;
+  const guard = confirmOnceAsync(async () => { calls++; await new Promise<void>(resolve => { release = resolve; }); });
+  const first = guard.confirm(undefined);
+  assert.equal(await guard.confirm(undefined), false);
+  release(); assert.equal(await first, true);
+  assert.equal(calls, 1);
+});
+test('un borrado parcial en cola conserva los cambios previos de la misma pestaña', async () => {
+  const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
+  await Promise.all([
+    store.update('transactions', transactions => [{ ...transactions[0], id: 'just-saved' }, ...transactions]),
+    store.restore(current => makeBackup(clearedData(current, { ...clearOptions, clearTransactions: false }))),
+  ]);
+  assert.equal(store.data.transactions[0].id, 'just-saved');
+  assert.equal(parseBackup(recoveryCopies(storage)[0].content).transactions[0].id, 'just-saved');
+});
+for (const text of ['No me cuadran los gastos, ¿por qué?', '¿Por qué no ahorro 100 euros?', 'No entiendo mi presupuesto', 'No tengo ingresos este mes']) {
+  test(`la consulta negativa llega al asesor sin proponer movimientos: ${text}`, () => {
+    assert.equal(classifyChatIntent(text), 'query');
+    assert.equal(proposeChatMovement(text, INITIAL_WALLETS, partidas), null);
+  });
+}
+test('una orden con estado no tramitado sigue siendo una propuesta pendiente', () => {
+  const proposal = proposeChatMovement('Registra un gasto de 20 euros no tramitado', INITIAL_WALLETS, partidas);
+  assert.ok(proposal);
+  assert.equal(proposal.processed, false);
 });

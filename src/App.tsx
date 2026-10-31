@@ -47,7 +47,8 @@ import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup, recover
 import { useFinanceData } from './utils/useFinanceData';
 import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
-import { confirmOnce } from './utils/confirmation';
+import { confirmOnceAsync } from './utils/confirmation';
+import { clearedData } from './utils/clearData';
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
@@ -63,7 +64,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { data, update, restore, loadError, saveError } = useFinanceData(DEMO_DATA);
+  const { data, update, restore, conflict, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions, budgetPlans, loans, wallets, contacts } = data;
   const setTheme = (value: React.SetStateAction<FinanceData['theme']>) => update('theme', value);
   const setBudgetGroups = (value: React.SetStateAction<BudgetGroup[]>) => update('budgetGroups', value);
@@ -76,8 +77,10 @@ export default function App() {
   const [dataError, setDataError] = useState('');
   const [dataNotice, setDataNotice] = useState('');
   const [showRecovery, setShowRecovery] = useState(false);
-  const restorationGuard = useRef<ReturnType<typeof confirmOnce<Backup>> | null>(null);
+  const restorationGuard = useRef<ReturnType<typeof confirmOnceAsync<Backup>> | null>(null);
   const importRequest = useRef(0);
+  const clearPending = useRef(false);
+  const [restoring, setRestoring] = useState(false);
 
   useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
   const handleToggleTheme = () => setTheme(previous => previous === 'dark' ? 'light' : 'dark');
@@ -179,7 +182,7 @@ export default function App() {
   // 3. Transactions Handlers
   const handleSaveTransaction = (txData: Omit<Transaction, 'id'>, existingId?: string) => {
     if (existingId) {
-      setTransactions(prev =>
+      return setTransactions(prev =>
         prev.map(t => (t.id === existingId ? { ...txData, id: existingId } : t))
       );
     } else {
@@ -187,7 +190,7 @@ export default function App() {
         ...txData,
         id: `tx-${Date.now()}`,
       };
-      setTransactions(prev => [newTx, ...prev]);
+      return setTransactions(prev => [newTx, ...prev]);
     }
   };
 
@@ -550,54 +553,21 @@ export default function App() {
     setIsClearModalOpen(true);
   };
 
-  const handleConfirmClearSelected = (options: ClearDataOptions) => {
-    // 1. Dinero en las cuentas (patrimonio a 0)
-    if (options.clearWalletBalances && !options.clearAllWallets) {
-      setWallets(prev => prev.map(w => ({ ...w, initialBalance: 0 })));
-    }
-
-    // 2. Todas las cuentas
-    if (options.clearAllWallets) {
-      setWallets([]);
-    }
-
-    // 3. Movimientos
-    if (options.clearTransactions) {
-      setTransactions([]);
-    }
-
-    // 4. Presupuestos
-    if (options.clearBudgets) {
-      setBudgetPlans([]);
-    }
-
-    // 5. Deudas
-    if (options.clearDebts) {
-      setLoans([]);
-      // Reset shared debts
-      setTransactions(prev =>
-        prev.map(t => {
-          if (!t.splitInfo) return t;
-          return {
-            ...t,
-            splitInfo: {
-              ...t.splitInfo,
-              participants: t.splitInfo.participants.map(p => ({
-                ...p,
-                isPaid: true,
-                paidDate: new Date().toISOString().split('T')[0],
-              })),
-              totalOwedToMe: 0,
-            },
-          };
-        })
-      );
-    }
+  const handleConfirmClearSelected = async (options: ClearDataOptions) => {
+    if (clearPending.current) return;
+    clearPending.current = true;
+    setDataError(''); setDataNotice('');
+    try {
+      await restore(current => makeBackup(clearedData(current, options)));
+      setDataNotice('Datos seleccionados borrados. El estado anterior está en «Copias de recuperación».');
+    } catch {
+      setDataError('No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.');
+    } finally { clearPending.current = false; }
   };
 
   const prepareRestoration = (backup: Backup, label: string) => {
     restorationGuard.current?.cancel();
-    restorationGuard.current = confirmOnce((next: Backup) => restore(next));
+    restorationGuard.current = confirmOnceAsync((next: Backup) => restore(next));
     setDataError('');
     setRestoration({ backup, label });
   };
@@ -623,16 +593,17 @@ export default function App() {
     restorationGuard.current?.cancel();
     setRestoration(null);
   };
-  const confirmRestoration = () => {
-    if (!restoration) return;
+  const confirmRestoration = async () => {
+    if (!restoration || restoring) return;
+    setRestoring(true);
     try {
-      if (restorationGuard.current?.confirm(restoration.backup)) {
+      if (await restorationGuard.current?.confirm(restoration.backup)) {
         setRestoration(null);
         setDataNotice('Datos sustituidos. La copia anterior está disponible en «Copias de recuperación».');
       }
     } catch {
-      setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Descarga una copia y comprueba el espacio disponible en el navegador.');
-    }
+      setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
+    } finally { setRestoring(false); }
   };
 
   if (loadError) return <div className="min-h-screen bg-[#0c0f17] text-white p-6 space-y-4">
@@ -778,9 +749,10 @@ export default function App() {
 
       {(dataError || saveError || dataNotice) && <div className="fixed bottom-20 left-4 right-4 z-[60] max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl" role={dataError || saveError ? 'alert' : 'status'}>
         <p>{dataError || saveError || dataNotice}</p>
+        {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
-      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} />}
+      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} />}
       {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
           {recoveryCopies(localStorage).length === 0 && <p>No hay copias anteriores.</p>}

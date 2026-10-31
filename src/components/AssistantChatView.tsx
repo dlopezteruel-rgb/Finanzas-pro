@@ -9,7 +9,7 @@ import {
 import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetPartida } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { classifyChatIntent, proposeChatMovement } from '../utils/chatRegistration';
-import { confirmOnce } from '../utils/confirmation';
+import { confirmOnceAsync } from '../utils/confirmation';
 import { MovementProposalModal } from './MovementProposalModal';
 
 interface Message {
@@ -26,7 +26,7 @@ interface AssistantChatProps {
   loans: Loan[];
   wallets: Wallet[];
   availablePartidas: BudgetPartida[];
-  onAddTransaction: (t: Omit<Transaction, 'id'>) => void;
+  onAddTransaction: (t: Omit<Transaction, 'id'>) => void | Promise<boolean>;
 }
 
 export const AssistantChatView: React.FC<AssistantChatProps> = ({
@@ -41,17 +41,24 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [proposal, setProposal] = useState<Omit<Transaction, 'id'> | null>(null);
-  const confirmation = useRef<ReturnType<typeof confirmOnce<Omit<Transaction, 'id'>>> | null>(null);
+  const confirmation = useRef<ReturnType<typeof confirmOnceAsync<Omit<Transaction, 'id'>>> | null>(null);
+  const [confirming, setConfirming] = useState(false);
+  const [proposalError, setProposalError] = useState('');
   const appendReply = (text: string) => setMessages(previous => [...previous, {
     id: crypto.randomUUID(), sender: 'assistant', text,
     time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
   }]);
   const cancelProposal = () => { confirmation.current?.cancel(); setProposal(null); };
-  const confirmProposal = (transaction: Omit<Transaction, 'id'>) => {
-    if (confirmation.current?.confirm(transaction)) {
-      setProposal(null);
-      appendReply(`✓ Movimiento registrado: ${formatCurrency(transaction.amount)} · ${transaction.description} · ${transaction.wallet} · ${transaction.processed ? 'Tramitado' : 'Pendiente'}.`);
-    }
+  const confirmProposal = async (transaction: Omit<Transaction, 'id'>) => {
+    if (confirming) return;
+    setConfirming(true); setProposalError('');
+    try {
+      if (await confirmation.current?.confirm(transaction)) {
+        setProposal(null);
+        appendReply(`✓ Movimiento registrado: ${formatCurrency(transaction.amount)} · ${transaction.description} · ${transaction.wallet} · ${transaction.processed ? 'Tramitado' : 'Pendiente'}.`);
+      }
+    } catch { setProposalError('No se ha guardado el movimiento. Revisa el aviso de almacenamiento antes de reintentar.'); }
+    finally { setConfirming(false); }
   };
 
   const initialGreeting = `¡Hola! Soy tu asistente financiero personal.
@@ -200,7 +207,10 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       const draft = proposeChatMovement(text, wallets, availablePartidas);
       if (draft) {
         confirmation.current?.cancel();
-        confirmation.current = confirmOnce(onAddTransaction);
+        setProposalError('');
+        confirmation.current = confirmOnceAsync(async transaction => {
+          if (await onAddTransaction(transaction) === false) throw new Error('Guardado rechazado');
+        });
         setProposal(draft);
       } else {
         appendReply('No he podido preparar el movimiento. Indica un importe positivo y revisa que existan categorías disponibles. No se ha registrado nada.');
@@ -275,7 +285,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
 
   return (
     <div className="bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col h-[580px] sm:h-[620px] shadow-sm overflow-hidden pb-16 md:pb-0">
-      {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} />}
+      {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (
