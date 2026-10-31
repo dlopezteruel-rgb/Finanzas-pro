@@ -1,4 +1,5 @@
 import { assertStorageRevision, Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, serializeSnapshot, StorageAccess, StorageConflictError } from './backup';
+import { browserStorageSupportError } from './storageSupport';
 
 const legacyKeys: Record<keyof FinanceData, string> = {
   theme: 'finanzas_pro_theme', transactions: 'finanzas_pro_transactions_v2',
@@ -21,7 +22,8 @@ export type ExclusiveWrite = <T>(write: () => T) => Promise<T>;
 export type RestorationInput = Backup | ((current: FinanceData) => Backup);
 export const STORAGE_LOCK = 'finanzas-pro-data-write';
 export const browserExclusiveWrite: ExclusiveWrite = write => {
-  if (!navigator.locks) return Promise.reject(new Error('Este navegador no permite guardar de forma coordinada. Usa un navegador actualizado y una conexión HTTPS. Los datos se conservan.'));
+  const reason = browserStorageSupportError();
+  if (reason) return Promise.reject(new Error(reason));
   return navigator.locks.request(STORAGE_LOCK, write);
 };
 

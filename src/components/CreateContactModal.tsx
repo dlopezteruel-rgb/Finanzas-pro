@@ -1,3 +1,5 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import { Contact } from '../types/finance';
 import { X, UserPlus, Check } from 'lucide-react';
@@ -5,7 +7,7 @@ import { X, UserPlus, Check } from 'lucide-react';
 interface CreateContactModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSaveContact: (contact: Contact) => void;
+  onSaveContact: (contact: Contact) => Promise<SaveResult>;
   contactToEdit?: Contact | null;
 }
 
@@ -24,12 +26,14 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
   onSaveContact,
   contactToEdit,
 }) => {
+  const submission = useAsyncForm();
   const [name, setName] = useState('');
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
   const [notes, setNotes] = useState('');
   const [color, setColor] = useState(AVATAR_COLORS[0]);
 
   useEffect(() => {
+    submission.clearError();
     if (contactToEdit) {
       setName(contactToEdit.name || '');
       setPhoneOrEmail(contactToEdit.phoneOrEmail || '');
@@ -41,7 +45,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
       setNotes('');
       setColor(AVATAR_COLORS[0]);
     }
-  }, [contactToEdit, isOpen]);
+  }, [contactToEdit?.id, isOpen]);
 
   if (!isOpen) return null;
 
@@ -58,13 +62,12 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
       createdAt: contactToEdit?.createdAt || new Date().toISOString().split('T')[0],
     };
 
-    onSaveContact(contact);
-    onClose();
+    void submission.submit(() => onSaveContact(contact), onClose);
   };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
+      <div role="dialog" aria-modal="true" aria-label="Contacto" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
         <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center">
@@ -75,7 +78,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
             </h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 cursor-pointer"
             aria-label="Cerrar modal"
           >
@@ -83,7 +86,10 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} aria-busy={submission.saving}>
+          <fieldset disabled={submission.saving} className="space-y-3">
+          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
           {/* Contact Avatar Preview */}
           <div className="flex items-center justify-center py-2">
             <div
@@ -155,7 +161,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-2">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 font-semibold transition-colors cursor-pointer"
             >
               Cancelar
@@ -169,6 +175,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
               <span>Guardar</span>
             </button>
           </div>
+          </fieldset>
         </form>
       </div>
     </div>

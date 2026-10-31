@@ -1,3 +1,5 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import {
   Transaction,
@@ -15,10 +17,10 @@ import { formatCurrency } from '../utils/finance';
 interface TransactionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (t: Omit<Transaction, 'id'>, id?: string) => void;
+  onSave: (t: Omit<Transaction, 'id'>, id?: string) => Promise<SaveResult>;
   wallets: Wallet[];
   contacts?: Contact[];
-  onQuickCreateContact?: (contact: Contact) => void;
+  onQuickCreateContact?: (contact: Contact) => Promise<SaveResult>;
   defaultDate?: string;
   transactionToEdit?: Transaction | null;
   initialPartidaCode?: string;
@@ -39,6 +41,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   initialContactId,
   availablePartidas = ALL_PARTIDAS,
 }) => {
+  const submission = useAsyncForm();
   const [type, setType] = useState<MovementType>('GASTO');
   const [code, setCode] = useState<string>('V.001.002');
   const [amount, setAmount] = useState<number>(0);
@@ -56,6 +59,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const [newContactName, setNewContactName] = useState<string>('');
 
   useEffect(() => {
+    submission.clearError();
     if (transactionToEdit) {
       setType(transactionToEdit.type);
       setCode(transactionToEdit.code);
@@ -102,7 +106,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     }
     setShowQuickContactInput(false);
     setNewContactName('');
-  }, [transactionToEdit, initialPartidaCode, initialContactId, defaultDate, isOpen, wallets]);
+  }, [transactionToEdit?.id, initialPartidaCode, initialContactId, defaultDate, isOpen]);
 
   if (!isOpen) return null;
 
@@ -134,12 +138,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       createdAt: new Date().toISOString().split('T')[0],
       avatarColor: 'from-sky-500 to-indigo-600',
     };
-    if (onQuickCreateContact) {
-      onQuickCreateContact(newContact);
-    }
-    setSelectedContactIds(prev => [...prev, newContact.id]);
-    setNewContactName('');
-    setShowQuickContactInput(false);
+    if (!onQuickCreateContact) return;
+    void submission.submit(() => onQuickCreateContact(newContact), () => {
+      setSelectedContactIds(prev => [...prev, newContact.id]);
+      setNewContactName('');
+      setShowQuickContactInput(false);
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -199,7 +203,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
       };
     }
 
-    onSave(
+    void submission.submit(() => onSave(
       {
         type,
         code,
@@ -214,14 +218,12 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
         splitInfo,
       },
       transactionToEdit?.id
-    );
-
-    onClose();
+    ), onClose);
   };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-md w-full p-5 shadow-2xl text-xs space-y-3.5 max-h-[92vh] overflow-y-auto">
+      <div role="dialog" aria-modal="true" aria-label="Movimiento" className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-md w-full p-5 shadow-2xl text-xs space-y-3.5 max-h-[92vh] overflow-y-auto">
         {/* Handle bar on mobile */}
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-2" />
 
@@ -230,7 +232,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
             {transactionToEdit ? 'Editar Movimiento' : 'Nuevo Movimiento'}
           </h3>
           <button
-            onClick={onClose}
+            onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 cursor-pointer"
             aria-label="Cerrar modal"
           >
@@ -238,7 +240,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} aria-busy={submission.saving}>
+          <fieldset disabled={submission.saving} className="space-y-3">
+          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
           {/* Segmented Type Toggle (Revolut Style) */}
           <div className="grid grid-cols-2 gap-1.5 bg-[#0c0f17] p-1 rounded-2xl border border-white/[0.06]">
             <button
@@ -527,7 +532,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
           <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="px-4 py-2.5 rounded-xl text-slate-400 hover:text-white cursor-pointer"
             >
               Cancelar
@@ -539,6 +544,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
               {transactionToEdit ? 'Guardar Cambios' : 'Guardar Movimiento'}
             </button>
           </div>
+          </fieldset>
         </form>
       </div>
     </div>

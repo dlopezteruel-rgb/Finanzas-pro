@@ -23,7 +23,7 @@ Para las pruebas completas de interfaz se necesita Chromium instalado:
 CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
 ```
 
-Este comando compila, inicia un servidor de prueba en un puerto libre y abre un navegador aislado. Comprueba consultas, negaciones, propuesta editable, doble confirmación, importación inválida, cancelación, fallo de almacenamiento, recuperación, restablecimiento demo, carteras duplicadas tras recarga, conflictos entre dos pestañas y borrado con copia previa. No utiliza datos del navegador del usuario. Las consultas Gemini se simulan en estas pruebas; no consumen una API real.
+Este comando compila, inicia un servidor de prueba en un puerto libre y abre un navegador aislado. Comprueba consultas, negaciones, propuesta editable, doble confirmación, importación inválida, cancelación, fallo de almacenamiento, recuperación, restablecimiento demo, carteras duplicadas tras recarga, conflictos entre dos pestañas y borrado con copia previa. En movimientos, carteras, contactos, préstamos y liquidaciones comprueba espera real del almacenamiento, fallo de cuota, conflicto y conservación de campos; los casos de cuota incluyen reintento exitoso. También verifica el registro rápido y el alta de contactos dentro de un movimiento. No utiliza datos del navegador del usuario. Las consultas Gemini se simulan en estas pruebas; no consumen una API real.
 
 ## Fase 1: registro revisado
 
@@ -53,9 +53,13 @@ Si los datos locales no superan la validación, se bloquea su edición y se perm
 
 Todas las modificaciones se validan y guardan antes de actualizar el estado visible. La interfaz impide crear o renombrar una cartera con el nombre de otra; el dominio vuelve a comprobar la unicidad antes de persistir. Las carteras duplicadas de datos antiguos conservan la descarga de sus valores originales para recuperación manual, sin deduplicación ni borrado automático.
 
+Los formularios esperan un resultado explícito del almacenamiento, incluido el motivo de rechazo. Solo se cierran después del éxito. Si falla la cuota, la validación, Web Locks o la revisión, permanecen abiertos y conservan los valores introducidos; el error aparece dentro del formulario. Durante la espera se deshabilitan campos, confirmación y cierre, con protección adicional contra envíos repetidos antes del siguiente render. Las liquidaciones actualizan la deuda y su reintegro en una sola escritura, manteniendo los cálculos existentes. El registro rápido solo limpia su texto después del éxito.
+
 Las escrituras se coordinan mediante Web Locks y una comparación de revisiones dentro del bloqueo. Los eventos `storage` y de foco notifican cambios externos. Si otra pestaña modifica, importa o limpia datos, una pestaña obsoleta bloquea sus escrituras y ofrece **Recargar datos actualizados**. No hay fusión automática: revisa o copia los campos de un formulario pendiente antes de recargar.
 
-Es necesario un navegador actualizado con Web Locks y un contexto seguro (HTTPS o localhost). Si la coordinación no está disponible, se impide guardar con un aviso, conservando los datos anteriores. La coordinación presupone pestañas que ejecutan esta versión; no utilices versiones antiguas simultáneamente sobre el mismo almacenamiento.
+Es necesario un navegador actualizado con Web Locks y un contexto seguro (HTTPS o localhost). Al iniciar se comprueban el contexto seguro, la presencia de la API y una adquisición real del bloqueo sin modificar los datos. Si la coordinación no está disponible o el contenedor deniega el permiso, se muestra **Guardado no disponible** desde el inicio; se permite consultar/exportar y se bloquean las escrituras, conservando los formularios y el estado anterior. No se utiliza un guardado alternativo que elimine la protección entre pestañas. La coordinación presupone pestañas que ejecutan esta versión; no utilices versiones antiguas simultáneamente sobre el mismo almacenamiento.
+
+La batería ha comprobado adquisiciones reales de Web Locks en Chromium de escritorio, emulación Pixel 7/Android y un iframe del mismo origen en localhost. La emulación no certifica un Android físico, una versión concreta de WebView ni el contenedor real de AI Studio. En AI Studio/Android debe abrirse la aplicación por HTTPS en un navegador/contenedor compatible; la comprobación al iniciar se ejecuta en ese documento y avisa de sus restricciones reales. El modo sin Web Locks también tiene una regresión de navegador que comprueba el aviso inicial y la conservación del formulario tras intentar guardar.
 
 ## Límites pendientes
 

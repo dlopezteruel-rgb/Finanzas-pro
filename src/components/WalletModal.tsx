@@ -1,3 +1,5 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import { Wallet } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
@@ -9,8 +11,8 @@ interface WalletModalProps {
   walletToEdit?: Wallet | null;
   wallets: Wallet[];
   currentCalculatedBalance?: number;
-  onSaveWallet: (wallet: Wallet) => void;
-  onDeleteWallet?: (walletId: string) => void;
+  onSaveWallet: (wallet: Wallet) => Promise<SaveResult>;
+  onDeleteWallet?: (walletId: string) => Promise<SaveResult>;
 }
 
 const PRESET_COLORS = [
@@ -35,6 +37,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 }) => {
   const isEditing = !!walletToEdit;
 
+  const submission = useAsyncForm();
   const [name, setName] = useState(walletToEdit?.name || '');
   const [type, setType] = useState<Wallet['type']>(walletToEdit?.type || 'BANK');
   const [initialBalance, setInitialBalance] = useState<string>(
@@ -48,6 +51,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   const [error, setError] = useState('');
 
   useEffect(() => {
+    submission.clearError();
     if (walletToEdit) {
       setName(walletToEdit.name);
       setType(walletToEdit.type);
@@ -70,7 +74,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     setConfirmDelete(false);
     setError('');
     setIsCalibratingCurrent(false);
-  }, [walletToEdit, currentCalculatedBalance, isOpen]);
+  }, [walletToEdit?.id, isOpen]);
 
   if (!isOpen) return null;
 
@@ -105,19 +109,18 @@ export const WalletModal: React.FC<WalletModalProps> = ({
       ibanOrDetails: iban.trim() || 'Cuenta bancaria',
     };
 
-    onSaveWallet(savedWallet);
-    onClose();
+    setError('');
+    void submission.submit(() => onSaveWallet(savedWallet), onClose);
   };
 
   const handleDelete = () => {
     if (!walletToEdit || !onDeleteWallet) return;
-    onDeleteWallet(walletToEdit.id);
-    onClose();
+    void submission.submit(() => onDeleteWallet(walletToEdit.id), onClose);
   };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
+      <div role="dialog" aria-modal="true" aria-label="Cartera" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-2.5">
@@ -139,14 +142,17 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} aria-busy={submission.saving}>
+          <fieldset disabled={submission.saving} className="space-y-4">
+          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
           {error && <p role="alert" className="text-amber-300">{error}</p>}
           {/* Name & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -327,7 +333,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               Cancelar
@@ -340,6 +346,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
               <span>{isEditing ? 'Guardar Cambios' : 'Crear Cuenta'}</span>
             </button>
           </div>
+          </fieldset>
         </form>
       </div>
     </div>

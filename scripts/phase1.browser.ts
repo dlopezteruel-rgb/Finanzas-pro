@@ -2,13 +2,14 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
+import { asyncFormCases } from './asyncFormCases';
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright-core';
 import { DATA_KEY, RECOVERY_PREFIX, makeBackup } from '../src/utils/backup';
 import { BUDGET_GROUPS } from '../src/constants/categories';
 import { INITIAL_TRANSACTIONS, INITIAL_BUDGET_PLANS, INITIAL_CONTACTS, INITIAL_LOANS, INITIAL_WALLETS } from '../src/utils/seedData';
 
-test('Fase 1: recorridos completos en Chromium', { timeout: 60000 }, async t => {
+test('Fase 1: recorridos completos en Chromium', { timeout: 120000 }, async t => {
   const listener = createServer();
   await new Promise<void>(resolve => listener.listen(0, '127.0.0.1', resolve));
   const port = (listener.address() as { port: number }).port;
@@ -263,4 +264,5 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 60000 }, async t => 
     assert.equal(await page.getByRole('alert').count(), 0);
   });
   assert.deepEqual(errors, []);
+  await asyncFormCases(t, browser, url, fixture);
 });

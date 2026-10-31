@@ -1,3 +1,4 @@
+import { SaveResult } from '../utils/saveResult';
 import React, { useState, useRef } from 'react';
 import {
   Send,
@@ -26,7 +27,7 @@ interface AssistantChatProps {
   loans: Loan[];
   wallets: Wallet[];
   availablePartidas: BudgetPartida[];
-  onAddTransaction: (t: Omit<Transaction, 'id'>) => void | Promise<boolean>;
+  onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
 }
 
 export const AssistantChatView: React.FC<AssistantChatProps> = ({
@@ -57,7 +58,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
         setProposal(null);
         appendReply(`✓ Movimiento registrado: ${formatCurrency(transaction.amount)} · ${transaction.description} · ${transaction.wallet} · ${transaction.processed ? 'Tramitado' : 'Pendiente'}.`);
       }
-    } catch { setProposalError('No se ha guardado el movimiento. Revisa el aviso de almacenamiento antes de reintentar.'); }
+    } catch (error) { setProposalError(error instanceof Error ? error.message : 'No se ha guardado el movimiento.'); }
     finally { setConfirming(false); }
   };
 
@@ -209,7 +210,8 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         confirmation.current?.cancel();
         setProposalError('');
         confirmation.current = confirmOnceAsync(async transaction => {
-          if (await onAddTransaction(transaction) === false) throw new Error('Guardado rechazado');
+          const result = await onAddTransaction(transaction);
+          if (!result.ok) throw new Error(result.error);
         });
         setProposal(draft);
       } else {

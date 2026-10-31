@@ -1,3 +1,5 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import { Wallet, Transaction, SplitParticipant, Contact } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
@@ -23,7 +25,7 @@ interface SettleDebtModalProps {
     walletName: string,
     settleDate: string,
     createIncomeTx: boolean
-  ) => void;
+  ) => Promise<SaveResult>;
 }
 
 export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
@@ -33,11 +35,13 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
   wallets,
   onConfirmSettle,
 }) => {
+  const submission = useAsyncForm();
   const [selectedWallet, setSelectedWallet] = useState<string>(wallets[0]?.name || 'REVOLUT');
   const [settleDate, setSettleDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [createIncomeTx, setCreateIncomeTx] = useState<boolean>(true);
 
   useEffect(() => {
+    submission.clearError();
     if (isOpen) {
       if (wallets.length > 0 && !wallets.some(w => w.name === selectedWallet)) {
         setSelectedWallet(wallets[0]?.name || 'REVOLUT');
@@ -45,19 +49,18 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
       setSettleDate(new Date().toISOString().split('T')[0]);
       setCreateIncomeTx(true);
     }
-  }, [isOpen, wallets]);
+  }, [isOpen, debtItem?.transactionId, debtItem?.participant.contactId]);
 
   if (!isOpen || !debtItem) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onConfirmSettle(debtItem, selectedWallet, settleDate, createIncomeTx);
-    onClose();
+    void submission.submit(() => onConfirmSettle(debtItem, selectedWallet, settleDate, createIncomeTx), onClose);
   };
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-md w-full p-5 shadow-2xl text-xs space-y-4">
+      <div role="dialog" aria-modal="true" aria-label="Liquidación" className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-md w-full p-5 shadow-2xl text-xs space-y-4">
         {/* Mobile handle */}
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-2" />
 
@@ -69,7 +72,7 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
             <h3 className="text-sm font-bold text-white">Saldar Deuda Compartida</h3>
           </div>
           <button
-            onClick={onClose}
+            onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 cursor-pointer"
             aria-label="Cerrar modal"
           >
@@ -106,7 +109,10 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3.5">
+        <form onSubmit={handleSubmit} aria-busy={submission.saving}>
+          <fieldset disabled={submission.saving} className="space-y-3.5">
+          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
           {/* Destination Wallet */}
           <div className="space-y-1">
             <label className="text-slate-400 font-semibold block text-[11px]">
@@ -164,7 +170,7 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-2">
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 font-semibold transition-colors cursor-pointer"
             >
               Cancelar
@@ -177,6 +183,7 @@ export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
               <span>Confirmar cobro</span>
             </button>
           </div>
+          </fieldset>
         </form>
       </div>
     </div>

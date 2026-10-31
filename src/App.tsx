@@ -64,7 +64,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { data, update, restore, conflict, loadError, saveError } = useFinanceData(DEMO_DATA);
+  const { data, update, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions, budgetPlans, loans, wallets, contacts } = data;
   const setTheme = (value: React.SetStateAction<FinanceData['theme']>) => update('theme', value);
   const setBudgetGroups = (value: React.SetStateAction<BudgetGroup[]>) => update('budgetGroups', value);
@@ -367,7 +367,7 @@ export default function App() {
   };
 
   const handleSaveContact = (contact: Contact) => {
-    setContacts(prev => {
+    return setContacts(prev => {
       const exists = prev.some(c => c.id === contact.id);
       if (exists) {
         return prev.map(c => (c.id === contact.id ? contact : c));
@@ -394,8 +394,8 @@ export default function App() {
     const reimbursementId = `tx-reintegro-${Date.now()}`;
 
     // 1. Mark participant as settled in original transaction
-    setTransactions(prev =>
-      prev.map(tx => {
+    return setTransactions(prev => {
+      const updated = prev.map(tx => {
         if (tx.id !== debtItem.transactionId || !tx.splitInfo) return tx;
         const updatedParticipants = tx.splitInfo.participants.map(p => {
           if (
@@ -419,31 +419,32 @@ export default function App() {
             participants: updatedParticipants,
           },
         };
-      })
-    );
+      });
 
-    // 2. Generate income movement for repayment
-    if (createIncomeTx) {
-      const newIncomeTx: Transaction = {
-        id: reimbursementId,
-        date: settleDate,
-        amount: debtItem.participant.amount,
-        type: 'INGRESO',
-        code: debtItem.transactionCode, // Imputado a la misma partida que financiaste
-        categoryName: debtItem.transactionCategory,
-        subcategoryName: debtItem.transactionSubcategory,
-        description: `Reintegro ${debtItem.contact.name}: ${debtItem.transactionDescription}`,
-        wallet: walletName,
-        processed: true,
-        notes: `Reintegro por deuda compartida saldada (${formatCurrency(debtItem.participant.amount)})`,
-      };
-      setTransactions(prev => [newIncomeTx, ...prev]);
-    }
+      // 2. Generate income movement for repayment
+      if (createIncomeTx) {
+        const newIncomeTx: Transaction = {
+          id: reimbursementId,
+          date: settleDate,
+          amount: debtItem.participant.amount,
+          type: 'INGRESO',
+          code: debtItem.transactionCode, // Imputado a la misma partida que financiaste
+          categoryName: debtItem.transactionCategory,
+          subcategoryName: debtItem.transactionSubcategory,
+          description: `Reintegro ${debtItem.contact.name}: ${debtItem.transactionDescription}`,
+          wallet: walletName,
+          processed: true,
+          notes: `Reintegro por deuda compartida saldada (${formatCurrency(debtItem.participant.amount)})`,
+        };
+        return [newIncomeTx, ...updated];
+      }
+      return updated;
+    });
   };
 
   // 6. Loans & Wallets Actions
   const handleAddLoan = (newLoan: Loan) => {
-    setLoans(prev => [...prev, newLoan]);
+    return setLoans(prev => [...prev, newLoan]);
   };
 
   const handlePayLoanInstallment = (loan: Loan) => {
@@ -465,23 +466,23 @@ export default function App() {
   };
 
   const handleUpdateLoan = (updatedLoan: Loan) => {
-    setLoans(prev => prev.map(l => (l.id === updatedLoan.id ? updatedLoan : l)));
+    return setLoans(prev => prev.map(l => (l.id === updatedLoan.id ? updatedLoan : l)));
   };
 
   const handleDeleteLoan = (loanId: string) => {
-    setLoans(prev => prev.filter(l => l.id !== loanId));
+    return setLoans(prev => prev.filter(l => l.id !== loanId));
   };
 
   const handleAddWallet = (newWallet: Wallet) => {
-    setWallets(prev => [...prev, newWallet]);
+    return setWallets(prev => [...prev, newWallet]);
   };
 
   const handleUpdateWallet = (updatedWallet: Wallet) => {
-    setWallets(prev => prev.map(w => (w.id === updatedWallet.id ? updatedWallet : w)));
+    return setWallets(prev => prev.map(w => (w.id === updatedWallet.id ? updatedWallet : w)));
   };
 
   const handleDeleteWallet = (walletId: string) => {
-    setWallets(prev => prev.filter(w => w.id !== walletId));
+    return setWallets(prev => prev.filter(w => w.id !== walletId));
   };
 
   const handleExecuteTransfer = (
@@ -655,6 +656,9 @@ export default function App() {
         pendingDebtsCount={pendingDebtsCount}
       />
 
+      {capabilityError && <div role="alert" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
+        <strong>Guardado no disponible.</strong> {capabilityError} Puedes consultar y exportar tus datos; los formularios conservarán lo introducido si no se puede guardar.
+      </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
         {activeTab === 'dashboard' && (
@@ -747,7 +751,7 @@ export default function App() {
         )}
       </main>
 
-      {(dataError || saveError || dataNotice) && <div className="fixed bottom-20 left-4 right-4 z-[60] max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl" role={dataError || saveError ? 'alert' : 'status'}>
+      {(dataError || saveError || dataNotice) && <div className={`fixed bottom-20 left-4 right-4 ${dataError ? 'z-[60]' : 'z-40'} max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl`} role={dataError || saveError ? 'alert' : 'status'}>
         <p>{dataError || saveError || dataNotice}</p>
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
