@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Send,
   Bot,
@@ -6,9 +6,11 @@ import {
   Sparkles,
   ArrowRight
 } from 'lucide-react';
-import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet } from '../types/finance';
+import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetPartida } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
-import { parseFinancialInput } from '../utils/parser';
+import { classifyChatIntent, proposeChatMovement } from '../utils/chatRegistration';
+import { confirmOnce } from '../utils/confirmation';
+import { MovementProposalModal } from './MovementProposalModal';
 
 interface Message {
   id: string;
@@ -23,6 +25,7 @@ interface AssistantChatProps {
   transactions: Transaction[];
   loans: Loan[];
   wallets: Wallet[];
+  availablePartidas: BudgetPartida[];
   onAddTransaction: (t: Omit<Transaction, 'id'>) => void;
 }
 
@@ -33,9 +36,23 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   loans,
   wallets,
   onAddTransaction,
+  availablePartidas,
 }) => {
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [proposal, setProposal] = useState<Omit<Transaction, 'id'> | null>(null);
+  const confirmation = useRef<ReturnType<typeof confirmOnce<Omit<Transaction, 'id'>>> | null>(null);
+  const appendReply = (text: string) => setMessages(previous => [...previous, {
+    id: crypto.randomUUID(), sender: 'assistant', text,
+    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  }]);
+  const cancelProposal = () => { confirmation.current?.cancel(); setProposal(null); };
+  const confirmProposal = (transaction: Omit<Transaction, 'id'>) => {
+    if (confirmation.current?.confirm(transaction)) {
+      setProposal(null);
+      appendReply(`✓ Movimiento registrado: ${formatCurrency(transaction.amount)} · ${transaction.description} · ${transaction.wallet} · ${transaction.processed ? 'Tramitado' : 'Pendiente'}.`);
+    }
+  };
 
   const initialGreeting = `¡Hola! Soy tu asistente financiero personal.
 Te ayudo a registrar movimientos en lenguaje natural, auditar tus presupuestos y vigilar tus deudas.
@@ -158,7 +175,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
 
   const handleSendMessage = async (textToSend?: string) => {
     const text = textToSend || inputMessage;
-    if (!text.trim() || isLoading) return;
+    if (!text.trim() || isLoading || proposal) return;
 
     const userMsg: Message = {
       id: `usr-${Date.now()}`,
@@ -171,43 +188,23 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
     setInputMessage('');
     setIsLoading(true);
 
-    // 1. Natural language movement detection
-    const parsed = parseFinancialInput(text);
-    if (parsed && parsed.amount > 0) {
-      onAddTransaction({
-        amount: parsed.amount,
-        type: parsed.type,
-        code: parsed.code,
-        categoryName: parsed.categoryName,
-        subcategoryName: parsed.subcategoryName,
-        description: parsed.description,
-        wallet: parsed.wallet,
-        date: parsed.date,
-        processed: parsed.processed,
-        notes: `Registrado desde chat: "${text}"`,
-      });
-
-      const confirmReply = `### ✓ Movimiento Registrado
-
-| Campo | Valor |
-| :--- | :--- |
-| **Tipo** | **${parsed.type}** |
-| **Partida** | **${parsed.code}** • ${parsed.subcategoryName.split(':')[1] || parsed.subcategoryName} |
-| **Importe** | **${formatCurrency(parsed.amount)}** |
-| **Cartera** | **${parsed.wallet}** |
-| **Estado** | ${parsed.processed ? 'Tramitado (SÍ)' : 'Pendiente (NO)'} |
-
-Imputado a **RESTO = PREVISTO - EJECUTADO** y saldo de ${parsed.wallet} actualizado.`;
-
-      setMessages(prev => [
-        ...prev,
-        {
-          id: `bot-${Date.now()}`,
-          sender: 'assistant',
-          text: confirmReply,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
+    // Only an explicit instruction or a past movement can create a proposal.
+    // Queries and negations never reach the registration callback.
+    const intent = classifyChatIntent(text);
+    if (intent === 'negation') {
+      appendReply('No se ha registrado ningún movimiento. Puedes formular una consulta o pedir una propuesta con «Registra un gasto de…».');
+      setIsLoading(false);
+      return;
+    }
+    if (intent === 'registration') {
+      const draft = proposeChatMovement(text, wallets, availablePartidas);
+      if (draft) {
+        confirmation.current?.cancel();
+        confirmation.current = confirmOnce(onAddTransaction);
+        setProposal(draft);
+      } else {
+        appendReply('No he podido preparar el movimiento. Indica un importe positivo y revisa que existan categorías disponibles. No se ha registrado nada.');
+      }
       setIsLoading(false);
       return;
     }
@@ -278,6 +275,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
 
   return (
     <div className="bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col h-[580px] sm:h-[620px] shadow-sm overflow-hidden pb-16 md:pb-0">
+      {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} />}
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (
