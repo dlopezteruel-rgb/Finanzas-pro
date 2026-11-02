@@ -1,9 +1,10 @@
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
-import { Wallet, Transaction, SplitParticipant, Contact } from '../types/finance';
+import { Wallet, SplitParticipant, Contact, SettlementInput, DebtSettlement } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
-import { CheckCircle2, X, ArrowDownLeft, ShieldCheck } from 'lucide-react';
+import { parseTransferAmount } from '../utils/transfers';
+import { CheckCircle2, X } from 'lucide-react';
 
 export interface DebtItemToSettle {
   transactionId: string;
@@ -14,178 +15,56 @@ export interface DebtItemToSettle {
   participant: SplitParticipant;
   contact: Contact;
 }
-
-interface SettleDebtModalProps {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   debtItem: DebtItemToSettle | null;
   wallets: Wallet[];
-  onConfirmSettle: (
-    debtItem: DebtItemToSettle,
-    walletName: string,
-    settleDate: string,
-    createIncomeTx: boolean
-  ) => Promise<SaveResult>;
+  settlementToEdit?: DebtSettlement;
+  initiallyDelete?: boolean;
+  onConfirmSettle: (input: SettlementInput, id?: string) => Promise<SaveResult>;
+  onDeleteSettlement: (expenseId: string, id: string) => Promise<SaveResult>;
 }
-
-export const SettleDebtModal: React.FC<SettleDebtModalProps> = ({
-  isOpen,
-  onClose,
-  debtItem,
-  wallets,
-  onConfirmSettle,
-}) => {
+export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wallets, settlementToEdit, initiallyDelete = false, onConfirmSettle, onDeleteSettlement }) => {
   const submission = useAsyncForm();
-  const [selectedWallet, setSelectedWallet] = useState<string>(wallets[0]?.name || 'REVOLUT');
-  const [settleDate, setSettleDate] = useState<string>(new Date().toISOString().split('T')[0]);
-  const [createIncomeTx, setCreateIncomeTx] = useState<boolean>(true);
-
+  const [operationId, setOperationId] = useState('');
+  const [walletId, setWallet] = useState(''), [date, setDate] = useState(''), [amount, setAmount] = useState('');
+  const [cash, setCash] = useState(true), [processed, setProcessed] = useState(true), [deleting, setDeleting] = useState(false);
   useEffect(() => {
-    submission.clearError();
-    if (isOpen) {
-      if (wallets.length > 0 && !wallets.some(w => w.name === selectedWallet)) {
-        setSelectedWallet(wallets[0]?.name || 'REVOLUT');
-      }
-      setSettleDate(new Date().toISOString().split('T')[0]);
-      setCreateIncomeTx(true);
-    }
-  }, [isOpen, debtItem?.transactionId, debtItem?.participant.contactId]);
-
+    if (!isOpen || !debtItem) return;
+    submission.clearError(); setOperationId(crypto.randomUUID());
+    setWallet(settlementToEdit?.walletId || wallets[0]?.id || '');
+    setDate(settlementToEdit?.date || new Date().toISOString().slice(0, 10));
+    setAmount(String(settlementToEdit?.amount ?? debtItem.participant.remainingAmount ?? debtItem.participant.amount));
+    setCash(settlementToEdit?.kind !== 'offset'); setProcessed(settlementToEdit?.processed ?? true); setDeleting(initiallyDelete);
+  }, [isOpen, debtItem?.transactionId, debtItem?.participant.contactId, settlementToEdit?.id, initiallyDelete]);
   if (!isOpen || !debtItem) return null;
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const close = () => submission.close(onClose);
+  const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    void submission.submit(() => onConfirmSettle(debtItem, selectedWallet, settleDate, createIncomeTx), onClose);
+    void submission.submit(() => onConfirmSettle({ operationId, expenseId: debtItem.transactionId, contactId: debtItem.participant.contactId,
+      amount: parseTransferAmount(amount), date, kind: cash ? 'cash' : 'offset', processed,
+      ...(cash ? { walletId } : {}) }, settlementToEdit?.id), onClose);
   };
-
-  return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fadeIn">
-      <div role="dialog" aria-modal="true" aria-label="Liquidación" className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-md w-full p-5 shadow-2xl text-xs space-y-4">
-        {/* Mobile handle */}
-        <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-2" />
-
-        <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
-              <CheckCircle2 className="w-4 h-4" />
-            </div>
-            <h3 className="text-sm font-bold text-white">Saldar Deuda Compartida</h3>
-          </div>
-          <button
-            onClick={() => submission.close(onClose)} disabled={submission.saving}
-            className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 cursor-pointer"
-            aria-label="Cerrar modal"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-
-        {/* Debt Summary Card */}
-        <div className="bg-[#0c0f17] rounded-2xl p-4 border border-emerald-500/20 space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400 text-xs">Contacto deudor</span>
-            <span className="font-bold text-white text-xs">{debtItem.contact.name}</span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400 text-xs">Concepto original</span>
-            <span className="font-medium text-slate-200 text-xs max-w-[200px] truncate text-right">
-              {debtItem.transactionDescription}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <span className="text-slate-400 text-xs">Partida presupuestaria</span>
-            <span className="text-[11px] font-mono text-sky-400">
-              {debtItem.transactionCode} {debtItem.transactionSubcategory}
-            </span>
-          </div>
-
-          <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between">
-            <span className="text-slate-300 font-semibold">Importe a saldar</span>
-            <span className="text-lg font-black text-emerald-400">
-              {formatCurrency(debtItem.participant.amount)}
-            </span>
-          </div>
-        </div>
-
-        <form onSubmit={handleSubmit} aria-busy={submission.saving}>
-          <fieldset disabled={submission.saving} className="space-y-3.5">
+  return <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <section role="dialog" aria-modal="true" aria-label="Liquidación" className="bg-[#141926] border border-white/10 rounded-2xl max-w-md w-full p-5 text-xs space-y-4 max-h-[92vh] overflow-y-auto">
+      <div className="flex justify-between items-center"><h3 className="text-sm font-bold text-white">{settlementToEdit ? 'Editar liquidación' : 'Saldar Deuda Compartida'}</h3><button aria-label="Cerrar modal" onClick={close} disabled={submission.saving}><X className="w-4 h-4" /></button></div>
+      <p>{debtItem.contact.name} · {debtItem.transactionDescription}</p>
+      <p>Pendiente: <strong>{formatCurrency(debtItem.participant.remainingAmount ?? (debtItem.participant.isPaid ? 0 : debtItem.participant.amount))}</strong></p>
+      <form onSubmit={submit} aria-busy={submission.saving}>
+        <fieldset disabled={submission.saving} className="space-y-3.5">
           {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
-          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
-          {/* Destination Wallet */}
-          <div className="space-y-1">
-            <label className="text-slate-400 font-semibold block text-[11px]">
-              ¿En qué cuenta o cartera has recibido el dinero?
-            </label>
-            <select
-              value={selectedWallet}
-              onChange={e => setSelectedWallet(e.target.value)}
-              className="w-full bg-[#0c0f17] text-white rounded-xl px-3 py-2 border border-white/10 focus:outline-none focus:border-emerald-500 cursor-pointer text-xs"
-            >
-              {wallets.map(w => (
-                <option key={w.id} value={w.name}>
-                  {w.name} ({w.type})
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Settle Date */}
-          <div className="space-y-1">
-            <label className="text-slate-400 font-semibold block text-[11px]">
-              Fecha del cobro / reintegro
-            </label>
-            <input
-              type="date"
-              value={settleDate}
-              onChange={e => setSettleDate(e.target.value)}
-              className="w-full bg-[#0c0f17] text-white rounded-xl px-3 py-2 border border-white/10 focus:outline-none focus:border-emerald-500 text-xs"
-            />
-          </div>
-
-          {/* Automatic Income / Reimbursement Option */}
-          <label className="flex items-start gap-2.5 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] cursor-pointer hover:bg-white/[0.05] transition-colors">
-            <input
-              type="checkbox"
-              checked={createIncomeTx}
-              onChange={e => setCreateIncomeTx(e.target.checked)}
-              className="mt-0.5 rounded text-emerald-500 focus:ring-0 cursor-pointer accent-emerald-500"
-            />
-            <div className="space-y-0.5">
-              <span className="font-semibold text-white block text-xs flex items-center gap-1.5">
-                <ArrowDownLeft className="w-3.5 h-3.5 text-emerald-400" />
-                Registrar ingreso automático (Reintegro)
-              </span>
-              <p className="text-[11px] text-slate-400 leading-normal">
-                Genera un ingreso de {formatCurrency(debtItem.participant.amount)} en{' '}
-                <strong className="text-slate-300">{selectedWallet}</strong> imputado a{' '}
-                <strong className="text-sky-400">{debtItem.transactionCode}</strong> para
-                compensar el gasto y equilibrar tus cuentas reales.
-              </p>
-            </div>
-          </label>
-
-          {/* Action buttons */}
-          <div className="grid grid-cols-2 gap-2 pt-2">
-            <button
-              type="button"
-              onClick={() => submission.close(onClose)} disabled={submission.saving}
-              className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 font-semibold transition-colors cursor-pointer"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-emerald-500/20 transition-colors cursor-pointer"
-            >
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Confirmar cobro</span>
-            </button>
-          </div>
-          </fieldset>
-        </form>
-      </div>
-    </div>
-  );
+          {submission.saving && <p role="status">Guardando…</p>}
+          <label className="block">Importe a saldar (€)<input aria-label="Importe a saldar (€)" className="block w-full bg-[#0c0f17] rounded-xl p-3" type="number" step="0.01" min="0.01" required value={amount} onChange={e => setAmount(e.target.value)} /></label>
+          <label className="flex gap-2"><input aria-label="Registrar entrada bancaria" type="checkbox" checked={cash} onChange={e => setCash(e.target.checked)} />Registrar entrada bancaria (reintegro, no ingreso económico)</label>
+          {!cash && <p className="text-amber-300">Compensación sin entrada de dinero. Reduce la deuda sin modificar ninguna cartera.</p>}
+          {cash && <label className="block">Cartera receptora<select aria-label="Cartera receptora" className="block w-full bg-[#0c0f17] rounded-xl p-3" value={walletId} onChange={e => setWallet(e.target.value)}>{wallets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}</select></label>}
+          <label className="block">Fecha del cobro o compensación<input aria-label="Fecha del cobro o compensación" className="block w-full bg-[#0c0f17] rounded-xl p-3" required type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
+          <label className="flex gap-2"><input aria-label="Liquidación tramitada" type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />Liquidación tramitada</label>
+          <div className="grid grid-cols-2 gap-2"><button type="button" onClick={close} className="rounded-xl bg-white/10 p-3">Cancelar</button><button type="submit" className="rounded-xl bg-emerald-500 text-slate-950 p-3 font-bold"><CheckCircle2 className="w-3 h-3 inline" /> {settlementToEdit ? 'Guardar liquidación' : 'Confirmar cobro'}</button></div>
+          {settlementToEdit && (!deleting ? <button type="button" className="text-rose-300" onClick={() => setDeleting(true)}>Eliminar liquidación</button> : <div className="space-y-2 text-rose-300"><p>Se eliminará la liquidación y su movimiento bancario, si existe; la deuda volverá a quedar pendiente.</p><button type="button" onClick={() => void submission.submit(() => onDeleteSettlement(debtItem.transactionId, settlementToEdit.id), onClose)}>Confirmar eliminación de liquidación</button></div>)}
+        </fieldset>
+      </form>
+    </section>
+  </div>;
 };

@@ -1,3 +1,4 @@
+import { splitExactly } from '../utils/sharedExpenses';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
@@ -120,9 +121,15 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
 
   // Split calculation
   const safeParticipantsCount = Math.max(2, totalParticipants);
-  const perPersonShare = amount > 0 ? Math.round((amount / safeParticipantsCount) * 100) / 100 : 0;
-  const myShare = perPersonShare;
+  const preserveShares = transactionToEdit?.splitInfo?.accountingVersion === '2.7' && amount === transactionToEdit.amount && JSON.stringify(selectedContactIds) === JSON.stringify(transactionToEdit.splitInfo.participants.map(p => p.contactId));
+  const myShare = preserveShares ? transactionToEdit.splitInfo!.myShare : amount > 0 ? (Math.floor(Math.round(amount * 100) / safeParticipantsCount) + (Math.round(amount * 100) % safeParticipantsCount > 0 ? 1 : 0)) / 100 : 0;
   const totalOwedToMe = amount > 0 ? Math.round((amount - myShare) * 100) / 100 : 0;
+
+  const participantShare = (id: string) => {
+    if (preserveShares) return transactionToEdit!.splitInfo!.participants.find(p => p.contactId === id)?.amount ?? 0;
+    const total = Math.round(amount * 100), position = selectedContactIds.indexOf(id) + 1;
+    return (Math.floor(total / safeParticipantsCount) + (position < total % safeParticipantsCount ? 1 : 0)) / 100;
+  };
 
   const handleToggleContactSelection = (contactId: string) => {
     setSelectedContactIds(prev =>
@@ -133,7 +140,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
   const handleCreateQuickContact = () => {
     if (!newContactName.trim()) return;
     const newContact: Contact = {
-      id: `contact-${Date.now()}`,
+      id: crypto.randomUUID(),
       name: newContactName.trim(),
       createdAt: new Date().toISOString().split('T')[0],
       avatarColor: 'from-sky-500 to-indigo-600',
@@ -159,48 +166,17 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
     let splitInfo: SharedExpenseInfo | undefined = undefined;
 
     if (isShared) {
-      // Build participants list
-      const debtorCount = safeParticipantsCount - 1;
-      const debtorsShare = perPersonShare;
-      const participants: SplitParticipant[] = [];
-
-      // 1. Add selected contacts
-      selectedContactIds.slice(0, debtorCount).forEach(cid => {
-        const foundContact = contacts.find(c => c.id === cid);
-        const prevParticipant = transactionToEdit?.splitInfo?.participants.find(p => p.contactId === cid);
-
-        participants.push({
-          contactId: cid,
-          contactName: foundContact ? foundContact.name : 'Contacto',
-          amount: debtorsShare,
-          isPaid: prevParticipant?.isPaid || false,
-          paidDate: prevParticipant?.paidDate,
-          reimbursementTxId: prevParticipant?.reimbursementTxId,
-        });
-      });
-
-      // 2. Fill remaining anonymous participants if total participants exceeds selected contacts
-      const remainingDebtors = debtorCount - participants.length;
-      for (let i = 1; i <= remainingDebtors; i++) {
-        const dummyId = `amigo-${i}`;
-        const prevParticipant = transactionToEdit?.splitInfo?.participants.find(p => p.contactId === dummyId);
-        participants.push({
-          contactId: dummyId,
-          contactName: `Persona ${i + participants.length}`,
-          amount: debtorsShare,
-          isPaid: prevParticipant?.isPaid || false,
-          paidDate: prevParticipant?.paidDate,
-          reimbursementTxId: prevParticipant?.reimbursementTxId,
-        });
+      try {
+        if (selectedContactIds.length !== safeParticipantsCount - 1) throw new Error('Selecciona un contacto para cada participante, sin personas anónimas.');
+        splitInfo = splitExactly(amount, selectedContactIds.map(id => {
+          const contact = contacts.find(c => c.id === id);
+          if (!contact) throw new Error('El contacto ya no existe.');
+          return contact;
+        }), wallets.find(w => w.name === wallet)?.id || '');
+      } catch (error) {
+        void submission.submit(() => Promise.resolve({ ok: false, error: error instanceof Error ? error.message : 'Reparto inválido' }), () => {});
+        return;
       }
-
-      splitInfo = {
-        isShared: true,
-        totalParticipants: safeParticipantsCount,
-        myShare,
-        totalOwedToMe,
-        participants,
-      };
     }
 
     void submission.submit(() => onSave(
@@ -391,7 +367,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                       </span>
                     </div>
                     <div className="border-l border-white/[0.06]">
-                      <span className="text-[10px] text-slate-400 font-medium block">Te deben en total</span>
+                      <span className="text-[10px] text-slate-400 font-medium block">Parte de otros participantes</span>
                       <span className="text-xs font-black text-emerald-400">
                         {formatCurrency(totalOwedToMe)}
                       </span>
@@ -403,7 +379,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
                     <span className="text-[11px] font-semibold text-slate-300">
-                      ¿Quiénes participan? (Opcional)
+                      ¿Quiénes participan? (Selecciona a todos)
                     </span>
                     <button
                       type="button"
@@ -460,7 +436,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                             <span>{c.name}</span>
                             {isSelected && (
                               <span className="text-[10px] text-emerald-400 font-bold ml-0.5">
-                                ({formatCurrency(perPersonShare)})
+                                ({formatCurrency(participantShare(c.id))})
                               </span>
                             )}
                           </button>
@@ -469,7 +445,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({
                     </div>
                   ) : (
                     <p className="text-[10px] text-slate-400">
-                      No tienes contactos creados aún. Se asignarán como amigos anónimos o puedes pulsar "+ Nuevo Contacto".
+                      Añade un contacto estable para cada participante con "+ Nuevo Contacto".
                     </p>
                   )}
                 </div>

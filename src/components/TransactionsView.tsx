@@ -67,11 +67,11 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [transactions, filterType, selectedWallet, searchTerm]);
 
-  const totalIncomes = economicTransactions(transactions).filter(t => filtered.includes(t))
+  const totalIncomes = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
     .filter(t => t.type === 'INGRESO' && t.processed)
     .reduce((s, t) => s + t.amount, 0);
 
-  const totalExpenses = economicTransactions(transactions).filter(t => filtered.includes(t))
+  const totalExpenses = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
     .filter(t => t.type === 'GASTO' && t.processed)
     .reduce((s, t) => s + t.amount, 0);
 
@@ -229,7 +229,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                 <div className="truncate">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-white truncate" title={t.description}>
-                      {t.description}{t.transfer ? ' · Traspaso interno' : ''}
+                      {t.description}{t.transfer ? ' · Traspaso interno' : t.reimbursement ? ' · Reintegro (no ingreso económico)' : ''}
                     </span>
                     {t.splitInfo?.isShared && (
                       <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold shrink-0">

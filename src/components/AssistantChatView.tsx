@@ -1,3 +1,4 @@
+import { economicTransactions } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState, useRef } from 'react';
 import {
@@ -229,7 +230,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         body: JSON.stringify({
           message: text,
           summary,
-          recentMovements: transactions.slice(0, 5),
+          recentMovements: economicTransactions(transactions).slice(0, 5),
           exceededBudgets: budgetRows.filter(r => r.type === 'GASTO' && (r.status === 'exceeded' || r.status === 'warning')),
         }),
       });

@@ -1,3 +1,4 @@
+import { migrateSharedExpenses, sharedViewTransactions } from '../src/utils/sharedExpenses';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { devices, type Browser, type Locator, type Page } from 'playwright-core';
@@ -33,11 +34,11 @@ const scenarios: Scenario[] = [
   },
   {
     name: 'Liquidación', async open(page) { await navigate(page, 'Contactos'); await page.getByText('Carlos Ruiz', { exact: true }).first().click(); await page.getByRole('button', { name: 'Saldar deuda', exact: true }).first().click(); },
-    async fill(dialog) { await dialog.locator('select').selectOption('REVOLUT'); await dialog.locator('input[type=date]').fill('2026-11-03'); },
+    async fill(dialog) { await dialog.locator('select').selectOption('w2'); await dialog.locator('input[type=date]').fill('2026-11-03'); },
     verify(data, fixture) {
       assert.equal(data.transactions.length, fixture.transactions.length + 1);
       const reimbursement = data.transactions[0];
-      const participant = data.transactions.flatMap(t => t.splitInfo?.participants ?? []).find(p => p.reimbursementTxId === reimbursement.id);
+      const participant = sharedViewTransactions(data.transactions).flatMap(t => t.splitInfo?.participants ?? []).find(p => p.contactId === reimbursement.reimbursement?.contactId);
       assert.ok(participant?.isPaid); assert.equal(reimbursement.wallet, 'REVOLUT'); assert.equal(reimbursement.date, '2026-11-03');
     },
   },
@@ -50,7 +51,8 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       const page = await context.newPage(); page.setDefaultTimeout(7000);
       const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
       try {
-        await page.addInitScript(({ key, fixture }) => localStorage.setItem(key, JSON.stringify(fixture)), { key: DATA_KEY, fixture });
+        const scenarioFixture = scenario.name === 'Liquidación' ? { ...fixture, ...migrateSharedExpenses(fixture), version: '2.7' as const } : fixture;
+        await page.addInitScript(({ key, fixture }) => localStorage.setItem(key, JSON.stringify(fixture)), { key: DATA_KEY, fixture: scenarioFixture });
         await page.goto(url);
         // Wait for the non-mutating startup capability probe before holding the write lock.
         await page.evaluate(() => navigator.locks.request('startup-check-finished', () => undefined));

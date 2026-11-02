@@ -1,3 +1,4 @@
+import { assertSharedTransition } from './sharedExpenses';
 import { isLegacyTransfer } from './transfers';
 import { assertStorageRevision, Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, serializeSnapshot, StorageAccess, StorageConflictError } from './backup';
 import { browserStorageSupportError } from './storageSupport';
@@ -58,6 +59,7 @@ export class FinanceStore {
     return this.exclusive(() => {
       this.checkRevision();
       const candidate = transform(this.data);
+      assertSharedTransition(this.data, candidate);
       // Existing structured legs can only remain linked, or disappear together.
       for (const old of this.data.transactions.filter(t => t.transfer)) {
         const next = candidate.transactions.find(t => t.id === old.id);
@@ -76,8 +78,8 @@ export class FinanceStore {
       }
       // Existing forms legitimately produce optional undefined properties.
       const validated = parseBackup(JSON.stringify(makeBackup(candidate)));
-      if (validated.transactions.some(t => t.transfer) && !this.data.transactions.some(t => t.transfer)) {
-        // First 2.6 write: retain a verified 2.5 recovery copy before switching formats.
+      if (makeBackup(this.data).version < validated.version) {
+        // Preserve a verified recovery copy before the first write of a newer schema.
         this.data = commitRestoration(this.storage, this.data, validated, this.revision);
         this.revision = this.storage.getItem(DATA_KEY);
         return this.data;

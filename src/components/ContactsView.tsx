@@ -1,3 +1,6 @@
+import { useAsyncForm } from '../utils/useAsyncForm';
+import type { SaveResult } from '../utils/saveResult';
+import { parseTransferAmount } from '../utils/transfers';
 import React, { useState, useMemo } from 'react';
 import { Contact, Transaction, Wallet, SplitParticipant } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
@@ -30,7 +33,8 @@ interface ContactsViewProps {
   onOpenSettleDebt: (debtItem: DebtItemToSettle) => void;
   onOpenNewSharedTransaction: (preselectedContactId?: string) => void;
   onEditTransaction?: (tx: Transaction) => void;
-  onUpdateDebtAmount?: (transactionId: string, contactId: string, newAmount: number) => void;
+  onUpdateDebtAmount?: (transactionId: string, contactId: string, newAmount: number) => Promise<SaveResult>;
+  onEditSettlement: (expenseId: string, id: string, deleting?: boolean) => void;
 }
 
 export const ContactsView: React.FC<ContactsViewProps> = ({
@@ -42,8 +46,9 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
   onOpenSettleDebt,
   onOpenNewSharedTransaction,
   onEditTransaction,
-  onUpdateDebtAmount,
+  onUpdateDebtAmount, onEditSettlement,
 }) => {
+  const debtSubmission = useAsyncForm();
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedContactId, setExpandedContactId] = useState<string | null>(null);
   const [editingDebt, setEditingDebt] = useState<{
@@ -65,9 +70,9 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
       }[] = [];
 
       transactions.forEach(t => {
-        if (!t.splitInfo || !t.splitInfo.participants) return;
+        if (!t.splitInfo || !t.splitInfo.participants || (t.splitInfo.accountingVersion === '2.7' && !t.processed)) return;
         t.splitInfo.participants.forEach(p => {
-          if (p.contactId === c.id || p.contactName.toLowerCase() === c.name.toLowerCase()) {
+          if (p.contactId === c.id) {
             const debtItem: DebtItemToSettle = {
               transactionId: t.id,
               transactionDescription: t.description,
@@ -87,8 +92,8 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
         });
       });
 
-      const totalPendingAmount = pendingDebts.reduce((sum, d) => sum + d.participant.amount, 0);
-      const totalSettledAmount = settledDebts.reduce((sum, d) => sum + d.item.participant.amount, 0);
+      const totalPendingAmount = pendingDebts.reduce((sum, d) => sum + Math.round((d.participant.remainingAmount ?? d.participant.amount) * 100), 0) / 100;
+      const totalSettledAmount = transactions.reduce((sum, t) => sum + (t.splitInfo?.accountingVersion === '2.7' ? (t.splitInfo.settlements ?? []).filter(s => s.contactId === c.id && s.processed).reduce((n, s) => n + Math.round(s.amount * 100), 0) / 100 : 0), 0) + settledDebts.filter(d => !transactions.find(t => t.id === d.item.transactionId)?.splitInfo?.accountingVersion).reduce((sum, d) => sum + d.item.participant.amount, 0);
 
       // Group pending debts by Category/Partida for clear insight (e.g., Restaurante vs Ropa)
       const debtsByCategory: { [key: string]: { category: string; code: string; total: number; count: number } } = {};
@@ -102,7 +107,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
             count: 0,
           };
         }
-        debtsByCategory[key].total += d.participant.amount;
+        debtsByCategory[key].total = Math.round((debtsByCategory[key].total * 100) + Math.round((d.participant.remainingAmount ?? d.participant.amount) * 100)) / 100;
         debtsByCategory[key].count += 1;
       });
 
@@ -119,7 +124,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
 
   // Overall metrics
   const totalPendingOwed = useMemo(() => {
-    return contactsWithDebts.reduce((sum, c) => sum + c.totalPendingAmount, 0);
+    return contactsWithDebts.reduce((sum, c) => sum + Math.round(c.totalPendingAmount * 100), 0) / 100;
   }, [contactsWithDebts]);
 
   const debtorsCount = useMemo(() => {
@@ -335,6 +340,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                               <div
                                 key={`${debt.transactionId}-${debt.participant.contactId}`}
                                 onClick={() => {
+                                  debtSubmission.clearError();
                                   setEditingDebt({
                                     transactionId: debt.transactionId,
                                     contactId: debt.participant.contactId,
@@ -366,7 +372,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                 <div className="flex items-center justify-between sm:justify-end gap-2.5 pt-1 sm:pt-0 border-t sm:border-0 border-white/[0.04]">
                                   <div className="text-right">
                                     <div className="text-sm font-black text-emerald-400">
-                                      {formatCurrency(debt.participant.amount)}
+                                      {formatCurrency(debt.participant.remainingAmount ?? debt.participant.amount)}
                                     </div>
                                   </div>
 
@@ -374,6 +380,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     type="button"
                                     onClick={e => {
                                       e.stopPropagation();
+                                      debtSubmission.clearError();
                                       setEditingDebt({
                                         transactionId: debt.transactionId,
                                         contactId: debt.participant.contactId,
@@ -437,6 +444,11 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                         </div>
                       )}
 
+                      {transactions.flatMap(t => (t.splitInfo?.settlements ?? []).filter(s => s.contactId === contact.id).map(s => <div key={s.id} className="flex gap-2 items-center text-slate-300">
+                        <span>{s.kind === 'cash' ? 'Reintegro' : 'Compensación'} · {formatCurrency(s.amount)} · {s.date} · {s.processed ? 'Tramitado' : 'Pendiente'}</span>
+                        <button aria-label={`Editar liquidación ${s.id}`} className="text-sky-300" onClick={() => onEditSettlement(t.id, s.id)}>Editar</button>
+                        <button aria-label={`Eliminar liquidación ${s.id}`} className="text-rose-300" onClick={() => onEditSettlement(t.id, s.id, true)}>Eliminar</button>
+                      </div>))}
                       {/* Bottom actions for this contact */}
                       <div className="flex items-center justify-between pt-2 border-t border-white/[0.06]">
                         <div className="flex items-center gap-1.5">
@@ -476,7 +488,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
       {/* Quick Edit Pending Debt Modal */}
       {editingDebt && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-4">
+          <div role="dialog" aria-modal="true" aria-label="Corregir deuda" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
               <div>
                 <h3 className="text-sm font-bold text-white">Editar Deuda Pendiente</h3>
@@ -485,14 +497,16 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                 </p>
               </div>
               <button
-                onClick={() => setEditingDebt(null)}
+                onClick={() => debtSubmission.close(() => setEditingDebt(null))} disabled={debtSubmission.saving}
                 className="text-slate-400 hover:text-white p-1"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="space-y-3">
+            <fieldset disabled={debtSubmission.saving} className="space-y-3">
+              {debtSubmission.error && <p role="alert" className="text-amber-300">{debtSubmission.error}</p>}
+              <p>Corrige la deuda total de esta persona. La parte propia se ajustará para conservar el total pagado; los cobros ya registrados no se modificarán.</p>
               <div>
                 <label className="block text-slate-400 mb-1 font-medium">
                   Importe que debe el contacto (€)
@@ -501,8 +515,9 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                   <input
                     type="number"
                     step="0.01"
-                    min="0.01"
+                    min="0"
                     required
+                    aria-label="Deuda total del participante (€)"
                     value={newDebtAmountInput}
                     onChange={e => setNewDebtAmountInput(e.target.value)}
                     className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono text-base font-bold focus:outline-none focus:border-sky-500 pr-8"
@@ -533,7 +548,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
                 <button
                   type="button"
-                  onClick={() => setEditingDebt(null)}
+                  onClick={() => debtSubmission.close(() => setEditingDebt(null))} disabled={debtSubmission.saving}
                   className="py-2 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold cursor-pointer"
                 >
                   Cancelar
@@ -541,11 +556,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                 <button
                   type="button"
                   onClick={() => {
-                    const parsed = parseFloat(newDebtAmountInput.replace(',', '.'));
-                    if (!isNaN(parsed) && parsed > 0 && onUpdateDebtAmount) {
-                      onUpdateDebtAmount(editingDebt.transactionId, editingDebt.contactId, parsed);
-                    }
-                    setEditingDebt(null);
+                    if (onUpdateDebtAmount) void debtSubmission.submit(() => onUpdateDebtAmount(editingDebt.transactionId, editingDebt.contactId, parseTransferAmount(newDebtAmountInput)), () => setEditingDebt(null));
                   }}
                   className="py-2 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold flex items-center justify-center gap-1 cursor-pointer"
                 >
@@ -553,7 +564,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                   <span>Guardar</span>
                 </button>
               </div>
-            </div>
+            </fieldset>
           </div>
         </div>
       )}

@@ -1,3 +1,4 @@
+import { sharedExpenseCases } from './sharedExpenseCases';
 import { transferCases } from './transferCases';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -267,4 +268,5 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
   assert.deepEqual(errors, []);
   await asyncFormCases(t, browser, url, fixture);
   await transferCases(t, browser, url, fixture);
+  await sharedExpenseCases(t, browser, url);
 });

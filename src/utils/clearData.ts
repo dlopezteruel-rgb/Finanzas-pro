@@ -13,6 +13,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
   if (options.clearAllWallets && !options.clearTransactions && data.transactions.some(t => t.transfer)) {
     throw new Error('No se pueden borrar carteras conservando sus traspasos. Selecciona también borrar movimientos.');
   }
+  if (options.clearDebts && !options.clearTransactions && data.transactions.some(t => t.splitInfo?.accountingVersion === '2.7')) throw new Error('Para saldar sin movimiento bancario registra una compensación explícita. El borrado completo requiere borrar también los movimientos.');
   const transactions = options.clearTransactions ? [] : data.transactions;
   return {
     ...data,

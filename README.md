@@ -94,3 +94,45 @@ Las pruebas de traspasos se incluyen en `npm test` y `CHROMIUM_PATH=/usr/bin/chr
 ### Cambios de grupo presupuestario
 
 El traslado de una partida prepara catálogo, planes y movimientos normales sobre el estado vigente bajo Web Locks y confirma todo en una única escritura activa. Los extremos de transferencias estructuradas y los registros históricos de traspasos permanecen intactos, aunque compartan `F.003.001`. Si el nuevo tipo provoca una colisión con otra partida del catálogo (por ejemplo, seguros y créditos con ese mismo código), se rechaza la operación completa sin fusionar ni renumerar datos. La validación final, la cuota y los conflictos de pestañas tampoco pueden dejar colecciones parcialmente actualizadas. El diálogo espera al resultado, bloquea dobles envíos y conserva el destino seleccionado y el error si falla.
+
+## Fase 2B: gastos compartidos, deudas y reintegros
+
+### Contabilidad y céntimos
+
+Un gasto compartido nuevo guarda el importe bancario completo en `Transaction.amount` y un reparto con `splitInfo.accountingVersion: "2.7"`. `myShare` representa el gasto económico y presupuestario propio. Los participantes se identifican por `contactId`, nunca por coincidencia de nombres. Es obligatorio seleccionar o crear un contacto para cada participante; no se crean deudores anónimos implícitos.
+
+El reparto utiliza céntimos enteros, distribuye el resto empezando por la parte propia y conserva siempre `total = parte propia + partes de los demás`. Por ejemplo, 100 € entre tres se reparte como 33,34 € + 33,33 € + 33,33 €. No se cambia el parser general de lenguaje natural; los formularios de liquidación y corrección de deuda admiten importes decimales estrictos.
+
+En una cena de 60 € entre tres, la cartera baja 60 €, el gasto propio es 20 € y quedan 40 € por cobrar. Dos reintegros de 20 € elevan la cartera receptora 40 € y dejan la deuda a cero, manteniendo el gasto propio en 20 €. Un reintegro no aumenta ingresos económicos, presupuesto, balance ni tasa de ahorro. El gasto propio se imputa a la fecha del gasto original: cobrar en noviembre un gasto de octubre no crea ingresos o gastos económicos en noviembre.
+
+Los movimientos no tramitados no cambian caja ni ejecutado presupuestario. No se admiten liquidaciones de un gasto original todavía no tramitado. Una liquidación no tramitada no reduce la deuda ni cambia caja; su importe queda reservado para impedir registrar el mismo cobro otra vez. Puede tramitarse, editarse o eliminarse desde su liquidación.
+
+### Registro vinculado de cobros y compensaciones
+
+Cada gasto estructurado contiene `splitInfo.walletId` y un registro `splitInfo.settlements`. Cada liquidación tiene `id`, `contactId`, `amount`, `date`, `processed` y `kind` (`cash` u `offset`). Las liquidaciones con dinero llevan también `walletId` y `transactionId`, y su movimiento bancario incluye `reimbursement: { expenseId, settlementId, contactId, walletId }`. La validación exige coincidencia de importe, fecha, estado y referencias, sin movimientos huérfanos, identificadores duplicados ni cobros superiores a la deuda.
+
+Las compensaciones sin dinero se guardan solo como `offset`: reducen la deuda, sin generar una transacción de ingreso ni modificar ninguna cartera. Cobros completos y parciales se reconstruyen desde el registro persistido. Los antiguos `isPaid`, `paidDate`, `reimbursementTxId` y `totalOwedToMe` se conservan para no reescribir campos históricos, pero no son la fuente de verdad del modelo 2.7. La interfaz calcula los importes pendientes y las fechas saldadas desde las liquidaciones tramitadas.
+
+Cada formulario de cobro conserva un identificador de operación; repetirlo no puede crear un segundo cobro parcial. Las operaciones relacionadas utilizan `FinanceStore.mutate`, Web Locks, revisión y validación completa antes de una escritura activa. Editar o eliminar un cobro modifica conjuntamente el registro y el movimiento bancario; la deuda se recalcula. La cancelación no escribe. Los formularios esperan el resultado real, bloquean dobles envíos y cierre durante el guardado, y conservan valores y errores ante cuota, conflicto o validación fallida.
+
+### Edición y protección de relaciones
+
+El concepto y las notas de un gasto pueden editarse sin recalcular el reparto manual ni perder cobros. Si ya existen liquidaciones, se rechazan cambios del importe total, fecha, categoría, estado, cartera o participantes, así como el borrado del gasto. Primero debe corregirse o eliminarse explícitamente la liquidación afectada desde su editor. El editor normal de movimientos dirige los reintegros al editor de liquidaciones.
+
+La corrección manual de una deuda cambia la obligación total de ese participante y ajusta la parte propia para conservar el total pagado. Nunca modifica liquidaciones ya registradas: rechaza reducir la obligación por debajo de lo cobrado o reservado, o producir una parte propia negativa. Los contactos con gastos vinculados no pueden eliminarse. Las carteras de gastos o cobros estructurados se resuelven por ID y no se pueden borrar dejando referencias. Los históricos deben revisarse/migrarse antes de editar sus registros, cobros vinculados o renombrar sus carteras.
+
+«Borrar deudas» no salda silenciosamente gastos 2.7: para eso se registra una compensación explícita. El borrado completo mediante las herramientas de datos sigue exigiendo confirmación y copia recuperable; debe incluir los movimientos para retirar sus relaciones de forma coherente.
+
+### Históricos, vista previa y JSON 2.7
+
+Se mantienen lectura, validación y restauración de JSON 2.5/2.6. **La carga no convierte ni escribe históricos.** Hasta una migración confirmada, los gastos compartidos anteriores conservan el cálculo anterior por importe total y sus ingresos reciben el tratamiento anterior de las partidas. Por ello, sus indicadores pueden no reflejar la parte propia; el aviso lo explica y ofrece revisar la migración.
+
+La migración es explícita, aditiva e idempotente. Comprueba reparto exacto, tipo de gasto, contactos y cartera existentes. Para un participante ya pagado solo admite un movimiento inequívoco enlazado por `reimbursementTxId`, con importe, fecha, tipo, descripción y cartera verificables; un mismo cobro no puede pertenecer a dos deudas. Se añaden metadatos a los movimientos originales, conservando sus IDs y campos y sin crear un segundo cobro. Los identificadores de liquidaciones migradas son deterministas.
+
+Una marca de pagado sin movimiento vinculado **no demuestra si hubo dinero o compensación**: se señala para revisión manual, sin inventar ninguno de ellos. Tampoco se convierten ingresos por compartir una categoría o nombre. Repartos históricos con diferencias de céntimos, contactos anónimos/ausentes, referencias duplicadas, cobros modificados o carteras inexistentes se conservan sin migrar y se detallan en el aviso. Cada gasto ambiguo permanece íntegro: no se migra solo una parte de sus participantes.
+
+La vista previa muestra importe bancario, parte propia y cobros vinculados; informa de los casos no migrados. Confirmar guarda y verifica una copia recuperable del estado anterior antes de activar el modelo nuevo, bajo la misma protección de revisión y Web Locks. Cancelar o fallar al guardar la copia o el estado activo conserva el estado anterior. Para casos ambiguos, exporta los originales y solicita revisión específica; no borres referencias ni añadas contrapartidas para forzar la migración.
+
+Se escribe/exporta **2.7** cuando existen gastos estructurados o reintegros vinculados; se siguen exportando 2.5/2.6 cuando no son necesarios esos metadatos. Una copia 2.7 puede contener históricos sin migrar. No se permiten campos nuevos bajo etiquetas 2.5/2.6. La primera escritura que incorpora 2.7 guarda también una copia recuperable del formato previo. Las versiones anteriores no entienden 2.7: para volver atrás utiliza esa copia, sin retirar metadatos a mano ni abrir versiones antiguas sobre el mismo almacenamiento.
+
+Las pruebas nuevas de `npm test` y `CHROMIUM_PATH=/usr/bin/chromium npm run test:ui` utilizan exclusivamente datos ficticios y cubren los casos A–J, más los fallos de la copia previa y las ambigüedades históricas. Se mantienen los límites anteriores del almacenamiento local y sin cifrado. No se corrigen intereses de préstamos, parser natural general ni estética global.

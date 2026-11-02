@@ -1,5 +1,6 @@
 import React from 'react';
 import { Backup, backupWarnings } from '../utils/backup';
+import { formatCurrency } from '../utils/finance';
 import { SafeDialog } from './SafeDialog';
 
 export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false }: {
@@ -14,6 +15,15 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     <p className="text-sm text-slate-300">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>
     <p className="text-xs text-slate-400">Formato {backup.version} · {new Date(backup.exportedAt).toLocaleString('es-ES')} · Tema {backup.theme === 'dark' ? 'oscuro' : 'claro'}</p>
     <dl className="grid grid-cols-2 gap-2 text-sm">{counts.map(([name, count]) => <div key={name} className="bg-white/5 rounded-xl p-2"><dt>{name}</dt><dd className="font-bold">{count}</dd></div>)}</dl>
+    {label.startsWith('Migrar gastos compartidos') && <div className="space-y-2 text-xs text-slate-300">
+      <p>Solo se añaden vínculos verificables; se conservan los campos originales. La parte propia sustituirá al gasto total en los indicadores y los reintegros vinculados dejarán de contarse como ingresos.</p>
+      {backup.transactions.filter(t => t.splitInfo?.accountingVersion === '2.7').map(t => <div key={t.id} className="border border-white/10 rounded-xl p-2 space-y-1">
+        <p>{t.description}: salida {formatCurrency(t.amount)}, gasto propio {formatCurrency(t.splitInfo!.myShare)}, {t.splitInfo!.settlements!.length} cobros vinculados.</p>
+        <p>Cartera: {t.wallet} · Fecha: {t.date}</p>
+        {t.splitInfo!.participants.map(p => <p key={p.contactId}>{p.contactName} ({p.contactId}): {formatCurrency(p.amount)}</p>)}
+        {t.splitInfo!.settlements!.map(s => <p key={s.id}>Cobro {s.transactionId} · {s.date} · {formatCurrency(s.amount)} · {backup.wallets.find(w => w.id === s.walletId)?.name}</p>)}
+      </div>)}
+    </div>}
     {backupWarnings(backup).map(warning => <p className="text-xs text-amber-300" key={warning}>{warning}</p>)}
     <p className="text-xs text-slate-400">Las copias se descargan desde el menú «Copias de recuperación». No se fusionarán datos.</p>
     <div className="flex gap-2 justify-end">
