@@ -1,3 +1,4 @@
+import { transferCases } from './transferCases';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -9,7 +10,7 @@ import { DATA_KEY, RECOVERY_PREFIX, makeBackup } from '../src/utils/backup';
 import { BUDGET_GROUPS } from '../src/constants/categories';
 import { INITIAL_TRANSACTIONS, INITIAL_BUDGET_PLANS, INITIAL_CONTACTS, INITIAL_LOANS, INITIAL_WALLETS } from '../src/utils/seedData';
 
-test('Fase 1: recorridos completos en Chromium', { timeout: 120000 }, async t => {
+test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t => {
   const listener = createServer();
   await new Promise<void>(resolve => listener.listen(0, '127.0.0.1', resolve));
   const port = (listener.address() as { port: number }).port;
@@ -265,4 +266,5 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 120000 }, async t =>
   });
   assert.deepEqual(errors, []);
   await asyncFormCases(t, browser, url, fixture);
+  await transferCases(t, browser, url, fixture);
 });

@@ -43,6 +43,23 @@ export interface Contact {
   createdAt: string;
 }
 
+export interface TransferLink {
+  id: string;
+  fromWalletId: string;
+  toWalletId: string;
+  leg: 'out' | 'in';
+  concept: string;
+}
+
+export interface TransferInput {
+  fromWalletId: string;
+  toWalletId: string;
+  amount: number;
+  date: string;
+  concept: string;
+  processed: boolean;
+}
+
 export interface Transaction {
   id: string;
   date: string; // ISO YYYY-MM-DD
@@ -54,6 +71,7 @@ export interface Transaction {
   description: string;
   wallet: string; // e.g. 'OPENBANK', 'REVOLUT', 'EFECTIVO'
   processed: boolean; // Tramitado: SÍ / NO
+  transfer?: TransferLink;
   loanId?: string; // Optional reference if associated with a loan payment
   notes?: string;
   splitInfo?: SharedExpenseInfo; // Información de gasto compartido y deudas

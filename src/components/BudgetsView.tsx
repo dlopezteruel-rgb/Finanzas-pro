@@ -1,3 +1,5 @@
+import { useAsyncForm } from '../utils/useAsyncForm';
+import type { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
 import {
   MonthlySummary,
@@ -31,7 +33,7 @@ interface BudgetsViewProps {
   onUpdateBudgetPlan: (code: string, type: MovementType, amount: number) => void;
   onMovePartida: (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => void;
   onDuplicatePartida: (partida: BudgetPartida) => void;
-  onChangePartidaGroup: (partida: BudgetPartida, targetGroupCode: string) => void;
+  onChangePartidaGroup: (partida: BudgetPartida, targetGroupCode: string) => Promise<SaveResult>;
   onSelectPartidaToView: (partida: BudgetPartida, row: MonthlyBudgetRow) => void;
 }
 
@@ -54,6 +56,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   // Moving out of package confirmation state
   const [movingPartida, setMovingPartida] = useState<BudgetPartida | null>(null);
   const [targetGroupCode, setTargetGroupCode] = useState<string>('');
+  const moveSubmission = useAsyncForm();
 
   // Quick lookup of budget rows by key
   const rowMap = useMemo(() => {
@@ -399,6 +402,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               type="button"
                               onClick={(e) => {
                                 e.stopPropagation();
+                                moveSubmission.clearError();
                                 setMovingPartida(partida);
                                 setTargetGroupCode(group.code);
                               }}
@@ -500,7 +504,11 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
       {/* Confirmation Modal for Moving a Partida across packages */}
       {movingPartida && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
+          <form role="dialog" aria-modal="true" aria-label="Mover partida" aria-busy={moveSubmission.saving}
+            onSubmit={e => { e.preventDefault(); void moveSubmission.submit(() => onChangePartidaGroup(movingPartida, targetGroupCode), () => setMovingPartida(null)); }}
+            className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
+          <fieldset disabled={moveSubmission.saving} className="space-y-3.5">
+            {moveSubmission.error && <p role="alert" className="text-rose-300">{moveSubmission.error}</p>}
             <h3 className="text-sm font-bold text-white">Mover Partida a Otro Paquete</h3>
             <p className="text-slate-300">
               ¿A qué paquete deseas mover la partida <strong className="text-white">[{movingPartida.code}] {movingPartida.name}</strong>?
@@ -509,6 +517,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             <div>
               <label className="block text-slate-400 mb-1 font-medium">Paquete de destino</label>
               <select
+                aria-label="Paquete de destino"
                 value={targetGroupCode}
                 onChange={e => setTargetGroupCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500 text-xs"
@@ -540,23 +549,20 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.06]">
               <button
                 type="button"
-                onClick={() => setMovingPartida(null)}
+                onClick={() => moveSubmission.close(() => setMovingPartida(null))} disabled={moveSubmission.saving}
                 className="px-3.5 py-2 rounded-xl text-slate-400 hover:text-white"
               >
                 Cancelar
               </button>
               <button
-                type="button"
-                onClick={() => {
-                  onChangePartidaGroup(movingPartida, targetGroupCode);
-                  setMovingPartida(null);
-                }}
+                type="submit" disabled={moveSubmission.saving}
                 className="bg-white hover:bg-slate-100 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all shadow cursor-pointer"
               >
-                Confirmar Traslado
+                {moveSubmission.saving ? 'Guardando…' : 'Confirmar Traslado'}
               </button>
             </div>
-          </div>
+          </fieldset>
+          </form>
         </div>
       )}
     </div>

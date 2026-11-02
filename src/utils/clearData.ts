@@ -10,6 +10,9 @@ export interface ClearDataOptions {
 
 /** Preserve existing clearing semantics; persistence/backups belong to the store. */
 export function clearedData(data: FinanceData, options: ClearDataOptions): FinanceData {
+  if (options.clearAllWallets && !options.clearTransactions && data.transactions.some(t => t.transfer)) {
+    throw new Error('No se pueden borrar carteras conservando sus traspasos. Selecciona también borrar movimientos.');
+  }
   const transactions = options.clearTransactions ? [] : data.transactions;
   return {
     ...data,

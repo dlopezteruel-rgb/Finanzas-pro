@@ -1,20 +1,20 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
+import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
 import React, { useState, useEffect } from 'react';
-import { Wallet } from '../types/finance';
+import { Wallet, Transaction, TransferInput } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
-import { ArrowLeftRight, X, Calendar, Wallet as WalletIcon, Check, ArrowRight } from 'lucide-react';
+import { ArrowLeftRight, X, Check, ArrowRight } from 'lucide-react';
 
 interface TransferModalProps {
   isOpen: boolean;
   onClose: () => void;
   wallets: Wallet[];
   walletBalances: Record<string, number>;
-  onExecuteTransfer: (
-    originWalletName: string,
-    destWalletName: string,
-    amount: number,
-    date: string,
-    concept?: string
-  ) => void;
+  transferToEdit?: Transaction | null;
+  initiallyDelete?: boolean;
+  onDeleteTransfer?: (id: string) => Promise<SaveResult>;
+  onExecuteTransfer: (input: TransferInput, id?: string) => Promise<SaveResult>;
 }
 
 export const TransferModal: React.FC<TransferModalProps> = ({
@@ -22,8 +22,11 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   onClose,
   wallets,
   walletBalances,
-  onExecuteTransfer,
+  onExecuteTransfer, transferToEdit, initiallyDelete = false, onDeleteTransfer,
 }) => {
+  const submission = useAsyncForm();
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [processed, setProcessed] = useState(true);
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [amount, setAmount] = useState<string>('');
@@ -31,21 +34,23 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   const [concept, setConcept] = useState<string>('Traspaso de fondos');
 
   useEffect(() => {
-    if (isOpen && wallets.length > 0) {
-      const defaultOrigin = wallets[0]?.name || '';
-      const defaultDest = wallets.find(w => w.name !== defaultOrigin)?.name || '';
-      setOrigin(defaultOrigin);
-      setDestination(defaultDest);
-      setAmount('');
-      setDate(new Date().toISOString().split('T')[0]);
-      setConcept('Traspaso de fondos');
-    }
-  }, [isOpen, wallets]);
+    if (!isOpen) return;
+    submission.clearError();
+    setConfirmDelete(initiallyDelete);
+    setOrigin(transferToEdit?.transfer?.fromWalletId || wallets[0]?.id || '');
+    setDestination(transferToEdit?.transfer?.toWalletId || wallets[1]?.id || '');
+    setAmount(transferToEdit ? String(transferToEdit.amount) : '');
+    setDate(transferToEdit?.date || new Date().toISOString().split('T')[0]);
+    setConcept(transferToEdit?.transfer?.concept ?? 'Traspaso de fondos');
+    setProcessed(transferToEdit?.processed ?? true);
+  }, [isOpen, transferToEdit?.id, initiallyDelete]);
 
   if (!isOpen) return null;
 
-  const originBalance = walletBalances[origin] ?? 0;
-  const destBalance = walletBalances[destination] ?? 0;
+  const originName = wallets.find(w => w.id === origin)?.name || '';
+  const destinationName = wallets.find(w => w.id === destination)?.name || '';
+  const originBalance = walletBalances[originName] ?? 0;
+  const destBalance = walletBalances[destinationName] ?? 0;
 
   const quickAmounts = [20, 50, 100, 200, 500];
 
@@ -57,19 +62,16 @@ export const TransferModal: React.FC<TransferModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const numAmount = parseFloat(amount.replace(',', '.'));
-    if (isNaN(numAmount) || numAmount <= 0) return;
-    if (!origin || !destination || origin === destination) return;
-
-    onExecuteTransfer(origin, destination, numAmount, date, concept.trim());
-    onClose();
+    void submission.submit(() => onExecuteTransfer({
+      fromWalletId: origin, toWalletId: destination, amount: parseTransferAmount(amount), date, concept: concept.trim(), processed,
+    }, transferToEdit?.transfer?.id), onClose);
   };
-
-  const parsedAmount = parseFloat(amount.replace(',', '.')) || 0;
+  const parsedAmount = parseTransferAmount(amount);
+  const close = () => submission.close(onClose);
 
   return (
     <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4">
+      <div role="dialog" aria-modal="true" aria-label="Traspaso" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl text-xs space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
@@ -77,21 +79,24 @@ export const TransferModal: React.FC<TransferModalProps> = ({
               <ArrowLeftRight className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">Ordenar Traspaso entre Cuentas</h3>
+              <h3 className="text-base font-bold text-white">{transferToEdit ? "Editar Traspaso entre Cuentas" : "Ordenar Traspaso entre Cuentas"}</h3>
               <p className="text-[11px] text-slate-400">
                 Mueve dinero entre tus bancos y carteras al instante
               </p>
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={close} disabled={submission.saving} aria-label="Cerrar traspaso"
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <p className="text-[11px] text-slate-400">Los dos extremos se guardan juntos. Antes del primer traspaso se conserva una copia recuperable del estado anterior.</p>
+        <form onSubmit={handleSubmit} aria-busy={submission.saving} className="space-y-4">
+          <fieldset disabled={submission.saving} className="space-y-4">
+          {submission.error && <p role="alert" className="text-rose-300">{submission.error}</p>}
           {/* Account Selection Box */}
           <div className="space-y-2 relative">
             {/* Origin Wallet */}
@@ -105,18 +110,19 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 </span>
               </div>
               <select
+                aria-label="Cuenta de origen"
                 value={origin}
                 onChange={e => {
                   setOrigin(e.target.value);
                   if (e.target.value === destination) {
-                    const other = wallets.find(w => w.name !== e.target.value);
-                    if (other) setDestination(other.name);
+                    const other = wallets.find(w => w.id !== e.target.value);
+                    if (other) setDestination(other.id);
                   }
                 }}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
                 {wallets.map(w => (
-                  <option key={w.id} value={w.name} className="bg-[#141926] text-white">
+                  <option key={w.id} value={w.id} className="bg-[#141926] text-white">
                     {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                   </option>
                 ))}
@@ -146,14 +152,15 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 </span>
               </div>
               <select
+                aria-label="Cuenta de destino"
                 value={destination}
                 onChange={e => setDestination(e.target.value)}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
                 {wallets
-                  .filter(w => w.name !== origin)
+                  .filter(w => w.id !== origin)
                   .map(w => (
-                    <option key={w.id} value={w.name} className="bg-[#141926] text-white">
+                    <option key={w.id} value={w.id} className="bg-[#141926] text-white">
                       {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                     </option>
                   ))}
@@ -166,6 +173,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
             <label className="text-slate-400 block font-medium">Importe a transferir (€)</label>
             <div className="relative">
               <input
+                aria-label="Importe a transferir (€)"
                 type="number"
                 step="0.01"
                 required
@@ -201,6 +209,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
               <label className="text-slate-400 block font-medium mb-1">Fecha</label>
               <div className="relative">
                 <input
+                  aria-label="Fecha"
                   type="date"
                   required
                   value={date}
@@ -213,6 +222,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
             <div>
               <label className="text-slate-400 block font-medium mb-1">Concepto / Nota</label>
               <input
+                aria-label="Concepto / Nota"
                 type="text"
                 placeholder="ej. Ahorro, Recarga..."
                 value={concept}
@@ -230,31 +240,40 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 <span className="font-bold text-sky-400 font-mono">{formatCurrency(parsedAmount)}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-semibold text-white">
-                <span>{origin}</span>
+                <span>{originName}</span>
                 <ArrowRight className="w-3.5 h-3.5 text-sky-400" />
-                <span>{destination}</span>
+                <span>{destinationName}</span>
               </div>
             </div>
           )}
 
+          {transferToEdit && <label className="flex gap-2 text-slate-300"><input type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />Tramitado (ambos extremos)</label>}
           {/* Submit buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              onClick={onClose}
+              onClick={close} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              disabled={parsedAmount <= 0 || !origin || !destination || origin === destination}
+              disabled={submission.saving || !validTransferAmount(parsedAmount) || !origin || !destination || origin === destination}
               className="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-30 disabled:cursor-not-allowed text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>Confirmar Traspaso</span>
+              <span>{submission.saving ? "Guardando…" : "Confirmar Traspaso"}</span>
             </button>
           </div>
+          {transferToEdit?.transfer && onDeleteTransfer && <div className="text-rose-300 space-y-2">
+            {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>Eliminar traspaso completo</button> : <>
+              <p>Se eliminarán juntos los dos extremos del traspaso.</p>
+              <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>Confirmar eliminación del traspaso</button>
+              <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">Conservar traspaso</button>
+            </>}
+          </div>}
+          </fieldset>
         </form>
       </div>
     </div>

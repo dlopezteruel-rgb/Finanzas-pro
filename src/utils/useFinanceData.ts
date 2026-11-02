@@ -50,8 +50,11 @@ export function useFinanceData(defaults: FinanceData) {
   }, []);
 
   function update<K extends keyof FinanceData>(field: K, value: FinanceData[K] | ((previous: FinanceData[K]) => FinanceData[K])): Promise<SaveResult> {
+    return mutate(current => ({ ...current, [field]: typeof value === 'function' ? value(current[field]) : value }));
+  }
+  function mutate(transform: (current: FinanceData) => FinanceData): Promise<SaveResult> {
     if (!initial.store) return Promise.resolve({ ok: false, error: initial.error });
-    return initial.store.update(field, value)
+    return initial.store.mutate(transform)
       .then(() => { setData(initial.store!.data); setSaveError(''); return { ok: true } as const; })
       .catch(error => { reportError(error); return { ok: false, error: saveErrorMessage(error) }; });
   }
@@ -60,5 +63,5 @@ export function useFinanceData(defaults: FinanceData) {
     try { setData(await initial.store.restore(next)); setSaveError(''); }
     catch (error) { reportError(error); throw error; }
   }
-  return { data, update, restore, conflict, capabilityError, loadError: initial.error, saveError };
+  return { data, update, mutate, restore, conflict, capabilityError, loadError: initial.error, saveError };
 }

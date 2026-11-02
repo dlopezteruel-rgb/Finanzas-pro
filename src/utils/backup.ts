@@ -1,3 +1,4 @@
+import { assertTransferIntegrity, legacyTransferReport } from './transfers';
 import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet } from '../types/finance';
 
 export interface FinanceData {
@@ -10,7 +11,7 @@ export interface FinanceData {
   wallets: Wallet[];
 }
 export interface Backup extends FinanceData {
-  version: '2.5';
+  version: '2.5' | '2.6';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -63,14 +64,20 @@ function unique(values: string[], path: string) {
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
   fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], [], 'Archivo');
-  if (value.version !== '2.5') invalid('version', 'versión no compatible. Se admite el formato 2.5; no se ha modificado ningún dato.');
+  if (value.version !== '2.5' && value.version !== '2.6') invalid('version', 'versión no compatible. Se admiten los formatos 2.5 y 2.6; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo'], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version === '2.6' ? ['transfer'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
+    if (Object.hasOwn(t, 'transfer')) {
+      object(t.transfer, `${p}.transfer`);
+      fields(t.transfer, ['id', 'fromWalletId', 'toWalletId', 'leg', 'concept'], [], `${p}.transfer`);
+      for (const key of ['id', 'fromWalletId', 'toWalletId', 'leg']) string(t.transfer[key], `${p}.transfer.${key}`);
+      string(t.transfer.concept, `${p}.transfer.concept`, true);
+    }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
       fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], [], `${p}.splitInfo`);
@@ -124,6 +131,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
   });
   const checked = value as unknown as Backup;
   for (const k of ['transactions', 'contacts', 'loans', 'wallets'] as const) unique(checked[k].map(item => item.id), k);
+  assertTransferIntegrity(checked.transactions, checked.wallets);
   unique(checked.wallets.map(w => w.name.trim().toUpperCase()), 'wallets.name');
   unique(checked.budgetGroups.map(g => g.code), 'budgetGroups');
   unique(checked.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)), 'budgetGroups.partidas');
@@ -131,7 +139,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
 }
 
 export function makeBackup(data: FinanceData): Backup {
-  return { ...data, version: '2.5', exportedAt: new Date().toISOString() };
+  return { ...data, version: data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
@@ -144,10 +152,16 @@ export function parseBackup(content: string): Backup {
 /** Legacy applications can export orphaned links. Warn and preserve, never repair silently. */
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
+  const legacy = legacyTransferReport(data.transactions, data.wallets);
+  if (legacy.pairs.length) warnings.push(`${legacy.pairs.length} traspasos históricos inequívocos: sus importes se excluyen de ingresos y gastos, sin reescribir los originales.`);
+  if (legacy.migratablePairs.length) warnings.push(`${legacy.migratablePairs.length} pares pueden vincularse desde el aviso de traspasos históricos, tras revisar y confirmar la copia previa.`);
+  if (legacy.missingWalletPairs.length) warnings.push(`${legacy.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales sin crear carteras ni contrapartidas.`);
+  if (legacy.unresolved.length) warnings.push(`${legacy.unresolved.length} registros de posibles traspasos históricos sin correspondencia inequívoca. Se conservan intactos y mantienen sus cálculos anteriores. Su edición individual está bloqueada; requieren revisión manual con una copia de seguridad.`);
+
   const partidas = new Set(data.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)));
   if (data.transactions.some(t => !partidas.has(`${t.type}:${t.code}`)) || data.budgetPlans.some(p => !partidas.has(`${p.type}:${p.code}`))) warnings.push('Hay movimientos o presupuestos con partidas que no figuran en el catálogo. Se conservarán sin cambiar sus cálculos.');
   const wallets = new Set(data.wallets.map(w => w.name));
-  if (data.transactions.some(t => !wallets.has(t.wallet)) || data.loans.some(l => !wallets.has(l.wallet))) warnings.push('Hay referencias a carteras que no existen en esta copia.');
+  if (data.transactions.some(t => !t.transfer && !wallets.has(t.wallet)) || data.loans.some(l => !wallets.has(l.wallet))) warnings.push('Hay referencias a carteras que no existen en esta copia.');
   const loans = new Set(data.loans.map(l => l.id));
   if (data.transactions.some(t => t.loanId && !loans.has(t.loanId))) warnings.push('Hay movimientos vinculados a préstamos que no existen en esta copia.');
   const contacts = new Set(data.contacts.map(c => c.id));
@@ -168,7 +182,7 @@ export function assertStorageRevision(storage: StorageAccess, expected: string |
   if (storage.getItem(DATA_KEY) !== expected) throw new StorageConflictError();
 }
 
-// The revision is internal. Downloads retain the existing portable 2.5 format.
+// Internal revision is not exported. Downloads use 2.6 only when structured transfers exist.
 export function serializeSnapshot(data: FinanceData): string {
   return JSON.stringify({ ...makeBackup(data), revision: crypto.randomUUID() });
 }
