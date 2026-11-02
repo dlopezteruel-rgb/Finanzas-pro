@@ -1,3 +1,4 @@
+import { economicTransactions } from '../utils/transfers';
 import React, { useState, useMemo } from 'react';
 import {
   Search,
@@ -66,11 +67,11 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [transactions, filterType, selectedWallet, searchTerm]);
 
-  const totalIncomes = filtered
+  const totalIncomes = economicTransactions(transactions).filter(t => filtered.includes(t))
     .filter(t => t.type === 'INGRESO' && t.processed)
     .reduce((s, t) => s + t.amount, 0);
 
-  const totalExpenses = filtered
+  const totalExpenses = economicTransactions(transactions).filter(t => filtered.includes(t))
     .filter(t => t.type === 'GASTO' && t.processed)
     .reduce((s, t) => s + t.amount, 0);
 
@@ -228,7 +229,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                 <div className="truncate">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-white truncate" title={t.description}>
-                      {t.description}
+                      {t.description}{t.transfer ? ' · Traspaso interno' : ''}
                     </span>
                     {t.splitInfo?.isShared && (
                       <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold shrink-0">
@@ -264,7 +265,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                         ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                         : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
                     }`}
-                    title="Alternar estado de tramitación"
+                    title={t.transfer ? "Alternar ambos extremos del traspaso" : "Alternar estado de tramitación"}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${t.processed ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                     <span>{t.processed ? 'SÍ' : 'NO'}</span>

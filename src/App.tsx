@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   Transaction,
+  TransferInput,
   BudgetPlan,
   BudgetGroup,
   BudgetPartida,
@@ -49,6 +50,8 @@ import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
 import { clearedData } from './utils/clearData';
+import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
+import { TransferModal } from './components/TransferModal';
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
@@ -65,7 +68,11 @@ function downloadJSON(content: string, filename: string) {
 
 export default function App() {
   const { data, update, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
-  const { theme, budgetGroups, transactions, budgetPlans, loans, wallets, contacts } = data;
+  const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
+  const transactions = useMemo(() => storedTransactions.map(t => t.transfer ? { ...t, wallet: transferWalletName(t, wallets) } : t), [storedTransactions, wallets]);
+  const legacyTransfers = useMemo(() => legacyTransferReport(storedTransactions, wallets), [storedTransactions, wallets]);
+  const [transferToEdit, setTransferToEdit] = useState<Transaction | null>(null);
+  const [deleteTransferInitially, setDeleteTransferInitially] = useState(false);
   const setTheme = (value: React.SetStateAction<FinanceData['theme']>) => update('theme', value);
   const setBudgetGroups = (value: React.SetStateAction<BudgetGroup[]>) => update('budgetGroups', value);
   const setTransactions = (value: React.SetStateAction<Transaction[]>) => update('transactions', value);
@@ -195,16 +202,21 @@ export default function App() {
   };
 
   const handleToggleProcessed = (id: string) => {
-    setTransactions(prev =>
-      prev.map(t => (t.id === id ? { ...t, processed: !t.processed } : t))
-    );
+    return setTransactions(prev => {
+      const target = prev.find(t => t.id === id);
+      return prev.map(t => (t.id === id || (target?.transfer && t.transfer?.id === target.transfer.id)) ? { ...t, processed: !target!.processed } : t);
+    });
   };
 
   const handleDeleteTransaction = (id: string) => {
+    const tx = transactions.find(t => t.id === id);
+    if (tx?.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(true); return; }
     setTransactions(prev => prev.filter(t => t.id !== id));
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
+    if (tx.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(false); return; }
+    if (isLegacyTransfer(tx)) { setDataError('Este traspaso histórico requiere revisión y vinculación antes de editar sus extremos.'); return; }
     setTransactionToEdit(tx);
     setInitialPartidaCodeForModal(tx.code);
     setInitialContactIdForModal(undefined);
@@ -485,44 +497,11 @@ export default function App() {
     return setWallets(prev => prev.filter(w => w.id !== walletId));
   };
 
-  const handleExecuteTransfer = (
-    originWalletName: string,
-    destWalletName: string,
-    amount: number,
-    date: string,
-    concept?: string
-  ) => {
-    const timestamp = Date.now();
-    const outTx: Transaction = {
-      id: `tx-traspaso-out-${timestamp}`,
-      date,
-      amount,
-      type: 'GASTO',
-      code: 'F.003.001',
-      categoryName: 'FINANCIEROS',
-      subcategoryName: 'Traspaso entre cuentas',
-      description: `Traspaso a ${destWalletName}${concept ? `: ${concept}` : ''}`,
-      wallet: originWalletName,
-      processed: true,
-      notes: `Traspaso ordenado hacia ${destWalletName}`,
-    };
-
-    const inTx: Transaction = {
-      id: `tx-traspaso-in-${timestamp + 1}`,
-      date,
-      amount,
-      type: 'INGRESO',
-      code: 'F.003.001',
-      categoryName: 'FINANCIEROS',
-      subcategoryName: 'Traspaso entre cuentas',
-      description: `Traspaso desde ${originWalletName}${concept ? `: ${concept}` : ''}`,
-      wallet: destWalletName,
-      processed: true,
-      notes: `Traspaso recibido desde ${originWalletName}`,
-    };
-
-    setTransactions(prev => [outTx, inTx, ...prev]);
+  const handleExecuteTransfer = (input: TransferInput, id?: string) => {
+    return setTransactions(prev => saveTransfer(prev, wallets, input, id));
   };
+
+  const handleDeleteTransfer = (id: string) => setTransactions(prev => deleteTransfer(prev, id));
 
   const handleUpdateDebtAmount = (transactionId: string, contactId: string, newAmount: number) => {
     setTransactions(prev =>
@@ -659,6 +638,10 @@ export default function App() {
       {capabilityError && <div role="alert" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
         <strong>Guardado no disponible.</strong> {capabilityError} Puedes consultar y exportar tus datos; los formularios conservarán lo introducido si no se puede guardar.
       </div>}
+      {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
+        <p>Traspasos históricos: {legacyTransfers.pairs.length} pares inequívocos y {legacyTransfers.unresolved.length} registros pendientes de revisión. Los originales no se han reescrito. Los pares inequívocos no cuentan como ingreso ni gasto; los registros ambiguos conservan sus cálculos anteriores y bloquean la edición individual.</p>
+        {legacyTransfers.pairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
+      </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
         {activeTab === 'dashboard' && (
@@ -764,6 +747,9 @@ export default function App() {
           <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">Cerrar</button>
       </SafeDialog>}
 
+      <TransferModal isOpen={!!transferToEdit} transferToEdit={transferToEdit} initiallyDelete={deleteTransferInitially}
+        onClose={() => setTransferToEdit(null)} wallets={wallets} walletBalances={walletBalances}
+        onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}

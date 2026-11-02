@@ -1,3 +1,4 @@
+import { economicTransactions, transferWalletName } from './transfers';
 import { Transaction, BudgetPlan, MonthlyBudgetRow, MonthlySummary, Loan, Wallet, BudgetPartida } from '../types/finance';
 import { ALL_PARTIDAS } from '../constants/categories';
 
@@ -58,7 +59,7 @@ export function calculateMonthlyBudgetRows(
   allPartidas: BudgetPartida[] = ALL_PARTIDAS
 ): MonthlyBudgetRow[] {
   // Filter transactions for this monthYear and that are processed/counted
-  const monthTransactions = transactions.filter(t => t.date.startsWith(monthYear));
+  const monthTransactions = economicTransactions(transactions).filter(t => t.date.startsWith(monthYear));
 
   // Build lookup of plans for this month using composite key (type + code)
   const planMap: Record<string, number> = {};
@@ -209,7 +210,7 @@ export function calculateLoanStatus(loan: Loan, transactions: Transaction[], ref
   const cuotasTeoricasAcumuladas = Math.min(loan.totalTermMonths, totalMonthsPassed);
 
   // Find all transactions linked to this loan or matching description/code
-  const loanTxs = transactions.filter(t => {
+  const loanTxs = economicTransactions(transactions).filter(t => {
     if (t.type !== 'GASTO') return false;
     if (t.loanId === loan.id) return true;
     if (t.description.toLowerCase().includes(loan.name.toLowerCase())) return true;
@@ -256,7 +257,7 @@ export function calculateWalletBalances(wallets: Wallet[], transactions: Transac
 
   transactions.forEach(t => {
     if (!t.processed) return; // Only processed impact real bank balance
-    const walletName = t.wallet.toUpperCase().trim();
+    const walletName = t.transfer ? transferWalletName(t, wallets) : t.wallet.toUpperCase().trim();
     if (balances[walletName] === undefined) {
       balances[walletName] = 0;
     }

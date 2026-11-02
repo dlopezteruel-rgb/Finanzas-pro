@@ -1,6 +1,7 @@
+import { economicTransactions, isLegacyTransfer, transferWalletName } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
-import { Wallet, Transaction } from '../types/finance';
+import { Wallet, Transaction, TransferInput } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import {
   Landmark,
@@ -23,13 +24,7 @@ interface WalletsViewProps {
   onAddWallet: (wallet: Wallet) => Promise<SaveResult>;
   onUpdateWallet: (wallet: Wallet) => Promise<SaveResult>;
   onDeleteWallet?: (walletId: string) => Promise<SaveResult>;
-  onExecuteTransfer: (
-    originWalletName: string,
-    destWalletName: string,
-    amount: number,
-    date: string,
-    concept?: string
-  ) => void;
+  onExecuteTransfer: (input: TransferInput, id?: string) => Promise<SaveResult>;
 }
 
 export const WalletsView: React.FC<WalletsViewProps> = ({
@@ -54,8 +49,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
     return transactions
       .filter(
         t =>
-          t.description.toLowerCase().includes('traspaso') ||
-          (t.subcategoryName && t.subcategoryName.toLowerCase().includes('traspaso'))
+          !!t.transfer || isLegacyTransfer(t)
       )
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
       .slice(0, 10);
@@ -121,7 +115,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {wallets.map(w => {
           const currentBalance = walletBalances[w.name] ?? w.initialBalance;
-          const walletTxs = transactions.filter(t => t.wallet === w.name && t.processed);
+          const walletTxs = economicTransactions(transactions).filter(t => transferWalletName(t, wallets) === w.name && t.processed);
           const totalIn = walletTxs.filter(t => t.type === 'INGRESO').reduce((s, t) => s + t.amount, 0);
           const totalOut = walletTxs.filter(t => t.type === 'GASTO').reduce((s, t) => s + t.amount, 0);
 

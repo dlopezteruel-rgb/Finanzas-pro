@@ -2,3 +2,5 @@
 import './utils/finance.test';
 import './utils/phase1.test';
 import './utils/asyncForms.test';
+
+import './utils/transfers.test';
