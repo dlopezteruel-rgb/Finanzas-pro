@@ -43,92 +43,47 @@ import { PartidaDetailModal } from './components/PartidaDetailModal';
 import { ConfirmClearModal, ClearDataOptions } from './components/ConfirmClearModal';
 import { SettleDebtModal, DebtItemToSettle } from './components/SettleDebtModal';
 import { CreateContactModal } from './components/CreateContactModal';
+import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup, recoveryCopies } from './utils/backup';
+import { useFinanceData } from './utils/useFinanceData';
+import { RestorationModal } from './components/RestorationModal';
+import { SafeDialog } from './components/SafeDialog';
+import { confirmOnceAsync } from './utils/confirmation';
+import { clearedData } from './utils/clearData';
 
-const STORAGE_KEY_TXS = 'finanzas_pro_transactions_v2';
-const STORAGE_KEY_PLANS = 'finanzas_pro_plans_v2';
-const STORAGE_KEY_LOANS = 'finanzas_pro_loans_v2';
-const STORAGE_KEY_WALLETS = 'finanzas_pro_wallets_v2';
-const STORAGE_KEY_GROUPS = 'finanzas_pro_groups_v2';
-const STORAGE_KEY_CONTACTS = 'finanzas_pro_contacts_v2';
-const STORAGE_KEY_THEME = 'finanzas_pro_theme';
+const DEMO_DATA: FinanceData = {
+  theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
+  budgetPlans: INITIAL_BUDGET_PLANS, loans: INITIAL_LOANS, wallets: INITIAL_WALLETS,
+  contacts: INITIAL_CONTACTS,
+};
+
+function downloadJSON(content: string, filename: string) {
+  const url = URL.createObjectURL(new Blob([content], { type: 'application/json' }));
+  const link = document.createElement('a');
+  link.href = url; link.download = filename; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
 
 export default function App() {
-  // 0. Theme State (Dark / Light Mode)
-  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_THEME);
-      if (saved === 'dark' || saved === 'light') return saved;
-      return 'dark';
-    } catch {
-      return 'dark';
-    }
-  });
+  const { data, update, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
+  const { theme, budgetGroups, transactions, budgetPlans, loans, wallets, contacts } = data;
+  const setTheme = (value: React.SetStateAction<FinanceData['theme']>) => update('theme', value);
+  const setBudgetGroups = (value: React.SetStateAction<BudgetGroup[]>) => update('budgetGroups', value);
+  const setTransactions = (value: React.SetStateAction<Transaction[]>) => update('transactions', value);
+  const setBudgetPlans = (value: React.SetStateAction<BudgetPlan[]>) => update('budgetPlans', value);
+  const setLoans = (value: React.SetStateAction<Loan[]>) => update('loans', value);
+  const setWallets = (value: React.SetStateAction<Wallet[]>) => update('wallets', value);
+  const setContacts = (value: React.SetStateAction<Contact[]>) => update('contacts', value);
+  const [restoration, setRestoration] = useState<{ backup: Backup; label: string } | null>(null);
+  const [dataError, setDataError] = useState('');
+  const [dataNotice, setDataNotice] = useState('');
+  const [showRecovery, setShowRecovery] = useState(false);
+  const restorationGuard = useRef<ReturnType<typeof confirmOnceAsync<Backup>> | null>(null);
+  const importRequest = useRef(0);
+  const clearPending = useRef(false);
+  const [restoring, setRestoring] = useState(false);
 
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem(STORAGE_KEY_THEME, theme);
-    } catch {}
-  }, [theme]);
-
-  const handleToggleTheme = () => {
-    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
-  // 1. Core State with LocalStorage Persistence
-  const [budgetGroups, setBudgetGroups] = useState<BudgetGroup[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_GROUPS);
-      return saved ? JSON.parse(saved) : BUDGET_GROUPS;
-    } catch {
-      return BUDGET_GROUPS;
-    }
-  });
-
-  const [transactions, setTransactions] = useState<Transaction[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_TXS);
-      return saved ? JSON.parse(saved) : INITIAL_TRANSACTIONS;
-    } catch {
-      return INITIAL_TRANSACTIONS;
-    }
-  });
-
-  const [budgetPlans, setBudgetPlans] = useState<BudgetPlan[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_PLANS);
-      return saved ? JSON.parse(saved) : INITIAL_BUDGET_PLANS;
-    } catch {
-      return INITIAL_BUDGET_PLANS;
-    }
-  });
-
-  const [loans, setLoans] = useState<Loan[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_LOANS);
-      return saved ? JSON.parse(saved) : INITIAL_LOANS;
-    } catch {
-      return INITIAL_LOANS;
-    }
-  });
-
-  const [wallets, setWallets] = useState<Wallet[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_WALLETS);
-      return saved ? JSON.parse(saved) : INITIAL_WALLETS;
-    } catch {
-      return INITIAL_WALLETS;
-    }
-  });
-
-  const [contacts, setContacts] = useState<Contact[]>(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY_CONTACTS);
-      return saved ? JSON.parse(saved) : INITIAL_CONTACTS;
-    } catch {
-      return INITIAL_CONTACTS;
-    }
-  });
+  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  const handleToggleTheme = () => setTheme(previous => previous === 'dark' ? 'light' : 'dark');
 
   // Current Month/Year period
   const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
@@ -154,31 +109,6 @@ export default function App() {
   const [debtToSettle, setDebtToSettle] = useState<DebtItemToSettle | null>(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Sync to LocalStorage
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_GROUPS, JSON.stringify(budgetGroups));
-  }, [budgetGroups]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_TXS, JSON.stringify(transactions));
-  }, [transactions]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_PLANS, JSON.stringify(budgetPlans));
-  }, [budgetPlans]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_LOANS, JSON.stringify(loans));
-  }, [loans]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_WALLETS, JSON.stringify(wallets));
-  }, [wallets]);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY_CONTACTS, JSON.stringify(contacts));
-  }, [contacts]);
 
   // Derived available periods
   const availableMonths = useMemo(() => {
@@ -252,7 +182,7 @@ export default function App() {
   // 3. Transactions Handlers
   const handleSaveTransaction = (txData: Omit<Transaction, 'id'>, existingId?: string) => {
     if (existingId) {
-      setTransactions(prev =>
+      return setTransactions(prev =>
         prev.map(t => (t.id === existingId ? { ...txData, id: existingId } : t))
       );
     } else {
@@ -260,7 +190,7 @@ export default function App() {
         ...txData,
         id: `tx-${Date.now()}`,
       };
-      setTransactions(prev => [newTx, ...prev]);
+      return setTransactions(prev => [newTx, ...prev]);
     }
   };
 
@@ -437,7 +367,7 @@ export default function App() {
   };
 
   const handleSaveContact = (contact: Contact) => {
-    setContacts(prev => {
+    return setContacts(prev => {
       const exists = prev.some(c => c.id === contact.id);
       if (exists) {
         return prev.map(c => (c.id === contact.id ? contact : c));
@@ -464,8 +394,8 @@ export default function App() {
     const reimbursementId = `tx-reintegro-${Date.now()}`;
 
     // 1. Mark participant as settled in original transaction
-    setTransactions(prev =>
-      prev.map(tx => {
+    return setTransactions(prev => {
+      const updated = prev.map(tx => {
         if (tx.id !== debtItem.transactionId || !tx.splitInfo) return tx;
         const updatedParticipants = tx.splitInfo.participants.map(p => {
           if (
@@ -489,31 +419,32 @@ export default function App() {
             participants: updatedParticipants,
           },
         };
-      })
-    );
+      });
 
-    // 2. Generate income movement for repayment
-    if (createIncomeTx) {
-      const newIncomeTx: Transaction = {
-        id: reimbursementId,
-        date: settleDate,
-        amount: debtItem.participant.amount,
-        type: 'INGRESO',
-        code: debtItem.transactionCode, // Imputado a la misma partida que financiaste
-        categoryName: debtItem.transactionCategory,
-        subcategoryName: debtItem.transactionSubcategory,
-        description: `Reintegro ${debtItem.contact.name}: ${debtItem.transactionDescription}`,
-        wallet: walletName,
-        processed: true,
-        notes: `Reintegro por deuda compartida saldada (${formatCurrency(debtItem.participant.amount)})`,
-      };
-      setTransactions(prev => [newIncomeTx, ...prev]);
-    }
+      // 2. Generate income movement for repayment
+      if (createIncomeTx) {
+        const newIncomeTx: Transaction = {
+          id: reimbursementId,
+          date: settleDate,
+          amount: debtItem.participant.amount,
+          type: 'INGRESO',
+          code: debtItem.transactionCode, // Imputado a la misma partida que financiaste
+          categoryName: debtItem.transactionCategory,
+          subcategoryName: debtItem.transactionSubcategory,
+          description: `Reintegro ${debtItem.contact.name}: ${debtItem.transactionDescription}`,
+          wallet: walletName,
+          processed: true,
+          notes: `Reintegro por deuda compartida saldada (${formatCurrency(debtItem.participant.amount)})`,
+        };
+        return [newIncomeTx, ...updated];
+      }
+      return updated;
+    });
   };
 
   // 6. Loans & Wallets Actions
   const handleAddLoan = (newLoan: Loan) => {
-    setLoans(prev => [...prev, newLoan]);
+    return setLoans(prev => [...prev, newLoan]);
   };
 
   const handlePayLoanInstallment = (loan: Loan) => {
@@ -535,23 +466,23 @@ export default function App() {
   };
 
   const handleUpdateLoan = (updatedLoan: Loan) => {
-    setLoans(prev => prev.map(l => (l.id === updatedLoan.id ? updatedLoan : l)));
+    return setLoans(prev => prev.map(l => (l.id === updatedLoan.id ? updatedLoan : l)));
   };
 
   const handleDeleteLoan = (loanId: string) => {
-    setLoans(prev => prev.filter(l => l.id !== loanId));
+    return setLoans(prev => prev.filter(l => l.id !== loanId));
   };
 
   const handleAddWallet = (newWallet: Wallet) => {
-    setWallets(prev => [...prev, newWallet]);
+    return setWallets(prev => [...prev, newWallet]);
   };
 
   const handleUpdateWallet = (updatedWallet: Wallet) => {
-    setWallets(prev => prev.map(w => (w.id === updatedWallet.id ? updatedWallet : w)));
+    return setWallets(prev => prev.map(w => (w.id === updatedWallet.id ? updatedWallet : w)));
   };
 
   const handleDeleteWallet = (walletId: string) => {
-    setWallets(prev => prev.filter(w => w.id !== walletId));
+    return setWallets(prev => prev.filter(w => w.id !== walletId));
   };
 
   const handleExecuteTransfer = (
@@ -623,128 +554,71 @@ export default function App() {
     setIsClearModalOpen(true);
   };
 
-  const handleConfirmClearSelected = (options: ClearDataOptions) => {
-    // 1. Dinero en las cuentas (patrimonio a 0)
-    if (options.clearWalletBalances && !options.clearAllWallets) {
-      setWallets(prev => prev.map(w => ({ ...w, initialBalance: 0 })));
-    }
-
-    // 2. Todas las cuentas
-    if (options.clearAllWallets) {
-      setWallets([]);
-      localStorage.removeItem(STORAGE_KEY_WALLETS);
-    }
-
-    // 3. Movimientos
-    if (options.clearTransactions) {
-      setTransactions([]);
-      localStorage.removeItem(STORAGE_KEY_TXS);
-    }
-
-    // 4. Presupuestos
-    if (options.clearBudgets) {
-      setBudgetPlans([]);
-      localStorage.removeItem(STORAGE_KEY_PLANS);
-    }
-
-    // 5. Deudas
-    if (options.clearDebts) {
-      setLoans([]);
-      localStorage.removeItem(STORAGE_KEY_LOANS);
-      // Reset shared debts
-      setTransactions(prev =>
-        prev.map(t => {
-          if (!t.splitInfo) return t;
-          return {
-            ...t,
-            splitInfo: {
-              ...t.splitInfo,
-              participants: t.splitInfo.participants.map(p => ({
-                ...p,
-                isPaid: true,
-                paidDate: new Date().toISOString().split('T')[0],
-              })),
-              totalOwedToMe: 0,
-            },
-          };
-        })
-      );
-    }
+  const handleConfirmClearSelected = async (options: ClearDataOptions) => {
+    if (clearPending.current) return;
+    clearPending.current = true;
+    setDataError(''); setDataNotice('');
+    try {
+      await restore(current => makeBackup(clearedData(current, options)));
+      setDataNotice('Datos seleccionados borrados. El estado anterior está en «Copias de recuperación».');
+    } catch {
+      setDataError('No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.');
+    } finally { clearPending.current = false; }
   };
 
-  const handleResetDemo = () => {
-    setBudgetGroups(BUDGET_GROUPS);
-    setTransactions(INITIAL_TRANSACTIONS);
-    setBudgetPlans(INITIAL_BUDGET_PLANS);
-    setLoans(INITIAL_LOANS);
-    setWallets(INITIAL_WALLETS);
-    setContacts(INITIAL_CONTACTS);
+  const prepareRestoration = (backup: Backup, label: string) => {
+    restorationGuard.current?.cancel();
+    restorationGuard.current = confirmOnceAsync((next: Backup) => restore(next));
+    setDataError('');
+    setRestoration({ backup, label });
   };
+  const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
-  // 8. Backup Export & Import
-  const handleExportJSON = () => {
-    const data = {
-      version: '2.5',
-      exportedAt: new Date().toISOString(),
-      theme,
-      transactions,
-      budgetPlans,
-      budgetGroups,
-      contacts,
-      loans,
-      wallets,
-    };
-    const jsonStr = JSON.stringify(data, null, 2);
-    const blob = new Blob([jsonStr], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `finanzas_pro_backup_${new Date().toISOString().split('T')[0]}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleImportJSON = () => {
-    fileInputRef.current?.click();
-  };
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleExportJSON = () => downloadJSON(JSON.stringify(makeBackup(data), null, 2), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);
+  const handleImportJSON = () => fileInputRef.current?.click();
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = event => {
-      try {
-        const content = event.target?.result as string;
-        const parsed = JSON.parse(content);
-        if (parsed.transactions && Array.isArray(parsed.transactions)) {
-          setTransactions(parsed.transactions);
-        }
-        if (parsed.budgetPlans && Array.isArray(parsed.budgetPlans)) {
-          setBudgetPlans(parsed.budgetPlans);
-        }
-        if (parsed.budgetGroups && Array.isArray(parsed.budgetGroups)) {
-          setBudgetGroups(parsed.budgetGroups);
-        }
-        if (parsed.contacts && Array.isArray(parsed.contacts)) {
-          setContacts(parsed.contacts);
-        }
-        if (parsed.loans && Array.isArray(parsed.loans)) {
-          setLoans(parsed.loans);
-        }
-        if (parsed.wallets && Array.isArray(parsed.wallets)) {
-          setWallets(parsed.wallets);
-        }
-        if (parsed.theme === 'dark' || parsed.theme === 'light') {
-          setTheme(parsed.theme);
-        }
-      } catch {
-        console.error('Error al importar archivo JSON');
-      }
-    };
-    reader.readAsText(file);
     e.target.value = '';
+    if (!file) return;
+    const request = ++importRequest.current;
+    setDataError(''); setDataNotice('');
+    try {
+      if (file.size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
+      const backup = parseBackup(await file.text());
+      if (request === importRequest.current) prepareRestoration(backup, `Importar «${file.name}»`);
+    } catch (error) {
+      if (request === importRequest.current) setDataError(`${error instanceof Error ? error.message : 'No se pudo leer el archivo.'} No se ha modificado ningún dato.`);
+    }
   };
+  const cancelRestoration = () => {
+    restorationGuard.current?.cancel();
+    setRestoration(null);
+  };
+  const confirmRestoration = async () => {
+    if (!restoration || restoring) return;
+    setRestoring(true);
+    try {
+      if (await restorationGuard.current?.confirm(restoration.backup)) {
+        setRestoration(null);
+        setDataNotice('Datos sustituidos. La copia anterior está disponible en «Copias de recuperación».');
+      }
+    } catch {
+      setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
+    } finally { setRestoring(false); }
+  };
+
+  if (loadError) return <div className="min-h-screen bg-[#0c0f17] text-white p-6 space-y-4">
+    <p role="alert">{loadError}</p>
+    <p>Conserva una copia de los datos locales antes de corregir el archivo o solicitar ayuda.</p>
+    <button className="bg-sky-500 rounded-xl px-4 py-2" onClick={() => {
+      const raw: Record<string, string | null> = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        if (key?.startsWith('finanzas_pro_')) raw[key] = localStorage.getItem(key);
+      }
+      downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
+    }}>Descargar datos locales sin modificar</button>
+  </div>;
 
   return (
     <div className="min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
@@ -768,6 +642,7 @@ export default function App() {
         onOpenNewTransaction={() => handleOpenNewTransaction()}
         onExportJSON={handleExportJSON}
         onImportJSON={handleImportJSON}
+        onOpenRecovery={() => setShowRecovery(true)}
         onResetDemo={handleResetDemo}
         onClearAllData={handleOpenClearModal}
       />
@@ -781,6 +656,9 @@ export default function App() {
         pendingDebtsCount={pendingDebtsCount}
       />
 
+      {capabilityError && <div role="alert" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
+        <strong>Guardado no disponible.</strong> {capabilityError} Puedes consultar y exportar tus datos; los formularios conservarán lo introducido si no se puede guardar.
+      </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
         {activeTab === 'dashboard' && (
@@ -867,10 +745,24 @@ export default function App() {
             transactions={transactions}
             loans={loans}
             wallets={wallets}
+            availablePartidas={allPartidas}
             onAddTransaction={(tx) => handleSaveTransaction(tx)}
           />
         )}
       </main>
+
+      {(dataError || saveError || dataNotice) && <div className={`fixed bottom-20 left-4 right-4 ${dataError ? 'z-[60]' : 'z-40'} max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl`} role={dataError || saveError ? 'alert' : 'status'}>
+        <p>{dataError || saveError || dataNotice}</p>
+        {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
+        <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
+      </div>}
+      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} />}
+      {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
+          <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
+          {recoveryCopies(localStorage).length === 0 && <p>No hay copias anteriores.</p>}
+          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}>Descargar {copy.key.slice('finanzas_pro_recovery_'.length, -37)}</button>)}
+          <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">Cerrar</button>
+      </SafeDialog>}
 
       {/* New / Edit Transaction Modal */}
       <TransactionModal

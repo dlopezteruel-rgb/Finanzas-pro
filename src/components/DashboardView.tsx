@@ -1,3 +1,4 @@
+import { SaveResult } from '../utils/saveResult';
 import React from 'react';
 import {
   Plus,
@@ -29,7 +30,7 @@ interface DashboardViewProps {
   loans: Loan[];
   wallets: Wallet[];
   walletBalances: Record<string, number>;
-  onAddTransaction: (t: Omit<Transaction, 'id'>) => void;
+  onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
   onToggleProcessed: (id: string) => void;
   onNavigateToTab: (tab: any) => void;
   onOpenNewTransaction: () => void;

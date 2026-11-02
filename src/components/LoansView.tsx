@@ -1,3 +1,4 @@
+import { SaveResult } from '../utils/saveResult';
 import React, { useState } from 'react';
 import { Loan, Transaction, Wallet } from '../types/finance';
 import { formatCurrency, calculateLoanStatus } from '../utils/finance';
@@ -8,9 +9,9 @@ interface LoansViewProps {
   loans: Loan[];
   transactions: Transaction[];
   wallets: Wallet[];
-  onAddLoan: (loan: Loan) => void;
-  onUpdateLoan: (loan: Loan) => void;
-  onDeleteLoan?: (loanId: string) => void;
+  onAddLoan: (loan: Loan) => Promise<SaveResult>;
+  onUpdateLoan: (loan: Loan) => Promise<SaveResult>;
+  onDeleteLoan?: (loanId: string) => Promise<SaveResult>;
   onPayInstallment: (loan: Loan) => void;
 }
 
@@ -38,9 +39,9 @@ export const LoansView: React.FC<LoansViewProps> = ({
 
   const handleSaveLoan = (loan: Loan) => {
     if (selectedLoanToEdit) {
-      onUpdateLoan(loan);
+      return onUpdateLoan(loan);
     } else {
-      onAddLoan(loan);
+      return onAddLoan(loan);
     }
   };
 

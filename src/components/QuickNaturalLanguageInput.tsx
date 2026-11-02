@@ -1,3 +1,5 @@
+import { SaveResult } from '../utils/saveResult';
+import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
 import { parseFinancialInput } from '../utils/parser';
@@ -6,7 +8,7 @@ import { ParsedMovement, Transaction } from '../types/finance';
 import { ALL_PARTIDAS, DEFAULT_WALLETS } from '../constants/categories';
 
 interface QuickInputProps {
-  onAddTransaction: (t: Omit<Transaction, 'id'>) => void;
+  onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
   className?: string;
   placeholder?: string;
 }
@@ -16,6 +18,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
 }) => {
+  const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
   const [parsed, setParsed] = useState<ParsedMovement | null>(null);
   const [lastNotification, setLastNotification] = useState<string | null>(null);
@@ -47,7 +50,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         name: parsed.subcategoryName,
       };
 
-    onAddTransaction({
+    void submission.submit(() => onAddTransaction({
       amount: parsed.amount,
       type: parsed.type,
       code: parsed.code,
@@ -58,8 +61,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       date: parsed.date,
       processed: parsed.processed,
       notes: `Registro rápido: "${inputText}"`,
-    });
-
+    }), () => {
     setLastNotification(`+ Registrado: ${parsed.type} ${formatCurrency(parsed.amount)} en [${parsed.code}]`);
     setInputText('');
     setParsed(null);
@@ -67,10 +69,14 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     setTimeout(() => {
       setLastNotification(null);
     }, 4000);
+    });
   };
 
   return (
     <div className={`space-y-2 ${className}`}>
+      {submission.error && <p role="alert" className="text-amber-300 text-xs">{submission.error}</p>}
+      {submission.saving && <p role="status" className="text-sky-300 text-xs">Guardando…</p>}
+      <fieldset disabled={submission.saving} className="space-y-2">
       {/* Sleek Search & Quick-Entry Bar */}
       <div className="relative flex items-center">
         <div className="absolute left-3 text-slate-400 pointer-events-none">
@@ -170,6 +176,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         </div>
       )}
 
+      </fieldset>
       {/* Transient Success notification */}
       {lastNotification && (
         <div className="p-2.5 rounded-xl bg-emerald-950/80 border border-emerald-800/80 text-xs text-emerald-300 flex items-center gap-2 animate-fadeIn">

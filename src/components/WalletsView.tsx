@@ -1,3 +1,4 @@
+import { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
 import { Wallet, Transaction } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
@@ -19,9 +20,9 @@ interface WalletsViewProps {
   wallets: Wallet[];
   walletBalances: Record<string, number>;
   transactions: Transaction[];
-  onAddWallet: (wallet: Wallet) => void;
-  onUpdateWallet: (wallet: Wallet) => void;
-  onDeleteWallet?: (walletId: string) => void;
+  onAddWallet: (wallet: Wallet) => Promise<SaveResult>;
+  onUpdateWallet: (wallet: Wallet) => Promise<SaveResult>;
+  onDeleteWallet?: (walletId: string) => Promise<SaveResult>;
   onExecuteTransfer: (
     originWalletName: string,
     destWalletName: string,
@@ -72,9 +73,9 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
   const handleSaveWallet = (wallet: Wallet) => {
     if (selectedWalletToEdit) {
-      onUpdateWallet(wallet);
+      return onUpdateWallet(wallet);
     } else {
-      onAddWallet(wallet);
+      return onAddWallet(wallet);
     }
   };
 
@@ -278,6 +279,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
       {/* Edit / Add Wallet Modal */}
       <WalletModal
+        wallets={wallets}
         isOpen={isWalletModalOpen}
         onClose={() => {
           setIsWalletModalOpen(false);

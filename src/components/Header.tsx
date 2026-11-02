@@ -12,6 +12,7 @@ interface HeaderProps {
   onOpenNewTransaction: () => void;
   onExportJSON: () => void;
   onImportJSON: () => void;
+  onOpenRecovery: () => void;
   onResetDemo: () => void;
   onClearAllData: () => void;
 }
@@ -26,6 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenNewTransaction,
   onExportJSON,
   onImportJSON,
+  onOpenRecovery,
   onResetDemo,
   onClearAllData,
 }) => {
@@ -131,6 +133,10 @@ export const Header: React.FC<HeaderProps> = ({
                     <span>Importar JSON</span>
                   </button>
 
+                  <button onClick={() => { onOpenRecovery(); setShowMenu(false); }} className="w-full text-left px-3 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-2 cursor-pointer">
+                    <Download className="w-3.5 h-3.5 text-sky-400" />
+                    <span>Copias de recuperación</span>
+                  </button>
                   <div className="my-1 border-t border-white/[0.06]" />
 
                   <button
