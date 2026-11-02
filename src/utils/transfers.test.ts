@@ -6,6 +6,7 @@ import { calculateLoanStatus, calculateMonthlyBudgetRows, calculateMonthlySummar
 import { backupWarnings, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, recoveryCopies, serializeSnapshot, StorageConflictError, validateBackup } from './backup';
 import { FinanceStore, type ExclusiveWrite } from './financeStore';
 import { BUDGET_GROUPS } from '../constants/categories';
+import { changePartidaGroup } from './budgetChanges';
 import { clearedData } from './clearData';
 
 const wallets: Wallet[] = [
@@ -13,7 +14,7 @@ const wallets: Wallet[] = [
   { id: 'revolut', name: 'REVOLUT', type: 'NEOBANK', initialBalance: 200, color: '#fff' },
 ];
 const input: TransferInput = { fromWalletId: 'openbank', toWalletId: 'revolut', amount: 500, date: '2026-10-08', concept: 'Ahorro', processed: true };
-const normal = (type: Transaction['type'], code: string, amount: number, id = type): Transaction => ({ id, type, code, amount, date: input.date, categoryName: 'Normal', subcategoryName: 'Normal', description: 'Movimiento normal', wallet: 'OPENBANK', processed: true });
+const normal = (type: Transaction['type'], code: string, amount: number, id: string = type): Transaction => ({ id, type, code, amount, date: input.date, categoryName: 'Normal', subcategoryName: 'Normal', description: 'Movimiento normal', wallet: 'OPENBANK', processed: true });
 const fixture = (): FinanceData => ({ theme: 'dark', transactions: [normal('INGRESO', 'L.001.001', 2000), normal('GASTO', 'V.001.002', 100)], wallets: structuredClone(wallets), budgetGroups: structuredClone(BUDGET_GROUPS), budgetPlans: [{ monthYear: '2026-10', code: 'V.001.002', type: 'GASTO', plannedAmount: 300 }], loans: [], contacts: [] });
 export function historicalPair(): Transaction[] {
   const [out, incoming] = transferPair(wallets, input, 'old');
@@ -230,4 +231,85 @@ test('un concepto de traspaso que menciona un préstamo no se convierte en una c
   const loan = { id: 'loan', name: 'Préstamo coche', entity: 'Banco', principal: 1000, interestRate: 0, totalTermMonths: 12, startDate: '2026-01-01', monthlyPayment: 100, wallet: 'OPENBANK', code: 'E.002.001' };
   const transactions = transferPair(wallets, { ...input, concept: 'Préstamo coche' });
   assert.equal(calculateLoanStatus(loan, transactions, '2026-10-08').totalPagadoReal, 0);
+});
+
+test('histórico inequívoco con cartera eliminada: informe y contabilidad coinciden sin reescribir 2.5', () => {
+  const data = { ...fixture(), transactions: historicalPair(), wallets: wallets.slice(0, 1) };
+  const before = JSON.stringify(makeBackup(data));
+  const report = legacyTransferReport(data.transactions, data.wallets);
+  assert.equal(report.pairs.length, 1, 'un par inequívoco sigue siendo un traspaso aunque falte una cartera');
+  assert.equal(report.unresolved.length, 0, 'no es un par ambiguo');
+  assert.equal(report.missingWalletPairs.length, 1); assert.equal(report.migratablePairs.length, 0);
+  assert.deepEqual(economicTransactions(data.transactions), []);
+  const summary = calculateMonthlySummary('2026-10', data.transactions, []);
+  assert.equal(summary.ingresosReales, 0); assert.equal(summary.gastosEjecutados, 0);
+  assert.deepEqual(migrateLegacyTransfers(data), data);
+  const warnings = backupWarnings(data).join(' ');
+  assert.match(warnings, /sin carteras/); assert.match(warnings, /no (?:se pueden|pueden) vincular/i);
+  assert.deepEqual(parseBackup(before).transactions, data.transactions);
+});
+
+
+function budgetMoveFixture(historical = false): FinanceData {
+  const data = fixture();
+  data.transactions.push(...(historical ? historicalPair() : transferPair(wallets, input)), normal('GASTO', 'F.003.001', 30, 'insurance'));
+  data.budgetPlans.push({ monthYear: '2026-10', code: 'F.003.001', type: 'GASTO', plannedAmount: 80 });
+  // Allow a cross-type move without colliding with the separate credit partida.
+  data.budgetGroups = data.budgetGroups.map(g => ({ ...g, partidas: g.partidas.filter(p => !(p.code === 'F.003.001' && p.type === 'INGRESO')) }));
+  return data;
+}
+const insurancePartida = (data: FinanceData) => data.budgetGroups.flatMap(g => g.partidas).find(p => p.code === 'F.003.001' && p.type === 'GASTO')!;
+
+for (const historical of [false, true]) test(`F.003.001: traslado atómico respeta extremos ${historical ? 'históricos' : '2.6'} y guarda catálogo, planes y movimientos juntos`, async () => {
+  const data = budgetMoveFixture(historical), original = structuredClone(data), storage = new MemoryStorage();
+  storage.setItem(DATA_KEY, serializeSnapshot(data));
+  const store = new FinanceStore(storage, fixture(), exclusive), writes = storage.writes;
+  await store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L'));
+  assert.equal(storage.writes, writes + 1, 'solo una escritura activa, ninguna intermedia');
+  assert.deepEqual(data, original, 'transformación pura');
+  const saved = new FinanceStore(storage, fixture(), exclusive).data;
+  assert.equal(saved.budgetGroups.find(g => g.code === 'L')!.partidas.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+  assert.equal(saved.budgetGroups.find(g => g.code === 'F_EXP')!.partidas.some(p => p.code === 'F.003.001'), false);
+  assert.equal(saved.budgetPlans.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+  assert.equal(saved.transactions.find(t => t.id === 'insurance')!.type, 'INGRESO');
+  const originalLegs = original.transactions.filter(t => t.transfer || isLegacyTransfer(t));
+  assert.deepEqual(saved.transactions.filter(t => t.transfer || isLegacyTransfer(t)), originalLegs);
+  assert.deepEqual(calculateWalletBalances(wallets, originalLegs), calculateWalletBalances(wallets, saved.transactions.filter(t => t.transfer || isLegacyTransfer(t))));
+  assertTransferIntegrity(saved.transactions, wallets);
+});
+
+test('F.003.001: colisión del catálogo rechaza todo el traslado, sin escrituras parciales', async () => {
+  const data = budgetMoveFixture(), storage = new MemoryStorage();
+  data.budgetGroups = structuredClone(BUDGET_GROUPS);
+  storage.setItem(DATA_KEY, serializeSnapshot(data));
+  const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), writes = storage.writes, original = structuredClone(store.data);
+  await assert.rejects(store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L')), /Ya existe una partida/);
+  assert.equal(storage.writes, writes); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
+});
+
+test('F.003.001: una validación final fallida conserva catálogo, planes, movimientos y revisión', async () => {
+  const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
+  const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), original = structuredClone(store.data), writes = storage.writes;
+  await assert.rejects(store.mutate(current => {
+    const candidate = changePartidaGroup(current, insurancePartida(current), 'L');
+    return { ...candidate, transactions: candidate.transactions.map(t => t.transfer?.leg === 'out' ? { ...t, type: 'INGRESO' } : t) };
+  }), /dos extremos/);
+  assert.equal(storage.writes, writes); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
+});
+
+test('F.003.001: fallo de cuota no guarda ninguna colección; el reintento guarda todas', async () => {
+  const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
+  const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), original = structuredClone(store.data);
+  storage.fail = k => k === DATA_KEY;
+  const change = () => store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L'));
+  await assert.rejects(change(), /Cuota/); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
+  storage.fail = () => false; await change(); assert.equal(store.data.transactions.find(t => t.id === 'insurance')!.type, 'INGRESO');
+});
+
+test('F.003.001: conflicto de pestañas se comprueba antes de calcular o escribir el traslado', async () => {
+  const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
+  const stale = new FinanceStore(storage, fixture(), exclusive), other = new FinanceStore(storage, fixture(), exclusive);
+  await other.update('theme', 'light'); const before = storage.getItem(DATA_KEY); let transformed = false;
+  await assert.rejects(stale.mutate(current => { transformed = true; return changePartidaGroup(current, insurancePartida(current), 'L'); }), StorageConflictError);
+  assert.equal(transformed, false); assert.equal(storage.getItem(DATA_KEY), before);
 });

@@ -51,6 +51,7 @@ import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
 import { clearedData } from './utils/clearData';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
+import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
 
 const DEMO_DATA: FinanceData = {
@@ -67,7 +68,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { data, update, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
+  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const transactions = useMemo(() => storedTransactions.map(t => t.transfer ? { ...t, wallet: transferWalletName(t, wallets) } : t), [storedTransactions, wallets]);
   const legacyTransfers = useMemo(() => legacyTransferReport(storedTransactions, wallets), [storedTransactions, wallets]);
@@ -305,61 +306,7 @@ export default function App() {
     partida: BudgetPartida,
     targetGroupCode: string
   ) => {
-    const currentGroupCode = partida.groupCode;
-    const sourceGroup = budgetGroups.find(g => g.code === currentGroupCode);
-    const targetGroup = budgetGroups.find(g => g.code === targetGroupCode);
-    if (!sourceGroup || !targetGroup) return;
-
-    const oldType = partida.type;
-    const newType = targetGroup.type;
-
-    const updatedPartida: BudgetPartida = {
-      ...partida,
-      groupCode: targetGroup.code,
-      groupName: targetGroup.name,
-      type: newType,
-    };
-
-    setBudgetGroups(prevGroups => {
-      return prevGroups.map(g => {
-        if (g.code === currentGroupCode) {
-          return {
-            ...g,
-            partidas: g.partidas.filter(p => p.code !== partida.code),
-          };
-        }
-        if (g.code === targetGroupCode) {
-          return {
-            ...g,
-            partidas: [...g.partidas, updatedPartida],
-          };
-        }
-        return g;
-      });
-    });
-
-    if (oldType !== newType) {
-      setBudgetPlans(prev =>
-        prev.map(plan => {
-          if (plan.code === partida.code && plan.type === oldType) {
-            return { ...plan, type: newType };
-          }
-          return plan;
-        })
-      );
-      setTransactions(prev =>
-        prev.map(tx => {
-          if (tx.code === partida.code && tx.type === oldType) {
-            return {
-              ...tx,
-              type: newType,
-              categoryName: targetGroup.name,
-            };
-          }
-          return tx;
-        })
-      );
-    }
+    return mutate(current => changePartidaGroup(current, partida, targetGroupCode));
   };
 
   // Inspect detail of a partida
@@ -640,7 +587,8 @@ export default function App() {
       </div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p>Traspasos históricos: {legacyTransfers.pairs.length} pares inequívocos y {legacyTransfers.unresolved.length} registros pendientes de revisión. Los originales no se han reescrito. Los pares inequívocos no cuentan como ingreso ni gasto; los registros ambiguos conservan sus cálculos anteriores y bloquean la edición individual.</p>
-        {legacyTransfers.pairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
+        {legacyTransfers.missingWalletPairs.length > 0 && <p>{legacyTransfers.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales.</p>}
+        {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
       </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">

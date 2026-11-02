@@ -87,12 +87,16 @@ export function legacyTransferReport(transactions: Transaction[], wallets?: Wall
     });
     if (candidates.length !== 1 || linked.has(candidates[0].id)) continue;
     const incoming = candidates[0];
-    if (wallets && (!wallets.some(w => w.name === out.wallet) || !wallets.some(w => w.name === incoming.wallet))) continue;
     const prefix = `Traspaso a ${incoming.wallet}`;
     pairs.push({ out, incoming, concept: out.description.slice(prefix.length).replace(/^: /, '') });
     linked.add(out.id); linked.add(incoming.id);
   }
-  return { pairs, unresolved: legacy.filter(t => !linked.has(t.id)), linked };
+  // Recognition is historical evidence; a removed wallet must not change accounting.
+  // Stable links can only be added when both current wallets still exist.
+  const migratablePairs = wallets ? pairs.filter(({ out, incoming }) =>
+    wallets.some(w => w.name === out.wallet) && wallets.some(w => w.name === incoming.wallet)) : [];
+  const missingWalletPairs = wallets ? pairs.filter(pair => !migratablePairs.includes(pair)) : [];
+  return { pairs, migratablePairs, missingWalletPairs, unresolved: legacy.filter(t => !linked.has(t.id)), linked };
 }
 
 /** Pure classification: legacy originals remain untouched until explicit migration. */
@@ -104,7 +108,7 @@ export function economicTransactions(transactions: Transaction[]): Transaction[]
 export function migrateLegacyTransfers<T extends { transactions: Transaction[]; wallets: Wallet[] }>(data: T): T {
   const report = legacyTransferReport(data.transactions, data.wallets);
   const additions = new Map<string, Transaction['transfer']>();
-  for (const { out, incoming, concept } of report.pairs) {
+  for (const { out, incoming, concept } of report.migratablePairs) {
     const common = {
       id: `legacy-${out.id}`, fromWalletId: data.wallets.find(w => w.name === out.wallet)!.id,
       toWalletId: data.wallets.find(w => w.name === incoming.wallet)!.id, concept,

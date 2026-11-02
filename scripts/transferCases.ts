@@ -186,6 +186,110 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
     } finally { await context.close(); }
   });
 
+  await t.test('histórico 2.5 con destino eliminado: mismo criterio contable, aviso y migración bloqueada', async () => {
+    const history = transferPair(fixture.wallets, input, 'missing-wallet').map((t, i) => {
+      const { transfer, ...original } = t;
+      return { ...original, id: `tx-traspaso-${i ? 'in-101' : 'out-100'}`, notes: i ? 'Traspaso recibido desde OPENBANK' : 'Traspaso ordenado hacia REVOLUT' };
+    });
+    const initial = { ...fixture, version: '2.5' as const, transactions: history, budgetPlans: [], wallets: fixture.wallets.filter(w => w.id !== input.toWalletId) };
+    const { context, page } = await setup(initial);
+    try {
+      const before = await raw(page);
+      const notice = page.getByRole('status').filter({ hasText: 'Traspasos históricos:' });
+      await notice.waitFor(); assert.match(await notice.innerText(), /1 pares inequívocos y 0 registros pendientes/);
+      assert.match(await notice.innerText(), /sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular/);
+      assert.equal(await page.getByRole('button', { name: 'Revisar vinculación de traspasos históricos' }).count(), 0);
+      await navigate(page, 'Movimientos');
+      const income = page.getByText('Ingr:', { exact: false }).filter({ hasText: 'Ingr:' }).last();
+      const expense = page.getByText('Gast:', { exact: false }).filter({ hasText: 'Gast:' }).last();
+      assert.match(await income.innerText(), /0,00/); assert.match(await expense.innerText(), /0,00/);
+      assert.equal(await raw(page), before);
+      // The actual 2.5 import preview must communicate exactly the same policy.
+      await page.locator('input[type=file]').setInputFiles({ name: 'historico-sin-destino.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(initial)) });
+      const preview = page.getByRole('dialog');
+      assert.match(await preview.innerText(), /sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular/);
+      await preview.getByRole('button', { name: 'Cancelar', exact: true }).click();
+      await page.reload(); assert.equal(await raw(page), before);
+      assert.deepEqual(await readCopies(page), []);
+    } finally { await context.close(); }
+  });
+
+  for (const failure of ['none', 'storage', 'conflict', 'validation'] as const) await t.test(`F.003.001 cambia de grupo: operación única sin alterar traspasos (${failure})`, async () => {
+    const initial: Backup = {
+      ...fixture, version: '2.6',
+      transactions: [...transferPair(fixture.wallets, input, 'budget-move'), {
+        id: 'insurance-review', date: input.date, amount: 30, type: 'GASTO', code: 'F.003.001',
+        categoryName: 'FIJOS', subcategoryName: 'Salud: Seguros médicos', description: 'Seguro médico', wallet: 'OPENBANK', processed: true,
+      }, ...fixture.transactions],
+      budgetPlans: [...fixture.budgetPlans.filter(p => p.code !== 'F.003.001'), { monthYear: '2026-10', code: 'F.003.001', type: 'GASTO', plannedAmount: 80 }],
+      budgetGroups: fixture.budgetGroups.map(g => ({ ...g, partidas: g.partidas.filter(p => failure === 'validation' || !(p.code === 'F.003.001' && p.type === 'INGRESO')) })),
+    };
+    const beforeLegs = initial.transactions.filter(t => t.transfer);
+    const { context, page } = await setup(initial);
+    try {
+      await navigate(page, 'Presupuestos');
+      await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
+      const d = page.getByRole('dialog', { name: 'Mover partida', exact: true });
+      await d.getByLabel('Paquete de destino').selectOption('L');
+      const original = await raw(page);
+      await d.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), original);
+      await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
+      await d.getByLabel('Paquete de destino').selectOption('L');
+      await page.evaluate(key => {
+        const original = Storage.prototype.setItem;
+        (window as any).budgetWrites = { fail: false, attempts: 0, saved: [] };
+        Storage.prototype.setItem = function(k, value) {
+          if (k === key) {
+            (window as any).budgetWrites.attempts++;
+            if ((window as any).budgetWrites.fail) throw new DOMException('Cuota', 'QuotaExceededError');
+            (window as any).budgetWrites.saved.push(JSON.parse(value));
+          }
+          return original.call(this, k, value);
+        };
+      }, DATA_KEY);
+      if (failure === 'storage') await page.evaluate(() => { (window as any).budgetWrites.fail = true; });
+      if (failure === 'conflict') {
+        const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
+        await other.getByRole('button', { name: /Cambiar a modo/ }).click();
+        await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
+      }
+      const before = await raw(page);
+      await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).budgetLockHeld = true; await new Promise<void>(resolve => { (window as any).releaseBudgetLock = resolve; }); }); }, STORAGE_LOCK);
+      await page.waitForFunction(() => (window as any).budgetLockHeld);
+      await d.locator('button[type=submit]').click(); await d.locator('fieldset:disabled').waitFor();
+      await d.evaluate(form => form.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
+      assert.ok(await d.getByLabel('Paquete de destino').isDisabled());
+      assert.ok(await d.getByRole('button', { name: 'Cancelar' }).isDisabled());
+      assert.equal(await raw(page), before);
+      await page.evaluate(() => (window as any).releaseBudgetLock());
+      if (failure !== 'none') {
+        await d.getByRole('alert').waitFor();
+        assert.match(await d.getByRole('alert').innerText(), failure === 'storage' ? /No hay espacio/ : failure === 'conflict' ? /Otra pestaña/ : /Ya existe una partida/);
+        assert.equal(await d.getByLabel('Paquete de destino').inputValue(), 'L'); assert.equal(await raw(page), before);
+        if (failure !== 'storage') {
+          assert.equal(await page.evaluate(() => (window as any).budgetWrites.attempts), 0);
+          await d.getByRole('button', { name: 'Cancelar', exact: true }).click();
+          await page.reload(); assert.equal(await raw(page), before);
+          return;
+        }
+        await page.evaluate(() => { (window as any).budgetWrites.fail = false; });
+        await d.locator('button[type=submit]').click();
+      }
+      await d.waitFor({ state: 'hidden' });
+      const writes = await page.evaluate(() => (window as any).budgetWrites);
+      assert.equal(writes.saved.length, 1, 'no hay estados intermedios guardados');
+      assert.equal(writes.attempts, failure === 'storage' ? 2 : 1, 'doble envío bloqueado');
+      const saved = await data(page);
+      assert.equal(saved.budgetGroups.find(g => g.code === 'L')!.partidas.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+      assert.equal(saved.budgetGroups.find(g => g.code === 'F_EXP')!.partidas.some(p => p.code === 'F.003.001'), false);
+      assert.equal(saved.budgetPlans.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+      assert.deepEqual(saved.transactions.filter(t => t.transfer), beforeLegs);
+      for (const normal of initial.transactions.filter(t => !t.transfer && t.code === 'F.003.001' && t.type === 'GASTO')) assert.equal(saved.transactions.find(t => t.id === normal.id)!.type, 'INGRESO');
+      assertTransferIntegrity(saved.transactions, saved.wallets);
+      await page.reload(); assert.deepEqual((await data(page)).transactions, saved.transactions);
+    } finally { await context.close(); }
+  });
+
   await t.test('históricos: aviso de ambigüedad, cancelación, migración explícita, copia previa y recarga', async () => {
     const history = transferPair(fixture.wallets, input, 'history').map((t, i) => {
       const { transfer, ...original } = t;

@@ -153,8 +153,10 @@ export function parseBackup(content: string): Backup {
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
   const legacy = legacyTransferReport(data.transactions, data.wallets);
-  if (legacy.pairs.length) warnings.push(`${legacy.pairs.length} traspasos históricos inequívocos: sus importes se excluyen de ingresos y gastos, sin reescribir los originales. Puedes revisar su vinculación desde el aviso de traspasos históricos.`);
-  if (legacy.unresolved.length) warnings.push(`${legacy.unresolved.length} registros de posibles traspasos históricos sin correspondencia inequívoca o sin carteras. Se conservan intactos. Los pares verificables se excluyen del resultado económico; los casos ambiguos mantienen sus cálculos anteriores. Su edición individual está bloqueada; requieren revisión manual con una copia de seguridad.`);
+  if (legacy.pairs.length) warnings.push(`${legacy.pairs.length} traspasos históricos inequívocos: sus importes se excluyen de ingresos y gastos, sin reescribir los originales.`);
+  if (legacy.migratablePairs.length) warnings.push(`${legacy.migratablePairs.length} pares pueden vincularse desde el aviso de traspasos históricos, tras revisar y confirmar la copia previa.`);
+  if (legacy.missingWalletPairs.length) warnings.push(`${legacy.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales sin crear carteras ni contrapartidas.`);
+  if (legacy.unresolved.length) warnings.push(`${legacy.unresolved.length} registros de posibles traspasos históricos sin correspondencia inequívoca. Se conservan intactos y mantienen sus cálculos anteriores. Su edición individual está bloqueada; requieren revisión manual con una copia de seguridad.`);
 
   const partidas = new Set(data.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)));
   if (data.transactions.some(t => !partidas.has(`${t.type}:${t.code}`)) || data.budgetPlans.some(p => !partidas.has(`${p.type}:${p.code}`))) warnings.push('Hay movimientos o presupuestos con partidas que no figuran en el catálogo. Se conservarán sin cambiar sus cálculos.');

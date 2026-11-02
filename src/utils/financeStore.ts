@@ -50,9 +50,14 @@ export class FinanceStore {
   }
 
   update<K extends keyof FinanceData>(field: K, value: FinanceData[K] | ((previous: FinanceData[K]) => FinanceData[K])) {
+    return this.mutate(current => ({ ...current, [field]: typeof value === 'function' ? value(current[field]) : value }));
+  }
+
+  /** Build, validate and commit multi-collection changes under the same lock/revision. */
+  mutate(transform: (current: FinanceData) => FinanceData) {
     return this.exclusive(() => {
       this.checkRevision();
-      const candidate = { ...this.data, [field]: typeof value === 'function' ? value(this.data[field]) : value };
+      const candidate = transform(this.data);
       // Existing structured legs can only remain linked, or disappear together.
       for (const old of this.data.transactions.filter(t => t.transfer)) {
         const next = candidate.transactions.find(t => t.id === old.id);
@@ -63,7 +68,7 @@ export class FinanceStore {
         const next = candidate.transactions.find(t => t.id === old.id);
         if (JSON.stringify(next) !== JSON.stringify(old)) throw new Error('Revisa y vincula el traspaso histórico antes de editarlo o eliminarlo.');
       }
-      if (field === 'wallets') for (const old of this.data.wallets) {
+      for (const old of this.data.wallets) {
         if (this.data.transactions.some(t => isLegacyTransfer(t) && t.wallet === old.name) &&
           !candidate.wallets.some(w => w.id === old.id && w.name === old.name)) {
           throw new Error('Vincula o revisa los traspasos históricos de esta cartera antes de renombrarla o eliminarla.');
