@@ -76,7 +76,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     <div className={`space-y-2 ${className}`}>
       {submission.error && <p role="alert" className="text-amber-300 text-xs">{submission.error}</p>}
       {submission.saving && <p role="status" className="text-sky-300 text-xs">Guardando…</p>}
-      <fieldset disabled={submission.saving} className="space-y-2">
+      <fieldset disabled={submission.saving} className="min-w-0 space-y-2">
       {/* Sleek Search & Quick-Entry Bar */}
       <div className="relative flex items-center">
         <div className="absolute left-3 text-slate-400 pointer-events-none">

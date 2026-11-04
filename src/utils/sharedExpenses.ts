@@ -1,3 +1,4 @@
+import { validateDistribution } from './sharedDistribution';
 import type { FinanceData } from './backup';
 import type { SharedExpenseInfo, Transaction, SettlementInput, DebtSettlement, Contact } from '../types/finance';
 
@@ -47,6 +48,7 @@ export function assertSharedIntegrity(data: FinanceData) {
     if (!data.wallets.some(w => w.id === split.walletId) || !Array.isArray(split.settlements)) throw new Error('La cartera o el registro de liquidaciones del gasto no existe.');
     if (split.totalParticipants !== split.participants.length + 1 || !split.participants.length ||
       cents(split.myShare) + split.participants.reduce((n, p) => n + cents(p.amount), 0) !== positiveCents(expense.amount)) throw new Error('El total debe coincidir con la parte propia y las deudas, sin diferencias de céntimos.');
+    if (split.distribution !== undefined) validateDistribution(split.distribution, split.participants.map(p => p.contactId), cents(expense.amount), [cents(split.myShare), ...split.participants.map(p => cents(p.amount))]);
     for (const p of split.participants) {
       if (!data.contacts.some(c => c.id === p.contactId)) throw new Error('No puede eliminarse un contacto con gastos vinculados.');
       const reserved = split.settlements.filter(s => s.contactId === p.contactId).reduce((n, s) => n + positiveCents(s.amount), 0);
@@ -114,7 +116,11 @@ export function saveSharedTransaction(data: FinanceData, draft: Omit<Transaction
   if (draft.splitInfo?.isShared) {
     const wallet = data.wallets.find(w => w.name === draft.wallet);
     if (!wallet) throw new Error('La cartera del gasto debe existir.');
-    const sameSplit = previous && isStructuredShared(previous) && previous.amount === draft.amount && JSON.stringify(previous.splitInfo!.participants.map(p => p.contactId)) === JSON.stringify(draft.splitInfo.participants.map(p => p.contactId));
+    const sameSplit = !draft.splitInfo.distribution && previous && isStructuredShared(previous) && previous.amount === draft.amount && JSON.stringify(previous.splitInfo!.participants.map(p => p.contactId)) === JSON.stringify(draft.splitInfo.participants.map(p => p.contactId));
+    if (previous?.splitInfo?.settlements?.length) {
+      const allocation = (s: SharedExpenseInfo) => [s.myShare, ...s.participants.map(p => [p.contactId, p.amount])];
+      if (!sameSplit && JSON.stringify(allocation(previous.splitInfo)) !== JSON.stringify(allocation(draft.splitInfo))) throw new Error('El gasto tiene liquidaciones: corrige explícitamente los cobros antes de modificar su reparto.');
+    }
     tx = { ...tx, splitInfo: { ...(sameSplit ? previous.splitInfo! : draft.splitInfo), accountingVersion: '2.7', walletId: wallet.id, settlements: previous?.splitInfo?.settlements ?? [] } };
   }
   return { ...data, transactions: previous ? data.transactions.map(t => t.id === id ? tx : t) : [tx, ...data.transactions] };
@@ -127,7 +133,7 @@ export function adjustDebt(data: FinanceData, expenseId: string, contactId: stri
   const participants = expense.splitInfo!.participants.map(p => p.contactId === contactId ? { ...p, amount } : p);
   const owed = participants.reduce((n, p) => n + cents(p.amount), 0), own = cents(expense.amount) - owed;
   if (own < 0) throw new Error('Las deudas superan el importe total pagado.');
-  const candidate = { ...data, transactions: data.transactions.map(t => t.id === expenseId ? { ...t, splitInfo: { ...t.splitInfo!, participants, myShare: own / 100, totalOwedToMe: owed / 100 } } : t) };
+  const candidate = { ...data, transactions: data.transactions.map(t => t.id === expenseId ? { ...t, splitInfo: { ...t.splitInfo!, participants, myShare: own / 100, totalOwedToMe: owed / 100, ...(t.splitInfo!.distribution ? { distribution: { method: 'amounts' as const } } : {}) } } : t) };
   assertSharedIntegrity(candidate); return candidate;
 }
 

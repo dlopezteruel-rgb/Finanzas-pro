@@ -1,3 +1,6 @@
+import { useAsyncForm } from '../utils/useAsyncForm';
+import type { SaveResult } from '../utils/saveResult';
+import { Overlay } from './Overlay';
 import React, { useState } from 'react';
 import { AlertTriangle, Trash2, X, Wallet, CreditCard, Receipt, PiggyBank, CheckSquare, Square } from 'lucide-react';
 import { ClearDataOptions } from '../utils/clearData';
@@ -7,7 +10,7 @@ export type { ClearDataOptions } from '../utils/clearData';
 interface ConfirmClearModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (options: ClearDataOptions) => void;
+  onConfirm: (options: ClearDataOptions) => Promise<SaveResult>;
 }
 
 export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
@@ -15,6 +18,8 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
   onClose,
   onConfirm,
 }) => {
+  const submission = useAsyncForm();
+  const close = () => submission.close(onClose);
   const [options, setOptions] = useState<ClearDataOptions>({
     clearWalletBalances: true,
     clearAllWallets: false,
@@ -50,13 +55,14 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
   const handleExecute = () => {
     if (selectedCount === 0) return;
-    onConfirm(options);
-    onClose();
+    void submission.submit(() => onConfirm(options), onClose);
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
+    <Overlay title="Borrar datos" onClose={close}>
       <div className="bg-[#141926] border border-rose-500/30 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] flex flex-col">
+        <fieldset disabled={submission.saving} className="space-y-4 min-h-0 overflow-y-auto">
+        {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
         {/* Header */}
         <div className="flex items-start justify-between pb-2 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
@@ -73,7 +79,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
             </div>
           </div>
           <button
-            onClick={onClose}
+            onClick={close} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -261,7 +267,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
         <div className="grid grid-cols-2 gap-2 pt-1 border-t border-white/[0.06]">
           <button
             type="button"
-            onClick={onClose}
+            onClick={close} disabled={submission.saving}
             className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
           >
             Cancelar
@@ -280,7 +286,8 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
             </span>
           </button>
         </div>
+        </fieldset>
       </div>
-    </div>
+    </Overlay>
   );
 };

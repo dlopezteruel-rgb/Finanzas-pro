@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import { parseTransferAmount } from '../utils/transfers';
@@ -487,7 +488,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
 
       {/* Quick Edit Pending Debt Modal */}
       {editingDebt && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+        <Overlay title="Corregir deuda" onClose={() => debtSubmission.close(() => setEditingDebt(null))}>
           <div role="dialog" aria-modal="true" aria-label="Corregir deuda" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
               <div>
@@ -566,7 +567,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
               </div>
             </fieldset>
           </div>
-        </div>
+        </Overlay>
       )}
     </div>
   );

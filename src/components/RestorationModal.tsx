@@ -3,8 +3,8 @@ import { Backup, backupWarnings } from '../utils/backup';
 import { formatCurrency } from '../utils/finance';
 import { SafeDialog } from './SafeDialog';
 
-export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false }: {
-  backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean;
+export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false, error = '', onDismissError }: {
+  backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean; error?: string; onDismissError?: () => void;
 }) {
   const counts = [
     ['Movimientos', backup.transactions.length], ['Presupuestos', backup.budgetPlans.length],
@@ -12,6 +12,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     ['Préstamos', backup.loans.length], ['Carteras', backup.wallets.length],
   ];
   return <SafeDialog title={label} onCancel={() => { if (!busy) onCancel(); }}>
+    {error && <div role="alert" className="text-amber-300 text-sm"><p>{error}</p>{onDismissError && <button onClick={onDismissError}>Cerrar aviso</button>}</div>}
     <p className="text-sm text-slate-300">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>
     <p className="text-xs text-slate-400">Formato {backup.version} · {new Date(backup.exportedAt).toLocaleString('es-ES')} · Tema {backup.theme === 'dark' ? 'oscuro' : 'claro'}</p>
     <dl className="grid grid-cols-2 gap-2 text-sm">{counts.map(([name, count]) => <div key={name} className="bg-white/5 rounded-xl p-2"><dt>{name}</dt><dd className="font-bold">{count}</dd></div>)}</dl>

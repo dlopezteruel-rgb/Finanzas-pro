@@ -24,6 +24,7 @@ import { formatCurrency } from '../utils/finance';
 interface TransactionsViewProps {
   transactions: Transaction[];
   onToggleProcessed: (id: string) => void;
+  onViewSharedDetails?: (id: string) => void;
   onDeleteTransaction: (id: string) => void;
   onEditTransaction: (tx: Transaction) => void;
   onOpenNewTransaction: () => void;
@@ -31,7 +32,7 @@ interface TransactionsViewProps {
 
 export const TransactionsView: React.FC<TransactionsViewProps> = ({
   transactions,
-  onToggleProcessed,
+  onToggleProcessed, onViewSharedDetails,
   onDeleteTransaction,
   onEditTransaction,
   onOpenNewTransaction,
@@ -231,6 +232,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                     <span className="text-xs font-bold text-white truncate" title={t.description}>
                       {t.description}{t.transfer ? ' · Traspaso interno' : t.reimbursement ? ' · Reintegro (no ingreso económico)' : ''}
                     </span>
+                    {t.splitInfo?.isShared && onViewSharedDetails && <button onClick={() => onViewSharedDetails(t.id)} className="text-sky-300 underline text-[10px]">Ver reparto</button>}
                     {t.splitInfo?.isShared && (
                       <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold shrink-0">
                         Compartido ({formatCurrency(t.splitInfo.totalOwedToMe)})

@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
@@ -70,7 +71,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   const close = () => submission.close(onClose);
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
+    <Overlay title="Traspaso" onClose={close}>
       <div role="dialog" aria-modal="true" aria-label="Traspaso" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl text-xs space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
@@ -276,6 +277,6 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           </fieldset>
         </form>
       </div>
-    </div>
+    </Overlay>
   );
 };

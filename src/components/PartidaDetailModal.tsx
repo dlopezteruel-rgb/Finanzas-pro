@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import React, { useState, useEffect } from 'react';
 import { BudgetPartida, MonthlyBudgetRow, Transaction, MovementType } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
@@ -14,6 +15,8 @@ interface PartidaDetailModalProps {
   onDeleteTransaction: (id: string) => void;
   onToggleProcessed: (id: string) => void;
   onAddMovementToPartida: (partidaCode: string, type: MovementType) => void;
+  onViewSharedDetails: (id: string) => void;
+  error?: string;
   onUpdatePrevisto: (code: string, type: MovementType, amount: number) => void;
 }
 
@@ -28,7 +31,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   onDeleteTransaction,
   onToggleProcessed,
   onAddMovementToPartida,
-  onUpdatePrevisto,
+  onUpdatePrevisto, onViewSharedDetails, error = '',
 }) => {
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
@@ -56,8 +59,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 animate-fadeIn">
-      <div className="bg-[#141926] border border-white/10 rounded-t-3xl sm:rounded-2xl max-w-lg w-full p-5 shadow-2xl text-xs space-y-4 max-h-[92vh] flex flex-col">
+    <Overlay title="Detalle de partida" level="panel" onClose={onClose}>
+      <div className="bg-[#141926] border border-white/10 max-w-xl w-full sm:w-[min(36rem,90vw)] h-dvh p-5 shadow-2xl text-xs space-y-4 flex flex-col">
         {/* Handle on mobile */}
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-1" />
 
@@ -93,6 +96,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </button>
         </div>
 
+        {error && <p role="alert" className="text-amber-300">{error}</p>}
         {/* Metrics Grid */}
         <div className="grid grid-cols-3 gap-2 bg-[#0c0f17] p-3 rounded-2xl border border-white/[0.06]">
           {/* Previsto */}
@@ -107,7 +111,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   onChange={e => setPrevistoInput(e.target.value)}
                   onKeyDown={e => {
                     if (e.key === 'Enter') handleSavePrevisto();
-                    if (e.key === 'Escape') setIsEditingPrevisto(false);
+                    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); setIsEditingPrevisto(false); }
                   }}
                   className="w-16 bg-[#161c2b] border border-sky-500 rounded px-1.5 py-0.5 text-xs text-white font-mono text-right"
                   autoFocus
@@ -175,7 +179,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
         </div>
 
         {/* Movements Scroll List */}
-        <div className="flex-1 overflow-y-auto space-y-2 pr-1 max-h-[350px]">
+        <div className="flex-1 overflow-y-auto space-y-2 pr-1 min-h-0">
           {partidaTransactions.length === 0 ? (
             <div className="py-8 text-center text-slate-400 text-xs">
               No hay movimientos registrados en esta partida para este mes.
@@ -183,7 +187,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           ) : (
             partidaTransactions.map(t => (
               <div
-                key={t.id}
+                key={t.id} data-movement-id={t.id}
                 className="bg-[#0c0f17] border border-white/[0.04] rounded-xl p-3 flex items-center justify-between gap-3 hover:border-white/[0.1] transition-colors"
               >
                 {/* Movement Details */}
@@ -193,6 +197,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                       {t.description}
                     </span>
                   </div>
+                  {t.splitInfo?.isShared && <div className="flex flex-wrap items-center gap-2 mt-1"><span className="rounded-full bg-sky-500/15 px-2 py-1 text-[10px] text-sky-300">Compartido</span><button className="text-sky-300 underline text-xs" onClick={() => onViewSharedDetails(t.id)}>Ver reparto</button></div>}
+                  {(t.transfer || t.reimbursement) && <p className="text-xs text-sky-300">{t.transfer ? 'Traspaso interno' : 'Reintegro'} · sin efecto presupuestario</p>}
                   <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
                     <span className="text-slate-300 font-semibold">{t.wallet}</span>
                     <span>•</span>
@@ -209,11 +215,9 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                 {/* Amount, status & edit/delete actions */}
                 <div className="flex items-center gap-2 shrink-0">
                   <div className="text-right">
-                    <span className={`text-xs sm:text-sm font-bold font-mono block ${
-                      t.type === 'INGRESO' ? 'text-emerald-400' : 'text-white'
-                    }`}>
-                      {t.type === 'INGRESO' ? '+' : '-'}{formatCurrency(t.amount)}
-                    </span>
+                    {t.splitInfo?.isShared ? <div className="text-xs space-y-1"><p>Total pagado: <strong>{formatCurrency(t.amount)}</strong></p><p>Tu gasto: <strong>{formatCurrency(t.processed ? t.splitInfo.accountingVersion === '2.7' ? t.splitInfo.myShare : t.amount : 0)}</strong></p>
+                      {t.splitInfo.accountingVersion !== '2.7' && <p className="text-amber-300 text-[10px]">Histórico sin migrar: se imputa el total.</p>}</div> : <span className={`text-xs sm:text-sm font-bold font-mono block ${t.type === 'INGRESO' ? 'text-emerald-400' : 'text-white'}`}>{t.type === 'INGRESO' ? '+' : '-'}{formatCurrency(t.amount)}</span>}
+
                     <button
                       type="button"
                       onClick={() => onToggleProcessed(t.id)}
@@ -254,6 +258,6 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           )}
         </div>
       </div>
-    </div>
+    </Overlay>
   );
 };

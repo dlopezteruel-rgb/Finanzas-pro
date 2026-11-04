@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { SharedExpenseDetail } from './components/SharedExpenseDetail';
+import { DeleteMovementDialog } from './components/DeleteMovementDialog';
+import type { SaveResult } from './utils/saveResult';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { adjustDebt, deleteSettlement, isLegacyShared, isStructuredShared, migrateSharedExpenses, saveSettlement, saveSharedTransaction, sharedMigrationReport, sharedViewTransactions, sharedWalletName } from './utils/sharedExpenses';
 import {
@@ -104,6 +107,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
 
   // Modals state
+  const [sharedDetailId, setSharedDetailId] = useState<string | null>(null);
+  const [deleteMovementId, setDeleteMovementId] = useState<string | null>(null);
+  const [initialMovementType, setInitialMovementType] = useState<MovementType>('GASTO');
   const [isTxModalOpen, setIsTxModalOpen] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
   const [initialPartidaCodeForModal, setInitialPartidaCodeForModal] = useState<string | undefined>(undefined);
@@ -215,7 +221,7 @@ export default function App() {
     const tx = transactions.find(t => t.id === id);
     if (tx?.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId, true); return; }
     if (tx?.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(true); return; }
-    setTransactions(prev => prev.filter(t => t.id !== id));
+    setDeleteMovementId(id);
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
@@ -231,7 +237,8 @@ export default function App() {
     setIsTxModalOpen(true);
   };
 
-  const handleOpenNewTransaction = (partidaCode?: string) => {
+  const handleOpenNewTransaction = (partidaCode?: string, movementType: MovementType = 'GASTO') => {
+    setInitialMovementType(movementType);
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(partidaCode);
     setInitialContactIdForModal(undefined);
@@ -239,6 +246,7 @@ export default function App() {
   };
 
   const handleOpenNewSharedTransaction = (preselectedContactId?: string) => {
+    setInitialMovementType('GASTO');
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(undefined);
     setInitialContactIdForModal(preselectedContactId);
@@ -322,8 +330,8 @@ export default function App() {
     setIsPartidaDetailOpen(true);
   };
 
-  const handleAddMovementToPartida = (partidaCode: string, _type: MovementType) => {
-    handleOpenNewTransaction(partidaCode);
+  const handleAddMovementToPartida = (partidaCode: string, type: MovementType) => {
+    handleOpenNewTransaction(partidaCode, type);
   };
 
   // 5. Contacts & Shared Expenses Handlers
@@ -421,15 +429,17 @@ export default function App() {
     setIsClearModalOpen(true);
   };
 
-  const handleConfirmClearSelected = async (options: ClearDataOptions) => {
-    if (clearPending.current) return;
+  const handleConfirmClearSelected = async (options: ClearDataOptions): Promise<SaveResult> => {
+    if (clearPending.current) return { ok: false, error: 'Hay un borrado pendiente de confirmación.' };
     clearPending.current = true;
     setDataError(''); setDataNotice('');
     try {
       await restore(current => makeBackup(clearedData(current, options)));
       setDataNotice('Datos seleccionados borrados. El estado anterior está en «Copias de recuperación».');
+      return { ok: true };
     } catch {
-      setDataError('No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.');
+      const error = 'No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.';
+      setDataError(error); return { ok: false, error };
     } finally { clearPending.current = false; }
   };
 
@@ -557,6 +567,7 @@ export default function App() {
           <TransactionsView
             transactions={transactions}
             onToggleProcessed={handleToggleProcessed}
+            onViewSharedDetails={setSharedDetailId}
             onDeleteTransaction={handleDeleteTransaction}
             onEditTransaction={handleOpenEditTransaction}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
@@ -634,7 +645,7 @@ export default function App() {
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
-      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} />}
+      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
           {recoveryCopies(localStorage).length === 0 && <p>No hay copias anteriores.</p>}
@@ -645,6 +656,8 @@ export default function App() {
       <TransferModal isOpen={!!transferToEdit} transferToEdit={transferToEdit} initiallyDelete={deleteTransferInitially}
         onClose={() => setTransferToEdit(null)} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
+      {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
+      {deleteMovementId && <DeleteMovementDialog description={transactions.find(t => t.id === deleteMovementId)?.description ?? 'Movimiento'} onClose={() => setDeleteMovementId(null)} onDelete={() => setTransactions(prev => prev.filter(t => t.id !== deleteMovementId))} />}
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}
@@ -663,6 +676,9 @@ export default function App() {
         initialPartidaCode={initialPartidaCodeForModal}
         initialContactId={initialContactIdForModal}
         availablePartidas={allPartidas}
+        budgetGroups={budgetGroups}
+        transactions={storedTransactions}
+        initialMovementType={initialMovementType}
       />
 
       {/* Partida Specific Detail Modal */}
@@ -681,6 +697,8 @@ export default function App() {
         onToggleProcessed={handleToggleProcessed}
         onAddMovementToPartida={handleAddMovementToPartida}
         onUpdatePrevisto={handleUpdateBudgetPlan}
+        onViewSharedDetails={setSharedDetailId}
+        error={dataError || saveError}
       />
 
       {/* Confirmation Modal to Clear Selected Data & Reset */}

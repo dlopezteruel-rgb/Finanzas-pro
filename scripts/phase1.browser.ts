@@ -247,6 +247,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     await page.getByRole('alert').filter({ hasText: 'No se ha aplicado el borrado' }).waitFor();
     assert.deepEqual(await stored(), before);
     await page.evaluate(() => (window as any).restoreStorageForTest());
+    await page.getByRole('dialog', { name: 'Borrar datos' }).getByRole('button', { name: 'Cancelar', exact: true }).click();
     await page.getByRole('button', { name: 'Cerrar aviso' }).click();
   });
   await t.test('confirmar la limpieza guarda una copia completa recuperable antes de borrar', async () => {

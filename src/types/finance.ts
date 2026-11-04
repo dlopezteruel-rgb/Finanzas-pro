@@ -49,7 +49,12 @@ export interface SettlementInput {
   walletId?: string;
 }
 
+export type SharedDistribution = { method: 'equal' } | { method: 'amounts' } | {
+  method: 'weighted'; ownWeight: number; contactWeights: { contactId: string; weight: number }[];
+};
+
 export interface SharedExpenseInfo {
+  distribution?: SharedDistribution;
   accountingVersion?: '2.7';
   walletId?: string;
   settlements?: DebtSettlement[];

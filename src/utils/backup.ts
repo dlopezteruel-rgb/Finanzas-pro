@@ -12,7 +12,7 @@ export interface FinanceData {
   wallets: Wallet[];
 }
 export interface Backup extends FinanceData {
-  version: '2.5' | '2.6' | '2.7';
+  version: '2.5' | '2.6' | '2.7' | '2.8';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -65,11 +65,11 @@ function unique(values: string[], path: string) {
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
   fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], [], 'Archivo');
-  if (!['2.5', '2.6', '2.7'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6 y 2.7; no se ha modificado ningún dato.');
+  if (!['2.5', '2.6', '2.7', '2.8'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7 y 2.8; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(value.version === '2.7' ? ['reimbursement'] : [])], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8'].includes(value.version) ? ['reimbursement'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
@@ -86,7 +86,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
-      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], value.version === '2.7' ? ['accountingVersion', 'walletId', 'settlements'] : [], `${p}.splitInfo`);
+      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(value.version === '2.8' ? ['distribution'] : [])] : [], `${p}.splitInfo`);
       bool(s.isShared, `${p}.splitInfo.isShared`); number(s.totalParticipants, `${p}.splitInfo.totalParticipants`, 2, true);
       number(s.myShare, `${p}.splitInfo.myShare`); number(s.totalOwedToMe, `${p}.splitInfo.totalOwedToMe`);
       array(s.participants, `${p}.splitInfo.participants`, (participant, q) => {
@@ -96,7 +96,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
         if (Object.hasOwn(participant, 'paidDate')) date(participant.paidDate, `${q}.paidDate`);
         optionalStrings(participant, ['reimbursementTxId'], q);
       });
-      if (['accountingVersion', 'walletId', 'settlements'].some(k => Object.hasOwn(s, k))) {
+      if (['accountingVersion', 'walletId', 'settlements', 'distribution'].some(k => Object.hasOwn(s, k))) {
         if (s.accountingVersion !== '2.7') invalid(`${p}.splitInfo.accountingVersion`, 'modelo no compatible.');
         string(s.walletId, `${p}.splitInfo.walletId`);
         array(s.settlements, `${p}.splitInfo.settlements`, (settlement, q) => {
@@ -157,7 +157,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
 }
 
 export function makeBackup(data: FinanceData): Backup {
-  return { ...data, version: data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
+  return { ...data, version: data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');

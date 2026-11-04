@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
@@ -46,7 +47,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
       amount: parseTransferAmount(amount), date, kind: cash ? 'cash' : 'offset', processed,
       ...(cash ? { walletId } : {}) }, settlementToEdit?.id), onClose);
   };
-  return <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+  return <Overlay title="Liquidación" onClose={close}>
     <section role="dialog" aria-modal="true" aria-label="Liquidación" className="bg-[#141926] border border-white/10 rounded-2xl max-w-md w-full p-5 text-xs space-y-4 max-h-[92vh] overflow-y-auto">
       <div className="flex justify-between items-center"><h3 className="text-sm font-bold text-white">{settlementToEdit ? 'Editar liquidación' : 'Saldar Deuda Compartida'}</h3><button aria-label="Cerrar modal" onClick={close} disabled={submission.saving}><X className="w-4 h-4" /></button></div>
       <p>{debtItem.contact.name} · {debtItem.transactionDescription}</p>
@@ -66,5 +67,5 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
         </fieldset>
       </form>
     </section>
-  </div>;
+  </Overlay>;
 };

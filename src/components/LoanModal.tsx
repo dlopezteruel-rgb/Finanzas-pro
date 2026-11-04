@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
@@ -96,7 +97,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
+    <Overlay title="Préstamo" onClose={() => submission.close(onClose)}>
       <div role="dialog" aria-modal="true" aria-label="Préstamo" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
@@ -339,6 +340,6 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           </fieldset>
         </form>
       </div>
-    </div>
+    </Overlay>
   );
 };

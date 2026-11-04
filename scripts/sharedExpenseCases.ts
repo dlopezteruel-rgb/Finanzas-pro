@@ -31,7 +31,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     await d.locator('input[type=number]').fill(amount);
     await d.getByPlaceholder('ej. Cena restaurante, Compra Zara, Supermercado...').fill('Cena ficticia');
     await d.locator('input[type=date]').fill('2026-10-08');
-    await d.getByRole('checkbox').first().check(); await d.getByRole('button', { name: '+', exact: true }).click();
+    await d.getByRole('checkbox').first().check();
     await d.getByRole('button', { name: 'Ana', exact: true }).click(); await d.getByRole('button', { name: 'Bea', exact: true }).click();
     return d;
   }
@@ -83,8 +83,8 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     const { context, page } = await setup(base());
     try {
       let d = await openNew(page, '100.01');
-      assert.equal(await d.getByRole('button', { name: /Ana.*33,34/ }).count(), 1);
-      assert.equal(await d.getByRole('button', { name: /Bea.*33,33/ }).count(), 1);
+      assert.match(await d.getByLabel('Parte de Ana', { exact: true }).innerText(), /33,34/);
+      assert.match(await d.getByLabel('Parte de Bea', { exact: true }).innerText(), /33,33/);
       await d.locator('input[type=number]').fill('100'); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
       let saved = await data(page), e = original(saved);
       assert.deepEqual([e.splitInfo!.myShare, ...e.splitInfo!.participants.map(p => p.amount)], [33.34, 33.33, 33.33]);
