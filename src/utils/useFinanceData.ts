@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DATA_KEY, FinanceData, StorageConflictError } from './backup';
-import { browserExclusiveWrite, FinanceStore, RestorationInput } from './financeStore';
+import { browserExclusiveWrite, FinanceStore, RestorationInput, type FinanceMutation } from './financeStore';
 import { SaveResult, saveErrorMessage } from './saveResult';
 import { browserStorageSupportError } from './storageSupport';
 export { loadFinanceData } from './financeStore';
@@ -52,7 +52,7 @@ export function useFinanceData(defaults: FinanceData) {
   function update<K extends keyof FinanceData>(field: K, value: FinanceData[K] | ((previous: FinanceData[K]) => FinanceData[K])): Promise<SaveResult> {
     return mutate(current => ({ ...current, [field]: typeof value === 'function' ? value(current[field]) : value }));
   }
-  function mutate(transform: (current: FinanceData) => FinanceData): Promise<SaveResult> {
+  function mutate(transform: FinanceMutation): Promise<SaveResult> {
     if (!initial.store) return Promise.resolve({ ok: false, error: initial.error });
     return initial.store.mutate(transform)
       .then(() => { setData(initial.store!.data); setSaveError(''); return { ok: true } as const; })

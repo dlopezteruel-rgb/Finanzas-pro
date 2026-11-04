@@ -78,6 +78,7 @@ export const Navigation: React.FC<NavigationProps> = ({
               return (
                 <button
                   key={tab.id}
+                  aria-current={isActive ? 'page' : undefined}
                   onClick={() => onSelectTab(tab.id)}
                   className={`relative flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
                     isActive
@@ -112,6 +113,7 @@ export const Navigation: React.FC<NavigationProps> = ({
             return (
               <button
                 key={tab.id}
+                  aria-current={isActive ? 'page' : undefined}
                 onClick={() => onSelectTab(tab.id)}
                 className={`flex flex-col items-center justify-center py-1 relative transition-transform active:scale-90 cursor-pointer ${
                   isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'

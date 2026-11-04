@@ -1,4 +1,7 @@
-import { useAsyncForm } from '../utils/useAsyncForm';
+import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
+import { clearImpact, clearScope } from '../utils/clearData';
+import type { FinanceData } from '../utils/backup';
+import type { DeletionReport } from '../utils/deletion';
 import type { SaveResult } from '../utils/saveResult';
 import { Overlay } from './Overlay';
 import React, { useState } from 'react';
@@ -8,18 +11,20 @@ export type { ClearDataOptions } from '../utils/clearData';
 
 
 interface ConfirmClearModalProps {
+  data: FinanceData;
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (options: ClearDataOptions) => Promise<SaveResult>;
+  onConfirm: (options: ClearDataOptions, scope: string) => Promise<SaveResult>;
 }
 
 export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
+  data,
   isOpen,
   onClose,
   onConfirm,
 }) => {
-  const submission = useAsyncForm();
-  const close = () => submission.close(onClose);
+  const [review, setReview] = useState<{ options: ClearDataOptions; scope: string; report: DeletionReport } | null>(null);
+  const close = onClose;
   const [options, setOptions] = useState<ClearDataOptions>({
     clearWalletBalances: true,
     clearAllWallets: false,
@@ -29,6 +34,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
   });
 
   if (!isOpen) return null;
+  const impact = clearImpact(data, options);
 
   const toggleOption = (key: keyof ClearDataOptions) => {
     setOptions(prev => {
@@ -55,14 +61,14 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
   const handleExecute = () => {
     if (selectedCount === 0) return;
-    void submission.submit(() => onConfirm(options), onClose);
+    setReview({ options: { ...options }, scope: clearScope(data, options), report: clearImpact(data, options) });
   };
 
   return (
+    <>
     <Overlay title="Borrar datos" onClose={close}>
       <div className="bg-[#141926] border border-rose-500/30 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] flex flex-col">
-        <fieldset disabled={submission.saving} className="space-y-4 min-h-0 overflow-y-auto">
-        {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+        <div aria-disabled={!!review} className="space-y-4 min-w-0 min-h-0 overflow-y-auto">
         {/* Header */}
         <div className="flex items-start justify-between pb-2 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
@@ -79,7 +85,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
             </div>
           </div>
           <button
-            onClick={close} disabled={submission.saving}
+            onClick={close} disabled={!!review}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -113,9 +119,9 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
         {/* Options List */}
         <div className="space-y-2 overflow-y-auto pr-1 flex-1">
           {/* 1. Dinero en las cuentas */}
-          <div
+          <button type="button" aria-label="Restablecer saldos base" aria-pressed={options.clearWalletBalances}
             onClick={() => toggleOption('clearWalletBalances')}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+            className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
               options.clearWalletBalances
                 ? 'bg-rose-500/10 border-rose-500/30'
                 : 'bg-[#0c0f17] border-white/[0.06] hover:border-white/[0.12]'
@@ -139,12 +145,12 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
                 <Square className="w-5 h-5 text-slate-600" />
               )}
             </div>
-          </div>
+          </button>
 
           {/* 2. Todas las cuentas */}
-          <div
+          <button type="button" aria-label="Eliminar todas las cuentas" aria-pressed={options.clearAllWallets}
             onClick={() => toggleOption('clearAllWallets')}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+            className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
               options.clearAllWallets
                 ? 'bg-rose-500/10 border-rose-500/30'
                 : 'bg-[#0c0f17] border-white/[0.06] hover:border-white/[0.12]'
@@ -168,12 +174,12 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
                 <Square className="w-5 h-5 text-slate-600" />
               )}
             </div>
-          </div>
+          </button>
 
           {/* 3. Movimientos */}
-          <div
+          <button type="button" aria-label="Borrar movimientos" aria-pressed={options.clearTransactions}
             onClick={() => toggleOption('clearTransactions')}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+            className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
               options.clearTransactions
                 ? 'bg-rose-500/10 border-rose-500/30'
                 : 'bg-[#0c0f17] border-white/[0.06] hover:border-white/[0.12]'
@@ -197,12 +203,12 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
                 <Square className="w-5 h-5 text-slate-600" />
               )}
             </div>
-          </div>
+          </button>
 
           {/* 4. Presupuestos */}
-          <div
+          <button type="button" aria-label="Borrar planes presupuestarios" aria-pressed={options.clearBudgets}
             onClick={() => toggleOption('clearBudgets')}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+            className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
               options.clearBudgets
                 ? 'bg-rose-500/10 border-rose-500/30'
                 : 'bg-[#0c0f17] border-white/[0.06] hover:border-white/[0.12]'
@@ -226,12 +232,12 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
                 <Square className="w-5 h-5 text-slate-600" />
               )}
             </div>
-          </div>
+          </button>
 
           {/* 5. Deudas */}
-          <div
+          <button type="button" aria-label="Borrar préstamos y deudas" aria-pressed={options.clearDebts}
             onClick={() => toggleOption('clearDebts')}
-            className={`p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
+            className={`w-full text-left p-3 rounded-2xl border transition-all cursor-pointer flex items-center justify-between gap-3 ${
               options.clearDebts
                 ? 'bg-rose-500/10 border-rose-500/30'
                 : 'bg-[#0c0f17] border-white/[0.06] hover:border-white/[0.12]'
@@ -244,7 +250,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
               <div>
                 <span className="font-bold text-white text-xs block">Deudas y Préstamos</span>
                 <span className="text-[11px] text-slate-400 block">
-                  Elimina préstamos bancarios y resetea las deudas compartidas pendientes.
+                  Elimina préstamos sin dejar cuotas huérfanas. Las deudas compartidas requieren borrar sus movimientos; para saldarlas utiliza una liquidación.
                 </span>
               </div>
             </div>
@@ -255,9 +261,15 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
                 <Square className="w-5 h-5 text-slate-600" />
               )}
             </div>
-          </div>
+          </button>
         </div>
 
+        <section aria-label="Resumen del borrado" className="rounded-xl border border-white/10 p-3 space-y-1">
+          <h4 className="font-bold">Alcance: todas las fechas</h4>
+          {impact.relations.map(r => <p key={r.label}>{r.label}: {r.count}</p>)}
+          <p>Se conservan contactos, familias y partidas del catálogo. Las categorías incluidas pueden solaparse.</p>
+          {impact.blockers.map(b => <p key={b} className="text-amber-300">{b}</p>)}
+        </section>
         {/* Warning notice */}
         <p className="text-[11px] text-rose-300/80 text-center font-medium bg-rose-500/10 py-1.5 px-3 rounded-xl border border-rose-500/20">
           Se guardará una copia recuperable antes de borrar. Si no se puede guardar, se cancelará la operación.
@@ -267,7 +279,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
         <div className="grid grid-cols-2 gap-2 pt-1 border-t border-white/[0.06]">
           <button
             type="button"
-            onClick={close} disabled={submission.saving}
+            onClick={close} disabled={!!review}
             className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
           >
             Cancelar
@@ -286,8 +298,12 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
             </span>
           </button>
         </div>
-        </fieldset>
+        </div>
       </div>
     </Overlay>
+    {review && <ConfirmDeleteDialog report={review.report} requiredText="BORRAR" onCancel={() => setReview(null)} onConfirm={async () => {
+      const result = await onConfirm(review.options, review.scope); if (result.ok) onClose(); return result;
+    }} />}
+    </>
   );
 };

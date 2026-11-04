@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 type Level = 'panel' | 'dialog';
-type Entry = { node: HTMLDivElement; content: HTMLElement; level: Level; order: number; close: () => void; previous: HTMLElement | null };
+type Entry = { node: HTMLDivElement; content: HTMLElement; level: Level; order: number; close: () => void; previous: HTMLElement | null; ancestors: HTMLElement[] };
 const levels: Record<Level, number> = { panel: 100, dialog: 200 };
 let sequence = 0;
 const entries: Entry[] = [];
@@ -69,7 +69,8 @@ export function Overlay({ children, onClose, title, level = 'dialog' }: {
     const previous = document.activeElement as HTMLElement | null;
     content.setAttribute('role', 'dialog'); content.setAttribute('aria-label', title); content.tabIndex = -1;
     if (!entries.length) lockBackground();
-    const entry: Entry = { node: wrapper, content, level, order: ++sequence, close: () => close.current(), previous };
+    const ancestors = [...entries].reverse().flatMap(e => e.previous ? [e.previous] : []);
+    const entry: Entry = { node: wrapper, content, level, order: ++sequence, close: () => close.current(), previous, ancestors };
     entries.push(entry); if (top() === entry) focus(entry); synchronize();
     return () => {
       const wasTop = top() === entry;
@@ -78,8 +79,10 @@ export function Overlay({ children, onClose, title, level = 'dialog' }: {
       if (wasTop) {
         const active = top();
         const restoreFocus = () => {
-          if (entry.previous?.isConnected && !entry.previous.closest('[inert]') && (!active || active.content.contains(entry.previous))) entry.previous.focus({ preventScroll: true });
+          const target = [entry.previous, ...entry.ancestors].find(el => el?.isConnected && el !== document.body && !el.closest('[inert]') && (!active || active.content.contains(el)));
+          if (target) target.focus({ preventScroll: true });
           else if (active) focus(active);
+          else Array.from(document.querySelectorAll<HTMLElement>('#root [aria-current="page"]')).find(el => el.getClientRects().length)?.focus({ preventScroll: true });
         };
         restoreFocus();
         // React can restore the old selection after layout cleanup. A deleted

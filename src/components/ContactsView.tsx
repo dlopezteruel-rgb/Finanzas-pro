@@ -222,7 +222,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
 
               return (
                 <div
-                  key={contact.id}
+                  key={contact.id} data-contact-id={contact.id}
                   className={`bg-[#141926] border transition-all rounded-2xl overflow-hidden ${
                     totalPendingAmount > 0
                       ? 'border-sky-500/20 shadow-sm'
@@ -461,7 +461,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                             <span>Editar</span>
                           </button>
                           <button
-                            onClick={() => onDeleteContact(contact.id)}
+                            aria-label={`Eliminar contacto ${contact.name}`} onClick={() => onDeleteContact(contact.id)}
                             className="px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 flex items-center gap-1 cursor-pointer transition-colors"
                           >
                             <Trash2 className="w-3 h-3" />

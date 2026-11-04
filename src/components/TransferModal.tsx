@@ -269,7 +269,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           </div>
           {transferToEdit?.transfer && onDeleteTransfer && <div className="text-rose-300 space-y-2">
             {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>Eliminar traspaso completo</button> : <>
-              <p>Se eliminarán juntos los dos extremos del traspaso.</p>
+              <p>Se eliminarán juntos los dos extremos del traspaso «{transferToEdit.transfer.concept}» ({transferToEdit.transfer.id}): {formatCurrency(transferToEdit.amount)} · {transferToEdit.date}. Carteras: {wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name} → {wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name}. Se retirarán 2 movimientos; el patrimonio total no cambia.</p>
               <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>Confirmar eliminación del traspaso</button>
               <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">Conservar traspaso</button>
             </>}

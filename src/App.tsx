@@ -4,7 +4,8 @@
  */
 
 import { SharedExpenseDetail } from './components/SharedExpenseDetail';
-import { DeleteMovementDialog } from './components/DeleteMovementDialog';
+import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
+import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
 import type { SaveResult } from './utils/saveResult';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { adjustDebt, deleteSettlement, isLegacyShared, isStructuredShared, migrateSharedExpenses, saveSettlement, saveSharedTransaction, sharedMigrationReport, sharedViewTransactions, sharedWalletName } from './utils/sharedExpenses';
@@ -55,7 +56,6 @@ import { useFinanceData } from './utils/useFinanceData';
 import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
-import { clearedData } from './utils/clearData';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
@@ -108,7 +108,7 @@ export default function App() {
 
   // Modals state
   const [sharedDetailId, setSharedDetailId] = useState<string | null>(null);
-  const [deleteMovementId, setDeleteMovementId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<DeletionTarget | null>(null);
   const [initialMovementType, setInitialMovementType] = useState<MovementType>('GASTO');
   const [isTxModalOpen, setIsTxModalOpen] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
@@ -221,7 +221,7 @@ export default function App() {
     const tx = transactions.find(t => t.id === id);
     if (tx?.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId, true); return; }
     if (tx?.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(true); return; }
-    setDeleteMovementId(id);
+    setDeleteTarget({ kind: 'transaction', id });
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
@@ -351,7 +351,7 @@ export default function App() {
   };
 
   const handleDeleteContact = (id: string) => {
-    return setContacts(prev => prev.filter(c => c.id !== id));
+    setDeleteTarget({ kind: 'contact', id });
   };
 
   const handleOpenSettleDebt = (debtItem: DebtItemToSettle) => {
@@ -399,7 +399,7 @@ export default function App() {
   };
 
   const handleDeleteLoan = (loanId: string) => {
-    return setLoans(prev => prev.filter(l => l.id !== loanId));
+    return mutate(current => deleteEntity(current, { kind: 'loan', id: loanId }));
   };
 
   const handleAddWallet = (newWallet: Wallet) => {
@@ -411,7 +411,7 @@ export default function App() {
   };
 
   const handleDeleteWallet = (walletId: string) => {
-    return setWallets(prev => prev.filter(w => w.id !== walletId));
+    return mutate(current => deleteEntity(current, { kind: 'wallet', id: walletId }));
   };
 
   const handleExecuteTransfer = (input: TransferInput, id?: string) => {
@@ -429,12 +429,13 @@ export default function App() {
     setIsClearModalOpen(true);
   };
 
-  const handleConfirmClearSelected = async (options: ClearDataOptions): Promise<SaveResult> => {
+  const handleConfirmClearSelected = async (options: ClearDataOptions, scope: string): Promise<SaveResult> => {
     if (clearPending.current) return { ok: false, error: 'Hay un borrado pendiente de confirmación.' };
     clearPending.current = true;
     setDataError(''); setDataNotice('');
     try {
-      await restore(current => makeBackup(clearedData(current, options)));
+      const result = await mutate({ clear: options, scope });
+      if (!result.ok) { const error = `No se ha aplicado el borrado. ${result.error}`; setDataError(error); return { ok: false, error }; }
       setDataNotice('Datos seleccionados borrados. El estado anterior está en «Copias de recuperación».');
       return { ok: true };
     } catch {
@@ -605,6 +606,7 @@ export default function App() {
 
         {activeTab === 'loans' && (
           <LoansView
+            deletionData={data}
             loans={loans}
             transactions={transactions}
             wallets={wallets}
@@ -617,6 +619,7 @@ export default function App() {
 
         {activeTab === 'wallets' && (
           <WalletsView
+            deletionData={data}
             wallets={wallets}
             walletBalances={walletBalances}
             transactions={transactions}
@@ -657,7 +660,7 @@ export default function App() {
         onClose={() => setTransferToEdit(null)} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
       {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
-      {deleteMovementId && <DeleteMovementDialog description={transactions.find(t => t.id === deleteMovementId)?.description ?? 'Movimiento'} onClose={() => setDeleteMovementId(null)} onDelete={() => setTransactions(prev => prev.filter(t => t.id !== deleteMovementId))} />}
+      {deleteTarget && <ConfirmDeleteDialog report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? 'Confirmar eliminación del movimiento' : undefined} />}
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}
@@ -703,6 +706,7 @@ export default function App() {
 
       {/* Confirmation Modal to Clear Selected Data & Reset */}
       <ConfirmClearModal
+        data={data}
         isOpen={isClearModalOpen}
         onClose={() => setIsClearModalOpen(false)}
         onConfirm={handleConfirmClearSelected}

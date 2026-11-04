@@ -1,3 +1,4 @@
+import type { FinanceData } from '../utils/backup';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState } from 'react';
 import { Loan, Transaction, Wallet } from '../types/finance';
@@ -6,6 +7,7 @@ import { CreditCard, Plus, CheckCircle2, ShieldCheck, ChevronRight, X, Edit2 } f
 import { LoanModal } from './LoanModal';
 
 interface LoansViewProps {
+  deletionData: FinanceData;
   loans: Loan[];
   transactions: Transaction[];
   wallets: Wallet[];
@@ -16,6 +18,7 @@ interface LoansViewProps {
 }
 
 export const LoansView: React.FC<LoansViewProps> = ({
+  deletionData,
   loans,
   transactions,
   wallets,
@@ -140,7 +143,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
                         handleOpenEdit(loan);
                       }}
                       className="p-1.5 rounded-xl bg-white/[0.04] group-hover:bg-sky-500/10 text-slate-400 group-hover:text-sky-400 border border-white/[0.06] group-hover:border-sky-500/30 transition-colors cursor-pointer"
-                      title="Editar deuda o préstamo"
+                      title="Editar deuda o préstamo" aria-label={`Editar deuda o préstamo ${loan.name}`}
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                     </button>
@@ -195,6 +198,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
 
       {/* Edit / Create Loan Modal */}
       <LoanModal
+        deletionData={deletionData}
         isOpen={isLoanModalOpen}
         onClose={() => {
           setIsLoanModalOpen(false);
