@@ -1,3 +1,4 @@
+import { isStructuredShared } from './sharedExpenses';
 import type { Transaction, TransferInput, Wallet } from '../types/finance';
 
 export const TRANSFER_CODE = 'F.003.001';
@@ -102,7 +103,7 @@ export function legacyTransferReport(transactions: Transaction[], wallets?: Wall
 /** Pure classification: legacy originals remain untouched until explicit migration. */
 export function economicTransactions(transactions: Transaction[]): Transaction[] {
   const { linked } = legacyTransferReport(transactions);
-  return transactions.filter(t => !t.transfer && !linked.has(t.id));
+  return transactions.filter(t => !t.transfer && !t.reimbursement && !linked.has(t.id)).map(t => isStructuredShared(t) ? { ...t, amount: t.splitInfo!.myShare } : t);
 }
 
 export function migrateLegacyTransfers<T extends { transactions: Transaction[]; wallets: Wallet[] }>(data: T): T {

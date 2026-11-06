@@ -1,3 +1,4 @@
+import type { FinanceData } from '../utils/backup';
 import { economicTransactions, isLegacyTransfer, transferWalletName } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
@@ -18,6 +19,7 @@ import { WalletModal } from './WalletModal';
 import { TransferModal } from './TransferModal';
 
 interface WalletsViewProps {
+  deletionData: FinanceData;
   wallets: Wallet[];
   walletBalances: Record<string, number>;
   transactions: Transaction[];
@@ -28,6 +30,7 @@ interface WalletsViewProps {
 }
 
 export const WalletsView: React.FC<WalletsViewProps> = ({
+  deletionData,
   wallets,
   walletBalances,
   transactions,
@@ -159,7 +162,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                     handleOpenEdit(w);
                   }}
                   className="p-1.5 rounded-xl bg-white/[0.04] group-hover:bg-sky-500/10 text-slate-400 group-hover:text-sky-400 border border-white/[0.06] group-hover:border-sky-500/30 transition-colors cursor-pointer"
-                  title="Editar cuenta y patrimonio"
+                  title="Editar cuenta y patrimonio" aria-label={`Editar cuenta y patrimonio ${w.name}`}
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                 </button>
@@ -273,6 +276,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
       {/* Edit / Add Wallet Modal */}
       <WalletModal
+        deletionData={deletionData}
         wallets={wallets}
         isOpen={isWalletModalOpen}
         onClose={() => {

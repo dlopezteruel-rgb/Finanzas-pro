@@ -3,9 +3,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { SharedExpenseDetail } from './components/SharedExpenseDetail';
+import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
+import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
+import type { SaveResult } from './utils/saveResult';
 import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { adjustDebt, deleteSettlement, isLegacyShared, isStructuredShared, migrateSharedExpenses, saveSettlement, saveSharedTransaction, sharedMigrationReport, sharedViewTransactions, sharedWalletName } from './utils/sharedExpenses';
 import {
   Transaction,
+  DebtSettlement,
+  SettlementInput,
   TransferInput,
   BudgetPlan,
   BudgetGroup,
@@ -49,7 +56,6 @@ import { useFinanceData } from './utils/useFinanceData';
 import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
-import { clearedData } from './utils/clearData';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
@@ -70,7 +76,10 @@ function downloadJSON(content: string, filename: string) {
 export default function App() {
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
-  const transactions = useMemo(() => storedTransactions.map(t => t.transfer ? { ...t, wallet: transferWalletName(t, wallets) } : t), [storedTransactions, wallets]);
+  const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
+  const sharedMigration = useMemo(() => sharedMigrationReport(data), [data]);
+  const [settlementToEdit, setSettlementToEdit] = useState<DebtSettlement | undefined>(undefined);
+  const [deleteSettlementInitially, setDeleteSettlementInitially] = useState(false);
   const legacyTransfers = useMemo(() => legacyTransferReport(storedTransactions, wallets), [storedTransactions, wallets]);
   const [transferToEdit, setTransferToEdit] = useState<Transaction | null>(null);
   const [deleteTransferInitially, setDeleteTransferInitially] = useState(false);
@@ -98,6 +107,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
 
   // Modals state
+  const [sharedDetailId, setSharedDetailId] = useState<string | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<DeletionTarget | null>(null);
+  const [initialMovementType, setInitialMovementType] = useState<MovementType>('GASTO');
   const [isTxModalOpen, setIsTxModalOpen] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
   const [initialPartidaCodeForModal, setInitialPartidaCodeForModal] = useState<string | undefined>(undefined);
@@ -189,20 +201,16 @@ export default function App() {
 
   // 3. Transactions Handlers
   const handleSaveTransaction = (txData: Omit<Transaction, 'id'>, existingId?: string) => {
-    if (existingId) {
-      return setTransactions(prev =>
-        prev.map(t => (t.id === existingId ? { ...txData, id: existingId } : t))
-      );
-    } else {
-      const newTx: Transaction = {
-        ...txData,
-        id: `tx-${Date.now()}`,
-      };
-      return setTransactions(prev => [newTx, ...prev]);
-    }
+    return mutate(current => saveSharedTransaction(current, txData, existingId));
   };
 
   const handleToggleProcessed = (id: string) => {
+    const tx = storedTransactions.find(t => t.id === id);
+    if (tx?.reimbursement) {
+      const expense = storedTransactions.find(t => t.id === tx.reimbursement!.expenseId)!;
+      const s = expense.splitInfo!.settlements!.find(s => s.id === tx.reimbursement!.settlementId)!;
+      return mutate(current => saveSettlement(current, { ...s, expenseId: expense.id, processed: !s.processed }, s.id));
+    }
     return setTransactions(prev => {
       const target = prev.find(t => t.id === id);
       return prev.map(t => (t.id === id || (target?.transfer && t.transfer?.id === target.transfer.id)) ? { ...t, processed: !target!.processed } : t);
@@ -211,11 +219,16 @@ export default function App() {
 
   const handleDeleteTransaction = (id: string) => {
     const tx = transactions.find(t => t.id === id);
+    if (tx?.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId, true); return; }
     if (tx?.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(true); return; }
-    setTransactions(prev => prev.filter(t => t.id !== id));
+    setDeleteTarget({ kind: 'transaction', id });
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
+    if (tx.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId); return; }
+    if (isLegacyShared(tx)) { setDataError('Revisa la migración del gasto compartido histórico antes de editarlo.'); return; }
+    const raw = storedTransactions.find(t => t.id === tx.id);
+    if (raw && isStructuredShared(raw)) tx = { ...raw, wallet: sharedWalletName(raw, { wallets }) };
     if (tx.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(false); return; }
     if (isLegacyTransfer(tx)) { setDataError('Este traspaso histórico requiere revisión y vinculación antes de editar sus extremos.'); return; }
     setTransactionToEdit(tx);
@@ -224,7 +237,8 @@ export default function App() {
     setIsTxModalOpen(true);
   };
 
-  const handleOpenNewTransaction = (partidaCode?: string) => {
+  const handleOpenNewTransaction = (partidaCode?: string, movementType: MovementType = 'GASTO') => {
+    setInitialMovementType(movementType);
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(partidaCode);
     setInitialContactIdForModal(undefined);
@@ -232,6 +246,7 @@ export default function App() {
   };
 
   const handleOpenNewSharedTransaction = (preselectedContactId?: string) => {
+    setInitialMovementType('GASTO');
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(undefined);
     setInitialContactIdForModal(preselectedContactId);
@@ -315,8 +330,8 @@ export default function App() {
     setIsPartidaDetailOpen(true);
   };
 
-  const handleAddMovementToPartida = (partidaCode: string, _type: MovementType) => {
-    handleOpenNewTransaction(partidaCode);
+  const handleAddMovementToPartida = (partidaCode: string, type: MovementType) => {
+    handleOpenNewTransaction(partidaCode, type);
   };
 
   // 5. Contacts & Shared Expenses Handlers
@@ -336,69 +351,24 @@ export default function App() {
   };
 
   const handleDeleteContact = (id: string) => {
-    setContacts(prev => prev.filter(c => c.id !== id));
+    setDeleteTarget({ kind: 'contact', id });
   };
 
   const handleOpenSettleDebt = (debtItem: DebtItemToSettle) => {
+    setSettlementToEdit(undefined); setDeleteSettlementInitially(false);
     setDebtToSettle(debtItem);
     setIsSettleModalOpen(true);
   };
 
-  const handleConfirmSettleDebt = (
-    debtItem: DebtItemToSettle,
-    walletName: string,
-    settleDate: string,
-    createIncomeTx: boolean
-  ) => {
-    const reimbursementId = `tx-reintegro-${Date.now()}`;
-
-    // 1. Mark participant as settled in original transaction
-    return setTransactions(prev => {
-      const updated = prev.map(tx => {
-        if (tx.id !== debtItem.transactionId || !tx.splitInfo) return tx;
-        const updatedParticipants = tx.splitInfo.participants.map(p => {
-          if (
-            p.contactId === debtItem.participant.contactId ||
-            p.contactName.toLowerCase() === debtItem.participant.contactName.toLowerCase()
-          ) {
-            return {
-              ...p,
-              isPaid: true,
-              paidDate: settleDate,
-              reimbursementTxId: createIncomeTx ? reimbursementId : undefined,
-            };
-          }
-          return p;
-        });
-
-        return {
-          ...tx,
-          splitInfo: {
-            ...tx.splitInfo,
-            participants: updatedParticipants,
-          },
-        };
-      });
-
-      // 2. Generate income movement for repayment
-      if (createIncomeTx) {
-        const newIncomeTx: Transaction = {
-          id: reimbursementId,
-          date: settleDate,
-          amount: debtItem.participant.amount,
-          type: 'INGRESO',
-          code: debtItem.transactionCode, // Imputado a la misma partida que financiaste
-          categoryName: debtItem.transactionCategory,
-          subcategoryName: debtItem.transactionSubcategory,
-          description: `Reintegro ${debtItem.contact.name}: ${debtItem.transactionDescription}`,
-          wallet: walletName,
-          processed: true,
-          notes: `Reintegro por deuda compartida saldada (${formatCurrency(debtItem.participant.amount)})`,
-        };
-        return [newIncomeTx, ...updated];
-      }
-      return updated;
-    });
+  const handleConfirmSettleDebt = (input: SettlementInput, id?: string) => mutate(current => saveSettlement(current, input, id));
+  const handleRemoveSettlement = (expenseId: string, id: string) => mutate(current => deleteSettlement(current, expenseId, id));
+  const handleEditSettlement = (expenseId: string, id: string, deleting = false) => {
+    const expense = transactions.find(t => t.id === expenseId), s = expense?.splitInfo?.settlements?.find(s => s.id === id);
+    const contact = contacts.find(c => c.id === s?.contactId), participant = expense?.splitInfo?.participants.find(p => p.contactId === s?.contactId);
+    if (!expense || !s || !contact || !participant) { setDataError('La liquidación ya no existe.'); return; }
+    setSettlementToEdit(s); setDeleteSettlementInitially(deleting);
+    setDebtToSettle({ transactionId: expense.id, transactionDescription: expense.description, transactionCode: expense.code, transactionCategory: expense.categoryName, transactionSubcategory: expense.subcategoryName, participant, contact });
+    setIsSettleModalOpen(true);
   };
 
   // 6. Loans & Wallets Actions
@@ -429,7 +399,7 @@ export default function App() {
   };
 
   const handleDeleteLoan = (loanId: string) => {
-    return setLoans(prev => prev.filter(l => l.id !== loanId));
+    return mutate(current => deleteEntity(current, { kind: 'loan', id: loanId }));
   };
 
   const handleAddWallet = (newWallet: Wallet) => {
@@ -441,7 +411,7 @@ export default function App() {
   };
 
   const handleDeleteWallet = (walletId: string) => {
-    return setWallets(prev => prev.filter(w => w.id !== walletId));
+    return mutate(current => deleteEntity(current, { kind: 'wallet', id: walletId }));
   };
 
   const handleExecuteTransfer = (input: TransferInput, id?: string) => {
@@ -451,28 +421,7 @@ export default function App() {
   const handleDeleteTransfer = (id: string) => setTransactions(prev => deleteTransfer(prev, id));
 
   const handleUpdateDebtAmount = (transactionId: string, contactId: string, newAmount: number) => {
-    setTransactions(prev =>
-      prev.map(tx => {
-        if (tx.id !== transactionId || !tx.splitInfo) return tx;
-        const updatedParticipants = tx.splitInfo.participants.map(p => {
-          if (p.contactId === contactId) {
-            return { ...p, amount: newAmount };
-          }
-          return p;
-        });
-        const newTotalOwed = updatedParticipants
-          .filter(p => !p.isPaid)
-          .reduce((sum, p) => sum + p.amount, 0);
-        return {
-          ...tx,
-          splitInfo: {
-            ...tx.splitInfo,
-            participants: updatedParticipants,
-            totalOwedToMe: newTotalOwed,
-          },
-        };
-      })
-    );
+    return mutate(current => adjustDebt(current, transactionId, contactId, newAmount));
   };
 
   // 7. Clear Selected Data & Reset Actions
@@ -480,15 +429,18 @@ export default function App() {
     setIsClearModalOpen(true);
   };
 
-  const handleConfirmClearSelected = async (options: ClearDataOptions) => {
-    if (clearPending.current) return;
+  const handleConfirmClearSelected = async (options: ClearDataOptions, scope: string): Promise<SaveResult> => {
+    if (clearPending.current) return { ok: false, error: 'Hay un borrado pendiente de confirmación.' };
     clearPending.current = true;
     setDataError(''); setDataNotice('');
     try {
-      await restore(current => makeBackup(clearedData(current, options)));
+      const result = await mutate({ clear: options, scope });
+      if (!result.ok) { const error = `No se ha aplicado el borrado. ${result.error}`; setDataError(error); return { ok: false, error }; }
       setDataNotice('Datos seleccionados borrados. El estado anterior está en «Copias de recuperación».');
+      return { ok: true };
     } catch {
-      setDataError('No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.');
+      const error = 'No se ha aplicado el borrado. No se pudo guardar una copia recuperable o los datos cambiaron en otra pestaña.';
+      setDataError(error); return { ok: false, error };
     } finally { clearPending.current = false; }
   };
 
@@ -590,6 +542,11 @@ export default function App() {
         {legacyTransfers.missingWalletPairs.length > 0 && <p>{legacyTransfers.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales.</p>}
         {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
       </div>}
+      {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
+        <p>Gastos compartidos históricos: {sharedMigration.candidates.length} gastos verificables y {sharedMigration.issues.length} casos para revisión. Hasta migrarlos conservan el gasto total y el tratamiento anterior de los ingresos. No se han reescrito los originales.</p>
+        {sharedMigration.issues.map(issue => <p key={issue}>{issue}</p>)}
+        {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>Revisar migración de gastos compartidos</button>}
+      </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
         {activeTab === 'dashboard' && (
@@ -611,6 +568,7 @@ export default function App() {
           <TransactionsView
             transactions={transactions}
             onToggleProcessed={handleToggleProcessed}
+            onViewSharedDetails={setSharedDetailId}
             onDeleteTransaction={handleDeleteTransaction}
             onEditTransaction={handleOpenEditTransaction}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
@@ -642,11 +600,13 @@ export default function App() {
             onOpenNewSharedTransaction={handleOpenNewSharedTransaction}
             onEditTransaction={handleOpenEditTransaction}
             onUpdateDebtAmount={handleUpdateDebtAmount}
+            onEditSettlement={handleEditSettlement}
           />
         )}
 
         {activeTab === 'loans' && (
           <LoansView
+            deletionData={data}
             loans={loans}
             transactions={transactions}
             wallets={wallets}
@@ -659,6 +619,7 @@ export default function App() {
 
         {activeTab === 'wallets' && (
           <WalletsView
+            deletionData={data}
             wallets={wallets}
             walletBalances={walletBalances}
             transactions={transactions}
@@ -687,7 +648,7 @@ export default function App() {
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
-      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} />}
+      {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
           {recoveryCopies(localStorage).length === 0 && <p>No hay copias anteriores.</p>}
@@ -698,6 +659,8 @@ export default function App() {
       <TransferModal isOpen={!!transferToEdit} transferToEdit={transferToEdit} initiallyDelete={deleteTransferInitially}
         onClose={() => setTransferToEdit(null)} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
+      {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
+      {deleteTarget && <ConfirmDeleteDialog report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? 'Confirmar eliminación del movimiento' : undefined} />}
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}
@@ -716,6 +679,9 @@ export default function App() {
         initialPartidaCode={initialPartidaCodeForModal}
         initialContactId={initialContactIdForModal}
         availablePartidas={allPartidas}
+        budgetGroups={budgetGroups}
+        transactions={storedTransactions}
+        initialMovementType={initialMovementType}
       />
 
       {/* Partida Specific Detail Modal */}
@@ -734,10 +700,13 @@ export default function App() {
         onToggleProcessed={handleToggleProcessed}
         onAddMovementToPartida={handleAddMovementToPartida}
         onUpdatePrevisto={handleUpdateBudgetPlan}
+        onViewSharedDetails={setSharedDetailId}
+        error={dataError || saveError}
       />
 
       {/* Confirmation Modal to Clear Selected Data & Reset */}
       <ConfirmClearModal
+        data={data}
         isOpen={isClearModalOpen}
         onClose={() => setIsClearModalOpen(false)}
         onConfirm={handleConfirmClearSelected}
@@ -752,6 +721,9 @@ export default function App() {
         }}
         debtItem={debtToSettle}
         wallets={wallets}
+        settlementToEdit={settlementToEdit}
+        initiallyDelete={deleteSettlementInitially}
+        onDeleteSettlement={handleRemoveSettlement}
         onConfirmSettle={handleConfirmSettleDebt}
       />
 

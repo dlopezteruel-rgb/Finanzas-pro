@@ -1,3 +1,6 @@
+import { assertDeletionTransition } from './deletion';
+import { confirmedClearData, type ClearDataOptions } from './clearData';
+import { assertSharedTransition } from './sharedExpenses';
 import { isLegacyTransfer } from './transfers';
 import { assertStorageRevision, Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, serializeSnapshot, StorageAccess, StorageConflictError } from './backup';
 import { browserStorageSupportError } from './storageSupport';
@@ -19,6 +22,7 @@ export function loadFinanceData(storage: Pick<Storage, 'getItem'>, defaults: Fin
   return parseBackup(JSON.stringify(makeBackup(data)));
 }
 
+export type FinanceMutation = ((current: FinanceData) => FinanceData) | { clear: ClearDataOptions; scope: string };
 export type ExclusiveWrite = <T>(write: () => T) => Promise<T>;
 export type RestorationInput = Backup | ((current: FinanceData) => Backup);
 export const STORAGE_LOCK = 'finanzas-pro-data-write';
@@ -54,30 +58,35 @@ export class FinanceStore {
   }
 
   /** Build, validate and commit multi-collection changes under the same lock/revision. */
-  mutate(transform: (current: FinanceData) => FinanceData) {
+  mutate(transform: FinanceMutation) {
     return this.exclusive(() => {
       this.checkRevision();
-      const candidate = transform(this.data);
-      // Existing structured legs can only remain linked, or disappear together.
-      for (const old of this.data.transactions.filter(t => t.transfer)) {
-        const next = candidate.transactions.find(t => t.id === old.id);
-        if (next && next.transfer?.id !== old.transfer!.id) throw new Error('No se puede desvincular un extremo del traspaso.');
-      }
-      // Historic transfer records are immutable until the explicit backed-up migration.
-      for (const old of this.data.transactions.filter(isLegacyTransfer)) {
-        const next = candidate.transactions.find(t => t.id === old.id);
-        if (JSON.stringify(next) !== JSON.stringify(old)) throw new Error('Revisa y vincula el traspaso histórico antes de editarlo o eliminarlo.');
-      }
-      for (const old of this.data.wallets) {
-        if (this.data.transactions.some(t => isLegacyTransfer(t) && t.wallet === old.name) &&
-          !candidate.wallets.some(w => w.id === old.id && w.name === old.name)) {
-          throw new Error('Vincula o revisa los traspasos históricos de esta cartera antes de renombrarla o eliminarla.');
+      const clearing = typeof transform !== 'function';
+      const candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
+      assertDeletionTransition(this.data, candidate);
+      if (!clearing) {
+        assertSharedTransition(this.data, candidate);
+        // Existing structured legs can only remain linked, or disappear together.
+        for (const old of this.data.transactions.filter(t => t.transfer)) {
+          const next = candidate.transactions.find(t => t.id === old.id);
+          if (next && next.transfer?.id !== old.transfer!.id) throw new Error('No se puede desvincular un extremo del traspaso.');
+        }
+        // Historic transfer records are immutable until the explicit backed-up migration.
+        for (const old of this.data.transactions.filter(isLegacyTransfer)) {
+          const next = candidate.transactions.find(t => t.id === old.id);
+          if (JSON.stringify(next) !== JSON.stringify(old)) throw new Error('Revisa y vincula el traspaso histórico antes de editarlo o eliminarlo.');
+        }
+        for (const old of this.data.wallets) {
+          if (this.data.transactions.some(t => isLegacyTransfer(t) && t.wallet === old.name) &&
+            !candidate.wallets.some(w => w.id === old.id && w.name === old.name)) {
+            throw new Error('Vincula o revisa los traspasos históricos de esta cartera antes de renombrarla o eliminarla.');
+          }
         }
       }
       // Existing forms legitimately produce optional undefined properties.
       const validated = parseBackup(JSON.stringify(makeBackup(candidate)));
-      if (validated.transactions.some(t => t.transfer) && !this.data.transactions.some(t => t.transfer)) {
-        // First 2.6 write: retain a verified 2.5 recovery copy before switching formats.
+      if (clearing || makeBackup(this.data).version < validated.version) {
+        // Mass clearing and schema upgrades preserve a verified recovery copy first.
         this.data = commitRestoration(this.storage, this.data, validated, this.revision);
         this.revision = this.storage.getItem(DATA_KEY);
         return this.data;

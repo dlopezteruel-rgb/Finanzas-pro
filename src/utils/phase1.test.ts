@@ -269,7 +269,7 @@ test('un borrado parcial en cola conserva los cambios previos de la misma pestaÃ
   const storage = new MemoryStorage(), store = new FinanceStore(storage, fixture(), sharedLock());
   await Promise.all([
     store.update('transactions', transactions => [{ ...transactions[0], id: 'just-saved' }, ...transactions]),
-    store.restore(current => makeBackup(clearedData(current, { ...clearOptions, clearTransactions: false }))),
+    store.restore(current => makeBackup(clearedData(current, { ...clearOptions, clearAllWallets: false, clearDebts: false, clearTransactions: false }))),
   ]);
   assert.equal(store.data.transactions[0].id, 'just-saved');
   assert.equal(parseBackup(recoveryCopies(storage)[0].content).transactions[0].id, 'just-saved');

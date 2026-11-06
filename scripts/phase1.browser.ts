@@ -1,3 +1,4 @@
+import { sharedExpenseCases } from './sharedExpenseCases';
 import { transferCases } from './transferCases';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -243,9 +244,13 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     }, RECOVERY_PREFIX);
     await openClear();
     await page.getByRole('button', { name: /Borrar seleccionados/ }).click();
+    await page.getByLabel('Escribe BORRAR para confirmar').fill('BORRAR');
+    await page.getByRole('button', { name: 'Confirmar eliminación', exact: true }).click();
     await page.getByRole('alert').filter({ hasText: 'No se ha aplicado el borrado' }).waitFor();
     assert.deepEqual(await stored(), before);
     await page.evaluate(() => (window as any).restoreStorageForTest());
+    await page.getByRole('dialog', { name: 'Confirmar borrado seleccionado' }).getByRole('button', { name: 'Cancelar', exact: true }).click();
+    await page.getByRole('dialog', { name: 'Borrar datos' }).getByRole('button', { name: 'Cancelar', exact: true }).click();
     await page.getByRole('button', { name: 'Cerrar aviso' }).click();
   });
   await t.test('confirmar la limpieza guarda una copia completa recuperable antes de borrar', async () => {
@@ -253,6 +258,8 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     const copiesBefore = Object.keys(await stored()).filter(key => key.startsWith(RECOVERY_PREFIX));
     await menu(); await page.getByRole('button', { name: 'Limpiar todo (Borrar datos)', exact: true }).click();
     await page.getByRole('button', { name: /Borrar seleccionados/ }).evaluate(button => { (button as HTMLButtonElement).click(); (button as HTMLButtonElement).click(); });
+    await page.getByLabel('Escribe BORRAR para confirmar').fill('BORRAR');
+    await page.getByRole('button', { name: 'Confirmar eliminación', exact: true }).evaluate(button => { (button as HTMLButtonElement).click(); (button as HTMLButtonElement).click(); });
     await page.getByRole('status').filter({ hasText: 'Datos seleccionados borrados' }).waitFor();
     const allStored = await stored();
     const newCopies = Object.keys(allStored).filter(key => key.startsWith(RECOVERY_PREFIX) && !copiesBefore.includes(key));
@@ -267,4 +274,5 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
   assert.deepEqual(errors, []);
   await asyncFormCases(t, browser, url, fixture);
   await transferCases(t, browser, url, fixture);
+  await sharedExpenseCases(t, browser, url);
 });

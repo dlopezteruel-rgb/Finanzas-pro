@@ -1,3 +1,4 @@
+import { assertSharedIntegrity, isStructuredShared, sharedMigrationReport } from './sharedExpenses';
 import { assertTransferIntegrity, legacyTransferReport } from './transfers';
 import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet } from '../types/finance';
 
@@ -11,7 +12,7 @@ export interface FinanceData {
   wallets: Wallet[];
 }
 export interface Backup extends FinanceData {
-  version: '2.5' | '2.6';
+  version: '2.5' | '2.6' | '2.7' | '2.8';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -64,14 +65,19 @@ function unique(values: string[], path: string) {
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
   fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], [], 'Archivo');
-  if (value.version !== '2.5' && value.version !== '2.6') invalid('version', 'versión no compatible. Se admiten los formatos 2.5 y 2.6; no se ha modificado ningún dato.');
+  if (!['2.5', '2.6', '2.7', '2.8'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7 y 2.8; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version === '2.6' ? ['transfer'] : [])], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8'].includes(value.version) ? ['reimbursement'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
+    if (Object.hasOwn(t, 'reimbursement')) {
+      object(t.reimbursement, `${p}.reimbursement`);
+      fields(t.reimbursement, ['expenseId', 'settlementId', 'contactId', 'walletId'], [], `${p}.reimbursement`);
+      for (const key of ['expenseId', 'settlementId', 'contactId', 'walletId']) string(t.reimbursement[key], `${p}.reimbursement.${key}`);
+    }
     if (Object.hasOwn(t, 'transfer')) {
       object(t.transfer, `${p}.transfer`);
       fields(t.transfer, ['id', 'fromWalletId', 'toWalletId', 'leg', 'concept'], [], `${p}.transfer`);
@@ -80,7 +86,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
-      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], [], `${p}.splitInfo`);
+      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(value.version === '2.8' ? ['distribution'] : [])] : [], `${p}.splitInfo`);
       bool(s.isShared, `${p}.splitInfo.isShared`); number(s.totalParticipants, `${p}.splitInfo.totalParticipants`, 2, true);
       number(s.myShare, `${p}.splitInfo.myShare`); number(s.totalOwedToMe, `${p}.splitInfo.totalOwedToMe`);
       array(s.participants, `${p}.splitInfo.participants`, (participant, q) => {
@@ -90,6 +96,17 @@ export function validateBackup(value: unknown): asserts value is Backup {
         if (Object.hasOwn(participant, 'paidDate')) date(participant.paidDate, `${q}.paidDate`);
         optionalStrings(participant, ['reimbursementTxId'], q);
       });
+      if (['accountingVersion', 'walletId', 'settlements', 'distribution'].some(k => Object.hasOwn(s, k))) {
+        if (s.accountingVersion !== '2.7') invalid(`${p}.splitInfo.accountingVersion`, 'modelo no compatible.');
+        string(s.walletId, `${p}.splitInfo.walletId`);
+        array(s.settlements, `${p}.splitInfo.settlements`, (settlement, q) => {
+          fields(settlement, ['id', 'contactId', 'amount', 'date', 'processed', 'kind'], ['walletId', 'transactionId'], q);
+          string(settlement.id, `${q}.id`); string(settlement.contactId, `${q}.contactId`);
+          number(settlement.amount, `${q}.amount`, 0.01); date(settlement.date, `${q}.date`); bool(settlement.processed, `${q}.processed`);
+          if (!['cash', 'offset'].includes(settlement.kind)) invalid(`${q}.kind`, 'tipo de liquidación inválido.');
+          optionalStrings(settlement, ['walletId', 'transactionId'], q);
+        });
+      }
       unique(s.participants.map((p: { contactId: string }) => p.contactId), `${p}.splitInfo.participants`);
     }
   });
@@ -132,6 +149,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
   const checked = value as unknown as Backup;
   for (const k of ['transactions', 'contacts', 'loans', 'wallets'] as const) unique(checked[k].map(item => item.id), k);
   assertTransferIntegrity(checked.transactions, checked.wallets);
+  assertSharedIntegrity(checked);
   unique(checked.wallets.map(w => w.name.trim().toUpperCase()), 'wallets.name');
   unique(checked.budgetGroups.map(g => g.code), 'budgetGroups');
   unique(checked.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)), 'budgetGroups.partidas');
@@ -139,7 +157,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
 }
 
 export function makeBackup(data: FinanceData): Backup {
-  return { ...data, version: data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
+  return { ...data, version: data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
@@ -152,6 +170,9 @@ export function parseBackup(content: string): Backup {
 /** Legacy applications can export orphaned links. Warn and preserve, never repair silently. */
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
+  const shared = sharedMigrationReport(data);
+  if (shared.candidates.length || shared.issues.length) warnings.push('Gastos compartidos históricos sin migrar: conservan el gasto total y el tratamiento anterior de ingresos. Revisa la migración para aplicar la parte propia y excluir los reintegros confirmados.');
+  warnings.push(...shared.issues);
   const legacy = legacyTransferReport(data.transactions, data.wallets);
   if (legacy.pairs.length) warnings.push(`${legacy.pairs.length} traspasos históricos inequívocos: sus importes se excluyen de ingresos y gastos, sin reescribir los originales.`);
   if (legacy.migratablePairs.length) warnings.push(`${legacy.migratablePairs.length} pares pueden vincularse desde el aviso de traspasos históricos, tras revisar y confirmar la copia previa.`);
@@ -161,12 +182,12 @@ export function backupWarnings(data: FinanceData): string[] {
   const partidas = new Set(data.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)));
   if (data.transactions.some(t => !partidas.has(`${t.type}:${t.code}`)) || data.budgetPlans.some(p => !partidas.has(`${p.type}:${p.code}`))) warnings.push('Hay movimientos o presupuestos con partidas que no figuran en el catálogo. Se conservarán sin cambiar sus cálculos.');
   const wallets = new Set(data.wallets.map(w => w.name));
-  if (data.transactions.some(t => !t.transfer && !wallets.has(t.wallet)) || data.loans.some(l => !wallets.has(l.wallet))) warnings.push('Hay referencias a carteras que no existen en esta copia.');
+  if (data.transactions.some(t => !t.transfer && !isStructuredShared(t) && !t.reimbursement && !wallets.has(t.wallet)) || data.loans.some(l => !wallets.has(l.wallet))) warnings.push('Hay referencias a carteras que no existen en esta copia.');
   const loans = new Set(data.loans.map(l => l.id));
   if (data.transactions.some(t => t.loanId && !loans.has(t.loanId))) warnings.push('Hay movimientos vinculados a préstamos que no existen en esta copia.');
   const contacts = new Set(data.contacts.map(c => c.id));
   const txs = new Set(data.transactions.map(t => t.id));
-  if (data.transactions.some(t => t.splitInfo?.participants.some(p => !contacts.has(p.contactId) || (p.reimbursementTxId && !txs.has(p.reimbursementTxId))))) warnings.push('Hay participantes o reintegros sin su referencia correspondiente.');
+  if (data.transactions.some(t => t.splitInfo?.participants.some(p => !contacts.has(p.contactId) || (!isStructuredShared(t) && p.reimbursementTxId && !txs.has(p.reimbursementTxId))))) warnings.push('Hay participantes o reintegros sin su referencia correspondiente.');
   return warnings;
 }
 

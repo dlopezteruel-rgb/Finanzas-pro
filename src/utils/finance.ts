@@ -1,3 +1,4 @@
+import { sharedWalletName } from './sharedExpenses';
 import { economicTransactions, transferWalletName } from './transfers';
 import { Transaction, BudgetPlan, MonthlyBudgetRow, MonthlySummary, Loan, Wallet, BudgetPartida } from '../types/finance';
 import { ALL_PARTIDAS } from '../constants/categories';
@@ -211,7 +212,7 @@ export function calculateLoanStatus(loan: Loan, transactions: Transaction[], ref
 
   // Find all transactions linked to this loan or matching description/code
   const loanTxs = economicTransactions(transactions).filter(t => {
-    if (t.type !== 'GASTO') return false;
+    if (t.type !== 'GASTO' || t.splitInfo?.accountingVersion === '2.7') return false;
     if (t.loanId === loan.id) return true;
     if (t.description.toLowerCase().includes(loan.name.toLowerCase())) return true;
     return false;
@@ -257,7 +258,7 @@ export function calculateWalletBalances(wallets: Wallet[], transactions: Transac
 
   transactions.forEach(t => {
     if (!t.processed) return; // Only processed impact real bank balance
-    const walletName = t.transfer ? transferWalletName(t, wallets) : t.wallet.toUpperCase().trim();
+    const walletName = t.transfer ? transferWalletName(t, wallets) : (t.reimbursement || t.splitInfo?.accountingVersion === '2.7') ? sharedWalletName(t, { wallets }) : t.wallet.toUpperCase().trim();
     if (balances[walletName] === undefined) {
       balances[walletName] = 0;
     }

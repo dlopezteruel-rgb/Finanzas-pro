@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
@@ -70,7 +71,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   const close = () => submission.close(onClose);
 
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
+    <Overlay title="Traspaso" onClose={close}>
       <div role="dialog" aria-modal="true" aria-label="Traspaso" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl text-xs space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
@@ -268,7 +269,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           </div>
           {transferToEdit?.transfer && onDeleteTransfer && <div className="text-rose-300 space-y-2">
             {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>Eliminar traspaso completo</button> : <>
-              <p>Se eliminarán juntos los dos extremos del traspaso.</p>
+              <p>Se eliminarán juntos los dos extremos del traspaso «{transferToEdit.transfer.concept}» ({transferToEdit.transfer.id}): {formatCurrency(transferToEdit.amount)} · {transferToEdit.date}. Carteras: {wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name} → {wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name}. Se retirarán 2 movimientos; el patrimonio total no cambia.</p>
               <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>Confirmar eliminación del traspaso</button>
               <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">Conservar traspaso</button>
             </>}
@@ -276,6 +277,6 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           </fieldset>
         </form>
       </div>
-    </div>
+    </Overlay>
   );
 };

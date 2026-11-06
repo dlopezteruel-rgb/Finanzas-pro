@@ -1,3 +1,7 @@
+import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
+import { deletionReport } from '../utils/deletion';
+import type { FinanceData } from '../utils/backup';
+import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
@@ -6,6 +10,7 @@ import { formatCurrency } from '../utils/finance';
 import { X, Landmark, Trash2, Check, Sparkles, Coins } from 'lucide-react';
 
 interface WalletModalProps {
+  deletionData: FinanceData;
   isOpen: boolean;
   onClose: () => void;
   walletToEdit?: Wallet | null;
@@ -27,6 +32,7 @@ const PRESET_COLORS = [
 ];
 
 export const WalletModal: React.FC<WalletModalProps> = ({
+  deletionData,
   isOpen,
   onClose,
   walletToEdit,
@@ -113,13 +119,9 @@ export const WalletModal: React.FC<WalletModalProps> = ({
     void submission.submit(() => onSaveWallet(savedWallet), onClose);
   };
 
-  const handleDelete = () => {
-    if (!walletToEdit || !onDeleteWallet) return;
-    void submission.submit(() => onDeleteWallet(walletToEdit.id), onClose);
-  };
-
   return (
-    <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-fadeIn">
+    <>
+    <Overlay title="Cartera" onClose={() => submission.close(onClose)}>
       <div role="dialog" aria-modal="true" aria-label="Cartera" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
@@ -291,43 +293,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
           </div>
 
-          {/* Delete Option (only when editing) */}
-          {isEditing && onDeleteWallet && (
-            <div className="pt-2 border-t border-white/[0.06]">
-              {!confirmDelete ? (
-                <button
-                  type="button"
-                  onClick={() => setConfirmDelete(true)}
-                  className="text-rose-400 hover:text-rose-300 text-xs flex items-center gap-1.5 font-semibold cursor-pointer py-1"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  <span>Eliminar esta cuenta bancaria</span>
-                </button>
-              ) : (
-                <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-3 space-y-2">
-                  <p className="text-[11px] text-rose-300">
-                    ¿Eliminar la cuenta <strong>{walletToEdit.name}</strong>? Los movimientos existentes conservarán su registro.
-                  </p>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={handleDelete}
-                      className="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs cursor-pointer"
-                    >
-                      Sí, eliminar
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setConfirmDelete(false)}
-                      className="px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 text-xs cursor-pointer"
-                    >
-                      Cancelar
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
+          {isEditing && onDeleteWallet && <button type="button" onClick={() => setConfirmDelete(true)} className="text-rose-300 py-2 flex gap-2 items-center"><Trash2 className="w-3.5 h-3.5" />Eliminar esta cuenta bancaria</button>}
 
           {/* Action buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
@@ -349,6 +315,9 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           </fieldset>
         </form>
       </div>
-    </div>
+    </Overlay>
+    {confirmDelete && walletToEdit && onDeleteWallet && <ConfirmDeleteDialog report={deletionReport(deletionData, { kind: 'wallet', id: walletToEdit.id })}
+      onCancel={() => setConfirmDelete(false)} onConfirm={async () => { const result = await onDeleteWallet(walletToEdit.id); if (result.ok) onClose(); return result; }} />}
+    </>
   );
 };

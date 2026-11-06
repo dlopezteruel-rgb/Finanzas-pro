@@ -1,3 +1,4 @@
+import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
@@ -315,25 +316,16 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                       >
                         {/* Partida Row */}
                         <div className="flex items-start justify-between gap-2">
-                          {/* Left: Code, Name and Click to View Movements */}
-                          <div
-                            onClick={() => onSelectPartidaToView(partida, row)}
-                            className="min-w-0 flex-1 cursor-pointer group"
-                          >
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="font-mono text-[10px] font-bold text-sky-400 bg-white/[0.05] px-1.5 py-0.5 rounded border border-white/[0.08]">
-                                {partida.code}
-                              </span>
-                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>
-                                {partida.name}
-                              </span>
+                          {/* Left: accessible opener for the contextual panel */}
+                          <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
+                            aria-label={`Ver partida ${partida.code} ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
+                            <span className="flex items-center gap-1.5 flex-wrap">
+                              <span className="font-mono text-[10px] font-bold text-sky-400 bg-white/[0.05] px-1.5 py-0.5 rounded border border-white/[0.08]">{partida.code}</span>
+                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
-                            </div>
-
-                            <span className="text-[10px] text-slate-400 block mt-0.5">
-                              {row.transactionCount > 0 ? `${row.transactionCount} mov. registrados • Toca para ver` : '0 movimientos • Toca para ver'}
                             </span>
-                          </div>
+                            <span className="text-[10px] text-slate-400 block mt-0.5">{row.transactionCount > 0 ? `${row.transactionCount} mov. registrados • Toca para ver` : '0 movimientos • Toca para ver'}</span>
+                          </button>
 
                           {/* Center / Right: RESTO and Reordering Actions */}
                           <div className="flex items-center gap-2.5 shrink-0">
@@ -503,7 +495,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
 
       {/* Confirmation Modal for Moving a Partida across packages */}
       {movingPartida && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
+        <Overlay title="Mover partida" onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
           <form role="dialog" aria-modal="true" aria-label="Mover partida" aria-busy={moveSubmission.saving}
             onSubmit={e => { e.preventDefault(); void moveSubmission.submit(() => onChangePartidaGroup(movingPartida, targetGroupCode), () => setMovingPartida(null)); }}
             className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
@@ -563,7 +555,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             </div>
           </fieldset>
           </form>
-        </div>
+        </Overlay>
       )}
     </div>
   );

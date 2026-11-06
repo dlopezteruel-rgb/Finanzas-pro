@@ -21,12 +21,43 @@ export interface SplitParticipant {
   contactId: string;
   contactName: string;
   amount: number; // Importe que debe esta persona
+  remainingAmount?: number; // Derived UI value; never persisted.
   isPaid: boolean; // Si ya ha saldado/devuelto el dinero
   paidDate?: string;
   reimbursementTxId?: string; // ID del movimiento de ingreso generado al saldar
 }
 
+export interface DebtSettlement {
+  id: string;
+  contactId: string;
+  amount: number;
+  date: string;
+  processed: boolean;
+  kind: 'cash' | 'offset';
+  walletId?: string;
+  transactionId?: string;
+}
+
+export interface SettlementInput {
+  operationId?: string;
+  expenseId: string;
+  contactId: string;
+  amount: number;
+  date: string;
+  processed: boolean;
+  kind: 'cash' | 'offset';
+  walletId?: string;
+}
+
+export type SharedDistribution = { method: 'equal' } | { method: 'amounts' } | {
+  method: 'weighted'; ownWeight: number; contactWeights: { contactId: string; weight: number }[];
+};
+
 export interface SharedExpenseInfo {
+  distribution?: SharedDistribution;
+  accountingVersion?: '2.7';
+  walletId?: string;
+  settlements?: DebtSettlement[];
   isShared: boolean;
   totalParticipants: number; // ej. 2, 3 personas en total (incluyéndote a ti)
   myShare: number; // Tu parte real (ej. 10 €)
@@ -72,6 +103,7 @@ export interface Transaction {
   wallet: string; // e.g. 'OPENBANK', 'REVOLUT', 'EFECTIVO'
   processed: boolean; // Tramitado: SÍ / NO
   transfer?: TransferLink;
+  reimbursement?: { expenseId: string; settlementId: string; contactId: string; walletId: string };
   loanId?: string; // Optional reference if associated with a loan payment
   notes?: string;
   splitInfo?: SharedExpenseInfo; // Información de gasto compartido y deudas
