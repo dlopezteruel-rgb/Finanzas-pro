@@ -41,6 +41,8 @@ import { Header } from './components/Header';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
 import { TransactionsView } from './components/TransactionsView';
+import { ChartSlot } from './components/charts/ChartSlot';
+import type { EconomicFilter } from './utils/chartData';
 import { BudgetWorkspace } from './components/BudgetWorkspace';
 import { PlanningView } from './components/PlanningView';
 import { savePlanning, planCents } from './utils/planning';
@@ -108,6 +110,7 @@ export default function App() {
   // Current Month/Year period
   const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
   const [planningBusy, setPlanningBusy] = useState(false);
   const [planningReset, setPlanningReset] = useState(0);
@@ -567,7 +570,8 @@ export default function App() {
       </div>}
       {/* Main Content Viewport */}
       <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
-        {activeTab === 'dashboard' && (
+        {activeTab === 'dashboard' && (<>
+          <ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>
           <DashboardView
             summary={summary}
             budgetRows={budgetRows}
@@ -580,9 +584,10 @@ export default function App() {
             onNavigateToTab={changeTab}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
-        )}
+        </>)}
 
-        {activeTab === 'transactions' && (
+        {activeTab === 'transactions' && (<>
+          <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
             transactions={transactions}
             onToggleProcessed={handleToggleProcessed}
@@ -591,7 +596,7 @@ export default function App() {
             onEditTransaction={handleOpenEditTransaction}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
-        )}
+        </>)}
 
         {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty}
@@ -639,7 +644,8 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'wallets' && (
+        {activeTab === 'wallets' && (<>
+          <ChartSlot data={data} month={currentMonthYear} kind="wallets"/>
           <WalletsView
             deletionData={data}
             wallets={wallets}
@@ -650,7 +656,7 @@ export default function App() {
             onDeleteWallet={handleDeleteWallet}
             onExecuteTransfer={handleExecuteTransfer}
           />
-        )}
+        </>)}
 
         {activeTab === 'assistant' && (
           <AssistantChatView
