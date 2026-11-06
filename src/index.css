@@ -138,3 +138,19 @@ body[data-theme="light"] {
 [data-theme="light"] .planning-card { background: white; border-color: #64748b; }
 [data-theme="light"] .planning [role="alert"] { color: #9f1239; }
 @media (max-width: 767px) { .planning-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .planning-row label { grid-column: 1 / -1; } .planning-row > div { grid-column: 1 / -1; } }
+
+/* Phase 3B: secondary navigation stays within Presupuestos. */
+.budget-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+.budget-tabs [role="tab"] { min-height: 44px; padding: .75rem; border: 1px solid #94a3b8; border-radius: .75rem; color: #e2e8f0; background: #141926; }
+.budget-tabs [aria-selected="true"] { border-color: #7dd3fc; background: #0c4a6e; color: #f0f9ff; font-weight: 700; }
+.budget-tabs :disabled { opacity: .55; cursor: not-allowed; }
+.budget-tabs :focus-visible, .budget-workspace [role="tabpanel"]:focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
+.planning-family { padding: .75rem; border: 1px solid #64748b; border-radius: .75rem; min-width: 0; }
+.planning .planning-disclosure { text-align: left; min-height: 44px; width: 100%; overflow-wrap: anywhere; }
+.planning-section-totals { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.planning-warning { color: #fde68a; }
+[data-theme="light"] .budget-tabs [role="tab"] { color: #0f172a; background: #fff; border-color: #64748b; }
+[data-theme="light"] .budget-tabs [aria-selected="true"] { color: #0c4a6e; background: #e0f2fe; border-color: #0369a1; }
+[data-theme="light"] .planning-warning { color: #854d0e; }
+.planning input[type="month"] { color-scheme: dark; }
+[data-theme="light"] .planning input[type="month"] { color-scheme: light; }

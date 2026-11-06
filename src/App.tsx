@@ -41,6 +41,7 @@ import { Header } from './components/Header';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
 import { TransactionsView } from './components/TransactionsView';
+import { BudgetWorkspace } from './components/BudgetWorkspace';
 import { PlanningView } from './components/PlanningView';
 import { savePlanning, planCents } from './utils/planning';
 import { BudgetsView } from './components/BudgetsView';
@@ -108,9 +109,10 @@ export default function App() {
   const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const planningState = useRef({ dirty: false, saving: false });
+  const [planningBusy, setPlanningBusy] = useState(false);
   const [planningReset, setPlanningReset] = useState(0);
   const [pendingPlanningNavigation, setPendingPlanningNavigation] = useState<(() => void) | null>(null);
-  const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; }, []);
+  const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; setPlanningBusy(saving); }, []);
   const guardPlanning = (action: () => void) => {
     if (planningState.current.saving) return;
     if (planningState.current.dirty) setPendingPlanningNavigation(() => action);
@@ -591,11 +593,11 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'budgets' && (<>
+        {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty}
             onSave={(edits, savings, scope, approve, deficit) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit))}
             onDetail={handleSelectPartidaToView} />
-          <h2 className="text-lg font-bold mt-8 mb-3">Catálogo y detalle de partidas</h2>
+        } catalog={
           <BudgetsView
             currentMonthYear={currentMonthYear}
             summary={summary}
@@ -607,7 +609,7 @@ export default function App() {
             onChangePartidaGroup={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleChangePartidaGroup(...args)}
             onSelectPartidaToView={handleSelectPartidaToView}
           />
-        </>)}
+        } />}
 
         {activeTab === 'contacts' && (
           <ContactsView
