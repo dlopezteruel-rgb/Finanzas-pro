@@ -5,6 +5,7 @@ import type { SaveResult } from '../utils/saveResult';
 import { annualPlanning, parsePlanningMoney, planningKey, planningLines, planningScope, planningStatus, planningTotals, planCents, safeCents, planningMoneyInput, formatPlanningCents } from '../utils/planning';
 import { calculateMonthlyBudgetRows, calculateMonthlySummary, formatCurrency } from '../utils/finance';
 import { useAsyncForm } from '../utils/useAsyncForm';
+import { ChartSlot } from './charts/ChartSlot';
 import { PlanningSection } from './PlanningSection';
 import { SafeDialog } from './SafeDialog';
 
@@ -113,6 +114,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail }
         <button disabled={!valid || submission.saving} onClick={() => { submission.clearError(); setAcceptDeficit(false); setReview(true); }}>Revisar y aprobar previsión</button>
       </div>
     </div>
+    <ChartSlot data={data} month={month} kind="planning"/>
     {annual && <div className="planning-card overflow-x-auto"><h2 className="text-lg font-bold">Resumen anual {month.slice(0,4)}</h2>
       {yearRows ? <><p>Cobertura {yearRows.filter(r => r.status !== 'Sin plan').length}/12 meses. Suma parcial de meses planificados; no incluye cambios locales sin guardar.</p>
         <table><caption>Previsiones mensuales guardadas</caption><thead><tr><th>Mes</th>{Object.values(labels).map(label => <th key={label}>{label}</th>)}<th>Estado</th></tr></thead><tbody>

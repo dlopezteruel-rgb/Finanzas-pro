@@ -186,3 +186,9 @@ Consulta [modelo, migración, archivos y QA manual con datos ficticios](docs/pha
 Presupuestos separa **Planificación** y **Catálogo y partidas** en dos pestañas internas. Ingresos, Gastos y cada familia se pueden plegar; los encabezados conservan totales y avisos sin perder el borrador. Cambiar de pestaña respeta la protección de cambios sin guardar de Fase 3A. Estas preferencias son transitorias y no añaden metadatos ni otra versión JSON.
 
 Consulta el [informe técnico y guion de QA con datos ficticios](docs/phase-3b-budget-ux.md). Los gráficos (#8) y la automatización avanzada (#6) permanecen fuera de esta entrega.
+
+## Fase 3B: gráficos interactivos
+
+Inicio, Movimientos, Planificación y Cuentas incluyen paneles gráficos plegables de solo lectura, con filtros, interacción por teclado/clic/tap y tablas accesibles. Se usa SVG local con `d3-shape`, sin servicios externos. Los meses sin plan dejan huecos y Cuentas distingue saldos actuales de variaciones bancarias registradas, sin inventar historia.
+
+Consulta la [arquitectura, tamaño, límites contables y QA manual](docs/phase-3b-charts.md).
