@@ -64,6 +64,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
   }
   async function openPanel(page: Page, code = 'V.001.002', income = false) {
     await navigate(page, 'Presupuestos');
+    await page.getByRole('tab', { name: 'Catálogo y detalle de partidas', exact: true }).click();
     if (income) await page.getByRole('button', { name: /^Paquetes de Ingresos/ }).click();
     const opener = page.getByRole('button', { name: new RegExp('^Ver partida ' + code.replaceAll('.', '\\.')) });
     await opener.focus(); await page.keyboard.press('Enter'); await panel(page).waitFor(); return opener;

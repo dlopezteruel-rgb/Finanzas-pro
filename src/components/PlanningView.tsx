@@ -1,16 +1,17 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import type { FinanceData } from '../utils/backup';
 import type { BudgetPartida, MonthlyBudgetRow, PlanningLine, PlanningTotals } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
 import { annualPlanning, parsePlanningMoney, planningKey, planningLines, planningScope, planningStatus, planningTotals, planCents, safeCents, planningMoneyInput, formatPlanningCents } from '../utils/planning';
 import { calculateMonthlyBudgetRows, calculateMonthlySummary, formatCurrency } from '../utils/finance';
 import { useAsyncForm } from '../utils/useAsyncForm';
+import { PlanningSection } from './PlanningSection';
 import { SafeDialog } from './SafeDialog';
 
 const money = formatPlanningCents;
 const labels: Record<keyof PlanningTotals, string> = { income: 'Ingresos previstos', expenses: 'Gastos previstos', savings: 'Ahorro objetivo', available: 'Disponible para gastar', margin: 'Margen por asignar', balance: 'Balance previsto' };
-function Totals({ totals }: { totals: PlanningTotals }) {
-  return <dl className="planning-totals">{(Object.keys(labels) as (keyof PlanningTotals)[]).map(key => <div key={key}><dt>{labels[key]}</dt><dd>{money(totals[key])}</dd></div>)}</dl>;
+function Totals({ totals }: { totals: PlanningTotals | null }) {
+  return <dl className="planning-totals">{(Object.keys(labels) as (keyof PlanningTotals)[]).map(key => <div key={key}><dt>{labels[key]}</dt><dd>{totals ? money(totals[key]) : '—'}</dd></div>)}</dl>;
 }
 interface Props {
   data: FinanceData;
@@ -35,9 +36,12 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail }
   const [acceptDeficit, setAcceptDeficit] = useState(false);
   const [notice, setNotice] = useState('');
   const [annual, setAnnual] = useState(false);
+  const [expanded, setExpanded] = useState<Record<string, boolean>>({});
+  const isOpen = (key: string) => expanded[key] ?? true;
+  const toggle = (key: string) => setExpanded(previous => ({ ...previous, [key]: !(previous[key] ?? true) }));
   const submission = useAsyncForm();
   const dirty = savings !== base.savings || JSON.stringify(fields) !== JSON.stringify(base.fields);
-  useEffect(() => { onDirty(dirty, submission.saving); }, [dirty, submission.saving, onDirty]);
+  useLayoutEffect(() => { onDirty(dirty, submission.saving); }, [dirty, submission.saving, onDirty]);
   useEffect(() => {
     const prevent = (event: BeforeUnloadEvent) => { if (dirty || submission.saving) { event.preventDefault(); event.returnValue = ''; } };
     window.addEventListener('beforeunload', prevent);
@@ -87,7 +91,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail }
   const names = new Map(partidas.map(p => [planningKey(p), p.name]));
   return <section className="planning space-y-4" aria-label="Planificación financiera">
     <div className="planning-card space-y-3">
-      <h1 className="text-xl font-bold">Planificación financiera</h1>
+      <h2 className="text-xl font-bold">Planificación financiera</h2>
       <p>Ingresos, ahorro objetivo y distribución de gastos. El ahorro objetivo no modifica movimientos ni saldos.</p>
       <div className="flex flex-wrap gap-3 items-center">
         <label>Mes de planificación <input aria-label="Mes de planificación" type="month" min="0001-01" max="9999-12" value={month} disabled={submission.saving} onChange={e => { if (/^(?!0000)\d{4}-(0[1-9]|1[0-2])$/.test(e.target.value)) onMonth(e.target.value); }} /></label>
@@ -97,7 +101,8 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail }
       {currentMeta?.approval && <p>Última aprobación n.º {currentMeta.approval.number} · {new Date(currentMeta.approval.approvedAt).toLocaleString('es-ES')}</p>}
       <label className="block">Ahorro objetivo (€) <input aria-label="Ahorro objetivo (€)" inputMode="decimal" value={savings} aria-invalid={!!savingsError} aria-describedby={savingsError ? 'planning-savings-error' : undefined} disabled={submission.saving} onChange={e => { setSavings(e.target.value); setNotice(''); submission.clearError(); }} /></label>
       {savingsError && <p id="planning-savings-error" role="alert">{savingsError}</p>}
-      {totals ? <Totals totals={totals} /> : <p role="alert">Corrige los importes para calcular y guardar los totales. {totalError}</p>}
+      <Totals totals={totals} />
+      {!totals && <p role="alert">Corrige los importes para calcular y guardar los totales. {totalError}</p>}
       {deficit && <p role="alert">Advertencia: déficit de asignación o ahorro objetivo superior a los ingresos. No se corregirán los importes automáticamente.</p>}
       <p>Balance real / ahorro realizado: <strong>{formatCurrency(summary.balanceReal)}</strong>. Solo movimientos procesados, con las reglas contables vigentes.</p>
       {submission.error && <p role="alert">{submission.error}</p>}
@@ -114,26 +119,44 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail }
           {yearRows.map(r => <tr key={r.monthYear}><th><button onClick={() => onMonth(r.monthYear)}>{r.monthYear}</button></th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(r.totals[k])}</td>)}<td>{r.status}</td></tr>)}
         </tbody><tfoot><tr><th>Total planificado</th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(yearRows.filter(r => r.status !== 'Sin plan').reduce((sum,r) => sum+r.totals[k],0))}</td>)}<td>Parcial si cobertura &lt; 12</td></tr></tfoot></table></> : <p role="alert">Hay importes históricos con más de dos decimales o totales fuera del rango seguro. Revísalos antes de calcular el resumen anual.</p>}
     </div>}
-    {(['INGRESO', 'GASTO'] as const).map(type => <div className="planning-card space-y-3" key={type}><h2 className="text-lg font-bold">{type === 'INGRESO' ? 'Ingresos' : 'Gastos'}</h2>
-      {[...data.budgetGroups.filter(g => g.type === type), ...(missing.some(p => p.type === type) ? [{ code: 'historical', name: 'Fuera del catálogo', type, partidas: missing.filter(p => p.type === type) }] : [])].map(group => {
-        const groupEdits = edits.filter(l => group.partidas.some(p => planningKey(p) === planningKey(l)));
-        const groupValid = group.partidas.every(p => !errors[planningKey(p)]);
-        const groupExecuted = group.partidas.reduce((sum,p) => sum + Math.round((rows.find(r => planningKey(r) === planningKey(p))?.ejecutado ?? 0)*100),0);
-        return <fieldset key={group.code} disabled={submission.saving} className="space-y-2"><legend className="font-bold">{group.name}</legend>
-          {group.partidas.map(p => { const key=planningKey(p), row=rows.find(r => planningKey(r)===key)!;
-            const cents=edits.find(l => planningKey(l)===key)?.amountCents;
-            return <div className="planning-row" key={key}>
-              <label htmlFor={`plan-${key}`}>{p.name}</label>
-              <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" value={fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
-                {errors[key] && <p id={`error-${key}`} role="alert">{errors[key]}</p>}</div>
-              <span>Ejecutado: {formatCurrency(row.ejecutado)}</span><span>Diferencia: {cents === undefined ? '—' : money(cents - Math.round(row.ejecutado*100))}</span>
-              <button onClick={() => onDetail(p,row)} type="button" aria-label={`Detalle ${p.name}`}>Detalle</button>
-            </div>;
-          })}
-          <p className="font-bold">Total {group.name}: previsto {groupValid ? money(groupEdits.reduce((n,l)=>n+l.amountCents,0)) : 'pendiente de corregir'} · ejecutado {money(groupExecuted)} · diferencia {groupValid ? money(groupEdits.reduce((n,l)=>n+l.amountCents,0)-groupExecuted) : '—'}</p>
-        </fieldset>;
-      })}
-    </div>)}
+    {(['INGRESO', 'GASTO'] as const).map(type => {
+      const title = type === 'INGRESO' ? 'Ingresos' : 'Gastos';
+      const blockKey = `block:${type}`;
+      const groups = [...data.budgetGroups.filter(g => g.type === type).map(g => ({ ...g, key: `family:${type}:${g.code}` })),
+        ...(missing.some(p => p.type === type) ? [{ key: `historical:${type}`, name: 'Fuera del catálogo', partidas: missing.filter(p => p.type === type) }] : [])];
+      const stats = (items: BudgetPartida[]) => {
+        const keys = new Set(items.map(planningKey));
+        const invalidCount = items.filter(p => errors[planningKey(p)]).length;
+        let planned: number | null = null;
+        if (!invalidCount) try { planned = edits.filter(l => keys.has(planningKey(l))).reduce((sum, l) => safeCents(sum + l.amountCents), 0); } catch { /* Keep invalid totals explicit. */ }
+        const executed = rows.filter(r => keys.has(planningKey(r))).reduce((sum, r) => sum + Math.round(r.ejecutado * 100), 0);
+        const deviation = planned === null ? '' : type === 'GASTO' && executed > planned
+          ? `Desviación: el ejecutado supera el previsto en ${money(executed - planned)}.`
+          : type === 'INGRESO' && executed < planned ? `Pendiente de ingresar respecto al previsto: ${money(planned - executed)}.` : '';
+        return { planned, executed, invalidCount, count: items.length, warning: deviation };
+      };
+      const blockStats = stats(partidas.filter(p => p.type === type));
+      const deficitWarning = totals && (type === 'INGRESO' ? totals.savings > totals.income : totals.margin < 0)
+        ? type === 'INGRESO' ? 'Advertencia: ahorro objetivo superior a los ingresos previstos.' : 'Advertencia: margen por asignar negativo.' : '';
+      return <PlanningSection key={type} title={title} open={isOpen(blockKey)} onToggle={() => toggle(blockKey)}
+        {...blockStats} warning={[blockStats.warning, deficitWarning].filter(Boolean).join(' ')}
+        onAll={open => setExpanded(previous => ({ ...previous, [blockKey]: open, ...Object.fromEntries(groups.map(g => [g.key, open])) }))}>
+        {groups.map(group => <PlanningSection key={group.key} title={group.name} family open={isOpen(group.key)} onToggle={() => toggle(group.key)} {...stats(group.partidas)}>
+          <fieldset disabled={submission.saving} className="space-y-2" aria-label={`Importes de ${group.name}`}>
+            {group.partidas.map(p => { const key = planningKey(p), row = rows.find(r => planningKey(r) === key)!;
+              const cents = edits.find(l => planningKey(l) === key)?.amountCents;
+              return <div className="planning-row" key={key}>
+                <label htmlFor={`plan-${key}`}>{p.name}</label>
+                <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" value={fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
+                  {errors[key] && <p id={`error-${key}`} role="alert">{errors[key]}</p>}</div>
+                <span>Ejecutado: {formatCurrency(row.ejecutado)}</span><span>Diferencia: {cents === undefined ? '—' : money(cents - Math.round(row.ejecutado * 100))}</span>
+                <button onClick={() => onDetail(p, row)} type="button" aria-label={`Detalle ${p.name}`}>Detalle</button>
+              </div>;
+            })}
+          </fieldset>
+        </PlanningSection>)}
+      </PlanningSection>;
+    })}
     {currentMeta?.approval && <details className="planning-card"><summary>Comparar con la última aprobación</summary><Totals totals={currentMeta.approval.totals} /><p>Fotografía n.º {currentMeta.approval.number}, revisión {currentMeta.approval.revision}. Los importes siguientes son inmutables.</p>
       <table><thead><tr><th>Partida</th><th>Aprobado</th><th>Previsto actual guardado</th></tr></thead><tbody>{[...new Map([...currentMeta.approval.lines, ...planningLines(data.budgetPlans,month)].map(l => [planningKey(l),l])).values()].map(l => <tr key={planningKey(l)}><th>{l.type} · {names.get(planningKey(l)) ?? l.code}</th><td>{money(currentMeta.approval!.lines.find(a => planningKey(a)===planningKey(l))?.amountCents ?? 0)}</td><td>{money(planCents(data.budgetPlans.find(p => p.monthYear===month && planningKey(p)===planningKey(l))?.plannedAmount ?? 0))}</td></tr>)}</tbody></table>
     </details>}

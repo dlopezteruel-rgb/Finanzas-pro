@@ -228,6 +228,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
     const { context, page } = await setup(initial);
     try {
       await navigate(page, 'Presupuestos');
+      await page.getByRole('tab', { name: 'Catálogo y detalle de partidas', exact: true }).click();
       await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
       const d = page.getByRole('dialog', { name: 'Mover partida', exact: true });
       await d.getByLabel('Paquete de destino').selectOption('L');

@@ -180,3 +180,9 @@ En **Presupuestos → Planificación financiera** puedes editar el mes completo,
 Los metadatos se guardan en JSON **2.9** solo al utilizarlos. Se mantienen lectura/restauración de 2.5–2.8 y copia recuperable verificada antes de la primera escritura 2.9. Una app antigua no puede leer 2.9: utiliza la copia completa previa para volver atrás.
 
 Consulta [modelo, migración, archivos y QA manual con datos ficticios](docs/phase-3a.md).
+
+## Fase 3B: interfaz de Presupuestos
+
+Presupuestos separa **Planificación** y **Catálogo y partidas** en dos pestañas internas. Ingresos, Gastos y cada familia se pueden plegar; los encabezados conservan totales y avisos sin perder el borrador. Cambiar de pestaña respeta la protección de cambios sin guardar de Fase 3A. Estas preferencias son transitorias y no añaden metadatos ni otra versión JSON.
+
+Consulta el [informe técnico y guion de QA con datos ficticios](docs/phase-3b-budget-ux.md). Los gráficos (#8) y la automatización avanzada (#6) permanecen fuera de esta entrega.
