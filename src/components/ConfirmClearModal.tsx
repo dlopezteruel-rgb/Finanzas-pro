@@ -221,7 +221,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
               <div>
                 <span className="font-bold text-white text-xs block">Presupuestos</span>
                 <span className="text-[11px] text-slate-400 block">
-                  Elimina todas las asignaciones previstas (deja los presupuestos a 0,00 €).
+                  Elimina las asignaciones previstas, los objetivos de ahorro y las últimas aprobaciones de todos los meses.
                 </span>
               </div>
             </div>

@@ -1,3 +1,4 @@
+import { invalidatePlanning, reconcilePlanning } from './planning';
 import { assertDeletionTransition } from './deletion';
 import { confirmedClearData, type ClearDataOptions } from './clearData';
 import { assertSharedTransition } from './sharedExpenses';
@@ -5,7 +6,7 @@ import { isLegacyTransfer } from './transfers';
 import { assertStorageRevision, Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, serializeSnapshot, StorageAccess, StorageConflictError } from './backup';
 import { browserStorageSupportError } from './storageSupport';
 
-const legacyKeys: Record<keyof FinanceData, string> = {
+const legacyKeys: Partial<Record<keyof FinanceData, string>> = {
   theme: 'finanzas_pro_theme', transactions: 'finanzas_pro_transactions_v2',
   budgetPlans: 'finanzas_pro_plans_v2', budgetGroups: 'finanzas_pro_groups_v2',
   contacts: 'finanzas_pro_contacts_v2', loans: 'finanzas_pro_loans_v2', wallets: 'finanzas_pro_wallets_v2',
@@ -16,7 +17,7 @@ export function loadFinanceData(storage: Pick<Storage, 'getItem'>, defaults: Fin
   if (active !== null) return parseSnapshot(active);
   const data = { ...defaults };
   for (const field of Object.keys(legacyKeys) as (keyof FinanceData)[]) {
-    const saved = storage.getItem(legacyKeys[field]);
+    const saved = storage.getItem(legacyKeys[field]!);
     if (saved !== null) (data as any)[field] = field === 'theme' ? saved : JSON.parse(saved);
   }
   return parseBackup(JSON.stringify(makeBackup(data)));
@@ -62,7 +63,8 @@ export class FinanceStore {
     return this.exclusive(() => {
       this.checkRevision();
       const clearing = typeof transform !== 'function';
-      const candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
+      let candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
+      if (!clearing) candidate = reconcilePlanning(this.data, invalidatePlanning(this.data, candidate));
       assertDeletionTransition(this.data, candidate);
       if (!clearing) {
         assertSharedTransition(this.data, candidate);

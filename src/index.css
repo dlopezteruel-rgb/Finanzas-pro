@@ -118,3 +118,23 @@ body[data-theme="light"] {
 [data-theme="light"] .bg-black\/80 {
   background-color: rgba(15, 23, 42, 0.65) !important;
 }
+
+/* Phase 3A: scoped contrast and responsive forms, including portalled review. */
+.planning { color: #e2e8f0; font-size: 0.875rem; user-select: text; }
+.planning-card { background: #141926; border: 1px solid #475569; border-radius: 1rem; padding: 1rem; }
+.planning input:not([type="checkbox"]) { background: #0c0f17; border: 1px solid #94a3b8; border-radius: .4rem; padding: .5rem; max-width: 100%; width: 10rem; }
+.planning input[aria-invalid="true"] { border: 2px solid #fda4af; }
+.planning button { border: 1px solid #94a3b8; border-radius: .5rem; padding: .5rem .7rem; }
+.planning button:disabled { opacity: .55; cursor: not-allowed; }
+.planning :is(button, input, summary):focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
+.planning [role="alert"] { color: #fecdd3; }
+.planning-totals { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .75rem; }
+.planning-totals dd { font-weight: 700; font-variant-numeric: tabular-nums; }
+.planning-row { display: grid; grid-template-columns: minmax(9rem, 1.4fr) minmax(8rem, 1fr) 1fr 1fr auto; gap: .75rem; align-items: center; border-bottom: 1px solid #475569; padding: .6rem 0; }
+.planning td, .planning th { text-align: left; padding: .6rem; border-bottom: 1px solid #64748b; }
+.planning table { width: 100%; }
+.planning fieldset { min-width: 0; }
+[data-theme="light"] .planning { color: #0f172a; }
+[data-theme="light"] .planning-card { background: white; border-color: #64748b; }
+[data-theme="light"] .planning [role="alert"] { color: #9f1239; }
+@media (max-width: 767px) { .planning-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .planning-row label { grid-column: 1 / -1; } .planning-row > div { grid-column: 1 / -1; } }

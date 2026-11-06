@@ -1,3 +1,4 @@
+import { parsePlanningMoney } from '../utils/planning';
 import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
@@ -31,7 +32,7 @@ interface BudgetsViewProps {
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
   budgetGroups: BudgetGroup[];
-  onUpdateBudgetPlan: (code: string, type: MovementType, amount: number) => void;
+  onUpdateBudgetPlan: (code: string, type: MovementType, amount: number) => Promise<SaveResult>;
   onMovePartida: (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => void;
   onDuplicatePartida: (partida: BudgetPartida) => void;
   onChangePartidaGroup: (partida: BudgetPartida, targetGroupCode: string) => Promise<SaveResult>;
@@ -53,6 +54,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [editingKey, setEditingKey] = useState<string | null>(null);
   const [editValue, setEditValue] = useState<string>('');
+  const editSubmission = useAsyncForm();
+  const [editError, setEditError] = useState('');
 
   // Moving out of package confirmation state
   const [movingPartida, setMovingPartida] = useState<BudgetPartida | null>(null);
@@ -100,13 +103,16 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   };
 
   const saveEdit = (row: MonthlyBudgetRow) => {
-    const val = parseFloat(editValue.replace(',', '.'));
-    onUpdateBudgetPlan(row.code, row.type, isNaN(val) ? 0 : Math.max(0, val));
-    setEditingKey(null);
+    try {
+      const val = parsePlanningMoney(editValue) / 100;
+      setEditError('');
+      void editSubmission.submit(() => onUpdateBudgetPlan(row.code, row.type, val), () => setEditingKey(null));
+    } catch (error) { setEditError((error as Error).message); }
   };
 
   return (
     <div className="space-y-4 pb-16 md:pb-6">
+      {(editError || editSubmission.error) && <p role="alert">{editError || editSubmission.error}</p>}
       {/* 1. Top Summary Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
@@ -430,8 +436,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               <div className="flex items-center gap-1">
                                 <span className="text-slate-400">Previsto:</span>
                                 <input
-                                  type="number"
-                                  step="0.01"
+                                  inputMode="decimal"
+                                  disabled={editSubmission.saving}
                                   value={editValue}
                                   onChange={e => setEditValue(e.target.value)}
                                   onKeyDown={e => {

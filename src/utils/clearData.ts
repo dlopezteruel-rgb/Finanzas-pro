@@ -21,6 +21,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
     ...data,
     wallets: options.clearAllWallets ? [] : options.clearWalletBalances ? data.wallets.map(w => ({ ...w, initialBalance: 0 })) : data.wallets,
     budgetPlans: options.clearBudgets ? [] : data.budgetPlans,
+    ...(options.clearBudgets && data.planningMonths ? { planningMonths: [] } : {}),
     loans: options.clearDebts ? [] : data.loans,
     transactions,
   };
@@ -31,7 +32,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
 
 /** Snapshot of the reviewed scope; a queued write must not silently expand it. */
 export function clearScope(data: FinanceData, options: ClearDataOptions): string {
-  return JSON.stringify({ options, transactions: data.transactions, wallets: data.wallets, loans: data.loans, budgetPlans: data.budgetPlans });
+  return JSON.stringify({ options, transactions: data.transactions, wallets: data.wallets, loans: data.loans, budgetPlans: data.budgetPlans, ...(data.planningMonths ? { planningMonths: data.planningMonths } : {}) });
 }
 export function confirmedClearData(data: FinanceData, options: ClearDataOptions, scope: string): FinanceData {
   if (clearScope(data, options) !== scope) throw new Error('El alcance del borrado ha cambiado. Cancela y vuelve a revisar las cantidades antes de confirmar.');
@@ -55,6 +56,7 @@ export function clearImpact(data: FinanceData, options: ClearDataOptions): Delet
     ['Cuentas a eliminar', options.clearAllWallets ? data.wallets.length : 0],
     ['Saldos base a poner a cero', options.clearWalletBalances && !options.clearAllWallets ? data.wallets.filter(w => w.initialBalance !== 0).length : 0],
     ['Planes presupuestarios a eliminar', options.clearBudgets ? data.budgetPlans.length : 0],
+    ['Objetivos y aprobaciones mensuales a eliminar', options.clearBudgets ? (data.planningMonths?.length ?? 0) : 0],
     ['Préstamos a eliminar', options.clearDebts ? data.loans.length : 0],
   ];
   const blockers: string[] = [];

@@ -7,7 +7,7 @@ import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
 import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
 import type { SaveResult } from './utils/saveResult';
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { adjustDebt, deleteSettlement, isLegacyShared, isStructuredShared, migrateSharedExpenses, saveSettlement, saveSharedTransaction, sharedMigrationReport, sharedViewTransactions, sharedWalletName } from './utils/sharedExpenses';
 import {
   Transaction,
@@ -41,6 +41,8 @@ import { Header } from './components/Header';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
 import { TransactionsView } from './components/TransactionsView';
+import { PlanningView } from './components/PlanningView';
+import { savePlanning, planCents } from './utils/planning';
 import { BudgetsView } from './components/BudgetsView';
 import { LoansView } from './components/LoansView';
 import { WalletsView } from './components/WalletsView';
@@ -105,6 +107,18 @@ export default function App() {
   // Current Month/Year period
   const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const planningState = useRef({ dirty: false, saving: false });
+  const [planningReset, setPlanningReset] = useState(0);
+  const [pendingPlanningNavigation, setPendingPlanningNavigation] = useState<(() => void) | null>(null);
+  const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; }, []);
+  const guardPlanning = (action: () => void) => {
+    if (planningState.current.saving) return;
+    if (planningState.current.dirty) setPendingPlanningNavigation(() => action);
+    else action();
+  };
+  const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => setCurrentMonthYear(month)); };
+  const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setActiveTab(tab); }); };
+
 
   // Modals state
   const [sharedDetailId, setSharedDetailId] = useState<string | null>(null);
@@ -140,8 +154,10 @@ export default function App() {
       const my = t.date.slice(0, 7);
       if (my) set.add(my);
     });
+    budgetPlans.forEach(p => set.add(p.monthYear));
+    data.planningMonths?.forEach(m => set.add(m.monthYear));
     return Array.from(set).sort().reverse();
-  }, [transactions]);
+  }, [transactions, budgetPlans, data.planningMonths]);
 
   // Derived all partidas from groups
   const allPartidas = useMemo(() => {
@@ -255,7 +271,8 @@ export default function App() {
 
   // 4. Budget Plans & Partidas Actions
   const handleUpdateBudgetPlan = (code: string, type: MovementType, newAmount: number) => {
-    setBudgetPlans(prev => {
+    try { planCents(newAmount); } catch (error) { return Promise.resolve({ ok: false, error: (error as Error).message } as SaveResult); }
+    return setBudgetPlans(prev => {
       const filtered = prev.filter(
         p => !(p.monthYear === currentMonthYear && p.code === code && p.type === type)
       );
@@ -326,8 +343,7 @@ export default function App() {
 
   // Inspect detail of a partida
   const handleSelectPartidaToView = (partida: BudgetPartida, _row?: MonthlyBudgetRow) => {
-    setSelectedPartidaForDetail(partida);
-    setIsPartidaDetailOpen(true);
+    guardPlanning(() => { setSelectedPartidaForDetail(partida); setIsPartidaDetailOpen(true); });
   };
 
   const handleAddMovementToPartida = (partidaCode: string, type: MovementType) => {
@@ -448,7 +464,7 @@ export default function App() {
     restorationGuard.current?.cancel();
     restorationGuard.current = confirmOnceAsync((next: Backup) => restore(next));
     setDataError('');
-    setRestoration({ backup, label });
+    guardPlanning(() => setRestoration({ backup, label }));
   };
   const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
@@ -512,8 +528,8 @@ export default function App() {
       {/* Revolut Top Header with Theme Switcher & Actions */}
       <Header
         currentMonthYear={currentMonthYear}
-        onChangeMonthYear={setCurrentMonthYear}
-        availableMonths={availableMonths}
+        onChangeMonthYear={changeMonth}
+        availableMonths={[...new Set([...availableMonths, currentMonthYear])].sort().reverse()}
         totalLiquidBalance={totalLiquidBalance}
         theme={theme}
         onToggleTheme={handleToggleTheme}
@@ -521,14 +537,14 @@ export default function App() {
         onExportJSON={handleExportJSON}
         onImportJSON={handleImportJSON}
         onOpenRecovery={() => setShowRecovery(true)}
-        onResetDemo={handleResetDemo}
-        onClearAllData={handleOpenClearModal}
+        onResetDemo={() => guardPlanning(handleResetDemo)}
+        onClearAllData={() => guardPlanning(handleOpenClearModal)}
       />
 
       {/* Revolut Navigation Bar */}
       <Navigation
         activeTab={activeTab}
-        onSelectTab={setActiveTab}
+        onSelectTab={changeTab}
         pendingTransactionsCount={pendingTransactionsCount}
         exceededBudgetsCount={exceededBudgetsCount}
         pendingDebtsCount={pendingDebtsCount}
@@ -559,7 +575,7 @@ export default function App() {
             walletBalances={walletBalances}
             onAddTransaction={(tx) => handleSaveTransaction(tx)}
             onToggleProcessed={handleToggleProcessed}
-            onNavigateToTab={setActiveTab}
+            onNavigateToTab={changeTab}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
         )}
@@ -575,19 +591,23 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'budgets' && (
+        {activeTab === 'budgets' && (<>
+          <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty}
+            onSave={(edits, savings, scope, approve, deficit) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit))}
+            onDetail={handleSelectPartidaToView} />
+          <h2 className="text-lg font-bold mt-8 mb-3">Catálogo y detalle de partidas</h2>
           <BudgetsView
             currentMonthYear={currentMonthYear}
             summary={summary}
             budgetRows={budgetRows}
             budgetGroups={budgetGroups}
-            onUpdateBudgetPlan={handleUpdateBudgetPlan}
-            onMovePartida={handleMovePartida}
-            onDuplicatePartida={handleDuplicatePartida}
-            onChangePartidaGroup={handleChangePartidaGroup}
+            onUpdateBudgetPlan={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleUpdateBudgetPlan(...args)}
+            onMovePartida={(...args) => guardPlanning(() => handleMovePartida(...args))}
+            onDuplicatePartida={partida => guardPlanning(() => handleDuplicatePartida(partida))}
+            onChangePartidaGroup={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleChangePartidaGroup(...args)}
             onSelectPartidaToView={handleSelectPartidaToView}
           />
-        )}
+        </>)}
 
         {activeTab === 'contacts' && (
           <ContactsView
@@ -648,6 +668,12 @@ export default function App() {
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
+      {pendingPlanningNavigation && <SafeDialog title="Cambios de planificación sin guardar" onCancel={() => setPendingPlanningNavigation(null)}>
+        <p>Hay importes u objetivo sin guardar. Puedes volver al editor o descartar el borrador local para continuar.</p>
+        <div className="flex gap-2"><button onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button onClick={() => {
+          const action = pendingPlanningNavigation; setPendingPlanningNavigation(null); planningState.current = { dirty: false, saving: false }; setPlanningReset(n => n + 1); action();
+        }}>Descartar y continuar</button></div>
+      </SafeDialog>}
       {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
