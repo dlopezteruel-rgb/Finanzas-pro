@@ -8,6 +8,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
 }) {
   const counts = [
     ['Movimientos', backup.transactions.length], ['Presupuestos', backup.budgetPlans.length],
+    ...(backup.planningMonths ? [['Objetivos y aprobaciones mensuales', backup.planningMonths.length]] : []),
     ['Paquetes', backup.budgetGroups.length], ['Contactos', backup.contacts.length],
     ['Préstamos', backup.loans.length], ['Carteras', backup.wallets.length],
   ];

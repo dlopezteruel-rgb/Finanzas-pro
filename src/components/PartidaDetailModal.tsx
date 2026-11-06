@@ -1,3 +1,6 @@
+import { parsePlanningMoney } from '../utils/planning';
+import { useAsyncForm } from '../utils/useAsyncForm';
+import type { SaveResult } from '../utils/saveResult';
 import { Overlay } from './Overlay';
 import React, { useState, useEffect } from 'react';
 import { BudgetPartida, MonthlyBudgetRow, Transaction, MovementType } from '../types/finance';
@@ -17,7 +20,7 @@ interface PartidaDetailModalProps {
   onAddMovementToPartida: (partidaCode: string, type: MovementType) => void;
   onViewSharedDetails: (id: string) => void;
   error?: string;
-  onUpdatePrevisto: (code: string, type: MovementType, amount: number) => void;
+  onUpdatePrevisto: (code: string, type: MovementType, amount: number) => Promise<SaveResult>;
 }
 
 export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
@@ -35,6 +38,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
 }) => {
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
+  const previstoSubmission = useAsyncForm();
+  const [previstoError, setPrevistoError] = useState('');
 
   useEffect(() => {
     if (budgetRow) {
@@ -53,13 +58,15 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const handleSavePrevisto = () => {
-    const val = parseFloat(previstoInput.replace(',', '.'));
-    onUpdatePrevisto(partida.code, partida.type, isNaN(val) ? 0 : Math.max(0, val));
-    setIsEditingPrevisto(false);
+    try {
+      const val = parsePlanningMoney(previstoInput) / 100;
+      setPrevistoError('');
+      void previstoSubmission.submit(() => onUpdatePrevisto(partida.code, partida.type, val), () => setIsEditingPrevisto(false));
+    } catch (error) { setPrevistoError((error as Error).message); }
   };
 
   return (
-    <Overlay title="Detalle de partida" level="panel" onClose={onClose}>
+    <Overlay title="Detalle de partida" level="panel" onClose={() => previstoSubmission.close(onClose)}>
       <div className="bg-[#141926] border border-white/10 max-w-xl w-full sm:w-[min(36rem,90vw)] h-dvh p-5 shadow-2xl text-xs space-y-4 flex flex-col">
         {/* Handle on mobile */}
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-1" />
@@ -88,7 +95,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </div>
 
           <button
-            onClick={onClose}
+            onClick={() => previstoSubmission.close(onClose)}
+            disabled={previstoSubmission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 shrink-0"
             aria-label="Cerrar"
           >
@@ -96,6 +104,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </button>
         </div>
 
+        {(previstoError || previstoSubmission.error) && <p role="alert">{previstoError || previstoSubmission.error}</p>}
         {error && <p role="alert" className="text-amber-300">{error}</p>}
         {/* Metrics Grid */}
         <div className="grid grid-cols-3 gap-2 bg-[#0c0f17] p-3 rounded-2xl border border-white/[0.06]">
@@ -105,8 +114,9 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
             {isEditingPrevisto ? (
               <div className="flex items-center gap-1 mt-0.5">
                 <input
-                  type="number"
-                  step="0.01"
+                  aria-label="Previsto de la partida"
+                  inputMode="decimal"
+                  disabled={previstoSubmission.saving}
                   value={previstoInput}
                   onChange={e => setPrevistoInput(e.target.value)}
                   onKeyDown={e => {
@@ -116,7 +126,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   className="w-16 bg-[#161c2b] border border-sky-500 rounded px-1.5 py-0.5 text-xs text-white font-mono text-right"
                   autoFocus
                 />
-                <button onClick={handleSavePrevisto} className="text-emerald-400 p-0.5">
+                <button aria-label="Guardar previsto de la partida" disabled={previstoSubmission.saving} onClick={handleSavePrevisto} className="text-emerald-400 p-0.5">
                   <Check className="w-3 h-3" />
                 </button>
               </div>

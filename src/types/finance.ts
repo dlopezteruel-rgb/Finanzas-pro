@@ -116,6 +116,34 @@ export interface BudgetPlan {
   plannedAmount: number;
 }
 
+/** Planning amounts are integer cents; budgetPlans remains the editable source. */
+export interface PlanningLine {
+  code: string;
+  type: MovementType;
+  amountCents: number;
+}
+export interface PlanningTotals {
+  income: number;
+  expenses: number;
+  savings: number;
+  available: number;
+  margin: number;
+  balance: number;
+}
+export interface PlanningApproval {
+  number: number;
+  revision: number;
+  approvedAt: string;
+  lines: PlanningLine[];
+  totals: PlanningTotals;
+}
+export interface PlanningMonth {
+  monthYear: string;
+  savingsCents: number;
+  revision: number;
+  approval?: PlanningApproval;
+}
+
 export interface Wallet {
   id: string;
   name: string;

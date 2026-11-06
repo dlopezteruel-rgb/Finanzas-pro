@@ -172,3 +172,11 @@ El borrado masivo existente muestra cantidades de todas las fechas, incluidas op
 La confirmación masiva lleva una instantánea del alcance revisado. Si una escritura en cola cambia los registros antes de obtener el bloqueo, se exige volver a revisar las cantidades; otra pestaña sigue provocando el conflicto de revisión habitual. Esta ruta de `FinanceStore.mutate` guarda y verifica la copia recuperable completa antes de una única escritura activa, con las garantías anteriores de restauración. La copia conserva íntegramente los registros y su formato original. No se añade ningún metadato persistido ni versión de JSON.
 
 Las pruebas unitarias y Chromium incluyen elementos con y sin dependencias, cuota/conflicto, cancelación, doble envío, espera real, retorno de foco, paneles superpuestos en escritorio/móvil, alcance modificado en cola, copia obligatoria, históricos e importación de la copia recuperable. No se incorpora archivado general ni gestión/eliminación de familias o partidas: quedan para Fase 3.
+
+## Fase 3A: planificación y ahorro objetivo
+
+En **Presupuestos → Planificación financiera** puedes editar el mes completo, guardar un borrador o revisar/aprobar la previsión; el ahorro objetivo no modifica los saldos. El selector permite meses futuros y el resumen anual indica la cobertura real. Si editas después de aprobar, la última fotografía se conserva y el estado pasa a modificado.
+
+Los metadatos se guardan en JSON **2.9** solo al utilizarlos. Se mantienen lectura/restauración de 2.5–2.8 y copia recuperable verificada antes de la primera escritura 2.9. Una app antigua no puede leer 2.9: utiliza la copia completa previa para volver atrás.
+
+Consulta [modelo, migración, archivos y QA manual con datos ficticios](docs/phase-3a.md).

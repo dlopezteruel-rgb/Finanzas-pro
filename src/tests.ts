@@ -10,3 +10,5 @@ import './utils/sharedExpenses.test';
 import './utils/sharedUx.test';
 
 import './utils/deletion.test';
+
+import './utils/planning.test';

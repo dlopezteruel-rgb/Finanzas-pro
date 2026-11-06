@@ -170,7 +170,8 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
         };
       }, DATA_KEY);
       await dialog.getByRole('button', { name: 'Añadir', exact: true }).click();
-      await dialog.getByRole('alert').waitFor();
+      // The shared-expense validation already has an alert before storage fails.
+      await dialog.getByRole('alert').filter({ hasText: /No hay espacio/ }).waitFor();
       assert.equal(await dialog.getByPlaceholder('Nombre del nuevo contacto...').inputValue(), 'Contacto dentro del gasto');
       await page.evaluate(() => { (window as any).failContactSave = false; });
       await dialog.getByRole('button', { name: 'Añadir', exact: true }).click();
