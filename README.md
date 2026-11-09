@@ -192,3 +192,9 @@ Consulta el [informe técnico y guion de QA con datos ficticios](docs/phase-3b-b
 Inicio, Movimientos, Planificación y Cuentas incluyen paneles gráficos plegables de solo lectura, con filtros, interacción por teclado/clic/tap y tablas accesibles. Se usa SVG local con `d3-shape`, sin servicios externos. Los meses sin plan dejan huecos y Cuentas distingue saldos actuales de variaciones bancarias registradas, sin inventar historia.
 
 Consulta la [arquitectura, tamaño, límites contables y QA manual](docs/phase-3b-charts.md).
+
+## Fase 3B: automatización de planificación
+
+Planificación permite copiar previsiones, gestionar recurrencias de aplicación manual, arrastrar remanentes positivos como ajustes separados y comparar fotografías reales de aprobaciones sucesivas. Cada cambio requiere vista previa y confirmación; no genera movimientos ni modifica saldos. Los meses previamente aprobados están protegidos frente a copias y generación masiva.
+
+Los nuevos metadatos utilizan JSON **3.0**, con validación estricta, Web Locks y copia recuperable completa verificada antes del primer cambio de formato. Se mantienen los formatos 2.5–2.9 sin migraciones al consultar. Consulta el [informe técnico, modelo, recuperación, resultados y guion manual](docs/phase-3b.md).

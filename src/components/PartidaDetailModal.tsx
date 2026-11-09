@@ -43,7 +43,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
 
   useEffect(() => {
     if (budgetRow) {
-      setPrevistoInput(budgetRow.previsto.toString());
+      setPrevistoInput((budgetRow.basePrevisto ?? budgetRow.previsto).toString());
     } else {
       setPrevistoInput('0');
     }
@@ -106,6 +106,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
 
         {(previstoError || previstoSubmission.error) && <p role="alert">{previstoError || previstoSubmission.error}</p>}
         {error && <p role="alert" className="text-amber-300">{error}</p>}
+        {!!budgetRow?.arrastre&&<p>Base {formatCurrency(budgetRow.basePrevisto)} + arrastre {formatCurrency(budgetRow.arrastre)} = efectivo {formatCurrency(budgetRow.previsto)}. Editar previsto modifica solo la base.</p>}
         {/* Metrics Grid */}
         <div className="grid grid-cols-3 gap-2 bg-[#0c0f17] p-3 rounded-2xl border border-white/[0.06]">
           {/* Previsto */}
@@ -137,7 +138,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                 </span>
                 <button
                   onClick={() => {
-                    setPrevistoInput(budgetRow?.previsto?.toString() || '0');
+                    setPrevistoInput((budgetRow?.basePrevisto ?? budgetRow?.previsto ?? 0).toString());
                     setIsEditingPrevisto(true);
                   }}
                   className="text-slate-400 hover:text-white p-0.5 opacity-60 group-hover:opacity-100"

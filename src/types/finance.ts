@@ -136,6 +136,8 @@ export interface PlanningApproval {
   approvedAt: string;
   lines: PlanningLine[];
   totals: PlanningTotals;
+  baseLines?: PlanningLine[];
+  carryLines?: PlanningLine[];
 }
 export interface PlanningMonth {
   monthYear: string;
@@ -173,6 +175,8 @@ export interface MonthlyBudgetRow {
   name: string;
   type: MovementType;
   previsto: number;
+  basePrevisto?: number;
+  arrastre?: number;
   ejecutado: number;
   resto: number; // PREVISTO - EJECUTADO
   percent: number; // (EJECUTADO / PREVISTO) * 100
@@ -205,4 +209,44 @@ export interface ParsedMovement {
   processed: boolean;
   confidence: number;
   explanation?: string;
+}
+
+export type PlanningTarget = MovementType | 'SAVINGS';
+export interface PlanningRule {
+  id: string;
+  name: string;
+  target: PlanningTarget;
+  code?: string;
+  amountCents: number;
+  frequency: 'monthly' | 'quarterly' | 'yearly';
+  startMonth: string;
+  endMonth?: string;
+  active: boolean;
+}
+export interface PlanningOrigin {
+  monthYear: string;
+  target: PlanningTarget;
+  code?: string;
+  kind: 'copy' | 'rule' | 'manual';
+  sourceMonth?: string;
+  ruleName?: string;
+  appliedAt: string;
+}
+export interface PlanningCarryover {
+  id: string;
+  fromMonth: string;
+  toMonth: string;
+  type: 'GASTO';
+  code: string;
+  amountCents: number;
+  sourceBaseCents: number;
+  sourceExecutedCents: number;
+  sourceSignature: string;
+  createdAt: string;
+}
+export interface PlanningAutomation {
+  rules: PlanningRule[];
+  carryovers: PlanningCarryover[];
+  origins: PlanningOrigin[];
+  history: { monthYear: string; approvals: PlanningApproval[] }[];
 }

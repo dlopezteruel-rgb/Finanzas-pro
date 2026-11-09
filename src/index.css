@@ -184,3 +184,10 @@ body[data-theme="light"] {
 [data-theme="light"] .financial-charts :is(select,input) { color-scheme: light; }
 [data-theme="light"] .chart-warning { color: #854d0e; }
 [data-theme="light"] .financial-charts [role="alert"] { color: #9f1239; }
+.planning select { max-width: 100%; min-height: 44px; padding: .5rem; border: 1px solid #94a3b8; border-radius: .5rem; background: #0c0f17; color: #e2e8f0; }
+.planning :is(label,p,td,th) { overflow-wrap: anywhere; }
+.planning-breakdown { grid-column: 1 / -1; font-size: .8rem; }
+.planning .automation-table table { min-width: 46rem; }
+.planning .automation-table td:not(:last-child) { white-space: nowrap; overflow-wrap: normal; }
+.planning .automation-table th:first-child { min-width: 12rem; }
+.planning .automation-table:focus-visible { outline: 3px solid #38bdf8; outline-offset: -3px; }

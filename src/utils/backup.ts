@@ -1,20 +1,23 @@
 import { assertSharedIntegrity, isStructuredShared, sharedMigrationReport } from './sharedExpenses';
 import { assertTransferIntegrity, legacyTransferReport } from './transfers';
+import { hasAutomation, carryLines, combineLines } from './planningBasis';
+import { validateAutomation } from './planningAutomationValidation';
 import { planningLines, planningTotals, safeCents, assertMonth } from './planning';
-import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet, PlanningMonth } from '../types/finance';
+import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet, PlanningMonth, PlanningAutomation, PlanningApproval, PlanningLine } from '../types/finance';
 
 export interface FinanceData {
   theme: 'dark' | 'light';
   transactions: Transaction[];
   budgetPlans: BudgetPlan[];
   planningMonths?: PlanningMonth[];
+  planningAutomation?: PlanningAutomation;
   budgetGroups: BudgetGroup[];
   contacts: Contact[];
   loans: Loan[];
   wallets: Wallet[];
 }
 export interface Backup extends FinanceData {
-  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9';
+  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9' | '3.0';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -63,15 +66,37 @@ function unique(values: string[], path: string) {
   if (new Set(values).size !== values.length) invalid(path, 'contiene identificadores duplicados.');
 }
 
+export function normalizedLines(items: PlanningLine[] = []) {
+  return JSON.stringify(items.map(l=>({type:l.type,code:l.code,amountCents:l.amountCents})).sort((a,b)=>`${a.type}:${a.code}`.localeCompare(`${b.type}:${b.code}`)));
+}
+export function validateApproval(value: unknown, p: string, advanced: boolean): asserts value is PlanningApproval {
+  object(value,p); const a=value;
+  fields(a,['number','revision','approvedAt','lines','totals'],advanced?['baseLines','carryLines']:[],p);
+  for(const key of ['number','revision']) { number(a[key],`${p}.${key}`,1,true);safeCents(a[key]); }
+  if (typeof a.approvedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(a.approvedAt) || !Number.isFinite(Date.parse(a.approvedAt)) || new Date(a.approvedAt).toISOString() !== a.approvedAt) invalid(p,'fecha de aprobación inválida.');
+  const lines=(items:unknown,path:string,carry=false)=>{
+    array(items,path,(line,q)=>{fields(line,['type','code','amountCents'],[],q);movementType(line.type,`${q}.type`);string(line.code,`${q}.code`);safeCents(line.amountCents);if(!line.amountCents || (carry && line.type!=='GASTO'))invalid(q,'línea monetaria inválida.');});
+    unique((items as PlanningLine[]).map(l=>`${l.type}:${l.code}`),path);
+  };
+  lines(a.lines,`${p}.lines`);
+  object(a.totals,`${p}.totals`);fields(a.totals,['income','expenses','savings','available','margin','balance'],[],`${p}.totals`);
+  const totals=planningTotals(a.lines,a.totals.savings);
+  for(const k of Object.keys(totals) as (keyof typeof totals)[])if(totals[k]!==a.totals[k])invalid(p,'totales inconsistentes con la fotografía.');
+  if(Object.hasOwn(a,'baseLines') || Object.hasOwn(a,'carryLines')) {
+    lines(a.baseLines,`${p}.baseLines`);lines(a.carryLines,`${p}.carryLines`,true);
+    if(normalizedLines(combineLines(a.baseLines,a.carryLines))!==normalizedLines(a.lines))invalid(p,'base + arrastre no coincide con la fotografía efectiva.');
+  }
+}
+
 /** Validate every collection before exposing any of it to application state. */
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
-  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
-  if (!['2.5', '2.6', '2.7', '2.8', '2.9'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8 y 2.9; no se ha modificado ningún dato.');
+  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], value.version === '3.0' ? ['planningMonths','planningAutomation'] : value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
+  if (!['2.5', '2.6', '2.7', '2.8', '2.9', '3.0'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9 y 3.0; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9'].includes(value.version) ? ['reimbursement'] : [])], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9', '3.0'].includes(value.version) ? ['reimbursement'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
@@ -88,7 +113,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
-      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
+      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9', '3.0'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9', '3.0'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
       bool(s.isShared, `${p}.splitInfo.isShared`); number(s.totalParticipants, `${p}.splitInfo.totalParticipants`, 2, true);
       number(s.myShare, `${p}.splitInfo.myShare`); number(s.totalOwedToMe, `${p}.splitInfo.totalOwedToMe`);
       array(s.participants, `${p}.splitInfo.participants`, (participant, q) => {
@@ -150,34 +175,24 @@ export function validateBackup(value: unknown): asserts value is Backup {
   });
   const checked = value as unknown as Backup;
   for (const k of ['transactions', 'contacts', 'loans', 'wallets'] as const) unique(checked[k].map(item => item.id), k);
-  if (value.version === '2.9') {
+  if (value.version === '3.0') validateAutomation(checked, validateApproval);
+  if (value.version === '2.9' || (value.version === '3.0' && Object.hasOwn(value,'planningMonths'))) {
     if (!Array.isArray(value.planningMonths) || !value.planningMonths.length) invalid('planningMonths', '2.9 requiere metadatos mensuales no vacíos.');
     array(value.planningMonths, 'planningMonths', (meta, p) => {
       fields(meta, ['monthYear', 'savingsCents', 'revision'], ['approval'], p);
       string(meta.monthYear, `${p}.monthYear`); assertMonth(meta.monthYear);
       safeCents(meta.savingsCents); number(meta.revision, `${p}.revision`, 1, true); safeCents(meta.revision);
       // Legacy months retain their original validation until explicitly planned.
-      const lines = planningLines(checked.budgetPlans, meta.monthYear);
+      const baseLines = planningLines(checked.budgetPlans, meta.monthYear);
+      const adjustments = carryLines(checked, meta.monthYear);
+      const lines = combineLines(baseLines, adjustments);
       planningTotals(lines, meta.savingsCents);
       if (Object.hasOwn(meta, 'approval')) {
-        const a = meta.approval; object(a, `${p}.approval`);
-        fields(a, ['number', 'revision', 'approvedAt', 'lines', 'totals'], [], `${p}.approval`);
-        number(a.number, `${p}.approval.number`, 1, true); safeCents(a.number);
-        number(a.revision, `${p}.approval.revision`, 1, true); safeCents(a.revision);
+        const a = meta.approval;
+        validateApproval(a, `${p}.approval`, value.version === '3.0');
         if (a.revision > meta.revision) invalid(p, 'la aprobación no puede superar la revisión actual.');
-        if (typeof a.approvedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(a.approvedAt) || !Number.isFinite(Date.parse(a.approvedAt)) || new Date(a.approvedAt).toISOString() !== a.approvedAt) invalid(p, 'fecha de aprobación inválida.');
-        array(a.lines, `${p}.approval.lines`, (line, q) => {
-          fields(line, ['type', 'code', 'amountCents'], [], q);
-          movementType(line.type, `${q}.type`); string(line.code, `${q}.code`); safeCents(line.amountCents);
-          if (!line.amountCents) invalid(q, 'la fotografía solo incluye partidas con importe positivo.');
-        });
-        unique(a.lines.map((l: {type: string; code: string}) => `${l.type}:${l.code}`), `${p}.approval.lines`);
-        object(a.totals, `${p}.approval.totals`);
-        fields(a.totals, ['income', 'expenses', 'savings', 'available', 'margin', 'balance'], [], `${p}.approval.totals`);
-        const totals = planningTotals(a.lines, a.totals.savings);
-        for (const key of Object.keys(totals) as (keyof typeof totals)[]) if (a.totals[key] !== totals[key]) invalid(`${p}.approval.totals.${key}`, 'total inconsistente con las partidas aprobadas.');
-        const normalized = (items: typeof lines) => JSON.stringify(items.map(l => ({ type: l.type, code: l.code, amountCents: l.amountCents })).sort((x,y) => `${x.type}:${x.code}`.localeCompare(`${y.type}:${y.code}`)));
-        if (a.revision === meta.revision && (a.totals.savings !== meta.savingsCents || normalized(a.lines) !== normalized(lines))) invalid(p, 'la aprobación vigente no coincide con la previsión actual.');
+        if (a.revision === meta.revision && (a.totals.savings !== meta.savingsCents || normalizedLines(a.lines) !== normalizedLines(lines))) invalid(p, 'la aprobación vigente no coincide con la previsión actual.');
+        if (a.revision === meta.revision && adjustments.length && (!a.baseLines || normalizedLines(a.baseLines)!==normalizedLines(baseLines) || normalizedLines(a.carryLines)!==normalizedLines(adjustments))) invalid(p,'La aprobación debe distinguir base y arrastre vigente.');
       }
     });
     unique(checked.planningMonths!.map(m => m.monthYear), 'planningMonths');
@@ -191,8 +206,8 @@ export function validateBackup(value: unknown): asserts value is Backup {
 }
 
 export function makeBackup(data: FinanceData): Backup {
-  const { planningMonths, ...base } = data;
-  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), version: planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
+  const { planningMonths, planningAutomation, ...base } = data;
+  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), ...(planningAutomation && [planningAutomation.rules,planningAutomation.carryovers,planningAutomation.origins,planningAutomation.history].some(a=>a?.length) ? {planningAutomation} : {}), version: hasAutomation(data) ? '3.0' : planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
@@ -205,6 +220,7 @@ export function parseBackup(content: string): Backup {
 /** Legacy applications can export orphaned links. Warn and preserve, never repair silently. */
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
+  if(hasAutomation(data))warnings.push('JSON 3.0: contiene automatización e historial. Las versiones antiguas no lo leen; utiliza la copia recuperable completa previa para volver atrás.');
   if (data.planningMonths?.length) warnings.push('JSON 2.9: incluye objetivos y últimas aprobaciones mensuales. Las versiones anteriores de la aplicación no pueden leerlo; utiliza la copia recuperable anterior para volver atrás.');
   const shared = sharedMigrationReport(data);
   if (shared.candidates.length || shared.issues.length) warnings.push('Gastos compartidos históricos sin migrar: conservan el gasto total y el tratamiento anterior de ingresos. Revisa la migración para aplicar la parte propia y excluir los reintegros confirmados.');

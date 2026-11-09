@@ -13,6 +13,7 @@ export function changePartidaGroup(data: FinanceData, partida: BudgetPartida, ta
   if (data.budgetGroups.some(g => g !== source && g.partidas.some(p => p.code === current.code && p.type === target.type))) {
     throw new Error('Ya existe una partida con ese código y tipo en el catálogo. No se ha aplicado el traslado.');
   }
+  if(current.type!==target.type&&data.planningAutomation?.carryovers.some(c=>c.code===current.code))throw new Error('Revisa y elimina los arrastres de esta partida antes de cambiar su tipo.');
   const updated = { ...current, groupCode: target.code, groupName: target.name, type: target.type };
   return {
     ...data,

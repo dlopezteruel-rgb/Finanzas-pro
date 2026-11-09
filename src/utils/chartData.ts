@@ -1,5 +1,6 @@
 import type { FinanceData } from './backup';
 import type { BudgetPartida, Transaction } from '../types/finance';
+import { effectiveBudgetPlans, carryLines } from './planningBasis';
 import { isISODate } from './backup';
 import { calculateMonthlyBudgetRows, calculateMonthlySummary, calculateWalletBalances } from './finance';
 import { economicTransactions, legacyTransferReport, transferWalletName } from './transfers';
@@ -37,7 +38,7 @@ export function rangeBuckets(range: ChartRange) {
 export function chartCatalog(data: FinanceData): BudgetPartida[] {
   const catalog = data.budgetGroups.flatMap(g => g.partidas), keys = new Set(catalog.map(planningKey));
   const extra: BudgetPartida[] = [];
-  for (const item of [...data.budgetPlans, ...data.transactions]) if (!keys.has(planningKey(item))) {
+  for (const item of [...effectiveBudgetPlans(data), ...data.transactions]) if (!keys.has(planningKey(item))) {
     keys.add(planningKey(item));
     extra.push({ code: item.code, type: item.type, name: 'subcategoryName' in item ? item.subcategoryName : `Partida ${item.code}`, groupCode: 'historical', groupName: 'Fuera del catálogo', keywords: [] });
   }
@@ -85,7 +86,7 @@ export function accountingChartWarnings(data: FinanceData) {
   return warnings;
 }
 export function planningChartData(data: FinanceData, month: string, grouping: 'family' | 'partida') {
-  const catalog = chartCatalog(data), rows = calculateMonthlyBudgetRows(month, data.transactions, data.budgetPlans, catalog);
+  const catalog = chartCatalog(data), rows = calculateMonthlyBudgetRows(month, data.transactions, effectiveBudgetPlans(data), catalog);
   const meta = data.planningMonths?.find(m => m.monthYear === month), yearly = annualPlanning(data, month.slice(0,4));
   const plan = yearly.find(m => m.monthYear === month)!;
   const grouped = new Map<string, ChartRow>();
@@ -109,12 +110,14 @@ export function planningChartData(data: FinanceData, month: string, grouping: 'f
       if (value) grouped.set(`snapshot:${type}`, { id: `snapshot:${type}`, label: `${type} · Fotografía fuera del catálogo`, values: { planned: null, executed: 0, approved: value } });
     }
   }
+  const carryover = carryLines(data,month).reduce((n,l)=>n+l.amountCents,0)/100;
   const annual: ChartRow[] = yearly.map(m => {
-    const summary = calculateMonthlySummary(m.monthYear, data.transactions, data.budgetPlans, catalog);
+    const summary = calculateMonthlySummary(m.monthYear, data.transactions, effectiveBudgetPlans(data), catalog);
     const hasPlan = m.status !== 'Sin plan';
-    return { id: m.monthYear, label: m.monthYear, note: m.status, values: { income: hasPlan ? m.totals.income / 100 : null, expenses: hasPlan ? m.totals.expenses / 100 : null, savings: hasPlan ? m.totals.savings / 100 : null, plannedBalance: hasPlan ? m.totals.balance / 100 : null, realBalance: summary.balanceReal, realIncome: summary.ingresosReales, realExpenses: summary.gastosEjecutados } };
+    return { id: m.monthYear, label: m.monthYear, note: m.status, values: { income: hasPlan ? m.totals.income / 100 : null, expenses: hasPlan ? m.totals.expenses / 100 : null, savings: hasPlan ? m.totals.savings / 100 : null, plannedBalance: hasPlan ? m.totals.balance / 100 : null, realBalance: summary.balanceReal, realIncome: summary.ingresosReales, realExpenses: summary.gastosEjecutados,baseExpenses:hasPlan?m.baseExpenses/100:null,carryover:hasPlan?m.carryoverCents/100:null } };
   });
-  return { comparison: [...grouped.values()].map(r=>({ ...r, values: Object.fromEntries(Object.entries(r.values).map(([k,v])=>[k,v === null ? null : round(v)])) })), annual, status: plan.status, approval: meta?.approval };
+  if(carryover)for(const target of grouped.values()){const codes=rows.filter(r=>grouping==='partida'?planningKey(r)===target.id:`${r.type}:${groups.get(planningKey(r))?.code ?? 'historical'}`===target.id);const keys=new Set(codes.map(planningKey));const carry=carryLines(data,month).filter(l=>keys.has(planningKey(l))).reduce((n,l)=>n+l.amountCents,0)/100;target.values.base=target.values.planned===null?null:round(target.values.planned-carry);target.values.carryover=carry;}
+  return { comparison: [...grouped.values()].map(r=>({ ...r, values: Object.fromEntries(Object.entries(r.values).map(([k,v])=>[k,v === null ? null : round(v)])) })), annual, status: plan.status, approval: meta?.approval, carryover };
 }
 export function walletChartData(data: FinanceData, range: ChartRange, selected: string) {
   const balances = calculateWalletBalances(data.wallets, data.transactions);
