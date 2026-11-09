@@ -12,3 +12,5 @@ import './utils/sharedUx.test';
 import './utils/deletion.test';
 
 import './utils/planning.test';
+
+import './utils/chartData.test';
