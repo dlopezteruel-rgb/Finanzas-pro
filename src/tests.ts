@@ -14,3 +14,5 @@ import './utils/deletion.test';
 import './utils/planning.test';
 
 import './utils/chartData.test';
+
+import './utils/planningAutomation.test';

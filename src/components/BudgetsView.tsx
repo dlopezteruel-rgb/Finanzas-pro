@@ -99,7 +99,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
 
   const startEdit = (row: MonthlyBudgetRow) => {
     setEditingKey(`${row.type}:${row.code}`);
-    setEditValue(row.previsto.toString());
+    setEditValue((row.basePrevisto ?? row.previsto).toString());
   };
 
   const saveEdit = (row: MonthlyBudgetRow) => {
@@ -456,7 +456,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </div>
                             ) : (
                               <div className="flex items-center gap-1">
-                                <span>Previsto: <strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong></span>
+                                <span>Previsto efectivo: <strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>{!!row.arrastre&&<> · Base {formatCurrency(row.basePrevisto)} + arrastre {formatCurrency(row.arrastre)}</>}</span>
                                 <button
                                   onClick={() => startEdit(row)}
                                   className="text-slate-400 hover:text-white p-0.5 cursor-pointer"

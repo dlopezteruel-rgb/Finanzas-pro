@@ -45,6 +45,8 @@ import { ChartSlot } from './components/charts/ChartSlot';
 import type { EconomicFilter } from './utils/chartData';
 import { BudgetWorkspace } from './components/BudgetWorkspace';
 import { PlanningView } from './components/PlanningView';
+import { effectiveBudgetPlans, planningBudgetRows, planningCatalog } from './utils/planningBasis';
+import { applyAutomationPreview } from './utils/planningAutomation';
 import { savePlanning, planCents } from './utils/planning';
 import { BudgetsView } from './components/BudgetsView';
 import { LoansView } from './components/LoansView';
@@ -81,6 +83,7 @@ function downloadJSON(content: string, filename: string) {
 export default function App() {
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
+  const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
   const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
   const sharedMigration = useMemo(() => sharedMigrationReport(data), [data]);
   const [settlementToEdit, setSettlementToEdit] = useState<DebtSettlement | undefined>(undefined);
@@ -174,12 +177,12 @@ export default function App() {
   // - Balance Mensual Real = INGRESOS REALES - GASTOS EJECUTADOS
   // - Balance Mensual Previsto = INGRESOS PREVISTOS - GASTOS PREVISTOS
   const summary = useMemo(() => {
-    return calculateMonthlySummary(currentMonthYear, transactions, budgetPlans, allPartidas);
-  }, [currentMonthYear, transactions, budgetPlans, allPartidas]);
+    return calculateMonthlySummary(currentMonthYear, transactions, effectivePlans, planningCatalog(data,allPartidas));
+  }, [data,currentMonthYear,transactions,effectivePlans,allPartidas]);
 
   const budgetRows = useMemo(() => {
-    return calculateMonthlyBudgetRows(currentMonthYear, transactions, budgetPlans, allPartidas);
-  }, [currentMonthYear, transactions, budgetPlans, allPartidas]);
+    return planningBudgetRows(data,currentMonthYear,allPartidas);
+  }, [data,currentMonthYear,allPartidas]);
 
   const walletBalances = useMemo(() => {
     return calculateWalletBalances(wallets, transactions);
@@ -601,7 +604,7 @@ export default function App() {
         {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty}
             onSave={(edits, savings, scope, approve, deficit) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit))}
-            onDetail={handleSelectPartidaToView} />
+            onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
         } catalog={
           <BudgetsView
             currentMonthYear={currentMonthYear}

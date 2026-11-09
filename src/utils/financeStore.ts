@@ -1,3 +1,4 @@
+import { reconcileAutomation } from './planningAutomation';
 import { invalidatePlanning, reconcilePlanning } from './planning';
 import { assertDeletionTransition } from './deletion';
 import { confirmedClearData, type ClearDataOptions } from './clearData';
@@ -64,7 +65,8 @@ export class FinanceStore {
       this.checkRevision();
       const clearing = typeof transform !== 'function';
       let candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
-      if (!clearing) candidate = reconcilePlanning(this.data, invalidatePlanning(this.data, candidate));
+      if(candidate===this.data)return this.data;
+      if (!clearing) candidate = reconcileAutomation(this.data, reconcilePlanning(this.data, invalidatePlanning(this.data, candidate)));
       assertDeletionTransition(this.data, candidate);
       if (!clearing) {
         assertSharedTransition(this.data, candidate);

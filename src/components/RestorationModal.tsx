@@ -9,6 +9,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
   const counts = [
     ['Movimientos', backup.transactions.length], ['Presupuestos', backup.budgetPlans.length],
     ...(backup.planningMonths ? [['Objetivos y aprobaciones mensuales', backup.planningMonths.length]] : []),
+    ...(backup.planningAutomation?[['Reglas recurrentes',backup.planningAutomation.rules.length],['Arrastres',backup.planningAutomation.carryovers.length],['Fotografías históricas',backup.planningAutomation.history.reduce((n,h)=>n+h.approvals.length,0)]]:[]),
     ['Paquetes', backup.budgetGroups.length], ['Contactos', backup.contacts.length],
     ['Préstamos', backup.loans.length], ['Carteras', backup.wallets.length],
   ];
