@@ -111,13 +111,15 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-16 md:pb-6">
+    <div className="transactions-view">
+      <h1 className="module-title">Movimientos</h1>
       {/* Search & Top Action */}
-      <div className="flex items-center gap-2">
+      <div className="movement-search flex items-center gap-2">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
           <input
             type="text"
+            aria-label="Buscar movimientos"
             placeholder="Buscar por concepto, partida (V.001), cartera..."
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
@@ -144,7 +146,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       </div>
 
       {/* Segmented Filter Pills (Revolut Style) */}
-      <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="movement-filters" role="group" aria-label="Filtros del listado">
         <button
           onClick={() => setFilterType('ALL')}
           className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
@@ -201,7 +203,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       </div>
 
       {/* Filter Stats Mini Bar */}
-      <div className="flex items-center justify-between text-[11px] text-slate-400 px-1">
+      <div className="movement-stats flex items-center justify-between text-[11px] text-slate-400 px-1">
         <span>{filtered.length} movimientos encontrados</span>
         <div className="flex items-center gap-3">
           <span>Ingr: <strong className="text-emerald-400 font-mono">+{formatCurrency(totalIncomes)}</strong></span>
@@ -210,7 +212,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       </div>
 
       {/* Transactions List */}
-      <div className="bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm divide-y divide-white/[0.04]">
+      <div className="movement-list bg-[#141926] border border-white/[0.06] rounded-2xl shadow-sm divide-y divide-white/[0.04]" role="list" aria-label="Movimientos filtrados">
         {filtered.length === 0 ? (
           <div className="py-12 text-center text-slate-400 text-xs">
             No se encontraron movimientos con los filtros aplicados.
@@ -219,7 +221,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           filtered.map(t => (
             <div
               key={t.id}
-              className="px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors"
+              role="listitem" className="movement-row px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors"
             >
               {/* Category Icon & Movement Details */}
               <div className="flex items-center gap-3 min-w-0">
@@ -251,6 +253,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                 </div>
               </div>
 
+              <time className="movement-date" dateTime={t.date}>{t.date.split('-').reverse().join('/')}</time>
               {/* Amount, Processed Toggle, and Delete */}
               <div className="flex items-center gap-2.5 shrink-0">
                 <div className="text-right space-y-1">

@@ -24,6 +24,7 @@ import { formatCurrency, calculateLoanStatus } from '../utils/finance';
 import { QuickNaturalLanguageInput } from './QuickNaturalLanguageInput';
 
 interface DashboardViewProps {
+  charts: React.ReactNode;
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
   transactions: Transaction[];
@@ -37,6 +38,7 @@ interface DashboardViewProps {
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
+  charts,
   summary,
   budgetRows,
   transactions,
@@ -78,9 +80,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   };
 
   return (
-    <div className="space-y-5 pb-16 md:pb-6">
+    <div className="dashboard-view">
+      <h1 className="module-title">Inicio</h1>
       {/* 1. Revolut Hero Balance Header */}
-      <div className="text-center pt-2 pb-1 space-y-1">
+      <div className="home-hero text-center pt-2 pb-1 space-y-1">
         <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400">
           Patrimonio Total en Cuentas
         </span>
@@ -97,7 +100,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* 2. Revolut Circular Action Buttons */}
-      <div className="flex items-center justify-center gap-4 sm:gap-6 pt-1">
+      <div className="home-actions flex items-center justify-center gap-4 sm:gap-6 pt-1">
         {/* Add Movement */}
         <button
           onClick={onOpenNewTransaction}
@@ -144,10 +147,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* 3. Revolut Quick Search / NLP Input */}
-      <QuickNaturalLanguageInput onAddTransaction={onAddTransaction} />
+      <div className="home-quick"><QuickNaturalLanguageInput onAddTransaction={onAddTransaction} /></div>
 
       {/* 4. Revolut Compact Widget Cards (Horizontal / Grid) */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <div className="home-kpis grid grid-cols-1 sm:grid-cols-3 gap-3">
         {/* Widget 1: Presupuesto Restante */}
         <div
           onClick={() => onNavigateToTab('budgets')}
@@ -226,7 +229,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
       {/* 5. Compact Budget Alerts Strip (Revolut Style) */}
       {(exceededRows.length > 0 || warningRows.length > 0) && (
-        <div className="bg-[#1a141b] border border-rose-500/30 rounded-2xl p-3 flex items-center justify-between gap-3 text-xs">
+        <div className="home-alerts bg-[#1a141b] border border-rose-500/30 rounded-2xl p-3 flex items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2.5 min-w-0">
             <div className="w-7 h-7 rounded-full bg-rose-500/20 text-rose-400 flex items-center justify-center shrink-0">
               <AlertCircle className="w-4 h-4" />
@@ -249,8 +252,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
         </div>
       )}
 
+      <div className="home-charts">{charts}</div>
       {/* 6. Revolut-Style Transactions List */}
-      <div className="bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
+      <div className="home-recent bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
         <div className="p-3.5 border-b border-white/[0.06] flex items-center justify-between">
           <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
             Últimos Movimientos

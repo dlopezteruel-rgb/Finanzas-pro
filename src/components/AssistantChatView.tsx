@@ -287,10 +287,17 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
   };
 
   return (
-    <div className="bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col h-[580px] sm:h-[620px] shadow-sm overflow-hidden pb-16 md:pb-0">
+    <section className="assistant-layout" aria-label="Asistente financiero">
+      <aside className="planning-card assistant-context">
+        <h1 className="module-title">Asistente</h1>
+        <h2>Tu contexto del mes · {summary.monthYear}</h2>
+        <dl><div><dt>Ingresos reales</dt><dd>{formatCurrency(summary.ingresosReales)}</dd></div><div><dt>Gastos ejecutados</dt><dd>{formatCurrency(summary.gastosEjecutados)}</dd></div><div><dt>Balance real</dt><dd>{formatCurrency(summary.balanceReal)}</dd></div></dl>
+        <p>Las consultas utilizan datos guardados. Revisa cualquier propuesta antes de confirmar un movimiento.</p>
+      </aside>
+      <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
       {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-3.5 space-y-3">
+      <div className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (
           <div
             key={m.id}
@@ -307,7 +314,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
             </div>
 
             <div
-              className={`max-w-[85%] rounded-2xl p-3 text-xs ${
+              className={`assistant-message max-w-[85%] rounded-2xl p-3 text-xs ${
                 m.sender === 'user'
                   ? 'bg-white text-slate-950 font-medium rounded-tr-none'
                   : 'bg-[#0c0f17] border border-white/[0.06] text-slate-200 rounded-tl-none shadow-md'
@@ -328,7 +335,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
       </div>
 
       {/* Suggested Quick Chips */}
-      <div className="px-3 py-2 bg-[#0c0f17]/60 border-t border-white/[0.04] flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+      <div className="assistant-suggestions px-3 py-2 bg-[#0c0f17]/60 border-t border-white/[0.04] flex items-center gap-1.5 overflow-x-auto no-scrollbar">
         {quickQuestions.map((q, i) => (
           <button
             key={i}
@@ -353,6 +360,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
             type="text"
             value={inputMessage}
             onChange={e => setInputMessage(e.target.value)}
+            aria-label="Mensaje para el asistente"
             placeholder="Pregunta o registra un gasto..."
             className="flex-1 bg-[#141926] border border-white/[0.08] focus:border-sky-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none"
           />
@@ -367,5 +375,6 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
         </form>
       </div>
     </div>
+    </section>
   );
 };

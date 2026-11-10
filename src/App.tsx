@@ -523,7 +523,8 @@ export default function App() {
   </div>;
 
   return (
-    <div className="min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
+    <div className="finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
+      <a className="skip-link" href="#app-content">Ir al contenido</a>
       {/* Hidden File Input for JSON import */}
       <input
         type="file"
@@ -558,24 +559,24 @@ export default function App() {
         pendingDebtsCount={pendingDebtsCount}
       />
 
-      {capabilityError && <div role="alert" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
+      {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
         <strong>Guardado no disponible.</strong> {capabilityError} Puedes consultar y exportar tus datos; los formularios conservarán lo introducido si no se puede guardar.
       </div>}
-      {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
+      {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p>Traspasos históricos: {legacyTransfers.pairs.length} pares inequívocos y {legacyTransfers.unresolved.length} registros pendientes de revisión. Los originales no se han reescrito. Los pares inequívocos no cuentan como ingreso ni gasto; los registros ambiguos conservan sus cálculos anteriores y bloquean la edición individual.</p>
         {legacyTransfers.missingWalletPairs.length > 0 && <p>{legacyTransfers.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales.</p>}
         {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
       </div>}
-      {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="mx-auto max-w-2xl p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
+      {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p>Gastos compartidos históricos: {sharedMigration.candidates.length} gastos verificables y {sharedMigration.issues.length} casos para revisión. Hasta migrarlos conservan el gasto total y el tratamiento anterior de los ingresos. No se han reescrito los originales.</p>
         {sharedMigration.issues.map(issue => <p key={issue}>{issue}</p>)}
         {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>Revisar migración de gastos compartidos</button>}
       </div>}
       {/* Main Content Viewport */}
-      <main className="flex-1 max-w-xl sm:max-w-2xl w-full mx-auto px-3.5 sm:px-4 py-3.5 sm:py-5">
-        {activeTab === 'dashboard' && (<>
-          <ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>
+      <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
+        {activeTab === 'dashboard' && (
           <DashboardView
+            charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
             summary={summary}
             budgetRows={budgetRows}
             transactions={transactions}
@@ -587,7 +588,7 @@ export default function App() {
             onNavigateToTab={changeTab}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
-        </>)}
+        )}
 
         {activeTab === 'transactions' && (<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>

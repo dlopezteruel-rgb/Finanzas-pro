@@ -69,9 +69,9 @@ export const Navigation: React.FC<NavigationProps> = ({
   return (
     <>
       {/* Desktop Segmented Navigation Bar */}
-      <nav className="hidden md:block bg-[#0c0f17] border-b border-white/[0.06] py-2">
-        <div className="max-w-4xl mx-auto px-4 flex items-center justify-center">
-          <div className="flex items-center gap-1 bg-[#141926] p-1 rounded-full border border-white/[0.06]">
+      <nav aria-label="Navegación principal" className="desktop-navigation hidden md:block bg-[#0c0f17] border-b border-white/[0.06] py-2">
+        <div className="app-shell flex items-center">
+          <div className="desktop-nav-items flex items-center gap-1 bg-[#141926] p-1 rounded-full border border-white/[0.06]">
             {tabs.map(tab => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -105,7 +105,7 @@ export const Navigation: React.FC<NavigationProps> = ({
       </nav>
 
       {/* Mobile Fixed Bottom Navigation Bar (Revolut Style) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0c0f17]/95 backdrop-blur-xl border-t border-white/[0.08] pb-safe">
+      <nav aria-label="Navegación principal" className="mobile-navigation md:hidden fixed bottom-0 left-0 right-0 z-50 bg-[#0c0f17]/95 backdrop-blur-xl border-t border-white/[0.08] pb-safe">
         <div className="grid grid-cols-7 items-center px-0.5 py-1.5 max-w-lg mx-auto">
           {tabs.map(tab => {
             const Icon = tab.icon;

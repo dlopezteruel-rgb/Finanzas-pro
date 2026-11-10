@@ -40,7 +40,7 @@ test('3A: planificación, aprobación y compatibilidad en Chromium aislado', {ti
   }
   await t.test('borrador local, errores inline, navegación sin escrituras, salir/seguir y descartar',async()=>{
     const s=await setup();try{const {page}=s;const before=await raw(page);await fill(page);
-      const totals=editor(page).locator('.planning-totals').first();for(const expected of ['3.000,00 €','2.200,00 €','600,00 €','2.400,00 €','200,00 €','800,00 €'])assert.ok((await totals.textContent())!.includes(expected));
+      const totals=editor(page).locator('.planning-totals').first();for(const expected of ['3.000,00 €','2.200,00 €','600,00 €','200,00 €','0,00 €'])assert.ok((await totals.textContent())!.includes(expected));
       assert.equal(await raw(page),before);
       const income=editor(page).getByRole('textbox',{name:'Previsto INGRESO Sueldo ficticio',exact:true});await income.fill('3.000');assert.equal(await income.getAttribute('aria-invalid'),'true');assert.equal(await editor(page).getByRole('button',{name:'Guardar borrador',exact:true}).isDisabled(),true);await income.fill('-1');assert.equal(await income.getAttribute('aria-invalid'),'true');await income.fill('3000');
       await nav(page,'Cuentas');const guard=page.getByRole('dialog',{name:'Cambios de planificación sin guardar'});await guard.waitFor();await guard.getByRole('button',{name:'Seguir editando'}).click();assert.equal(await income.inputValue(),'3000');

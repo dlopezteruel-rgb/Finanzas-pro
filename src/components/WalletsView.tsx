@@ -77,7 +77,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-16 md:pb-6 animate-fadeIn">
+    <div className="wallets-view space-y-4 pb-16 md:pb-6 animate-fadeIn">
       {/* Top Banner: Total Patrimony & Action Buttons */}
       <div className="bg-[#141926] border border-white/[0.06] rounded-3xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 shadow-lg">
         <div>
@@ -115,7 +115,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       </div>
 
       {/* Wallets List (Click to edit patrimonio) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="wallet-cards">
         {wallets.map(w => {
           const currentBalance = walletBalances[w.name] ?? w.initialBalance;
           const walletTxs = economicTransactions(transactions).filter(t => transferWalletName(t, wallets) === w.name && t.processed);
@@ -210,7 +210,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
       {/* Recent Ordered Transfers History */}
       {transferTransactions.length > 0 && (
-        <div className="bg-[#141926] border border-white/[0.06] rounded-3xl p-4 sm:p-5 space-y-3">
+        <div className="wallet-recent bg-[#141926] border border-white/[0.06] rounded-3xl p-4 sm:p-5 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center">

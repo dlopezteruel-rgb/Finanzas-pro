@@ -16,3 +16,4 @@ import './utils/planning.test';
 import './utils/chartData.test';
 
 import './utils/planningAutomation.test';
+import './components/planningPreview.test';
