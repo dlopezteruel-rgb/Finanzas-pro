@@ -22,7 +22,7 @@ import {
   occurrencePreviews,
   saveMovementRule,
 } from "../src/utils/recurringMovements";
-import { saveObligation } from "../src/utils/personalObligations";
+import { saveObligation, settleObligation } from "../src/utils/personalObligations";
 import { savePlanning, planningScope } from "../src/utils/planning";
 
 const nav = (p: Page, name: string) =>
@@ -636,6 +636,65 @@ test(
               .innerText(),
             /100,00/,
           );
+        } finally {
+          await s.close();
+        }
+      },
+    );
+    await t.test(
+      "revisar origen enlazado enfoca el movimiento y la ocurrencia sin modificar datos",
+      async () => {
+        let d = saveObligation(fixture(), obligation());
+        d = settleObligation(d, "personal", {
+          id: "cobro-ficticio",
+          amountCents: 5000,
+          date: "2026-11-15",
+          kind: "bank",
+          processed: false,
+          note: "",
+          walletId: "bank",
+        });
+        d = saveMovementRule(d, rule({ day: 20 }));
+        const s = await setup(d);
+        const { page: p } = s;
+        try {
+          const before = await snapshot(p);
+          const checkFocusedTransaction = async () => {
+            const row = p.locator('[data-focused-transaction="true"]');
+            await row.waitFor();
+            assert.match(await row.innerText(), /Cobro de principal: Préstamo personal ficticio/);
+            await p.waitForFunction(
+              () => document.activeElement?.getAttribute("data-focused-transaction") === "true",
+            );
+            assert.equal(await p.getByLabel("Seleccionar periodo contable").inputValue(), "2026-11");
+          };
+
+          await nav(p, "Deudas");
+          await p.getByRole("button", { name: "Me deben", exact: true }).click();
+          await p.getByRole("button", { name: "Revisar movimiento de liquidación" }).click();
+          await checkFocusedTransaction();
+          assert.deepEqual(await snapshot(p), before);
+
+          await nav(p, "Inicio");
+          await p.getByRole("button", { name: "Próximos 30 días", exact: true }).click();
+          await p.getByRole("row")
+            .filter({ hasText: "Cobro de principal: Préstamo personal ficticio" })
+            .getByRole("button", { name: "Revisar origen", exact: true }).click();
+          await checkFocusedTransaction();
+          assert.deepEqual(await snapshot(p), before);
+
+          await nav(p, "Inicio");
+          await p.getByRole("button", { name: "Próximos 30 días", exact: true }).click();
+          await p.getByRole("row")
+            .filter({ hasText: "Alquiler ficticio" })
+            .getByRole("button", { name: "Revisar origen", exact: true }).click();
+          const occurrence = p.locator('[data-focused-occurrence="true"]');
+          await occurrence.waitFor();
+          assert.match(await occurrence.innerText(), /Alquiler ficticio/);
+          await p.waitForFunction(
+            () => document.activeElement?.getAttribute("data-focused-occurrence") === "true",
+          );
+          assert.deepEqual(await snapshot(p), before);
         } finally {
           await s.close();
         }
