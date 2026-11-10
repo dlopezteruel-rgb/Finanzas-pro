@@ -122,6 +122,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [homeTab,setHomeTab]=useState<'overview'|'treasury'>('overview');
   const [movementTab,setMovementTab]=useState<'ledger'|'recurring'>('ledger');
+  const [focusedTransactionId,setFocusedTransactionId]=useState<string|null>(null);
+  const [focusedOccurrenceId,setFocusedOccurrenceId]=useState<string|null>(null);
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
   const [planningNavigationFailure,setPlanningNavigationFailure]=useState(false);
@@ -136,8 +138,32 @@ export default function App() {
     if (planningState.current.dirty) {setPlanningNavigationFailure(false);setPendingPlanningNavigation(() => action);}
     else action();
   };
-  const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => setCurrentMonthYear(month)); };
-  const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setActiveTab(tab); }); };
+  const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => { setFocusedTransactionId(null); setFocusedOccurrenceId(null); setCurrentMonthYear(month); }); };
+  const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setFocusedTransactionId(null); setFocusedOccurrenceId(null); setActiveTab(tab); }); };
+  // Navigate to the exact registered movement without invoking its editor.
+  // The same planning guard owns the complete navigation, so a pending draft cannot be lost.
+  const openLinkedTransaction = (id: string) => {
+    const transaction = transactions.find(t => t.id === id);
+    if (!transaction) { setDataNotice('El movimiento vinculado ya no está disponible. Revisa el historial antes de continuar.'); return; }
+    guardPlanning(() => {
+      setCurrentMonthYear(transaction.date.slice(0, 7));
+      setMovementTab('ledger');
+      setFocusedOccurrenceId(null);
+      setFocusedTransactionId(id);
+      setActiveTab('transactions');
+    });
+  };
+  const openLinkedOccurrence = (id: string) => {
+    const month = id.slice(-10, -3);
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) { setDataNotice('La ocurrencia no tiene un mes válido.'); return; }
+    guardPlanning(() => {
+      setCurrentMonthYear(month);
+      setMovementTab('recurring');
+      setFocusedTransactionId(null);
+      setFocusedOccurrenceId(id);
+      setActiveTab('transactions');
+    });
+  };
 
 
   // Modals state
@@ -587,7 +613,7 @@ export default function App() {
       <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
         {activeTab === 'dashboard' && (<>
           <div className="finance-actions" aria-label="Secciones de inicio"><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>Resumen financiero</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>Próximos 30 días</button></div>
-          {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring'){changeMonth(id.slice(-10,-3));setMovementTab('recurring');changeTab('transactions')}else{const tx=transactions.find(t=>t.id===id);if(tx){changeMonth(tx.date.slice(0,7));setMovementTab('ledger');changeTab('transactions');handleOpenEditTransaction(tx)}}}}/>:<>
+          {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
           <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
@@ -606,12 +632,13 @@ export default function App() {
         </>)}
 
         {activeTab === 'transactions' && (<>
-          <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>setMovementTab('ledger')}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>setMovementTab('recurring')}>Movimientos periódicos</button></div>
-          {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
+          <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>Movimientos periódicos</button></div>
+          {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} focusedOccurrenceId={focusedOccurrenceId} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
             currentMonthYear={currentMonthYear}
             transactions={transactions}
+            focusedTransactionId={focusedTransactionId}
             onToggleProcessed={handleToggleProcessed}
             onViewSharedDetails={setSharedDetailId}
             onDeleteTransaction={handleDeleteTransaction}
@@ -654,7 +681,7 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'loans' && (<DebtsWorkspace data={data} mutate={mutate} onContacts={()=>changeTab('contacts')} onMovement={id=>{setDataNotice(`Liquidación ${id}: revisa su estado en Movimientos.`);setMovementTab('ledger');changeTab('transactions')}} loans={
+        {activeTab === 'loans' && (<DebtsWorkspace data={data} mutate={mutate} onContacts={()=>changeTab('contacts')} onMovement={openLinkedTransaction} loans={
           <LoansView
             deletionData={data}
             loans={loans}
