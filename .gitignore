@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Local audiovisual deliverables; never push video binaries to the source repository.
+/artifacts/demo-video*/

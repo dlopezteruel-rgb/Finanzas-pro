@@ -11,7 +11,11 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "node --import tsx src/tests.ts",
-    "test:ui": "npm run build && node --import tsx scripts/phase1.browser.ts && node --import tsx scripts/sharedUx.browser.ts && node --import tsx scripts/deletion.browser.ts && node --import tsx scripts/planning.browser.ts && node --import tsx scripts/budgetUx.browser.ts && node --import tsx scripts/charts.browser.ts && node --import tsx scripts/automation.browser.ts && node --import tsx scripts/responsive.browser.ts && node --import tsx scripts/intelligent.browser.ts"
+    "test:ui": "npm run build && node --import tsx scripts/phase1.browser.ts && node --import tsx scripts/sharedUx.browser.ts && node --import tsx scripts/deletion.browser.ts && node --import tsx scripts/planning.browser.ts && node --import tsx scripts/budgetUx.browser.ts && node --import tsx scripts/charts.browser.ts && node --import tsx scripts/automation.browser.ts && node --import tsx scripts/responsive.browser.ts && node --import tsx scripts/intelligent.browser.ts",
+    "demo:check": "node --import tsx --test scripts/demo-video/fixture.test.ts",
+    "demo:smoke": "node --import tsx scripts/demo-video/record.ts --smoke",
+    "demo:record": "node --import tsx scripts/demo-video/record.ts",
+    "demo:package": "node --import tsx scripts/demo-video/media.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
