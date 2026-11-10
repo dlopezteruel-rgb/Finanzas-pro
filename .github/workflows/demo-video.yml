@@ -31,6 +31,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Preparar registros
@@ -81,9 +82,11 @@ jobs:
         run: npm run build 2>&1 | tee artifacts/demo-video-logs/build.log
 
       - name: Comprobar el diff
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           {
-            git show --format= --check HEAD
+            git diff --check "$PR_BASE_SHA" HEAD
             git diff --check
           } 2>&1 | tee artifacts/demo-video-logs/diff-check.log
 
