@@ -31,11 +31,13 @@ const frequencyLabels = {
 export function RecurringMovementsView({
   data,
   month,
+  focusedOccurrenceId,
   mutate,
   onEdit,
 }: {
   data: FinanceData;
   month: string;
+  focusedOccurrenceId?: string | null;
   mutate: (fn: FinanceMutation) => Promise<SaveResult>;
   onEdit: (t: Transaction) => void;
 }) {
@@ -48,6 +50,7 @@ export function RecurringMovementsView({
     text: string;
     apply: (d: FinanceData) => FinanceData;
   } | null>(null);
+  const focusedRowRef = React.useRef<HTMLTableRowElement>(null);
   const [selected, setSelected] = useState<string[]>([]),
     [batch, setBatch] = useState<OccurrenceBatch | null>(null),
     [ack, setAck] = useState(false);
@@ -72,6 +75,15 @@ export function RecurringMovementsView({
   } catch (e) {
     rangeError = (e as Error).message;
   }
+  React.useEffect(() => {
+    if (!focusedOccurrenceId || !rows.some(r => r.id === focusedOccurrenceId)) return;
+    const row = focusedRowRef.current;
+    if (row) {
+      row.focus({ preventScroll: true });
+      row.scrollIntoView({ block: 'center' });
+    }
+  }, [focusedOccurrenceId, rows]);
+
   const create = () => {
     const p = partidas[0],
       w = data.wallets[0];
@@ -245,7 +257,12 @@ export function RecurringMovementsView({
             </thead>
             <tbody>
               {rows.map((r) => (
-                <tr key={r.id}>
+                <tr key={r.id}
+                  ref={r.id === focusedOccurrenceId ? focusedRowRef : undefined}
+                  tabIndex={r.id === focusedOccurrenceId ? -1 : undefined}
+                  aria-label={r.id === focusedOccurrenceId ? `Ocurrencia seleccionada: ${r.rule.concept}, ${r.dueDate}` : undefined}
+                  data-focused-occurrence={r.id === focusedOccurrenceId ? 'true' : undefined}
+                  className={r.id === focusedOccurrenceId ? 'ring-2 ring-inset ring-sky-400 bg-sky-500/10' : undefined}>
                   <td>
                     {r.status === "proposed" && (
                       <input
