@@ -77,6 +77,24 @@ flowchart LR
   C --> M[Revisar origen]
 ```
 
+## Navegación directa y validación del ajuste posterior
+
+La validación final parte del HEAD remoto `04c620aa57e0814a560c232611e9ca030688ddbe`, incorporado por avance rápido desde `287e4f8` tras revisar sus cuatro commits de navegación. Se mantuvieron el árbol local limpio y los cambios remotos; no se reemplazó ni eliminó trabajo existente.
+
+**Deudas → Revisar movimiento de liquidación** despliega el destino del historial en el registro de Movimientos, selecciona el mes de la fecha del movimiento y sitúa el foco y el resaltado en su fila. El historial se despliega antes de pulsar su enlace. La navegación no abre el editor ni tramita la devolución; intentar editar principal conserva el aviso y la protección existentes.
+
+**Tesorería → Revisar origen** distingue el ID de una transacción pendiente (incluidas las liquidaciones personales) del ID persistente de una ocurrencia periódica. Para estas últimas se consulta primero la identidad guardada y su fecha original, sin reconstruirla a partir del día actual de la regla. Los destinos inexistentes o las fechas no admitidas muestran un aviso y no ejecutan mutaciones.
+
+Un nuevo enlace restablece los filtros locales de búsqueda, tipo, cartera y periodo que podrían ocultar la transacción. En recurrencias, restablece el rango visible al mes de la identidad solicitada y limpia la selección local anterior. El resaltado corresponde únicamente al ID solicitado; al solicitar otro destino se sustituye el anterior. La navegación ordinaria mantiene el comportamiento previo de filtros y de cambio de periodo.
+
+El foco se aplica **una vez por petición de destino**, cuando la fila está disponible tras actualizar filtros/rango. Los renders posteriores no vuelven a enfocar ni desplazar la fila, de modo que la búsqueda y las casillas mantienen el foco del usuario. Estas operaciones afectan solo a estado React, referencias y desplazamiento del documento.
+
+Periodo, submódulo e ID se cambian dentro de una única acción de `guardPlanning`. Al seguir editando se conserva el borrador; al descartar no hay escritura; al guardar solo se persiste la modificación de planificación expresamente solicitada. La navegación posterior no cambia transacciones, cuentas, recurrencias ni compromisos. La aprobación histórica y el formato JSON 3.1 se conservan.
+
+La revisión estática y la reproducción en Chromium detectaron filtros/rangos que ocultaban el destino y efectos de foco que se repetían al renderizar. Se corrigieron con restablecimiento local al recibir un enlace y una referencia de foco pendiente que se consume una sola vez. La prueba añadida en los commits anteriores también necesitó desplegar el historial antes de consultar el botón; se corrigió el recorrido del test y la espera del render tras cambiar filtros. No se modificaron modelos financieros, FinanceStore, validadores ni migraciones.
+
+Las pruebas adicionales mantienen los componentes reales montados para reproducir filtros retenidos y cambios sucesivos de destino. Una página interceptada únicamente por Playwright sirve ese montaje aislado, sin añadir rutas ni controles de prueba al producto. También se prueban en la aplicación completa destinos en meses distintos, movimientos ordinarios y de principal, ocurrencias, guardias de guardar/descartar y la comparación íntegra del almacenamiento ficticio antes/después de consultar. Los contextos de navegador son nuevos y no acceden al almacenamiento del usuario.
+
 ## Movimientos periódicos
 
 Frecuencias mensual, trimestral y anual, ancladas al mes de inicio. El día inexistente se ajusta al **último día válido del mes**, sin trasladar el anclaje siguiente: 31 de enero → 29/28 de febrero → 31 de marzo. Inicio y fin son inclusivos. Una fecha anterior al inicio no se propone. No hay scheduler, relleno histórico oculto ni registro al arrancar.
@@ -143,23 +161,26 @@ Preguntas, negaciones y simulaciones no llegan al callback de registro. Las inst
 
 ## QA y resultados reales
 
-Resultados verificados el 10/11/2026, con fixtures ficticias:
+Validación final ejecutada sobre el código `eddd4d82f3a3b58a6f0d15f0ec88ba6b0b189026`, posterior al HEAD remoto auditado `04c620a`. Se repitieron todas las comprobaciones obligatorias; los 255/175 anteriores eran únicamente referencias, no evidencia para los ajustes nuevos. Todas las pruebas usan datos ficticios.
 
 | Comando | Resultado |
 | --- | --- |
-| `npm test` | 255 pruebas, 255 pasan, 0 fallos |
+| `npm ci` | Pasa; instalación desde lockfile, 187 paquetes |
+| `npm test` | 255 pruebas, 255 pasan, 0 fallos en la nueva ejecución |
 | `npm run lint` | Pasa (`tsc --noEmit`) |
 | `npm run build` | Pasa; avisos de tamaño de bundle y futura configuración nativa de Vite |
-| `CHROMIUM_PATH=/usr/bin/chromium npm run test:ui` | 175 contabilizadas, 175 pasan, 0 fallos (166 casos + 9 contenedores de node:test) |
+| `CHROMIUM_PATH=/usr/bin/chromium npm run test:ui` | 180 contabilizados, 180 pasan, 0 fallos (171 casos + 9 contenedores de node:test) |
 | `git diff --check` | Pasa |
 
-El repositorio no incluía lockfile: el primer `npm ci` falló por ese motivo. Al resolver dependencias apareció el conflicto entre esbuild 0.25 y Vite 8.3. Se alineó esbuild con 0.28 y se añadió `package-lock.json`; los comandos de validación posteriores usan esa resolución. El bundle principal final mide aproximadamente 622 kB (174 kB gzip); la división adicional de módulos queda como mejora de rendimiento, sin ocultar el aviso del build.
+Durante la implementación inicial el repositorio no incluía lockfile: aquel primer `npm ci` falló por ese motivo. Al resolver dependencias apareció el conflicto entre esbuild 0.25 y Vite 8.3. Se alineó esbuild con 0.28 y se añadió `package-lock.json`; los comandos de validación posteriores usan esa resolución. El bundle principal de la validación final mide aproximadamente 624 kB (175 kB gzip); la división adicional de módulos queda como mejora de rendimiento, sin ocultar el aviso del build.
 
-Recuento de Chromium por archivo: fase 1 **57**, UX compartidos **12**, eliminaciones **23**, planificación **13**, UX presupuestos **11**, gráficos **8**, automatización **15**, responsive Fase 4 **16** y Fase 5 **20**. Tras los últimos ajustes de textos y abreviación del selector se repiten las 20 de Fase 5, lint, unitarios y build.
+Recuento final de Chromium por archivo: fase 1 **57**, UX compartidos **12**, eliminaciones **23**, planificación **13**, UX presupuestos **11**, gráficos **8**, automatización **15**, responsive Fase 4 **16** y Fase 5 **25**; total **180**, sin fallos, cancelaciones ni omisiones. La batería de Fase 5 incluye el recorrido enlazado de los commits remotos y cuatro nuevos casos para filtros/foco persistentes y navegación tras guardar/descartar borradores. Los totales incluyen el contenedor de cada archivo de node:test. Antes de corregir se reprodujeron tres casos fallidos de navegación/test; sus resultados no se presentan como aprobados. La ejecución final completa posterior es la que certifica estos cambios.
 
 La batería nueva verifica calendario y Madrid desde un navegador en otra zona, extremos, guardia de borrador y fallos al guardar, reglas/omisiones/colisiones, lock real y doble clic, reintentos por cuota, copia previa, pestañas concurrentes, cobros parciales con y sin banco, restauración JSON anterior/3.1, tesorería, consultas sin escritura y fallback. Se mantienen las regresiones de fases 1, 2A, 2B, 3A, 3B y 4. Las suites históricas fijan su fecha ficticia de octubre; no fuerzan ese mes en la aplicación.
 
 Unitarios: bisiestos y siglos, reglas inclusivas, meses remotos, vínculos, idempotencia tras recarga/exportación, fallos de copia/verificación/escritura, reservas, principal, cuotas, transferencias/repartos/reintegros, aprobación histórica, restauración 2.5–3.0 y validación estricta 3.1. La consulta amplia cubre **500 reglas, 5.000 movimientos y 6.000 propuestas** sin mutación; las coincidencias usan índices por clave y las guardas nuevas usan mapas por ID. Generación, confirmación, colecciones y tamaño están acotados.
+
+Entorno de revalidación: Node 24.22.1, npm 11.9.0 y `/usr/bin/chromium` 156.0.8078.79. Los resultados corresponden al entorno cloud de Codex, no a nuevos jobs de CI de GitHub.
 
 Responsive: 390, 768, 1280, 1440 y 1920 px, temas claro/oscuro, foco/Tab/Escape en modal, emulación táctil y zoom CSS 125/150/200 %. No se afirma haber probado Firefox, Safari, zoom nativo del navegador ni dispositivos físicos. Capturas ficticias en `docs/assets/phase-5/` (Inicio, periódicos, deudas, tesorería y asistente).
 
