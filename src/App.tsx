@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { toggleObligationSettlement } from './utils/personalObligations';
 import { currentMonth } from './utils/financialCalendar';
 import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
@@ -67,6 +68,8 @@ import { confirmOnceAsync } from './utils/confirmation';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
+import { DebtsWorkspace } from './components/DebtsWorkspace';
+import { RecurringMovementsView } from './components/RecurringMovementsView';
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
@@ -85,7 +88,7 @@ export default function App() {
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
-  const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
+  const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: (t.recurrence || t.obligationSettlement) ? wallets.find(w=>w.id===(t.recurrence?.walletId??t.obligationSettlement?.walletId))!.name : t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
   const sharedMigration = useMemo(() => sharedMigrationReport(data), [data]);
   const [settlementToEdit, setSettlementToEdit] = useState<DebtSettlement | undefined>(undefined);
   const [deleteSettlementInitially, setDeleteSettlementInitially] = useState(false);
@@ -114,6 +117,7 @@ export default function App() {
   // Current Month/Year period
   const [currentMonthYear, setCurrentMonthYear] = useState<string>(()=>currentMonth());
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const [movementTab,setMovementTab]=useState<'ledger'|'recurring'>('ledger');
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
   const [planningBusy, setPlanningBusy] = useState(false);
@@ -228,6 +232,7 @@ export default function App() {
 
   const handleToggleProcessed = (id: string) => {
     const tx = storedTransactions.find(t => t.id === id);
+    if(tx?.obligationSettlement)return mutate(current=>toggleObligationSettlement(current,id));
     if (tx?.reimbursement) {
       const expense = storedTransactions.find(t => t.id === tx.reimbursement!.expenseId)!;
       const s = expense.splitInfo!.settlements!.find(s => s.id === tx.reimbursement!.settlementId)!;
@@ -247,6 +252,7 @@ export default function App() {
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
+    if(tx.obligationSettlement){setDataNotice('El principal y su historial están protegidos. Revisa esta liquidación desde Deudas; puedes tramitarla desde Movimientos.');return;}
     if (tx.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId); return; }
     if (isLegacyShared(tx)) { setDataError('Revisa la migración del gasto compartido histórico antes de editarlo.'); return; }
     const raw = storedTransactions.find(t => t.id === tx.id);
@@ -589,6 +595,8 @@ export default function App() {
         )}
 
         {activeTab === 'transactions' && (<>
+          <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>setMovementTab('ledger')}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>setMovementTab('recurring')}>Movimientos periódicos</button></div>
+          {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
             transactions={transactions}
@@ -598,6 +606,7 @@ export default function App() {
             onEditTransaction={handleOpenEditTransaction}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
+          </>}
         </>)}
 
         {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
@@ -633,7 +642,7 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'loans' && (
+        {activeTab === 'loans' && (<DebtsWorkspace data={data} mutate={mutate} onContacts={()=>changeTab('contacts')} onMovement={id=>{setDataNotice(`Liquidación ${id}: revisa su estado en Movimientos.`);setMovementTab('ledger');changeTab('transactions')}} loans={
           <LoansView
             deletionData={data}
             loans={loans}
@@ -644,7 +653,7 @@ export default function App() {
             onDeleteLoan={handleDeleteLoan}
             onPayInstallment={handlePayLoanInstallment}
           />
-        )}
+        }/>)}
 
         {activeTab === 'wallets' && (<>
           <ChartSlot data={data} month={currentMonthYear} kind="wallets"/>
