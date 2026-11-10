@@ -20,3 +20,4 @@ import './components/planningPreview.test';
 
 import './utils/financialCalendar.test';
 import './utils/intelligentFinance.test';
+import './utils/treasury.test';

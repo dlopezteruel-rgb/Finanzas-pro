@@ -68,6 +68,9 @@ import { confirmOnceAsync } from './utils/confirmation';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
+import { TreasuryView } from './components/TreasuryView';
+import { liquidBalanceCents } from './utils/treasury';
+import { obligationOverview } from './utils/personalObligations';
 import { DebtsWorkspace } from './components/DebtsWorkspace';
 import { RecurringMovementsView } from './components/RecurringMovementsView';
 
@@ -117,6 +120,7 @@ export default function App() {
   // Current Month/Year period
   const [currentMonthYear, setCurrentMonthYear] = useState<string>(()=>currentMonth());
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const [homeTab,setHomeTab]=useState<'overview'|'treasury'>('overview');
   const [movementTab,setMovementTab]=useState<'ledger'|'recurring'>('ledger');
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
@@ -191,8 +195,8 @@ export default function App() {
   }, [wallets, transactions]);
 
   const totalLiquidBalance = useMemo(() => {
-    return Object.values(walletBalances).reduce((acc, curr) => acc + curr, 0);
-  }, [walletBalances]);
+    return liquidBalanceCents(data)/100;
+  }, [data, walletBalances]);
 
   // Count pending transactions (processed: false)
   const pendingTransactionsCount = useMemo(() => {
@@ -578,7 +582,10 @@ export default function App() {
       </div>}
       {/* Main Content Viewport */}
       <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
-        {activeTab === 'dashboard' && (
+        {activeTab === 'dashboard' && (<>
+          <div className="finance-actions" aria-label="Secciones de inicio"><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>Resumen financiero</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>Próximos 30 días</button></div>
+          {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring'){changeMonth(id.slice(-10,-3));setMovementTab('recurring');changeTab('transactions')}else{const tx=transactions.find(t=>t.id===id);if(tx){changeMonth(tx.date.slice(0,7));setMovementTab('ledger');changeTab('transactions');handleOpenEditTransaction(tx)}}}}/>:<>
+          <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
             summary={summary}
@@ -592,7 +599,8 @@ export default function App() {
             onNavigateToTab={changeTab}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
-        )}
+          </>}
+        </>)}
 
         {activeTab === 'transactions' && (<>
           <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>setMovementTab('ledger')}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>setMovementTab('recurring')}>Movimientos periódicos</button></div>
