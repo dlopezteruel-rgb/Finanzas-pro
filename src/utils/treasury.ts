@@ -7,7 +7,8 @@ import { intelligent } from './intelligentValidation';
 import { obligationOverview,remainingCents,reservedCents } from './personalObligations';
 import { safeCents } from './planningMoney';
 import { economicTransactions } from './transfers';
-import { cents } from './sharedExpenses';
+// Historic schema permits fractional euro values; round derived forecasts only, never rewrite them.
+const cents=(value:number)=>safeCents(Math.round(value*100));
 
 export interface TreasuryEvent {
   id:string;date:string;concept:string;amountCents:number;

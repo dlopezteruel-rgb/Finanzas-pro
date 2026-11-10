@@ -50,7 +50,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToTab,
   onOpenNewTransaction,
 }) => {
-  const totalLiquid = Object.values(walletBalances).reduce((sum, b) => sum + b, 0);
+  const totalLiquid = wallets.filter(w=>w.type!=='INVESTMENT').reduce((sum,w)=>sum+(walletBalances[w.name]??0),0);
 
   // Filter latest transactions
   const recentTransactions = [...transactions]

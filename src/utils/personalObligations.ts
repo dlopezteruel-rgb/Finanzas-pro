@@ -55,7 +55,7 @@ export interface ObligationOverview {
 export function obligationOverview(data:FinanceData,today=madridDate()):ObligationOverview[] {
   const rows:ObligationOverview[]=[];
   for(const t of data.transactions)if(t.splitInfo?.isShared&&t.processed)for(const p of t.splitInfo.participants) {
-    const amount=cents(remainingDebt(t,p.contactId));
+    const amount=safeCents(Math.round(remainingDebt(t,p.contactId)*100));
     rows.push({id:`shared:${t.id}:${p.contactId}`,source:'shared',direction:'receivable',name:data.contacts.find(c=>c.id===p.contactId)?.name??p.contactName,concept:t.description,remainingCents:amount,overdueCents:0,closed:amount===0});
   }
   for(const o of intelligent(data).obligations) {
@@ -63,8 +63,8 @@ export function obligationOverview(data:FinanceData,today=madridDate()):Obligati
     rows.push({id:o.id,source:'personal',direction:o.direction,name:o.counterparty.contactId?data.contacts.find(c=>c.id===o.counterparty.contactId)?.name??o.counterparty.name:o.counterparty.name,concept:o.concept,remainingCents:amount,overdueCents:o.dueDate&&o.dueDate<today?amount:0,dueDate:o.dueDate,closed:o.cancelled||amount===0});
   }
   for(const l of data.loans) {
-    const s=calculateLoanStatus(l,data.transactions,today),remaining=cents(s.saldoPendienteReal);
-    rows.push({id:l.id,source:'loan',direction:'payable',name:l.entity,concept:l.name,remainingCents:remaining,overdueCents:Math.min(remaining,cents(Math.max(0,s.cuotasTeoricasAcumuladas-s.cuotasRealesTramitadas)*l.monthlyPayment)),closed:remaining===0});
+    const s=calculateLoanStatus(l,data.transactions,today),remaining=safeCents(Math.round(s.saldoPendienteReal*100));
+    rows.push({id:l.id,source:'loan',direction:'payable',name:l.entity,concept:l.name,remainingCents:remaining,overdueCents:Math.min(remaining,safeCents(Math.max(0,s.cuotasTeoricasAcumuladas-s.cuotasRealesTramitadas)*Math.round(l.monthlyPayment*100))),closed:remaining===0});
   }
   return rows;
 }

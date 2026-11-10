@@ -1,6 +1,8 @@
+import type { FinanceData } from '../utils/backup';
+import { financialAssistantContext,localFinancialAdvice,assistantServiceContext } from '../utils/financialAssistant';
 import { economicTransactions } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo, useEffect } from 'react';
 import {
   Send,
   Bot,
@@ -22,6 +24,7 @@ interface Message {
 }
 
 interface AssistantChatProps {
+  financeData: FinanceData;
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
   transactions: Transaction[];
@@ -32,6 +35,7 @@ interface AssistantChatProps {
 }
 
 export const AssistantChatView: React.FC<AssistantChatProps> = ({
+  financeData,
   summary,
   budgetRows,
   transactions,
@@ -40,6 +44,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   onAddTransaction,
   availablePartidas,
 }) => {
+  const context=useMemo(()=>{try{return financialAssistantContext(financeData,summary.monthYear)}catch{return null}},[financeData,summary.monthYear]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [proposal, setProposal] = useState<Omit<Transaction, 'id'> | null>(null);
@@ -85,8 +90,13 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
     },
   ]);
 
+  const previousMonth=useRef(summary.monthYear);
+  useEffect(()=>{if(previousMonth.current!==summary.monthYear){previousMonth.current=summary.monthYear;appendReply(`Periodo consultado: ${summary.monthYear}. ${context?localFinancialAdvice(context,'resumen'):'No se puede calcular el contexto con los datos guardados.'}`)}},[summary.monthYear]);
+
   const quickQuestions = [
-    '¿Cuál es mi balance previsto vs. real?',
+    '¿Cuánto tengo realmente disponible?',
+    '¿Qué gastos puedo reducir para ahorrar 150 € más?',
+    '¿Qué pagos y cobros se aproximan?',
     '¿Qué partidas están en alerta?',
     'Ayer cené fuera por 15,50 € con Openbank',
     'Resumen de mis préstamos y deudas',
@@ -222,7 +232,11 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       return;
     }
 
-    // 2. Chat advice
+    if(!context){appendReply('No puedo calcular el contexto guardado de este periodo. Revisa los importes y los avisos de datos; no se ha modificado nada.');setIsLoading(false);return;}
+    const localReply=localFinancialAdvice(context,text);
+    if(localReply){appendReply(localReply);setIsLoading(false);return;}
+
+    // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
       const response = await fetch('/api/assistant-chat', {
         method: 'POST',
@@ -230,8 +244,8 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         body: JSON.stringify({
           message: text,
           summary,
-          recentMovements: economicTransactions(transactions).slice(0, 5),
-          exceededBudgets: budgetRows.filter(r => r.type === 'GASTO' && (r.status === 'exceeded' || r.status === 'warning')),
+          financialContext:assistantServiceContext(context),
+          fallbackReply:localFinancialAdvice(context,'resumen'),
         }),
       });
 
@@ -250,37 +264,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         throw new Error('No reply');
       }
     } catch {
-      // Deterministic fallback
-      const lower = text.toLowerCase();
-      let fallbackText = '';
-      if (lower.includes('alerta')) {
-        const exc = budgetRows.filter(r => r.type === 'GASTO' && (r.status === 'exceeded' || r.status === 'warning'));
-        fallbackText = `### Partidas en Alerta (${summary.monthYear})
-
-| Código | Partida | Previsto | Resto |
-| :--- | :--- | :--- | :--- |
-${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCurrency(e.previsto)} | **${formatCurrency(e.resto)}** |`).join('\n')}`;
-      } else {
-        fallbackText = `### Resumen Financiero Personal
-
-| Métrica | Importe |
-| :--- | :--- |
-| **Balance Real** | **${formatCurrency(summary.balanceReal)}** |
-| **Balance Previsto** | **${formatCurrency(summary.balancePrevisto)}** |
-| **Resto Disponible** | **${formatCurrency(summary.restoTotal)}** |
-
-*Tasa de Ahorro Real:* **${summary.tasaAhorroReal}%**`;
-      }
-
-      setMessages(prev => [
-        ...prev,
-        {
-          id: `bot-${Date.now()}`,
-          sender: 'assistant',
-          text: fallbackText,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        },
-      ]);
+      appendReply(localFinancialAdvice(context,'resumen')!);
     } finally {
       setIsLoading(false);
     }
@@ -292,7 +276,7 @@ ${exc.map(e => `| **${e.code}** | ${e.name.split(':')[1] || e.name} | ${formatCu
         <h1 className="module-title">Asistente</h1>
         <h2>Tu contexto del mes · {summary.monthYear}</h2>
         <dl><div><dt>Ingresos reales</dt><dd>{formatCurrency(summary.ingresosReales)}</dd></div><div><dt>Gastos ejecutados</dt><dd>{formatCurrency(summary.gastosEjecutados)}</dd></div><div><dt>Balance real</dt><dd>{formatCurrency(summary.balanceReal)}</dd></div></dl>
-        <p>Las consultas utilizan datos guardados. Revisa cualquier propuesta antes de confirmar un movimiento.</p>
+        <p>Las consultas numéricas se calculan localmente. Otras consultas usan el asistente existente con métricas agregadas, sin contactos ni respaldos completos. Las consultas utilizan datos guardados. Revisa cualquier propuesta antes de confirmar un movimiento.</p>
       </aside>
       <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
       {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}

@@ -26,10 +26,11 @@ interface Props {
   onMonth: (month: string) => void;
   onSave: (edits: PlanningLine[], savings: number, scope: string, approve: boolean, deficit: boolean) => Promise<SaveResult>;
   onDirty: (dirty: boolean, saving: boolean) => void;
+  onRegisterNavigationSave?: (save: (()=>Promise<boolean>) | null) => void;
   onAutomation: (preview: AutomationPreview) => Promise<SaveResult>;
   onDetail: (partida: BudgetPartida, row: MonthlyBudgetRow) => void;
 }
-export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation }: Props) {
+export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation, onRegisterNavigationSave }: Props) {
   // Preserve unknown historical plans as editable rows rather than dropping them.
   const catalog = data.budgetGroups.flatMap(g => g.partidas);
   const known = new Set(catalog.map(planningKey));
@@ -90,6 +91,15 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
     });
   };
   const discard = () => { setFields(initialFields); setSavings(initialSavings); setBase({ fields: initialFields, savings: initialSavings, scope }); submission.clearError(); setNotice('Borrador local descartado.'); };
+  useLayoutEffect(()=>{
+    onRegisterNavigationSave?.(async()=>{
+      if(!valid||!totals||submission.saving||automationBusy){setNotice('Corrige los importes antes de guardar y continuar.');return false;}
+      let saved=false;
+      await submission.submit(()=>onSave(edits,totals.savings,base.scope,false,false),()=>{saved=true;setBase({fields:{...fields},savings,scope:base.scope});setNotice('Borrador guardado.');});
+      return saved;
+    });
+    return ()=>onRegisterNavigationSave?.(null);
+  });
   const names = new Map(partidas.map(p => [planningKey(p), p.name]));
   return <section className="planning space-y-4" aria-label="Planificación financiera">
     <div className="planning-card space-y-3">

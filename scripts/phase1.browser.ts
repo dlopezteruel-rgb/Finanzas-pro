@@ -69,7 +69,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
       assert.equal(await page.getByRole('dialog').count(), 0);
       assert.deepEqual(await stored(), before);
     }
-    assert.equal(queries, 4);
+    assert.equal(queries, 3); // Loan queries now resolve deterministically without an external request.
     assert.ok(await page.getByText('Consulta financiera atendida sin registrar movimientos.', { exact: true }).count());
   });
   await t.test('propuesta editable, cancelación y confirmación única', async () => {
