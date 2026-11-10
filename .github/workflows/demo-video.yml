@@ -1,0 +1,155 @@
+name: FinanZas · grabaciones de demostración
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: finanzas-demo-video-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    if: >-
+      github.event.pull_request.number == 16 &&
+      github.head_ref == 'feature/demo-video-capture' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      CI: 'true'
+      NPM_CONFIG_UPDATE_NOTIFIER: 'false'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Obtener el commit exacto de la PR
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Preparar registros
+        run: |
+          mkdir -p artifacts/demo-video-logs
+          echo "PLAYWRIGHT_BROWSERS_PATH=$RUNNER_TEMP/finanzas-demo-browser" >> "$GITHUB_ENV"
+
+      - name: Preparar Node 24
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+
+      - name: Instalar dependencias del proyecto
+        run: npm ci 2>&1 | tee artifacts/demo-video-logs/npm-ci.log
+
+      - name: Preparar Chromium y el grabador de Playwright
+        run: |
+          node node_modules/playwright-core/cli.js install --with-deps chromium ffmpeg 2>&1 | tee artifacts/demo-video-logs/playwright-install.log
+          node --input-type=module -e 'import { chromium } from "playwright-core"; console.log(`CHROMIUM_PATH=${chromium.executablePath()}`)' >> "$GITHUB_ENV"
+
+      - name: Preparar FFmpeg y FFprobe
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get update 2>&1 | tee artifacts/demo-video-logs/apt-update.log
+            sudo apt-get install -y ffmpeg 2>&1 | tee artifacts/demo-video-logs/ffmpeg-install.log
+          fi
+          {
+            node --version
+            npm --version
+            "$CHROMIUM_PATH" --version
+            ffmpeg -version
+            ffprobe -version
+            python3 --version
+            git rev-parse HEAD
+          } 2>&1 | tee artifacts/demo-video-logs/versions.log
+
+      - name: Pruebas unitarias
+        run: npm test 2>&1 | tee artifacts/demo-video-logs/unit-tests.log
+
+      - name: Validar las fixtures ficticias JSON 3.1
+        run: npm run demo:check 2>&1 | tee artifacts/demo-video-logs/fixture-tests.log
+
+      - name: Comprobar TypeScript
+        run: npm run lint 2>&1 | tee artifacts/demo-video-logs/lint.log
+
+      - name: Compilar la aplicación real
+        run: npm run build 2>&1 | tee artifacts/demo-video-logs/build.log
+
+      - name: Comprobar el diff
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          {
+            git diff --check "$PR_BASE_SHA" HEAD
+            git diff --check
+          } 2>&1 | tee artifacts/demo-video-logs/diff-check.log
+
+      # The existing recorder serves React only on 127.0.0.1, blocks external/API
+      # requests and seeds a new browser context with synthetic data per scene.
+      # No secrets are passed to these steps or to the build.
+      - name: Ensayar los diez recorridos aislados
+        run: npm run demo:smoke -- --output=artifacts/demo-video-smoke 2>&1 | tee artifacts/demo-video-logs/smoke.log
+
+      - name: Grabar las diez escenas reales
+        run: npm run demo:record -- --output=artifacts/demo-video 2>&1 | tee artifacts/demo-video-logs/record.log
+
+      - name: Convertir, validar y empaquetar
+        run: npm run demo:package -- --output=artifacts/demo-video 2>&1 | tee artifacts/demo-video-logs/package.log
+
+      - name: Verificar el contenido y los hashes del ZIP
+        id: verify
+        run: |
+          python3 scripts/demo-video/verify_archive.py artifacts/demo-video/FinanZas_grabaciones_demo.zip --report artifacts/demo-video-logs/archive_validation.json 2>&1 | tee artifacts/demo-video-logs/archive-validation.log
+
+      - name: Publicar el ZIP descargable
+        id: upload
+        if: success() && steps.verify.outcome == 'success'
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: FinanZas_grabaciones_demo
+          path: |
+            artifacts/demo-video/FinanZas_grabaciones_demo.zip
+            artifacts/demo-video/FinanZas_grabaciones_demo.zip.sha256
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 14
+
+      - name: Conservar registros y diagnósticos
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: FinanZas_validacion_${{ github.run_id }}_${{ github.run_attempt }}
+          path: |
+            artifacts/demo-video-logs/
+            artifacts/demo-video-smoke/smoke_validation.json
+            artifacts/demo-video-smoke/qa/*_fallo.png
+            artifacts/demo-video/capture.json
+            artifacts/demo-video/recording_manifest.json
+            artifacts/demo-video/qa/*_fallo.png
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Resumen de la entrega
+        if: always()
+        env:
+          JOB_RESULT: ${{ job.status }}
+          VERIFY_RESULT: ${{ steps.verify.outcome }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+        run: |
+          {
+            echo '## Grabaciones ficticias de FinanZas'
+            echo "Resultado del trabajo: $JOB_RESULT. Verificación del ZIP: ${VERIFY_RESULT:-no ejecutada}."
+            if [[ -n "$ARTIFACT_URL" ]]; then
+              echo "Descarga: [FinanZas_grabaciones_demo]($ARTIFACT_URL)."
+              echo 'Descomprime el artefacto de Actions para obtener FinanZas_grabaciones_demo.zip y su SHA-256.'
+            else
+              echo 'No se ha publicado un ZIP validado. Consulta la fase fallida y el artefacto de registros.'
+            fi
+            echo 'Solo datos ficticios; sin Gemini ni secretos. Retención de artefactos: 14 días.'
+          } >> "$GITHUB_STEP_SUMMARY"
