@@ -173,3 +173,12 @@ html { scroll-padding-top: 5rem; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Financial calendar: direct month/year entry remains usable without input[type=month]. */
+.period-selector{display:flex;align-items:center;gap:3px;min-width:0;font-size:12px}
+.period-selector>button,.period-selector>select{border:1px solid var(--border-color,#334155);border-radius:9px;padding:5px;background:var(--surface-color,#141926);color:inherit;min-height:32px}
+.period-selector>select{max-width:140px;min-width:0}
+.period-selector button:disabled{opacity:.4}
+.period-selector [role=dialog] label{display:flex;flex-direction:column;margin-block:12px;gap:6px}
+.period-selector [role=dialog] input,.period-selector [role=dialog] select{background:#141926;color:inherit;padding:10px;border:1px solid #64748b;border-radius:8px;width:100%}
+@media(max-width:600px){.app-header-inner{height:auto;min-height:56px;flex-wrap:wrap;padding-block:8px}.period-selector>select{max-width:118px}.period-selector>button{padding:4px}.app-header-inner>div:first-child{display:none}}

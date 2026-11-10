@@ -3,6 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { currentMonth } from './utils/financialCalendar';
 import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
 import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
@@ -111,7 +112,7 @@ export default function App() {
   const handleToggleTheme = () => setTheme(previous => previous === 'dark' ? 'light' : 'dark');
 
   // Current Month/Year period
-  const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
+  const [currentMonthYear, setCurrentMonthYear] = useState<string>(()=>currentMonth());
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
@@ -155,9 +156,6 @@ export default function App() {
   // Derived available periods
   const availableMonths = useMemo(() => {
     const set = new Set<string>();
-    set.add('2026-10');
-    set.add('2026-11');
-    set.add('2026-09');
     transactions.forEach(t => {
       const my = t.date.slice(0, 7);
       if (my) set.add(my);
