@@ -81,6 +81,8 @@ function populated(): FinanceData {
       type: "INGRESO",
       code: "i",
       concept: "Nómina ficticia",
+      categoryName: "Ingresos ficticios",
+      subcategoryName: "Nómina ficticia",
       amountCents: 150000,
       day: 15,
     }),

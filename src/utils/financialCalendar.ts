@@ -31,9 +31,10 @@ export function shiftMonth(month: string, delta: number): string | null {
   if (!Number.isInteger(delta) || n < 12 || n > 119999) return null;
   return `${String(Math.floor(n / 12)).padStart(4, "0")}-${String((n % 12) + 1).padStart(2, "0")}`;
 }
-export function monthLabel(month: string): string {
+export function monthLabel(month: string, short = false): string {
   assertMonth(month);
-  return `${MONTH_NAMES[Number(month.slice(5)) - 1]} ${month.slice(0, 4)}`;
+  const name = MONTH_NAMES[Number(month.slice(5)) - 1];
+  return `${short ? name.slice(0, 3) : name} ${month.slice(0, 4)}`;
 }
 export function daysInMonth(month: string): number {
   assertMonth(month);

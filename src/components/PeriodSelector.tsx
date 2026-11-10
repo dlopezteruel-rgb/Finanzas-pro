@@ -32,6 +32,7 @@ export function PeriodSelector({
       </button>
       <select
         aria-label="Seleccionar periodo contable"
+        title={monthLabel(month)}
         value={month}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -45,7 +46,7 @@ export function PeriodSelector({
           .reverse()
           .map((p) => (
             <option key={p} value={p}>
-              {monthLabel(p)}
+              {monthLabel(p, true)}
             </option>
           ))}
       </select>

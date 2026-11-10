@@ -22,6 +22,12 @@ import { madridDate } from "../utils/financialCalendar";
 import { FinanceReview } from "./FinanceReview";
 import { SafeDialog } from "./SafeDialog";
 
+const frequencyLabels = {
+  monthly: "Mensual",
+  quarterly: "Trimestral",
+  yearly: "Anual",
+};
+
 export function RecurringMovementsView({
   data,
   month,
@@ -97,7 +103,7 @@ export function RecurringMovementsView({
       saveMovementRule(data, rule);
       setError("");
       setReview({
-        text: `${rule.concept} · ${money(rule.amountCents)} · ${rule.frequency} · día ${rule.day} · ${data.wallets.find((w) => w.id === rule.walletId)?.name}. No crea movimientos ni presupuestos.`,
+        text: `${rule.concept} · ${money(rule.amountCents)} · ${frequencyLabels[rule.frequency]} · día ${rule.day} · ${data.wallets.find((w) => w.id === rule.walletId)?.name}. No crea movimientos ni presupuestos.`,
         apply: (d) => saveMovementRule(d, rule),
       });
     } catch (e) {
@@ -124,7 +130,8 @@ export function RecurringMovementsView({
             <article className="planning-card" key={r.id}>
               <h2>{r.concept}</h2>
               <p>
-                {r.type} · {money(r.amountCents)} · {r.frequency} · día {r.day}
+                {r.type} · {money(r.amountCents)} ·{" "}
+                {frequencyLabels[r.frequency]} · día {r.day}
               </p>
               <p>
                 {data.wallets.find((w) => w.id === r.walletId)?.name} ·{" "}
