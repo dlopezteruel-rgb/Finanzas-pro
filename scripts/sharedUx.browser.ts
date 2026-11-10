@@ -60,7 +60,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     const context = await browser.newContext(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1280, height: 1000 } });
     await context.addInitScript(({ key, value }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, value); }, { key: DATA_KEY, value: JSON.stringify(makeBackup(initial)) });
     const page = await context.newPage(); page.setDefaultTimeout(7000); const errors: string[] = []; page.on('pageerror', e => errors.push(e.message));
-    await page.goto(url); return { page, close: async () => { await context.close(); assert.deepEqual(errors, []); }, context };
+    await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url); return { page, close: async () => { await context.close(); assert.deepEqual(errors, []); }, context };
   }
   async function openPanel(page: Page, code = 'V.001.002', income = false) {
     await navigate(page, 'Presupuestos');

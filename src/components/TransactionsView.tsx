@@ -22,6 +22,7 @@ import { Transaction } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 
 interface TransactionsViewProps {
+  currentMonthYear?: string;
   transactions: Transaction[];
   onToggleProcessed: (id: string) => void;
   onViewSharedDetails?: (id: string) => void;
@@ -31,6 +32,7 @@ interface TransactionsViewProps {
 }
 
 export const TransactionsView: React.FC<TransactionsViewProps> = ({
+  currentMonthYear,
   transactions,
   onToggleProcessed, onViewSharedDetails,
   onDeleteTransaction,
@@ -40,6 +42,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
+  const [selectedPeriod,setSelectedPeriod]=useState<'all'|'selected'>('all');
 
   // Wallets set
   const wallets = useMemo(() => {
@@ -51,6 +54,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   // Filtered
   const filtered = useMemo(() => {
     return transactions.filter(t => {
+      if(selectedPeriod==='selected'&&currentMonthYear&&!t.date.startsWith(currentMonthYear))return false;
       if (filterType === 'GASTO' && t.type !== 'GASTO') return false;
       if (filterType === 'INGRESO' && t.type !== 'INGRESO') return false;
       if (filterType === 'PENDING' && t.processed) return false;
@@ -66,7 +70,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       }
       return true;
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [transactions, filterType, selectedWallet, searchTerm]);
+  }, [transactions, filterType, selectedWallet, searchTerm,selectedPeriod,currentMonthYear]);
 
   const totalIncomes = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
     .filter(t => t.type === 'INGRESO' && t.processed)
@@ -113,6 +117,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   return (
     <div className="transactions-view">
       <h1 className="module-title">Movimientos</h1>
+      {currentMonthYear&&<div className="finance-actions"><label>Periodo del listado <select aria-label="Periodo del listado" value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">Todos los periodos</option><option value="selected">Periodo seleccionado: {currentMonthYear}</option></select></label><p>{selectedPeriod==='all'?'Registro de todas las fechas.':`Solo movimientos de ${currentMonthYear}.`}</p></div>}
       {/* Search & Top Action */}
       <div className="movement-search flex items-center gap-2">
         <div className="relative flex-1">

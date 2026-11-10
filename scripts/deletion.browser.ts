@@ -55,7 +55,7 @@ test('Eliminaciones seguras: confirmación, dependencias, concurrencia y recuper
   async function setup(initial = base(), mobile = false) {
     const context = await browser.newContext({ viewport: mobile ? { width: 390, height: 844 } : { width: 1280, height: 900 }, ...(mobile ? { isMobile: true, hasTouch: true } : {}) });
     await context.addInitScript(({ key, value }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, value); }, { key: DATA_KEY, value: JSON.stringify(makeBackup(initial)) });
-    const page = await context.newPage(), errors: string[] = []; page.on('pageerror', e => errors.push(e.message)); page.setDefaultTimeout(7000); await page.goto(url);
+    const page = await context.newPage(), errors: string[] = []; page.on('pageerror', e => errors.push(e.message)); page.setDefaultTimeout(7000); await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url);
     return { context, page, close: async () => { await context.close(); assert.deepEqual(errors, []); } };
   }
   async function open(page: Page, kind: Kind, linkedTarget = false) {

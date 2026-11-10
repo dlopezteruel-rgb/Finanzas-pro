@@ -22,7 +22,7 @@ test('Gráficos financieros locales: interacción, contabilidad y solo lectura',
     const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:1000},isMobile:mobile,hasTouch:mobile});
     await context.route('**/*',route=>new URL(route.request().url()).origin===url?route.continue():route.abort());
     await context.addInitScript(({key,value})=>{if(localStorage.getItem(key)===null)localStorage.setItem(key,value)},{key:DATA_KEY,value:JSON.stringify(makeBackup({...initial,theme}))});
-    const page=await context.newPage();page.setDefaultTimeout(7000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(url);
+    const page=await context.newPage();page.setDefaultTimeout(7000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url);
     const external:string[]=[];page.on('request',request=>{if(new URL(request.url()).origin!==url)external.push(request.url())});
     return {page,close:async()=>{await context.close();assert.deepEqual(errors,[]);assert.deepEqual(external,[],'los gráficos no añaden peticiones externas')}};
   }

@@ -51,7 +51,7 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
   async function setup(width = 1440, theme: 'dark' | 'light' = 'dark') {
     const context = await browser.newContext({ viewport: { width, height: width < 768 ? 844 : 1000 }, isMobile: width < 768, hasTouch: width <= 768, timezoneId: 'Europe/Madrid' });
     await seed(context, theme);
-    const page = await context.newPage(); page.setDefaultTimeout(8000); const errors: string[] = []; page.on('pageerror', e => errors.push(e.message)); await page.goto(url);
+    const page = await context.newPage(); page.setDefaultTimeout(8000); const errors: string[] = []; page.on('pageerror', e => errors.push(e.message)); await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url);
     return { page, close: async () => { await context.close(); assert.deepEqual(errors, []); } };
   }
   for (const width of widths) for (const theme of themes) await t.test(`${baseline ? 'base comparativa' : 'siete módulos, táctil y borrador sin escrituras'}: ${width}px ${theme}`, async () => {
@@ -146,7 +146,7 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
       const page = context.pages()[0];
       await page.goto('chrome://settings/appearance');
       await page.evaluate(zoom => new Promise<void>(resolve => (window as any).chrome.settingsPrivate.setDefaultZoom(zoom, resolve)), zoom);
-      await seed(context, theme); await page.goto(url); page.setDefaultTimeout(8000);
+      await seed(context, theme); await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url); page.setDefaultTimeout(8000);
       const scale = await page.evaluate(() => ({ ratio: devicePixelRatio, width: innerWidth }));
       assert.ok(Math.abs(scale.ratio - zoom) < .01); assert.ok(Math.abs(scale.width - 1440 / zoom) < 2);
       const before = await raw(page);

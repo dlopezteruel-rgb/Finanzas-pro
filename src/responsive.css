@@ -176,7 +176,7 @@ html { scroll-padding-top: 5rem; }
 
 /* Financial calendar: direct month/year entry remains usable without input[type=month]. */
 .period-selector{display:flex;align-items:center;gap:3px;min-width:0;font-size:12px}
-.period-selector>button,.period-selector>select{border:1px solid var(--border-color,#334155);border-radius:9px;padding:5px;background:var(--surface-color,#141926);color:inherit;min-height:32px}
+.period-selector>button,.period-selector>select{border:1px solid var(--border-color,#334155);border-radius:9px;padding:5px;background:var(--surface-color,#141926);color:inherit;min-height:40px;min-width:32px}
 .period-selector>select{max-width:140px;min-width:0}
 .period-selector button:disabled{opacity:.4}
 .finance-module{display:flex;flex-direction:column;gap:16px;min-width:0}

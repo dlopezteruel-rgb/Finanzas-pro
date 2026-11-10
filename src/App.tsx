@@ -124,6 +124,7 @@ export default function App() {
   const [movementTab,setMovementTab]=useState<'ledger'|'recurring'>('ledger');
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
+  const [planningNavigationFailure,setPlanningNavigationFailure]=useState(false);
   const planningNavigationSave=useRef<(()=>Promise<boolean>)|null>(null);
   const registerPlanningSave=useCallback((save:(()=>Promise<boolean>)|null)=>{planningNavigationSave.current=save},[]);
   const [planningBusy, setPlanningBusy] = useState(false);
@@ -132,7 +133,7 @@ export default function App() {
   const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; setPlanningBusy(saving); }, []);
   const guardPlanning = (action: () => void) => {
     if (planningState.current.saving) return;
-    if (planningState.current.dirty) setPendingPlanningNavigation(() => action);
+    if (planningState.current.dirty) {setPlanningNavigationFailure(false);setPendingPlanningNavigation(() => action);}
     else action();
   };
   const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => setCurrentMonthYear(month)); };
@@ -609,6 +610,7 @@ export default function App() {
           {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
+            currentMonthYear={currentMonthYear}
             transactions={transactions}
             onToggleProcessed={handleToggleProcessed}
             onViewSharedDetails={setSharedDetailId}
@@ -699,8 +701,9 @@ export default function App() {
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
       {pendingPlanningNavigation && <SafeDialog title="Cambios de planificación sin guardar" onCancel={() => {if(!planningBusy)setPendingPlanningNavigation(null)}}>
+        {planningNavigationFailure&&<p role="alert">{saveError||'Corrige los importes antes de guardar. Puedes seguir editando sin perder el borrador.'}</p>}
         <p>Hay importes u objetivo sin guardar. Puedes volver al editor o descartar el borrador local para continuar.</p>
-        <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}}}>Guardar y continuar</button><button disabled={planningBusy} onClick={() => {
+        <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}else setPlanningNavigationFailure(true);}}>Guardar y continuar</button><button disabled={planningBusy} onClick={() => {
           const action = pendingPlanningNavigation; setPendingPlanningNavigation(null); planningState.current = { dirty: false, saving: false }; setPlanningReset(n => n + 1); action();
         }}>Descartar y continuar</button></div>
       </SafeDialog>}
