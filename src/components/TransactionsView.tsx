@@ -46,6 +46,17 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
   const [selectedPeriod,setSelectedPeriod]=useState<'all'|'selected'>('all');
   const focusedRowRef = React.useRef<HTMLDivElement>(null);
+  const pendingFocusId = React.useRef<string | null>(null);
+
+  React.useEffect(() => {
+    pendingFocusId.current = focusedTransactionId ?? null;
+    if (!focusedTransactionId) return;
+    // A new linked destination must remain visible even in a retained list.
+    setSearchTerm('');
+    setFilterType('ALL');
+    setSelectedWallet('ALL');
+    setSelectedPeriod('all');
+  }, [focusedTransactionId]);
 
   // Wallets set
   const wallets = useMemo(() => {
@@ -77,9 +88,10 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
   // A linked entry is focused in the list, not opened in the editable movement dialog.
   React.useEffect(() => {
-    if (!focusedTransactionId || !filtered.some(t => t.id === focusedTransactionId)) return;
+    if (!focusedTransactionId || pendingFocusId.current !== focusedTransactionId || !filtered.some(t => t.id === focusedTransactionId)) return;
     const row = focusedRowRef.current;
     if (row) {
+      pendingFocusId.current = null;
       row.focus({ preventScroll: true });
       row.scrollIntoView({ block: 'center' });
     }

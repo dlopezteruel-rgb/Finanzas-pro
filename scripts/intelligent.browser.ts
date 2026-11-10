@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createServer } from "node:net";
 import { mkdir } from "node:fs/promises";
+import { build } from "esbuild";
 import { chromium, type Page, type BrowserContext } from "playwright-core";
 import {
   DATA_KEY,
@@ -22,7 +23,10 @@ import {
   occurrencePreviews,
   saveMovementRule,
 } from "../src/utils/recurringMovements";
-import { saveObligation, settleObligation } from "../src/utils/personalObligations";
+import {
+  saveObligation,
+  settleObligation,
+} from "../src/utils/personalObligations";
 import { savePlanning, planningScope } from "../src/utils/planning";
 
 const nav = (p: Page, name: string) =>
@@ -196,6 +200,204 @@ test(
         },
       };
     }
+    // Keep the real component mounted while the parent requests another target.
+    // This covers retained filters without adding a test-only route to the app.
+    async function navigationHarness(kind: "transactions" | "recurring") {
+      let initial = fixture();
+      if (kind === "transactions") {
+        initial.wallets.push({
+          id: "other",
+          name: "OTRA FICTICIA",
+          type: "CASH",
+          initialBalance: 0,
+          color: "#fff",
+        });
+        initial.transactions = [
+          {
+            id: "target-a",
+            date: "2026-12-05",
+            type: "INGRESO",
+            amount: 50,
+            code: "i",
+            categoryName: "I",
+            subcategoryName: "Ingreso",
+            description: "Cobro objetivo A",
+            wallet: "BANCO FICTICIO",
+            processed: false,
+          },
+          {
+            id: "target-b",
+            date: "2026-11-05",
+            type: "GASTO",
+            amount: 20,
+            code: "g",
+            categoryName: "G",
+            subcategoryName: "Gasto",
+            description: "Gasto objetivo B",
+            wallet: "OTRA FICTICIA",
+            processed: true,
+          },
+        ];
+      } else {
+        initial = saveMovementRule(initial, rule({ startDate: "2028-01-31" }));
+        const row = occurrencePreviews(initial, "2028-01")[0];
+        initial = applyOccurrenceBatch(initial, {
+          first: "2028-01",
+          last: "2028-01",
+          ids: [row.id],
+          action: "register",
+          scope: occurrenceScope(initial),
+          acknowledgeCollisions: false,
+        });
+        initial = saveMovementRule(
+          initial,
+          rule({ startDate: "2028-01-31", day: 15 }),
+        );
+      }
+      const s = await setup(initial),
+        { page: p } = s;
+      const css = await p
+        .locator("link[rel=stylesheet]")
+        .evaluateAll((nodes) => nodes.map((n) => (n as HTMLLinkElement).href));
+      const source = `
+        import React,{useState} from 'react';
+        import {createRoot} from 'react-dom/client';
+        import {TransactionsView} from './src/components/TransactionsView';
+        import {RecurringMovementsView} from './src/components/RecurringMovementsView';
+        const data=${JSON.stringify(initial)};
+        function Harness(){
+          const [target,setTarget]=useState(null),[month,setMonth]=useState('${kind === "transactions" ? "2026-11" : "2028-01"}');
+          const request=(second)=>{setMonth(${kind === "transactions" ? "second?'2026-11':'2026-12'" : "second?'2028-02':'2028-01'"});setTarget(${kind === "transactions" ? "second?'target-b':'target-a'" : "second?'rent@2028-02-15':'rent@2028-01-31'"});};
+          return <main><button onClick={()=>request(false)}>Destino A</button><button onClick={()=>request(true)}>Destino B</button>
+          ${kind === "transactions" ? "<TransactionsView currentMonthYear={month} focusedTransactionId={target} transactions={data.transactions} onToggleProcessed={()=>{}} onDeleteTransaction={()=>{}} onEditTransaction={()=>{}} onOpenNewTransaction={()=>{}}/>" : "<RecurringMovementsView data={data} month={month} focusedOccurrenceId={target} mutate={async()=>({ok:true})} onEdit={()=>{}}/>"}
+          </main>;
+        }
+        createRoot(document.getElementById('root')).render(<Harness/>);
+      `;
+      const compiled = await build({
+        stdin: { contents: source, resolveDir: process.cwd(), loader: "tsx" },
+        bundle: true,
+        write: false,
+        format: "iife",
+        platform: "browser",
+        define: { "process.env.NODE_ENV": '"production"' },
+      });
+      await p.route(`${url}/navigation-harness.js`, (route) =>
+        route.fulfill({
+          contentType: "application/javascript",
+          body: compiled.outputFiles[0].text,
+        }),
+      );
+      await p.route(`${url}/navigation-harness.html`, (route) =>
+        route.fulfill({
+          contentType: "text/html",
+          body: `<!doctype html><html lang="es"><head>${css.map((href) => `<link rel="stylesheet" href="${href}">`).join("")}</head><body><div id="root"></div><script src="/navigation-harness.js"></script></body></html>`,
+        }),
+      );
+      await p.goto(`${url}/navigation-harness.html`);
+      return s;
+    }
+    await t.test(
+      "enlace con filtros retenidos muestra el movimiento y no vuelve a robar el foco al buscar",
+      async () => {
+        const s = await navigationHarness("transactions"),
+          { page: p } = s;
+        try {
+          const before = await snapshot(p);
+          await p.getByLabel("Periodo del listado").selectOption("selected");
+          await p.getByRole("button", { name: "Gastos", exact: true }).click();
+          await p
+            .getByLabel("Filtrar por cartera")
+            .selectOption("OTRA FICTICIA");
+          await p
+            .getByLabel("Buscar movimientos")
+            .fill("filtro sin coincidencias");
+          await p
+            .getByRole("button", { name: "Destino A", exact: true })
+            .click();
+          const focused = p.locator('[data-focused-transaction="true"]');
+          await focused.waitFor();
+          assert.match(await focused.innerText(), /Cobro objetivo A/);
+          await p.waitForFunction(
+            () =>
+              document.activeElement?.getAttribute(
+                "data-focused-transaction",
+              ) === "true",
+          );
+          const search = p.getByLabel("Buscar movimientos");
+          await search.pressSequentially("Cobro", { delay: 20 });
+          assert.equal(await search.inputValue(), "Cobro");
+          assert.equal(
+            await search.evaluate((el) => el === document.activeElement),
+            true,
+          );
+          await p
+            .getByRole("button", { name: "Destino B", exact: true })
+            .click();
+          await focused.filter({ hasText: "Gasto objetivo B" }).waitFor();
+          assert.equal(await focused.count(), 1);
+          assert.match(await focused.innerText(), /Gasto objetivo B/);
+          assert.equal(
+            await p.getByLabel("Buscar movimientos").inputValue(),
+            "",
+          );
+          await p.waitForFunction(
+            () =>
+              document.activeElement?.getAttribute(
+                "data-focused-transaction",
+              ) === "true",
+          );
+          assert.deepEqual(await snapshot(p), before);
+        } finally {
+          await s.close();
+        }
+      },
+    );
+    await t.test(
+      "ocurrencia enlazada recupera su mes persistente y conserva el foco de la casilla al seleccionarla",
+      async () => {
+        const s = await navigationHarness("recurring"),
+          { page: p } = s;
+        try {
+          const before = await snapshot(p);
+          await p.getByLabel("Ocurrencias desde").fill("2028-02");
+          await p.getByLabel("Ocurrencias hasta").fill("2028-02");
+          await p
+            .getByRole("button", { name: "Destino A", exact: true })
+            .click();
+          const focused = p.locator('[data-focused-occurrence="true"]');
+          await focused.waitFor();
+          assert.match(await focused.innerText(), /2028-01-31/);
+          assert.equal(
+            await p.getByLabel("Ocurrencias desde").inputValue(),
+            "2028-01",
+          );
+          await p
+            .getByRole("button", { name: "Destino B", exact: true })
+            .click();
+          await p.waitForFunction(
+            () =>
+              document.activeElement?.getAttribute(
+                "data-focused-occurrence",
+              ) === "true",
+          );
+          assert.equal(await focused.count(), 1);
+          assert.match(await focused.innerText(), /2028-02-15/);
+          const choice = p.getByRole("checkbox", {
+            name: "Seleccionar Alquiler ficticio 2028-02-15",
+            exact: true,
+          });
+          await choice.check();
+          assert.equal(
+            await choice.evaluate((el) => el === document.activeElement),
+            true,
+          );
+          assert.deepEqual(await snapshot(p), before);
+        } finally {
+          await s.close();
+        }
+      },
+    );
     await t.test(
       "calendario Madrid, periodos vacíos, límites y guardia guardar/descartar sin escrituras de consulta",
       async () => {
@@ -648,13 +850,25 @@ test(
         d = settleObligation(d, "personal", {
           id: "cobro-ficticio",
           amountCents: 5000,
-          date: "2026-11-15",
+          date: "2026-10-15",
           kind: "bank",
           processed: false,
           note: "",
           walletId: "bank",
         });
-        d = saveMovementRule(d, rule({ day: 20 }));
+        d = saveMovementRule(d, rule({ startDate: "2026-12-01", day: 1 }));
+        d.transactions.push({
+          id: "ordinary-pending",
+          date: "2026-11-20",
+          type: "GASTO",
+          amount: 25,
+          code: "g",
+          categoryName: "Gastos ficticios",
+          subcategoryName: "Compra",
+          description: "Compra pendiente objetivo",
+          wallet: "BANCO FICTICIO",
+          processed: false,
+        });
         const s = await setup(d);
         const { page: p } = s;
         try {
@@ -662,37 +876,110 @@ test(
           const checkFocusedTransaction = async () => {
             const row = p.locator('[data-focused-transaction="true"]');
             await row.waitFor();
-            assert.match(await row.innerText(), /Cobro de principal: Préstamo personal ficticio/);
-            await p.waitForFunction(
-              () => document.activeElement?.getAttribute("data-focused-transaction") === "true",
+            assert.match(
+              await row.innerText(),
+              /Cobro de principal: Préstamo personal ficticio/,
             );
-            assert.equal(await p.getByLabel("Seleccionar periodo contable").inputValue(), "2026-11");
+            await p.waitForFunction(
+              () =>
+                document.activeElement?.getAttribute(
+                  "data-focused-transaction",
+                ) === "true",
+            );
+            assert.equal(
+              await p.getByLabel("Seleccionar periodo contable").inputValue(),
+              "2026-10",
+            );
           };
 
           await nav(p, "Deudas");
-          await p.getByRole("button", { name: "Me deben", exact: true }).click();
-          await p.getByRole("button", { name: "Revisar movimiento de liquidación" }).click();
+          await p
+            .getByRole("button", { name: "Me deben", exact: true })
+            .click();
+          await p
+            .getByText("Historial de liquidaciones (1)", { exact: true })
+            .click();
+          await p
+            .getByRole("button", { name: "Revisar movimiento de liquidación" })
+            .click();
+          await checkFocusedTransaction();
+          await p
+            .getByRole("button", {
+              name: "Editar movimiento Cobro de principal: Préstamo personal ficticio",
+              exact: true,
+            })
+            .click();
+          assert.equal(await p.getByRole("dialog").count(), 0);
+          await p
+            .getByRole("status")
+            .filter({ hasText: "El principal y su historial están protegidos" })
+            .waitFor();
+          await p
+            .getByRole("button", { name: "Cerrar aviso", exact: true })
+            .click();
+          assert.deepEqual(await snapshot(p), before);
+
+          await nav(p, "Inicio");
+          await p
+            .getByRole("button", { name: "Próximos 30 días", exact: true })
+            .click();
+          await p
+            .getByRole("row")
+            .filter({
+              hasText: "Cobro de principal: Préstamo personal ficticio",
+            })
+            .getByRole("button", { name: "Revisar origen", exact: true })
+            .click();
           await checkFocusedTransaction();
           assert.deepEqual(await snapshot(p), before);
 
           await nav(p, "Inicio");
-          await p.getByRole("button", { name: "Próximos 30 días", exact: true }).click();
-          await p.getByRole("row")
-            .filter({ hasText: "Cobro de principal: Préstamo personal ficticio" })
-            .getByRole("button", { name: "Revisar origen", exact: true }).click();
-          await checkFocusedTransaction();
-          assert.deepEqual(await snapshot(p), before);
-
-          await nav(p, "Inicio");
-          await p.getByRole("button", { name: "Próximos 30 días", exact: true }).click();
-          await p.getByRole("row")
+          await p
+            .getByRole("button", { name: "Próximos 30 días", exact: true })
+            .click();
+          await p
+            .getByRole("row")
             .filter({ hasText: "Alquiler ficticio" })
-            .getByRole("button", { name: "Revisar origen", exact: true }).click();
+            .getByRole("button", { name: "Revisar origen", exact: true })
+            .click();
+          assert.equal(
+            await p.getByLabel("Seleccionar periodo contable").inputValue(),
+            "2026-12",
+          );
           const occurrence = p.locator('[data-focused-occurrence="true"]');
           await occurrence.waitFor();
           assert.match(await occurrence.innerText(), /Alquiler ficticio/);
           await p.waitForFunction(
-            () => document.activeElement?.getAttribute("data-focused-occurrence") === "true",
+            () =>
+              document.activeElement?.getAttribute(
+                "data-focused-occurrence",
+              ) === "true",
+          );
+          assert.deepEqual(await snapshot(p), before);
+          await nav(p, "Inicio");
+          await p
+            .getByRole("button", { name: "Próximos 30 días", exact: true })
+            .click();
+          await p
+            .getByRole("row")
+            .filter({ hasText: "Compra pendiente objetivo" })
+            .getByRole("button", { name: "Revisar origen", exact: true })
+            .click();
+          const ordinary = p.locator('[data-focused-transaction="true"]');
+          await ordinary
+            .filter({ hasText: "Compra pendiente objetivo" })
+            .waitFor();
+          assert.equal(await ordinary.count(), 1);
+          assert.equal(
+            await p.getByLabel("Seleccionar periodo contable").inputValue(),
+            "2026-11",
+          );
+          assert.equal(await p.getByRole("dialog").count(), 0);
+          await p.waitForFunction(
+            () =>
+              document.activeElement?.getAttribute(
+                "data-focused-transaction",
+              ) === "true",
           );
           assert.deepEqual(await snapshot(p), before);
         } finally {
@@ -700,6 +987,96 @@ test(
         }
       },
     );
+    for (const action of ["Guardar y continuar", "Descartar y continuar"])
+      await t.test(
+        `navegación enlazada tras ${action.toLowerCase()} protege el borrador y no modifica saldos`,
+        async () => {
+          const s = await setup(populated()),
+            { page: p } = s;
+          try {
+            const original = await saved(p),
+              before = await snapshot(p);
+            await nav(p, "Presupuestos");
+            const planner = p.getByRole("region", {
+              name: "Planificación financiera",
+              exact: true,
+            });
+            const field = planner.getByRole("textbox", {
+              name: "Previsto GASTO Alquiler ficticio",
+              exact: true,
+            });
+            await field.fill("900");
+            await nav(p, "Inicio");
+            const guard = review(p, "Cambios de planificación sin guardar");
+            await guard.waitFor();
+            assert.deepEqual(await snapshot(p), before);
+            await guard
+              .getByRole("button", { name: "Seguir editando", exact: true })
+              .click();
+            assert.equal(await field.inputValue(), "900");
+            await nav(p, "Inicio");
+            await guard
+              .getByRole("button", { name: action, exact: true })
+              .click();
+            await guard.waitFor({ state: "hidden" });
+            const after = await saved(p);
+            assert.deepEqual(after.transactions, original.transactions);
+            assert.deepEqual(after.wallets, original.wallets);
+            assert.deepEqual(
+              after.intelligentFinance,
+              original.intelligentFinance,
+            );
+            assert.equal(after.version, "3.1");
+            assert.deepEqual(
+              after.planningMonths[0].approval,
+              original.planningMonths[0].approval,
+            );
+            assert.equal(
+              after.budgetPlans.find((b: any) => b.type === "GASTO")
+                .plannedAmount,
+              action === "Guardar y continuar" ? 900 : 950,
+            );
+            if (action === "Descartar y continuar")
+              assert.deepEqual(await snapshot(p), before);
+            const consulted = await snapshot(p);
+            await p
+              .getByRole("button", { name: "Próximos 30 días", exact: true })
+              .click();
+            await p
+              .getByRole("row")
+              .filter({ hasText: "Alquiler ficticio" })
+              .getByRole("button", { name: "Revisar origen", exact: true })
+              .click();
+            const movement = p.locator('[data-focused-transaction="true"]');
+            await movement.waitFor();
+            assert.match(await movement.innerText(), /Alquiler ficticio/);
+            await p.waitForFunction(
+              () =>
+                document.activeElement?.getAttribute(
+                  "data-focused-transaction",
+                ) === "true",
+            );
+            assert.deepEqual(await snapshot(p), consulted);
+            await nav(p, "Inicio");
+            await p
+              .getByRole("button", { name: "Próximos 30 días", exact: true })
+              .click();
+            await p
+              .getByRole("row")
+              .filter({ hasText: "Nómina ficticia" })
+              .getByRole("button", { name: "Revisar origen", exact: true })
+              .click();
+            await p.locator('[data-focused-occurrence="true"]').waitFor();
+            assert.equal(
+              await p.getByLabel("Seleccionar periodo contable").inputValue(),
+              "2026-11",
+            );
+            assert.deepEqual(await snapshot(p), consulted);
+          } finally {
+            await s.close();
+          }
+        },
+      );
     await t.test(
       "primera escritura 3.1 aborta si falla la copia y permite reintentar sin perder el formulario",
       async () => {

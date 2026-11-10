@@ -18,7 +18,7 @@ import {
   parsePlanningMoney,
   planningMoneyInput,
 } from "../utils/planningMoney";
-import { madridDate } from "../utils/financialCalendar";
+import { madridDate, realDate } from "../utils/financialCalendar";
 import { FinanceReview } from "./FinanceReview";
 import { SafeDialog } from "./SafeDialog";
 
@@ -51,6 +51,7 @@ export function RecurringMovementsView({
     apply: (d: FinanceData) => FinanceData;
   } | null>(null);
   const focusedRowRef = React.useRef<HTMLTableRowElement>(null);
+  const pendingFocusId = React.useRef<string | null>(null);
   const [selected, setSelected] = useState<string[]>([]),
     [batch, setBatch] = useState<OccurrenceBatch | null>(null),
     [ack, setAck] = useState(false);
@@ -68,6 +69,18 @@ export function RecurringMovementsView({
       ];
       return [...new Map(all.map((p) => [`${p.type}:${p.code}`, p])).values()];
     }, [data]);
+  const linkedDate = focusedOccurrenceId
+    ? state.occurrences.find(o => o.id === focusedOccurrenceId)?.dueDate ?? focusedOccurrenceId.slice(-10)
+    : null;
+  React.useEffect(() => {
+    pendingFocusId.current = focusedOccurrenceId ?? null;
+    if (!focusedOccurrenceId || !realDate(linkedDate)) return;
+    const targetMonth = linkedDate.slice(0, 7);
+    setFirst(targetMonth);
+    setLast(targetMonth);
+    setSelected([]);
+  }, [focusedOccurrenceId, linkedDate]);
+
   let rows: ReturnType<typeof occurrencePreviews> = [],
     rangeError = "";
   try {
@@ -76,9 +89,10 @@ export function RecurringMovementsView({
     rangeError = (e as Error).message;
   }
   React.useEffect(() => {
-    if (!focusedOccurrenceId || !rows.some(r => r.id === focusedOccurrenceId)) return;
+    if (!focusedOccurrenceId || pendingFocusId.current !== focusedOccurrenceId || !rows.some(r => r.id === focusedOccurrenceId)) return;
     const row = focusedRowRef.current;
     if (row) {
+      pendingFocusId.current = null;
       row.focus({ preventScroll: true });
       row.scrollIntoView({ block: 'center' });
     }

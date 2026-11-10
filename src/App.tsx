@@ -4,7 +4,8 @@
  */
 
 import { toggleObligationSettlement } from './utils/personalObligations';
-import { currentMonth } from './utils/financialCalendar';
+import { currentMonth, realDate } from './utils/financialCalendar';
+import { occurrencePreviews } from './utils/recurringMovements';
 import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
 import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
@@ -145,8 +146,11 @@ export default function App() {
   const openLinkedTransaction = (id: string) => {
     const transaction = transactions.find(t => t.id === id);
     if (!transaction) { setDataNotice('El movimiento vinculado ya no está disponible. Revisa el historial antes de continuar.'); return; }
+    if (!realDate(transaction.date)) { setDataNotice('El movimiento vinculado no tiene una fecha admitida por el calendario.'); return; }
     guardPlanning(() => {
+      planningState.current = { dirty: false, saving: false };
       setCurrentMonthYear(transaction.date.slice(0, 7));
+      setChartNavigation(undefined);
       setMovementTab('ledger');
       setFocusedOccurrenceId(null);
       setFocusedTransactionId(id);
@@ -154,9 +158,12 @@ export default function App() {
     });
   };
   const openLinkedOccurrence = (id: string) => {
-    const month = id.slice(-10, -3);
-    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(month)) { setDataNotice('La ocurrencia no tiene un mes válido.'); return; }
+    const date = data.intelligentFinance?.occurrences.find(o => o.id === id)?.dueDate ?? id.slice(-10);
+    if (!realDate(date)) { setDataNotice('La ocurrencia no tiene un mes válido.'); return; }
+    const month = date.slice(0, 7);
+    if (!occurrencePreviews(data, month).some(o => o.id === id)) { setDataNotice('La ocurrencia vinculada ya no está disponible. Revisa la regla antes de continuar.'); return; }
     guardPlanning(() => {
+      planningState.current = { dirty: false, saving: false };
       setCurrentMonthYear(month);
       setMovementTab('recurring');
       setFocusedTransactionId(null);
