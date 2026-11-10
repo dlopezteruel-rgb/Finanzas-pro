@@ -1,9 +1,10 @@
+import { validateIntelligent } from './intelligentValidation';
 import { assertSharedIntegrity, isStructuredShared, sharedMigrationReport } from './sharedExpenses';
 import { assertTransferIntegrity, legacyTransferReport } from './transfers';
 import { hasAutomation, carryLines, combineLines } from './planningBasis';
 import { validateAutomation } from './planningAutomationValidation';
 import { planningLines, planningTotals, safeCents, assertMonth } from './planning';
-import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet, PlanningMonth, PlanningAutomation, PlanningApproval, PlanningLine } from '../types/finance';
+import { BudgetGroup, BudgetPlan, Contact, Loan, Transaction, Wallet, PlanningMonth, PlanningAutomation, PlanningApproval, PlanningLine, IntelligentFinance } from '../types/finance';
 
 export interface FinanceData {
   theme: 'dark' | 'light';
@@ -11,13 +12,14 @@ export interface FinanceData {
   budgetPlans: BudgetPlan[];
   planningMonths?: PlanningMonth[];
   planningAutomation?: PlanningAutomation;
+  intelligentFinance?: IntelligentFinance;
   budgetGroups: BudgetGroup[];
   contacts: Contact[];
   loans: Loan[];
   wallets: Wallet[];
 }
 export interface Backup extends FinanceData {
-  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9' | '3.0';
+  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9' | '3.0' | '3.1';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -91,12 +93,12 @@ export function validateApproval(value: unknown, p: string, advanced: boolean): 
 /** Validate every collection before exposing any of it to application state. */
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
-  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], value.version === '3.0' ? ['planningMonths','planningAutomation'] : value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
-  if (!['2.5', '2.6', '2.7', '2.8', '2.9', '3.0'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9 y 3.0; no se ha modificado ningún dato.');
+  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], value.version === '3.1' ? ['planningMonths','planningAutomation','intelligentFinance'] : value.version === '3.0' ? ['planningMonths','planningAutomation'] : value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
+  if (!['2.5', '2.6', '2.7', '2.8', '2.9', '3.0', '3.1'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0 y 3.1; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9', '3.0'].includes(value.version) ? ['reimbursement'] : [])], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version === '3.1' ? ['recurrence','obligationSettlement'] : []), ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9', '3.0', '3.1'].includes(value.version) ? ['reimbursement'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
@@ -113,7 +115,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
-      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9', '3.0'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9', '3.0'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
+      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9', '3.0', '3.1'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9', '3.0', '3.1'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
       bool(s.isShared, `${p}.splitInfo.isShared`); number(s.totalParticipants, `${p}.splitInfo.totalParticipants`, 2, true);
       number(s.myShare, `${p}.splitInfo.myShare`); number(s.totalOwedToMe, `${p}.splitInfo.totalOwedToMe`);
       array(s.participants, `${p}.splitInfo.participants`, (participant, q) => {
@@ -175,8 +177,8 @@ export function validateBackup(value: unknown): asserts value is Backup {
   });
   const checked = value as unknown as Backup;
   for (const k of ['transactions', 'contacts', 'loans', 'wallets'] as const) unique(checked[k].map(item => item.id), k);
-  if (value.version === '3.0') validateAutomation(checked, validateApproval);
-  if (value.version === '2.9' || (value.version === '3.0' && Object.hasOwn(value,'planningMonths'))) {
+  if (value.version === '3.0' || (value.version === '3.1' && (Object.hasOwn(value,'planningAutomation') || hasAutomation(checked)))) validateAutomation(checked, validateApproval);
+  if (value.version === '2.9' || (['3.0','3.1'].includes(value.version) && Object.hasOwn(value,'planningMonths'))) {
     if (!Array.isArray(value.planningMonths) || !value.planningMonths.length) invalid('planningMonths', '2.9 requiere metadatos mensuales no vacíos.');
     array(value.planningMonths, 'planningMonths', (meta, p) => {
       fields(meta, ['monthYear', 'savingsCents', 'revision'], ['approval'], p);
@@ -189,7 +191,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
       planningTotals(lines, meta.savingsCents);
       if (Object.hasOwn(meta, 'approval')) {
         const a = meta.approval;
-        validateApproval(a, `${p}.approval`, value.version === '3.0');
+        validateApproval(a, `${p}.approval`, ['3.0','3.1'].includes(value.version));
         if (a.revision > meta.revision) invalid(p, 'la aprobación no puede superar la revisión actual.');
         if (a.revision === meta.revision && (a.totals.savings !== meta.savingsCents || normalizedLines(a.lines) !== normalizedLines(lines))) invalid(p, 'la aprobación vigente no coincide con la previsión actual.');
         if (a.revision === meta.revision && adjustments.length && (!a.baseLines || normalizedLines(a.baseLines)!==normalizedLines(baseLines) || normalizedLines(a.carryLines)!==normalizedLines(adjustments))) invalid(p,'La aprobación debe distinguir base y arrastre vigente.');
@@ -199,6 +201,8 @@ export function validateBackup(value: unknown): asserts value is Backup {
   }
   assertTransferIntegrity(checked.transactions, checked.wallets);
   assertSharedIntegrity(checked);
+  if(value.version === '3.1' && !value.intelligentFinance) invalid('intelligentFinance','3.1 requiere el registro de metadatos nuevo.');
+  validateIntelligent(checked);
   unique(checked.wallets.map(w => w.name.trim().toUpperCase()), 'wallets.name');
   unique(checked.budgetGroups.map(g => g.code), 'budgetGroups');
   unique(checked.budgetGroups.flatMap(g => g.partidas.map(p => `${p.type}:${p.code}`)), 'budgetGroups.partidas');
@@ -207,7 +211,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
 
 export function makeBackup(data: FinanceData): Backup {
   const { planningMonths, planningAutomation, ...base } = data;
-  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), ...(planningAutomation && [planningAutomation.rules,planningAutomation.carryovers,planningAutomation.origins,planningAutomation.history].some(a=>a?.length) ? {planningAutomation} : {}), version: hasAutomation(data) ? '3.0' : planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
+  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), ...(planningAutomation && [planningAutomation.rules,planningAutomation.carryovers,planningAutomation.origins,planningAutomation.history].some(a=>a?.length) ? {planningAutomation} : {}), version: data.intelligentFinance ? '3.1' : hasAutomation(data) ? '3.0' : planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
@@ -220,6 +224,7 @@ export function parseBackup(content: string): Backup {
 /** Legacy applications can export orphaned links. Warn and preserve, never repair silently. */
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
+  if(data.intelligentFinance)warnings.push('JSON 3.1: reglas, ocurrencias y compromisos. Para volver a una versión anterior restaura la copia recuperable previa completa.');
   if(hasAutomation(data))warnings.push('JSON 3.0: contiene automatización e historial. Las versiones antiguas no lo leen; utiliza la copia recuperable completa previa para volver atrás.');
   if (data.planningMonths?.length) warnings.push('JSON 2.9: incluye objetivos y últimas aprobaciones mensuales. Las versiones anteriores de la aplicación no pueden leerlo; utiliza la copia recuperable anterior para volver atrás.');
   const shared = sharedMigrationReport(data);

@@ -19,6 +19,7 @@ export function deletionReport(data: FinanceData, target: DeletionTarget): Delet
     if (examples.length) report.relations.push({ label, count: examples.length, examples: examples.slice(0, 4), blocking });
   };
   if (target.kind === 'contact') {
+    add('Compromisos personales', (data.intelligentFinance?.obligations??[]).filter(o=>o.counterparty.contactId===target.id).map(o=>o.concept));
     const expenses = data.transactions.filter(t => t.splitInfo?.participants.some(p => p.contactId === target.id));
     add('Gastos compartidos', expenses.map(describe));
     add('Obligaciones del reparto (incluidas las saldadas)', expenses.flatMap(t => t.splitInfo!.participants.filter(p => p.contactId === target.id).map(() => describe(t))));
@@ -28,7 +29,8 @@ export function deletionReport(data: FinanceData, target: DeletionTarget): Delet
     add('Referencias históricas a reintegros no disponibles', [...oldReceipts].filter(id => !data.transactions.some(t => t.id === id)));
   } else if (target.kind === 'wallet') {
     const wallet = data.wallets.find(w => w.id === target.id)!;
-    const movements = data.transactions.filter(t => t.transfer ? [t.transfer.fromWalletId, t.transfer.toWalletId].includes(wallet.id)
+    add('Reglas periódicas (incluidas las dadas de baja)', (data.intelligentFinance?.recurringRules??[]).filter(r=>r.walletId===wallet.id).map(r=>r.concept));
+    const movements = data.transactions.filter(t => (t.recurrence || t.obligationSettlement) ? (t.recurrence?.walletId??t.obligationSettlement?.walletId)===wallet.id : t.transfer ? [t.transfer.fromWalletId, t.transfer.toWalletId].includes(wallet.id)
       : t.reimbursement ? t.reimbursement.walletId === wallet.id : t.splitInfo?.walletId ? t.splitInfo.walletId === wallet.id : t.wallet === wallet.name);
     add('Movimientos vinculados (incluidos los pendientes)', movements.map(describe));
     add('Transferencias', [...new Set(movements.filter(t => t.transfer || isLegacyTransfer(t)).map(t => t.transfer?.id ?? t.id))]);
@@ -46,6 +48,8 @@ export function deletionReport(data: FinanceData, target: DeletionTarget): Delet
     add('Posibles cuotas históricas por el criterio actual de nombre (requieren revisión)', economicTransactions(data.transactions).filter(t => t.type === 'GASTO' && t.splitInfo?.accountingVersion !== '2.7' && t.loanId !== loan.id && t.description.toLowerCase().includes(loan.name.toLowerCase())).map(describe));
   } else {
     const tx = data.transactions.find(t => t.id === target.id)!;
+    if(tx.recurrence)report.blockers.push('El origen periódico se conserva para evitar duplicados. Edita el movimiento o registra una corrección explícita.');
+    if(tx.obligationSettlement)report.blockers.push('El movimiento conserva el historial de liquidación de principal. Revísalo desde Deudas.');
     const parents = data.transactions.filter(t => t.splitInfo?.participants.some(p => p.reimbursementTxId === tx.id) || t.splitInfo?.settlements?.some(s => s.transactionId === tx.id));
     add('Gastos que referencian este reintegro', parents.map(describe));
     add('Liquidaciones del gasto', (tx.splitInfo?.settlements ?? []).map(s => `${s.id} · ${s.date}`));

@@ -110,9 +110,15 @@ export function saveSharedTransaction(data: FinanceData, draft: Omit<Transaction
   const previous = data.transactions.find(t => t.id === id);
   if (id && !previous) throw new Error('El movimiento ya no existe. Recarga los datos.');
   if (previous?.transfer) throw new Error('Edita el traspaso como una operación completa.');
+  if (previous?.obligationSettlement) throw new Error('La liquidación de principal se gestiona desde Deudas.');
   if (previous?.reimbursement) throw new Error('Edita el reintegro desde su liquidación.');
   if (previous && isLegacyShared(previous)) throw new Error('Revisa y migra el gasto histórico antes de editarlo.');
   let tx: Transaction = { ...previous, ...draft, id: id ?? crypto.randomUUID() };
+  if(previous?.recurrence){
+    const wallet=data.wallets.find(w=>w.name===draft.wallet);
+    if(!wallet)throw new Error('La cartera del movimiento periódico debe existir.');
+    tx.recurrence={...previous.recurrence,walletId:wallet.id};
+  }
   if (draft.splitInfo?.isShared) {
     const wallet = data.wallets.find(w => w.name === draft.wallet);
     if (!wallet) throw new Error('La cartera del gasto debe existir.');

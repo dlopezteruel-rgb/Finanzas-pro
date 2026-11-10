@@ -258,7 +258,8 @@ export function calculateWalletBalances(wallets: Wallet[], transactions: Transac
 
   transactions.forEach(t => {
     if (!t.processed) return; // Only processed impact real bank balance
-    const walletName = t.transfer ? transferWalletName(t, wallets) : (t.reimbursement || t.splitInfo?.accountingVersion === '2.7') ? sharedWalletName(t, { wallets }) : t.wallet.toUpperCase().trim();
+    const stableWallet=t.recurrence?.walletId??t.obligationSettlement?.walletId;
+    const walletName = stableWallet ? wallets.find(w=>w.id===stableWallet)!.name : t.transfer ? transferWalletName(t, wallets) : (t.reimbursement || t.splitInfo?.accountingVersion === '2.7') ? sharedWalletName(t, { wallets }) : t.wallet.toUpperCase().trim();
     if (balances[walletName] === undefined) {
       balances[walletName] = 0;
     }

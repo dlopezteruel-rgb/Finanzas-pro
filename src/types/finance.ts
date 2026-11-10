@@ -104,6 +104,8 @@ export interface Transaction {
   processed: boolean; // Tramitado: SÍ / NO
   transfer?: TransferLink;
   reimbursement?: { expenseId: string; settlementId: string; contactId: string; walletId: string };
+  recurrence?: { ruleId: string; occurrenceId: string; dueDate: string; walletId: string };
+  obligationSettlement?: { obligationId: string; settlementId: string; walletId: string };
   loanId?: string; // Optional reference if associated with a loan payment
   notes?: string;
   splitInfo?: SharedExpenseInfo; // Información de gasto compartido y deudas
@@ -249,4 +251,55 @@ export interface PlanningAutomation {
   carryovers: PlanningCarryover[];
   origins: PlanningOrigin[];
   history: { monthYear: string; approvals: PlanningApproval[] }[];
+}
+
+/** Proposed cash flows are independent from budget planning rules. All new money is cents. */
+export interface RecurringMovementRule {
+  id: string;
+  concept: string;
+  type: MovementType;
+  amountCents: number;
+  code: string;
+  categoryName: string;
+  subcategoryName: string;
+  walletId: string;
+  frequency: 'monthly' | 'quarterly' | 'yearly';
+  startDate: string;
+  endDate?: string;
+  day: number;
+  active: boolean;
+  deleted?: boolean; // Tombstone preserves references and prevents reuse of identities.
+}
+export interface MovementOccurrence {
+  id: string; // ruleId@original due date, immutable even when the transaction is edited.
+  ruleId: string;
+  dueDate: string;
+  status: 'registered' | 'skipped';
+  transactionId?: string;
+}
+export interface PersonalSettlement {
+  id: string;
+  amountCents: number;
+  date: string;
+  kind: 'adjustment' | 'bank';
+  processed: boolean;
+  note: string;
+  walletId?: string;
+  transactionId?: string;
+}
+export interface PersonalObligation {
+  id: string;
+  direction: 'receivable' | 'payable';
+  counterparty: { name: string; contactId?: string };
+  concept: string;
+  principalCents: number;
+  date: string;
+  dueDate?: string;
+  cancelled: boolean;
+  settlements: PersonalSettlement[];
+}
+export interface IntelligentFinance {
+  recurringRules: RecurringMovementRule[];
+  occurrences: MovementOccurrence[];
+  obligations: PersonalObligation[];
 }

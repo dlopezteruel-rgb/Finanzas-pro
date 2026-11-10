@@ -7,6 +7,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
   backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean; error?: string; onDismissError?: () => void;
 }) {
   const counts = [
+    ...(backup.intelligentFinance?[['Reglas de movimientos',backup.intelligentFinance.recurringRules.length],['Identidades de ocurrencias',backup.intelligentFinance.occurrences.length],['Compromisos personales',backup.intelligentFinance.obligations.length],['Liquidaciones personales',backup.intelligentFinance.obligations.reduce((n,o)=>n+o.settlements.length,0)]]:[]),
     ['Movimientos', backup.transactions.length], ['Presupuestos', backup.budgetPlans.length],
     ...(backup.planningMonths ? [['Objetivos y aprobaciones mensuales', backup.planningMonths.length]] : []),
     ...(backup.planningAutomation?[['Reglas recurrentes',backup.planningAutomation.rules.length],['Arrastres',backup.planningAutomation.carryovers.length],['Fotografías históricas',backup.planningAutomation.history.reduce((n,h)=>n+h.approvals.length,0)]]:[]),

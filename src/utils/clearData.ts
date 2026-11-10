@@ -12,6 +12,11 @@ export interface ClearDataOptions {
 
 /** Build the selected scope without rewriting debts or removing surviving references. */
 export function clearedData(data: FinanceData, options: ClearDataOptions): FinanceData {
+  const intelligence=data.intelligentFinance;
+  if(intelligence && !(options.clearTransactions&&options.clearDebts)) {
+    if(options.clearTransactions&&(intelligence.occurrences.some(o=>o.transactionId)||intelligence.obligations.some(o=>o.settlements.some(s=>s.transactionId))))throw new Error('Los movimientos tienen ocurrencias o liquidaciones personales. Revisa también el borrado de deudas para eliminar todos los vínculos juntos.');
+    if(options.clearDebts&&intelligence.obligations.some(o=>o.settlements.some(s=>s.transactionId)))throw new Error('Los compromisos tienen movimientos bancarios. Selecciona también borrar movimientos.');
+  }
   if (options.clearAllWallets && !options.clearTransactions && data.transactions.some(t => t.transfer)) {
     throw new Error('No se pueden borrar carteras conservando sus traspasos. Selecciona también borrar movimientos.');
   }
@@ -25,6 +30,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
     ...(options.clearBudgets && data.planningAutomation ? {planningAutomation: undefined} : {}),
     loans: options.clearDebts ? [] : data.loans,
     transactions,
+    ...(intelligence?{intelligentFinance:options.clearTransactions&&options.clearDebts?{recurringRules:[],occurrences:[],obligations:[]}:options.clearDebts?{...intelligence,obligations:[]}:intelligence}:{}),
   };
   assertDeletionTransition(data, candidate);
   if(options.clearBudgets)delete candidate.planningAutomation;
@@ -34,7 +40,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
 
 /** Snapshot of the reviewed scope; a queued write must not silently expand it. */
 export function clearScope(data: FinanceData, options: ClearDataOptions): string {
-  return JSON.stringify({ options, transactions: data.transactions, wallets: data.wallets, loans: data.loans, budgetPlans: data.budgetPlans, ...(data.planningMonths ? { planningMonths: data.planningMonths } : {}),...(data.planningAutomation?{planningAutomation:data.planningAutomation}:{}) });
+  return JSON.stringify({ options, ...(data.intelligentFinance?{intelligentFinance:data.intelligentFinance}:{}), transactions: data.transactions, wallets: data.wallets, loans: data.loans, budgetPlans: data.budgetPlans, ...(data.planningMonths ? { planningMonths: data.planningMonths } : {}),...(data.planningAutomation?{planningAutomation:data.planningAutomation}:{}) });
 }
 export function confirmedClearData(data: FinanceData, options: ClearDataOptions, scope: string): FinanceData {
   if (clearScope(data, options) !== scope) throw new Error('El alcance del borrado ha cambiado. Cancela y vuelve a revisar las cantidades antes de confirmar.');
@@ -64,6 +70,8 @@ export function clearImpact(data: FinanceData, options: ClearDataOptions): Delet
     ['Fotografías históricas a eliminar',options.clearBudgets?(data.planningAutomation?.history.reduce((n,h)=>n+h.approvals.length,0) ?? 0):0],
     ['Procedencias de previsiones a eliminar',options.clearBudgets?(data.planningAutomation?.origins.length ?? 0):0],
     ['Préstamos a eliminar', options.clearDebts ? data.loans.length : 0],
+    ['Compromisos personales a eliminar',options.clearDebts?(data.intelligentFinance?.obligations.length??0):0],
+    ['Reglas periódicas e identidades a eliminar',options.clearTransactions&&options.clearDebts?(data.intelligentFinance?.recurringRules.length??0)+(data.intelligentFinance?.occurrences.length??0):0],
   ];
   const blockers: string[] = [];
   try { clearedData(data, options); } catch (error) { blockers.push(error instanceof Error ? error.message : 'El borrado dejaría referencias inconsistentes.'); }

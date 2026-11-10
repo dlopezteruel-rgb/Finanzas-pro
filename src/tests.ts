@@ -19,3 +19,4 @@ import './utils/planningAutomation.test';
 import './components/planningPreview.test';
 
 import './utils/financialCalendar.test';
+import './utils/intelligentFinance.test';

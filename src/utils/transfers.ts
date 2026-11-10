@@ -103,7 +103,7 @@ export function legacyTransferReport(transactions: Transaction[], wallets?: Wall
 /** Pure classification: legacy originals remain untouched until explicit migration. */
 export function economicTransactions(transactions: Transaction[]): Transaction[] {
   const { linked } = legacyTransferReport(transactions);
-  return transactions.filter(t => !t.transfer && !t.reimbursement && !linked.has(t.id)).map(t => isStructuredShared(t) ? { ...t, amount: t.splitInfo!.myShare } : t);
+  return transactions.filter(t => !t.transfer && !t.reimbursement && !t.obligationSettlement && !linked.has(t.id)).map(t => isStructuredShared(t) ? { ...t, amount: t.splitInfo!.myShare } : t);
 }
 
 export function migrateLegacyTransfers<T extends { transactions: Transaction[]; wallets: Wallet[] }>(data: T): T {

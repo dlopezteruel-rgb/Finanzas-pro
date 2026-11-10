@@ -1,3 +1,4 @@
+import { assertIntelligentTransition } from './intelligentValidation';
 import { reconcileAutomation } from './planningAutomation';
 import { invalidatePlanning, reconcilePlanning } from './planning';
 import { assertDeletionTransition } from './deletion';
@@ -70,6 +71,7 @@ export class FinanceStore {
       assertDeletionTransition(this.data, candidate);
       if (!clearing) {
         assertSharedTransition(this.data, candidate);
+        assertIntelligentTransition(this.data, candidate);
         // Existing structured legs can only remain linked, or disappear together.
         for (const old of this.data.transactions.filter(t => t.transfer)) {
           const next = candidate.transactions.find(t => t.id === old.id);
