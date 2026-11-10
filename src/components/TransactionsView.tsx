@@ -22,6 +22,8 @@ import { Transaction } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 
 interface TransactionsViewProps {
+  currentMonthYear?: string;
+  focusedTransactionId?: string | null;
   transactions: Transaction[];
   onToggleProcessed: (id: string) => void;
   onViewSharedDetails?: (id: string) => void;
@@ -31,6 +33,8 @@ interface TransactionsViewProps {
 }
 
 export const TransactionsView: React.FC<TransactionsViewProps> = ({
+  currentMonthYear,
+  focusedTransactionId,
   transactions,
   onToggleProcessed, onViewSharedDetails,
   onDeleteTransaction,
@@ -40,6 +44,19 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
+  const [selectedPeriod,setSelectedPeriod]=useState<'all'|'selected'>('all');
+  const focusedRowRef = React.useRef<HTMLDivElement>(null);
+  const pendingFocusId = React.useRef<string | null>(null);
+
+  React.useEffect(() => {
+    pendingFocusId.current = focusedTransactionId ?? null;
+    if (!focusedTransactionId) return;
+    // A new linked destination must remain visible even in a retained list.
+    setSearchTerm('');
+    setFilterType('ALL');
+    setSelectedWallet('ALL');
+    setSelectedPeriod('all');
+  }, [focusedTransactionId]);
 
   // Wallets set
   const wallets = useMemo(() => {
@@ -51,6 +68,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   // Filtered
   const filtered = useMemo(() => {
     return transactions.filter(t => {
+      if(selectedPeriod==='selected'&&currentMonthYear&&!t.date.startsWith(currentMonthYear))return false;
       if (filterType === 'GASTO' && t.type !== 'GASTO') return false;
       if (filterType === 'INGRESO' && t.type !== 'INGRESO') return false;
       if (filterType === 'PENDING' && t.processed) return false;
@@ -66,7 +84,18 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       }
       return true;
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  }, [transactions, filterType, selectedWallet, searchTerm]);
+  }, [transactions, filterType, selectedWallet, searchTerm,selectedPeriod,currentMonthYear]);
+
+  // A linked entry is focused in the list, not opened in the editable movement dialog.
+  React.useEffect(() => {
+    if (!focusedTransactionId || pendingFocusId.current !== focusedTransactionId || !filtered.some(t => t.id === focusedTransactionId)) return;
+    const row = focusedRowRef.current;
+    if (row) {
+      pendingFocusId.current = null;
+      row.focus({ preventScroll: true });
+      row.scrollIntoView({ block: 'center' });
+    }
+  }, [focusedTransactionId, filtered]);
 
   const totalIncomes = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
     .filter(t => t.type === 'INGRESO' && t.processed)
@@ -113,6 +142,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   return (
     <div className="transactions-view">
       <h1 className="module-title">Movimientos</h1>
+      {currentMonthYear&&<div className="finance-actions"><label>Periodo del listado <select aria-label="Periodo del listado" value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">Todos los periodos</option><option value="selected">Periodo seleccionado: {currentMonthYear}</option></select></label><p>{selectedPeriod==='all'?'Registro de todas las fechas.':`Solo movimientos de ${currentMonthYear}.`}</p></div>}
       {/* Search & Top Action */}
       <div className="movement-search flex items-center gap-2">
         <div className="relative flex-1">
@@ -221,7 +251,11 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           filtered.map(t => (
             <div
               key={t.id}
-              role="listitem" className="movement-row px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors"
+              ref={t.id === focusedTransactionId ? focusedRowRef : undefined}
+              tabIndex={t.id === focusedTransactionId ? -1 : undefined}
+              aria-label={t.id === focusedTransactionId ? `Movimiento seleccionado: ${t.description}, ${t.date}, ${formatCurrency(t.amount)}` : undefined}
+              data-focused-transaction={t.id === focusedTransactionId ? 'true' : undefined}
+              role="listitem" className={`movement-row px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors ${t.id === focusedTransactionId ? 'ring-2 ring-inset ring-sky-400 bg-sky-500/10' : ''}`}
             >
               {/* Category Icon & Movement Details */}
               <div className="flex items-center gap-3 min-w-0">

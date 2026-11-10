@@ -3,6 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import { toggleObligationSettlement } from './utils/personalObligations';
+import { currentMonth, realDate } from './utils/financialCalendar';
+import { occurrencePreviews } from './utils/recurringMovements';
 import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
 import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
@@ -66,6 +69,11 @@ import { confirmOnceAsync } from './utils/confirmation';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
+import { TreasuryView } from './components/TreasuryView';
+import { liquidBalanceCents } from './utils/treasury';
+import { obligationOverview } from './utils/personalObligations';
+import { DebtsWorkspace } from './components/DebtsWorkspace';
+import { RecurringMovementsView } from './components/RecurringMovementsView';
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
@@ -84,7 +92,7 @@ export default function App() {
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
-  const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
+  const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: (t.recurrence || t.obligationSettlement) ? wallets.find(w=>w.id===(t.recurrence?.walletId??t.obligationSettlement?.walletId))!.name : t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
   const sharedMigration = useMemo(() => sharedMigrationReport(data), [data]);
   const [settlementToEdit, setSettlementToEdit] = useState<DebtSettlement | undefined>(undefined);
   const [deleteSettlementInitially, setDeleteSettlementInitially] = useState(false);
@@ -111,21 +119,58 @@ export default function App() {
   const handleToggleTheme = () => setTheme(previous => previous === 'dark' ? 'light' : 'dark');
 
   // Current Month/Year period
-  const [currentMonthYear, setCurrentMonthYear] = useState<string>('2026-10');
+  const [currentMonthYear, setCurrentMonthYear] = useState<string>(()=>currentMonth());
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
+  const [homeTab,setHomeTab]=useState<'overview'|'treasury'>('overview');
+  const [movementTab,setMovementTab]=useState<'ledger'|'recurring'>('ledger');
+  const [focusedTransactionId,setFocusedTransactionId]=useState<string|null>(null);
+  const [focusedOccurrenceId,setFocusedOccurrenceId]=useState<string|null>(null);
   const [chartNavigation, setChartNavigation] = useState<EconomicFilter | undefined>();
   const planningState = useRef({ dirty: false, saving: false });
+  const [planningNavigationFailure,setPlanningNavigationFailure]=useState(false);
+  const planningNavigationSave=useRef<(()=>Promise<boolean>)|null>(null);
+  const registerPlanningSave=useCallback((save:(()=>Promise<boolean>)|null)=>{planningNavigationSave.current=save},[]);
   const [planningBusy, setPlanningBusy] = useState(false);
   const [planningReset, setPlanningReset] = useState(0);
   const [pendingPlanningNavigation, setPendingPlanningNavigation] = useState<(() => void) | null>(null);
   const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; setPlanningBusy(saving); }, []);
   const guardPlanning = (action: () => void) => {
     if (planningState.current.saving) return;
-    if (planningState.current.dirty) setPendingPlanningNavigation(() => action);
+    if (planningState.current.dirty) {setPlanningNavigationFailure(false);setPendingPlanningNavigation(() => action);}
     else action();
   };
-  const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => setCurrentMonthYear(month)); };
-  const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setActiveTab(tab); }); };
+  const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => { setFocusedTransactionId(null); setFocusedOccurrenceId(null); setCurrentMonthYear(month); }); };
+  const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setFocusedTransactionId(null); setFocusedOccurrenceId(null); setActiveTab(tab); }); };
+  // Navigate to the exact registered movement without invoking its editor.
+  // The same planning guard owns the complete navigation, so a pending draft cannot be lost.
+  const openLinkedTransaction = (id: string) => {
+    const transaction = transactions.find(t => t.id === id);
+    if (!transaction) { setDataNotice('El movimiento vinculado ya no está disponible. Revisa el historial antes de continuar.'); return; }
+    if (!realDate(transaction.date)) { setDataNotice('El movimiento vinculado no tiene una fecha admitida por el calendario.'); return; }
+    guardPlanning(() => {
+      planningState.current = { dirty: false, saving: false };
+      setCurrentMonthYear(transaction.date.slice(0, 7));
+      setChartNavigation(undefined);
+      setMovementTab('ledger');
+      setFocusedOccurrenceId(null);
+      setFocusedTransactionId(id);
+      setActiveTab('transactions');
+    });
+  };
+  const openLinkedOccurrence = (id: string) => {
+    const date = data.intelligentFinance?.occurrences.find(o => o.id === id)?.dueDate ?? id.slice(-10);
+    if (!realDate(date)) { setDataNotice('La ocurrencia no tiene un mes válido.'); return; }
+    const month = date.slice(0, 7);
+    if (!occurrencePreviews(data, month).some(o => o.id === id)) { setDataNotice('La ocurrencia vinculada ya no está disponible. Revisa la regla antes de continuar.'); return; }
+    guardPlanning(() => {
+      planningState.current = { dirty: false, saving: false };
+      setCurrentMonthYear(month);
+      setMovementTab('recurring');
+      setFocusedTransactionId(null);
+      setFocusedOccurrenceId(id);
+      setActiveTab('transactions');
+    });
+  };
 
 
   // Modals state
@@ -155,9 +200,6 @@ export default function App() {
   // Derived available periods
   const availableMonths = useMemo(() => {
     const set = new Set<string>();
-    set.add('2026-10');
-    set.add('2026-11');
-    set.add('2026-09');
     transactions.forEach(t => {
       const my = t.date.slice(0, 7);
       if (my) set.add(my);
@@ -189,8 +231,8 @@ export default function App() {
   }, [wallets, transactions]);
 
   const totalLiquidBalance = useMemo(() => {
-    return Object.values(walletBalances).reduce((acc, curr) => acc + curr, 0);
-  }, [walletBalances]);
+    return liquidBalanceCents(data)/100;
+  }, [data, walletBalances]);
 
   // Count pending transactions (processed: false)
   const pendingTransactionsCount = useMemo(() => {
@@ -230,6 +272,7 @@ export default function App() {
 
   const handleToggleProcessed = (id: string) => {
     const tx = storedTransactions.find(t => t.id === id);
+    if(tx?.obligationSettlement)return mutate(current=>toggleObligationSettlement(current,id));
     if (tx?.reimbursement) {
       const expense = storedTransactions.find(t => t.id === tx.reimbursement!.expenseId)!;
       const s = expense.splitInfo!.settlements!.find(s => s.id === tx.reimbursement!.settlementId)!;
@@ -249,6 +292,7 @@ export default function App() {
   };
 
   const handleOpenEditTransaction = (tx: Transaction) => {
+    if(tx.obligationSettlement){setDataNotice('El principal y su historial están protegidos. Revisa esta liquidación desde Deudas; puedes tramitarla desde Movimientos.');return;}
     if (tx.reimbursement) { handleEditSettlement(tx.reimbursement.expenseId, tx.reimbursement.settlementId); return; }
     if (isLegacyShared(tx)) { setDataError('Revisa la migración del gasto compartido histórico antes de editarlo.'); return; }
     const raw = storedTransactions.find(t => t.id === tx.id);
@@ -574,7 +618,10 @@ export default function App() {
       </div>}
       {/* Main Content Viewport */}
       <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
-        {activeTab === 'dashboard' && (
+        {activeTab === 'dashboard' && (<>
+          <div className="finance-actions" aria-label="Secciones de inicio"><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>Resumen financiero</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>Próximos 30 días</button></div>
+          {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
+          <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
             summary={summary}
@@ -588,22 +635,28 @@ export default function App() {
             onNavigateToTab={changeTab}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
-        )}
+          </>}
+        </>)}
 
         {activeTab === 'transactions' && (<>
+          <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>Movimientos periódicos</button></div>
+          {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} focusedOccurrenceId={focusedOccurrenceId} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
+            currentMonthYear={currentMonthYear}
             transactions={transactions}
+            focusedTransactionId={focusedTransactionId}
             onToggleProcessed={handleToggleProcessed}
             onViewSharedDetails={setSharedDetailId}
             onDeleteTransaction={handleDeleteTransaction}
             onEditTransaction={handleOpenEditTransaction}
             onOpenNewTransaction={() => handleOpenNewTransaction()}
           />
+          </>}
         </>)}
 
         {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
-          <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty}
+          <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty} onRegisterNavigationSave={registerPlanningSave}
             onSave={(edits, savings, scope, approve, deficit) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
         } catalog={
@@ -635,7 +688,7 @@ export default function App() {
           />
         )}
 
-        {activeTab === 'loans' && (
+        {activeTab === 'loans' && (<DebtsWorkspace data={data} mutate={mutate} onContacts={()=>changeTab('contacts')} onMovement={openLinkedTransaction} loans={
           <LoansView
             deletionData={data}
             loans={loans}
@@ -646,7 +699,7 @@ export default function App() {
             onDeleteLoan={handleDeleteLoan}
             onPayInstallment={handlePayLoanInstallment}
           />
-        )}
+        }/>)}
 
         {activeTab === 'wallets' && (<>
           <ChartSlot data={data} month={currentMonthYear} kind="wallets"/>
@@ -664,6 +717,7 @@ export default function App() {
 
         {activeTab === 'assistant' && (
           <AssistantChatView
+            financeData={data}
             summary={summary}
             budgetRows={budgetRows}
             transactions={transactions}
@@ -680,9 +734,10 @@ export default function App() {
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
       </div>}
-      {pendingPlanningNavigation && <SafeDialog title="Cambios de planificación sin guardar" onCancel={() => setPendingPlanningNavigation(null)}>
+      {pendingPlanningNavigation && <SafeDialog title="Cambios de planificación sin guardar" onCancel={() => {if(!planningBusy)setPendingPlanningNavigation(null)}}>
+        {planningNavigationFailure&&<p role="alert">{saveError||'Corrige los importes antes de guardar. Puedes seguir editando sin perder el borrador.'}</p>}
         <p>Hay importes u objetivo sin guardar. Puedes volver al editor o descartar el borrador local para continuar.</p>
-        <div className="flex gap-2"><button onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button onClick={() => {
+        <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}else setPlanningNavigationFailure(true);}}>Guardar y continuar</button><button disabled={planningBusy} onClick={() => {
           const action = pendingPlanningNavigation; setPendingPlanningNavigation(null); planningState.current = { dirty: false, saving: false }; setPlanningReset(n => n + 1); action();
         }}>Descartar y continuar</button></div>
       </SafeDialog>}

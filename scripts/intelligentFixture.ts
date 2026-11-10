@@ -1,0 +1,86 @@
+import type { FinanceData } from "../src/utils/backup";
+import type {
+  RecurringMovementRule,
+  PersonalObligation,
+} from "../src/types/finance";
+export const intelligentFixture = (): FinanceData => ({
+  theme: "dark",
+  transactions: [],
+  budgetPlans: [],
+  contacts: [
+    { id: "friend", name: "Amistad ficticia", createdAt: "2026-01-01" },
+  ],
+  loans: [],
+  wallets: [
+    {
+      id: "bank",
+      name: "BANCO FICTICIO",
+      type: "BANK",
+      initialBalance: 1000,
+      color: "#0af",
+    },
+  ],
+  budgetGroups: [
+    {
+      code: "I",
+      name: "Ingresos ficticios",
+      type: "INGRESO",
+      partidas: [
+        {
+          code: "i",
+          name: "Nómina ficticia",
+          type: "INGRESO",
+          groupCode: "I",
+          groupName: "Ingresos ficticios",
+          keywords: [],
+        },
+      ],
+    },
+    {
+      code: "G",
+      name: "Gastos ficticios",
+      type: "GASTO",
+      partidas: [
+        {
+          code: "g",
+          name: "Alquiler ficticio",
+          type: "GASTO",
+          groupCode: "G",
+          groupName: "Gastos ficticios",
+          keywords: [],
+        },
+      ],
+    },
+  ],
+});
+export const movementRule = (
+  overrides: Partial<RecurringMovementRule> = {},
+): RecurringMovementRule => ({
+  id: "rent",
+  concept: "Alquiler ficticio",
+  type: "GASTO",
+  amountCents: 95000,
+  code: "g",
+  categoryName: "Gastos ficticios",
+  subcategoryName: "Alquiler ficticio",
+  walletId: "bank",
+  frequency: "monthly",
+  startDate: "2026-01-01",
+  day: 31,
+  active: true,
+  ...overrides,
+});
+export const personalObligation = (
+  overrides: Partial<PersonalObligation> = {},
+): PersonalObligation => ({
+  id: "personal",
+  direction: "receivable",
+  counterparty: { name: "Amistad ficticia", contactId: "friend" },
+  concept: "Préstamo personal ficticio",
+  principalCents: 20000,
+  date: "2026-01-01",
+  dueDate: "2026-11-15",
+  cancelled: false,
+  settlements: [],
+  ...overrides,
+});

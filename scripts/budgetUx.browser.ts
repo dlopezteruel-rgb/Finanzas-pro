@@ -59,7 +59,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
     await context.addInitScript(({ key, value }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, value); }, { key: DATA_KEY, value: JSON.stringify('version' in initial ? initial : makeBackup(initial)) });
     const page = await context.newPage(); page.setDefaultTimeout(7000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
-    await page.goto(url); await page.getByRole('button', { name: /^(?:\d+\s*)?Presupuestos(?:\s*\d+)?$/ }).first().click();
+    await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url); await page.getByRole('button', { name: /^(?:\d+\s*)?Presupuestos(?:\s*\d+)?$/ }).first().click();
     return { page, context, close: async () => { await context.close(); assert.deepEqual(errors, []); } };
   }
 

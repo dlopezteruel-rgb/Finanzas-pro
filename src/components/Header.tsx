@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { PeriodSelector } from './PeriodSelector';
 import { Calendar, Download, Upload, RotateCcw, MoreHorizontal, ChevronDown, Check, Sparkles, Trash2, Sun, Moon } from 'lucide-react';
 import { formatCurrency } from '../utils/finance';
 
@@ -63,21 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Center / Right: Compact Period Selector & Actions */}
         <div className="flex items-center gap-2">
           {/* Period Selector Pill */}
-          <div className="relative">
-            <select
-              aria-label="Seleccionar periodo contable"
-              value={currentMonthYear}
-              onChange={e => onChangeMonthYear(e.target.value)}
-              className="appearance-none bg-white/[0.06] hover:bg-white/[0.1] text-white text-xs font-semibold pl-2.5 pr-6 py-1.5 rounded-full border border-white/[0.08] focus:outline-none cursor-pointer transition-colors"
-            >
-              {availableMonths.map(my => (
-                <option key={my} value={my} className="bg-[#141926] text-white">
-                  {formatShortMonth(my)}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="w-3 h-3 text-slate-400 absolute right-2 top-2 pointer-events-none" />
-          </div>
+          <PeriodSelector month={currentMonthYear} periods={availableMonths} onChange={onChangeMonthYear}/>
 
           {/* Theme Toggle Button (Claro / Oscuro) */}
           <button
