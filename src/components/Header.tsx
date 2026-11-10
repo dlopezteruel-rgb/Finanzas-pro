@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className="sticky top-0 z-40 bg-[#0c0f17]/90 backdrop-blur-xl border-b border-white/[0.06]">
-      <div className="max-w-4xl mx-auto px-4 h-14 flex items-center justify-between gap-3">
+      <div className="app-shell app-header-inner h-14 flex items-center justify-between gap-3">
         {/* Left: Avatar & App Name */}
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-inner ring-1 ring-white/20">

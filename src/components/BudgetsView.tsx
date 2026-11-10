@@ -111,7 +111,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   };
 
   return (
-    <div className="space-y-4 pb-16 md:pb-6">
+    <div className="catalog-view space-y-4 pb-16 md:pb-6">
       {(editError || editSubmission.error) && <p role="alert">{editError || editSubmission.error}</p>}
       {/* 1. Top Summary Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -205,7 +205,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
       </div>
 
       {/* 3. Collapsible Packages List */}
-      <div className="space-y-3">
+      <div className="catalog-families">
         {filteredGroups.map(group => {
           const isOpen = isGroupOpen(group.code);
 
@@ -231,8 +231,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             >
               {/* Accordion Package Header */}
               <div
+                role="button" tabIndex={0} aria-expanded={isOpen} aria-label={`Familia ${group.name}`}
+                onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleGroup(group.code)}}}
                 onClick={() => toggleGroup(group.code)}
-                className="p-3.5 flex items-center justify-between gap-3 hover:bg-white/[0.02] cursor-pointer transition-colors select-none"
+                className="catalog-family-toggle p-3.5 flex items-center justify-between gap-3 hover:bg-white/[0.02] cursor-pointer transition-colors select-none"
               >
                 <div className="flex items-center gap-2.5 min-w-0">
                   <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold ${

@@ -1,4 +1,4 @@
-import React,{useLayoutEffect,useState} from 'react';
+import React,{useEffect,useLayoutEffect,useState} from 'react';
 import type { FinanceData } from '../utils/backup';
 import type { PlanningRule, PlanningApproval } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
@@ -12,7 +12,7 @@ const previousMonth=(month:string)=>{const n=monthNumber(month)-1;return `${Stri
 const labels={copy:'Copiar planificación',rules:'Reglas recurrentes',recurrences:'Aplicar recurrencias',carry:'Arrastrar remanentes',history:'Historial de aprobaciones'};
 type Mode=keyof typeof labels;
 const destinationAfter=(month:string)=>{try{return nextMonth(month)}catch{return month}};
-export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply}:{data:FinanceData;month:string;blocked:boolean;onBusy:(busy:boolean)=>void;onApply:(preview:AutomationPreview)=>Promise<SaveResult>}) {
+export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,requestCarryReview}:{data:FinanceData;month:string;blocked:boolean;onBusy:(busy:boolean)=>void;onApply:(preview:AutomationPreview)=>Promise<SaveResult>;requestCarryReview?:{id:string}|null}) {
   const [mode,setMode]=useState<Mode|null>(null),[preview,setPreview]=useState<AutomationPreview|null>(null),[error,setError]=useState(''),[notice,setNotice]=useState('');
   const submission=useAsyncForm();useLayoutEffect(()=>onBusy(submission.saving),[submission.saving,onBusy]);
   const [source,setSource]=useState(month),[first,setFirst]=useState(()=>destinationAfter(month)),[last,setLast]=useState(()=>destinationAfter(month)),[copySavings,setCopySavings]=useState(true);
@@ -24,6 +24,8 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply}:{dat
   const catalog=new Map(data.budgetGroups.flatMap(g=>g.partidas).map(p=>[planningKey(p),p.name]));
   const partName=(type:string,code?:string)=>type==='SAVINGS'?'Ahorro objetivo':`${type} · ${catalog.get(`${type}:${code}`) ?? `Partida histórica ${code}`}`;
   const prepare=(request:AutomationRequest)=>{try{setError('');submission.clearError();setPreview(previewAutomation(data,request))}catch(e){setError((e as Error).message)}};
+  // A row opens the same reviewed operation; browsing never applies it.
+  useEffect(()=>{if(requestCarryReview&&!blocked)prepare({kind:'reviewCarry',id:requestCarryReview.id})},[requestCarryReview]);
   const close=()=>{if(!submission.saving){setMode(null);setError('');setPreview(null)}};
   const editRule=(rule:PlanningRule)=>{setRuleId(rule.id);setRuleName(rule.name);setRuleTarget(rule.target==='SAVINGS'?'SAVINGS':`${rule.target}:${rule.code}`);setRuleAmount(planningMoneyInput(rule.amountCents));setFrequency(rule.frequency);setRuleStart(rule.startMonth);setRuleEnd(rule.endMonth ?? '');setActive(rule.active)};
   const newRule=()=>{setRuleId('');setRuleName('');setRuleTarget('SAVINGS');setRuleAmount('0');setFrequency('monthly');setRuleStart(month);setRuleEnd('');setActive(true)};

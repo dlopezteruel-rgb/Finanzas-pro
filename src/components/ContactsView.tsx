@@ -145,7 +145,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
   }, [contactsWithDebts, searchQuery]);
 
   return (
-    <div className="space-y-4 pb-16 animate-fadeIn">
+    <div className="contacts-view space-y-4 pb-16 animate-fadeIn">
       {/* Top Banner Card (Revolut Fintech Style) */}
       <div className="bg-gradient-to-br from-[#141926] via-[#161e31] to-[#121724] border border-white/10 rounded-3xl p-5 shadow-xl relative overflow-hidden">
         <div className="absolute -right-6 -bottom-6 w-32 h-32 bg-sky-500/10 rounded-full blur-2xl pointer-events-none" />
@@ -199,7 +199,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
       </div>
 
       {/* Contact Cards List */}
-      <div className="space-y-3">
+      <div className="contact-cards">
         {filteredContacts.length === 0 ? (
           <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-8 text-center space-y-2">
             <Users className="w-8 h-8 text-slate-500 mx-auto" />
@@ -231,8 +231,10 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                 >
                   {/* Contact Summary Header */}
                   <div
+                    role="button" tabIndex={0} aria-expanded={isExpanded} aria-label={`Detalle de ${contact.name}`}
+                    onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setExpandedContactId(isExpanded ? null : contact.id)}}}
                     onClick={() => setExpandedContactId(isExpanded ? null : contact.id)}
-                    className="p-3.5 sm:p-4 flex items-center justify-between gap-3 cursor-pointer hover:bg-white/[0.02]"
+                    className="contact-summary p-3.5 sm:p-4 flex items-center justify-between gap-3 cursor-pointer hover:bg-white/[0.02]"
                   >
                     <div className="flex items-center gap-3">
                       <div

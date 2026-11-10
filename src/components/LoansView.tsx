@@ -54,7 +54,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
   const totalMonthly = loans.reduce((s, l) => s + l.monthlyPayment, 0);
 
   return (
-    <div className="space-y-4 pb-16 md:pb-6 animate-fadeIn">
+    <div className="loans-view space-y-4 pb-16 md:pb-6 animate-fadeIn">
       {/* 1. Top Summary Banner */}
       <div className="bg-[#141926] border border-white/[0.06] rounded-3xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 shadow-lg">
         <div>
@@ -87,7 +87,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
       </div>
 
       {/* 2. Loans Cards (Click to edit) */}
-      <div className="space-y-3">
+      <div className="loan-cards">
         {loans.length === 0 ? (
           <div className="bg-[#141926] border border-white/[0.06] rounded-3xl p-8 text-center text-slate-400 space-y-2">
             <CreditCard className="w-8 h-8 mx-auto text-slate-500 opacity-60" />

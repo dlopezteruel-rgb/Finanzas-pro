@@ -198,3 +198,9 @@ Consulta la [arquitectura, tamaño, límites contables y QA manual](docs/phase-3
 Planificación permite copiar previsiones, gestionar recurrencias de aplicación manual, arrastrar remanentes positivos como ajustes separados y comparar fotografías reales de aprobaciones sucesivas. Cada cambio requiere vista previa y confirmación; no genera movimientos ni modifica saldos. Los meses previamente aprobados están protegidos frente a copias y generación masiva.
 
 Los nuevos metadatos utilizan JSON **3.0**, con validación estricta, Web Locks y copia recuperable completa verificada antes del primer cambio de formato. Se mantienen los formatos 2.5–2.9 sin migraciones al consultar. Consulta el [informe técnico, modelo, recuperación, resultados y guion manual](docs/phase-3b.md).
+
+## Fase 4: diseño responsive
+
+Los siete módulos aprovechan el ancho del navegador con distribuciones específicas para escritorio, tablet y móvil. Planificación incorpora una asignación en directo del borrador local y muestra el origen y efectivo de cada arrastre junto a su base editable. Los gráficos siguen reflejando datos guardados; se conservan el modelo, los formatos y las protecciones financieras.
+
+Consulta las [decisiones de diseño, capturas comparativas, pruebas y validación manual](docs/phase-4-responsive.md).

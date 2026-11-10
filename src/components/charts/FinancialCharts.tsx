@@ -25,7 +25,7 @@ function EconomicCharts({data,month,kind,initialFilter,navigate}:FinancialChartP
   const selectedIds=new Set(currentSelected?.ids ?? []);
   const detail=result.value?.transactions.filter(t=>selectedIds.has(t.id)) ?? [];
   const source=new Map(data.transactions.map(t=>[t.id,t]));
-  return <div className="space-y-4">
+  return <div className="chart-layout space-y-4">
     <p>{filter.processed?'Ejecución económica: solo tramitados.':'Pendientes: previsión de movimientos aún no tramitados; no son ejecución ni saldo.'} Los filtros de este análisis no modifican movimientos.</p>
     <RangeControls range={filter} onChange={range=>update({...filter,...range})}/>
     <div className="chart-controls"><label>Estado <select aria-label="Estado económico" value={filter.processed?'processed':'pending'} onChange={e=>update({...filter,processed:e.target.value==='processed'})}><option value="processed">Tramitados</option><option value="pending">Pendientes (separados)</option></select></label>
@@ -49,7 +49,7 @@ function EconomicCharts({data,month,kind,initialFilter,navigate}:FinancialChartP
 function PlanningCharts({data,month}:FinancialChartProps) {
   const [period,setPeriod]=useState(month),[grouping,setGrouping]=useState<'family'|'partida'>('family'),[selected,setSelected]=useState<ChartRow|null>(null);
   const result=useMemo(()=>derive(()=>planningChartData(data,period,grouping)),[data,period,grouping]);
-  return <div className="space-y-4"><p>Previsiones actuales guardadas; los cambios del borrador local aún sin guardar no se representan. El ahorro objetivo no es un gasto ejecutado. El historial accesible conserva las fotografías reales disponibles. Las líneas muestran el estado guardado actual por mes, no aprobaciones históricas inventadas.</p>
+  return <div className="chart-layout space-y-4"><p>Previsiones actuales guardadas; los cambios del borrador local aún sin guardar no se representan. El ahorro objetivo no es un gasto ejecutado. El historial accesible conserva las fotografías reales disponibles. Las líneas muestran el estado guardado actual por mes, no aprobaciones históricas inventadas.</p>
     <div className="chart-controls"><label>Mes del gráfico <input aria-label="Mes del gráfico de planificación" type="month" min="0001-01" max="9999-12" value={period} onChange={e=>{if(/^(?!0000)\d{4}-(0[1-9]|1[0-2])$/.test(e.target.value)){setPeriod(e.target.value);setSelected(null)}}}/></label>
       <label>Agrupar comparación <select aria-label="Agrupar comparación" value={grouping} onChange={e=>setGrouping(e.target.value as typeof grouping)}><option value="family">Familias</option><option value="partida">Partidas</option></select></label></div>
     <Warnings data={data}/>{result.error&&<p role="alert">{result.error}</p>}
@@ -66,7 +66,7 @@ function WalletCharts({data,month}:FinancialChartProps) {
   const result=useMemo(()=>derive(()=>walletChartData(data,range,wallet)),[data,range,wallet]);
   const options=useMemo(()=>walletChartData(data,{from:`${month}-01`,to:monthEnd(month),granularity:'month'},'all').names,[data,month]);
   const ids=new Set(result.value?.changes.find(r=>r.id===selected?.id)?.ids ?? []);
-  return <div className="space-y-4"><p>Saldos actuales según saldo inicial + movimientos tramitados. Incluyen pagos completos compartidos, reintegros y las dos contrapartidas de transferencias; los pendientes no alteran el saldo.</p>
+  return <div className="chart-layout space-y-4"><p>Saldos actuales según saldo inicial + movimientos tramitados. Incluyen pagos completos compartidos, reintegros y las dos contrapartidas de transferencias; los pendientes no alteran el saldo.</p>
     <label>Cartera <select aria-label="Cartera de gráficos" value={wallet} onChange={e=>{setWallet(e.target.value);setSelected(null)}}><option value="all">Todas las carteras</option>{options.map(name=><option key={name} value={name}>{name}</option>)}</select></label>
     <RangeControls range={range} onChange={value=>{setRange(value);setSelected(null)}}/>
     <Warnings data={data}/>{result.error&&<p role="alert">{result.error}</p>}
