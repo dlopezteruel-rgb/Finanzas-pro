@@ -76,6 +76,18 @@ artifacts/demo-video-nueva-toma/
 
 Los medios están excluidos de Git mediante `/artifacts/demo-video*/`. Solo se publica el sistema de captura y su documentación. Si faltan FFmpeg o FFprobe, se conservan los WebM, se identifica el bloqueo en el manifiesto y el proceso termina con código 2; no declara MP4 ni previsualización generados.
 
+## Regenerar y descargar con GitHub Actions
+
+El workflow `.github/workflows/demo-video.yml` se ejecuta con `pull_request` (`opened`, `synchronize` y `reopened`) contra `main`, exclusivamente para la PR #16 desde `feature/demo-video-capture` del mismo repositorio. Funciona con la PR en Draft y no requiere fusionar el workflow en la rama predeterminada. Un nuevo commit en esta rama lo inicia; después se puede utilizar **Re-run all jobs** en una ejecución existente. No depende de `workflow_dispatch` ni utiliza Codespaces.
+
+Utiliza un runner estándar `ubuntu-24.04`, Node 24, el Chromium y el grabador correspondientes al Playwright Core del lockfile, y FFmpeg/FFprobe. Las dependencias se descargan antes de capturar. Ejecuta `npm ci`, las pruebas unitarias y de fixture, lint, build, diff-check, ensayo, grabación y empaquetado. No recibe secretos ni claves API; checkout usa permiso de lectura y no conserva credenciales. La captura mantiene el servidor local y las restricciones de red del grabador existente.
+
+Antes de publicar, `verify_archive.py` comprueba CRC/SHA-256, los diez MP4 y WebM, las diez miniaturas, treinta controles, previsualización de 175 s, guion, storyboard y manifiesto. Comprueba el inventario de hashes, la validación de cada escena, la ausencia de escrituras por consulta y que los contactos sean los ficticios de la fixture. También rechaza correos y rutas privadas en los documentos. FFmpeg/FFprobe ya han decodificado y comprobado los medios durante el empaquetado.
+
+Para descargar: abre **Actions → FinanZas · grabaciones de demostración → una ejecución correcta** y, al final, **Artifacts → FinanZas_grabaciones_demo**. Descomprime ese artefacto de Actions: dentro están `FinanZas_grabaciones_demo.zip` y su SHA-256. Descomprime el ZIP interior para obtener todos los materiales. GitHub puede pedir que inicies sesión para descargar artefactos de Actions. El resumen de la ejecución también enlaza directamente al artefacto.
+
+Se conservan durante **14 días**. Los registros y los informes se publican por separado como `FinanZas_validacion_<run_id>_<attempt>`, incluso si falla una fase. Si falla la validación, no se publica el ZIP como entrega correcta; consulta el primer paso fallido y sus registros. No se publican medios en Git ni se crean releases.
+
 ## Validación realizada el 10/11/2026
 
 Base de la aplicación: `66a045e17e310527c790a15ff2fe5dceaaba48a3`, HEAD remoto de main comprobado antes de crear la rama independiente. Entorno: Node 24.22.1, Chromium 156.0.8078.79 y FFmpeg/FFprobe 7.1.5.
@@ -105,4 +117,4 @@ Las tomas iniciales se hicieron con la automatización todavía sin commit: el m
 
 Todavía no hay locución, música, subtítulos, transiciones ni montaje comercial final. Las preguntas del asistente seleccionadas funcionan de forma local; no se demuestra una conversación con un servicio externo. Las previsiones siguen siendo estimaciones y el histórico de préstamos conserva la aproximación documentada en Fase 5. Firefox y Safari no se han verificado. Los UUID, latencias y bytes de codificación pueden variar al repetir; importes, fechas y acciones son repetibles.
 
-La creación del ZIP no implica su publicación. Este entorno permite guardar los medios localmente, pero no ofrece una herramienta de adjuntos binarios y denegó la escritura en la carpeta de entrega de la tarea. No se ha utilizado una release ni almacenamiento externo. La entrega debe identificar esta limitación y la ruta local exacta si continúa sin haber una vía de descarga confirmada.
+La captura inicial local no pudo adjuntarse desde la tarea. El workflow añade la regeneración y publicación como artefacto de GitHub Actions; la disponibilidad y la ejecución concreta deben comprobarse antes de dar por resuelta la descarga. No se utiliza una release ni otro almacenamiento externo.
