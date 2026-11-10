@@ -87,7 +87,11 @@ export function occurrencePreviews(
 ): OccurrencePreview[] {
   const months = planningRange(first, last),
     state = intelligent(data);
-  const known = new Map(state.occurrences.map((o) => [o.id, o]));
+  // Every supported frequency has at most one slot per month. Editing a rule's
+  // day must not reopen an already registered or skipped monthly obligation.
+  const knownByMonth = new Map(
+    state.occurrences.map((o) => [`${o.ruleId}@${o.dueDate.slice(0, 7)}`, o]),
+  );
   const rulesById = new Map(state.recurringRules.map((r) => [r.id, r]));
   const walletNames = new Map(data.wallets.map((w) => [w.id, w.name]));
   const manualByKey = new Map<string, string[]>();
@@ -115,8 +119,8 @@ export function occurrencePreviews(
     for (const month of months) {
       const due = ruleDate(rule, month);
       if (!due) continue;
-      const id = `${rule.id}@${due}`,
-        saved = known.get(id);
+      const saved = knownByMonth.get(`${rule.id}@${month}`);
+      const id = saved?.id ?? `${rule.id}@${due}`;
       const collisions =
         manualByKey.get(
           collisionKey(
@@ -129,7 +133,7 @@ export function occurrencePreviews(
       result.push({
         id,
         ruleId: rule.id,
-        dueDate: due,
+        dueDate: saved?.dueDate ?? due,
         rule,
         status: saved?.status ?? "proposed",
         transactionId: saved?.transactionId,

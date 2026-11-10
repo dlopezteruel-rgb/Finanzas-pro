@@ -541,3 +541,28 @@ test("5: las recurrencias nuevas son pendientes y una fecha futura no se puede t
     /futuro/,
   );
 });
+
+test("5B: cambiar el día o frecuencia no reabre un mes ya registrado u omitido", () => {
+  let d = saveMovementRule(fixture(), rule());
+  d = applyOccurrenceBatch(d, batch(d, "2028-01", "2028-01"));
+  d = applyOccurrenceBatch(d, batch(d, "2028-02", "2028-02", "skip"));
+  d = saveMovementRule(d, rule({ day: 15 }));
+  const rows = occurrencePreviews(d, "2028-01", "2028-03");
+  assert.equal(rows.length, 3);
+  assert.equal(
+    rows.find((r) => r.dueDate === "2028-01-31")!.status,
+    "registered",
+  );
+  assert.equal(rows.find((r) => r.dueDate === "2028-02-29")!.status, "skipped");
+  assert.equal(
+    rows.find((r) => r.dueDate === "2028-03-15")!.status,
+    "proposed",
+  );
+  d = saveMovementRule(d, rule({ day: 20, frequency: "quarterly" }));
+  assert.equal(
+    occurrencePreviews(d, "2028-01", "2028-03").filter(
+      (r) => r.status === "proposed",
+    ).length,
+    0,
+  );
+});

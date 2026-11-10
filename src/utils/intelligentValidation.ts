@@ -120,6 +120,7 @@ export function validateIntelligent(data: FinanceData) {
   }
   distinct(raw.recurringRules.map((r) => r.id));
   distinct(raw.occurrences.map((o) => o.id));
+  distinct(raw.occurrences.map((o) => `${o.ruleId}@${o.dueDate.slice(0, 7)}`));
   distinct(raw.obligations.map((o) => o.id));
   const rules = new Set(raw.recurringRules.map((r) => r.id));
   const txs = new Map(data.transactions.map((t) => [t.id, t]));

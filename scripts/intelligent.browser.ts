@@ -418,6 +418,25 @@ test(
             recorded.transactions.every((tx: any) => tx.processed === false),
           );
           assert.equal(recorded.intelligentFinance.occurrences.length, 3);
+          await p
+            .getByRole("button", {
+              name: "Editar Alquiler 31 ficticio",
+              exact: true,
+            })
+            .click();
+          const edited = review(p, "Regla de movimiento periódico");
+          await edited.getByLabel("Día del mes", { exact: true }).fill("15");
+          await edited
+            .getByRole("button", { name: "Revisar regla", exact: true })
+            .click();
+          await confirm(p, "Confirmar regla periódica");
+          assert.equal(
+            await p
+              .getByRole("checkbox", { name: /Seleccionar Alquiler/ })
+              .count(),
+            0,
+          );
+          assert.equal((await saved(p)).transactions.length, 3);
           await p.reload();
           await openRecurring(p);
           await p.getByLabel("Ocurrencias desde").fill("2028-01");
