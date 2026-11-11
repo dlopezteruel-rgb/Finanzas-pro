@@ -1,5 +1,5 @@
 import type { FinanceData } from './backup';
-import type { BudgetPartida, BudgetSubitem, MonthlySubitemPlan, MovementType, SubitemSnapshot } from '../types/finance';
+import type { BudgetPartida, BudgetSubitem, MonthlySubitemPlan, MovementType, SubitemAmount, SubitemSnapshot } from '../types/finance';
 import { assertMonth, planCents, safeCents } from './planningMoney';
 import { economicTransactions } from './transfers';
 
@@ -9,7 +9,11 @@ export const sameSubitemParent = (a: Parent, b: Parent) => a.type === b.type && 
 export const subitemsFor = (data: FinanceData, p: Parent) => (data.budgetSubitems?.items ?? []).filter(i => !i.deleted && sameSubitemParent(i, p)).sort((a,b) => a.order-b.order || a.id.localeCompare(b.id));
 export const monthlySubitems = (data: FinanceData, month: string, p: Parent) => data.budgetSubitems?.months.find(m => m.monthYear === month && sameSubitemParent(m,p));
 export const subitemSum = (lines: {amountCents:number}[]) => lines.reduce((sum,l) => safeCents(sum+safeCents(l.amountCents)),0);
-export const subitemContent = (data: FinanceData, month: string) => (data.budgetSubitems?.months ?? []).filter(m => m.monthYear===month).map(m => ({...m,lines:m.lines.slice().sort((a,b)=>a.subitemId.localeCompare(b.subitemId))})).sort((a,b)=>subitemParentKey(a).localeCompare(subitemParentKey(b)));
+export const subitemContent = (data: FinanceData, month: string) => (data.budgetSubitems?.months ?? []).filter(m => m.monthYear===month).map(m => ({monthYear:m.monthYear,type:m.type,code:m.code,lines:m.lines.map(l=>({subitemId:l.subitemId,amountCents:l.amountCents})).sort((a,b)=>a.subitemId.localeCompare(b.subitemId))})).sort((a,b)=>subitemParentKey(a).localeCompare(subitemParentKey(b)));
+/** Identity and cents define distribution; names, object key order and row order do not. */
+export function normalizedSubitemBreakdowns(plans: (Parent & {lines:SubitemAmount[]})[]) {
+  return JSON.stringify(plans.map(p=>({type:p.type,code:p.code,lines:p.lines.map(l=>({subitemId:l.subitemId,amountCents:l.amountCents})).sort((a,b)=>a.subitemId.localeCompare(b.subitemId))})).sort((a,b)=>subitemParentKey(a).localeCompare(subitemParentKey(b))));
+}
 export function subitemPhotos(data: FinanceData, month: string): SubitemSnapshot[] {
   return subitemContent(data,month).map(m=>({type:m.type,code:m.code,lines:m.lines.map(l=>({...l,name:data.budgetSubitems!.items.find(i=>i.id===l.subitemId)!.name}))}));
 }

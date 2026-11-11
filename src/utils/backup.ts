@@ -1,4 +1,4 @@
-import { validateSubitems, validateSubitemSnapshot, subitemContent } from './budgetSubitems';
+import { validateSubitems, validateSubitemSnapshot, subitemContent, normalizedSubitemBreakdowns } from './budgetSubitems';
 import { validateIntelligent } from './intelligentValidation';
 import { assertSharedIntegrity, isStructuredShared, sharedMigrationReport } from './sharedExpenses';
 import { assertTransferIntegrity, legacyTransferReport } from './transfers';
@@ -204,8 +204,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
         const a = meta.approval;
         validateApproval(a, `${p}.approval`, ['3.0','3.1','3.2','3.3'].includes(value.version),value.version==='3.3');
         if(a.revision===meta.revision && value.version==='3.3') {
-          const normalized=(ps:any[])=>JSON.stringify(ps.map(b=>({type:b.type,code:b.code,lines:b.lines.map((l:any)=>({subitemId:l.subitemId,amountCents:l.amountCents})).sort((a:any,b:any)=>a.subitemId.localeCompare(b.subitemId))})).sort((a,b)=>`${a.type}:${a.code}`.localeCompare(`${b.type}:${b.code}`)));
-          if(normalized(a.subitemBreakdowns ?? [])!==normalized(subitemContent(checked,meta.monthYear))) invalid(p,'la distribución aprobada vigente no coincide con la previsión actual.');
+          if(normalizedSubitemBreakdowns(a.subitemBreakdowns ?? [])!==normalizedSubitemBreakdowns(subitemContent(checked,meta.monthYear))) invalid(p,'la distribución aprobada vigente no coincide con la previsión actual.');
         }
         if (a.revision > meta.revision) invalid(p, 'la aprobación no puede superar la revisión actual.');
         if (a.revision === meta.revision && (a.totals.savings !== meta.savingsCents || normalizedLines(a.lines) !== normalizedLines(lines))) invalid(p, 'la aprobación vigente no coincide con la previsión actual.');

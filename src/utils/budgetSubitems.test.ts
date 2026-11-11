@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { budgetSubitemFixture as fixture, demoParent as parent, demoMonth as month, demoBreakdown as breakdown, demoTransaction as tx } from '../../scripts/budgetSubitemFixture';
-import { createSubitem,editSubitem,subitemBudgetRows,subitemsFor,assertSubitemTransition,subitemUsed,validateSubitems } from './budgetSubitems';
+import { createSubitem,editSubitem,subitemBudgetRows,subitemsFor,assertSubitemTransition,subitemUsed,validateSubitems,normalizedSubitemBreakdowns } from './budgetSubitems';
 import { FinanceStore } from './financeStore';
 import { DATA_KEY,RECOVERY_PREFIX,makeBackup,parseBackup,type FinanceData } from './backup';
 import { savePlanning,planningScope,planningStatus } from './planning';
@@ -107,6 +107,7 @@ test('subítems: copia incluye desglose aunque el total coincida; sobrescritura 
   assert.equal(previewAutomation(store.data,request).rows[0].status,'skip');await store.mutate(d=>applyAutomationPreview(d,previewAutomation(d,{...request,overwrite:['2026-12']})));
   assert.deepEqual(store.data.budgetSubitems!.months.find(m=>m.monthYear==='2026-12')!.lines,breakdown().lines);
   assert.equal(applyAutomationPreview(store.data,previewAutomation(store.data,{...request,overwrite:['2026-12']})),store.data);
+  assert.equal(normalizedSubitemBreakdowns([breakdown()]),normalizedSubitemBreakdowns([{...breakdown(),lines:[...breakdown().lines].reverse().map(l=>({amountCents:l.amountCents,subitemId:l.subitemId}))}]));
   await store.mutate(d=>savePlanning(d,'2026-12',[],0,planningScope(d,'2026-12'),true,true));assert.equal(previewAutomation(store.data,{...request,overwrite:['2026-12']}).rows[0].status,'blocked');
 });
 test('subítems: regla global no sustituye distribución; si no hay desglose señala pendiente',()=>{

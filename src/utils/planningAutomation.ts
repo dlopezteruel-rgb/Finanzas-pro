@@ -1,4 +1,4 @@
-import { monthlySubitems, subitemsFor, sameSubitemParent } from './budgetSubitems';
+import { monthlySubitems, subitemsFor, sameSubitemParent, normalizedSubitemBreakdowns } from './budgetSubitems';
 import type { FinanceData } from './backup';
 import type { PlanningCarryover, PlanningOrigin, PlanningRule, PlanningTarget } from '../types/finance';
 import { planningLines, planningKey } from './planning';
@@ -44,8 +44,7 @@ export function previewAutomation(data:FinanceData,request:AutomationRequest,now
     let status:AutomationRow['status']='apply',why=reason;
     const p=target==='SAVINGS'?null:{type:target,code:code!};
     const dest=p&&monthlySubitems(data,month,p),src=p&&request.kind==='copy'&&monthlySubitems(data,request.source,p);
-    const distribution=(m:typeof dest)=>JSON.stringify(m?m.lines.slice().sort((a,b)=>a.subitemId.localeCompare(b.subitemId)):null);
-    const sameDistribution=distribution(src || null)===distribution(dest);
+    const sameDistribution=normalizedSubitemBreakdowns(src?[src]:[])===normalizedSubitemBreakdowns(dest?[dest]:[]);
     const archivedCopy=src&&src.lines.some(l=>data.budgetSubitems?.items.find(i=>i.id===l.subitemId)?.archived&&!dest?.lines.some(d=>d.subitemId===l.subitemId));
     if(dest&&!src){status='blocked';why='Desglose mensual activo: un importe global no puede sustituir su distribución. Edita los subítems manualmente.';}
     else if(archivedCopy){status='blocked';why='La copia contiene subítems archivados: revisa manualmente la distribución del destino.';}
