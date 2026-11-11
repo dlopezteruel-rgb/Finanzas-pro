@@ -147,6 +147,16 @@ test('experiencia visual: rutas, carga real, móvil y protección de datos', { t
       await previous.focus(); assert.equal(await previous.evaluate(el => getComputedStyle(el).outlineWidth), '3px');
       await navigateModule(p, 'Contactos'); const create = p.getByRole('button', { name: 'Nuevo Contacto', exact: true }).locator('span');
       const ratio = await textContrast(create); assert.ok(ratio >= 4.5, `Acción principal: ${ratio}`);
+      await navigateModule(p, 'Cuentas');
+      assert.equal(await p.locator('.wallet-initials').count(), 3);
+      for (const initials of await p.locator('.wallet-initials').all()) assert.ok(await textContrast(initials) >= 4.5);
+      await p.getByRole('button', { name: 'Editar cuenta y patrimonio CUENTA PRINCIPAL FICTICIA', exact: true }).click();
+      const walletDialog = p.getByRole('dialog', { name: 'Cartera', exact: true }); await walletDialog.waitFor();
+      assert.ok(await textContrast(walletDialog.locator('.wallet-initials')) >= 4.5);
+      await p.keyboard.press('Escape'); await walletDialog.waitFor({ state: 'hidden' });
+      await navigateModule(p, 'Presupuestos');
+      assert.ok(await p.locator('.planning-base-label').count() > 0);
+      for (const label of await p.locator('.planning-base-label').all()) assert.ok(await textContrast(label) >= 4.5);
       console.log(`Contraste acción principal ${theme}: ${ratio.toFixed(2)}:1`);
     } finally { await s.close(); }
   });

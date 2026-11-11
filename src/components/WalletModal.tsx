@@ -127,8 +127,8 @@ export const WalletModal: React.FC<WalletModalProps> = ({
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-2.5">
             <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-slate-950 font-black text-xs shadow-sm"
-              style={{ backgroundColor: color }}
+              className="wallet-initials w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs shadow-sm"
+              style={{ borderColor: color }}
             >
               {name.slice(0, 2) || 'CT'}
             </div>
