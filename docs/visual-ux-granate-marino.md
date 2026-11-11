@@ -24,11 +24,14 @@ La rama cambia presentación, navegación, rutas de entrada y preparación de id
 
 Tipografía del sistema, títulos con peso 700 como máximo en el puente, texto auxiliar de al menos 12 px, campos móviles de 16 px, tarjetas sobrias de radio 16 px y sombras discretas. Las acciones usan granate y los estados conservan colores semánticos accesibles; los degradados decorativos existentes se convierten en superficies suaves. Los iconos Lucide se conservan y no se añaden emojis decorativos.
 
+Las iniciales de las cuentas utilizan texto y superficie neutros de contraste estable; el color elegido por el usuario se conserva en el borde y en la franja de la tarjeta. No se cambia el color guardado. El encabezado de su modal usa el mismo tratamiento. Se corrige también el color auxiliar de «Presupuesto base (€)», que antes mantenía un gris insuficiente sobre blanco.
+
 `Brand` comparte la marca entre cabecera, landing, apertura y recuperación. Se utiliza una F vectorial original provisional y la escritura FinanZas porque no se ha adjuntado la imagen maestra aprobada. Los activos originales para una futura adaptación nativa y sus límites están en [resources/README.md](../resources/README.md).
 
 ## Navegación y estados
 
 - Escritorio conserva los siete módulos. Móvil muestra Inicio, Movimientos, Presupuestos, Cuentas y Más.
+- Las columnas móviles reservan más espacio para las etiquetas largas; las cinco se muestran completas en una línea incluso a 320 px, sin reducir el texto por debajo de 12 px.
 - Más abre un diálogo accesible con Contactos, Deudas y Asistente. Usa el mismo `Overlay`: foco inicial, contención del foco, Escape, fondo inerte y devolución del foco. `aria-current` distingue el destino seleccionado; Más permanece seleccionado al consultar un módulo secundario.
 - Elegir un destino sigue pasando por la guardia de planificación. Seguir editando conserva el borrador; guardar y descartar mantienen sus comportamientos previos. Se añade protección `beforeunload` para salir del documento con un borrador pendiente.
 - Splash web: carga real del módulo diferido, sin espera artificial. Se prueba con la respuesta de red retenida; desaparece al completarse la carga. `prefers-reduced-motion` elimina la animación.
@@ -46,6 +49,8 @@ Los formateadores de presentación usan `Intl`, EUR y la zona `Europe/Madrid`; n
 ## Comparativas reales y reproducción
 
 Las imágenes de [antes](assets/visual-ux/before/manifest.json) corresponden al build de `main` `66a045e…`; las de [después](assets/visual-ux/after/manifest.json) a esta propuesta. Ambas usan `scripts/visualFixture.ts`: datos exclusivamente ficticios, JSON 3.1 validado, reloj fijo `2026-11-11T09:00:00Z`, tres carteras y saldo líquido **5.544,65 €**. Nunca se abre un perfil personal. Los contextos son nuevos, la red externa y `/api/` se bloquean y se comprueba que consultar no modifica el JSON guardado, no produce errores y no desborda horizontalmente.
+
+Se repitió la captura final en otros contextos nuevos y otro directorio: las **12 imágenes resultaron idénticas byte a byte**. Los manifiestos registran el HEAD del código capturado (`0dc656c…` para la propuesta); el commit de entrega posterior solo incorpora documentación y estas imágenes.
 
 | Pantalla | Móvil claro: antes / después | Móvil oscuro: antes / después | Escritorio claro: antes / después | Escritorio oscuro: antes / después |
 | --- | --- | --- | --- | --- |
@@ -69,7 +74,24 @@ Para volver a capturar un build anterior, compilarlo en un checkout separado y e
 
 ## Validación
 
-Resultados definitivos pendientes de cerrar la última ejecución completa. No considerar las ejecuciones exploratorias como verificación final.
+Validación local definitiva del 11/11/2026 sobre el código `0dc656c…`, sin modificar el código durante la ejecución. El commit de entrega posterior añade únicamente esta documentación y las comparativas.
+
+| Comando / comprobación | Resultado |
+| --- | --- |
+| `npm ci --cache /workspace/work/npm-cache-visual` | Correcto, 187 paquetes; caché escribible del entorno, sin cambios del lockfile |
+| `npm test` | **258 superadas, 0 fallos, 0 omitidas** (255 de base + 3 de internacionalización) |
+| `npm run lint` | Correcto: `tsc --noEmit` |
+| `npm run build` | Correcto; permanece el aviso de configuración futura de Vite por `__dirname` |
+| `GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium npm run test:ui` | **192 resultados superados, 0 fallos, 0 omitidos**: 182 casos + 10 contenedores |
+| `git diff --check` | Correcto |
+| Comparación de `src/utils/`, `src/types/`, `server.ts` y `package-lock.json` con la base | Idénticos |
+| Captura y repetición en contextos aislados | 12 imágenes finales + 12 de referencia; repetición de las 12 finales idéntica byte a byte |
+
+Desglose Chromium por script: phase1 **57**, sharedUx **12**, deletion **23**, planning **13**, budgetUx **11**, charts **8**, automation **15**, responsive **16**, intelligent **25**, visualUx **12**. La ejecución completa final se repitió después de cerrar las correcciones de contraste y las etiquetas móviles. Las ejecuciones exploratorias con fallos no se cuentan como aprobadas.
+
+El build separa aproximadamente 232 kB de entrada, 400 kB del módulo financiero y 34 kB de gráficos (antes de gzip). En esta rama no aparece el aviso de chunk superior a 500 kB observado en la base; sigue pendiente medir rendimiento real. La PR financiera, que conserva el empaquetado anterior, documenta sus propios avisos.
+
+Módulos afectados: `App.tsx` (guardia al abandonar el documento y recuperación), `Root.tsx`/`main.tsx` (rutas y carga), `Brand`, `Header`, `Navigation`, `LandingPage`, `DashboardView` (etiqueta del saldo), `WalletsView`/`WalletModal` (iniciales), `src/styles/`, `index.css`, `responsive.css`, `src/i18n/`, activos `public/` y `resources/`. Los nueve scripts anteriores de navegador se adaptan a `/app`; se añaden captura, fixture, navegación de pruebas, comprobación de contraste y suite visual, más las comparativas y esta documentación. `package.json` añade comandos sin dependencias nuevas; `package-lock.json`, `src/utils/`, `src/types/` y `server.ts` no cambian.
 
 Las nuevas pruebas de navegador comprueban landing sin lectura financiera, conservación del origen, carga real y navegación posterior en móvil/escritorio, siete módulos y cinco destinos, guardias, recuperación, almacenamiento bloqueado, pantalla de 320 px y contraste calculado de controles de periodo, navegación y acción principal en ambos temas. La batería previa conserva pruebas de zoom nativo 125 %/200 %, foco/modal, borradores, transferencias, liquidaciones, recurrencias y consulta sin escrituras. Se detectaron y corrigieron colores heredados de bajo contraste y esperas insuficientes de los tests ante la nueva carga diferida; no se corrigió el dominio financiero para acomodar una prueba visual.
 
@@ -80,5 +102,6 @@ Las nuevas pruebas de navegador comprueban landing sin lectura financiera, conse
 - No hay splash nativo, empaquetado Capacitor ni pruebas en Android/iOS físicos.
 - Chromium verificado; Firefox, Safari y lectores de pantalla reales no verificados. Las comprobaciones de contraste son de tokens y controles críticos; no constituyen una certificación WCAG integral de todos los estados posibles.
 - No se midieron Core Web Vitals en producción. La carga diferida reduce el paquete de entrada pero no equivale a una medición comercial de rendimiento.
+- El puente de estilos depende de las clases de los componentes anteriores: al refactorizarlos se deben revisar tokens, contraste y capturas. No sustituye una futura normalización completa de componentes.
 - Se conserva la aproximación histórica de préstamos de la Fase 5. El rediseño no migra ni reconstruye historias.
 - Pendiente validar la combinación con la PR financiera #17 antes de cualquier fusión futura. Ninguna de las dos PR autoriza una fusión automática.
