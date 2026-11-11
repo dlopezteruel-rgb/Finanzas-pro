@@ -1,0 +1,619 @@
+{
+  "auditDate": "2026-11-11",
+  "sourceCommit": "66a045e17e310527c790a15ff2fe5dceaaba48a3",
+  "sourceBranch": "main",
+  "analysisBranch": "audit/product-ux-launch-2026-11-11",
+  "scope": "Auditoría; no se implementan funciones ni se modifica producción. Fixtures sintéticas; sin datos financieros del usuario.",
+  "checks": {
+    "unit": {
+      "passed": 255,
+      "failed": 0
+    },
+    "typescript": "passed",
+    "build": {
+      "status": "passed",
+      "mainKB": 624.31,
+      "mainGzipKB": 174.73,
+      "warnings": [
+        "bundle > 500 kB",
+        "futura configuración nativa de Vite con __dirname"
+      ]
+    },
+    "chromium": {
+      "passedResults": 180,
+      "failed": 0,
+      "testCases": 171,
+      "containers": 9,
+      "bySuite": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 11,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25
+      }
+    },
+    "npmAudit": {
+      "knownAdvisories": 0,
+      "scope": "resolución npm consultada; no pentest"
+    }
+  },
+  "browserAudit": {
+    "clock": "2026-11-11T09:00:00.000Z",
+    "engine": "Chromium 156.0.8078.79",
+    "node": "24.22.1",
+    "host": "127.0.0.1",
+    "newContexts": true,
+    "personalBrowserProfile": false,
+    "dataSource": "intelligentFixture y catálogo; movimientos/planificación creados con funciones de dominio; entidades e importes ficticios",
+    "viewCount": 42,
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 768,
+        "height": 1024
+      },
+      {
+        "width": 1440,
+        "height": 900
+      }
+    ],
+    "themes": ["light", "dark"],
+    "javascriptConsoleErrors": [],
+    "externalOrApiRequests": [],
+    "globalOverflowViews": 0,
+    "navigationDataUnchanged": true,
+    "contrastMethod": "CSS compuesto con canvas sRGB; se omiten gradientes/opacidades. Muestras no exhaustivas, algunas decorativas. No certificación WCAG."
+  },
+  "samples": [
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 3
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 2
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 3
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 5
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 3
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 2
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 7
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 3
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 4
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Inicio",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 0
+    },
+    {
+      "module": "Movimientos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Presupuestos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Contactos",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    },
+    {
+      "module": "Deudas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 2
+    },
+    {
+      "module": "Cuentas",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 7
+    },
+    {
+      "module": "Asistente",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "globalOverflow": false,
+      "underContrastThresholdSamples": 1
+    }
+  ],
+  "mobileNavigation": [
+    {
+      "label": "Inicio",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "1\nMovimientos",
+      "font": "9px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "Presupuestos",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "Contactos",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "Deudas",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "Cuentas",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    },
+    {
+      "label": "Asistente",
+      "font": "8.97px",
+      "width": 55,
+      "height": 45
+    }
+  ],
+  "contrastExamples": [
+    {
+      "text": "Gastos",
+      "ratio": 4.34,
+      "threshold": 4.5,
+      "fontSize": 12,
+      "color": "rgb(100, 116, 139)",
+      "background": [241, 245, 249],
+      "tag": "BUTTON"
+    },
+    {
+      "text": "Ingresos",
+      "ratio": 4.34,
+      "threshold": 4.5,
+      "fontSize": 12,
+      "color": "rgb(100, 116, 139)",
+      "background": [241, 245, 249],
+      "tag": "BUTTON"
+    },
+    {
+      "text": "Nuevo Contacto",
+      "ratio": 2.71,
+      "threshold": 4.5,
+      "fontSize": 12,
+      "color": "rgb(255, 255, 255)",
+      "background": [0, 166, 244],
+      "tag": "SPAN"
+    },
+    {
+      "text": "Al día",
+      "ratio": 4.34,
+      "threshold": 4.5,
+      "fontSize": 12,
+      "color": "rgb(100, 116, 139)",
+      "background": [241, 245, 249],
+      "tag": "SPAN"
+    }
+  ],
+  "reproductions": {
+    "duplicate": {
+      "partida": "F.001.001",
+      "groupCode": "F.001",
+      "parentCode": "F_EXP",
+      "before": 77,
+      "after": 77,
+      "storageChanged": true
+    },
+    "crossTypeMove": {
+      "source": "GASTO",
+      "target": "INGRESO",
+      "bankBefore": {
+        "CUENTA PRINCIPAL FICTICIA": 2964.65,
+        "AHORRO FICTICIO": 2500,
+        "EFECTIVO FICTICIO": 80
+      },
+      "bankAfter": {
+        "CUENTA PRINCIPAL FICTICIA": 3235.35,
+        "AHORRO FICTICIO": 2500,
+        "EFECTIVO FICTICIO": 80
+      },
+      "transactionAmount": 135.35,
+      "onlyDomainNoStorage": true
+    }
+  },
+  "visualEvidence": [
+    "assets/2026-11-11/mobile-light-home.jpg",
+    "assets/2026-11-11/mobile-light-contacts.jpg",
+    "assets/2026-11-11/mobile-dark-planning.jpg",
+    "assets/2026-11-11/desktop-light-planning.jpg"
+  ],
+  "unverified": [
+    "maqueta y logo maestro aprobados",
+    "producción/hosting",
+    "proveedores OAuth, email y Apple reales",
+    "PWA instalada y dispositivos físicos",
+    "Firefox/Safari, lector de pantalla y zoom nativo",
+    "cumplimiento legal, licencias completas y condiciones App Store",
+    "Core Web Vitals de campo, pruebas de usuarios y seguridad especializada"
+  ]
+}
