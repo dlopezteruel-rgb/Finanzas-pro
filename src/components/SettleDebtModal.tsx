@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Wallet, SplitParticipant, Contact, SettlementInput, DebtSettlement } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { parseTransferAmount } from '../utils/transfers';
+import { initialWalletId } from '../utils/defaultWallet';
 import { CheckCircle2, X } from 'lucide-react';
 
 export interface DebtItemToSettle {
@@ -21,12 +22,13 @@ interface Props {
   onClose: () => void;
   debtItem: DebtItemToSettle | null;
   wallets: Wallet[];
+  defaultWalletId?: string | null;
   settlementToEdit?: DebtSettlement;
   initiallyDelete?: boolean;
   onConfirmSettle: (input: SettlementInput, id?: string) => Promise<SaveResult>;
   onDeleteSettlement: (expenseId: string, id: string) => Promise<SaveResult>;
 }
-export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wallets, settlementToEdit, initiallyDelete = false, onConfirmSettle, onDeleteSettlement }) => {
+export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wallets, defaultWalletId, settlementToEdit, initiallyDelete = false, onConfirmSettle, onDeleteSettlement }) => {
   const submission = useAsyncForm();
   const [operationId, setOperationId] = useState('');
   const [walletId, setWallet] = useState(''), [date, setDate] = useState(''), [amount, setAmount] = useState('');
@@ -34,7 +36,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
   useEffect(() => {
     if (!isOpen || !debtItem) return;
     submission.clearError(); setOperationId(crypto.randomUUID());
-    setWallet(settlementToEdit?.walletId || wallets[0]?.id || '');
+    setWallet(initialWalletId(wallets, defaultWalletId, settlementToEdit?.walletId));
     setDate(settlementToEdit?.date || new Date().toISOString().slice(0, 10));
     setAmount(String(settlementToEdit?.amount ?? debtItem.participant.remainingAmount ?? debtItem.participant.amount));
     setCash(settlementToEdit?.kind !== 'offset'); setProcessed(settlementToEdit?.processed ?? true); setDeleting(initiallyDelete);
@@ -59,7 +61,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
           <label className="block">Importe a saldar (€)<input aria-label="Importe a saldar (€)" className="block w-full bg-[#0c0f17] rounded-xl p-3" type="number" step="0.01" min="0.01" required value={amount} onChange={e => setAmount(e.target.value)} /></label>
           <label className="flex gap-2"><input aria-label="Registrar entrada bancaria" type="checkbox" checked={cash} onChange={e => setCash(e.target.checked)} />Registrar entrada bancaria (reintegro, no ingreso económico)</label>
           {!cash && <p className="text-amber-300">Compensación sin entrada de dinero. Reduce la deuda sin modificar ninguna cartera.</p>}
-          {cash && <label className="block">Cartera receptora<select aria-label="Cartera receptora" className="block w-full bg-[#0c0f17] rounded-xl p-3" value={walletId} onChange={e => setWallet(e.target.value)}>{wallets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}</select></label>}
+          {cash && <label className="block">Cartera receptora<select aria-label="Cartera receptora" required className="block w-full bg-[#0c0f17] rounded-xl p-3" value={walletId} onChange={e => setWallet(e.target.value)}><option value="" disabled>Selecciona una cartera</option>{wallets.map(w => <option key={w.id} value={w.id}>{w.name}</option>)}</select></label>}
           <label className="block">Fecha del cobro o compensación<input aria-label="Fecha del cobro o compensación" className="block w-full bg-[#0c0f17] rounded-xl p-3" required type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
           <label className="flex gap-2"><input aria-label="Liquidación tramitada" type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />Liquidación tramitada</label>
           <div className="grid grid-cols-2 gap-2"><button type="button" onClick={close} className="rounded-xl bg-white/10 p-3">Cancelar</button><button type="submit" className="rounded-xl bg-emerald-500 text-slate-950 p-3 font-bold"><CheckCircle2 className="w-3 h-3 inline" /> {settlementToEdit ? 'Guardar liquidación' : 'Confirmar cobro'}</button></div>

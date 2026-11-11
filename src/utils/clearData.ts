@@ -24,6 +24,7 @@ export function clearedData(data: FinanceData, options: ClearDataOptions): Finan
   const transactions = options.clearTransactions ? [] : data.transactions;
   const candidate = {
     ...data,
+    ...(options.clearAllWallets && data.defaultWalletId !== undefined ? { defaultWalletId: null } : {}),
     wallets: options.clearAllWallets ? [] : options.clearWalletBalances ? data.wallets.map(w => ({ ...w, initialBalance: 0 })) : data.wallets,
     budgetPlans: options.clearBudgets ? [] : data.budgetPlans,
     ...(options.clearBudgets && data.planningMonths ? { planningMonths: [] } : {}),

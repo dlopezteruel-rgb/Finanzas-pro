@@ -1,3 +1,4 @@
+import { initialWalletId } from '../utils/defaultWallet';
 import React, { useState } from "react";
 import type { FinanceData } from "../utils/backup";
 import type { FinanceMutation } from "../utils/financeStore";
@@ -45,6 +46,7 @@ export function DebtsWorkspace({
   const [pay, setPay] = useState<{
       id: string;
       input: PersonalSettlement;
+      walletChoice?: string;
     } | null>(null),
     [payAmount, setPayAmount] = useState("");
   const [review, setReview] = useState<{
@@ -471,7 +473,7 @@ export function DebtsWorkspace({
                       kind,
                       processed: kind === "adjustment",
                       walletId:
-                        kind === "bank" ? data.wallets[0]?.id : undefined,
+                        kind === "bank" ? pay.walletChoice ?? initialWalletId(data.wallets, data.defaultWalletId) : undefined,
                     },
                   });
                 }}
@@ -489,15 +491,17 @@ export function DebtsWorkspace({
                 <label>
                   Cartera de liquidación
                   <select
+                    aria-label="Cartera de liquidación" required
                     value={pay.input.walletId ?? ""}
                     onChange={(e) =>
                       setPay({
                         ...pay,
+                        walletChoice: e.target.value,
                         input: { ...pay.input, walletId: e.target.value },
                       })
                     }
                   >
-                    {data.wallets.map((w) => (
+                    <option value="" disabled>Selecciona una cartera</option>{data.wallets.map((w) => (
                       <option value={w.id} key={w.id}>
                         {w.name}
                       </option>

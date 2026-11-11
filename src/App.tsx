@@ -70,6 +70,7 @@ import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
 import { changePartidaGroup, duplicatePartida, reorderPartida } from './utils/budgetChanges';
+import { chooseDefaultWallet } from './utils/defaultWallet';
 import { TransferModal } from './components/TransferModal';
 import { TreasuryView } from './components/TreasuryView';
 import { liquidBalanceCents } from './utils/treasury';
@@ -601,6 +602,7 @@ export default function App() {
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
           <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
+            defaultWalletId={data.defaultWalletId}
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
             summary={summary}
             budgetRows={budgetRows}
@@ -690,6 +692,7 @@ export default function App() {
             onUpdateWallet={handleUpdateWallet}
             onDeleteWallet={handleDeleteWallet}
             onExecuteTransfer={handleExecuteTransfer}
+            onChangeDefaultWallet={id => mutate(current => chooseDefaultWallet(current, id))}
           />
         </>)}
 
@@ -728,7 +731,7 @@ export default function App() {
       </SafeDialog>}
 
       <TransferModal isOpen={!!transferToEdit} transferToEdit={transferToEdit} initiallyDelete={deleteTransferInitially}
-        onClose={() => setTransferToEdit(null)} wallets={wallets} walletBalances={walletBalances}
+        onClose={() => setTransferToEdit(null)} defaultWalletId={data.defaultWalletId} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
       {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
       {deleteTarget && <ConfirmDeleteDialog report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? 'Confirmar eliminación del movimiento' : undefined} />}
@@ -745,6 +748,7 @@ export default function App() {
         wallets={wallets}
         contacts={contacts}
         onQuickCreateContact={handleSaveContact}
+        defaultWalletId={data.defaultWalletId}
         defaultDate={`${currentMonthYear}-15`}
         transactionToEdit={transactionToEdit}
         initialPartidaCode={initialPartidaCodeForModal}
@@ -791,6 +795,7 @@ export default function App() {
           setDebtToSettle(null);
         }}
         debtItem={debtToSettle}
+        defaultWalletId={data.defaultWalletId}
         wallets={wallets}
         settlementToEdit={settlementToEdit}
         initiallyDelete={deleteSettlementInitially}

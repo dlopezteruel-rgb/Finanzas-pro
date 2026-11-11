@@ -72,6 +72,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
   async function newShared(page: Page) {
     await navigate(page, 'Añadir'); const d = editor(page);
     await d.getByLabel('Importe Total (€)', { exact: true }).fill('60'); await d.getByLabel('Concepto', { exact: true }).fill('Cena de interfaz');
+    await d.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
     await d.getByLabel('Fecha', { exact: true }).fill('2026-10-08'); await d.getByRole('checkbox', { name: 'Gasto compartido', exact: true }).check();
     return d;
   }
@@ -85,6 +86,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     try {
       const before = await raw(page); await navigate(page, 'Añadir'); const d = editor(page);
       await d.getByLabel('Importe Total (€)').fill('12'); await d.getByLabel('Concepto', { exact: true }).fill('Elección por teclado');
+      await d.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
       const trigger = d.getByRole('button', { name: 'Seleccionar partida presupuestaria' }); await trigger.click();
       const recents = d.getByLabel('Partidas recientes'); assert.equal(await recents.getByRole('button').count(), 5);
       for (const code of expenseCodes.slice(2)) assert.ok((await recents.innerText()).includes(code));
@@ -195,7 +197,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       await page.keyboard.press('Escape'); await p.waitFor(); assert.equal(await raw(page), before);
       await normalRow.getByRole('button', { name: 'Editar movimiento', exact: true }).click(); top = editor(page); await top.getByLabel('Concepto', { exact: true }).fill('Normal editado'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' }); assert.match(await normalRow.innerText(), /Normal editado/);
       await p.getByRole('button', { name: 'Añadir a esta partida', exact: true }).click(); top = await assertTop(page, 'Movimiento'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /V\.001\.002/);
-      await top.getByLabel('Importe Total (€)').fill('10'); await top.getByLabel('Concepto', { exact: true }).fill('Nuevo desde panel'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
+      await top.getByLabel('Importe Total (€)').fill('10'); await top.getByLabel('Concepto', { exact: true }).fill('Nuevo desde panel'); await top.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
       const added = (await data(page)).transactions.find(t => t.description === 'Nuevo desde panel')!, row = p.locator(`[data-movement-id="${added.id}"]`);
       await row.getByRole('button', { name: 'Eliminar movimiento', exact: true }).click(); top = await assertTop(page, 'Eliminar movimiento'); const unchanged = await raw(page); await top.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), unchanged);
       await row.getByRole('button', { name: 'Eliminar movimiento', exact: true }).click(); await page.getByRole('button', { name: 'Confirmar eliminación del movimiento', exact: true }).click(); await p.waitFor(); assert.equal((await data(page)).transactions.some(t => t.id === added.id), false);
@@ -226,7 +228,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     try {
       await openPanel(page, 'L.001.001', true); await panel(page).getByRole('button', { name: 'Añadir a esta partida' }).click(); const top = await assertTop(page, 'Movimiento');
       assert.equal(await top.getByRole('button', { name: 'Ingreso', exact: true }).getAttribute('aria-pressed'), 'true'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /L\.001\.001/);
-      await top.getByLabel('Importe Total (€)').fill('100'); await top.getByLabel('Concepto', { exact: true }).fill('Ingreso desde panel'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
+      await top.getByLabel('Importe Total (€)').fill('100'); await top.getByLabel('Concepto', { exact: true }).fill('Ingreso desde panel'); await top.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
       const saved = (await data(page)).transactions.find(t => t.description === 'Ingreso desde panel')!; assert.equal(saved.type, 'INGRESO'); assert.equal(saved.code, 'L.001.001');
     } finally { await close(); }
   });

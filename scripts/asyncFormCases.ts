@@ -12,6 +12,7 @@ const scenarios: Scenario[] = [
     name: 'Movimiento', open: page => navigate(page, 'Añadir'),
     async fill(dialog) {
       await dialog.locator('input[type=number]').fill('19.75');
+      await dialog.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
       await dialog.getByPlaceholder('ej. Cena restaurante, Compra Zara, Supermercado...').fill('Movimiento revisado');
       await dialog.locator('input[type=date]').fill('2026-11-03');
     },
@@ -29,7 +30,7 @@ const scenarios: Scenario[] = [
   },
   {
     name: 'Préstamo', async open(page) { await navigate(page, 'Deudas'); await navigate(page, 'Nuevo Préstamo'); },
-    async fill(dialog) { await dialog.getByPlaceholder('ej. Préstamo Coche, Hipoteca...').fill('Préstamo revisado'); await dialog.locator('input[type=number]').first().fill('4321'); },
+    async fill(dialog) { await dialog.getByPlaceholder('ej. Préstamo Coche, Hipoteca...').fill('Préstamo revisado'); await dialog.locator('input[type=number]').first().fill('4321'); await dialog.getByLabel('Cuenta habitual de cobro', { exact: true }).selectOption('OPENBANK'); },
     verify(data, fixture) { assert.equal(data.loans.length, fixture.loans.length + 1); assert.equal(data.loans.at(-1)?.principal, 4321); },
   },
   {

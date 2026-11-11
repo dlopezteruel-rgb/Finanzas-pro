@@ -2,6 +2,7 @@ import React from 'react';
 import { Backup, backupWarnings } from '../utils/backup';
 import { formatCurrency } from '../utils/finance';
 import { SafeDialog } from './SafeDialog';
+import { resolveDefaultWallet } from '../utils/defaultWallet';
 
 export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false, error = '', onDismissError }: {
   backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean; error?: string; onDismissError?: () => void;
@@ -18,6 +19,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     {error && <div role="alert" className="text-amber-300 text-sm"><p>{error}</p>{onDismissError && <button onClick={onDismissError}>Cerrar aviso</button>}</div>}
     <p className="text-sm text-slate-300">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>
     <p className="text-xs text-slate-400">Formato {backup.version} · {new Date(backup.exportedAt).toLocaleString('es-ES')} · Tema {backup.theme === 'dark' ? 'oscuro' : 'claro'}</p>
+    <p className="text-sm">Cartera predeterminada tras restaurar: {resolveDefaultWallet(backup.wallets, backup.defaultWalletId)?.name ?? 'sin configurar; requiere selección en cada operación'}{backup.wallets.length === 1 ? ' (automática: única cartera)' : ''}.</p>
     <dl className="grid grid-cols-2 gap-2 text-sm">{counts.map(([name, count]) => <div key={name} className="bg-white/5 rounded-xl p-2"><dt>{name}</dt><dd className="font-bold">{count}</dd></div>)}</dl>
     {label.startsWith('Migrar gastos compartidos') && <div className="space-y-2 text-xs text-slate-300">
       <p>Solo se añaden vínculos verificables; se conservan los campos originales. La parte propia sustituirá al gasto total en los indicadores y los reintegros vinculados dejarán de contarse como ingresos.</p>

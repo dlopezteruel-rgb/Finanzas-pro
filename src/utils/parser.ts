@@ -1,4 +1,4 @@
-import { ALL_PARTIDAS, DEFAULT_WALLETS } from '../constants/categories';
+import { ALL_PARTIDAS } from '../constants/categories';
 import { MovementType, ParsedMovement } from '../types/finance';
 
 /**
@@ -53,7 +53,7 @@ export function parseFinancialInput(text: string, referenceDate: Date = new Date
   const dateStr = targetDate.toISOString().split('T')[0];
 
   // 3. EXTRACT WALLET / CARTERA
-  let wallet = 'OPENBANK'; // sensible default
+  let wallet = ''; // No implicit bank: the application resolves its actual wallet preference.
   const knownWallets = [
     { name: 'OPENBANK', triggers: ['openbank', 'open bank'] },
     { name: 'REVOLUT', triggers: ['revolut'] },

@@ -29,6 +29,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
   async function openNew(page: Page, amount = '60') {
     await navigate(page, 'Añadir'); const d = page.getByRole('dialog', { name: 'Movimiento', exact: true });
     await d.locator('input[type=number]').fill(amount);
+    await d.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
     await d.getByPlaceholder('ej. Cena restaurante, Compra Zara, Supermercado...').fill('Cena ficticia');
     await d.locator('input[type=date]').fill('2026-10-08');
     await d.getByRole('checkbox').first().check();

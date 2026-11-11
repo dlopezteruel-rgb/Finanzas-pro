@@ -1,4 +1,5 @@
 import { Overlay } from './Overlay';
+import { initialWalletId } from '../utils/defaultWallet';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
@@ -11,6 +12,7 @@ interface TransferModalProps {
   isOpen: boolean;
   onClose: () => void;
   wallets: Wallet[];
+  defaultWalletId?: string | null;
   walletBalances: Record<string, number>;
   transferToEdit?: Transaction | null;
   initiallyDelete?: boolean;
@@ -22,6 +24,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   isOpen,
   onClose,
   wallets,
+  defaultWalletId,
   walletBalances,
   onExecuteTransfer, transferToEdit, initiallyDelete = false, onDeleteTransfer,
 }) => {
@@ -38,8 +41,8 @@ export const TransferModal: React.FC<TransferModalProps> = ({
     if (!isOpen) return;
     submission.clearError();
     setConfirmDelete(initiallyDelete);
-    setOrigin(transferToEdit?.transfer?.fromWalletId || wallets[0]?.id || '');
-    setDestination(transferToEdit?.transfer?.toWalletId || wallets[1]?.id || '');
+    setOrigin(initialWalletId(wallets, defaultWalletId, transferToEdit?.transfer?.fromWalletId));
+    setDestination(transferToEdit?.transfer?.toWalletId ?? '');
     setAmount(transferToEdit ? String(transferToEdit.amount) : '');
     setDate(transferToEdit?.date || new Date().toISOString().split('T')[0]);
     setConcept(transferToEdit?.transfer?.concept ?? 'Traspaso de fondos');
@@ -111,7 +114,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 </span>
               </div>
               <select
-                aria-label="Cuenta de origen"
+                aria-label="Cuenta de origen" required
                 value={origin}
                 onChange={e => {
                   setOrigin(e.target.value);
@@ -122,7 +125,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 }}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
-                {wallets.map(w => (
+                <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => (
                   <option key={w.id} value={w.id} className="bg-[#141926] text-white">
                     {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                   </option>
@@ -153,12 +156,12 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 </span>
               </div>
               <select
-                aria-label="Cuenta de destino"
+                aria-label="Cuenta de destino" required
                 value={destination}
                 onChange={e => setDestination(e.target.value)}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
-                {wallets
+                <option value="" disabled>Selecciona una cartera</option>{wallets
                   .filter(w => w.id !== origin)
                   .map(w => (
                     <option key={w.id} value={w.id} className="bg-[#141926] text-white">
