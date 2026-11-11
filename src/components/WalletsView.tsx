@@ -137,8 +137,8 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div
-                    className="w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs text-slate-950 shadow-sm"
-                    style={{ backgroundColor: w.color }}
+                    className="wallet-initials w-10 h-10 rounded-2xl flex items-center justify-center font-black text-xs shadow-sm"
+                    style={{ borderColor: w.color }}
                   >
                     {w.name.slice(0, 2)}
                   </div>

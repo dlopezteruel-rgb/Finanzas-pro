@@ -1,3 +1,4 @@
+import { navigateModule } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -13,7 +14,7 @@ const baseline = !!process.env.RESPONSIVE_BASE_DIR;
 const artifactDir = process.env.RESPONSIVE_ARTIFACT_DIR;
 const planner = (p: Page) => p.getByRole('region', { name: 'Planificación financiera', exact: true });
 const live = (p: Page) => p.getByRole('complementary', { name: 'Asignación del mes en directo', exact: true });
-const nav = (p: Page, name: string) => p.getByRole('navigation').getByRole('button', { name: new RegExp('^(?:\\d+\\s*)?' + name + '(?:\\s*\\d+)?$') }).click();
+const nav = navigateModule;
 const raw = (p: Page) => p.evaluate(() => Object.fromEntries(Object.entries(localStorage)));
 const metric = (p: Page, label: string) => live(p).getByText(label, { exact: true }).locator('..').locator('dd');
 const field = (p: Page, label: string) => planner(p).getByRole('textbox', { name: label, exact: true });
@@ -36,12 +37,12 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
   const port = (listener.address() as { port: number }).port; await new Promise<void>(r => listener.close(() => r()));
   const server = spawn(process.execPath, ['--import', 'tsx', 'server.ts'], { cwd: process.env.RESPONSIVE_BASE_DIR || process.cwd(), env: { ...process.env, PORT: String(port), NODE_ENV: 'production' }, stdio: 'pipe' });
   let log = ''; server.stdout.on('data', c => log += c); server.stderr.on('data', c => log += c); t.after(() => { server.kill(); });
-  const url = `http://127.0.0.1:${port}`;
+  const url = `http://127.0.0.1:${port}/app`;
   let ready = false; for (let i = 0; i < 100; i++) { if (server.exitCode !== null) throw new Error(log); try { if ((await fetch(url)).ok) { ready = true; break; } } catch {} await new Promise(r => setTimeout(r, 100)); }
   assert.ok(ready, log);
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox'] }); t.after(() => browser.close());
   async function seed(context: BrowserContext, theme: 'dark' | 'light') {
-    await context.route('**/*', route => new URL(route.request().url()).origin === url ? route.continue() : route.abort());
+    await context.route('**/*', route => new URL(route.request().url()).origin === new URL(url).origin ? route.continue() : route.abort());
     await context.addInitScript(({ key, value }) => {
       if (localStorage.getItem(key) === null) localStorage.setItem(key, value);
       const set = Storage.prototype.setItem; (window as any).layoutWrites = 0;
@@ -60,7 +61,7 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
       const before = await raw(page);
       if (!baseline) {
         for (const name of ['Inicio', 'Movimientos', 'Cuentas', 'Contactos', 'Deudas', 'Asistente']) {
-          await nav(page, name); assert.equal(await page.getByRole('navigation').getByRole('button').count(), 7);
+          await nav(page, name); assert.equal(await page.getByRole('navigation').getByRole('button').count(), width < 768 ? 5 : 7);
           const charts = page.locator('details.financial-charts');
           if (await charts.count()) {
             await charts.locator('summary').click(); await charts.getByRole('table').first().waitFor();
@@ -150,6 +151,7 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
       const scale = await page.evaluate(() => ({ ratio: devicePixelRatio, width: innerWidth }));
       assert.ok(Math.abs(scale.ratio - zoom) < .01); assert.ok(Math.abs(scale.width - 1440 / zoom) < 2);
       const before = await raw(page);
+      await page.getByRole('link', { name: 'Ir al contenido', exact: true }).waitFor({ state: 'attached' });
       await page.keyboard.press('Tab'); assert.equal(await page.evaluate(() => document.activeElement?.textContent), 'Ir al contenido');
       await page.keyboard.press('Enter'); assert.equal(await page.evaluate(() => document.activeElement?.id), 'app-content');
       for (const name of ['Inicio', 'Movimientos', 'Presupuestos', 'Cuentas', 'Contactos', 'Deudas', 'Asistente']) { await nav(page, name); await noOverflow(page); }

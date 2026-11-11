@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Brand } from './Brand';
 import { PeriodSelector } from './PeriodSelector';
 import { Calendar, Download, Upload, RotateCcw, MoreHorizontal, ChevronDown, Check, Sparkles, Trash2, Sun, Moon } from 'lucide-react';
 import { formatCurrency } from '../utils/finance';
@@ -43,29 +44,11 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0c0f17]/90 backdrop-blur-xl border-b border-white/[0.06]">
-      <div className="app-shell app-header-inner h-14 flex items-center justify-between gap-3">
-        {/* Left: Avatar & App Name */}
-        <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs shadow-inner ring-1 ring-white/20">
-            FP
-          </div>
-          <div className="flex flex-col">
-            <div className="flex items-center gap-1.5 leading-none">
-              <span className="font-bold text-sm tracking-tight text-white">FinanZas</span>
-              <span className="text-[10px] font-semibold px-1.5 py-0.5 rounded-full bg-white/10 text-white/80">
-                PRO
-              </span>
-            </div>
-            <span className="text-[10px] text-slate-400 font-medium">Control Presupuestario</span>
-          </div>
-        </div>
-
-        {/* Center / Right: Compact Period Selector & Actions */}
-        <div className="flex items-center gap-2">
-          {/* Period Selector Pill */}
-          <PeriodSelector month={currentMonthYear} periods={availableMonths} onChange={onChangeMonthYear}/>
-
+    <header className="app-header sticky top-0 z-40 border-b">
+      <div className="app-shell app-header-inner">
+        <span className="header-brand"><Brand description /></span>
+        <div className="header-period"><PeriodSelector month={currentMonthYear} periods={availableMonths} onChange={onChangeMonthYear}/></div>
+        <div className="header-actions">
           {/* Theme Toggle Button (Claro / Oscuro) */}
           <button
             onClick={onToggleTheme}

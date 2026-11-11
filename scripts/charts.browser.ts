@@ -16,14 +16,14 @@ async function open(page:Page,name:string) { await page.getByText(name,{exact:tr
 test('Gráficos financieros locales: interacción, contabilidad y solo lectura', {timeout:180000},async t=>{
   const listener=createServer();await new Promise<void>(r=>listener.listen(0,'127.0.0.1',r));const port=(listener.address() as {port:number}).port;await new Promise<void>(r=>listener.close(()=>r()));
   const server=spawn(process.execPath,['--import','tsx','server.ts'],{env:{...process.env,PORT:String(port),NODE_ENV:'production'},stdio:'pipe'});let log='';server.stdout.on('data',c=>log+=c);server.stderr.on('data',c=>log+=c);t.after(()=>{server.kill()});
-  const url=`http://127.0.0.1:${port}`;let ready=false;for(let i=0;i<100;i++){if(server.exitCode!==null)throw new Error(log);try{if((await fetch(url)).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,100))}assert.ok(ready,log);
+  const url=`http://127.0.0.1:${port}/app`;let ready=false;for(let i=0;i<100;i++){if(server.exitCode!==null)throw new Error(log);try{if((await fetch(url)).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,100))}assert.ok(ready,log);
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
   async function setup(mobile=false,theme:'dark'|'light'='dark',initial=chartFixture()) {
     const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:1000},isMobile:mobile,hasTouch:mobile});
-    await context.route('**/*',route=>new URL(route.request().url()).origin===url?route.continue():route.abort());
+    await context.route('**/*',route=>new URL(route.request().url()).origin===new URL(url).origin?route.continue():route.abort());
     await context.addInitScript(({key,value})=>{if(localStorage.getItem(key)===null)localStorage.setItem(key,value)},{key:DATA_KEY,value:JSON.stringify(makeBackup({...initial,theme}))});
     const page=await context.newPage();page.setDefaultTimeout(7000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url);
-    const external:string[]=[];page.on('request',request=>{if(new URL(request.url()).origin!==url)external.push(request.url())});
+    const external:string[]=[];page.on('request',request=>{if(new URL(request.url()).origin!==new URL(url).origin)external.push(request.url())});
     return {page,close:async()=>{await context.close();assert.deepEqual(errors,[]);assert.deepEqual(external,[],'los gráficos no añaden peticiones externas')}};
   }
   for(const mobile of [false,true])for(const theme of ['dark','light'] as const)await t.test(`cuatro módulos, clic/tap, tablas y filtros sin guardar: ${mobile?'390px':'escritorio'}, ${theme}`,async()=>{

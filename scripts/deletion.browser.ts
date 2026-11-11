@@ -1,3 +1,4 @@
+import { navigateModule } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -22,7 +23,7 @@ function linked(): FinanceData {
   initial.transactions.push(...transferPair(initial.wallets, { fromWalletId: 'bank', toWalletId: 'rev', amount: 500, date: '2026-10-08', concept: 'Traspaso ficticio', processed: true }));
   return initial;
 }
-const navigate = (page: Page, name: string) => page.getByRole('button', { name: new RegExp('^(?:\\d+\\s*)?' + name + '(?:\\s*\\d+)?$') }).first().click();
+const navigate = navigateModule;
 const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
 const data = async (page: Page) => JSON.parse((await raw(page))!) as FinanceData;
 const copies = (page: Page) => page.evaluate(prefix => Object.entries(localStorage).filter(([key]) => key.startsWith(prefix)).map(([, value]) => value), RECOVERY_PREFIX);
@@ -48,7 +49,7 @@ test('Eliminaciones seguras: confirmación, dependencias, concurrencia y recuper
   const port = (listener.address() as { port: number }).port; await new Promise<void>(resolve => listener.close(() => resolve()));
   const server = spawn(process.execPath, ['--import', 'tsx', 'server.ts'], { env: { ...process.env, PORT: String(port), NODE_ENV: 'production' }, stdio: 'pipe' });
   let log = ''; server.stdout.on('data', c => { log += c; }); server.stderr.on('data', c => { log += c; }); t.after(() => { server.kill(); });
-  const url = `http://127.0.0.1:${port}`;
+  const url = `http://127.0.0.1:${port}/app`;
   let ready = false; for (let i = 0; i < 100; i++) { if (server.exitCode !== null) throw new Error(log); try { if ((await fetch(url)).ok) { ready = true; break; } } catch {} await new Promise(r => setTimeout(r, 100)); }
   assert.ok(ready, log);
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox'] }); t.after(() => browser.close());

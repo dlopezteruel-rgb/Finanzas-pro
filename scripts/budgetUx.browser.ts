@@ -46,7 +46,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
   const port = (listener.address() as { port: number }).port; await new Promise<void>(r => listener.close(() => r()));
   const server = spawn(process.execPath, ['--import', 'tsx', 'server.ts'], { env: { ...process.env, PORT: String(port), NODE_ENV: 'production' }, stdio: 'pipe' });
   let log = ''; server.stdout.on('data', c => log += c); server.stderr.on('data', c => log += c); t.after(() => { server.kill(); });
-  const url = `http://127.0.0.1:${port}`; let ready = false;
+  const url = `http://127.0.0.1:${port}/app`; let ready = false;
   for (let i = 0; i < 100; i++) {
     if (server.exitCode !== null) throw new Error(log);
     try { if ((await fetch(url)).ok) { ready = true; break; } } catch {}
@@ -69,7 +69,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       try {
         const before = await snapshot(page);
         assert.equal(await tab(page, 'Planificación financiera').getAttribute('aria-selected'), 'true');
-        assert.equal(await page.getByRole('navigation').getByRole('button').count(), 7);
+        assert.equal(await page.getByRole('navigation').getByRole('button').count(), mobile ? 5 : 7);
         assert.equal(await page.getByRole('tabpanel').count(), 1);
         assert.equal(await page.getByRole('button', { name: /^Ver partida / }).count(), 0);
         await fill(page);

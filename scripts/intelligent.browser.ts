@@ -1,3 +1,4 @@
+import { navigateModule } from './browserNavigation';
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -29,13 +30,7 @@ import {
 } from "../src/utils/personalObligations";
 import { savePlanning, planningScope } from "../src/utils/planning";
 
-const nav = (p: Page, name: string) =>
-  p
-    .getByRole("button", {
-      name: new RegExp(`^(?:\\d+\\s*)?${name}(?:\\s*\\d+)?$`),
-    })
-    .first()
-    .click();
+const nav = navigateModule;
 const saved = (p: Page) =>
   p.evaluate((k) => JSON.parse(localStorage.getItem(k)!), DATA_KEY);
 const snapshot = (p: Page) =>
@@ -138,7 +133,7 @@ test(
     t.after(() => {
       server.kill();
     });
-    const url = `http://127.0.0.1:${port}`;
+    const url = `http://127.0.0.1:${port}/app`;
     let ready = false;
     for (let i = 0; i < 100; i++) {
       if (server.exitCode !== null) throw new Error(log);
@@ -178,7 +173,7 @@ test(
         },
       );
       await context.route("**/*", (route) =>
-        new URL(route.request().url()).origin === url
+        new URL(route.request().url()).origin === new URL(url).origin
           ? route.continue()
           : route.abort(),
       );
@@ -282,19 +277,19 @@ test(
         platform: "browser",
         define: { "process.env.NODE_ENV": '"production"' },
       });
-      await p.route(`${url}/navigation-harness.js`, (route) =>
+      await p.route(`${new URL(url).origin}/navigation-harness.js`, (route) =>
         route.fulfill({
           contentType: "application/javascript",
           body: compiled.outputFiles[0].text,
         }),
       );
-      await p.route(`${url}/navigation-harness.html`, (route) =>
+      await p.route(`${new URL(url).origin}/navigation-harness.html`, (route) =>
         route.fulfill({
           contentType: "text/html",
           body: `<!doctype html><html lang="es"><head>${css.map((href) => `<link rel="stylesheet" href="${href}">`).join("")}</head><body><div id="root"></div><script src="/navigation-harness.js"></script></body></html>`,
         }),
       );
-      await p.goto(`${url}/navigation-harness.html`);
+      await p.goto(`${new URL(url).origin}/navigation-harness.html`);
       return s;
     }
     await t.test(
@@ -1276,7 +1271,7 @@ test(
               .innerText(),
             /Datos guardados.*2026-11/s,
           );
-          const result = await p.request.post(`${url}/api/assistant-chat`, {
+          const result = await p.request.post(`${new URL(url).origin}/api/assistant-chat`, {
             data: { message: "Sin datos" },
           });
           assert.equal((await result.json()).reply.includes("2.691"), false);

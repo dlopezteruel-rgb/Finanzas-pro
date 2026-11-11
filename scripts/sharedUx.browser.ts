@@ -48,7 +48,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
   const port = (listener.address() as { port: number }).port; await new Promise<void>(resolve => listener.close(() => resolve()));
   const server = spawn(process.execPath, ['--import', 'tsx', 'server.ts'], { env: { ...process.env, PORT: String(port), NODE_ENV: 'production' }, stdio: 'pipe' });
   let log = ''; server.stdout.on('data', chunk => { log += chunk; }); server.stderr.on('data', chunk => { log += chunk; }); t.after(() => { server.kill(); });
-  const url = `http://127.0.0.1:${port}`; let ready = false;
+  const url = `http://127.0.0.1:${port}/app`; let ready = false;
   for (let i = 0; i < 100; i++) {
     if (server.exitCode !== null) throw new Error(log);
     try { if ((await fetch(url)).ok) { ready = true; break; } } catch {}
