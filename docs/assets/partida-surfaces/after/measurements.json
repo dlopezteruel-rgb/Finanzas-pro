@@ -1,0 +1,230 @@
+{
+  "stage": "after",
+  "sourceHead": "3c97f31aa8d78f33b4bedf58431c614873501b90",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "clock": "2026-11-11T09:00:00.000Z",
+  "stylesheetSha256": "2bdc9c328e698a51d834de72d898af7fa4c96e7294547c46615a93ed1482faaa",
+  "fixturesOnly": true,
+  "storageWrites": 0,
+  "consoleErrors": 0,
+  "externalRequests": 0,
+  "captures": [
+    {
+      "file": "light-planificacion.jpg",
+      "theme": "light",
+      "view": "planificacion",
+      "frame": {
+        "width": 302,
+        "height": 208.984375,
+        "radius": "0px",
+        "border": "rgb(23, 43, 77) rgb(23, 43, 77) rgb(71, 85, 105)",
+        "borderWidth": "0px 0px 1px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "textContrast": 14.102034448456891
+    },
+    {
+      "file": "light-catalogo-gastos.jpg",
+      "theme": "light",
+      "view": "catalogo-gastos",
+      "frame": {
+        "width": 360,
+        "height": 88,
+        "radius": "0px",
+        "border": "rgb(23, 43, 77)",
+        "borderWidth": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "inner": {
+        "width": 360,
+        "height": 2842.65625,
+        "radius": "0px",
+        "border": "rgb(23, 43, 77)",
+        "borderWidth": "0px",
+        "background": "color(srgb 0.963608 0.966745 0.972078)"
+      },
+      "textContrast": 5.592880576172075,
+      "controlContrasts": [
+        5.009449102254109,
+        5.009449102254109
+      ],
+      "stateContrasts": [
+        6.647461892311205,
+        5.564455810078211
+      ],
+      "cardFrame": {
+        "width": 362,
+        "height": 2936.65625,
+        "radius": "16px",
+        "border": "rgb(215, 220, 226)",
+        "borderWidth": "1px",
+        "background": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "file": "light-catalogo-ingresos.jpg",
+      "theme": "light",
+      "view": "catalogo-ingresos",
+      "frame": {
+        "width": 360,
+        "height": 88,
+        "radius": "0px",
+        "border": "rgb(23, 43, 77)",
+        "borderWidth": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "inner": {
+        "width": 360,
+        "height": 1708.65625,
+        "radius": "0px",
+        "border": "rgb(23, 43, 77)",
+        "borderWidth": "0px",
+        "background": "color(srgb 0.963608 0.966745 0.972078)"
+      },
+      "textContrast": 5.592880576172075,
+      "controlContrasts": [
+        5.009449102254109,
+        5.009449102254109
+      ],
+      "stateContrasts": [
+        6.647461892311205,
+        6.647461892311205
+      ],
+      "cardFrame": {
+        "width": 362,
+        "height": 1802.65625,
+        "radius": "16px",
+        "border": "rgb(215, 220, 226)",
+        "borderWidth": "1px",
+        "background": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "file": "light-detalle.jpg",
+      "theme": "light",
+      "view": "detalle",
+      "frame": {
+        "width": 390,
+        "height": 844,
+        "radius": "0px",
+        "border": "rgb(215, 220, 226)",
+        "borderWidth": "1px",
+        "background": "rgb(255, 255, 255)"
+      },
+      "textContrast": 14.102034448456891
+    },
+    {
+      "file": "dark-planificacion.jpg",
+      "theme": "dark",
+      "view": "planificacion",
+      "frame": {
+        "width": 302,
+        "height": 208.984375,
+        "radius": "0px",
+        "border": "rgb(243, 241, 237) rgb(243, 241, 237) rgb(71, 85, 105)",
+        "borderWidth": "0px 0px 1px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "textContrast": 12.63637504690566
+    },
+    {
+      "file": "dark-catalogo-gastos.jpg",
+      "theme": "dark",
+      "view": "catalogo-gastos",
+      "frame": {
+        "width": 360,
+        "height": 88,
+        "radius": "0px",
+        "border": "rgb(243, 241, 237)",
+        "borderWidth": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "inner": {
+        "width": 360,
+        "height": 2842.65625,
+        "radius": "0px",
+        "border": "rgb(243, 241, 237)",
+        "borderWidth": "0px",
+        "background": "color(srgb 0.139765 0.199686 0.289412)"
+      },
+      "textContrast": 7.440899432775885,
+      "controlContrasts": [
+        6.861722003147921,
+        6.861722003147921
+      ],
+      "stateContrasts": [
+        7.753420463117173,
+        5.940703481378781
+      ],
+      "cardFrame": {
+        "width": 362,
+        "height": 2936.65625,
+        "radius": "16px",
+        "border": "rgb(70, 91, 115)",
+        "borderWidth": "1px",
+        "background": "rgb(27, 43, 67)"
+      }
+    },
+    {
+      "file": "dark-catalogo-ingresos.jpg",
+      "theme": "dark",
+      "view": "catalogo-ingresos",
+      "frame": {
+        "width": 360,
+        "height": 88,
+        "radius": "0px",
+        "border": "rgb(243, 241, 237)",
+        "borderWidth": "0px",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "overflow": false,
+      "inner": {
+        "width": 360,
+        "height": 1708.65625,
+        "radius": "0px",
+        "border": "rgb(243, 241, 237)",
+        "borderWidth": "0px",
+        "background": "color(srgb 0.139765 0.199686 0.289412)"
+      },
+      "textContrast": 7.440899432775885,
+      "controlContrasts": [
+        6.861722003147921,
+        6.861722003147921
+      ],
+      "stateContrasts": [
+        7.753420463117173,
+        7.753420463117173
+      ],
+      "cardFrame": {
+        "width": 362,
+        "height": 1802.65625,
+        "radius": "16px",
+        "border": "rgb(70, 91, 115)",
+        "borderWidth": "1px",
+        "background": "rgb(27, 43, 67)"
+      }
+    },
+    {
+      "file": "dark-detalle.jpg",
+      "theme": "dark",
+      "view": "detalle",
+      "frame": {
+        "width": 390,
+        "height": 844,
+        "radius": "0px",
+        "border": "rgb(70, 91, 115)",
+        "borderWidth": "1px",
+        "background": "rgb(27, 43, 67)"
+      },
+      "textContrast": 12.63637504690566
+    }
+  ]
+}
