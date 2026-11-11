@@ -1,27 +1,67 @@
 import type { FinanceData } from './backup';
 import type { BudgetPartida } from '../types/finance';
-import { isLegacyTransfer } from './transfers';
 
-/** Pure candidate for one atomic store mutation; never recategorize transfer legs. */
+function containingGroup(data: FinanceData, partida: BudgetPartida) {
+  return data.budgetGroups.find(g => g.partidas.some(p => p.code === partida.code && p.type === partida.type));
+}
+
+/** Catalog organization never reclassifies financial records, including their stored labels. */
 export function changePartidaGroup(data: FinanceData, partida: BudgetPartida, targetGroupCode: string): FinanceData {
   // Catalog groupCode may identify a subgroup (e.g. F.003), not the containing package.
-  const source = data.budgetGroups.find(g => g.partidas.some(p => p.code === partida.code && p.type === partida.type));
+  const source = containingGroup(data, partida);
   const target = data.budgetGroups.find(g => g.code === targetGroupCode);
   if (!source || !target) throw new Error('La partida o el paquete de destino ya no existe.');
+  if (source.type !== target.type) throw new Error('No se permite cambiar entre Ingresos y Gastos desde el catálogo. Elige una familia del mismo tipo.');
   if (source.code === target.code) return data;
   const current = source.partidas.find(p => p.code === partida.code && p.type === partida.type)!;
   if (data.budgetGroups.some(g => g !== source && g.partidas.some(p => p.code === current.code && p.type === target.type))) {
     throw new Error('Ya existe una partida con ese código y tipo en el catálogo. No se ha aplicado el traslado.');
   }
-  if(current.type!==target.type&&data.planningAutomation?.carryovers.some(c=>c.code===current.code))throw new Error('Revisa y elimina los arrastres de esta partida antes de cambiar su tipo.');
-  const updated = { ...current, groupCode: target.code, groupName: target.name, type: target.type };
+  const updated = { ...current, groupCode: target.code, groupName: target.name };
   return {
     ...data,
     budgetGroups: data.budgetGroups.map(g => g === source
       ? { ...g, partidas: g.partidas.filter(p => p !== current) }
       : g === target ? { ...g, partidas: [...g.partidas, updated] } : g),
-    budgetPlans: data.budgetPlans.map(p => p.code === current.code && p.type === current.type ? { ...p, type: target.type } : p),
-    transactions: data.transactions.map(t => t.code === current.code && t.type === current.type && !t.transfer && !isLegacyTransfer(t)
-      ? { ...t, type: target.type, categoryName: target.name } : t),
   };
+}
+
+/** BudgetPartida identity is its type + code in the existing JSON schema. */
+export function duplicatePartida(data: FinanceData, partida: BudgetPartida): FinanceData {
+  const source = containingGroup(data, partida);
+  if (!source) throw new Error('La partida ya no existe. No se ha creado ninguna copia.');
+  const index = source.partidas.findIndex(p => p.code === partida.code && p.type === partida.type);
+  const original = source.partidas[index];
+  const suffix = /^(.*\.)(\d+)$/.exec(original.code);
+  const prefix = suffix?.[1] ?? `${original.code}.`;
+  let number = suffix ? BigInt(suffix[2]) + 1n : 1n;
+  // An absent catalog entry may still be referenced by a historical plan/rule.
+  // Reusing that code would attach those amounts to the newly created copy.
+  const approvals = [...(data.planningMonths ?? []).flatMap(m => m.approval ? [m.approval] : []),
+    ...(data.planningAutomation?.history ?? []).flatMap(h => h.approvals)];
+  const occupied = new Set([
+    ...data.budgetGroups.flatMap(g => g.partidas.map(p => p.code)),
+    ...data.transactions.map(t => t.code), ...data.budgetPlans.map(p => p.code), ...data.loans.map(l => l.code),
+    ...(data.planningAutomation?.rules ?? []).map(r => r.code),
+    ...(data.planningAutomation?.origins ?? []).map(o => o.code),
+    ...(data.planningAutomation?.carryovers ?? []).map(c => c.code),
+    ...(data.intelligentFinance?.recurringRules ?? []).map(r => r.code),
+    ...approvals.flatMap(a => [...a.lines, ...(a.baseLines ?? []), ...(a.carryLines ?? [])].map(l => l.code)),
+  ]);
+  let code: string;
+  do { code = `${prefix}${String(number++).padStart(3, '0')}`; } while (occupied.has(code));
+  const copy = { ...original, code, name: `${original.name} (Copia)`, keywords: [...original.keywords] };
+  return { ...data, budgetGroups: data.budgetGroups.map(g => g === source
+    ? { ...g, partidas: [...g.partidas.slice(0, index + 1), copy, ...g.partidas.slice(index + 1)] } : g) };
+}
+
+export function reorderPartida(data: FinanceData, groupCode: string, index: number, direction: 'UP' | 'DOWN'): FinanceData {
+  const group = data.budgetGroups.find(g => g.code === groupCode);
+  if (!group) throw new Error('La familia ya no existe.');
+  if (!Number.isInteger(index) || index < 0 || index >= group.partidas.length) return data;
+  const target = direction === 'UP' ? index - 1 : index + 1;
+  if (target < 0 || target >= group.partidas.length) return data;
+  const partidas = [...group.partidas];
+  [partidas[index], partidas[target]] = [partidas[target], partidas[index]];
+  return { ...data, budgetGroups: data.budgetGroups.map(g => g === group ? { ...g, partidas } : g) };
 }

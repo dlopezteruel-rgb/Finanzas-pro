@@ -4,6 +4,7 @@ import './utils/phase1.test';
 import './utils/asyncForms.test';
 
 import './utils/transfers.test';
+import './utils/budgetChanges.test';
 
 import './utils/sharedExpenses.test';
 

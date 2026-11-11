@@ -222,7 +222,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
         categoryName: 'FIJOS', subcategoryName: 'Salud: Seguros médicos', description: 'Seguro médico', wallet: 'OPENBANK', processed: true,
       }, ...fixture.transactions],
       budgetPlans: [...fixture.budgetPlans.filter(p => p.code !== 'F.003.001'), { monthYear: '2026-10', code: 'F.003.001', type: 'GASTO', plannedAmount: 80 }],
-      budgetGroups: fixture.budgetGroups.map(g => ({ ...g, partidas: g.partidas.filter(p => failure === 'validation' || !(p.code === 'F.003.001' && p.type === 'INGRESO')) })),
+      budgetGroups: structuredClone(fixture.budgetGroups),
     };
     const beforeLegs = initial.transactions.filter(t => t.transfer);
     const { context, page } = await setup(initial);
@@ -231,11 +231,11 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       await page.getByRole('tab', { name: 'Catálogo y detalle de partidas', exact: true }).click();
       await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
       const d = page.getByRole('dialog', { name: 'Mover partida', exact: true });
-      await d.getByLabel('Paquete de destino').selectOption('L');
+      await d.getByLabel('Paquete de destino').selectOption('V_EXP');
       const original = await raw(page);
       await d.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), original);
       await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
-      await d.getByLabel('Paquete de destino').selectOption('L');
+      await d.getByLabel('Paquete de destino').selectOption('V_EXP');
       await page.evaluate(key => {
         const original = Storage.prototype.setItem;
         (window as any).budgetWrites = { fail: false, attempts: 0, saved: [] };
@@ -255,6 +255,16 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
         await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
+      if (failure === 'validation') {
+        assert.equal(await d.getByLabel('Paquete de destino').locator('option[value="L"]').count(), 0);
+        await d.getByLabel('Paquete de destino').evaluate(select => { const option = document.createElement('option'); option.value = 'L'; option.textContent = 'Destino manipulado'; select.append(option); });
+        await d.getByLabel('Paquete de destino').selectOption('L');
+        await d.locator('button[type=submit]').click(); await d.getByRole('alert').waitFor();
+        assert.match(await d.getByRole('alert').innerText(), /mismo tipo/);
+        assert.equal(await raw(page), before); assert.equal(await page.evaluate(() => (window as any).budgetWrites.attempts), 0);
+        await d.getByRole('button', { name: 'Cancelar', exact: true }).click();
+        await page.reload(); assert.equal(await raw(page), before); return;
+      }
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).budgetLockHeld = true; await new Promise<void>(resolve => { (window as any).releaseBudgetLock = resolve; }); }); }, STORAGE_LOCK);
       await page.waitForFunction(() => (window as any).budgetLockHeld);
       await d.locator('button[type=submit]').click(); await d.locator('fieldset:disabled').waitFor();
@@ -266,7 +276,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       if (failure !== 'none') {
         await d.getByRole('alert').waitFor();
         assert.match(await d.getByRole('alert').innerText(), failure === 'storage' ? /No hay espacio/ : failure === 'conflict' ? /Otra pestaña/ : /Ya existe una partida/);
-        assert.equal(await d.getByLabel('Paquete de destino').inputValue(), 'L'); assert.equal(await raw(page), before);
+        assert.equal(await d.getByLabel('Paquete de destino').inputValue(), 'V_EXP'); assert.equal(await raw(page), before);
         if (failure !== 'storage') {
           assert.equal(await page.evaluate(() => (window as any).budgetWrites.attempts), 0);
           await d.getByRole('button', { name: 'Cancelar', exact: true }).click();
@@ -281,11 +291,12 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       assert.equal(writes.saved.length, 1, 'no hay estados intermedios guardados');
       assert.equal(writes.attempts, failure === 'storage' ? 2 : 1, 'doble envío bloqueado');
       const saved = await data(page);
-      assert.equal(saved.budgetGroups.find(g => g.code === 'L')!.partidas.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+      assert.equal(saved.budgetGroups.find(g => g.code === 'V_EXP')!.partidas.find(p => p.code === 'F.003.001')!.type, 'GASTO');
       assert.equal(saved.budgetGroups.find(g => g.code === 'F_EXP')!.partidas.some(p => p.code === 'F.003.001'), false);
-      assert.equal(saved.budgetPlans.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+      assert.deepEqual(saved.budgetPlans, initial.budgetPlans);
       assert.deepEqual(saved.transactions.filter(t => t.transfer), beforeLegs);
-      for (const normal of initial.transactions.filter(t => !t.transfer && t.code === 'F.003.001' && t.type === 'GASTO')) assert.equal(saved.transactions.find(t => t.id === normal.id)!.type, 'INGRESO');
+      assert.deepEqual(saved.transactions, initial.transactions);
+      assert.deepEqual(calculateWalletBalances(saved.wallets, saved.transactions), calculateWalletBalances(initial.wallets, initial.transactions));
       assertTransferIntegrity(saved.transactions, saved.wallets);
       await page.reload(); assert.deepEqual((await data(page)).transactions, saved.transactions);
     } finally { await context.close(); }
