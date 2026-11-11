@@ -253,4 +253,58 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       } finally { await s.close(); }
     }
   });
+
+  for (const mobile of [false, true]) await t.test(`catálogo seguro: destinos del mismo tipo y financieros intactos (${mobile ? 'móvil' : 'escritorio'})`, async () => {
+    const initial = savePlanning(fixture(), '2026-10', [{ type: 'GASTO', code: 'g', amountCents: 80000 }], 0, planningScope(fixture(), '2026-10'), true, true);
+    const s = await setup(mobile, 'dark', initial); const { page } = s;
+    try {
+      const before = await data(page); await tab(page, 'Catálogo y detalle de partidas').click();
+      await page.getByRole('button', { name: 'Mover de paquete Gasto diario', exact: true }).click();
+      const d = page.getByRole('dialog', { name: 'Mover partida', exact: true });
+      const select = d.getByLabel('Paquete de destino');
+      assert.deepEqual(await select.locator('option').evaluateAll(options => options.map(o => (o as HTMLOptionElement).value)), ['G', 'R']);
+      const unchanged = await snapshot(page);
+      await select.evaluate(el => { const option = document.createElement('option'); option.value = 'I'; option.textContent = 'Destino manipulado'; el.append(option); });
+      await select.selectOption('I'); await d.getByRole('button', { name: 'Confirmar Traslado', exact: true }).click();
+      await d.getByRole('alert').waitFor(); assert.match(await d.getByRole('alert').innerText(), /mismo tipo/);
+      assert.deepEqual(await snapshot(page), unchanged);
+      await select.selectOption('R'); await d.getByRole('button', { name: 'Confirmar Traslado', exact: true }).click(); await d.waitFor({ state: 'hidden' });
+      const saved = await data(page);
+      for (const k of ['transactions', 'budgetPlans', 'planningMonths', 'wallets', 'loans']) assert.deepEqual(saved[k], before[k], k);
+      assert.ok(saved.budgetGroups.find((g: any) => g.code === 'R').partidas.some((p: any) => p.code === 'g'));
+      await page.reload(); assert.deepEqual((await data(page)).transactions, before.transactions);
+    } finally { await s.close(); }
+  });
+
+  await t.test('duplicar con groupCode distinto del padre espera al guardado, conserva datos ante cuota y evita doble envío', async () => {
+    const initial = fixture(); initial.budgetGroups.find(g => g.code === 'G')!.partidas[0].groupCode = 'G.subgrupo';
+    const s = await setup(false, 'light', initial); const { page } = s;
+    try {
+      await tab(page, 'Catálogo y detalle de partidas').click(); const before = await data(page);
+      await page.evaluate(key => {
+        (window as any).catalogIo = { fail: true, attempts: 0, waiting: true };
+        const set = Storage.prototype.setItem, request = navigator.locks.request.bind(navigator.locks);
+        Storage.prototype.setItem = function(k, value) { if (k === key) { (window as any).catalogIo.attempts++; if ((window as any).catalogIo.fail) throw new DOMException('Cuota simulada', 'QuotaExceededError'); } return set.call(this, k, value); };
+        navigator.locks.request = ((...args: any[]) => (request as any)(args[0], async () => {
+          if ((window as any).catalogIo.waiting) await new Promise<void>(resolve => { (window as any).releaseCatalog = resolve; });
+          return args[1]();
+        })) as typeof navigator.locks.request;
+      }, DATA_KEY);
+      const duplicate = page.getByRole('button', { name: 'Duplicar partida Gasto diario', exact: true });
+      await duplicate.evaluate(button => { (button as HTMLButtonElement).click(); (button as HTMLButtonElement).click(); });
+      await page.waitForFunction(() => typeof (window as any).releaseCatalog === 'function');
+      assert.equal(await duplicate.isDisabled(), true); assert.deepEqual(await data(page), before);
+      await page.evaluate(() => (window as any).releaseCatalog());
+      await page.getByRole('alert').filter({ hasText: /No hay espacio/ }).first().waitFor();
+      assert.deepEqual(await data(page), before); assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 1);
+      await page.evaluate(() => { (window as any).catalogIo.fail = false; (window as any).catalogIo.waiting = false; });
+      await duplicate.click(); await page.waitForFunction(k => JSON.parse(localStorage.getItem(k)!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
+      const after = await data(page);
+      assert.equal(after.budgetGroups.find((g: any) => g.code === 'G').partidas.length, 2);
+      assert.deepEqual(after.transactions, before.transactions); assert.deepEqual(after.budgetPlans, before.budgetPlans);
+      assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 2);
+      await page.reload(); assert.equal((await data(page)).budgetGroups.flatMap((g: any) => g.partidas).length, 5);
+    } finally { await s.close(); }
+  });
+
 });
