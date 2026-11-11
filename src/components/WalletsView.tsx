@@ -121,7 +121,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       </div>
 
       {/* Wallets List (Click to edit patrimonio) */}
-      <section aria-label="Cartera predeterminada" className="space-y-2 text-sm">
+      <section aria-label="Cartera predeterminada" className="col-span-full space-y-2 text-sm">
         <p>{defaultWallet ? `Cartera predeterminada: ${defaultWallet.name}${wallets.length === 1 ? ' (automática: única cartera)' : ''}.` : wallets.length ? 'Sin cartera predeterminada. Selecciona una cartera en cada operación o configura una aquí.' : 'Crea una cartera para registrar operaciones bancarias.'}</p>
         {preference.error && <p role="alert">{preference.error}</p>}
         {preference.saving && <p role="status">Guardando preferencia…</p>}

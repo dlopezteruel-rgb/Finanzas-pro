@@ -17,7 +17,7 @@ import { previewAutomation, applyAutomationPreview } from './planningAutomation'
 
 function fixture(count = 3): FinanceData {
   const data = intelligentFixture();
-  return { ...data, wallets: [data.wallets[0], { ...data.wallets[0], id: 'saving', name: 'AHORRO FICTICIO' }, { ...data.wallets[0], id: 'cash', name: 'EFECTIVO FICTICIO' }].slice(0, count) };
+  return { ...data, wallets: [data.wallets[0], { ...data.wallets[0], id: 'saving', name: 'AHORRO FICTICIO', type: 'SAVINGS' as const }, { ...data.wallets[0], id: 'cash', name: 'EFECTIVO FICTICIO', type: 'CASH' as const }].slice(0, count) };
 }
 class MemoryStorage {
   values = new Map<string, string>(); writes = 0; fail: 'copy' | 'active' | 'verify' | null = null;

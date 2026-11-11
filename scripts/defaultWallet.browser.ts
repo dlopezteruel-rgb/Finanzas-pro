@@ -15,7 +15,7 @@ import { STORAGE_LOCK } from '../src/utils/financeStore';
 
 function fixture(count = 3, advanced = false): FinanceData {
   const base = intelligentFixture();
-  let data: FinanceData = { ...base, theme: 'light', wallets: [base.wallets[0], { ...base.wallets[0], id: 'saving', name: 'AHORRO FICTICIO' }, { ...base.wallets[0], id: 'cash', name: 'EFECTIVO FICTICIO' }].slice(0, count) };
+  let data: FinanceData = { ...base, theme: 'light', wallets: [base.wallets[0], { ...base.wallets[0], id: 'saving', name: 'AHORRO FICTICIO', type: 'SAVINGS' as const }, { ...base.wallets[0], id: 'cash', name: 'EFECTIVO FICTICIO', type: 'CASH' as const }].slice(0, count) };
   if (count) {
     data.transactions = [{ id: 'original', type: 'GASTO', code: 'g', amount: 20, date: '2026-11-01', description: 'Histórico ficticio', categoryName: 'Gastos ficticios', subcategoryName: 'Alquiler ficticio', wallet: 'BANCO FICTICIO', processed: true }];
     data = saveMovementRule(data, movementRule());
@@ -39,6 +39,7 @@ async function choose(page: Page, name: string, id: string) {
   await nav(page, 'Cuentas'); await page.getByRole('button', { name: `Usar como predeterminada ${name}`, exact: true }).click();
   await page.waitForFunction(({ key, id }) => JSON.parse(localStorage.getItem(key)!).defaultWalletId === id, { key: DATA_KEY, id });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
+  if ((page.viewportSize()?.width ?? 0) >= 1100) assert.ok((await page.locator('.wallet-cards').boundingBox())!.width > page.viewportSize()!.width / 2, 'las tarjetas conservan la columna principal de escritorio');
 }
 
 test('cartera predeterminada: contratos completos en Chromium aislado', { timeout: 240000 }, async t => {
