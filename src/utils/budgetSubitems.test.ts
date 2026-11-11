@@ -5,7 +5,7 @@ import { createSubitem,editSubitem,subitemBudgetRows,subitemsFor,assertSubitemTr
 import { FinanceStore } from './financeStore';
 import { DATA_KEY,RECOVERY_PREFIX,makeBackup,parseBackup,type FinanceData } from './backup';
 import { savePlanning,planningScope,planningStatus } from './planning';
-import { previewAutomation,applyAutomationPreview,reconcileAutomation } from './planningAutomation';
+import { previewAutomation as previewRaw,applyAutomationPreview as applyRaw,reconcileAutomation } from './planningAutomation';
 import { duplicatePartida,changePartidaGroup } from './budgetChanges';
 import { calculateMonthlySummary,calculateWalletBalances } from './finance';
 import { saveSharedTransaction,splitExactly,saveSettlement } from './sharedExpenses';
@@ -14,6 +14,11 @@ import { movementRule } from '../../scripts/intelligentFixture';
 import { saveMovementRule,occurrencePreviews,applyOccurrenceBatch,occurrenceScope } from './recurringMovements';
 import { proposeChatMovement } from './chatRegistration';
 import { clearedData } from './clearData';
+
+// Match the browser fixture clock; copying/carry tests must not depend on the execution month.
+const fixtureNow=new Date('2026-11-11T12:00:00Z');
+const previewAutomation:typeof previewRaw=(data,request,now=fixtureNow,identity)=>previewRaw(data,request,now,identity);
+const applyAutomationPreview:typeof applyRaw=(data,preview,now=fixtureNow)=>applyRaw(data,preview,now);
 
 class MemoryStorage {
   values=new Map<string,string>();writes=0;fail:''|'copy'|'verify'|'active'='';
