@@ -10,119 +10,10 @@
   }
 }
 
-body {
-  background-color: #0c0f17;
-  color: #f1f5f9;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  -webkit-tap-highlight-color: transparent;
-  user-select: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-input, textarea, select {
-  user-select: text;
-}
-
-/* ========================================================
-   LIGHT THEME OVERRIDES (Revolut Crisp Neobank Style)
-   ======================================================== */
-[data-theme="light"] body,
-body[data-theme="light"] {
-  background-color: #f6f8fb !important;
-  color: #0f172a !important;
-}
-
-[data-theme="light"] .bg-\[\#0c0f17\] {
-  background-color: #f6f8fb !important;
-}
-
-[data-theme="light"] .bg-\[\#0c0f17\]\/90,
-[data-theme="light"] .bg-\[\#0c0f17\]\/95 {
-  background-color: rgba(246, 248, 251, 0.95) !important;
-}
-
-[data-theme="light"] .bg-\[\#141926\],
-[data-theme="light"] .bg-\[\#161c2b\] {
-  background-color: #ffffff !important;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
-}
-
-[data-theme="light"] .border-white\/\[0\.06\],
-[data-theme="light"] .border-white\/\[0\.08\],
-[data-theme="light"] .border-white\/10 {
-  border-color: #e2e8f0 !important;
-}
-
-[data-theme="light"] .text-white {
-  color: #0f172a !important;
-}
-
-[data-theme="light"] .text-slate-100 {
-  color: #0f172a !important;
-}
-
-[data-theme="light"] .text-slate-200 {
-  color: #1e293b !important;
-}
-
-[data-theme="light"] .text-slate-300 {
-  color: #334155 !important;
-}
-
-[data-theme="light"] .text-slate-400 {
-  color: #64748b !important;
-}
-
-[data-theme="light"] .bg-white\/\[0\.02\],
-[data-theme="light"] .bg-white\/\[0\.03\],
-[data-theme="light"] .bg-white\/\[0\.04\],
-[data-theme="light"] .bg-white\/\[0\.05\],
-[data-theme="light"] .bg-white\/\[0\.06\] {
-  background-color: #f1f5f9 !important;
-}
-
-[data-theme="light"] .bg-white\/\[0\.08\],
-[data-theme="light"] .bg-white\/10,
-[data-theme="light"] .bg-white\/20 {
-  background-color: #e2e8f0 !important;
-}
-
-[data-theme="light"] input,
-[data-theme="light"] select,
-[data-theme="light"] textarea {
-  color: #0f172a !important;
-  background-color: #ffffff !important;
-  border-color: #cbd5e1 !important;
-}
-
-[data-theme="light"] option {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
-}
-
-/* Retain high-contrast white text on solid colored buttons & badges */
-[data-theme="light"] .bg-rose-500,
-[data-theme="light"] .bg-rose-600,
-[data-theme="light"] .bg-sky-500,
-[data-theme="light"] .bg-indigo-600,
-[data-theme="light"] .bg-emerald-500,
-[data-theme="light"] .bg-rose-500 *,
-[data-theme="light"] .bg-rose-600 *,
-[data-theme="light"] .bg-sky-500 *,
-[data-theme="light"] .bg-indigo-600 *,
-[data-theme="light"] .bg-emerald-500 *,
-[data-theme="light"] [class*="bg-gradient-to-tr"] {
-  color: #ffffff !important;
-}
-
-[data-theme="light"] .bg-black\/80 {
-  background-color: rgba(15, 23, 42, 0.65) !important;
-}
-
 /* Phase 3A: scoped contrast and responsive forms, including portalled review. */
-.planning { color: #e2e8f0; font-size: 0.875rem; user-select: text; }
-.planning-card { background: #141926; border: 1px solid #475569; border-radius: 1rem; padding: 1rem; }
-.planning input:not([type="checkbox"]) { background: #0c0f17; border: 1px solid #94a3b8; border-radius: .4rem; padding: .5rem; max-width: 100%; width: 10rem; }
+.planning { color: var(--ink); font-size: 0.875rem; user-select: text; }
+.planning-card { background: var(--surface); border: 1px solid #475569; border-radius: 1rem; padding: 1rem; }
+.planning input:not([type="checkbox"]) { background: var(--canvas); border: 1px solid #94a3b8; border-radius: .4rem; padding: .5rem; max-width: 100%; width: 10rem; }
 .planning input[aria-invalid="true"] { border: 2px solid #fda4af; }
 .planning button { border: 1px solid #94a3b8; border-radius: .5rem; padding: .5rem .7rem; }
 .planning button:disabled { opacity: .55; cursor: not-allowed; }
@@ -134,14 +25,11 @@ body[data-theme="light"] {
 .planning td, .planning th { text-align: left; padding: .6rem; border-bottom: 1px solid #64748b; }
 .planning table { width: 100%; }
 .planning fieldset { min-width: 0; }
-[data-theme="light"] .planning { color: #0f172a; }
-[data-theme="light"] .planning-card { background: white; border-color: #64748b; }
-[data-theme="light"] .planning [role="alert"] { color: #9f1239; }
 @media (max-width: 767px) { .planning-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .planning-row label { grid-column: 1 / -1; } .planning-row > div { grid-column: 1 / -1; } }
 
 /* Phase 3B: secondary navigation stays within Presupuestos. */
 .budget-tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
-.budget-tabs [role="tab"] { min-height: 44px; padding: .75rem; border: 1px solid #94a3b8; border-radius: .75rem; color: #e2e8f0; background: #141926; }
+.budget-tabs [role="tab"] { min-height: 44px; padding: .75rem; border: 1px solid #94a3b8; border-radius: .75rem; color: var(--ink); background: var(--surface); }
 .budget-tabs [aria-selected="true"] { border-color: #7dd3fc; background: #0c4a6e; color: #f0f9ff; font-weight: 700; }
 .budget-tabs :disabled { opacity: .55; cursor: not-allowed; }
 .budget-tabs :focus-visible, .budget-workspace [role="tabpanel"]:focus-visible { outline: 3px solid #38bdf8; outline-offset: 3px; }
@@ -149,21 +37,17 @@ body[data-theme="light"] {
 .planning .planning-disclosure { text-align: left; min-height: 44px; width: 100%; overflow-wrap: anywhere; }
 .planning-section-totals { font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .planning-warning { color: #fde68a; }
-[data-theme="light"] .budget-tabs [role="tab"] { color: #0f172a; background: #fff; border-color: #64748b; }
-[data-theme="light"] .budget-tabs [aria-selected="true"] { color: #0c4a6e; background: #e0f2fe; border-color: #0369a1; }
-[data-theme="light"] .planning-warning { color: #854d0e; }
 .planning input[type="month"] { color-scheme: dark; }
-[data-theme="light"] .planning input[type="month"] { color-scheme: light; }
 
 /* Local SVG charts, including dark/light contrast and a keyboard table alternative. */
-.financial-charts { --chart-bg: #141926; background: var(--chart-bg); color: #e2e8f0; border: 1px solid #64748b; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; min-width: 0; user-select: text; }
+.financial-charts { --chart-bg: #141926; background: var(--chart-bg); color: var(--ink); border: 1px solid #64748b; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem; min-width: 0; user-select: text; }
 .financial-charts > summary { font-weight: 700; cursor: pointer; min-height: 36px; }
 .financial-charts h3 { font-weight: 700; margin: .75rem 0; }
 .finance-chart { border-top: 1px solid #64748b; padding-top: .5rem; min-width: 0; }
 .finance-chart svg { width: 100%; height: auto; display: block; margin-top: 1rem; }
 .chart-controls, .chart-legend { display: flex; gap: .75rem; flex-wrap: wrap; align-items: center; margin: .75rem 0; min-width: 0; }
 .chart-controls label { min-width: 0; max-width: 100%; }
-.financial-charts :is(select,input[type="date"],input[type="month"]) { display: block; background: #0c0f17; color: #f1f5f9; border: 1px solid #94a3b8; border-radius: .5rem; min-height: 44px; padding: .5rem; max-width: 100%; color-scheme: dark; }
+.financial-charts :is(select,input[type="date"],input[type="month"]) { display: block; background: var(--canvas); color: #f1f5f9; border: 1px solid #94a3b8; border-radius: .5rem; min-height: 44px; padding: .5rem; max-width: 100%; color-scheme: dark; }
 .chart-legend label { display: inline-flex; gap: .4rem; align-items: center; padding: .35rem; min-height: 44px; }
 .chart-legend span { width: 1rem; border-bottom: 4px solid; }
 .financial-charts button { padding: .5rem; border: 1px solid #94a3b8; border-radius: .5rem; min-height: 44px; margin: .25rem; }
@@ -180,11 +64,7 @@ body[data-theme="light"] {
 .chart-slices span { display: inline-block; width: .75rem; height: .75rem; margin-right: .3rem; }
 .chart-warning { color: #fde68a; margin: .5rem 0; }
 .financial-charts [role="alert"] { color: #fecdd3; }
-[data-theme="light"] .financial-charts { --chart-bg: #fff; color: #0f172a; }
-[data-theme="light"] .financial-charts :is(select,input) { color-scheme: light; }
-[data-theme="light"] .chart-warning { color: #854d0e; }
-[data-theme="light"] .financial-charts [role="alert"] { color: #9f1239; }
-.planning select { max-width: 100%; min-height: 44px; padding: .5rem; border: 1px solid #94a3b8; border-radius: .5rem; background: #0c0f17; color: #e2e8f0; }
+.planning select { max-width: 100%; min-height: 44px; padding: .5rem; border: 1px solid #94a3b8; border-radius: .5rem; background: var(--canvas); color: var(--ink); }
 .planning :is(label,p,td,th) { overflow-wrap: anywhere; }
 .planning-breakdown { grid-column: 1 / -1; font-size: .8rem; }
 .planning .automation-table table { min-width: 46rem; }

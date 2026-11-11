@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
 import { ALL_PARTIDAS } from './src/constants/categories.js';
+import { applicationPaths } from './config/appPaths';
 
 dotenv.config();
 
@@ -14,8 +15,15 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const isProduction = process.env.NODE_ENV === 'production';
+const paths = applicationPaths(process.env.APP_BASE_PATH);
 
 app.use(express.json());
+if (paths.home !== '/') {
+  app.get(paths.home.slice(0, -1), (req, res, next) => {
+    if (req.path !== paths.home.slice(0, -1)) return next();
+    res.redirect(308, paths.home + req.originalUrl.slice(req.path.length));
+  });
+}
 
 // Initialize Gemini SDK if key exists
 let geminiClient: GoogleGenAI | null = null;
@@ -28,7 +36,7 @@ if (process.env.GEMINI_API_KEY) {
 }
 
 // 1. Natural Language Movement Classification Endpoint
-app.post('/api/parse-movement', async (req: Request, res: Response) => {
+app.post(paths.parseMovement, async (req: Request, res: Response) => {
   const { text, referenceDate } = req.body;
   if (!text || typeof text !== 'string') {
     return res.status(400).json({ error: 'Text prompt is required' });
@@ -83,7 +91,7 @@ Responde ÚNICAMENTE con un objeto JSON válido con estas claves:
 });
 
 // 2. Financial Advisor & Audit Chat Endpoint
-app.post('/api/assistant-chat', async (req: Request, res: Response) => {
+app.post(paths.assistant, async (req: Request, res: Response) => {
   const { message, summary, financialContext, fallbackReply } = req.body;
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'Message is required' });
@@ -139,8 +147,8 @@ async function start() {
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, 'dist')));
-    app.get('*', (_req, res) => {
+    app.use(paths.home, express.static(path.join(__dirname, 'dist')));
+    app.get(`${paths.home}*`, (_req, res) => {
       res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     });
   }
