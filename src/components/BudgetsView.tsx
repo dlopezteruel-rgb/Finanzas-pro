@@ -33,8 +33,8 @@ interface BudgetsViewProps {
   budgetRows: MonthlyBudgetRow[];
   budgetGroups: BudgetGroup[];
   onUpdateBudgetPlan: (code: string, type: MovementType, amount: number) => Promise<SaveResult>;
-  onMovePartida: (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => void;
-  onDuplicatePartida: (partida: BudgetPartida) => void;
+  onMovePartida: (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => Promise<SaveResult>;
+  onDuplicatePartida: (partida: BudgetPartida) => Promise<SaveResult>;
   onChangePartidaGroup: (partida: BudgetPartida, targetGroupCode: string) => Promise<SaveResult>;
   onSelectPartidaToView: (partida: BudgetPartida, row: MonthlyBudgetRow) => void;
 }
@@ -61,6 +61,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   const [movingPartida, setMovingPartida] = useState<BudgetPartida | null>(null);
   const [targetGroupCode, setTargetGroupCode] = useState<string>('');
   const moveSubmission = useAsyncForm();
+  const catalogSubmission = useAsyncForm();
 
   // Quick lookup of budget rows by key
   const rowMap = useMemo(() => {
@@ -113,6 +114,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   return (
     <div className="catalog-view space-y-4 pb-16 md:pb-6">
       {(editError || editSubmission.error) && <p role="alert">{editError || editSubmission.error}</p>}
+      {catalogSubmission.error && <p role="alert">{catalogSubmission.error}</p>}
+      {catalogSubmission.saving && <p role="status">Guardando catálogo…</p>}
       {/* 1. Top Summary Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
@@ -357,10 +360,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             <div className="flex flex-col gap-0.5 bg-white/[0.04] p-0.5 rounded-lg border border-white/[0.06]">
                               <button
                                 type="button"
-                                disabled={index === 0}
+                                disabled={index === 0 || catalogSubmission.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  onMovePartida(group.code, index, 'UP');
+                                  void catalogSubmission.submit(() => onMovePartida(group.code, index, 'UP'), () => {});
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
                                 title="Subir partida dentro del paquete"
@@ -370,10 +373,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </button>
                               <button
                                 type="button"
-                                disabled={index === group.partidas.length - 1}
+                                disabled={index === group.partidas.length - 1 || catalogSubmission.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
-                                  onMovePartida(group.code, index, 'DOWN');
+                                  void catalogSubmission.submit(() => onMovePartida(group.code, index, 'DOWN'), () => {});
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
                                 title="Bajar partida dentro del paquete"
@@ -386,9 +389,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Duplicate partida */}
                             <button
                               type="button"
+                              disabled={catalogSubmission.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
-                                onDuplicatePartida(partida);
+                                void catalogSubmission.submit(() => onDuplicatePartida(partida), () => {});
                               }}
                               className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer border border-white/[0.06]"
                               title="Duplicar partida presupuestaria"
@@ -400,6 +404,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Change group / Move package */}
                             <button
                               type="button"
+                              disabled={catalogSubmission.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 moveSubmission.clearError();
@@ -505,7 +510,9 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
       {movingPartida && (
         <Overlay title="Mover partida" onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
           <form role="dialog" aria-modal="true" aria-label="Mover partida" aria-busy={moveSubmission.saving}
-            onSubmit={e => { e.preventDefault(); void moveSubmission.submit(() => onChangePartidaGroup(movingPartida, targetGroupCode), () => setMovingPartida(null)); }}
+            onSubmit={e => { e.preventDefault(); void moveSubmission.submit(() => budgetGroups.some(g => g.code === targetGroupCode && g.type === movingPartida.type)
+              ? onChangePartidaGroup(movingPartida, targetGroupCode)
+              : Promise.resolve({ ok: false, error: 'Elige una familia del mismo tipo. No se permite cambiar entre Ingresos y Gastos.' }), () => setMovingPartida(null)); }}
             className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
           <fieldset disabled={moveSubmission.saving} className="space-y-3.5">
             {moveSubmission.error && <p role="alert" className="text-rose-300">{moveSubmission.error}</p>}
@@ -522,7 +529,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 onChange={e => setTargetGroupCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500 text-xs"
               >
-                {budgetGroups.map(g => (
+                {budgetGroups.filter(g => g.type === movingPartida.type).map(g => (
                   <option key={g.code} value={g.code}>
                     {g.type}: {g.name}
                   </option>
@@ -530,21 +537,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               </select>
             </div>
 
-            {/* Note on type change */}
-            {(() => {
-              const targetGroup = budgetGroups.find(g => g.code === targetGroupCode);
-              if (targetGroup && targetGroup.type !== movingPartida.type) {
-                return (
-                  <div className="p-2.5 rounded-xl bg-amber-950/60 border border-amber-800/60 text-amber-300 text-[11px] flex items-center gap-2">
-                    <AlertTriangle className="w-4 h-4 shrink-0 text-amber-400" />
-                    <span>
-                      Atención: La partida pasará de <strong>{movingPartida.type}</strong> a <strong>{targetGroup.type}</strong>.
-                    </span>
-                  </div>
-                );
-              }
-              return null;
-            })()}
+            <p>Solo puedes mover la partida entre familias del mismo tipo. Sus movimientos y presupuestos guardados se conservan.</p>
 
             <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.06]">
               <button

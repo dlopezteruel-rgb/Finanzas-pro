@@ -18,7 +18,6 @@ import {
   SettlementInput,
   TransferInput,
   BudgetPlan,
-  BudgetGroup,
   BudgetPartida,
   Loan,
   Wallet,
@@ -67,7 +66,7 @@ import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
 import { confirmOnceAsync } from './utils/confirmation';
 import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTransfers, saveTransfer, transferWalletName } from './utils/transfers';
-import { changePartidaGroup } from './utils/budgetChanges';
+import { changePartidaGroup, duplicatePartida, reorderPartida } from './utils/budgetChanges';
 import { TransferModal } from './components/TransferModal';
 import { TreasuryView } from './components/TreasuryView';
 import { liquidBalanceCents } from './utils/treasury';
@@ -100,7 +99,6 @@ export default function App() {
   const [transferToEdit, setTransferToEdit] = useState<Transaction | null>(null);
   const [deleteTransferInitially, setDeleteTransferInitially] = useState(false);
   const setTheme = (value: React.SetStateAction<FinanceData['theme']>) => update('theme', value);
-  const setBudgetGroups = (value: React.SetStateAction<BudgetGroup[]>) => update('budgetGroups', value);
   const setTransactions = (value: React.SetStateAction<Transaction[]>) => update('transactions', value);
   const setBudgetPlans = (value: React.SetStateAction<BudgetPlan[]>) => update('budgetPlans', value);
   const setLoans = (value: React.SetStateAction<Loan[]>) => update('loans', value);
@@ -342,48 +340,11 @@ export default function App() {
   };
 
   const handleMovePartida = (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => {
-    setBudgetGroups(prevGroups => {
-      return prevGroups.map(group => {
-        if (group.code !== groupCode) return group;
-        const targetIndex = direction === 'UP' ? partidaIndex - 1 : partidaIndex + 1;
-        if (targetIndex < 0 || targetIndex >= group.partidas.length) return group;
-
-        const newPartidas = [...group.partidas];
-        const [moved] = newPartidas.splice(partidaIndex, 1);
-        newPartidas.splice(targetIndex, 0, moved);
-        return { ...group, partidas: newPartidas };
-      });
-    });
+    return mutate(current => reorderPartida(current, groupCode, partidaIndex, direction));
   };
 
   const handleDuplicatePartida = (partida: BudgetPartida) => {
-    setBudgetGroups(prevGroups => {
-      return prevGroups.map(group => {
-        if (group.code !== partida.groupCode) return group;
-        const original = group.partidas.find(p => p.code === partida.code);
-        if (!original) return group;
-
-        const baseNum = parseInt(original.code.split('.').pop() || '1', 10);
-        let nextNum = baseNum + 1;
-        let newCode = `${original.code.split('.').slice(0, 2).join('.')}.${String(nextNum).padStart(3, '0')}`;
-        while (group.partidas.some(p => p.code === newCode)) {
-          nextNum++;
-          newCode = `${original.code.split('.').slice(0, 2).join('.')}.${String(nextNum).padStart(3, '0')}`;
-        }
-
-        const duplicated: BudgetPartida = {
-          ...original,
-          code: newCode,
-          name: `${original.name} (Copia)`,
-          keywords: [...original.keywords],
-        };
-
-        const index = group.partidas.findIndex(p => p.code === partida.code);
-        const newPartidas = [...group.partidas];
-        newPartidas.splice(index + 1, 0, duplicated);
-        return { ...group, partidas: newPartidas };
-      });
-    });
+    return mutate(current => duplicatePartida(current, partida));
   };
 
   const handleChangePartidaGroup = (
@@ -666,8 +627,8 @@ export default function App() {
             budgetRows={budgetRows}
             budgetGroups={budgetGroups}
             onUpdateBudgetPlan={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleUpdateBudgetPlan(...args)}
-            onMovePartida={(...args) => guardPlanning(() => handleMovePartida(...args))}
-            onDuplicatePartida={partida => guardPlanning(() => handleDuplicatePartida(partida))}
+            onMovePartida={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleMovePartida(...args)}
+            onDuplicatePartida={partida => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleDuplicatePartida(partida)}
             onChangePartidaGroup={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleChangePartidaGroup(...args)}
             onSelectPartidaToView={handleSelectPartidaToView}
           />

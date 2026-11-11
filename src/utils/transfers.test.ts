@@ -254,36 +254,37 @@ function budgetMoveFixture(historical = false): FinanceData {
   const data = fixture();
   data.transactions.push(...(historical ? historicalPair() : transferPair(wallets, input)), normal('GASTO', 'F.003.001', 30, 'insurance'));
   data.budgetPlans.push({ monthYear: '2026-10', code: 'F.003.001', type: 'GASTO', plannedAmount: 80 });
-  // Allow a cross-type move without colliding with the separate credit partida.
+  // Keep the historical fixture that predates the catalog safety restriction.
   data.budgetGroups = data.budgetGroups.map(g => ({ ...g, partidas: g.partidas.filter(p => !(p.code === 'F.003.001' && p.type === 'INGRESO')) }));
   return data;
 }
 const insurancePartida = (data: FinanceData) => data.budgetGroups.flatMap(g => g.partidas).find(p => p.code === 'F.003.001' && p.type === 'GASTO')!;
 
-for (const historical of [false, true]) test(`F.003.001: traslado atómico respeta extremos ${historical ? 'históricos' : '2.6'} y guarda catálogo, planes y movimientos juntos`, async () => {
+for (const historical of [false, true]) test(`F.003.001: traslado de catálogo conserva movimientos y planes con extremos ${historical ? 'históricos' : '2.6'}`, async () => {
   const data = budgetMoveFixture(historical), original = structuredClone(data), storage = new MemoryStorage();
   storage.setItem(DATA_KEY, serializeSnapshot(data));
   const store = new FinanceStore(storage, fixture(), exclusive), writes = storage.writes;
-  await store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L'));
+  await store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'V_EXP'));
   assert.equal(storage.writes, writes + 1, 'solo una escritura activa, ninguna intermedia');
   assert.deepEqual(data, original, 'transformación pura');
   const saved = new FinanceStore(storage, fixture(), exclusive).data;
-  assert.equal(saved.budgetGroups.find(g => g.code === 'L')!.partidas.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
+  assert.equal(saved.budgetGroups.find(g => g.code === 'V_EXP')!.partidas.find(p => p.code === 'F.003.001')!.type, 'GASTO');
   assert.equal(saved.budgetGroups.find(g => g.code === 'F_EXP')!.partidas.some(p => p.code === 'F.003.001'), false);
-  assert.equal(saved.budgetPlans.find(p => p.code === 'F.003.001')!.type, 'INGRESO');
-  assert.equal(saved.transactions.find(t => t.id === 'insurance')!.type, 'INGRESO');
+  assert.deepEqual(saved.budgetPlans, original.budgetPlans);
+  assert.deepEqual(saved.transactions, original.transactions);
+  assert.deepEqual(calculateWalletBalances(wallets, saved.transactions), calculateWalletBalances(wallets, original.transactions));
   const originalLegs = original.transactions.filter(t => t.transfer || isLegacyTransfer(t));
   assert.deepEqual(saved.transactions.filter(t => t.transfer || isLegacyTransfer(t)), originalLegs);
   assert.deepEqual(calculateWalletBalances(wallets, originalLegs), calculateWalletBalances(wallets, saved.transactions.filter(t => t.transfer || isLegacyTransfer(t))));
   assertTransferIntegrity(saved.transactions, wallets);
 });
 
-test('F.003.001: colisión del catálogo rechaza todo el traslado, sin escrituras parciales', async () => {
+test('F.003.001: cambiar de tipo se rechaza incluso si el código coincide con otra partida', async () => {
   const data = budgetMoveFixture(), storage = new MemoryStorage();
   data.budgetGroups = structuredClone(BUDGET_GROUPS);
   storage.setItem(DATA_KEY, serializeSnapshot(data));
   const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), writes = storage.writes, original = structuredClone(store.data);
-  await assert.rejects(store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L')), /Ya existe una partida/);
+  await assert.rejects(store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L')), /No se permite cambiar/);
   assert.equal(storage.writes, writes); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
 });
 
@@ -291,7 +292,7 @@ test('F.003.001: una validación final fallida conserva catálogo, planes, movim
   const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
   const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), original = structuredClone(store.data), writes = storage.writes;
   await assert.rejects(store.mutate(current => {
-    const candidate = changePartidaGroup(current, insurancePartida(current), 'L');
+    const candidate = changePartidaGroup(current, insurancePartida(current), 'V_EXP');
     return { ...candidate, transactions: candidate.transactions.map(t => t.transfer?.leg === 'out' ? { ...t, type: 'INGRESO' } : t) };
   }), /dos extremos/);
   assert.equal(storage.writes, writes); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
@@ -301,15 +302,15 @@ test('F.003.001: fallo de cuota no guarda ninguna colección; el reintento guard
   const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
   const store = new FinanceStore(storage, fixture(), exclusive), before = storage.getItem(DATA_KEY), original = structuredClone(store.data);
   storage.fail = k => k === DATA_KEY;
-  const change = () => store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'L'));
+  const change = () => store.mutate(current => changePartidaGroup(current, insurancePartida(current), 'V_EXP'));
   await assert.rejects(change(), /Cuota/); assert.equal(storage.getItem(DATA_KEY), before); assert.deepEqual(store.data, original);
-  storage.fail = () => false; await change(); assert.equal(store.data.transactions.find(t => t.id === 'insurance')!.type, 'INGRESO');
+  storage.fail = () => false; await change(); assert.equal(store.data.transactions.find(t => t.id === 'insurance')!.type, 'GASTO');
 });
 
 test('F.003.001: conflicto de pestañas se comprueba antes de calcular o escribir el traslado', async () => {
   const data = budgetMoveFixture(), storage = new MemoryStorage(); storage.setItem(DATA_KEY, serializeSnapshot(data));
   const stale = new FinanceStore(storage, fixture(), exclusive), other = new FinanceStore(storage, fixture(), exclusive);
   await other.update('theme', 'light'); const before = storage.getItem(DATA_KEY); let transformed = false;
-  await assert.rejects(stale.mutate(current => { transformed = true; return changePartidaGroup(current, insurancePartida(current), 'L'); }), StorageConflictError);
+  await assert.rejects(stale.mutate(current => { transformed = true; return changePartidaGroup(current, insurancePartida(current), 'V_EXP'); }), StorageConflictError);
   assert.equal(transformed, false); assert.equal(storage.getItem(DATA_KEY), before);
 });
