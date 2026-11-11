@@ -22,6 +22,11 @@ button:disabled { cursor: not-allowed; }
 :is(.finance-app,[data-overlay-level]) :is([class~="text-amber-300"],[class~="text-amber-400"],[class~="text-orange-400"]) { color: var(--warning); }
 :is(.finance-app,[data-overlay-level]) :is([class~="bg-[#141926]"],[class~="bg-[#161c2b]"],[class~="bg-white"]) { background: var(--surface); box-shadow: var(--shadow-card); }
 :is(.finance-app,[data-overlay-level]) :is([class~="bg-[#0c0f17]"],[class~="bg-[#0c0f17]/90"],[class~="bg-[#0c0f17]/95"]) { background: var(--canvas); }
+/* Partida interiors: a light neutral fill, with the same gentle hierarchy in dark mode. */
+.finance-app .catalog-view [class~="bg-[#0c0f17]/40"] {
+  background: var(--surface);
+  background: color-mix(in srgb, var(--surface) 96%, var(--ink));
+}
 :is(.finance-app,[data-overlay-level]) :is([class~="bg-white/[0.02]"],[class~="bg-white/[0.03]"],[class~="bg-white/[0.04]"],[class~="bg-white/[0.05]"],[class~="bg-white/[0.06]"],[class~="bg-white/[0.08]"],[class~="bg-white/10"],[class~="bg-white/20"],[class~="bg-slate-800"]) { background: var(--surface-muted); }
 :is(.finance-app,[data-overlay-level]) :is([class~="bg-[#181f30]"],[class~="bg-[#1f293d]"]) { background: var(--surface-muted); }
 :is(.finance-app,[data-overlay-level]) [class~="bg-[#1a141b]"] { background: var(--danger-soft); }
