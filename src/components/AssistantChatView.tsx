@@ -280,7 +280,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         <p>Las consultas numéricas se calculan localmente. Otras consultas usan el asistente existente con métricas agregadas, sin contactos ni respaldos completos. Las consultas utilizan datos guardados. Revisa cualquier propuesta antes de confirmar un movimiento.</p>
       </aside>
       <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
-      {proposal && <MovementProposalModal proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
+      {proposal && <MovementProposalModal subitems={financeData.budgetSubitems?.items} proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
       {/* Messages */}
       <div className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (

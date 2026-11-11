@@ -19,7 +19,7 @@ import {
   CheckCircle,
   Clock
 } from 'lucide-react';
-import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet } from '../types/finance';
+import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetSubitem } from '../types/finance';
 import { formatCurrency, calculateLoanStatus } from '../utils/finance';
 import { QuickNaturalLanguageInput } from './QuickNaturalLanguageInput';
 
@@ -30,6 +30,7 @@ interface DashboardViewProps {
   transactions: Transaction[];
   loans: Loan[];
   wallets: Wallet[];
+  subitems?:BudgetSubitem[];
   defaultWalletId?: string | null;
   walletBalances: Record<string, number>;
   onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
@@ -45,7 +46,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   transactions,
   loans,
   wallets,
-  defaultWalletId,
+  defaultWalletId,subitems,
   walletBalances,
   onAddTransaction,
   onToggleProcessed,
@@ -149,7 +150,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* 3. Revolut Quick Search / NLP Input */}
-      <div className="home-quick"><QuickNaturalLanguageInput wallets={wallets} defaultWalletId={defaultWalletId} onAddTransaction={onAddTransaction} /></div>
+      <div className="home-quick"><QuickNaturalLanguageInput subitems={subitems} wallets={wallets} defaultWalletId={defaultWalletId} onAddTransaction={onAddTransaction} /></div>
 
       {/* 4. Revolut Compact Widget Cards (Horizontal / Grid) */}
       <div className="home-kpis grid grid-cols-1 sm:grid-cols-3 gap-3">

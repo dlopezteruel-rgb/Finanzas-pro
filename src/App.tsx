@@ -1,3 +1,4 @@
+import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
 /**
  * @license
  * SPDX-License-Identifier: Apache-2.0
@@ -191,6 +192,7 @@ export default function App() {
   const [isTxModalOpen, setIsTxModalOpen] = useState(false);
   const [transactionToEdit, setTransactionToEdit] = useState<Transaction | null>(null);
   const [initialPartidaCodeForModal, setInitialPartidaCodeForModal] = useState<string | undefined>(undefined);
+  const [initialSubitemIdForModal,setInitialSubitemIdForModal]=useState<string|undefined>();
   const [initialContactIdForModal, setInitialContactIdForModal] = useState<string | undefined>(undefined);
 
   // Partida Detail Modal state
@@ -310,13 +312,15 @@ export default function App() {
     if (raw && isStructuredShared(raw)) tx = { ...raw, wallet: sharedWalletName(raw, { wallets }) };
     if (tx.transfer) { setTransferToEdit(tx); setDeleteTransferInitially(false); return; }
     if (isLegacyTransfer(tx)) { setDataError('Este traspaso histórico requiere revisión y vinculación antes de editar sus extremos.'); return; }
+    setInitialSubitemIdForModal(undefined);
     setTransactionToEdit(tx);
     setInitialPartidaCodeForModal(tx.code);
     setInitialContactIdForModal(undefined);
     setIsTxModalOpen(true);
   };
 
-  const handleOpenNewTransaction = (partidaCode?: string, movementType: MovementType = 'GASTO') => {
+  const handleOpenNewTransaction = (partidaCode?: string, movementType: MovementType = 'GASTO', subitemId?:string) => {
+    setInitialSubitemIdForModal(subitemId);
     setInitialMovementType(movementType);
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(partidaCode);
@@ -325,6 +329,7 @@ export default function App() {
   };
 
   const handleOpenNewSharedTransaction = (preselectedContactId?: string) => {
+    setInitialSubitemIdForModal(undefined);
     setInitialMovementType('GASTO');
     setTransactionToEdit(null);
     setInitialPartidaCodeForModal(undefined);
@@ -334,6 +339,7 @@ export default function App() {
 
   // 4. Budget Plans & Partidas Actions
   const handleUpdateBudgetPlan = (code: string, type: MovementType, newAmount: number) => {
+    if(monthlySubitems(data,currentMonthYear,{code,type}))return Promise.resolve({ok:false,error:'Esta base se calcula desde sus subítems. Edita el desglose en Planificación.'} as SaveResult);
     try { planCents(newAmount); } catch (error) { return Promise.resolve({ ok: false, error: (error as Error).message } as SaveResult); }
     return setBudgetPlans(prev => {
       const filtered = prev.filter(
@@ -372,8 +378,8 @@ export default function App() {
     guardPlanning(() => { setSelectedPartidaForDetail(partida); setIsPartidaDetailOpen(true); });
   };
 
-  const handleAddMovementToPartida = (partidaCode: string, type: MovementType) => {
-    handleOpenNewTransaction(partidaCode, type);
+  const handleAddMovementToPartida = (partidaCode: string, type: MovementType, subitemId?:string) => {
+    handleOpenNewTransaction(partidaCode, type, subitemId);
   };
 
   // 5. Contacts & Shared Expenses Handlers
@@ -602,6 +608,7 @@ export default function App() {
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
           <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
+            subitems={data.budgetSubitems?.items}
             defaultWalletId={data.defaultWalletId}
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
             summary={summary}
@@ -637,7 +644,7 @@ export default function App() {
 
         {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty} onRegisterNavigationSave={registerPlanningSave}
-            onSave={(edits, savings, scope, approve, deficit) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit))}
+            onSave={(edits, savings, scope, approve, deficit, subitems) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit, subitems))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
         } catalog={
           <BudgetsView
@@ -751,6 +758,8 @@ export default function App() {
         defaultWalletId={data.defaultWalletId}
         defaultDate={`${currentMonthYear}-15`}
         transactionToEdit={transactionToEdit}
+        subitems={data.budgetSubitems?.items}
+        initialSubitemId={initialSubitemIdForModal}
         initialPartidaCode={initialPartidaCodeForModal}
         initialContactId={initialContactIdForModal}
         availablePartidas={allPartidas}
@@ -766,6 +775,8 @@ export default function App() {
           setIsPartidaDetailOpen(false);
           setSelectedPartidaForDetail(null);
         }}
+        data={data}
+        onEditSubitem={(edit:SubitemEdit)=>mutate(current=>editSubitem(current,edit))}
         partida={selectedPartidaForDetail}
         budgetRow={selectedBudgetRow}
         transactions={transactions}

@@ -1,3 +1,4 @@
+import { assertSubitemTransition } from './budgetSubitems';
 import { validateDistribution } from './sharedDistribution';
 import type { FinanceData } from './backup';
 import type { SharedExpenseInfo, Transaction, SettlementInput, DebtSettlement, Contact } from '../types/finance';
@@ -129,7 +130,9 @@ export function saveSharedTransaction(data: FinanceData, draft: Omit<Transaction
     }
     tx = { ...tx, splitInfo: { ...(sameSplit ? previous.splitInfo! : draft.splitInfo), accountingVersion: '2.7', walletId: wallet.id, settlements: previous?.splitInfo?.settlements ?? [] } };
   }
-  return { ...data, transactions: previous ? data.transactions.map(t => t.id === id ? tx : t) : [tx, ...data.transactions] };
+  const candidate={ ...data, transactions: previous ? data.transactions.map(t => t.id === id ? tx : t) : [tx, ...data.transactions] };
+  assertSubitemTransition(data,candidate);
+  return candidate;
 }
 export function adjustDebt(data: FinanceData, expenseId: string, contactId: string, amount: number): FinanceData {
   cents(amount);

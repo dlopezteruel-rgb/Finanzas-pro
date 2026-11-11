@@ -1,5 +1,6 @@
+import { SubitemSelector } from './SubitemSelector';
 import React, { useEffect, useMemo, useState } from 'react';
-import type { BudgetGroup, BudgetPartida, Contact, MovementType, SharedDistribution, SharedExpenseInfo, Transaction, Wallet } from '../types/finance';
+import type { BudgetGroup, BudgetSubitem, BudgetPartida, Contact, MovementType, SharedDistribution, SharedExpenseInfo, Transaction, Wallet } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import { ALL_PARTIDAS } from '../constants/categories';
@@ -19,12 +20,14 @@ interface TransactionModalProps {
   wallets: Wallet[]; contacts?: Contact[]; onQuickCreateContact?: (contact: Contact) => Promise<SaveResult>;
   defaultDate?: string; transactionToEdit?: Transaction | null;
   defaultWalletId?: string | null;
+  subitems?: BudgetSubitem[]; initialSubitemId?: string;
   initialPartidaCode?: string; initialContactId?: string; initialMovementType?: MovementType;
   availablePartidas?: BudgetPartida[]; budgetGroups?: BudgetGroup[]; transactions?: Transaction[];
 }
 export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, onSave, wallets, contacts = [], onQuickCreateContact,
-  defaultDate, defaultWalletId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = ALL_PARTIDAS, budgetGroups, transactions = [] }) => {
+  defaultDate, defaultWalletId, subitems=[], initialSubitemId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = ALL_PARTIDAS, budgetGroups, transactions = [] }) => {
   const submission = useAsyncForm();
+  const [subitemId,setSubitemId]=useState('');
   const [type, setType] = useState<MovementType>('GASTO'), [code, setCode] = useState('V.001.002'), [amount, setAmount] = useState(0);
   const [description, setDescription] = useState(''), [wallet, setWallet] = useState(''), [date, setDate] = useState(''), [processed, setProcessed] = useState(true), [notes, setNotes] = useState('');
   const [isShared, setIsShared] = useState(false), [selectedContactIds, setSelectedContactIds] = useState<string[]>([]);
@@ -43,6 +46,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
     const tx = transactionToEdit, split = tx?.splitInfo, distribution = split?.distribution;
     const nextType = tx?.type ?? initialMovementType;
     setType(nextType); setCode(tx?.code ?? initialPartidaCode ?? (availablePartidas.find(p => p.type === nextType && p.code === 'V.001.002') ?? availablePartidas.find(p => p.type === nextType))?.code ?? '');
+    setSubitemId(tx?.subitemId ?? initialSubitemId ?? '');
     setAmount(tx?.amount ?? 0); setDescription(tx?.description ?? ''); setWallet(initialWalletName(wallets, defaultWalletId, tx?.wallet));
     setDate(tx?.date ?? defaultDate ?? new Date().toISOString().slice(0, 10)); setProcessed(tx?.processed ?? true); setNotes(tx?.notes ?? '');
     setIsShared(split?.isShared ?? !!initialContactId); setSelectedContactIds(split?.participants.map(p => p.contactId) ?? (initialContactId ? [initialContactId] : []));
@@ -52,7 +56,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
     setWeights(distribution?.method === 'weighted' ? Object.fromEntries(distribution.contactWeights.map(w => [w.contactId, String(w.weight)])) : {});
     setOwnAmount(String(split?.myShare ?? 0)); setAmounts(Object.fromEntries(split?.participants.map(p => [p.contactId, String(p.amount)]) ?? []));
     setTouched(false); setContactQuery(''); setShowQuickContactInput(false); setNewContactName('');
-  }, [isOpen, transactionToEdit?.id, initialPartidaCode, initialContactId, initialMovementType, defaultDate]);
+  }, [isOpen, transactionToEdit?.id, initialPartidaCode, initialContactId, initialMovementType, initialSubitemId, defaultDate]);
 
   const selected = selectedContactIds.map(id => contacts.find(c => c.id === id));
   let shares: number[] = [], splitError = '';
@@ -98,7 +102,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
         participants: selected.map((c, i) => ({ contactId: c!.id, contactName: c!.name, amount: shares[i + 1] / 100, isPaid: false })),
       };
     }
-    void submission.submit(() => onSave({ type, code, amount, categoryName: unchangedCategory ? transactionToEdit!.categoryName : matched!.groupName,
+    void submission.submit(() => onSave({ type, code, subitemId:subitemId || undefined, amount, categoryName: unchangedCategory ? transactionToEdit!.categoryName : matched!.groupName,
       subcategoryName: unchangedCategory ? transactionToEdit!.subcategoryName : matched!.name, description: description.trim() || matched?.name || transactionToEdit!.description,
       wallet, date, processed, notes, splitInfo }, transactionToEdit?.id), onClose);
   };
@@ -110,9 +114,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
       <form onSubmit={submit} aria-busy={submission.saving}><fieldset disabled={submission.saving} className="min-w-0 space-y-3">
         {(submission.error || splitError) && <p role="alert" className="text-amber-300">{submission.error || splitError}</p>}
         {submission.saving && <p role="status">Guardando…</p>}
-        <div className="grid grid-cols-2 gap-2">{(['GASTO', 'INGRESO'] as const).map(t => <button type="button" key={t} aria-pressed={type === t} className={`rounded-xl p-2 font-bold ${type === t ? 'bg-sky-500/20 text-sky-300' : 'bg-white/5'}`} onClick={() => { if (type !== t) { setType(t); setCode(availablePartidas.find(p => p.type === t)?.code ?? ''); } clear(); }}>{t === 'GASTO' ? 'Gasto' : 'Ingreso'}</button>)}</div>
+        <div className="grid grid-cols-2 gap-2">{(['GASTO', 'INGRESO'] as const).map(t => <button type="button" key={t} aria-pressed={type === t} className={`rounded-xl p-2 font-bold ${type === t ? 'bg-sky-500/20 text-sky-300' : 'bg-white/5'}`} onClick={() => { if (type !== t) { setType(t); setSubitemId(''); setCode(availablePartidas.find(p => p.type === t)?.code ?? ''); } clear(); }}>{t === 'GASTO' ? 'Gasto' : 'Ingreso'}</button>)}</div>
         <label className="block">Importe Total (€)<input aria-label="Importe Total (€)" type="number" step="0.01" min="0.01" required value={amount || ''} placeholder="0,00" onChange={e => { setAmount(parseFloat(e.target.value) || 0); clear(); }} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-3 text-base font-bold" /></label>
-        <div><p className="mb-1 text-slate-400">Partida presupuestaria</p><PartidaSelector groups={groups} transactions={transactions} type={type} value={code} onChange={setCode} /></div>
+        <div><p className="mb-1 text-slate-400">Partida presupuestaria</p><PartidaSelector groups={groups} transactions={transactions} type={type} value={code} onChange={next=>{if(next!==code)setSubitemId('');setCode(next);}} /></div>
+        <SubitemSelector items={subitems} type={type} code={code} value={subitemId} onChange={setSubitemId}/>
         <label className="block">Concepto<input aria-label="Concepto" value={description} onChange={e => setDescription(e.target.value)} placeholder="ej. Cena restaurante, Compra Zara, Supermercado..." className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2.5" /></label>
         <label className="flex gap-2"><input type="checkbox" checked={isShared} onChange={e => { setIsShared(e.target.checked); clear(); }} />Gasto compartido</label>
         {isShared && <section className="space-y-3 rounded-xl border border-sky-500/20 p-3" aria-label="Reparto del gasto">

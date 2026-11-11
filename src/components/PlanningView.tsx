@@ -1,8 +1,10 @@
+import { PlanningSubitems } from './PlanningSubitems';
+import { subitemContent, subitemSum } from '../utils/budgetSubitems';
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import type { FinanceData } from '../utils/backup';
-import type { BudgetPartida, MonthlyBudgetRow, PlanningLine, PlanningTotals } from '../types/finance';
+import type { BudgetPartida, MonthlyBudgetRow, PlanningLine, PlanningTotals, MonthlySubitemPlan } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
-import { annualPlanning, planningKey, planningLines, planningScope, planningStatus, safeCents, planningMoneyInput, formatPlanningCents } from '../utils/planning';
+import { annualPlanning, planningKey, planningLines, planningScope, planningStatus, safeCents, parsePlanningMoney, planningMoneyInput, formatPlanningCents } from '../utils/planning';
 import { calculateMonthlySummary, formatCurrency } from '../utils/finance';
 import { PlanningAutomationPanel } from './PlanningAutomationPanel';
 import type { AutomationPreview } from '../utils/planningAutomation';
@@ -24,7 +26,7 @@ interface Props {
   data: FinanceData;
   month: string;
   onMonth: (month: string) => void;
-  onSave: (edits: PlanningLine[], savings: number, scope: string, approve: boolean, deficit: boolean) => Promise<SaveResult>;
+  onSave: (edits: PlanningLine[], savings: number, scope: string, approve: boolean, deficit: boolean, subitems?: MonthlySubitemPlan[]) => Promise<SaveResult>;
   onDirty: (dirty: boolean, saving: boolean) => void;
   onRegisterNavigationSave?: (save: (()=>Promise<boolean>) | null) => void;
   onAutomation: (preview: AutomationPreview) => Promise<SaveResult>;
@@ -39,9 +41,11 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const partidas = [...catalog, ...missing];
   const initialFields = Object.fromEntries(partidas.map(p => [planningKey(p), String(data.budgetPlans.find(b => b.monthYear === month && planningKey(b) === planningKey(p))?.plannedAmount ?? 0)]));
   const initialSavings = planningMoneyInput(data.planningMonths?.find(m => m.monthYear === month)?.savingsCents ?? 0);
+  const initialBreakdowns:Record<string,Record<string,string>>=Object.fromEntries(subitemContent(data,month).map(m=>[planningKey(m),Object.fromEntries(m.lines.map(l=>[l.subitemId,planningMoneyInput(l.amountCents)]))]));
+  const [breakdowns,setBreakdowns]=useState(initialBreakdowns);
   const [fields, setFields] = useState(initialFields);
   const [savings, setSavings] = useState(initialSavings);
-  const [base, setBase] = useState(() => ({ fields: initialFields, savings: initialSavings, scope: planningScope(data, month) }));
+  const [base, setBase] = useState(() => ({ fields: initialFields, breakdowns:initialBreakdowns, savings: initialSavings, scope: planningScope(data, month) }));
   const [review, setReview] = useState(false);
   const [acceptDeficit, setAcceptDeficit] = useState(false);
   const [notice, setNotice] = useState('');
@@ -52,7 +56,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const submission = useAsyncForm();
   const [automationBusy,setAutomationBusy]=useState(false);
   const [carryReview,setCarryReview]=useState<{id:string}|null>(null);
-  const dirty = savings !== base.savings || JSON.stringify(fields) !== JSON.stringify(base.fields);
+  const dirty = savings !== base.savings || JSON.stringify(fields) !== JSON.stringify(base.fields) || JSON.stringify(breakdowns)!==JSON.stringify(base.breakdowns);
   useLayoutEffect(() => { onDirty(dirty, submission.saving || automationBusy); }, [dirty, submission.saving, automationBusy, onDirty]);
   useEffect(() => {
     const prevent = (event: BeforeUnloadEvent) => { if (dirty || submission.saving || automationBusy) { event.preventDefault(); event.returnValue = ''; } };
@@ -63,11 +67,21 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const scope = planningScope(data, month);
   useEffect(() => {
     if (!dirty && scope !== base.scope) {
-      setFields(initialFields); setSavings(initialSavings); setBase({ fields: initialFields, savings: initialSavings, scope });
+      setBreakdowns(initialBreakdowns); setFields(initialFields); setSavings(initialSavings); setBase({ fields: initialFields, breakdowns:initialBreakdowns, savings: initialSavings, scope });
     }
   }, [scope]);
   const adjustments=carryLines(data,month);
-  const preview=planningDraftPreview(partidas.map(p=>({type:p.type,code:p.code,input:fields[planningKey(p)] ?? '0'})),savings,adjustments);
+  const breakdownDrafts:MonthlySubitemPlan[]=[],calculated:Record<string,string>={};
+  for(const [key,values] of Object.entries(breakdowns)) {
+    const parent=partidas.find(p=>planningKey(p)===key);
+    if(!parent)continue;
+    try {
+      const lines=Object.entries(values).map(([subitemId,input])=>({subitemId,amountCents:parsePlanningMoney(input)}));
+      calculated[key]=planningMoneyInput(subitemSum(lines));
+      breakdownDrafts.push({monthYear:month,type:parent.type,code:parent.code,lines});
+    }catch{calculated[key]='Importes de subítems pendientes de corregir';}
+  }
+  const preview=planningDraftPreview(partidas.map(p=>({type:p.type,code:p.code,input:calculated[planningKey(p)] ?? fields[planningKey(p)] ?? '0'})),savings,adjustments);
   const {edits,errors,totals,savingsError,totalError}=preview;
   const valid = !!totals && !Object.keys(errors).length && !savingsError;
   const deficit = !!totals && (totals.margin < 0 || totals.savings > totals.income);
@@ -84,18 +98,18 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const commit = (approve: boolean) => {
     if (!valid || !totals) return;
     const savedFields = { ...fields }, savedSavings = savings;
-    void submission.submit(() => onSave(edits, totals.savings, base.scope, approve, acceptDeficit), () => {
+    void submission.submit(() => onSave(edits, totals.savings, base.scope, approve, acceptDeficit,breakdownDrafts), () => {
       // Canonical persisted fields may differ (e.g. Spanish input); rebuild next render.
-      setBase({ fields: savedFields, savings: savedSavings, scope: base.scope });
+      setBase({ fields: savedFields, breakdowns, savings: savedSavings, scope: base.scope });
       setReview(false); setNotice(approve ? 'Previsión aprobada.' : 'Borrador guardado.');
     });
   };
-  const discard = () => { setFields(initialFields); setSavings(initialSavings); setBase({ fields: initialFields, savings: initialSavings, scope }); submission.clearError(); setNotice('Borrador local descartado.'); };
+  const discard = () => { setBreakdowns(initialBreakdowns); setFields(initialFields); setSavings(initialSavings); setBase({ fields: initialFields, breakdowns:initialBreakdowns, savings: initialSavings, scope }); submission.clearError(); setNotice('Borrador local descartado.'); };
   useLayoutEffect(()=>{
     onRegisterNavigationSave?.(async()=>{
       if(!valid||!totals||submission.saving||automationBusy){setNotice('Corrige los importes antes de guardar y continuar.');return false;}
       let saved=false;
-      await submission.submit(()=>onSave(edits,totals.savings,base.scope,false,false),()=>{saved=true;setBase({fields:{...fields},savings,scope:base.scope});setNotice('Borrador guardado.');});
+      await submission.submit(()=>onSave(edits,totals.savings,base.scope,false,false,breakdownDrafts),()=>{saved=true;setBase({fields:{...fields},breakdowns,savings,scope:base.scope});setNotice('Borrador guardado.');});
       return saved;
     });
     return ()=>onRegisterNavigationSave?.(null);
@@ -159,10 +173,11 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
               const cents = errors[key]?undefined:combineLines(edits,carryLines(data,month)).find(l => planningKey(l) === key)?.amountCents ?? 0;
               return <div className="planning-row" key={key}>
                 <label htmlFor={`plan-${key}`}>{p.name}<span className="planning-base-label">Presupuesto base (€)</span></label>
-                <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" value={fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
+                <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" readOnly={breakdowns[key]!==undefined} value={calculated[key] ?? fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
                   {errors[key] && <p id={`error-${key}`} role="alert">{errors[key]}</p>}</div>
                 <span>Ejecutado: {formatCurrency(row.ejecutado)}</span><span>Diferencia: {cents === undefined ? '—' : money(cents - Math.round(row.ejecutado * 100))}</span>
                 <button onClick={() => onDetail(p, row)} type="button" aria-label={`Detalle ${p.name}`}>Detalle</button>
+                <PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>
                 {carries.length>0&&<div className="planning-carry" role="group" aria-label={`Arrastre de ${p.name}`}>
                   {carries.map(c=><div key={c.id}><p><strong>+{money(c.amountCents)}</strong> arrastrados de {new Intl.DateTimeFormat('es-ES',{month:'long',year:'numeric',timeZone:'Europe/Madrid'}).format(new Date(`${c.fromMonth}-15T12:00:00Z`))} <span>({c.fromMonth})</span></p>
                     {carryIsStale(data,c)&&<p role="status" className="planning-warning">Arrastre potencialmente desactualizado. Revisa el origen; el ajuste no se ha recalculado.</p>}
@@ -188,12 +203,13 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
         </tbody><tfoot><tr><th>Total planificado</th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(yearRows.filter(r => r.status !== 'Sin plan').reduce((sum,r) => sum+r.totals[k],0))}</td>)}<td colSpan={5}>Parcial si cobertura &lt; 12</td></tr></tfoot></table></> : <p role="alert">Hay importes históricos con más de dos decimales o totales fuera del rango seguro. Revísalos antes de calcular el resumen anual.</p>}
     </div>}
     {currentMeta?.approval && <details className="planning-card"><summary>Comparar con la última aprobación</summary><Totals totals={currentMeta.approval.totals} /><p>Fotografía n.º {currentMeta.approval.number}, revisión {currentMeta.approval.revision}. Los importes siguientes son inmutables.</p>
+      {currentMeta.approval.subitemBreakdowns===undefined?<p>Esta aprobación no contiene un desglose histórico de subítems. No se reconstruye con el catálogo actual.</p>:currentMeta.approval.subitemBreakdowns.map(b=><div key={planningKey(b)}><h3>Desglose aprobado · {b.type} {b.code}</h3>{b.lines.map(l=><p key={l.subitemId}>{l.name}: {money(l.amountCents)}</p>)}</div>)}
       <table><thead><tr><th>Partida</th><th>Aprobado</th><th>Previsto actual guardado</th></tr></thead><tbody>{[...new Map([...currentMeta.approval.lines, ...combineLines(planningLines(data.budgetPlans,month),carryLines(data,month))].map(l => [planningKey(l),l])).values()].map(l => <tr key={planningKey(l)}><th>{l.type} · {names.get(planningKey(l)) ?? l.code}</th><td>{money(currentMeta.approval!.lines.find(a => planningKey(a)===planningKey(l))?.amountCents ?? 0)}</td><td>{money(combineLines(planningLines(data.budgetPlans,month),carryLines(data,month)).find(p=>planningKey(p)===planningKey(l))?.amountCents ?? 0)}</td></tr>)}</tbody></table>
     </details>}
     {review && totals && <SafeDialog title="Revisar y aprobar previsión" onCancel={() => { if (!submission.saving) setReview(false); }}><div className="planning space-y-3">
       <p>Periodo {month}. Se guardarán todos los importes, el objetivo y la fotografía aprobada en una sola operación.</p><Totals totals={totals} />
       {deficit && <><p role="alert">Existe déficit: el margen es negativo o el ahorro supera los ingresos.</p><label><input type="checkbox" checked={acceptDeficit} disabled={submission.saving} onChange={e => setAcceptDeficit(e.target.checked)} /> Acepto aprobar conscientemente esta previsión con déficit</label></>}
-      <details><summary>Desglose de la aprobación</summary><p>Previsión efectiva: incluye base y ajustes de arrastre guardados.</p>{combineLines(edits,carryLines(data,month)).map(l => <p key={planningKey(l)}>{l.type} · {names.get(planningKey(l))}: {money(l.amountCents)}</p>)}</details>
+      <details><summary>Desglose de la aprobación</summary><p>Previsión efectiva: incluye base y ajustes de arrastre guardados.</p>{combineLines(edits,carryLines(data,month)).map(l => <p key={planningKey(l)}>{l.type} · {names.get(planningKey(l))}: {money(l.amountCents)}</p>)}{breakdownDrafts.map(b=><div key={planningKey(b)}>{b.lines.map(l=><p key={l.subitemId}>{data.budgetSubitems?.items.find(i=>i.id===l.subitemId)?.name}: {money(l.amountCents)}</p>)}</div>)}</details>
       {submission.error && <p role="alert">{submission.error}</p>}
       <div className="flex gap-2"><button disabled={submission.saving} onClick={() => setReview(false)}>Cancelar</button><button disabled={submission.saving || (deficit && !acceptDeficit)} onClick={() => commit(true)}>{submission.saving ? 'Guardando…' : 'Confirmar aprobación'}</button></div>
     </div></SafeDialog>}

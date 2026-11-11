@@ -1,3 +1,4 @@
+import { monthlySubitems, subitemsFor, sameSubitemParent } from './budgetSubitems';
 import type { FinanceData } from './backup';
 import type { PlanningCarryover, PlanningOrigin, PlanningRule, PlanningTarget } from '../types/finance';
 import { planningLines, planningKey } from './planning';
@@ -14,10 +15,10 @@ export type AutomationRequest =
   | { kind:'rule';rule:PlanningRule } | { kind:'deleteRule';id:string }
   | { kind:'carry';source:string;amounts:{code:string;amountCents:number}[] }
   | { kind:'removeCarry'|'reviewCarry';id:string };
-export interface AutomationRow { id:string;month:string;target:PlanningTarget;code?:string;before:number|null;after:number|null;status:'apply'|'skip'|'blocked';reason:string;origin?:{kind:'copy'|'rule';sourceMonth?:string;ruleName?:string}; }
+export interface AutomationRow { id:string;month:string;target:PlanningTarget;code?:string;before:number|null;after:number|null;status:'apply'|'skip'|'blocked';reason:string;subitems?:{subitemId:string;name:string;before:number|null;after:number|null}[];origin?:{kind:'copy'|'rule';sourceMonth?:string;ruleName?:string}; }
 export interface AutomationPreview { request:AutomationRequest;scope:string;id:string;createdAt:string;asOf:string;rows:AutomationRow[]; }
 export function automationScope(data:FinanceData) {
-  return JSON.stringify({plans:data.budgetPlans,months:data.planningMonths,automation:data.planningAutomation,transactions:data.transactions,groups:data.budgetGroups});
+  return JSON.stringify({subitems:data.budgetSubitems,plans:data.budgetPlans,months:data.planningMonths,automation:data.planningAutomation,transactions:data.transactions,groups:data.budgetGroups});
 }
 const targetKey=(t:{target:PlanningTarget;code?:string})=>`${t.target}:${t.code ?? ''}`;
 const oldAmount=(data:FinanceData,month:string,target:PlanningTarget,code?:string):number|null=>target==='SAVINGS' ? data.planningMonths?.find(m=>m.monthYear===month)?.savingsCents ?? null : (()=>{const p=data.budgetPlans.find(p=>p.monthYear===month&&p.type===target&&p.code===code);return p?planCents(p.plannedAmount):null})();
@@ -26,6 +27,7 @@ export const hasMonthPlan=(data:FinanceData,month:string)=>data.budgetPlans.some
 export { carryObservation, carryIsStale } from './planningCarry';
 import { carryObservation } from './planningCarry';
 function carryBlock(data:FinanceData,source:string,code:string,asOf:string) {
+  if(data.budgetSubitems?.months.some(m=>(m.monthYear===source||m.monthYear===nextMonth(source))&&m.type==='GASTO'&&m.code===code))return 'Arrastre global bloqueado: esta partida tiene un desglose mensual. Distribuye su previsión manualmente.';
   if(source>=asOf)return 'El origen debe ser un mes transcurrido y cerrado temporalmente.';
   if(data.planningAutomation?.carryovers.some(c=>c.fromMonth===nextMonth(source)&&c.code===code))return 'El destino ya origina otro arrastre: no se permiten cascadas.';
   if(data.planningAutomation?.carryovers.some(c=>c.toMonth===source&&c.code===code))return 'El origen ya recibió arrastre: no se permiten cascadas.';
@@ -40,11 +42,21 @@ export function previewAutomation(data:FinanceData,request:AutomationRequest,now
     safeCents(after);if(planCents(after/100)!==after)throw new Error('Importe fuera del rango exacto.');
     const before=oldAmount(data,month,target,code),touched=before!==null||!!data.planningAutomation?.origins.some(o=>o.monthYear===month&&o.target===target&&o.code===code);
     let status:AutomationRow['status']='apply',why=reason;
-    if(protectedMonth(data,month)){status='blocked';why='Mes aprobado o previamente aprobado: edición masiva bloqueada.';}
+    const p=target==='SAVINGS'?null:{type:target,code:code!};
+    const dest=p&&monthlySubitems(data,month,p),src=p&&request.kind==='copy'&&monthlySubitems(data,request.source,p);
+    const distribution=(m:typeof dest)=>JSON.stringify(m?m.lines.slice().sort((a,b)=>a.subitemId.localeCompare(b.subitemId)):null);
+    const sameDistribution=distribution(src || null)===distribution(dest);
+    const archivedCopy=src&&src.lines.some(l=>data.budgetSubitems?.items.find(i=>i.id===l.subitemId)?.archived&&!dest?.lines.some(d=>d.subitemId===l.subitemId));
+    if(dest&&!src){status='blocked';why='Desglose mensual activo: un importe global no puede sustituir su distribución. Edita los subítems manualmente.';}
+    else if(archivedCopy){status='blocked';why='La copia contiene subítems archivados: revisa manualmente la distribución del destino.';}
+    else if(protectedMonth(data,month)){status='blocked';why='Mes aprobado o previamente aprobado: edición masiva bloqueada.';}
     else if(month<asOf){status='blocked';why='Solo se generan copias/recurrencias en el mes actual o futuro.';}
     else if((wholeMonth?hasMonthPlan(data,month):touched)&&!permit){status='skip';why='Conflicto existente: omitido por defecto; requiere elección individual.';}
-    else if(before===after){status='skip';why='Ya coincide; no se duplica ni se vuelve a guardar.';}
-    rows.push({id:rowId,month,target,...(code?{code}:{}),before,after,status,reason:why,...(origin?{origin}:{})});
+    else if(before===after&&sameDistribution){status='skip';why='Ya coincide; no se duplica ni se vuelve a guardar.';}
+    if(status==='apply'&&p&&subitemsFor(data,p).length&&!src&&!dest)why+=' Pendiente de desglose: se conserva el total sin inventar asignaciones.';
+    if(status==='apply'&&src)why+=' Incluye la distribución mensual por ID, sin arrastres.';
+    const subitems=src?[...new Set([...src.lines,...(dest?.lines ?? [])].map(l=>l.subitemId))].sort().map(subitemId=>({subitemId,name:data.budgetSubitems!.items.find(i=>i.id===subitemId)!.name,before:dest?.lines.find(l=>l.subitemId===subitemId)?.amountCents ?? null,after:src.lines.find(l=>l.subitemId===subitemId)?.amountCents ?? null})):undefined;
+    rows.push({id:rowId,month,target,...(code?{code}:{}),before,after,status,reason:why,...(subitems?{subitems}:{}),...(origin?{origin}:{})});
   };
   if(request.kind==='copy') {
     assertMonth(request.source);const destinations=planningRange(request.first,request.last);
@@ -115,7 +127,13 @@ export function applyAutomationPreview(data:FinanceData,preview:AutomationPrevie
       next.planningAutomation!.carryovers.push({id:`${preview.id}:${row.code}`,fromMonth:request.source,toMonth:row.month,type:'GASTO',code:row.code!,amountCents:item.amountCents,sourceBaseCents:o.baseCents,sourceExecutedCents:o.executedCents,sourceSignature:o.sourceSignature,createdAt:preview.createdAt});
     } else {
       if(row.target==='SAVINGS')next.planningMonths=next.planningMonths!.map(m=>m.monthYear===row.month?{...m,savingsCents:row.after!}:m);
-      else next.budgetPlans=[...next.budgetPlans.filter(p=>!(p.monthYear===row.month&&p.type===row.target&&p.code===row.code)),{monthYear:row.month,type:row.target,code:row.code!,plannedAmount:row.after!/100}];
+      else {
+        if(request.kind==='copy'&&next.budgetSubitems){
+          const source=monthlySubitems(data,request.source,{type:row.target,code:row.code!});
+          if(source)next.budgetSubitems={...next.budgetSubitems,months:[...next.budgetSubitems.months.filter(m=>!(m.monthYear===row.month&&sameSubitemParent(m,source))),{...source,monthYear:row.month,lines:source.lines.map(l=>({...l}))}]};
+        }
+        next.budgetPlans=[...next.budgetPlans.filter(p=>!(p.monthYear===row.month&&p.type===row.target&&p.code===row.code)),{monthYear:row.month,type:row.target,code:row.code!,plannedAmount:row.after!/100}];
+      }
       const origin:PlanningOrigin={monthYear:row.month,target:row.target,...(row.code?{code:row.code}:{}),...row.origin!,appliedAt:preview.createdAt};
       next.planningAutomation!.origins=[...next.planningAutomation!.origins.filter(o=>!(o.monthYear===row.month&&targetKey(o)===targetKey(row))),origin];
     }

@@ -1,5 +1,6 @@
+import { subitemContent, replaceMonthlySubitems, subitemPhotos, validateSubitems } from './budgetSubitems';
 import type { FinanceData } from './backup';
-import type { BudgetPlan, PlanningLine, PlanningMonth, PlanningTotals } from '../types/finance';
+import type { BudgetPlan, PlanningLine, PlanningMonth, PlanningTotals, MonthlySubitemPlan } from '../types/finance';
 
 import { assertMonth, safeCents, planCents } from './planningMoney';
 export * from './planningMoney';
@@ -18,7 +19,7 @@ export function planningTotals(lines: PlanningLine[], savings: number): Planning
   return { income, expenses, savings, available, margin: safeCents(available - expenses, false), balance: safeCents(income - expenses, false) };
 }
 export function planningScope(data: FinanceData, month: string): string {
-  return JSON.stringify({ plans: data.budgetPlans.filter(p => p.monthYear === month).slice().sort((a,b) => planningKey(a).localeCompare(planningKey(b))), meta: data.planningMonths?.find(m => m.monthYear === month), ...(carryLines(data,month).length ? { carryovers: planningContent(data,month).carryovers } : {}) });
+  return JSON.stringify({ ...(data.budgetSubitems?{subitems:subitemContent(data,month),items:data.budgetSubitems.items}:{}), plans: data.budgetPlans.filter(p => p.monthYear === month).slice().sort((a,b) => planningKey(a).localeCompare(planningKey(b))), meta: data.planningMonths?.find(m => m.monthYear === month), ...(carryLines(data,month).length ? { carryovers: planningContent(data,month).carryovers } : {}) });
 }
 export function planningStatus(data: FinanceData, month: string) {
   const meta = data.planningMonths?.find(m => m.monthYear === month);
@@ -70,7 +71,7 @@ export function invalidatePlanning(previous: FinanceData, candidate: FinanceData
     return meta;
   }) };
 }
-export function savePlanning(data: FinanceData, month: string, edits: PlanningLine[], savingsCents: number, expectedScope: string, approve = false, acceptsDeficit = false): FinanceData {
+export function savePlanning(data: FinanceData, month: string, edits: PlanningLine[], savingsCents: number, expectedScope: string, approve = false, acceptsDeficit = false, subitems?: MonthlySubitemPlan[]): FinanceData {
   assertMonth(month);
   if (planningScope(data, month) !== expectedScope) throw new Error('La previsión ha cambiado. Descarta el borrador local y revisa los datos actualizados.');
   const keys = new Set<string>();
@@ -80,20 +81,23 @@ export function savePlanning(data: FinanceData, month: string, edits: PlanningLi
     if (planCents(line.amountCents / 100) !== line.amountCents) throw new Error('El importe no puede representarse exactamente en budgetPlans. Reduce su magnitud.');
   }
   const plans = [...data.budgetPlans.filter(p => p.monthYear !== month || !keys.has(planningKey(p))), ...edits.filter(l => l.amountCents > 0).map(l => ({ monthYear: month, type: l.type, code: l.code, plannedAmount: l.amountCents / 100 }))];
+  let candidate={...data,budgetPlans:plans};
+  if(subitems) candidate=replaceMonthlySubitems(candidate,month,subitems);
+  validateSubitems(candidate);
   const baseLines = planningLines(plans, month), adjustments = carryLines(data,month);
   const lines = combineLines(baseLines, adjustments), totals = planningTotals(lines, savingsCents);
   if (approve && (totals.margin < 0 || savingsCents > totals.income) && !acceptsDeficit) throw new Error('Debes aceptar expresamente el déficit antes de aprobar.');
   const old = data.planningMonths?.find(m => m.monthYear === month);
-  const changed = old && (old.savingsCents !== savingsCents || JSON.stringify(planningContent(data,month)) !== JSON.stringify(planningContent({...data,budgetPlans:plans},month)));
+  const changed = old && (old.savingsCents !== savingsCents || JSON.stringify(planningContent(data,month)) !== JSON.stringify(planningContent(candidate,month)));
   const meta: PlanningMonth = { monthYear: month, savingsCents, revision: old ? old.revision + (changed ? 1 : 0) : 1, ...(old?.approval ? { approval: old.approval } : {}) };
   let automation = data.planningAutomation;
   if (approve) {
-    meta.approval = { number: (old?.approval?.number ?? 0) + 1, revision: meta.revision, approvedAt: new Date().toISOString(), lines, totals, ...(adjustments.length ? { baseLines, carryLines: adjustments } : {}) };
+    meta.approval = { number: (old?.approval?.number ?? 0) + 1, revision: meta.revision, approvedAt: new Date().toISOString(), lines, totals, ...(candidate.budgetSubitems?{subitemBreakdowns:subitemPhotos(candidate,month)}:{}), ...(adjustments.length ? { baseLines, carryLines: adjustments } : {}) };
     if (old?.approval) {
       const current = automation ?? emptyAutomation();
       const history = current.history.find(h=>h.monthYear===month)?.approvals ?? [];
       automation = { ...current, history: [...current.history.filter(h=>h.monthYear!==month), { monthYear: month, approvals: [...history, old.approval] }] };
     }
   }
-  return { ...data, budgetPlans: plans, planningMonths: [...(data.planningMonths ?? []).filter(m => m.monthYear !== month), meta], ...(automation ? { planningAutomation: automation } : {}) };
+  return { ...candidate, planningMonths: [...(data.planningMonths ?? []).filter(m => m.monthYear !== month), meta], ...(automation ? { planningAutomation: automation } : {}) };
 }

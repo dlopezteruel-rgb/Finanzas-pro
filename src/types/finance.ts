@@ -17,6 +17,33 @@ export interface BudgetGroup {
   partidas: BudgetPartida[];
 }
 
+/** Permanent identity; deleted entries are retained as tombstones, never reused. */
+export interface BudgetSubitem {
+  id: string;
+  type: MovementType;
+  code: string;
+  name: string;
+  order: number;
+  archived: boolean;
+  deleted?: boolean;
+}
+export interface SubitemAmount { subitemId: string; amountCents: number; }
+export interface MonthlySubitemPlan {
+  monthYear: string;
+  type: MovementType;
+  code: string;
+  lines: SubitemAmount[];
+}
+export interface SubitemSnapshot {
+  type: MovementType;
+  code: string;
+  lines: (SubitemAmount & { name: string })[];
+}
+export interface BudgetSubitems {
+  items: BudgetSubitem[];
+  months: MonthlySubitemPlan[];
+}
+
 export interface SplitParticipant {
   contactId: string;
   contactName: string;
@@ -97,6 +124,7 @@ export interface Transaction {
   amount: number; // positive number
   type: MovementType;
   code: string; // e.g. 'V.001.002'
+  subitemId?: string;
   categoryName: string; // e.g. 'Alimentación'
   subcategoryName: string; // e.g. 'Comer fuera / cafeterías'
   description: string;
@@ -138,6 +166,7 @@ export interface PlanningApproval {
   approvedAt: string;
   lines: PlanningLine[];
   totals: PlanningTotals;
+  subitemBreakdowns?: SubitemSnapshot[];
   baseLines?: PlanningLine[];
   carryLines?: PlanningLine[];
 }

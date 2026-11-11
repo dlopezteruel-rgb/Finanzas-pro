@@ -1,3 +1,4 @@
+import { subitemsFor, createSubitem } from './budgetSubitems';
 import type { FinanceData } from './backup';
 import type { BudgetPartida } from '../types/finance';
 
@@ -41,7 +42,7 @@ export function duplicatePartida(data: FinanceData, partida: BudgetPartida): Fin
     ...(data.planningAutomation?.history ?? []).flatMap(h => h.approvals)];
   const occupied = new Set([
     ...data.budgetGroups.flatMap(g => g.partidas.map(p => p.code)),
-    ...data.transactions.map(t => t.code), ...data.budgetPlans.map(p => p.code), ...data.loans.map(l => l.code),
+    ...(data.budgetSubitems?.items ?? []).map(i=>i.code), ...data.transactions.map(t => t.code), ...data.budgetPlans.map(p => p.code), ...data.loans.map(l => l.code),
     ...(data.planningAutomation?.rules ?? []).map(r => r.code),
     ...(data.planningAutomation?.origins ?? []).map(o => o.code),
     ...(data.planningAutomation?.carryovers ?? []).map(c => c.code),
@@ -51,8 +52,10 @@ export function duplicatePartida(data: FinanceData, partida: BudgetPartida): Fin
   let code: string;
   do { code = `${prefix}${String(number++).padStart(3, '0')}`; } while (occupied.has(code));
   const copy = { ...original, code, name: `${original.name} (Copia)`, keywords: [...original.keywords] };
-  return { ...data, budgetGroups: data.budgetGroups.map(g => g === source
+  let next = { ...data, budgetGroups: data.budgetGroups.map(g => g === source
     ? { ...g, partidas: [...g.partidas.slice(0, index + 1), copy, ...g.partidas.slice(index + 1)] } : g) };
+  for(const item of subitemsFor(data,original).filter(i=>!i.archived)) next=createSubitem(next,copy,item.name);
+  return next;
 }
 
 export function reorderPartida(data: FinanceData, groupCode: string, index: number, direction: 'UP' | 'DOWN'): FinanceData {
