@@ -1,6 +1,5 @@
-/* Phase 4 changes presentation only. Grid children may shrink; wide tables scroll locally. */
-:root { --app-gutter: clamp(.875rem, 2vw, 2.5rem); --surface: #141926; --line: #475569; }
-[data-theme="light"] { --surface: #fff; --line: #cbd5e1; }
+/* Layout remains independent from financial data and presentation tokens. */
+:root { --app-gutter: clamp(.875rem, 2vw, 2.5rem); }
 html { scroll-padding-top: 5rem; }
 .finance-app { min-width: 0; user-select: text; }
 .app-shell, .app-main, .app-banner { width: 100%; margin-inline: auto; padding-inline: var(--app-gutter); }
@@ -59,13 +58,6 @@ html { scroll-padding-top: 5rem; }
 .assistant-message { max-width: min(85%, 70ch); overflow-wrap: anywhere; min-width: 0; }
 .assistant-suggestions { flex-wrap: wrap; overflow: visible; background: var(--surface); }
 .assistant-chat form input { width: 0; }
-[data-theme="light"] .assistant-context { color: #0f172a; }
-[data-theme="light"] .contacts-view > div:first-child { background: #fff; }
-[data-theme="light"] :is(.text-sky-300, .text-sky-400) { color: #0369a1; }
-[data-theme="light"] .text-emerald-400 { color: #047857; }
-[data-theme="light"] :is(.text-rose-300, .text-rose-400) { color: #be123c; }
-[data-theme="light"] :is(.text-amber-300, .text-amber-400) { color: #92400e; }
-[data-theme="light"] :is(.text-indigo-300, .text-indigo-400) { color: #4338ca; }
 
 /* One local preview beside the editor. Small screens keep just its two distinct margins. */
 .planning-workbench { display: grid; gap: 1rem; align-items: start; min-width: 0; }
@@ -73,7 +65,6 @@ html { scroll-padding-top: 5rem; }
 .planning-block-content:not([hidden]) { display: grid; gap: 1rem; align-items: start; }
 .planning-family { container-type: inline-size; }
 .planning-base-label { display: block; font-size: .75rem; color: #94a3b8; font-weight: 400; margin-top: .3rem; }
-[data-theme="light"] .planning-base-label { color: #475569; }
 .planning .planning-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .planning-row > label, .planning-row > div, .planning-row > button { grid-column: 1 / -1; }
 .planning-row > button { justify-self: start; }
@@ -92,7 +83,6 @@ html { scroll-padding-top: 5rem; }
 .allocation-panel dt { font-size: .75rem; }
 .allocation-panel dd { font-size: 1.1rem; font-weight: 750; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
 .allocation-negative { color: #fda4af; }
-[data-theme="light"] .allocation-negative { color: #9f1239; }
 .allocation-key { border-left: 3px solid #38bdf8; padding-left: .6rem; }
 .allocation-detail[data-expanded="false"] { display: none; }
 .allocation-detail dl { display: grid; gap: .65rem; margin-top: .75rem; }
@@ -189,7 +179,6 @@ html { scroll-padding-top: 5rem; }
 .finance-table{overflow:auto;max-height:600px}.finance-table table{width:100%;border-collapse:collapse;text-align:left;font-size:.8rem}.finance-table td,.finance-table th{padding:12px;border-bottom:1px solid #64748b55}.finance-table caption{text-align:left;font-weight:700;padding-block:8px}
 .finance-form{display:flex;flex-direction:column;gap:12px}.finance-form label{display:flex;flex-direction:column;gap:4px}
 .finance-form input,.finance-form select,.finance-actions input,.finance-module select{padding:9px;border:1px solid #64748b;border-radius:8px;min-width:0;max-width:100%;background:#141926;color:inherit}
-[data-theme=light] .finance-form input,[data-theme=light] .finance-form select,[data-theme=light] .finance-actions input,[data-theme=light] .finance-module select,[data-theme=light] .period-selector>button,[data-theme=light] .period-selector>select,[data-theme=light] .period-selector [role=dialog] input,[data-theme=light] .period-selector [role=dialog] select{background:#fff;color:#0f172a}
 .period-selector [role=dialog] label{display:flex;flex-direction:column;margin-block:12px;gap:6px}
 .period-selector [role=dialog] input,.period-selector [role=dialog] select{background:#141926;color:inherit;padding:10px;border:1px solid #64748b;border-radius:8px;width:100%}
 @media(max-width:600px){.app-header-inner{height:auto;min-height:56px;flex-wrap:wrap;padding-block:8px}.period-selector>select{max-width:118px}.period-selector>button{padding:4px}.app-header-inner>div:first-child{display:none}}

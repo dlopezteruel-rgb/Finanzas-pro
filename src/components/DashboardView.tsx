@@ -85,7 +85,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* 1. Revolut Hero Balance Header */}
       <div className="home-hero text-center pt-2 pb-1 space-y-1">
         <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400">
-          Patrimonio Total en Cuentas
+          Saldo líquido actual
         </span>
         <div className="text-3xl sm:text-4xl font-black tracking-tight text-white font-mono">
           {formatCurrency(totalLiquid)}

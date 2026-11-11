@@ -22,3 +22,4 @@ import './utils/financialCalendar.test';
 import './utils/intelligentFinance.test';
 import './utils/treasury.test';
 import './utils/financialAssistant.test';
+import './i18n/i18n.test';

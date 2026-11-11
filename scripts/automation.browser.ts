@@ -30,11 +30,11 @@ async function addRule(page:Page,name:string,target:string,frequency:string) {
 test('3B Automatización: copia, reglas, arrastre, historia y recuperación en Chromium', {timeout:240000},async t=>{
   const listener=createServer();await new Promise<void>(r=>listener.listen(0,'127.0.0.1',r));const port=(listener.address() as {port:number}).port;await new Promise<void>(r=>listener.close(()=>r()));
   const server=spawn(process.execPath,['--import','tsx','server.ts'],{env:{...process.env,PORT:String(port),NODE_ENV:'production'},stdio:'pipe'});let log='';server.stdout.on('data',c=>log+=c);server.stderr.on('data',c=>log+=c);t.after(()=>{server.kill()});
-  const url=`http://127.0.0.1:${port}`;let ready=false;for(let i=0;i<100;i++){if(server.exitCode!==null)throw new Error(log);try{if((await fetch(url)).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,100))}assert.ok(ready,log);
+  const url=`http://127.0.0.1:${port}/app`;let ready=false;for(let i=0;i<100;i++){if(server.exitCode!==null)throw new Error(log);try{if((await fetch(url)).ok){ready=true;break}}catch{}await new Promise(r=>setTimeout(r,100))}assert.ok(ready,log);
   const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
   async function setup(mobile=false,theme:'dark'|'light'='dark',initial=initialData(),month='2028-02') {
     const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1280,height:1000},isMobile:mobile,hasTouch:mobile});
-    await context.route('**/*',route=>new URL(route.request().url()).origin===url?route.continue():route.abort());
+    await context.route('**/*',route=>new URL(route.request().url()).origin===new URL(url).origin?route.continue():route.abort());
     await context.addInitScript(({key,value})=>{if(localStorage.getItem(key)===null)localStorage.setItem(key,value)},{key:DATA_KEY,value:JSON.stringify(makeBackup({...initial,theme}))});
     const page=await context.newPage();page.setDefaultTimeout(7000);const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));await page.goto(url);await nav(page,'Presupuestos');await planner(page).getByLabel('Mes de planificación',{exact:true}).fill(month);
     return {page,context,close:async()=>{await context.close();assert.deepEqual(errors,[])}};

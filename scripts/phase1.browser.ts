@@ -23,7 +23,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
   server.stdout.on('data', chunk => { serverLog += chunk; });
   server.stderr.on('data', chunk => { serverLog += chunk; });
   t.after(() => { server.kill(); });
-  const url = `http://127.0.0.1:${port}`;
+  const url = `http://127.0.0.1:${port}/app`;
   let ready = false;
   for (let i = 0; i < 100; i++) {
     if (server.exitCode !== null) throw new Error(`El servidor no arrancó: ${serverLog}`);

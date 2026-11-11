@@ -41,6 +41,8 @@ import {
 } from './utils/seedData';
 import { BUDGET_GROUPS } from './constants/categories';
 import { Header } from './components/Header';
+import { Brand } from './components/Brand';
+import { useI18n } from './i18n';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
 import { TransactionsView } from './components/TransactionsView';
@@ -89,6 +91,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
+  const { t } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
@@ -139,6 +142,14 @@ export default function App() {
     if (planningState.current.dirty) {setPlanningNavigationFailure(false);setPendingPlanningNavigation(() => action);}
     else action();
   };
+  // Leaving /app is a document navigation; retain the existing draft protection.
+  useEffect(() => {
+    const beforeLeave = (event: BeforeUnloadEvent) => {
+      if (planningState.current.dirty || planningState.current.saving) { event.preventDefault(); event.returnValue = ''; }
+    };
+    window.addEventListener('beforeunload', beforeLeave);
+    return () => window.removeEventListener('beforeunload', beforeLeave);
+  }, []);
   const changeMonth = (month: string) => { if (month !== currentMonthYear) guardPlanning(() => { setFocusedTransactionId(null); setFocusedOccurrenceId(null); setCurrentMonthYear(month); }); };
   const changeTab = (tab: NavTab) => { if (tab !== activeTab) guardPlanning(() => { planningState.current = { dirty: false, saving: false }; setFocusedTransactionId(null); setFocusedOccurrenceId(null); setActiveTab(tab); }); };
   // Navigate to the exact registered movement without invoking its editor.
@@ -553,18 +564,23 @@ export default function App() {
     } finally { setRestoring(false); }
   };
 
-  if (loadError) return <div className="min-h-screen bg-[#0c0f17] text-white p-6 space-y-4">
+  if (loadError) return <main className="app-recovery">
+    <Brand /><h1>{t('recovery.title')}</h1>
     <p role="alert">{loadError}</p>
+    {dataError && <p role="alert">{dataError}</p>}
     <p>Conserva una copia de los datos locales antes de corregir el archivo o solicitar ayuda.</p>
-    <button className="bg-sky-500 rounded-xl px-4 py-2" onClick={() => {
+    <button className="button-primary" onClick={() => {
+      try {
       const raw: Record<string, string | null> = {};
       for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i);
         if (key?.startsWith('finanzas_pro_')) raw[key] = localStorage.getItem(key);
       }
       downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
+      } catch { setDataError(t('recovery.blocked')); }
     }}>Descargar datos locales sin modificar</button>
-  </div>;
+    <a href="/">{t('recovery.back')}</a>
+  </main>;
 
   return (
     <div className="finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">

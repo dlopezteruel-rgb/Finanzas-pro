@@ -1,0 +1,154 @@
+{
+  "fixture": "visualFixture JSON 3.1; exclusivamente ficticia",
+  "clock": "2026-11-11T09:00:00.000Z",
+  "captures": [
+    {
+      "file": "390-light-inicio.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "module": "Inicio",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "390-light-movimientos.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "module": "Movimientos",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "390-light-planificacion.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "light",
+      "module": "Presupuestos",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "390-dark-inicio.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "module": "Inicio",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "390-dark-movimientos.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "module": "Movimientos",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "390-dark-planificacion.jpg",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "theme": "dark",
+      "module": "Presupuestos",
+      "financialSnapshotUnchanged": true,
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "file": "1440-light-inicio.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "module": "Inicio",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "file": "1440-light-movimientos.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "module": "Movimientos",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "file": "1440-light-planificacion.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "light",
+      "module": "Presupuestos",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "file": "1440-dark-inicio.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "module": "Inicio",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "file": "1440-dark-movimientos.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "module": "Movimientos",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    },
+    {
+      "file": "1440-dark-planificacion.jpg",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "theme": "dark",
+      "module": "Presupuestos",
+      "financialSnapshotUnchanged": true,
+      "width": 1440,
+      "scrollWidth": 1440
+    }
+  ],
+  "applicationBase": "66a045e17e310527c790a15ff2fe5dceaaba48a3",
+  "renderedBuildHead": "66a045e17e310527c790a15ff2fe5dceaaba48a3",
+  "sourceHeadAtCapture": "66a045e17e310527c790a15ff2fe5dceaaba48a3",
+  "sourceUncommittedAtCapture": true
+}
