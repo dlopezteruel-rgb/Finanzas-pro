@@ -7,6 +7,7 @@ import { assertSharedTransition } from './sharedExpenses';
 import { isLegacyTransfer } from './transfers';
 import { assertStorageRevision, Backup, commitRestoration, DATA_KEY, FinanceData, makeBackup, parseBackup, parseSnapshot, serializeSnapshot, StorageAccess, StorageConflictError } from './backup';
 import { browserStorageSupportError } from './storageSupport';
+import { assertWalletTransition, reconcileDefaultWallet } from './defaultWallet';
 
 const legacyKeys: Partial<Record<keyof FinanceData, string>> = {
   theme: 'finanzas_pro_theme', transactions: 'finanzas_pro_transactions_v2',
@@ -67,8 +68,10 @@ export class FinanceStore {
       const clearing = typeof transform !== 'function';
       let candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
       if(candidate===this.data)return this.data;
+      candidate = reconcileDefaultWallet(this.data, candidate);
       if (!clearing) candidate = reconcileAutomation(this.data, reconcilePlanning(this.data, invalidatePlanning(this.data, candidate)));
       assertDeletionTransition(this.data, candidate);
+      assertWalletTransition(this.data, candidate);
       if (!clearing) {
         assertSharedTransition(this.data, candidate);
         assertIntelligentTransition(this.data, candidate);

@@ -1,5 +1,6 @@
 import { BudgetPartida, Transaction, Wallet } from '../types/finance';
 import { parseFinancialInput } from './parser';
+import { walletFromText } from './defaultWallet';
 
 export type ChatIntent = 'query' | 'negation' | 'registration';
 
@@ -16,7 +17,7 @@ export function classifyChatIntent(text: string): ChatIntent {
 }
 
 export function proposeChatMovement(
-  text: string, wallets: Wallet[], partidas: BudgetPartida[], referenceDate?: Date,
+  text: string, wallets: Wallet[], partidas: BudgetPartida[], referenceDate?: Date, defaultWalletId?: string | null,
 ): Omit<Transaction, 'id'> | null {
   if (classifyChatIntent(text) !== 'registration') return null;
   const parsed = parseFinancialInput(text, referenceDate);
@@ -27,7 +28,7 @@ export function proposeChatMovement(
   return {
     type: parsed.type, amount: parsed.amount, date: parsed.date,
     code: partida.code, categoryName: partida.groupName, subcategoryName: partida.name,
-    wallet: wallets.find(w => w.name === parsed.wallet)?.name ?? wallets[0]?.name ?? '',
+    wallet: walletFromText(text, parsed.wallet, wallets, defaultWalletId)?.name ?? '',
     description: parsed.description, processed: parsed.processed,
     notes: `Propuesta revisada desde chat: "${text}"`,
   };

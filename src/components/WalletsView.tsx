@@ -17,6 +17,8 @@ import {
 } from 'lucide-react';
 import { WalletModal } from './WalletModal';
 import { TransferModal } from './TransferModal';
+import { resolveDefaultWallet } from '../utils/defaultWallet';
+import { useAsyncForm } from '../utils/useAsyncForm';
 
 interface WalletsViewProps {
   deletionData: FinanceData;
@@ -27,6 +29,7 @@ interface WalletsViewProps {
   onUpdateWallet: (wallet: Wallet) => Promise<SaveResult>;
   onDeleteWallet?: (walletId: string) => Promise<SaveResult>;
   onExecuteTransfer: (input: TransferInput, id?: string) => Promise<SaveResult>;
+  onChangeDefaultWallet: (id: string | null) => Promise<SaveResult>;
 }
 
 export const WalletsView: React.FC<WalletsViewProps> = ({
@@ -38,7 +41,10 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
   onUpdateWallet,
   onDeleteWallet,
   onExecuteTransfer,
+  onChangeDefaultWallet,
 }) => {
+  const preference = useAsyncForm();
+  const defaultWallet = resolveDefaultWallet(wallets, deletionData.defaultWalletId);
   const [selectedWalletToEdit, setSelectedWalletToEdit] = useState<Wallet | null>(null);
   const [isWalletModalOpen, setIsWalletModalOpen] = useState(false);
   const [isTransferModalOpen, setIsTransferModalOpen] = useState(false);
@@ -115,6 +121,12 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       </div>
 
       {/* Wallets List (Click to edit patrimonio) */}
+      <section aria-label="Cartera predeterminada" className="space-y-2 text-sm">
+        <p>{defaultWallet ? `Cartera predeterminada: ${defaultWallet.name}${wallets.length === 1 ? ' (automática: única cartera)' : ''}.` : wallets.length ? 'Sin cartera predeterminada. Selecciona una cartera en cada operación o configura una aquí.' : 'Crea una cartera para registrar operaciones bancarias.'}</p>
+        {preference.error && <p role="alert">{preference.error}</p>}
+        {preference.saving && <p role="status">Guardando preferencia…</p>}
+        {wallets.length > 1 && deletionData.defaultWalletId && <button type="button" disabled={preference.saving} onClick={() => void preference.submit(() => onChangeDefaultWallet(null), () => {})}>Quitar cartera predeterminada</button>}
+      </section>
       <div className="wallet-cards">
         {wallets.map(w => {
           const currentBalance = walletBalances[w.name] ?? w.initialBalance;
@@ -151,6 +163,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                         {w.type}
                       </span>
                     </div>
+                    {w.id === defaultWallet?.id && <span className="text-xs text-sky-300 block">Predeterminada</span>}
                     <span className="text-[10px] text-slate-400 block font-mono">{w.ibanOrDetails}</span>
                   </div>
                 </div>
@@ -169,6 +182,9 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
               </div>
 
               {/* Saldo Actual & Patrimonio Base */}
+              {wallets.length > 1 && <button type="button" aria-label={`Usar como predeterminada ${w.name}`} aria-pressed={w.id === defaultWallet?.id} disabled={preference.saving || w.id === defaultWallet?.id} className="text-xs border border-white/10 rounded-xl px-3 py-2" onClick={event => {
+                event.stopPropagation(); void preference.submit(() => onChangeDefaultWallet(w.id), () => {});
+              }}>Usar como predeterminada</button>}
               <div className="bg-[#0c0f17] border border-white/[0.04] rounded-2xl p-3 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] text-slate-400 block uppercase font-medium">
@@ -295,6 +311,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
 
       {/* Transfer between Accounts Modal */}
       <TransferModal
+        defaultWalletId={deletionData.defaultWalletId}
         isOpen={isTransferModalOpen}
         onClose={() => setIsTransferModalOpen(false)}
         wallets={wallets}

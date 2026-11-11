@@ -30,6 +30,7 @@ interface DashboardViewProps {
   transactions: Transaction[];
   loans: Loan[];
   wallets: Wallet[];
+  defaultWalletId?: string | null;
   walletBalances: Record<string, number>;
   onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
   onToggleProcessed: (id: string) => void;
@@ -44,6 +45,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   transactions,
   loans,
   wallets,
+  defaultWalletId,
   walletBalances,
   onAddTransaction,
   onToggleProcessed,
@@ -147,7 +149,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* 3. Revolut Quick Search / NLP Input */}
-      <div className="home-quick"><QuickNaturalLanguageInput onAddTransaction={onAddTransaction} /></div>
+      <div className="home-quick"><QuickNaturalLanguageInput wallets={wallets} defaultWalletId={defaultWalletId} onAddTransaction={onAddTransaction} /></div>
 
       {/* 4. Revolut Compact Widget Cards (Horizontal / Grid) */}
       <div className="home-kpis grid grid-cols-1 sm:grid-cols-3 gap-3">

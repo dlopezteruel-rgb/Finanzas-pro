@@ -217,7 +217,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       return;
     }
     if (intent === 'registration') {
-      const draft = proposeChatMovement(text, wallets, availablePartidas);
+      const draft = proposeChatMovement(text, wallets, availablePartidas, undefined, financeData.defaultWalletId);
       if (draft) {
         confirmation.current?.cancel();
         setProposalError('');

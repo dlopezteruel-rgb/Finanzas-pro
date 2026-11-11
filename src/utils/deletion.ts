@@ -73,7 +73,7 @@ export function deleteEntity(data: FinanceData, target: DeletionTarget): Finance
   if (report.blockers.length) throw new Error(`No se puede eliminar ${target.kind === 'wallet' ? 'la cartera; las carteras vinculadas requieren revisión' : labels[target.kind]} «${report.name}». ${report.blockers.join(' ')}`);
   switch (target.kind) {
     case 'contact': return { ...data, contacts: data.contacts.filter(c => c.id !== target.id) };
-    case 'wallet': return { ...data, wallets: data.wallets.filter(w => w.id !== target.id) };
+    case 'wallet': return { ...data, wallets: data.wallets.filter(w => w.id !== target.id), ...(data.defaultWalletId === target.id ? { defaultWalletId: null } : {}) };
     case 'loan': return { ...data, loans: data.loans.filter(l => l.id !== target.id) };
     case 'transaction': return { ...data, transactions: data.transactions.filter(t => t.id !== target.id) };
   }

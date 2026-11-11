@@ -7,6 +7,7 @@ import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useEffect } from 'react';
 import { Loan, Wallet } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
+import { initialWalletName } from '../utils/defaultWallet';
 import { X, CreditCard, Trash2, Check, Landmark, Calendar } from 'lucide-react';
 
 interface LoanModalProps {
@@ -40,7 +41,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
     loanToEdit?.startDate || new Date().toISOString().split('T')[0]
   );
   const [monthlyPayment, setMonthlyPayment] = useState<number>(loanToEdit?.monthlyPayment || 300);
-  const [wallet, setWallet] = useState(loanToEdit?.wallet || wallets[0]?.name || 'OPENBANK');
+  const [wallet, setWallet] = useState(initialWalletName(wallets, deletionData.defaultWalletId, loanToEdit?.wallet));
   const [code, setCode] = useState(loanToEdit?.code || 'E.002.001');
   const [notes, setNotes] = useState(loanToEdit?.notes || '');
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -66,7 +67,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
       setTotalTermMonths(36);
       setStartDate(new Date().toISOString().split('T')[0]);
       setMonthlyPayment(300);
-      setWallet(wallets[0]?.name || 'OPENBANK');
+      setWallet(initialWalletName(wallets, deletionData.defaultWalletId));
       setCode('E.002.001');
       setNotes('');
     }
@@ -78,6 +79,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim() || principal <= 0) return;
+    if (!wallets.some(w => w.name === wallet)) { void submission.submit(() => Promise.resolve({ ok: false, error: 'Selecciona una cartera válida para el préstamo.' }), () => {}); return; }
 
     const savedLoan: Loan = {
       id: loanToEdit?.id || `loan-${Date.now()}`,
@@ -242,11 +244,12 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             <div>
               <label className="block text-slate-400 mb-1 font-medium">Cuenta habitual de cobro</label>
               <select
+                aria-label="Cuenta habitual de cobro" required
                 value={wallet}
                 onChange={e => setWallet(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
-                {wallets.map(w => (
+                <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => (
                   <option key={w.id} value={w.name} className="bg-[#141926] text-white">
                     {w.name}
                   </option>

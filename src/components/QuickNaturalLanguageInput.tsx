@@ -1,26 +1,37 @@
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
 import { parseFinancialInput } from '../utils/parser';
 import { formatCurrency } from '../utils/finance';
-import { ParsedMovement, Transaction } from '../types/finance';
-import { ALL_PARTIDAS, DEFAULT_WALLETS } from '../constants/categories';
+import { Transaction, Wallet } from '../types/finance';
+import { ALL_PARTIDAS } from '../constants/categories';
+import { walletFromText } from '../utils/defaultWallet';
 
 interface QuickInputProps {
   onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
+  wallets: Wallet[];
+  defaultWalletId?: string | null;
   className?: string;
   placeholder?: string;
 }
 
 export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   onAddTransaction,
+  wallets,
+  defaultWalletId,
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
 }) => {
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
-  const [parsed, setParsed] = useState<ParsedMovement | null>(null);
+  const [walletChoice, setWalletChoice] = useState<string | undefined>();
+  const parsed = useMemo(() => {
+    const result = parseFinancialInput(inputText);
+    if (!result) return null;
+    const selected = walletChoice !== undefined ? wallets.find(w => w.id === walletChoice) : walletFromText(inputText, result.wallet, wallets, defaultWalletId);
+    return { ...result, wallet: selected?.name ?? '' };
+  }, [inputText, wallets, defaultWalletId, walletChoice]);
   const [lastNotification, setLastNotification] = useState<string | null>(null);
 
   // Quick prompt chips
@@ -32,17 +43,8 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     { label: '📚 Libros 42 €', text: 'Compré libros por 42 € en efectivo' },
   ];
 
-  useEffect(() => {
-    if (!inputText.trim()) {
-      setParsed(null);
-      return;
-    }
-    const result = parseFinancialInput(inputText);
-    setParsed(result);
-  }, [inputText]);
-
   const handleConfirm = () => {
-    if (!parsed || parsed.amount <= 0) return;
+    if (!parsed || parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)) return;
 
     const matched = ALL_PARTIDAS.find(p => p.code === parsed.code && p.type === parsed.type) ||
       ALL_PARTIDAS.find(p => p.code === parsed.code) || {
@@ -64,7 +66,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     }), () => {
     setLastNotification(`+ Registrado: ${parsed.type} ${formatCurrency(parsed.amount)} en [${parsed.code}]`);
     setInputText('');
-    setParsed(null);
+    setWalletChoice(undefined);
 
     setTimeout(() => {
       setLastNotification(null);
@@ -86,7 +88,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         <input
           type="text"
           value={inputText}
-          onChange={e => setInputText(e.target.value)}
+          onChange={e => { setInputText(e.target.value); if (!e.target.value.trim()) setWalletChoice(undefined); }}
           onKeyDown={e => {
             if (e.key === 'Enter' && parsed && parsed.amount > 0) {
               e.preventDefault();
@@ -101,7 +103,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           <button
             onClick={() => {
               setInputText('');
-              setParsed(null);
+              setWalletChoice(undefined);
             }}
             className="absolute right-3 text-slate-400 hover:text-white p-1"
             title="Borrar"
@@ -155,7 +157,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               <button
                 type="button"
                 onClick={handleConfirm}
-                disabled={parsed.amount <= 0}
+                disabled={parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)}
                 className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs px-3 py-1.5 rounded-xl shadow transition-all cursor-pointer flex items-center gap-1 active:scale-95 disabled:opacity-50"
               >
                 <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -166,7 +168,9 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
 
           <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
             <div className="flex items-center gap-3">
-              <span>Cartera: <strong className="text-slate-200">{parsed.wallet}</strong></span>
+              <label>Cartera<select aria-label="Cartera del registro rápido" value={parsed.wallet} onChange={e => setWalletChoice(wallets.find(w => w.name === e.target.value)?.id ?? '')}>
+                <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}
+              </select></label>
               <span>Fecha: <strong className="text-slate-200">{parsed.date}</strong></span>
             </div>
             <span className={parsed.processed ? 'text-emerald-400 font-medium' : 'text-amber-400 font-medium'}>

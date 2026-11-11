@@ -21,6 +21,7 @@ import {
 import { madridDate, realDate } from "../utils/financialCalendar";
 import { FinanceReview } from "./FinanceReview";
 import { SafeDialog } from "./SafeDialog";
+import { initialWalletId } from '../utils/defaultWallet';
 
 const frequencyLabels = {
   monthly: "Mensual",
@@ -99,9 +100,8 @@ export function RecurringMovementsView({
   }, [focusedOccurrenceId, rows]);
 
   const create = () => {
-    const p = partidas[0],
-      w = data.wallets[0];
-    if (!p || !w) {
+    const p = partidas[0];
+    if (!p || !data.wallets.length) {
       setError("Crea primero una cartera y una partida.");
       return;
     }
@@ -115,7 +115,7 @@ export function RecurringMovementsView({
       code: p.code,
       categoryName: p.groupName,
       subcategoryName: p.name,
-      walletId: w.id,
+      walletId: initialWalletId(data.wallets, data.defaultWalletId),
       frequency: "monthly",
       startDate: madridDate(),
       day: 1,
@@ -443,12 +443,13 @@ export function RecurringMovementsView({
             <label>
               Cartera
               <select
+                aria-label="Cartera periódica" required
                 value={draft.walletId}
                 onChange={(e) =>
                   setDraft({ ...draft, walletId: e.target.value })
                 }
               >
-                {data.wallets.map((w) => (
+                <option value="" disabled>Selecciona una cartera</option>{data.wallets.map((w) => (
                   <option value={w.id} key={w.id}>
                     {w.name}
                   </option>

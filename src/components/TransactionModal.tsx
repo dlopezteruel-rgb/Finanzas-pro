@@ -10,6 +10,7 @@ import { normalizeSearch } from '../utils/partidaSearch';
 import { formatCurrency } from '../utils/finance';
 import { Overlay } from './Overlay';
 import { PartidaSelector } from './PartidaSelector';
+import { initialWalletName } from '../utils/defaultWallet';
 import { Check, X } from 'lucide-react';
 
 interface TransactionModalProps {
@@ -17,11 +18,12 @@ interface TransactionModalProps {
   onSave: (t: Omit<Transaction, 'id'>, id?: string) => Promise<SaveResult>;
   wallets: Wallet[]; contacts?: Contact[]; onQuickCreateContact?: (contact: Contact) => Promise<SaveResult>;
   defaultDate?: string; transactionToEdit?: Transaction | null;
+  defaultWalletId?: string | null;
   initialPartidaCode?: string; initialContactId?: string; initialMovementType?: MovementType;
   availablePartidas?: BudgetPartida[]; budgetGroups?: BudgetGroup[]; transactions?: Transaction[];
 }
 export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, onSave, wallets, contacts = [], onQuickCreateContact,
-  defaultDate, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = ALL_PARTIDAS, budgetGroups, transactions = [] }) => {
+  defaultDate, defaultWalletId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = ALL_PARTIDAS, budgetGroups, transactions = [] }) => {
   const submission = useAsyncForm();
   const [type, setType] = useState<MovementType>('GASTO'), [code, setCode] = useState('V.001.002'), [amount, setAmount] = useState(0);
   const [description, setDescription] = useState(''), [wallet, setWallet] = useState(''), [date, setDate] = useState(''), [processed, setProcessed] = useState(true), [notes, setNotes] = useState('');
@@ -41,7 +43,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
     const tx = transactionToEdit, split = tx?.splitInfo, distribution = split?.distribution;
     const nextType = tx?.type ?? initialMovementType;
     setType(nextType); setCode(tx?.code ?? initialPartidaCode ?? (availablePartidas.find(p => p.type === nextType && p.code === 'V.001.002') ?? availablePartidas.find(p => p.type === nextType))?.code ?? '');
-    setAmount(tx?.amount ?? 0); setDescription(tx?.description ?? ''); setWallet(tx?.wallet ?? wallets[0]?.name ?? '');
+    setAmount(tx?.amount ?? 0); setDescription(tx?.description ?? ''); setWallet(initialWalletName(wallets, defaultWalletId, tx?.wallet));
     setDate(tx?.date ?? defaultDate ?? new Date().toISOString().slice(0, 10)); setProcessed(tx?.processed ?? true); setNotes(tx?.notes ?? '');
     setIsShared(split?.isShared ?? !!initialContactId); setSelectedContactIds(split?.participants.map(p => p.contactId) ?? (initialContactId ? [initialContactId] : []));
     // Older 2.7 allocations do not identify a method: preserve their actual amounts.
@@ -78,6 +80,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
   const submit = (event: React.FormEvent) => {
     event.preventDefault();
     const fail = (error: string) => submission.submit(() => Promise.resolve({ ok: false, error }), () => {});
+    if (!wallets.some(w => w.name === wallet)) { void fail('Selecciona una cartera de origen válida.'); return; }
     const matched = availablePartidas.find(p => p.code === code && p.type === type);
     const unchangedCategory = transactionToEdit && transactionToEdit.code === code && transactionToEdit.type === type;
     if (!matched && !unchangedCategory) { void fail('Selecciona una partida válida del catálogo.'); return; }
@@ -128,10 +131,10 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
           </div>)}</div>
           {!!shares.length && <div className="space-y-1" aria-live="polite"><p>Tu gasto: <strong>{formatCurrency(shares[0] / 100)}</strong></p><p>Total que deben los demás: <strong>{formatCurrency(shares.slice(1).reduce((a, b) => a + b, 0) / 100)}</strong></p><p>Total repartido: <strong>{formatCurrency(shares.reduce((a, b) => a + b, 0) / 100)}</strong></p></div>}
         </section>}
-        <div className="grid grid-cols-2 gap-3"><label>Cartera u Origen<select aria-label="Cartera u Origen" value={wallet} onChange={e => setWallet(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl p-2">{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}</select></label><label>Estado Tramitación<select aria-label="Estado Tramitación" value={processed ? 'true' : 'false'} onChange={e => setProcessed(e.target.value === 'true')} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="true">Tramitado (SÍ)</option><option value="false">Pendiente (NO)</option></select></label></div>
+        <div className="grid grid-cols-2 gap-3"><label>Cartera u Origen<select aria-label="Cartera u Origen" required value={wallet} onChange={e => setWallet(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="" disabled>Selecciona una cartera</option>{wallet && !wallets.some(w => w.name === wallet) && <option value={wallet} disabled>{wallet} (no disponible)</option>}{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}</select></label><label>Estado Tramitación<select aria-label="Estado Tramitación" value={processed ? 'true' : 'false'} onChange={e => setProcessed(e.target.value === 'true')} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="true">Tramitado (SÍ)</option><option value="false">Pendiente (NO)</option></select></label></div>
         <label className="block">Fecha<input aria-label="Fecha" type="date" required value={date} onChange={e => setDate(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2" /></label>
         <label className="block">Notas (opcional)<input value={notes} onChange={e => setNotes(e.target.value)} placeholder="Detalles adicionales..." className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2" /></label>
-        <div className="flex justify-end gap-2"><button type="button" onClick={close} className="rounded-xl p-3 text-slate-300">Cancelar</button><button type="submit" disabled={isShared && !!splitError} className="rounded-xl bg-white text-slate-950 font-bold p-3 disabled:opacity-40"><Check className="w-3 h-3 inline" /> {transactionToEdit ? 'Guardar Cambios' : 'Guardar Movimiento'}</button></div>
+        <div className="flex justify-end gap-2"><button type="button" onClick={close} className="rounded-xl p-3 text-slate-300">Cancelar</button><button type="submit" disabled={!wallets.some(w => w.name === wallet) || (isShared && !!splitError)} className="rounded-xl bg-white text-slate-950 font-bold p-3 disabled:opacity-40"><Check className="w-3 h-3 inline" /> {transactionToEdit ? 'Guardar Cambios' : 'Guardar Movimiento'}</button></div>
       </fieldset></form>
     </div>
   </Overlay>;
