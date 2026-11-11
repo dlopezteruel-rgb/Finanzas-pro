@@ -68,10 +68,10 @@ button:disabled { cursor: not-allowed; }
 .nav-button:hover { color: var(--ink); background: var(--surface-muted); }.nav-button[aria-current=page] { background: var(--brand-soft); color: var(--brand-ink); border-color: var(--brand-soft); font-weight: 700; }
 .nav-badge { border-radius: 20px; padding: 1px 6px; font-size: .75rem; font-weight: 700; background: var(--brand-soft); color: var(--brand-ink); }
 .mobile-navigation { position: fixed; z-index: 50; bottom: 0; left: 0; right: 0; background: var(--surface); border-top: 1px solid var(--line); padding: 6px 4px max(6px,env(safe-area-inset-bottom)); }
-.mobile-nav-items { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); max-width: 650px; margin-inline: auto; gap: 2px; }
+.mobile-nav-items { display: grid; grid-template-columns: minmax(44px,.85fr) minmax(80px,1.3fr) minmax(86px,1.35fr) minmax(50px,.9fr) minmax(44px,.75fr); max-width: 650px; margin-inline: auto; gap: 2px; }
 .mobile-nav-items .nav-button { flex-direction: column; gap: 4px; min-height: 64px; padding: 7px 0; font-size: .75rem; letter-spacing: -.025em; position: relative; }
 .mobile-nav-items .nav-badge { position: absolute; right: 8px; top: 2px; }
-.mobile-navigation .nav-button > span { font-size: .75rem; max-width: 100%; white-space: normal; overflow: visible; overflow-wrap: anywhere; }
+.mobile-navigation .nav-button > span { font-size: .75rem; max-width: 100%; white-space: nowrap; overflow: visible; overflow-wrap: normal; }
 .more-dialog { width: min(100%,28rem); padding: 24px; border: 1px solid var(--line); border-radius: 20px; background: var(--surface); color: var(--ink); box-shadow: var(--shadow-card); }
 .more-dialog h2 { font-size: 1.25rem; font-weight: 700; margin-bottom: 16px; }
 .more-options { display: grid; gap: 8px; }.more-options .nav-button { justify-content: flex-start; font-size: 1rem; }

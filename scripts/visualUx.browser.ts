@@ -131,6 +131,11 @@ test('experiencia visual: rutas, carga real, móvil y protección de datos', { t
       await s.p.goto(`${origin}/app`); await s.p.getByLabel('Seleccionar periodo contable').waitFor();
       for (const label of ['Inicio', 'Movimientos', 'Presupuestos', 'Cuentas', 'Contactos', 'Deudas', 'Asistente']) {
         await navigateModule(s.p, label); assert.equal(await s.p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true, label);
+        const labelsFit = await s.p.locator('.mobile-nav-items .nav-button > span:not(.nav-badge)').evaluateAll(elements => elements.every(el => {
+          const bounds = el.getBoundingClientRect(), button = el.parentElement!.getBoundingClientRect();
+          return bounds.width <= button.width - 2 && bounds.height <= parseFloat(getComputedStyle(el).lineHeight) + 1;
+        }));
+        assert.equal(labelsFit, true, `Etiquetas completas en una línea: ${label}`);
       }
     } finally { await s.close(); }
   });
