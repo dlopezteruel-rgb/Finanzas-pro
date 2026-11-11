@@ -1,3 +1,4 @@
+import { assertSubitemTransition } from './budgetSubitems';
 import { assertIntelligentTransition } from './intelligentValidation';
 import { reconcileAutomation } from './planningAutomation';
 import { invalidatePlanning, reconcilePlanning } from './planning';
@@ -73,6 +74,7 @@ export class FinanceStore {
       assertDeletionTransition(this.data, candidate);
       assertWalletTransition(this.data, candidate);
       if (!clearing) {
+        assertSubitemTransition(this.data, candidate);
         assertSharedTransition(this.data, candidate);
         assertIntelligentTransition(this.data, candidate);
         // Existing structured legs can only remain linked, or disappear together.

@@ -1,3 +1,7 @@
+import type { FinanceData } from '../utils/backup';
+import { SubitemManager } from './SubitemManager';
+import { monthlySubitems, subitemBudgetRows, subitemsFor, type SubitemEdit } from '../utils/budgetSubitems';
+import { formatPlanningCents } from '../utils/planningMoney';
 import { parsePlanningMoney } from '../utils/planning';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
@@ -8,6 +12,8 @@ import { formatCurrency } from '../utils/finance';
 import { X, Plus, Edit2, Trash2, Check, CheckCircle2, Clock, Calendar, ArrowRight } from 'lucide-react';
 
 interface PartidaDetailModalProps {
+  data: FinanceData;
+  onEditSubitem: (edit:SubitemEdit)=>Promise<SaveResult>;
   isOpen: boolean;
   onClose: () => void;
   partida: BudgetPartida | null;
@@ -17,14 +23,14 @@ interface PartidaDetailModalProps {
   onEditTransaction: (tx: Transaction) => void;
   onDeleteTransaction: (id: string) => void;
   onToggleProcessed: (id: string) => void;
-  onAddMovementToPartida: (partidaCode: string, type: MovementType) => void;
+  onAddMovementToPartida: (partidaCode: string, type: MovementType, subitemId?:string) => void;
   onViewSharedDetails: (id: string) => void;
   error?: string;
   onUpdatePrevisto: (code: string, type: MovementType, amount: number) => Promise<SaveResult>;
 }
 
 export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
-  isOpen,
+  data, onEditSubitem, isOpen,
   onClose,
   partida,
   budgetRow,
@@ -36,6 +42,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   onAddMovementToPartida,
   onUpdatePrevisto, onViewSharedDetails, error = '',
 }) => {
+  const [selectedSubitem,setSelectedSubitem]=useState<string|null>(null),[subitemBusy,setSubitemBusy]=useState(false);
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
   const previstoSubmission = useAsyncForm();
@@ -50,11 +57,13 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
     setIsEditingPrevisto(false);
   }, [budgetRow, isOpen, partida]);
 
+  useEffect(()=>{setSelectedSubitem(null);},[isOpen,partida?.code,partida?.type,monthYear]);
+
   if (!isOpen || !partida) return null;
 
   // Filter transactions for this partida in this month
   const partidaTransactions = transactions.filter(
-    t => t.code === partida.code && t.type === partida.type && t.date.startsWith(monthYear)
+    t => t.code === partida.code && t.type === partida.type && t.date.startsWith(monthYear) && (selectedSubitem===null || (t.subitemId ?? '')===selectedSubitem)
   ).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const handleSavePrevisto = () => {
@@ -66,8 +75,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   };
 
   return (
-    <Overlay title="Detalle de partida" level="panel" onClose={() => previstoSubmission.close(onClose)}>
-      <div className="bg-[#141926] border border-white/10 max-w-xl w-full sm:w-[min(36rem,90vw)] h-dvh p-5 shadow-2xl text-xs space-y-4 flex flex-col">
+    <Overlay title="Detalle de partida" level="panel" onClose={() => (!subitemBusy&&previstoSubmission.close(onClose))}>
+      <div className="bg-[#141926] border border-white/10 max-w-xl w-full sm:w-[min(36rem,90vw)] h-dvh p-5 shadow-2xl text-xs space-y-4 flex flex-col overflow-y-auto subitem-detail">
         {/* Handle on mobile */}
         <div className="w-10 h-1 rounded-full bg-white/20 mx-auto sm:hidden -mt-1 mb-1" />
 
@@ -95,8 +104,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </div>
 
           <button
-            onClick={() => previstoSubmission.close(onClose)}
-            disabled={previstoSubmission.saving}
+            onClick={() => (!subitemBusy&&previstoSubmission.close(onClose))}
+            disabled={previstoSubmission.saving||subitemBusy}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 shrink-0"
             aria-label="Cerrar"
           >
@@ -117,7 +126,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                 <input
                   aria-label="Previsto de la partida"
                   inputMode="decimal"
-                  disabled={previstoSubmission.saving}
+                  disabled={previstoSubmission.saving||subitemBusy}
                   value={previstoInput}
                   onChange={e => setPrevistoInput(e.target.value)}
                   onKeyDown={e => {
@@ -127,7 +136,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   className="w-16 bg-[#161c2b] border border-sky-500 rounded px-1.5 py-0.5 text-xs text-white font-mono text-right"
                   autoFocus
                 />
-                <button aria-label="Guardar previsto de la partida" disabled={previstoSubmission.saving} onClick={handleSavePrevisto} className="text-emerald-400 p-0.5">
+                <button aria-label="Guardar previsto de la partida" disabled={previstoSubmission.saving||subitemBusy} onClick={handleSavePrevisto} className="text-emerald-400 p-0.5">
                   <Check className="w-3 h-3" />
                 </button>
               </div>
@@ -142,7 +151,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                     setIsEditingPrevisto(true);
                   }}
                   className="text-slate-400 hover:text-white p-0.5 opacity-60 group-hover:opacity-100"
-                  title="Editar previsto"
+                  disabled={!!monthlySubitems(data,monthYear,partida)}
+                  title={monthlySubitems(data,monthYear,partida)?"Base calculada: edita el desglose en Planificación":"Editar previsto"}
                 >
                   <Edit2 className="w-2.5 h-2.5" />
                 </button>
@@ -175,6 +185,18 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </div>
         </div>
 
+        <SubitemManager data={data} partida={partida} onEdit={onEditSubitem} onBusy={setSubitemBusy}/>
+        {subitemsFor(data,partida).length>0&&<section className="subitem-breakdown" aria-label="Desglose de subítems">
+          <h3>Subítems · {monthYear}</h3>
+          {!monthlySubitems(data,monthYear,partida)&&<p role="status">Pendiente de desglose mensual. La previsión global se conserva sin repartir; distribúyela explícitamente en Planificación.</p>}
+          <p>Ejecutado: solo tramitados, parte propia en gastos compartidos. Resto = previsto − ejecutado; desviación = ejecutado − previsto.</p>
+          {subitemBudgetRows(data,monthYear,partida).map(r=><div className="subitem-summary-row" key={r.id ?? 'unassigned'}>
+            <strong>{r.name}{r.archived?' · Archivado':''}</strong><span>Previsto: {formatPlanningCents(r.planned)}</span><span>Ejecutado: {formatPlanningCents(r.executed)}</span><span>Resto: {formatPlanningCents(r.remainder)}</span><span>Desviación: {formatPlanningCents(r.deviation)}</span>
+            <button type="button" aria-pressed={selectedSubitem===(r.id ?? '')} onClick={()=>setSelectedSubitem(r.id ?? '')}>Ver movimientos de {r.name}</button>
+            {!r.archived&&<button type="button" onClick={()=>onAddMovementToPartida(partida.code,partida.type,r.id)}>Registrar en {r.name}</button>}
+          </div>)}
+          {selectedSubitem!==null&&<button type="button" onClick={()=>setSelectedSubitem(null)}>Ver todos los movimientos de la partida</button>}
+        </section>}
         {/* Action button to add movement directly to this partida */}
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -190,7 +212,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
         </div>
 
         {/* Movements Scroll List */}
-        <div className="flex-1 overflow-y-auto space-y-2 pr-1 min-h-0">
+        <div className="space-y-2 pr-1">
           {partidaTransactions.length === 0 ? (
             <div className="py-8 text-center text-slate-400 text-xs">
               No hay movimientos registrados en esta partida para este mes.

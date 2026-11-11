@@ -1,16 +1,18 @@
+import {SubitemSelector} from './SubitemSelector';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useMemo } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
 import { parseFinancialInput } from '../utils/parser';
 import { formatCurrency } from '../utils/finance';
-import { Transaction, Wallet } from '../types/finance';
+import { Transaction, Wallet, BudgetSubitem } from '../types/finance';
 import { ALL_PARTIDAS } from '../constants/categories';
 import { walletFromText } from '../utils/defaultWallet';
 
 interface QuickInputProps {
   onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
   wallets: Wallet[];
+  subitems?:BudgetSubitem[];
   defaultWalletId?: string | null;
   className?: string;
   placeholder?: string;
@@ -19,12 +21,13 @@ interface QuickInputProps {
 export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   onAddTransaction,
   wallets,
-  defaultWalletId,
+  defaultWalletId, subitems,
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
 }) => {
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
+  const [subitemChoice,setSubitemChoice]=useState<{key:string;id:string}|null>(null);
   const [walletChoice, setWalletChoice] = useState<string | undefined>();
   const parsed = useMemo(() => {
     const result = parseFinancialInput(inputText);
@@ -56,6 +59,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       amount: parsed.amount,
       type: parsed.type,
       code: parsed.code,
+      subitemId:subitemChoice?.key===`${parsed.type}:${parsed.code}`?subitemChoice.id||undefined:undefined,
       categoryName: matched.groupName,
       subcategoryName: matched.name,
       description: parsed.description || matched.name,
@@ -66,7 +70,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     }), () => {
     setLastNotification(`+ Registrado: ${parsed.type} ${formatCurrency(parsed.amount)} en [${parsed.code}]`);
     setInputText('');
-    setWalletChoice(undefined);
+    setWalletChoice(undefined); setSubitemChoice(null);
 
     setTimeout(() => {
       setLastNotification(null);
@@ -88,7 +92,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         <input
           type="text"
           value={inputText}
-          onChange={e => { setInputText(e.target.value); if (!e.target.value.trim()) setWalletChoice(undefined); }}
+          onChange={e => { setInputText(e.target.value); if (!e.target.value.trim()) {setWalletChoice(undefined);setSubitemChoice(null);} }}
           onKeyDown={e => {
             if (e.key === 'Enter' && parsed && parsed.amount > 0) {
               e.preventDefault();
@@ -103,7 +107,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           <button
             onClick={() => {
               setInputText('');
-              setWalletChoice(undefined);
+              setWalletChoice(undefined); setSubitemChoice(null);
             }}
             className="absolute right-3 text-slate-400 hover:text-white p-1"
             title="Borrar"
@@ -166,6 +170,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
             </div>
           </div>
 
+          <SubitemSelector items={subitems} type={parsed.type} code={parsed.code} value={subitemChoice?.key===`${parsed.type}:${parsed.code}`?subitemChoice.id:''} onChange={id=>setSubitemChoice({key:`${parsed.type}:${parsed.code}`,id})}/>
           <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
             <div className="flex items-center gap-3">
               <label>Cartera<select aria-label="Cartera del registro rápido" value={parsed.wallet} onChange={e => setWalletChoice(wallets.find(w => w.name === e.target.value)?.id ?? '')}>

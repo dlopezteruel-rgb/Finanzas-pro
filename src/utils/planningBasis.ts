@@ -1,3 +1,4 @@
+import { subitemContent } from './budgetSubitems';
 import type { FinanceData } from './backup';
 import type { BudgetPartida, BudgetPlan, PlanningAutomation, PlanningLine } from '../types/finance';
 import { planCents, safeCents } from './planningMoney';
@@ -29,7 +30,7 @@ export function effectiveBudgetPlans(data: FinanceData): BudgetPlan[] {
   return [...map.values()];
 }
 export function planningContent(data: FinanceData, month: string) {
-  return { plans:data.budgetPlans.filter(p=>p.monthYear===month).map(p=>({monthYear:p.monthYear,type:p.type,code:p.code,plannedAmount:p.plannedAmount})).sort((a,b)=>key(a).localeCompare(key(b))), carryovers:data.planningAutomation?.carryovers.filter(c=>c.toMonth===month).map(c=>({id:c.id,fromMonth:c.fromMonth,code:c.code,type:c.type,amountCents:c.amountCents})).sort((a,b)=>a.id.localeCompare(b.id)) ?? [] };
+  return { ...(subitemContent(data,month).length?{subitems:subitemContent(data,month)}:{}), plans:data.budgetPlans.filter(p=>p.monthYear===month).map(p=>({monthYear:p.monthYear,type:p.type,code:p.code,plannedAmount:p.plannedAmount})).sort((a,b)=>key(a).localeCompare(key(b))), carryovers:data.planningAutomation?.carryovers.filter(c=>c.toMonth===month).map(c=>({id:c.id,fromMonth:c.fromMonth,code:c.code,type:c.type,amountCents:c.amountCents})).sort((a,b)=>a.id.localeCompare(b.id)) ?? [] };
 }
 export function planningCatalog(data:FinanceData,catalog:BudgetPartida[]) {
   const extra=[...effectiveBudgetPlans(data),...data.transactions].filter(p=>!catalog.some(c=>key(c)===key(p))).map(p=>({code:p.code,type:p.type,name:'subcategoryName' in p?p.subcategoryName:`Partida histórica ${p.code}`,groupCode:'historical',groupName:'Fuera del catálogo',keywords:[]}));

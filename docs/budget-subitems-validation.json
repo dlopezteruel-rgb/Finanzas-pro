@@ -1,0 +1,216 @@
+{
+  "validatedAt": "2026-11-11T17:52:45.028796+00:00",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/budget-subitems",
+  "baseCommit": "4e4334519240e0f82d7e38a9588d6b2171f3540e",
+  "validationCodeCommit": "5773181e9abac87a0963cff914008dc264b6307d",
+  "uiBundleBuildCommit": "66b9da3680c5b590a1f33b7d783d01e2d2976d67",
+  "bundleEquivalence": "5773181 changes only the unit test clock. A final build at validationCodeCommit produces the identical App-BPbm1cu7.js bundle; application source and UI scripts are unchanged.",
+  "environment": {
+    "node": "24.22.1",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1",
+    "locale": "es-ES",
+    "timezone": "Europe/Madrid",
+    "fixtureClock": "2026-11-11T12:00:00Z"
+  },
+  "results": {
+    "npmCi": {
+      "passed": true,
+      "packagesAdded": 187,
+      "lockfileChanged": false
+    },
+    "unit": {
+      "passed": 335,
+      "failed": 0,
+      "skipped": 0,
+      "previous": 291,
+      "new": 44
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run lint"
+    },
+    "build": {
+      "passed": true,
+      "command": "npm run build",
+      "largestChunkKB": 428.21,
+      "largestChunkGzipKB": 112.53,
+      "warnings": [
+        "Existing Vite configLoader native warning: __dirname in vite.config.ts. No chunk-size warning emitted in this build."
+      ]
+    },
+    "chromium": {
+      "passed": 234,
+      "failed": 0,
+      "skipped": 0,
+      "cases": 221,
+      "containers": 13,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19
+      },
+      "command": "GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium BUDGET_SUBITEM_ARTIFACT_DIR=docs/assets/budget-subitems npm run test:ui"
+    },
+    "diffCheck": {
+      "passed": true,
+      "command": "git diff origin/main...HEAD --check"
+    }
+  },
+  "schema": {
+    "newVersion": "3.3",
+    "readableVersions": [
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9",
+      "3.0",
+      "3.1",
+      "3.2",
+      "3.3"
+    ],
+    "writeOnLoad": false,
+    "verifiedRecoveryBeforeUpgrade": true,
+    "dataKeyUnchanged": true,
+    "webLocksRetained": true
+  },
+  "safety": {
+    "realDataUsed": false,
+    "applicationDeployed": false,
+    "mainModified": false,
+    "aiStudioAccessedOrSynced": false,
+    "externalServicesUsedForNewBrowserSuite": false
+  },
+  "screenshots": [
+    {
+      "path": "docs/assets/budget-subitems/1280-dark-detalle.jpg",
+      "width": 1280,
+      "height": 1000,
+      "bytes": 142624,
+      "sha256": "124535d6afd9f0a7b95123b5fb35cd162e15c6c09e2bd21bfb85afca304b8465",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/1280-dark-planificacion.jpg",
+      "width": 1280,
+      "height": 2537,
+      "bytes": 259021,
+      "sha256": "efd138857f1616e816620d0834c080813ef5e10582827dce77e754c65f241694",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/1280-light-detalle.jpg",
+      "width": 1280,
+      "height": 1000,
+      "bytes": 145012,
+      "sha256": "96c17e7e8988d1c29dd1ce7bddeb93854398851027535ceb2880c230363192ee",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/1280-light-planificacion.jpg",
+      "width": 1280,
+      "height": 2537,
+      "bytes": 263166,
+      "sha256": "466dfc0ac9198437f660e4b3893bfb9d9da77c9012b9380a297728e0c6294e95",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/390-dark-detalle.jpg",
+      "width": 390,
+      "height": 844,
+      "bytes": 55046,
+      "sha256": "c5b4478d147a95f8165506f581c8be12067d51954880cdd0266e1f6528bf2be8",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/390-dark-planificacion.jpg",
+      "width": 390,
+      "height": 3379,
+      "bytes": 195657,
+      "sha256": "28be3e59f8cd0ac3ffe0eba0a5e482988ec33f5fbb23f6c4abd0b4d83e32ef8d",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/390-light-detalle.jpg",
+      "width": 390,
+      "height": 844,
+      "bytes": 55704,
+      "sha256": "78e811adbf5ae7e61fb6c831aa1bbc6fd56fba43bee1c37a6bfd88abd735e2b7",
+      "fixtureOnly": true
+    },
+    {
+      "path": "docs/assets/budget-subitems/390-light-planificacion.jpg",
+      "width": 390,
+      "height": 3379,
+      "bytes": 200999,
+      "sha256": "dc7a25a4efe009077b1eebe574b3c13523873584b4b473b68b02355f2324ad84",
+      "fixtureOnly": true
+    }
+  ],
+  "changedFiles": [
+    "docs/assets/budget-subitems/1280-dark-detalle.jpg",
+    "docs/assets/budget-subitems/1280-dark-planificacion.jpg",
+    "docs/assets/budget-subitems/1280-light-detalle.jpg",
+    "docs/assets/budget-subitems/1280-light-planificacion.jpg",
+    "docs/assets/budget-subitems/390-dark-detalle.jpg",
+    "docs/assets/budget-subitems/390-dark-planificacion.jpg",
+    "docs/assets/budget-subitems/390-light-detalle.jpg",
+    "docs/assets/budget-subitems/390-light-planificacion.jpg",
+    "docs/budget-subitems-validation.json",
+    "docs/budget-subitems.md",
+    "package.json",
+    "scripts/budgetSubitemFixture.ts",
+    "scripts/budgetSubitems.browser.ts",
+    "src/App.tsx",
+    "src/components/AssistantChatView.tsx",
+    "src/components/DashboardView.tsx",
+    "src/components/MovementProposalModal.tsx",
+    "src/components/PartidaDetailModal.tsx",
+    "src/components/PlanningAutomationPanel.tsx",
+    "src/components/PlanningSubitems.tsx",
+    "src/components/PlanningView.tsx",
+    "src/components/QuickNaturalLanguageInput.tsx",
+    "src/components/RestorationModal.tsx",
+    "src/components/SubitemManager.tsx",
+    "src/components/SubitemSelector.tsx",
+    "src/components/TransactionModal.tsx",
+    "src/styles/experience.css",
+    "src/tests.ts",
+    "src/types/finance.ts",
+    "src/utils/backup.ts",
+    "src/utils/budgetChanges.ts",
+    "src/utils/budgetSubitems.test.ts",
+    "src/utils/budgetSubitems.ts",
+    "src/utils/clearData.ts",
+    "src/utils/financeStore.ts",
+    "src/utils/planning.ts",
+    "src/utils/planningAutomation.ts",
+    "src/utils/planningBasis.ts",
+    "src/utils/sharedExpenses.ts"
+  ],
+  "knownRegressionsObservedInExecutedSuite": [],
+  "limitations": [
+    "Global rules, carryovers and undivided copies do not infer subitem allocations; incompatible operations are blocked or explicitly marked pending.",
+    "Recurring rules do not store subitem attribution; assign manually on the registered movement.",
+    "No general catalog customization or reparenting of identities.",
+    "Firefox, Safari, mobile physical devices and screen reader usability require manual review.",
+    "Previous approximate historical loan model remains unchanged."
+  ],
+  "manualReview": [
+    "Comfort with many subitems and the pending-distribution wording.",
+    "Approve visual screenshots in both themes before merge.",
+    "VoiceOver/TalkBack and device/browser coverage outside Chromium."
+  ]
+}
