@@ -1,0 +1,145 @@
+{
+  "date": "2026-11-11T10:07:37+01:00",
+  "branch": "test/integration-catalog-visual",
+  "purpose": "checkpoint temporal de validación; sin PR definitiva ni fusión en main",
+  "sourceCodeHead": "245abc462a3dad575918f664704d029fa8cf37fa",
+  "mergedHeadBeforeCorrections": "0bb052628b235a065fbbda5fe09e4ba7e19c6ac8",
+  "originalRemoteHeadsVerifiedUnchanged": {
+    "feature/visual-ux-granate-marino": "e1f6e729fabab7b772c0464f007b86dc5422e070",
+    "fix/catalog-financial-safety": "b1225c78a11c18cf73f0f26335cfbcad6d262627",
+    "main": "66a045e17e310527c790a15ff2fe5dceaaba48a3"
+  },
+  "originalPrHeadsAreAncestors": true,
+  "textualMergeConflicts": [],
+  "autoMergedFiles": [
+    "src/App.tsx",
+    "scripts/budgetUx.browser.ts",
+    "src/tests.ts"
+  ],
+  "environment": {
+    "node": "v24.22.1",
+    "chromium": "156.0.8078.79",
+    "chromiumPath": "/usr/bin/chromium",
+    "timezone": "Europe/Madrid"
+  },
+  "checks": {
+    "npmCi": {
+      "passed": true,
+      "command": "npm ci --cache /workspace/work/npm-cache-integration",
+      "packagesAdded": 187,
+      "lockfileUnchanged": true
+    },
+    "unit": {
+      "passed": 271,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run lint (tsc --noEmit)"
+    },
+    "build": {
+      "passed": true,
+      "warning": "Vite: configuración futura nativa con __dirname"
+    },
+    "chromium": {
+      "passed": 201,
+      "failed": 0,
+      "skipped": 0,
+      "leafCases": 190,
+      "parentTests": 11,
+      "perScript": [
+        {
+          "file": "scripts/phase1.browser.ts",
+          "passed": 57,
+          "failed": 0
+        },
+        {
+          "file": "scripts/sharedUx.browser.ts",
+          "passed": 12,
+          "failed": 0
+        },
+        {
+          "file": "scripts/deletion.browser.ts",
+          "passed": 23,
+          "failed": 0
+        },
+        {
+          "file": "scripts/planning.browser.ts",
+          "passed": 13,
+          "failed": 0
+        },
+        {
+          "file": "scripts/budgetUx.browser.ts",
+          "passed": 15,
+          "failed": 0
+        },
+        {
+          "file": "scripts/charts.browser.ts",
+          "passed": 8,
+          "failed": 0
+        },
+        {
+          "file": "scripts/automation.browser.ts",
+          "passed": 15,
+          "failed": 0
+        },
+        {
+          "file": "scripts/responsive.browser.ts",
+          "passed": 16,
+          "failed": 0
+        },
+        {
+          "file": "scripts/intelligent.browser.ts",
+          "passed": 25,
+          "failed": 0
+        },
+        {
+          "file": "scripts/visualUx.browser.ts",
+          "passed": 12,
+          "failed": 0
+        },
+        {
+          "file": "scripts/routes.browser.ts",
+          "passed": 5,
+          "failed": 0
+        }
+      ]
+    },
+    "diffCheck": {
+      "passed": true,
+      "command": "git diff origin/main...HEAD --check"
+    },
+    "unchangedFromPr17": [
+      "src/utils",
+      "src/types",
+      "src/components/BudgetsView.tsx",
+      "scripts/transferCases.ts",
+      "package-lock.json"
+    ]
+  },
+  "additionalCoverage": {
+    "unitRoutingCases": 3,
+    "chromiumMobileCopyCase": 1,
+    "chromiumRoutingCases": 4,
+    "chromiumRoutingParent": 1
+  },
+  "routeVerification": {
+    "modes": [
+      "development (DISABLE_HMR=true)",
+      "production"
+    ],
+    "bases": [
+      "/",
+      "/preview/finanzas/"
+    ],
+    "realExpressViteServer": true,
+    "sameOriginStorageUnchangedByQueries": true,
+    "externalBrowserRequestsBlockedInRoutingTests": true,
+    "assistantAndParserApiLocalOnly": true,
+    "actualGoogleAiStudioHostVerified": false,
+    "googleAiStudioAccessedOrSynchronized": false,
+    "contract": "APP_BASE_PATH idéntico al compilar y servir; proxy conserva o reescribe el prefijo para coincidir con el montaje"
+  },
+  "data": "Solo fixtures y contextos temporales; sin acceso a perfiles, backups o datos financieros reales"
+}
