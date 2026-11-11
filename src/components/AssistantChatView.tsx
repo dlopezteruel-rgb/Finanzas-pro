@@ -2,6 +2,7 @@ import type { FinanceData } from '../utils/backup';
 import { financialAssistantContext,localFinancialAdvice,assistantServiceContext } from '../utils/financialAssistant';
 import { economicTransactions } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
+import { paths } from '../app/paths';
 import React, { useState, useRef, useMemo, useEffect } from 'react';
 import {
   Send,
@@ -238,7 +239,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
 
     // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
-      const response = await fetch('/api/assistant-chat', {
+      const response = await fetch(paths.assistant, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

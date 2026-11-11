@@ -41,6 +41,7 @@ import {
 import { BUDGET_GROUPS } from './constants/categories';
 import { Header } from './components/Header';
 import { Brand } from './components/Brand';
+import { paths } from './app/paths';
 import { useI18n } from './i18n';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
@@ -540,7 +541,7 @@ export default function App() {
       downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
       } catch { setDataError(t('recovery.blocked')); }
     }}>Descargar datos locales sin modificar</button>
-    <a href="/">{t('recovery.back')}</a>
+    <a href={paths.home}>{t('recovery.back')}</a>
   </main>;
 
   return (

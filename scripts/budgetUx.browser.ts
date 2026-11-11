@@ -6,6 +6,8 @@ import { chromium, type Page } from 'playwright-core';
 import { DATA_KEY, makeBackup, type FinanceData } from '../src/utils/backup';
 import { STORAGE_LOCK } from '../src/utils/financeStore';
 import { savePlanning, planningScope } from '../src/utils/planning';
+import { textContrast } from './presentationChecks';
+import { navigateModule } from './browserNavigation';
 
 const fixture = (theme: 'dark' | 'light' = 'dark'): FinanceData => ({
   theme, transactions: [
@@ -56,7 +58,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
   const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || '/usr/bin/chromium', args: ['--no-sandbox'] }); t.after(() => browser.close());
   async function setup(mobile = false, theme: 'dark' | 'light' = 'dark', initial = fixture(theme)) {
     const context = await browser.newContext(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1280, height: 1000 } });
-    await context.addInitScript(({ key, value }) => { if (localStorage.getItem(key) === null) localStorage.setItem(key, value); }, { key: DATA_KEY, value: JSON.stringify('version' in initial ? initial : makeBackup(initial)) });
+    await context.addInitScript(({ key, value }) => { (window as any).__name = (fn: unknown) => fn; if (localStorage.getItem(key) === null) localStorage.setItem(key, value); }, { key: DATA_KEY, value: JSON.stringify('version' in initial ? initial : makeBackup(initial)) });
     const page = await context.newPage(); page.setDefaultTimeout(7000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
     await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url); await page.getByRole('button', { name: /^(?:\d+\s*)?Presupuestos(?:\s*\d+)?$/ }).first().click();
@@ -267,6 +269,8 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       await select.evaluate(el => { const option = document.createElement('option'); option.value = 'I'; option.textContent = 'Destino manipulado'; el.append(option); });
       await select.selectOption('I'); await d.getByRole('button', { name: 'Confirmar Traslado', exact: true }).click();
       await d.getByRole('alert').waitFor(); assert.match(await d.getByRole('alert').innerText(), /mismo tipo/);
+      assert.ok(await textContrast(d.getByRole('alert')) >= 4.5);
+      await page.keyboard.press('Tab'); assert.ok(await d.evaluate(el => el.contains(document.activeElement)));
       assert.deepEqual(await snapshot(page), unchanged);
       await select.selectOption('R'); await d.getByRole('button', { name: 'Confirmar Traslado', exact: true }).click(); await d.waitFor({ state: 'hidden' });
       const saved = await data(page);
@@ -276,9 +280,9 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
     } finally { await s.close(); }
   });
 
-  await t.test('duplicar con groupCode distinto del padre espera al guardado, conserva datos ante cuota y evita doble envío', async () => {
+  for (const mobile of [false, true]) await t.test(`duplicar con groupCode distinto del padre espera al guardado, conserva datos ante cuota y evita doble envío (${mobile ? 'móvil' : 'escritorio'})`, async () => {
     const initial = fixture(); initial.budgetGroups.find(g => g.code === 'G')!.partidas[0].groupCode = 'G.subgrupo';
-    const s = await setup(false, 'light', initial); const { page } = s;
+    const s = await setup(mobile, 'light', initial); const { page } = s;
     try {
       await tab(page, 'Catálogo y detalle de partidas').click(); const before = await data(page);
       await page.evaluate(key => {
@@ -296,14 +300,22 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       assert.equal(await duplicate.isDisabled(), true); assert.deepEqual(await data(page), before);
       await page.evaluate(() => (window as any).releaseCatalog());
       await page.getByRole('alert').filter({ hasText: /No hay espacio/ }).first().waitFor();
+      assert.ok(await textContrast(page.getByRole('alert').filter({ hasText: /No hay espacio/ }).first()) >= 4.5);
       assert.deepEqual(await data(page), before); assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 1);
       await page.evaluate(() => { (window as any).catalogIo.fail = false; (window as any).catalogIo.waiting = false; });
       await duplicate.click(); await page.waitForFunction(k => JSON.parse(localStorage.getItem(k)!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
       const after = await data(page);
       assert.equal(after.budgetGroups.find((g: any) => g.code === 'G').partidas.length, 2);
-      assert.deepEqual(after.transactions, before.transactions); assert.deepEqual(after.budgetPlans, before.budgetPlans);
+      for (const key of ['transactions', 'budgetPlans', 'planningMonths', 'wallets', 'contacts', 'loans', 'intelligentFinance']) assert.deepEqual(after[key], before[key], key);
+      const source = before.budgetGroups.find((g: any) => g.code === 'G').partidas[0];
+      const group = after.budgetGroups.find((g: any) => g.code === 'G');
+      assert.deepEqual(group.partidas.find((p: any) => p.code === source.code), source);
+      const copy = group.partidas.find((p: any) => p.code !== source.code);
+      assert.equal(copy.name, `${source.name} (Copia)`); assert.ok(copy.code);
       assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 2);
       await page.reload(); assert.equal((await data(page)).budgetGroups.flatMap((g: any) => g.partidas).length, 5);
+      await navigateModule(page, 'Presupuestos'); await tab(page, 'Catálogo y detalle de partidas').click();
+      await page.getByRole('button', { name: `Ver partida ${copy.code} ${copy.name}`, exact: true }).waitFor();
     } finally { await s.close(); }
   });
 
