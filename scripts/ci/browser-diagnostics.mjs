@@ -8,12 +8,12 @@ chromium.launch=async function(options){
   const browser=await launch(options),newContext=browser.newContext.bind(browser);
   const capture=async context=>{
     if(captured.has(context))return;captured.add(context);
-    const slot=counter++%6;await mkdir(dir,{recursive:true});
+    const sequence=counter++;if(sequence>=500)return;await mkdir(dir,{recursive:true});
     for(const [index,page] of context.pages().slice(-2).entries()){
       if(page.isClosed()||!/^https?:\/\/(?:127\.0\.0\.1|localhost)(?::|\/)/.test(page.url()))continue;
-      const name=`${suite}-${slot}-${index}`;
-      try{await page.screenshot({path:path.join(dir,`${name}.jpg`),type:'jpeg',quality:65,timeout:3000});await writeFile(path.join(dir,`${name}.json`),JSON.stringify({suite,slot,sequence:counter,url:page.url(),fixtureOnly:true})+'\n');}
-      catch(error){await writeFile(path.join(dir,`${name}.json`),JSON.stringify({suite,slot,screenshotError:error.message.slice(0,500)})+'\n');}
+      const name=`${suite}-${sequence}-${index}`;
+      try{await page.screenshot({path:path.join(dir,`${name}.jpg`),type:'jpeg',quality:65,timeout:3000});await writeFile(path.join(dir,`${name}.json`),JSON.stringify({suite,sequence,url:page.url(),fixtureOnly:true})+'\n');}
+      catch(error){await writeFile(path.join(dir,`${name}.json`),JSON.stringify({suite,sequence,screenshotError:error.message.slice(0,500)})+'\n');}
     }
   };
   browser.newContext=async function(options){

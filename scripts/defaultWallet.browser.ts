@@ -108,6 +108,8 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
         await d.getByLabel('Cartera u Origen').selectOption('AHORRO FICTICIO'); await d.getByLabel('Importe Total (€)').fill('15'); await d.getByRole('button', { name: 'Guardar Movimiento', exact: true }).click(); await d.waitFor({ state: 'hidden' });
         assert.equal((await saved(p)).defaultWalletId, 'cash');
         await nav(p, 'Movimientos'); await p.getByRole('button', { name: 'Editar movimiento Histórico ficticio', exact: true }).click();
+        const historicalConcept = await dialog(p).getByLabel('Concepto', { exact: true }).elementHandle();
+        await p.waitForFunction(input => (input as HTMLInputElement).value === 'Histórico ficticio', historicalConcept);
         assert.equal(await dialog(p).getByLabel('Cartera u Origen').inputValue(), 'BANCO FICTICIO'); await dialog(p).getByLabel('Concepto', { exact: true }).fill('Histórico editado'); await dialog(p).getByRole('button', { name: 'Guardar Cambios', exact: true }).click(); await dialog(p).waitFor({ state: 'hidden' });
         assert.equal((await saved(p)).transactions.find((tx: any) => tx.id === 'original').wallet, 'BANCO FICTICIO');
         await p.getByRole('button', { name: 'Opciones y datos', exact: true }).click(); const download = p.waitForEvent('download'); await p.getByRole('button', { name: 'Exportar JSON', exact: true }).click();
@@ -152,7 +154,12 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
         assert.equal(await dialog(p, 'Regla de movimiento periódico').getByLabel('Cartera periódica', { exact: true }).inputValue(), 'cash'); await p.keyboard.press('Escape');
         await p.getByRole('button', { name: 'Editar Alquiler ficticio', exact: true }).click(); assert.equal(await dialog(p, 'Regla de movimiento periódico').getByLabel('Cartera periódica', { exact: true }).inputValue(), 'bank'); await p.keyboard.press('Escape');
         await nav(p, 'Deudas'); await p.getByRole('button', { name: 'Nuevo Préstamo', exact: true }).click(); assert.equal(await dialog(p, 'Préstamo').getByLabel('Cuenta habitual de cobro').inputValue(), 'EFECTIVO FICTICIO'); await p.keyboard.press('Escape');
-        await p.getByRole('button', { name: 'Editar deuda o préstamo Préstamo ficticio', exact: true }).click(); assert.equal(await dialog(p, 'Préstamo').getByLabel('Cuenta habitual de cobro').inputValue(), 'BANCO FICTICIO'); await p.keyboard.press('Escape');
+        await p.getByRole('button', { name: 'Editar deuda o préstamo Préstamo ficticio', exact: true }).click();
+        // Opening after the creation form reuses its fields until the initialization effect commits.
+        // Wait for the existing record's name; keep the independent wallet-origin assertion below.
+        const loanName = await dialog(p, 'Préstamo').getByPlaceholder('ej. Préstamo Coche, Hipoteca...').elementHandle();
+        await p.waitForFunction(input => (input as HTMLInputElement).value === 'Préstamo ficticio', loanName);
+        assert.equal(await dialog(p, 'Préstamo').getByLabel('Cuenta habitual de cobro').inputValue(), 'BANCO FICTICIO'); await p.keyboard.press('Escape');
         await p.getByRole('button', { name: 'Me deben', exact: true }).click(); await p.getByRole('button', { name: 'Registrar cobro parcial', exact: true }).first().click();
         const payment = dialog(p, 'Liquidación personal'); await payment.getByLabel('Modalidad de liquidación').selectOption('bank');
         assert.equal(await payment.getByLabel('Cartera de liquidación', { exact: true }).inputValue(), 'cash');

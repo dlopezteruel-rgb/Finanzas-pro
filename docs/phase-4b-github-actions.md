@@ -8,7 +8,7 @@ Base verificada de `main`: **`8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2`**, merge
 
 | Trabajo | Comprobaciones | Timeout |
 | --- | --- | --- |
-| Unitarias | `npm ci`, 20 pruebas del ejecutor de CI y `npm test` completo. | 10 min |
+| Unitarias | `npm ci`, 22 pruebas del ejecutor de CI y `npm test` completo. | 10 min |
 | Lint, build y diff | `npm ci`, diff real contra la base, `npm run lint`, `npm run build`. | 10 min |
 | Chromium y axe | `npm ci`, instalación del navegador, resolución/verificación de la ruta y `npm run test:ui` completo con axe estricta. | 30 min |
 
@@ -43,9 +43,9 @@ Tras Chromium se exige la auditoría axe completa de **128 superficies**, sin vi
 
 Cada trabajo publica un resumen en GitHub y conserva los logs y JSON de diagnóstico durante **7 días**. El trabajo de navegador añade versión real de Chrome/Node/Playwright y resultados axe por superficie. Al fallar sube también capturas.
 
-Un preload exclusivo de CI intercepta el cierre de contextos creados por los scripts Playwright y captura sus últimas páginas locales. Mantiene un búfer circular de seis contextos por suite, dos páginas por contexto, con URL local y secuencia. Así conserva el estado cercano al fallo aunque un `finally` cierre el navegador. Las capturas son de fixtures; no se guardan volcados de localStorage, claves ni perfiles personales. Los errores del diagnóstico se registran sin sustituir el código de salida de la prueba. Si la instalación o el lanzamiento fallan antes de abrir una página, habrá logs en lugar de una captura inexistente.
+Un preload exclusivo de CI intercepta el cierre de contextos creados por los scripts Playwright y captura sus últimas páginas locales. Conserva cada contexto con una secuencia única (máximo 500 por suite y dos páginas por contexto), con URL local. No sobrescribe una captura fallida cuando se cierran después otros casos de la suite. Así conserva el estado cercano al fallo aunque un `finally` cierre el navegador. Las capturas son de fixtures; no se guardan volcados de localStorage, claves ni perfiles personales. Los errores del diagnóstico se registran sin sustituir el código de salida de la prueba. Si la instalación o el lanzamiento fallan antes de abrir una página, habrá logs en lugar de una captura inexistente.
 
-Los artefactos de éxito contienen logs/JSON; los de fallo incluyen además imágenes. `ci-artifacts/` está excluido del repositorio. Los informes unitarios y de herramientas se distinguen: los 20 casos de infraestructura no se suman a las pruebas de aplicación para inflar su referencia.
+Los artefactos de éxito contienen logs/JSON; los de fallo incluyen además imágenes. `ci-artifacts/` está excluido del repositorio. Los informes unitarios y de herramientas se distinguen: los 22 casos de infraestructura no se suman a las pruebas de aplicación para inflar su referencia.
 
 ## Seguridad y aislamiento
 
@@ -57,13 +57,25 @@ No se cambia producción, Google AI Studio, carteras, modelos contables, clave d
 
 Sobre la base, antes de cambiar configuración: **435 unitarias y 291 resultados Chromium** (270 casos y 21 contenedores), sin fallos, omisiones ni cancelaciones. `npm ci` instaló 188 paquetes; lint y build correctos. Chromium del entorno: 156.0.8078.79.
 
-Se descargó además el navegador declarado por la dependencia, en un almacenamiento de herramientas separado: Chrome for Testing **156.0.8078.4**. El resolver confirmó la ruta real; no se asumió `/usr/bin/chromium`. Las 20 pruebas del ejecutor y su ejecución sobre las 435 unitarias pasan. Lint y build pasan con el ajuste mínimo de Vite y ya no muestran el aviso de `__dirname`.
+Se descargó además el navegador declarado por la dependencia, en un almacenamiento de herramientas separado: Chrome for Testing **156.0.8078.4**. El resolver confirmó la ruta real; no se asumió `/usr/bin/chromium`. Las 22 pruebas del ejecutor y su ejecución sobre las 435 unitarias pasan. Lint y build pasan con el ajuste mínimo de Vite y ya no muestran el aviso de `__dirname`.
 
 ## Prueba real de Actions
 
 **Pendiente al publicar este primer checkpoint. No se considera CI validado hasta observar las ejecuciones reales.**
 
 La PR Draft se utilizará para un fallo deliberado, señalado como tal, después de ejecutar las 21 suites reales. Se verificará un check rojo y su diagnóstico; después se retirará la prueba temporal y se ejecutará de nuevo la batería completa. No se tocará `main` ni se mantendrá una prueba rota en la entrega final.
+
+## Incidencias durante la validación real
+
+La [primera ejecución](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075), SHA `c2135e934fde7e62c5320d1a69853cfbe14d6ec8`, terminó con Unitarias y Código verdes y Chromium rojo **antes** de alcanzar el fallo deliberado. No se cuenta como prueba controlada superada ni como batería completa: 12 resúmenes de suites, 213 resultados correctos y dos fallidos (caso y contenedor).
+
+| Incidencia | Causa y corrección | Verificación |
+| --- | --- | --- |
+| CI-001: lectura prematura de cartera al cambiar de creación a edición | El test leía un select reutilizado antes del efecto React que carga el registro. Ocurrió en GitHub con Préstamo y se reprodujo localmente con Movimiento histórico. Se espera al nombre/concepto del registro guardado y se mantienen las mismas aserciones independientes de cartera y persistencia. No se añaden sleeps, reintentos ni timeouts mayores. | Suite completa `defaultWallet.browser.ts`, 390/1280 px, con el Chrome for Testing fijado y diagnóstico activo. |
+| CI-002: capturas tempranas sobrescritas | Un búfer circular podía perder el estado de un caso fallido cuando continuaban otros casos de la misma suite. Se conservan secuencias únicas, con límite de 500 contextos por suite. | Prueba de infraestructura que falló antes de corregirlo: nueve contextos deben conservar nueve imágenes, incluidas primera y última. Otra prueba verifica que un error real de cierre sigue propagándose. |
+| CI-003: aviso Vite `__dirname` | Sustitución mínima por `import.meta.dirname`, conservando el alias y los ajustes HMR. | Builds locales y trabajo Código de GitHub correctos, sin el aviso anterior. |
+
+Los artefactos de la primera ejecución se descargaron y verificaron; el archivo ZIP coincide con su SHA-256 publicado por GitHub. El primer diagnóstico permitió localizar la aserción exacta. La siguiente ejecución conserva la prueba deliberada para completar esa comprobación después de corregir la sincronización.
 
 ## Interpretación de errores
 
