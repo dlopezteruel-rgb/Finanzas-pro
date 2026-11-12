@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
+const summary=(prefix='ℹ',values={})=>Object.entries({tests:3,pass:3,fail:0,cancelled:0,skipped:0,todo:0,...values}).map(([key,n])=>`${prefix} ${key} ${n}`).join('\n');
+test('spec and TAP summaries are accepted with exact counts',()=>{for(const prefix of ['ℹ','#'])assert.equal(requireCompleteTests(summary(prefix),1)[0].pass,3);});
+test('ANSI and command noise do not replace completed summaries',()=>{assert.equal(requireCompleteTests(`npm test\n\x1b[32m${summary()}\x1b[0m`,1).length,1);});
+for(const field of ['fail','cancelled','skipped','todo'])test(`${field} cannot be reported as fully successful`,()=>assert.throws(()=>requireCompleteTests(summary('ℹ',{[field]:1}),1),/incomplete/));
+test('missing summary is rejected even when process exits zero',()=>assert.throws(()=>requireCompleteTests('All fine!',1),/Expected/));
+test('missing status field is rejected',()=>assert.throws(()=>requireCompleteTests(summary().replace('ℹ skipped 0',''),1),/missing/));
+test('zero tests and unequal pass count are rejected',()=>{assert.throws(()=>requireCompleteTests(summary('ℹ',{tests:0,pass:0}),1));assert.throws(()=>requireCompleteTests(summary('ℹ',{pass:2}),1));});
+test('all suites must finish, including parent containers',()=>{assert.equal(requireCompleteTests(summary()+'\n'+summary(),2).length,2);assert.throws(()=>requireCompleteTests(summary(),21));});
+test('duplicate summary fields cannot fabricate a pass',()=>assert.throws(()=>parseTestSummaries(summary()+'\nℹ pass 3'),/Duplicate/));

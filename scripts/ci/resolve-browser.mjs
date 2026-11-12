@@ -1,0 +1,15 @@
+import {createRequire} from 'node:module';
+import {access,appendFile,mkdir,readFile,writeFile} from 'node:fs/promises';
+import {constants} from 'node:fs';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
+const require=createRequire(import.meta.url);
+const {chromium}=require('playwright-core'),installed=require('playwright-core/package.json').version;
+const manifest=JSON.parse(await readFile('package.json','utf8'));
+if(installed!==manifest.devDependencies['playwright-core'])throw new Error('playwright-core must match the exact declared version.');
+const executable=chromium.executablePath();await access(executable,constants.X_OK);
+if(/[\r\n]/.test(executable))throw new Error('Invalid executable path.');
+const metadata={node:process.version,playwrightCore:installed,chromium:execFileSync(executable,['--version'],{encoding:'utf8'}).trim(),executable,platform:process.platform,architecture:process.arch,runnerImage:process.env.ImageOS??null,runnerImageVersion:process.env.ImageVersion??null};
+const dir=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(dir,{recursive:true});await writeFile(path.join(dir,'environment.json'),JSON.stringify(metadata,null,2)+'\n');
+if(process.env.GITHUB_ENV)await appendFile(process.env.GITHUB_ENV,`CHROMIUM_PATH=${executable}\n`);
+console.log(JSON.stringify(metadata,null,2));

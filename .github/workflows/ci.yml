@@ -1,0 +1,123 @@
+name: FinanZas CI
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CI: 'true'
+  GEMINI_API_KEY: ''
+  GOOGLE_API_KEY: ''
+  CI_ARTIFACT_DIR: ci-artifacts
+
+jobs:
+  unit:
+    name: Unitarias
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, Node 24
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6, Node 24
+        with:
+          node-version: '24.22.1'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Instalación reproducible
+        run: npm ci
+      - name: Verificar el ejecutor de CI
+        run: node scripts/ci/run-check.mjs tools
+      - name: Pruebas unitarias completas
+        run: node scripts/ci/run-check.mjs unit
+      - name: Conservar logs y resúmenes
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6, Node 24
+        with:
+          name: unit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-artifacts/
+          retention-days: 7
+          if-no-files-found: warn
+
+  code:
+    name: Lint, build y diff
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, Node 24
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6, Node 24
+        with:
+          node-version: '24.22.1'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Instalación reproducible
+        run: npm ci
+      - name: Lint, build y diff real contra la base
+        run: node scripts/ci/run-check.mjs code
+      - name: Conservar logs y resúmenes
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6, Node 24
+        with:
+          name: code-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-artifacts/
+          retention-days: 7
+          if-no-files-found: warn
+
+  browser:
+    name: Chromium y axe
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, Node 24
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6, Node 24
+        with:
+          node-version: '24.22.1'
+          cache: npm
+          cache-dependency-path: package-lock.json
+      - name: Instalación reproducible
+        run: npm ci
+      - name: Instalar Chromium desde la CLI de playwright-core instalada
+        run: node node_modules/playwright-core/cli.js install --with-deps --no-shell chromium
+      - name: Resolver y verificar el ejecutable real
+        run: node scripts/ci/resolve-browser.mjs
+      - name: Batería completa Chromium y axe estricta
+        run: node scripts/ci/run-check.mjs browser
+      - name: Conservar diagnóstico del fallo
+        if: failure()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6, Node 24
+        with:
+          name: browser-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ci-artifacts/
+          retention-days: 7
+          if-no-files-found: warn
+      - name: Conservar logs, versiones y auditoría
+        if: always()
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6, Node 24
+        with:
+          name: browser-results-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ci-artifacts/**/*.log
+            ci-artifacts/**/*.json
+          retention-days: 7
+          if-no-files-found: warn

@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# Isolated, synthetic CI logs and screenshots
+ci-artifacts/
