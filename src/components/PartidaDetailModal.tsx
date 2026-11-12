@@ -1,3 +1,5 @@
+import {activeCatalogEntry} from '../utils/budgetCatalog';
+import type {ReorderCallback} from '../utils/catalogReorder';
 import type { FinanceData } from '../utils/backup';
 import { SubitemManager } from './SubitemManager';
 import { monthlySubitems, subitemBudgetRows, subitemsFor, type SubitemEdit } from '../utils/budgetSubitems';
@@ -13,6 +15,7 @@ import { X, Plus, Edit2, Trash2, Check, CheckCircle2, Clock, Calendar, ArrowRigh
 
 interface PartidaDetailModalProps {
   data: FinanceData;
+  onReorder:ReorderCallback;
   onEditSubitem: (edit:SubitemEdit)=>Promise<SaveResult>;
   isOpen: boolean;
   onClose: () => void;
@@ -30,7 +33,7 @@ interface PartidaDetailModalProps {
 }
 
 export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
-  data, onEditSubitem, isOpen,
+  data,onReorder,onEditSubitem,isOpen,
   onClose,
   partida,
   budgetRow,
@@ -61,6 +64,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
 
   if (!isOpen || !partida) return null;
 
+  const canClassify=activeCatalogEntry(data,partida);
   // Filter transactions for this partida in this month
   const partidaTransactions = transactions.filter(
     t => t.code === partida.code && t.type === partida.type && t.date.startsWith(monthYear) && (selectedSubitem===null || (t.subitemId ?? '')===selectedSubitem)
@@ -90,9 +94,6 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
               }`}>
                 {partida.type}
-              </span>
-              <span className="font-mono text-xs font-bold text-sky-400">
-                [{partida.code}]
               </span>
             </div>
             <h2 className="text-base font-bold text-white mt-1 truncate" title={partida.name}>
@@ -151,7 +152,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                     setIsEditingPrevisto(true);
                   }}
                   className="text-slate-400 hover:text-white p-0.5 opacity-60 group-hover:opacity-100"
-                  disabled={!!monthlySubitems(data,monthYear,partida)}
+                  disabled={!canClassify||!!monthlySubitems(data,monthYear,partida)}
                   title={monthlySubitems(data,monthYear,partida)?"Base calculada: edita el desglose en Planificación":"Editar previsto"}
                 >
                   <Edit2 className="w-2.5 h-2.5" />
@@ -185,7 +186,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </div>
         </div>
 
-        <SubitemManager data={data} partida={partida} onEdit={onEditSubitem} onBusy={setSubitemBusy}/>
+        <SubitemManager data={data} partida={partida} onEdit={onEditSubitem} onBusy={setSubitemBusy} onReorder={onReorder}/>
         {subitemsFor(data,partida).length>0&&<section className="subitem-breakdown" aria-label="Desglose de subítems">
           <h3>Subítems · {monthYear}</h3>
           {!monthlySubitems(data,monthYear,partida)&&<p role="status">Pendiente de desglose mensual. La previsión global se conserva sin repartir; distribúyela explícitamente en Planificación.</p>}
@@ -193,7 +194,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           {subitemBudgetRows(data,monthYear,partida).map(r=><div className="subitem-summary-row" key={r.id ?? 'unassigned'}>
             <strong>{r.name}{r.archived?' · Archivado':''}</strong><span>Previsto: {formatPlanningCents(r.planned)}</span><span>Ejecutado: {formatPlanningCents(r.executed)}</span><span>Resto: {formatPlanningCents(r.remainder)}</span><span>Desviación: {formatPlanningCents(r.deviation)}</span>
             <button type="button" aria-pressed={selectedSubitem===(r.id ?? '')} onClick={()=>setSelectedSubitem(r.id ?? '')}>Ver movimientos de {r.name}</button>
-            {!r.archived&&<button type="button" onClick={()=>onAddMovementToPartida(partida.code,partida.type,r.id)}>Registrar en {r.name}</button>}
+            {canClassify&&!r.archived&&<button type="button" onClick={()=>onAddMovementToPartida(partida.code,partida.type,r.id)}>Registrar en {r.name}</button>}
           </div>)}
           {selectedSubitem!==null&&<button type="button" onClick={()=>setSelectedSubitem(null)}>Ver todos los movimientos de la partida</button>}
         </section>}
@@ -203,6 +204,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
             Movimientos ({partidaTransactions.length})
           </span>
           <button
+            disabled={!canClassify}
             onClick={() => onAddMovementToPartida(partida.code, partida.type)}
             className="bg-white/[0.08] hover:bg-white/[0.15] text-sky-400 hover:text-white text-xs font-bold px-3 py-1.5 rounded-xl border border-white/[0.08] transition-colors flex items-center gap-1.5 cursor-pointer"
           >

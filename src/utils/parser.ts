@@ -1,5 +1,5 @@
-import { ALL_PARTIDAS } from '../constants/categories';
-import { MovementType, ParsedMovement } from '../types/finance';
+import {normalizeSearch} from './partidaSearch';
+import { MovementType, ParsedMovement, BudgetPartida } from '../types/finance';
 
 /**
  * Natural Language Parser for Spanish financial statements:
@@ -14,7 +14,7 @@ import { MovementType, ParsedMovement } from '../types/finance';
  *   processed: true
  * }
  */
-export function parseFinancialInput(text: string, referenceDate: Date = new Date()): ParsedMovement | null {
+export function parseFinancialInput(text: string, referenceDate: Date = new Date(), catalog:BudgetPartida[] = [],forcedType?:MovementType): ParsedMovement | null {
   if (!text || !text.trim()) return null;
 
   const raw = text.trim();
@@ -84,55 +84,22 @@ export function parseFinancialInput(text: string, referenceDate: Date = new Date
   if (lower.includes('gasté') || lower.includes('gaste') || lower.includes('pagué') || lower.includes('pague') || lower.includes('compré') || lower.includes('compre') || lower.includes('cené') || lower.includes('comí')) {
     isIncome = false;
   }
-  const type: MovementType = isIncome ? 'INGRESO' : 'GASTO';
+  const type: MovementType = forcedType ?? (isIncome ? 'INGRESO' : 'GASTO');
 
   // 5. EXTRACT PROCESSING STATE (Tramitado: SÍ / NO)
   const pendingKeywords = ['pendiente', 'sin tramitar', 'no tramitado', 'por tramitar', 'aún no pagado', 'no pagado'];
   const isPending = pendingKeywords.some(kw => lower.includes(kw));
   const processed = !isPending;
 
-  // 6. MATCH CATEGORY & PARTIDA
-  // Filter candidates by type
-  const candidatePartidas = ALL_PARTIDAS.filter(p => p.type === type);
-
-  let bestPartida = candidatePartidas[0];
-  let maxScore = 0;
-
-  for (const partida of candidatePartidas) {
-    let score = 0;
-    // Check keywords
-    for (const kw of partida.keywords) {
-      if (lower.includes(kw.toLowerCase())) {
-        score += kw.length * 3; // longer match has higher weight
-      }
-    }
-    // Check name and group name
-    if (lower.includes(partida.name.toLowerCase())) {
-      score += 20;
-    }
-    if (score > maxScore) {
-      maxScore = score;
-      bestPartida = partida;
-    }
-  }
-
-  // Fallbacks if no direct match:
-  if (maxScore === 0) {
-    if (type === 'GASTO') {
-      if (lower.includes('cen') || lower.includes('comid') || lower.includes('restaurante') || lower.includes('tapa')) {
-        bestPartida = candidatePartidas.find(p => p.code === 'V.001.002') || bestPartida;
-      } else if (lower.includes('compra') || lower.includes('super')) {
-        bestPartida = candidatePartidas.find(p => p.code === 'V.001.001') || bestPartida;
-      } else if (lower.includes('gasolina') || lower.includes('coche') || lower.includes('viaje')) {
-        bestPartida = candidatePartidas.find(p => p.code === 'V.002.001') || bestPartida;
-      } else {
-        // default variable expense
-        bestPartida = candidatePartidas.find(p => p.code === 'V.001.002') || bestPartida;
-      }
-    } else {
-      bestPartida = candidatePartidas.find(p => p.code === 'L.001.001') || bestPartida;
-    }
-  }
+  // Match only the supplied, active user catalog. Ties and missing evidence require a choice.
+  const normalize=(value:string)=>normalizeSearch(value).replace(/[^a-z0-9]+/g,' ').trim();
+  const haystack=` ${normalize(raw)} `;
+  const ranked=catalog.filter(p=>p.type===type&&!p.archived&&!p.deleted).map(partida=>({partida,score:
+    [...new Set(partida.keywords.map(normalize))].reduce((n,term)=>n+(term&&haystack.includes(` ${term} `)?term.length*3:0),0)
+    +(normalize(partida.name)&&haystack.includes(` ${normalize(partida.name)} `)?20+partida.name.length:0)
+  })).sort((a,b)=>b.score-a.score);
+  const bestPartida=ranked[0]?.score>0&&ranked[0].score!==(ranked[1]?.score??0)?ranked[0].partida:undefined;
+  const maxScore=bestPartida?ranked[0].score:0;
 
   // 7. EXTRACT CLEAN DESCRIPTION
   // e.g. "Ayer cené fuera por 15,50 € con Openbank" -> "Cena fuera"
@@ -154,20 +121,20 @@ export function parseFinancialInput(text: string, referenceDate: Date = new Date
       .replace(/con\s+(?:openbank|revolut|santander|efectivo|bbva)/gi, '')
       .replace(/\b(?:ayer|hoy|anteayer)\b/gi, '')
       .trim();
-    if (!description) description = bestPartida.name;
+    if (!description) description = bestPartida?.name ?? 'Movimiento pendiente de clasificar';
   }
 
   return {
     type,
     amount: Math.max(0, amount),
-    code: bestPartida.code,
-    categoryName: bestPartida.groupName,
-    subcategoryName: bestPartida.name,
+    code: bestPartida?.code ?? '',
+    categoryName: bestPartida?.groupName ?? '',
+    subcategoryName: bestPartida?.name ?? 'Selecciona una partida',
     description,
     wallet,
     date: dateStr,
     processed,
-    confidence: maxScore > 0 ? 0.95 : 0.7,
-    explanation: `Detectado movimiento de ${type} en partida [${bestPartida.code}] ${bestPartida.name} por importe ${amount.toFixed(2)} € pagado con ${wallet}.`,
+    confidence: maxScore > 0 ? 0.95 : 0,
+    explanation: bestPartida?`Propuesta de ${type}: ${bestPartida.name}, ${amount.toFixed(2)} €. Revisa antes de registrar.`:'No hay una coincidencia inequívoca en tu catálogo activo. Selecciona una partida.',
   };
 }

@@ -12,7 +12,8 @@ export function InteractiveChart({ title, rows, series, initialType = 'bars', di
   useEffect(()=>{const observer=new ResizeObserver(entries=>setCompact(entries[0].contentRect.width<480));if(host.current)observer.observe(host.current);return()=>observer.disconnect()},[]);
   const chartWidth=compact?480:720,plotWidth=chartWidth-100;
   const [type, setType] = useState(initialType);
-  const [hidden, setHidden] = useState<string[]>([]);
+  // Keep crowded comparisons legible; every series remains available in the legend.
+  const [hidden, setHidden] = useState<string[]>(() => series.length > 4 ? series.slice(3).map(s => s.key) : []);
   const [selected, setSelected] = useState<{ row: string; key: string } | null>(null);
   const visible = series.filter(s=>!hidden.includes(s.key));
   const numbers: number[] = rows.flatMap(r=>visible.flatMap(s=>{ const value=r.values[s.key]; return value === null ? [] : [value]; }));
@@ -46,7 +47,7 @@ export function InteractiveChart({ title, rows, series, initialType = 'bars', di
       </select></label>
       <fieldset className="chart-legend"><legend>Series visibles · {title}</legend>{series.map((s,i)=><label key={s.key}>
         <input type="checkbox" checked={!hidden.includes(s.key)} onChange={e=>setHidden(previous=>e.target.checked?previous.filter(k=>k!==s.key):[...previous,s.key])}/>
-        <span style={{borderColor:colors[i%colors.length]}} aria-hidden="true"/>{s.label}
+        <span className="chart-series-swatch" style={{borderColor:colors[i%colors.length]}} aria-hidden="true"/><span className="chart-series-label">{s.label}</span>
       </label>)}</fieldset>
     </div>
     <label>Seleccionar dato <select aria-label={`Seleccionar dato: ${title}`} value={active?.id ?? ''} onChange={e=>{const row=rows.find(r=>r.id===e.target.value);if(row&&visible[0])select(row,visible[0].key,true)}}><option value="">Elige un dato</option>{rows.map(r=><option key={r.id} value={r.id}>{r.label}</option>)}</select></label>

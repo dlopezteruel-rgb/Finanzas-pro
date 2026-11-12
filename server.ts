@@ -4,7 +4,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import { GoogleGenAI } from '@google/genai';
-import { ALL_PARTIDAS } from './src/constants/categories.js';
+import {parseFinancialInput} from './src/utils/parser';
+import {classificationCatalog} from './src/utils/budgetCatalog';
+import {makeBackup,parseBackup,isISODate} from './src/utils/backup';
 import { applicationPaths } from './config/appPaths';
 
 dotenv.config();
@@ -35,59 +37,18 @@ if (process.env.GEMINI_API_KEY) {
   }
 }
 
-// 1. Natural Language Movement Classification Endpoint
+// 1. Classify locally against the catalog explicitly supplied by the caller.
+// Missing catalogs never fall back to demo categories or a remote model.
 app.post(paths.parseMovement, async (req: Request, res: Response) => {
-  const { text, referenceDate } = req.body;
-  if (!text || typeof text !== 'string') {
-    return res.status(400).json({ error: 'Text prompt is required' });
-  }
-
-  // If Gemini is available, use model for ultra-deep contextual understanding
-  if (geminiClient && process.env.GEMINI_API_KEY) {
-    try {
-      const systemInstruction = `
-Eres el clasificador del Asistente Financiero Personal.
-El esquema de categorías disponible es:
-${ALL_PARTIDAS.map(p => `- ${p.type} | Código: ${p.code} | Grupo: ${p.groupName} | Partida: ${p.name} | Keywords: ${p.keywords.slice(0, 4).join(', ')}`).join('\n')}
-
-Debes extraer del texto del usuario:
-1. type: "GASTO" o "INGRESO"
-2. amount: número con el importe exacto (ej. 15.5)
-3. code: código de partida exacto (ej. "V.001.002" para Comer fuera)
-4. categoryName: nombre del grupo
-5. subcategoryName: nombre de la partida
-6. description: descripción concisa y limpia del gasto/ingreso
-7. wallet: Cartera u origen (ej. "OPENBANK", "REVOLUT", "SANTANDER", "EFECTIVO", "MYINVESTOR", "BBVA")
-8. date: fecha en formato YYYY-MM-DD (asume hoy es ${referenceDate || new Date().toISOString().split('T')[0]})
-9. processed: booleano (true si ya se ha pagado/cobrado o no se indica lo contrario, false si dice "pendiente" o "por pagar")
-10. explanation: breve explicación (1 frase) del registro identificado
-
-Responde ÚNICAMENTE con un objeto JSON válido con estas claves:
-{"type":"GASTO"|"INGRESO","amount":number,"code":"...","categoryName":"...","subcategoryName":"...","description":"...","wallet":"...","date":"YYYY-MM-DD","processed":boolean,"explanation":"..."}
-      `;
-
-      const response = await geminiClient.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: text,
-        config: {
-          systemInstruction,
-          responseMimeType: 'application/json',
-          temperature: 0.1,
-        },
-      });
-
-      if (response && response.text) {
-        const parsed = JSON.parse(response.text);
-        return res.json({ success: true, parsed, source: 'gemini' });
-      }
-    } catch (apiError) {
-      console.warn('Gemini parsing fallback triggered:', apiError);
-      // fallback to internal response below
-    }
-  }
-
-  // Fallback response handled client-side or rule-based
-  return res.json({ success: false, fallback: true });
+  const {text,referenceDate,budgetGroups}=req.body;
+  if(typeof text!=='string'||!text.trim())return res.status(400).json({error:'Text prompt is required'});
+  if(!Array.isArray(budgetGroups))return res.json({success:false,fallback:true});
+  if(referenceDate!==undefined&&!isISODate(referenceDate))return res.status(400).json({error:'Invalid reference date'});
+  try{
+    const catalog=parseBackup(JSON.stringify(makeBackup({theme:'light',budgetGroups,transactions:[],budgetPlans:[],contacts:[],loans:[],wallets:[]})));
+    const parsed=parseFinancialInput(text,referenceDate?new Date(`${referenceDate}T12:00:00Z`):new Date(),classificationCatalog(catalog.budgetGroups));
+    return res.json({success:true,parsed,source:'local'});
+  }catch{return res.status(400).json({error:'Invalid user catalog'});}
 });
 
 // 2. Financial Advisor & Audit Chat Endpoint
@@ -105,6 +66,7 @@ Tus reglas de estilo obligatorias:
 - Prioriza respuestas estructuradas usando tablas Markdown o listas jerárquicas cuando muestres resúmenes financieros.
 - Para importes económicos, usa siempre el formato con dos decimales y el símbolo correspondiente (ej. 154,25 €).
 - Basa tus respuestas en los datos reales del usuario que se te proporcionan.
+- Muestra los nombres de familias y partidas; no muestres sus códigos técnicos internos.
 
 Reglas de datos y consentimiento:
 - Los importes del contexto están en CÉNTIMOS enteros; divídelos entre 100 para expresarlos en euros.

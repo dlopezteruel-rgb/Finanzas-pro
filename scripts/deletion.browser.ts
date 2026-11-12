@@ -108,7 +108,7 @@ test('Eliminaciones seguras: confirmación, dependencias, concurrencia y recuper
       d = await open(page, 'loan'); assert.match(await d.innerText(), /Cuotas y movimientos del préstamo: 1/); assert.ok(await confirmButton(page, 'loan').isDisabled()); await page.keyboard.press('Escape'); await page.keyboard.press('Escape');
       await navigate(page, 'Presupuestos');
       await page.getByRole('tab', { name: 'Catálogo y detalle de partidas', exact: true }).click();
-      await page.getByRole('button', { name: /^Ver partida V\.001\.002 / }).click();
+      await page.getByRole('button', { name: 'Ver partida ' + base().budgetGroups.flatMap(g => g.partidas).find(p => p.code === 'V.001.002' && p.type === 'GASTO')!.name, exact: true }).click();
       const panel = page.getByRole('dialog', { name: 'Detalle de partida', exact: true }); await panel.locator('[data-movement-id=shared]').getByRole('button', { name: 'Eliminar movimiento', exact: true }).click();
       d = await assertTop(page, 'Eliminar movimiento'); assert.match(await d.innerText(), /Liquidaciones del gasto: 1/); assert.ok(await confirmButton(page, 'transaction').isDisabled()); await page.keyboard.press('Escape'); assert.equal(await panel.evaluate(el => el.contains(document.activeElement)), true); await page.keyboard.press('Escape'); assert.equal(await raw(page), before);
     } finally { await close(); }

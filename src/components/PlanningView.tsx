@@ -1,6 +1,6 @@
 import { PlanningSubitems } from './PlanningSubitems';
 import { subitemContent, subitemSum } from '../utils/budgetSubitems';
-import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useEffect, useId, useLayoutEffect, useMemo, useState } from 'react';
 import type { FinanceData } from '../utils/backup';
 import type { BudgetPartida, MonthlyBudgetRow, PlanningLine, PlanningTotals, MonthlySubitemPlan } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
@@ -34,10 +34,10 @@ interface Props {
 }
 export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation, onRegisterNavigationSave }: Props) {
   // Preserve unknown historical plans as editable rows rather than dropping them.
-  const catalog = data.budgetGroups.flatMap(g => g.partidas);
+  const catalog = data.budgetGroups.filter(g=>!g.deleted).flatMap(g=>g.partidas.filter(p=>!p.deleted).map(p=>({...p,archived:!!g.archived||!!p.archived}))).filter(p=>!p.archived||data.budgetPlans.some(b=>b.monthYear===month&&planningKey(b)===planningKey(p))||data.transactions.some(t=>t.date.startsWith(month)&&planningKey(t)===planningKey(p)));
   const known = new Set(catalog.map(planningKey));
   const historicPlans = [...data.budgetPlans,...carryLines(data,month).map(l=>({monthYear:month,code:l.code,type:l.type,plannedAmount:0}))];
-  const missing: BudgetPartida[] = [...new Map(historicPlans.filter(p => p.monthYear === month && !known.has(planningKey(p))).map(p => ({ ...p, name: `Partida histórica ${p.code}`, groupName: 'Fuera del catálogo', groupCode: 'historical', keywords: [] })).map(p=>[planningKey(p),p])).values()];
+  const missing: BudgetPartida[] = [...new Map(historicPlans.filter(p => p.monthYear === month && !known.has(planningKey(p))).map((p,index) => ({ ...p, name: data.transactions.find(t => planningKey(t) === planningKey(p))?.subcategoryName ?? `Partida histórica ${index + 1}`, groupName: 'Fuera del catálogo', groupCode: 'historical', keywords: [] })).map(p=>[planningKey(p),p])).values()];
   const partidas = [...catalog, ...missing];
   const initialFields = Object.fromEntries(partidas.map(p => [planningKey(p), String(data.budgetPlans.find(b => b.monthYear === month && planningKey(b) === planningKey(p))?.plannedAmount ?? 0)]));
   const initialSavings = planningMoneyInput(data.planningMonths?.find(m => m.monthYear === month)?.savingsCents ?? 0);
@@ -50,6 +50,16 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const [acceptDeficit, setAcceptDeficit] = useState(false);
   const [notice, setNotice] = useState('');
   const [annual, setAnnual] = useState(false);
+  const [editorTab, setEditorTab] = useState<'GASTO' | 'INGRESO' | 'multi'>('GASTO');
+  const [mobile, setMobile] = useState(() => window.matchMedia('(max-width: 767px)').matches);
+  const editorId = useId();
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 767px)');
+    const update = () => { setMobile(media.matches); if (!media.matches) setEditorTab(tab => tab === 'multi' ? 'GASTO' : tab); };
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+  const editorTabs = [...(['GASTO', 'INGRESO'] as const).map(id => ({id, name: id === 'GASTO' ? 'Gastos' : 'Ingresos'})), ...(mobile ? [{id: 'multi' as const, name: 'Multiperiodo'}] : [])];
   const [expanded, setExpanded] = useState<Record<string, boolean>>({});
   const isOpen = (key: string) => expanded[key] ?? true;
   const toggle = (key: string) => setExpanded(previous => ({ ...previous, [key]: !(previous[key] ?? true) }));
@@ -131,6 +141,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       {!totals && <p role="alert">Corrige los importes para calcular y guardar los totales. {totalError}</p>}
       {deficit && <p role="alert">Advertencia: déficit de asignación o ahorro objetivo superior a los ingresos. No se corregirán los importes automáticamente.</p>}
       <p>Balance real / ahorro realizado: <strong>{formatCurrency(summary.balanceReal)}</strong>. Solo movimientos procesados, con las reglas contables vigentes.</p>
+      <Totals totals={totals}/>
       {submission.error && <p role="alert">{submission.error}</p>}
       {notice && <p role="status">{notice}</p>}
       <div className="flex flex-wrap gap-2">
@@ -139,13 +150,27 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
         <button disabled={!valid || submission.saving} onClick={() => { submission.clearError(); setAcceptDeficit(false); setReview(true); }}>Revisar y aprobar previsión</button>
       </div>
     </div>
-    <div className="planning-workbench">
+    <div className="planning-editor-layout">
+      <div className="planning-editor-tabs budget-tabs" role="tablist" aria-label="Áreas de planificación">
+        {editorTabs.map((tab, index) => <button type="button" key={tab.id} id={`${editorId}-tab-${tab.id}`} role="tab" aria-selected={editorTab === tab.id}
+          aria-controls={`${editorId}-panel-${tab.id}`} tabIndex={editorTab === tab.id ? 0 : -1} onClick={() => setEditorTab(tab.id)}
+          onKeyDown={event => {
+            const next = event.key === 'Home' ? 0 : event.key === 'End' ? editorTabs.length - 1 : event.key === 'ArrowRight' ? (index + 1) % editorTabs.length : event.key === 'ArrowLeft' ? (index + editorTabs.length - 1) % editorTabs.length : null;
+            if (next !== null) { event.preventDefault(); document.getElementById(`${editorId}-tab-${editorTabs[next].id}`)?.focus(); }
+          }}>{tab.name}{tab.id !== 'multi' && partidas.some(p => p.type === tab.id && errors[planningKey(p)]) ? ' · Revisar importes' : ''}</button>)}
+      </div>
+      <div className="planning-multiperiod" id={`${editorId}-panel-multi`} role={mobile ? 'tabpanel' : undefined} aria-labelledby={mobile ? `${editorId}-tab-multi` : undefined} hidden={mobile && editorTab !== 'multi'}>
+        <details open><summary>Planificación multiperiodo</summary>
+          <PlanningAutomationPanel data={data} month={month} blocked={dirty||submission.saving} onBusy={setAutomationBusy} onApply={onAutomation} requestCarryReview={carryReview}/>
+        </details>
+      </div>
+    <div className="planning-workbench" hidden={mobile && editorTab === 'multi'}>
       <PlanningLiveSummary preview={preview} dirty={dirty}/>
       <div className="planning-partidas">
     {(['INGRESO', 'GASTO'] as const).map(type => {
       const title = type === 'INGRESO' ? 'Ingresos' : 'Gastos';
       const blockKey = `block:${type}`;
-      const groups = [...data.budgetGroups.filter(g => g.type === type).map(g => ({ ...g, key: `family:${type}:${g.code}` })),
+      const groups = [...data.budgetGroups.filter(g => g.type === type&&!g.deleted).map(g => ({ ...g, partidas:catalog.filter(p=>g.partidas.some(i=>planningKey(i)===planningKey(p))), key: `family:${type}:${g.code}` })),
         ...(missing.some(p => p.type === type) ? [{ key: `historical:${type}`, name: 'Fuera del catálogo', partidas: missing.filter(p => p.type === type) }] : [])];
       const stats = (items: BudgetPartida[]) => {
         const keys = new Set(items.map(planningKey));
@@ -163,7 +188,8 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       const blockStats = stats(partidas.filter(p => p.type === type));
       const deficitWarning = totals && (type === 'INGRESO' ? totals.savings > totals.income : totals.margin < 0)
         ? type === 'INGRESO' ? 'Advertencia: ahorro objetivo superior a los ingresos previstos.' : 'Advertencia: margen por asignar negativo.' : '';
-      return <PlanningSection key={type} title={title} open={isOpen(blockKey)} onToggle={() => toggle(blockKey)}
+      return <div key={type} id={`${editorId}-panel-${type}`} role="tabpanel" aria-labelledby={`${editorId}-tab-${type}`} hidden={editorTab !== type}>
+      <PlanningSection title={title} open={isOpen(blockKey)} onToggle={() => toggle(blockKey)}
         {...blockStats} warning={[blockStats.warning, deficitWarning].filter(Boolean).join(' ')}
         onAll={open => setExpanded(previous => ({ ...previous, [blockKey]: open, ...Object.fromEntries(groups.map(g => [g.key, open])) }))}>
         {groups.map(group => <PlanningSection key={group.key} title={group.name} family open={isOpen(group.key)} onToggle={() => toggle(group.key)} {...stats(group.partidas)}>
@@ -172,12 +198,12 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
               const carries=data.planningAutomation?.carryovers.filter(c=>c.toMonth===month&&c.code===p.code&&p.type==='GASTO') ?? [];
               const cents = errors[key]?undefined:combineLines(edits,carryLines(data,month)).find(l => planningKey(l) === key)?.amountCents ?? 0;
               return <div className="planning-row" key={key}>
-                <label htmlFor={`plan-${key}`}>{p.name}<span className="planning-base-label">Presupuesto base (€)</span></label>
-                <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" readOnly={breakdowns[key]!==undefined} value={calculated[key] ?? fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
+                <label htmlFor={`plan-${key}`}>{p.name}{p.archived?' · Archivada':''}<span className="planning-base-label">Presupuesto base (€)</span></label>
+                <div><input id={`plan-${key}`} aria-label={`Previsto ${type} ${p.name}`} inputMode="decimal" readOnly={!!p.archived||breakdowns[key]!==undefined} value={calculated[key] ?? fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
                   {errors[key] && <p id={`error-${key}`} role="alert">{errors[key]}</p>}</div>
                 <span>Ejecutado: {formatCurrency(row.ejecutado)}</span><span>Diferencia: {cents === undefined ? '—' : money(cents - Math.round(row.ejecutado * 100))}</span>
                 <button onClick={() => onDetail(p, row)} type="button" aria-label={`Detalle ${p.name}`}>Detalle</button>
-                <PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>
+                {!p.archived&&<PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>}
                 {carries.length>0&&<div className="planning-carry" role="group" aria-label={`Arrastre de ${p.name}`}>
                   {carries.map(c=><div key={c.id}><p><strong>+{money(c.amountCents)}</strong> arrastrados de {new Intl.DateTimeFormat('es-ES',{month:'long',year:'numeric',timeZone:'Europe/Madrid'}).format(new Date(`${c.fromMonth}-15T12:00:00Z`))} <span>({c.fromMonth})</span></p>
                     {carryIsStale(data,c)&&<p role="status" className="planning-warning">Arrastre potencialmente desactualizado. Revisa el origen; el ajuste no se ha recalculado.</p>}
@@ -190,11 +216,11 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
             })}
           </fieldset>
         </PlanningSection>)}
-      </PlanningSection>;
+      </PlanningSection></div>;
     })}
       </div>
     </div>
-    <PlanningAutomationPanel data={data} month={month} blocked={dirty||submission.saving} onBusy={setAutomationBusy} onApply={onAutomation} requestCarryReview={carryReview}/>
+    </div>
     <ChartSlot data={data} month={month} kind="planning"/>
     {annual && <div className="planning-card overflow-x-auto"><h2 className="text-lg font-bold">Resumen anual {month.slice(0,4)}</h2>
       {yearRows ? <><p>Cobertura {yearRows.filter(r => r.status !== 'Sin plan').length}/12 meses. Suma parcial de meses planificados; no incluye cambios locales sin guardar.</p>
@@ -203,8 +229,8 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
         </tbody><tfoot><tr><th>Total planificado</th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(yearRows.filter(r => r.status !== 'Sin plan').reduce((sum,r) => sum+r.totals[k],0))}</td>)}<td colSpan={5}>Parcial si cobertura &lt; 12</td></tr></tfoot></table></> : <p role="alert">Hay importes históricos con más de dos decimales o totales fuera del rango seguro. Revísalos antes de calcular el resumen anual.</p>}
     </div>}
     {currentMeta?.approval && <details className="planning-card"><summary>Comparar con la última aprobación</summary><Totals totals={currentMeta.approval.totals} /><p>Fotografía n.º {currentMeta.approval.number}, revisión {currentMeta.approval.revision}. Los importes siguientes son inmutables.</p>
-      {currentMeta.approval.subitemBreakdowns===undefined?<p>Esta aprobación no contiene un desglose histórico de subítems. No se reconstruye con el catálogo actual.</p>:currentMeta.approval.subitemBreakdowns.map(b=><div key={planningKey(b)}><h3>Desglose aprobado · {b.type} {b.code}</h3>{b.lines.map(l=><p key={l.subitemId}>{l.name}: {money(l.amountCents)}</p>)}</div>)}
-      <table><thead><tr><th>Partida</th><th>Aprobado</th><th>Previsto actual guardado</th></tr></thead><tbody>{[...new Map([...currentMeta.approval.lines, ...combineLines(planningLines(data.budgetPlans,month),carryLines(data,month))].map(l => [planningKey(l),l])).values()].map(l => <tr key={planningKey(l)}><th>{l.type} · {names.get(planningKey(l)) ?? l.code}</th><td>{money(currentMeta.approval!.lines.find(a => planningKey(a)===planningKey(l))?.amountCents ?? 0)}</td><td>{money(combineLines(planningLines(data.budgetPlans,month),carryLines(data,month)).find(p=>planningKey(p)===planningKey(l))?.amountCents ?? 0)}</td></tr>)}</tbody></table>
+      {currentMeta.approval.subitemBreakdowns===undefined?<p>Esta aprobación no contiene un desglose histórico de subítems. No se reconstruye con el catálogo actual.</p>:currentMeta.approval.subitemBreakdowns.map(b=><div key={planningKey(b)}><h3>Desglose aprobado · {names.get(planningKey(b)) ?? 'Partida histórica'}</h3>{b.lines.map(l=><p key={l.subitemId}>{l.name}: {money(l.amountCents)}</p>)}</div>)}
+      <table><thead><tr><th>Partida</th><th>Aprobado</th><th>Previsto actual guardado</th></tr></thead><tbody>{[...new Map([...currentMeta.approval.lines, ...combineLines(planningLines(data.budgetPlans,month),carryLines(data,month))].map(l => [planningKey(l),l])).values()].map(l => <tr key={planningKey(l)}><th>{l.type} · {names.get(planningKey(l)) ?? 'Partida histórica'}</th><td>{money(currentMeta.approval!.lines.find(a => planningKey(a)===planningKey(l))?.amountCents ?? 0)}</td><td>{money(combineLines(planningLines(data.budgetPlans,month),carryLines(data,month)).find(p=>planningKey(p)===planningKey(l))?.amountCents ?? 0)}</td></tr>)}</tbody></table>
     </details>}
     {review && totals && <SafeDialog title="Revisar y aprobar previsión" onCancel={() => { if (!submission.saving) setReview(false); }}><div className="planning space-y-3">
       <p>Periodo {month}. Se guardarán todos los importes, el objetivo y la fotografía aprobada en una sola operación.</p><Totals totals={totals} />

@@ -1,0 +1,104 @@
+{
+  "checkpoint": "B",
+  "validatedAt": "2026-11-12T07:59:59.068636+00:00",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/custom-budget-catalog-rebuild",
+  "previousCheckpoint": "6125ef4fa9d9f95f61fd10d5af5797f052bd9447",
+  "schema": {
+    "version": "3.4",
+    "readableVersions": [
+      "2.5",
+      "2.6",
+      "2.7",
+      "2.8",
+      "2.9",
+      "3.0",
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4"
+    ],
+    "writeOnLoad": false,
+    "verifiedRecoveryBeforeUpgrade": true,
+    "identity": "family code; partida type + code; permanent tombstones"
+  },
+  "results": {
+    "unit": {
+      "passed": 369,
+      "failed": 0,
+      "skipped": 0,
+      "newSinceA": 34
+    },
+    "lint": {
+      "passed": true
+    },
+    "build": {
+      "passed": true,
+      "warnings": [
+        "Aviso previo de Vite: __dirname en vite.config.ts"
+      ]
+    },
+    "chromium": {
+      "passed": 247,
+      "failed": 0,
+      "skipped": 0,
+      "cases": 232,
+      "containers": 15,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7,
+        "customCatalog": 6
+      },
+      "command": "GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium npm run test:ui"
+    },
+    "diffCheck": {
+      "passed": true
+    }
+  },
+  "environment": {
+    "node": "24.22.1",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1"
+  },
+  "sourceSha256": {
+    "package.json": "3393af8c58e769bff0fed7ebaa27585b3d08fa1f0f0c3380c21207490efee6c6",
+    "scripts/customCatalog.browser.ts": "e97b414975e94a775700e59e3ba559569915a4c82bd7a02b1e5c82cb10df64d3",
+    "src/App.tsx": "35f70abb598dcb0c9d7cc506d61601520675e3339cc1836c3b90470d84dc546b",
+    "src/components/BudgetsView.tsx": "8a47969c7024fa0faf04127e2a7d2c4037ccea88b86916fc97c39402d0598772",
+    "src/components/CatalogManager.tsx": "2fcd33eab26796a9c1c9806709c071fa3620bdea75695742522363d7fee7e3c4",
+    "src/components/PartidaSelector.tsx": "36f890559a81be8f6e51dfd1445da136e03fd0e88dfdf5ede1f8f6b654b7a002",
+    "src/components/PlanningView.tsx": "16567d42cc0bb7964e386fce662c1cd42fbe305721f111212d078c0f1bdfc20b",
+    "src/styles/experience.css": "63b9ec52e89c883f25fcbde5f13ab8cfcdb03f9e3377d71d8672ed41158f891c",
+    "src/tests.ts": "d4cfa17f212f7ed83b78ecee3a6d074b14aa0c66019e23ec05370cc06d078a60",
+    "src/types/finance.ts": "add6059cd67392852be1f1fbb45eb33c278b030f1ea3836f9ec6066a4a6b4844",
+    "src/utils/backup.ts": "3b077eeb9db8c86f7c03b3f59e9a03d47c928dc40929dd996c49a018b333af53",
+    "src/utils/budgetCatalog.test.ts": "838ffa2e4c55f37df01ae0542be30c7e312d5745156e4a18e36b6b16bf874a00",
+    "src/utils/budgetCatalog.ts": "1112b1e5c5d53c87a0baaf73e02323054bcfc8024b241070dca52608bfa3ebae",
+    "src/utils/budgetChanges.ts": "33d3daa3234e1ac1e563927f97129a7e20df530f741b28df894b882369ca181f",
+    "src/utils/financeStore.ts": "e055ab0d05b1b4f10c1ac2b6de8dacf0d04089922da9658733c002f17ea99dca",
+    "src/utils/partidaSearch.ts": "812fb49fac274e160ea90ddc2bc0a1c29ae0e9c652ca0c3a9be587d54daf1f2b"
+  },
+  "safety": {
+    "mainModified": false,
+    "deployed": false,
+    "aiStudioAccessedOrSynced": false,
+    "realDataUsed": false,
+    "lockfileChanged": false
+  },
+  "remainingCheckpoints": [
+    "C: arrastrar y soltar",
+    "D: integración de clasificación, regresiones, documentación/capturas finales y PR Draft"
+  ]
+}

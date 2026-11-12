@@ -276,8 +276,6 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                     )}
                   </div>
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mt-0.5">
-                    <span className="font-mono text-sky-400 font-semibold">[{t.code}]</span>
-                    <span>•</span>
                     <span className="truncate max-w-[120px]">{t.subcategoryName.split(':')[1] || t.subcategoryName}</span>
                     <span>•</span>
                     <span className="text-slate-300 font-semibold">{t.wallet}</span>

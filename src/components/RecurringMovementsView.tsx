@@ -1,3 +1,4 @@
+import {classificationCatalog} from '../utils/budgetCatalog';
 import React, { useMemo, useState } from "react";
 import type { FinanceData } from "../utils/backup";
 import type { RecurringMovementRule, Transaction } from "../types/finance";
@@ -59,17 +60,10 @@ export function RecurringMovementsView({
   const txById = new Map(data.transactions.map((t) => [t.id, t]));
   const state = intelligent(data),
     partidas = useMemo(() => {
-      const all = [
-        ...data.budgetGroups.flatMap((g) => g.partidas),
-        ...data.transactions.map((t) => ({
-          type: t.type,
-          code: t.code,
-          name: t.subcategoryName,
-          groupName: t.categoryName,
-        })),
-      ];
-      return [...new Map(all.map((p) => [`${p.type}:${p.code}`, p])).values()];
-    }, [data]);
+      const active=classificationCatalog(data.budgetGroups);
+      const historical=state.recurringRules.filter(r=>r.id===draft?.id&&!active.some(p=>p.type===r.type&&p.code===r.code)).map(r=>({type:r.type,code:r.code,name:r.subcategoryName,groupName:r.categoryName,groupCode:'historical',keywords:[]}));
+      return [...active,...historical];
+    }, [data,draft?.id]);
   const linkedDate = focusedOccurrenceId
     ? state.occurrences.find(o => o.id === focusedOccurrenceId)?.dueDate ?? focusedOccurrenceId.slice(-10)
     : null;
@@ -435,7 +429,7 @@ export function RecurringMovementsView({
                     value={`${p.type}:${p.code}`}
                     key={`${p.type}:${p.code}`}
                   >
-                    {p.type} · {p.name} ({p.code})
+                    {p.type} · {p.name}
                   </option>
                 ))}
               </select>

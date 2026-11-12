@@ -1,3 +1,4 @@
+import {chooseMovementPartida} from './browserNavigation';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { readFile } from 'node:fs/promises';
@@ -34,7 +35,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     await d.locator('input[type=date]').fill('2026-10-08');
     await d.getByRole('checkbox').first().check();
     await d.getByRole('button', { name: 'Ana', exact: true }).click(); await d.getByRole('button', { name: 'Bea', exact: true }).click();
-    return d;
+    await chooseMovementPartida(d);return d;
   }
   async function contacts(page: Page, name = 'Ana') {
     await navigate(page, 'Inicio'); await navigate(page, 'Contactos'); await page.getByText(name, { exact: true }).first().click();

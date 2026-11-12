@@ -290,7 +290,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
 
                   {/* Expanded Detail Panel */}
                   {isExpanded && (
-                    <div className="border-t border-white/[0.06] bg-[#0c0f17]/60 p-4 space-y-4 animate-fadeIn text-xs">
+                    <div className="contact-interior border-t border-white/[0.06] p-4 space-y-4 animate-fadeIn text-xs">
                       {/* Breakdown by Partida / Category (Restaurante vs Ropa vs otros) */}
                       {debtsByCategory.length > 0 && (
                         <div className="space-y-1.5">
@@ -308,7 +308,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     {cat.category}
                                   </span>
                                   <span className="text-[10px] font-mono text-sky-400">
-                                    {cat.code} ({cat.count} {cat.count === 1 ? 'concepto' : 'conceptos'})
+                                    {cat.count} {cat.count === 1 ? 'concepto' : 'conceptos'}
                                   </span>
                                 </div>
                                 <span className="font-bold text-emerald-400 text-sm">
@@ -425,7 +425,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                             {settledDebts.map(({ item, paidDate }) => (
                               <div
                                 key={`${item.transactionId}-settled`}
-                                className="bg-[#141926]/50 p-2.5 rounded-xl border border-white/[0.04] flex items-center justify-between text-xs"
+                                className="contact-history-card p-2.5 rounded-xl border border-white/[0.04] flex items-center justify-between text-xs"
                               >
                                 <div className="space-y-0.5">
                                   <div className="flex items-center gap-1.5">
@@ -447,13 +447,13 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                         </div>
                       )}
 
-                      {transactions.flatMap(t => (t.splitInfo?.settlements ?? []).filter(s => s.contactId === contact.id).map(s => <div key={s.id} className="flex gap-2 items-center text-slate-300">
+                      {transactions.flatMap(t => (t.splitInfo?.settlements ?? []).filter(s => s.contactId === contact.id).map(s => <div key={s.id} className="contact-settlement text-slate-300">
                         <span>{s.kind === 'cash' ? 'Reintegro' : 'Compensación'} · {formatCurrency(s.amount)} · {s.date} · {s.processed ? 'Tramitado' : 'Pendiente'}</span>
                         <button aria-label={`Editar liquidación ${s.id}`} className="text-sky-300" onClick={() => onEditSettlement(t.id, s.id)}>Editar</button>
                         <button aria-label={`Eliminar liquidación ${s.id}`} className="text-rose-300" onClick={() => onEditSettlement(t.id, s.id, true)}>Eliminar</button>
                       </div>))}
                       {/* Bottom actions for this contact */}
-                      <div className="flex items-center justify-between pt-2 border-t border-white/[0.06]">
+                      <div className="flex flex-wrap gap-3 items-center justify-between pt-2 border-t border-white/[0.06]">
                         <div className="flex items-center gap-1.5">
                           <button
                             onClick={() => onOpenCreateContact(contact)}

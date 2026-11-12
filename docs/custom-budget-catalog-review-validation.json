@@ -1,0 +1,150 @@
+{
+  "validatedAt": "2026-11-12T09:55:20.459707+00:00",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/custom-budget-catalog-rebuild",
+  "pullRequest": 22,
+  "draft": true,
+  "sourceParentCommit": "e4e0a8158deedf0f40c550e8179b34ec89942c4c",
+  "base": "565c0b1dc006ec15bb205dda4ceb3c9e3d6e6cc8",
+  "sourceIncludesReviewWorkingTree": true,
+  "changes": [
+    "Inmutabilidad de previsiones existentes y desgloses de padres archivados, incluso con reactivación combinada",
+    "Confirmación de archivo con listado de reglas activas y consecuencias, sin cambiar sus estados",
+    "Alcance transitorio revalidado dentro de FinanceStore bajo Web Locks; rechazo de mutaciones directas sin confirmación y de operaciones obsoletas"
+  ],
+  "results": {
+    "unit": {
+      "command": "npm test",
+      "passed": 402,
+      "newSinceReviewBase": 13,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "lint": {
+      "command": "npm run lint",
+      "passed": true
+    },
+    "build": {
+      "command": "npm run build",
+      "passed": true,
+      "warnings": [
+        "Aviso previo de Vite: __dirname en vite.config.ts; no impide compilar"
+      ]
+    },
+    "chromium": {
+      "command": "GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium npm run test:ui",
+      "passed": 273,
+      "cases": 255,
+      "containers": 18,
+      "newResultsSinceReviewBase": 11,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7,
+        "customCatalog": 6,
+        "catalogReorder": 10,
+        "catalogClassification": 5,
+        "catalogArchive": 11
+      }
+    },
+    "diffCheck": {
+      "passed": true,
+      "commands": [
+        "git diff --check",
+        "git diff --cached --check",
+        "git diff origin/main...HEAD --check"
+      ]
+    }
+  },
+  "archiveCoverage": [
+    "partida y familia, previsión existente con/sin desglose mensual",
+    "cambiar total, redistribuir sin cambiar total, eliminar previsión/desglose y reactivar junto con edición: rechazo sin escritura",
+    "archivo y reactivación separados conservan cantidades e históricos; edición posterior permitida",
+    "reglas activas enumeradas por tipo/nombre/partida; exclusión de inactivas/retiradas/ahorro",
+    "cancelación y Escape sin escrituras, confirmación explícita y conservación íntegra de reglas",
+    "alcance obsoleto por cambio de importe, activación, reasignación, alta o retirada de reglas",
+    "dos escrituras en cola en un mismo FinanceStore, usando Web Locks reales en Chromium",
+    "otra pestaña modifica una regla durante la revisión: conflicto, diálogo abierto y datos intactos"
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1"
+  },
+  "newBrowserFixtures": {
+    "widths": [
+      390,
+      1280
+    ],
+    "fixtureOnly": true,
+    "externalRequests": 0,
+    "consoleErrors": 0,
+    "productionTestHooksAdded": false
+  },
+  "sourceSha256": {
+    "package.json": "fe9977b541164aa0b44c1abfe34f65964b0d3744289f7359c55f5c83aef553f5",
+    "scripts/catalogArchive.browser.ts": "a07ec631db339b38b84728ae44ab9bb3567e0a4f4627b4d940230d1a7aa07a69",
+    "scripts/catalogArchiveFixture.ts": "31222f73c36b3737d6aa77dac932025b49fb5ef85cec93807474f21541a50492",
+    "src/App.tsx": "b2ac76b3424c47db21ce3eb7873f56590fd5d21a3a57ec55d09f3766ab503ff0",
+    "src/components/CatalogManager.tsx": "285c0d23ce238a24b20240ca9a5ea193c56f55e656a198a540c4500810536031",
+    "src/utils/budgetCatalog.test.ts": "978e7c4b4a322131ae08346e79eb32af38be33012d133499d83f10e35ea2d805",
+    "src/utils/budgetCatalog.ts": "fa6576f73fb285f36ad7dca4d927fef9f894c43bed9eb7c7e526b30609001907",
+    "src/utils/financeStore.ts": "c0fb8f0893dea9028b228d7b81913bc8978d0688356594bb0acf3b0350d1e36e"
+  },
+  "changedSinceReviewBase": [
+    "docs/custom-budget-catalog-rebuild.md",
+    "docs/custom-budget-catalog-review-validation.json",
+    "package.json",
+    "scripts/catalogArchive.browser.ts",
+    "scripts/catalogArchiveFixture.ts",
+    "src/App.tsx",
+    "src/components/CatalogManager.tsx",
+    "src/utils/budgetCatalog.test.ts",
+    "src/utils/budgetCatalog.ts",
+    "src/utils/financeStore.ts"
+  ],
+  "checks": {
+    "mainModified": false,
+    "merged": false,
+    "deployed": false,
+    "googleAIStudioSynchronized": false,
+    "schemaVersionChanged": false,
+    "lockfileChanged": false,
+    "credentialCandidates": 0,
+    "temporaryFileCandidates": 0
+  },
+  "failuresAndLimitations": {
+    "finalFailures": 0,
+    "finalOmissions": 0,
+    "resolvedDuringDevelopment": [
+      "Primer intento focalizado de Chromium: sonda de prueba con código de fixture incorrecto. Se sustituyó por demoParent compartido; se repitió la suite y luego la batería completa."
+    ],
+    "remaining": [
+      "Pendientes dispositivos físicos, Safari/Firefox y lectores de pantalla",
+      "Aviso previo de Vite sobre __dirname",
+      "Almacenamiento y copias locales sin cifrado; límites previos del parser monetario/fechas"
+    ]
+  },
+  "evidenceLogSha256": {
+    "review-final-unit.log": "fdf959d4b84dfcd29326b4da561e51220e882de3959d6630ff0c1fa010bfbf4d",
+    "review-final-lint.log": "ca4a767b3807d1bd9163e522827ca89f6b64081136e0b5e2b05f7ff724220e8b",
+    "review-final-build.log": "43aaca0e34446ba7ab933893a3513891983bfc06fe6fd4c910dd0877cc6be461",
+    "review-complete-chromium.log": "1fc1c31a8cf1819e6a1ec1e2d96da1bc59a3745952ae25276b11790daf815252"
+  }
+}

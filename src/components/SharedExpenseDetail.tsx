@@ -11,7 +11,7 @@ export function SharedExpenseDetail({ data, id, onClose }: { data: FinanceData; 
   const pending = structured ? split.participants.reduce((n, p) => n + cents(remainingDebt(tx, p.contactId)), 0) / 100 : undefined;
   return <SafeDialog title="Reparto del gasto" onCancel={onClose}>
     <p className="font-bold">{tx.description} · {tx.date}</p>
-    <p className="text-xs text-slate-300">{tx.code} · {tx.subcategoryName} · Cartera de origen: {sharedWalletName(tx, data)}</p>
+    <p className="text-xs text-slate-300">{tx.subcategoryName} · Cartera de origen: {sharedWalletName(tx, data)}</p>
     {!structured && <p role="status" className="text-amber-300 text-sm">Compartido histórico · pendiente de revisión. Se muestran los valores guardados y referencias explícitas; no se verifican ni se deducen pagos o compensaciones. El presupuesto conserva el importe total hasta migrar.</p>}
     {!tx.processed && <p className="text-amber-300 text-sm">Gasto no tramitado: no afecta al saldo real ni al ejecutado presupuestario.</p>}
     <dl className="grid grid-cols-2 gap-2 text-sm">

@@ -1,3 +1,4 @@
+import {chooseMovementPartida} from './browserNavigation';
 import { migrateSharedExpenses, sharedViewTransactions } from '../src/utils/sharedExpenses';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
@@ -59,7 +60,7 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
         await page.evaluate(() => navigator.locks.request('startup-check-finished', () => undefined));
         await scenario.open(page);
         const dialog = page.getByRole('dialog', { name: scenario.name, exact: true });
-        await scenario.fill(dialog);
+        await scenario.fill(dialog); await chooseMovementPartida(dialog);
         const fields = () => dialog.locator('input, select, textarea').evaluateAll(elements => elements.map(e => ({ value: (e as HTMLInputElement).value, checked: (e as HTMLInputElement).checked })));
         const draft = await fields();
         const raw = () => page.evaluate(key => localStorage.getItem(key), DATA_KEY);

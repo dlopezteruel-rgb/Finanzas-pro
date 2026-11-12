@@ -1,3 +1,6 @@
+import {applyCatalogReorder} from './utils/catalogReorder';
+import {CatalogManager} from './components/CatalogManager';
+import {classificationCatalog} from './utils/budgetCatalog';
 import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
 /**
  * @license
@@ -223,6 +226,7 @@ export default function App() {
   }, [transactions, budgetPlans, data.planningMonths]);
 
   // Derived all partidas from groups
+  const classificationPartidas=useMemo(()=>classificationCatalog(budgetGroups),[budgetGroups]);
   const allPartidas = useMemo(() => {
     return budgetGroups.flatMap(g => g.partidas);
   }, [budgetGroups]);
@@ -359,7 +363,7 @@ export default function App() {
   };
 
   const handleMovePartida = (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => {
-    return mutate(current => reorderPartida(current, groupCode, partidaIndex, direction));
+    return mutate(current => {const group=current.budgetGroups.find(g=>g.code===groupCode),item=group?.partidas.filter(p=>!p.deleted)[partidaIndex];if(!item)throw new Error('La partida ya no existe.');return reorderPartida(current,groupCode,group!.partidas.indexOf(item),direction);});
   };
 
   const handleDuplicatePartida = (partida: BudgetPartida) => {
@@ -425,14 +429,16 @@ export default function App() {
   };
 
   const handlePayLoanInstallment = (loan: Loan) => {
+    const partida=classificationPartidas.find(p=>p.type==='GASTO'&&p.code===loan.code);
+    if(!partida){setDataError('La partida habitual del préstamo está ausente o archivada. Edita el préstamo y selecciona una partida activa antes de registrar la cuota.');return;}
     const newTx: Transaction = {
       id: `tx-loan-${Date.now()}`,
       date: new Date().toISOString().split('T')[0],
       amount: loan.monthlyPayment,
       type: 'GASTO',
-      code: loan.code || 'E.002.001',
-      categoryName: 'ECONÓMICOS - Créditos y Préstamos',
-      subcategoryName: 'Créditos: Cuotas de préstamos personales',
+      code: partida.code,
+      categoryName: partida.groupName,
+      subcategoryName: partida.name,
       description: `Cuota mensual: ${loan.name}`,
       wallet: loan.wallet,
       processed: true, // Tramitado: SÍ
@@ -608,6 +614,7 @@ export default function App() {
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
           <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
           <DashboardView
+            classificationPartidas={classificationPartidas}
             subitems={data.budgetSubitems?.items}
             defaultWalletId={data.defaultWalletId}
             charts={<ChartSlot data={data} month={currentMonthYear} kind="home" navigate={filter=>{setChartNavigation(filter);changeTab('transactions')}}/>}
@@ -646,8 +653,10 @@ export default function App() {
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty} onRegisterNavigationSave={registerPlanningSave}
             onSave={(edits, savings, scope, approve, deficit, subitems) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit, subitems))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
-        } catalog={
+        } catalog={<>
+          <CatalogManager data={data} onEdit={edit=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate({catalog:edit})}/>
           <BudgetsView
+            data={data} onReorder={request=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>applyCatalogReorder(current,request))}
             currentMonthYear={currentMonthYear}
             summary={summary}
             budgetRows={budgetRows}
@@ -658,7 +667,7 @@ export default function App() {
             onChangePartidaGroup={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleChangePartidaGroup(...args)}
             onSelectPartidaToView={handleSelectPartidaToView}
           />
-        } />}
+        </>} />}
 
         {activeTab === 'contacts' && (
           <ContactsView
@@ -711,7 +720,7 @@ export default function App() {
             transactions={transactions}
             loans={loans}
             wallets={wallets}
-            availablePartidas={allPartidas}
+            availablePartidas={classificationPartidas}
             onAddTransaction={(tx) => handleSaveTransaction(tx)}
           />
         )}
@@ -770,6 +779,7 @@ export default function App() {
 
       {/* Partida Specific Detail Modal */}
       <PartidaDetailModal
+        onReorder={request=>mutate(current=>applyCatalogReorder(current,request))}
         isOpen={isPartidaDetailOpen}
         onClose={() => {
           setIsPartidaDetailOpen(false);

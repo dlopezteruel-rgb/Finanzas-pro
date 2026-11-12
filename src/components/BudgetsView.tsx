@@ -1,3 +1,6 @@
+import {useCatalogDrag} from './useCatalogDrag';
+import {catalogReorderScope,type ReorderCallback} from '../utils/catalogReorder';
+import type {FinanceData} from '../utils/backup';
 import { parsePlanningMoney } from '../utils/planning';
 import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -28,6 +31,8 @@ import {
 } from 'lucide-react';
 
 interface BudgetsViewProps {
+  data:FinanceData;
+  onReorder:ReorderCallback;
   currentMonthYear: string;
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
@@ -40,7 +45,7 @@ interface BudgetsViewProps {
 }
 
 export const BudgetsView: React.FC<BudgetsViewProps> = ({
-  currentMonthYear,
+  data,onReorder,currentMonthYear,
   summary,
   budgetRows,
   budgetGroups,
@@ -62,6 +67,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   const [targetGroupCode, setTargetGroupCode] = useState<string>('');
   const moveSubmission = useAsyncForm();
   const catalogSubmission = useAsyncForm();
+  const drag=useCatalogDrag(catalogReorderScope(data),onReorder,catalogSubmission.saving||moveSubmission.saving||editSubmission.saving);
 
   // Quick lookup of budget rows by key
   const rowMap = useMemo(() => {
@@ -74,7 +80,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
 
   // Filter groups by active tab
   const filteredGroups = useMemo(() => {
-    return budgetGroups.filter(g => g.type === activeTab);
+    return budgetGroups.filter(g => g.type === activeTab&&!g.deleted).map(g=>({...g,partidas:g.partidas.filter(p=>!p.deleted)}));
   }, [budgetGroups, activeTab]);
 
   // Toggle accordion group open/close
@@ -230,8 +236,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           return (
             <div
               key={group.code}
+              {...drag.target(drag.sourceKind==='partida'?{kind:'partida',type:group.type,groupCode:group.code,label:`Final de ${group.name}`,disabled:!!group.archived}:{kind:'family',type:group.type,code:group.code,label:group.name})}
               className="bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm transition-all"
             >
+              <div className="catalog-family-heading">{drag.handle({kind:'family',type:group.type,code:group.code,label:`familia ${group.name}`})}
               {/* Accordion Package Header */}
               <div
                 role="button" tabIndex={0} aria-expanded={isOpen} aria-label={`Familia ${group.name}`}
@@ -249,7 +257,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                   <div className="truncate">
                     <div className="flex items-center gap-2">
                       <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                        {group.name}
+                        {group.name}{group.archived?' · Archivada':''}
                       </h3>
                       <span className="text-[10px] bg-white/[0.05] text-slate-300 px-1.5 py-0.2 rounded-full font-mono">
                         {group.partidas.length} partidas
@@ -284,6 +292,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 </div>
               </div>
 
+              </div>
               {/* Progress bar across bottom of package header */}
               <div className="w-full bg-slate-800 h-1 overflow-hidden">
                 <div
@@ -323,23 +332,24 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                     return (
                       <div
                         key={key}
+                        {...drag.target({kind:'partida',type:partida.type,groupCode:group.code,beforeCode:partida.code,label:partida.name,disabled:!!group.archived})}
                         className="p-3 hover:bg-white/[0.02] transition-colors space-y-2"
                       >
                         {/* Partida Row */}
-                        <div className="flex items-start justify-between gap-2">
+                        <div className="catalog-partida-heading flex items-start justify-between gap-2">
+                          {drag.handle({kind:'partida',type:partida.type,code:partida.code,label:`partida ${partida.name}`})}
                           {/* Left: accessible opener for the contextual panel */}
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
-                            aria-label={`Ver partida ${partida.code} ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
+                            aria-label={`Ver partida ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
                             <span className="flex items-center gap-1.5 flex-wrap">
-                              <span className="font-mono text-[10px] font-bold text-sky-400 bg-white/[0.05] px-1.5 py-0.5 rounded border border-white/[0.08]">{partida.code}</span>
-                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}</span>
+                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}{partida.archived?' · Archivada':''}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </span>
                             <span className="text-[10px] text-slate-400 block mt-0.5">{row.transactionCount > 0 ? `${row.transactionCount} mov. registrados • Toca para ver` : '0 movimientos • Toca para ver'}</span>
                           </button>
 
                           {/* Center / Right: RESTO and Reordering Actions */}
-                          <div className="flex items-center gap-2.5 shrink-0">
+                          <div className="catalog-partida-actions flex items-center gap-2.5 shrink-0">
                             {/* Resto */}
                             <div className="text-right">
                               <span className="text-[9px] text-slate-400 uppercase font-semibold block">RESTO</span>
@@ -360,7 +370,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             <div className="flex flex-col gap-0.5 bg-white/[0.04] p-0.5 rounded-lg border border-white/[0.06]">
                               <button
                                 type="button"
-                                disabled={index === 0 || catalogSubmission.saving}
+                                disabled={index === 0 || catalogSubmission.saving||drag.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'UP'), () => {});
@@ -373,7 +383,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </button>
                               <button
                                 type="button"
-                                disabled={index === group.partidas.length - 1 || catalogSubmission.saving}
+                                disabled={index === group.partidas.length - 1 || catalogSubmission.saving||drag.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'DOWN'), () => {});
@@ -389,7 +399,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Duplicate partida */}
                             <button
                               type="button"
-                              disabled={catalogSubmission.saving}
+                              disabled={catalogSubmission.saving||drag.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 void catalogSubmission.submit(() => onDuplicatePartida(partida), () => {});
@@ -404,7 +414,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Change group / Move package */}
                             <button
                               type="button"
-                              disabled={catalogSubmission.saving}
+                              disabled={catalogSubmission.saving||drag.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 moveSubmission.clearError();
@@ -465,6 +475,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               <div className="flex items-center gap-1">
                                 <span>Previsto efectivo: <strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>{!!row.arrastre&&<> · Base {formatCurrency(row.basePrevisto)} + arrastre {formatCurrency(row.arrastre)}</>}</span>
                                 <button
+                                  disabled={!!group.archived||!!partida.archived||drag.saving}
                                   onClick={() => startEdit(row)}
                                   className="text-slate-400 hover:text-white p-0.5 cursor-pointer"
                                   title="Editar importe previsto"
@@ -506,6 +517,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
         })}
       </div>
 
+      {drag.sourceKind!=='partida'&&<div className="catalog-drop-end" {...drag.target({kind:'family',type:activeTab,label:'Final de las familias'})}>Final de las familias</div>}
+      {drag.feedback}
       {/* Confirmation Modal for Moving a Partida across packages */}
       {movingPartida && (
         <Overlay title="Mover partida" onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
@@ -518,7 +531,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             {moveSubmission.error && <p role="alert" className="text-rose-300">{moveSubmission.error}</p>}
             <h3 className="text-sm font-bold text-white">Mover Partida a Otro Paquete</h3>
             <p className="text-slate-300">
-              ¿A qué paquete deseas mover la partida <strong className="text-white">[{movingPartida.code}] {movingPartida.name}</strong>?
+              ¿A qué paquete deseas mover la partida <strong className="text-white">{movingPartida.name}</strong>?
             </p>
 
             <div>
@@ -529,7 +542,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 onChange={e => setTargetGroupCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500 text-xs"
               >
-                {budgetGroups.filter(g => g.type === movingPartida.type).map(g => (
+                {budgetGroups.filter(g => g.type === movingPartida.type&&!g.archived&&!g.deleted).map(g => (
                   <option key={g.code} value={g.code}>
                     {g.type}: {g.name}
                   </option>

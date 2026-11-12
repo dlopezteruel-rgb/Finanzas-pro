@@ -1,3 +1,4 @@
+import {classificationCatalog} from '../utils/budgetCatalog';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { deletionReport } from '../utils/deletion';
 import type { FinanceData } from '../utils/backup';
@@ -32,6 +33,8 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   const isEditing = !!loanToEdit;
 
   const submission = useAsyncForm();
+  const partidas=classificationCatalog(deletionData.budgetGroups).filter(p=>p.type==='GASTO');
+  const defaultCode=partidas.some(p=>p.code==='E.002.001')?'E.002.001':'';
   const [name, setName] = useState(loanToEdit?.name || '');
   const [entity, setEntity] = useState(loanToEdit?.entity || '');
   const [principal, setPrincipal] = useState<number>(loanToEdit?.principal || 10000);
@@ -42,7 +45,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   );
   const [monthlyPayment, setMonthlyPayment] = useState<number>(loanToEdit?.monthlyPayment || 300);
   const [wallet, setWallet] = useState(initialWalletName(wallets, deletionData.defaultWalletId, loanToEdit?.wallet));
-  const [code, setCode] = useState(loanToEdit?.code || 'E.002.001');
+  const [code, setCode] = useState(loanToEdit?.code ?? defaultCode);
   const [notes, setNotes] = useState(loanToEdit?.notes || '');
   const [confirmDelete, setConfirmDelete] = useState(false);
 
@@ -57,7 +60,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
       setStartDate(loanToEdit.startDate);
       setMonthlyPayment(loanToEdit.monthlyPayment);
       setWallet(loanToEdit.wallet);
-      setCode(loanToEdit.code || 'E.002.001');
+      setCode(loanToEdit.code);
       setNotes(loanToEdit.notes || '');
     } else {
       setName('');
@@ -68,7 +71,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
       setStartDate(new Date().toISOString().split('T')[0]);
       setMonthlyPayment(300);
       setWallet(initialWalletName(wallets, deletionData.defaultWalletId));
-      setCode('E.002.001');
+      setCode(defaultCode);
       setNotes('');
     }
     setConfirmDelete(false);
@@ -81,6 +84,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
     if (!name.trim() || principal <= 0) return;
     if (!wallets.some(w => w.name === wallet)) { void submission.submit(() => Promise.resolve({ ok: false, error: 'Selecciona una cartera válida para el préstamo.' }), () => {}); return; }
 
+    if(!partidas.some(p=>p.code===code)&&loanToEdit?.code!==code){void submission.submit(()=>Promise.resolve({ok:false,error:'Selecciona una partida activa para el préstamo.'}),()=>{});return;}
     const savedLoan: Loan = {
       id: loanToEdit?.id || `loan-${Date.now()}`,
       name: name.trim(),
@@ -91,7 +95,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
       startDate,
       monthlyPayment: Math.max(0, monthlyPayment),
       wallet,
-      code: code.trim() || 'E.002.001',
+      code: code.trim(),
       notes: notes.trim(),
     };
 
@@ -263,14 +267,14 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             <div>
               <label className="block text-slate-400 mb-1 font-medium">Partida presupuestaria</label>
               <select
+                aria-label="Partida del préstamo"
                 value={code}
                 onChange={e => setCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
-                <option value="E.002.001">E.002.001 · Cuotas de préstamos personales</option>
-                <option value="E.002.002">E.002.002 · Cuotas de tarjetas de crédito</option>
-                <option value="E.002.003">E.002.003 · Devoluciones de deuda entre particulares</option>
-                <option value="F.001.001">F.001.001 · Hipoteca de vivienda habitual</option>
+                <option value="" disabled>Selecciona una partida</option>
+                {loanToEdit&&!partidas.some(p=>p.code===loanToEdit.code)&&<option value={loanToEdit.code}>Partida histórica (conservar)</option>}
+                {partidas.map(p=><option key={p.code} value={p.code}>{p.name}</option>)}
               </select>
             </div>
 

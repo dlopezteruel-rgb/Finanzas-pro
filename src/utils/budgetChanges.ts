@@ -12,9 +12,11 @@ export function changePartidaGroup(data: FinanceData, partida: BudgetPartida, ta
   const source = containingGroup(data, partida);
   const target = data.budgetGroups.find(g => g.code === targetGroupCode);
   if (!source || !target) throw new Error('La partida o el paquete de destino ya no existe.');
+  if(source.deleted||target.deleted||target.archived||partida.deleted)throw new Error('Elige una partida y una familia de destino activas.');
   if (source.type !== target.type) throw new Error('No se permite cambiar entre Ingresos y Gastos desde el catálogo. Elige una familia del mismo tipo.');
   if (source.code === target.code) return data;
   const current = source.partidas.find(p => p.code === partida.code && p.type === partida.type)!;
+  if(current.deleted)throw new Error('La partida está retirada.');
   if (data.budgetGroups.some(g => g !== source && g.partidas.some(p => p.code === current.code && p.type === target.type))) {
     throw new Error('Ya existe una partida con ese código y tipo en el catálogo. No se ha aplicado el traslado.');
   }
@@ -31,8 +33,10 @@ export function changePartidaGroup(data: FinanceData, partida: BudgetPartida, ta
 export function duplicatePartida(data: FinanceData, partida: BudgetPartida): FinanceData {
   const source = containingGroup(data, partida);
   if (!source) throw new Error('La partida ya no existe. No se ha creado ninguna copia.');
+  if(source.archived||source.deleted||partida.archived||partida.deleted)throw new Error('Reactiva la partida y su familia antes de duplicar.');
   const index = source.partidas.findIndex(p => p.code === partida.code && p.type === partida.type);
   const original = source.partidas[index];
+  if(original.archived||original.deleted)throw new Error('Reactiva la partida antes de duplicar.');
   const suffix = /^(.*\.)(\d+)$/.exec(original.code);
   const prefix = suffix?.[1] ?? `${original.code}.`;
   let number = suffix ? BigInt(suffix[2]) + 1n : 1n;
@@ -62,8 +66,9 @@ export function reorderPartida(data: FinanceData, groupCode: string, index: numb
   const group = data.budgetGroups.find(g => g.code === groupCode);
   if (!group) throw new Error('La familia ya no existe.');
   if (!Number.isInteger(index) || index < 0 || index >= group.partidas.length) return data;
-  const target = direction === 'UP' ? index - 1 : index + 1;
-  if (target < 0 || target >= group.partidas.length) return data;
+  const visible = group.partidas.map((p,n)=>({p,n})).filter(({p})=>!p.deleted).map(({n})=>n);
+  const position=visible.indexOf(index),target=visible[position+(direction==='UP'?-1:1)];
+  if(position<0||target===undefined)return data;
   const partidas = [...group.partidas];
   [partidas[index], partidas[target]] = [partidas[target], partidas[index]];
   return { ...data, budgetGroups: data.budgetGroups.map(g => g === group ? { ...g, partidas } : g) };

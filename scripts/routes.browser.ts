@@ -1,3 +1,5 @@
+import {catalogClassificationFixture} from './catalogClassificationFixture';
+import {editCatalog} from '../src/utils/budgetCatalog';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn, execFileSync } from 'node:child_process';
@@ -80,6 +82,8 @@ test('integración: rutas reales en desarrollo, producción y previsualización 
           const parsed = await context.request.post(home + 'api/parse-movement', { data: { text: 'Ejemplo ficticio de prueba', referenceDate: '2026-11-11' } });
           assert.equal(parsed.status(), 200); assert.deepEqual(await parsed.json(), { success: false, fallback: true });
           assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          const custom=catalogClassificationFixture();const actual=await context.request.post(home+'api/parse-movement',{data:{text:'Gasté 12 en kayak azul',referenceDate:'2026-11-11',budgetGroups:custom.budgetGroups}});assert.equal(actual.status(),200);assert.equal((await actual.json()).parsed.code,'partida-ticket');
+          const archived=editCatalog(custom,{kind:'archiveFamily',code:'family-travel',archived:true});const unavailable=await context.request.post(home+'api/parse-movement',{data:{text:'Gasté 12 en kayak azul',referenceDate:'2026-11-11',budgetGroups:archived.budgetGroups}});assert.equal((await unavailable.json()).parsed.code,'');
           assert.equal(await page.evaluate(() => (window as any).routeWrites), 0);
           await page.goto(home + 'app/?vista=ficticia#resumen'); await page.getByLabel('Seleccionar periodo contable').waitFor();
           assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);

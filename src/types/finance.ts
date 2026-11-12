@@ -1,6 +1,8 @@
 export type MovementType = 'GASTO' | 'INGRESO';
 
 export interface BudgetPartida {
+  archived?: boolean;
+  deleted?: true;
   code: string;
   name: string;
   groupCode: string;
@@ -11,6 +13,8 @@ export interface BudgetPartida {
 }
 
 export interface BudgetGroup {
+  archived?: boolean;
+  deleted?: true;
   code: string;
   name: string;
   type: MovementType;

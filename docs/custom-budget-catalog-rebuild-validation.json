@@ -1,0 +1,105 @@
+{
+  "checkpoint": "A",
+  "validatedAt": "2026-11-12T07:38:36.406450+00:00",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/custom-budget-catalog-rebuild",
+  "baseCommit": "565c0b1dc006ec15bb205dda4ceb3c9e3d6e6cc8",
+  "scope": "Interfaz; sin cambios en el dominio financiero o persistencia",
+  "environment": {
+    "node": "24.22.1",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1"
+  },
+  "results": {
+    "npmCi": {
+      "passed": true,
+      "packagesAdded": 187,
+      "lockfileChanged": false
+    },
+    "unit": {
+      "passed": 335,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "npm run lint"
+    },
+    "build": {
+      "passed": true,
+      "command": "npm run build",
+      "warnings": [
+        "Aviso previo de Vite: __dirname en vite.config.ts con configLoader native"
+      ]
+    },
+    "chromium": {
+      "passed": 241,
+      "failed": 0,
+      "skipped": 0,
+      "cases": 227,
+      "containers": 14,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7
+      },
+      "command": "GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium npm run test:ui"
+    },
+    "diffCheck": {
+      "passed": true,
+      "commands": [
+        "git diff --check",
+        "git diff origin/main...HEAD --check"
+      ]
+    }
+  },
+  "safety": {
+    "realDataUsed": false,
+    "mainModified": false,
+    "deployed": false,
+    "aiStudioAccessedOrSynced": false,
+    "credentialPatternMatches": 0,
+    "unexpectedTemporaryFiles": 0
+  },
+  "sourceSha256": {
+    "package.json": "a568dcf0fe1e1c13f1311aaabfa43c4be5152e0e2b8c5741fd475ef65b430556",
+    "scripts/automation.browser.ts": "ffa2b817331640155fb6cef7e0177dc78a6c407d634dd00f0c91ce35c9f559ad",
+    "scripts/browserNavigation.ts": "315e5cd870ef5a2b80ec788ca1e1a0fbc8c5b61f6ee905e8cf1241b93c5f6d34",
+    "scripts/budgetSubitems.browser.ts": "752ae6c4e995db3a12aa5944352aad1ec17a85ec048b665bc2079d078671b93a",
+    "scripts/budgetUx.browser.ts": "ef817bc7cba57e1de4105a0df2e75bf0c3f192bdd07f97164891f8b6a0d8a5fd",
+    "scripts/capturePartidaSurfaces.ts": "a3c0f6ddf513d91c01f86fdc9a018cabf744551e2291d0e889863fe76260d645",
+    "scripts/catalogPresentation.browser.ts": "979e42251682ca0ac2add2ff0d67c59f9fa8ec70888514272b2d5e42d4ddc5b9",
+    "scripts/deletion.browser.ts": "d63c964aad69272084000c48e4134b9e2febe258c78a33ef0307fe6989fe85a0",
+    "scripts/intelligent.browser.ts": "ea172c11575128d70bce89a33d547063e65fad8bec1ad9d9f497695b0cdfbe3c",
+    "scripts/planning.browser.ts": "beb602beb169dea07850d83136766e8d5326c1de4bccc21c939856a3eeca754a",
+    "scripts/responsive.browser.ts": "b31c101d49ecbcb13cd79fa51149bf3d25765fae62afd41716636229b99cc47d",
+    "scripts/sharedUx.browser.ts": "181396b50f0e25e9c5f3d827269eb3778867f2120a57709a9711d26f13b19259",
+    "src/components/BudgetsView.tsx": "799b4204920652853820041ff9681bccb40958f98e7e08a20f9ebb5d3a94c3f5",
+    "src/components/ContactsView.tsx": "98900249fe458ce74088a10b23e33697d4c1d0af980197ffb3187e2e6d007fb2",
+    "src/components/PartidaDetailModal.tsx": "5b19539ff8e58b6d382e25d1671e8a26920424bfd3c0b033a935632389e8e5bb",
+    "src/components/PartidaSelector.tsx": "a1843b4b2ae69962a2fdc3fe9e9139a1eb08ba3ed3fafe981a017424f12d7278",
+    "src/components/PlanningAutomationPanel.tsx": "e0fab87469521c841f0678c20f04d54d1ea3398999f76f60b4daacdecc6c5a99",
+    "src/components/PlanningView.tsx": "a49e70f091e4e4849b5ba51a1aae8325ad2efaee56b4308ff5bcf983d9715d6a",
+    "src/components/charts/InteractiveChart.tsx": "767f72e3d93e81c8ae16b62b3096aad1db7e3059e65058b47c4c7d7049eccbad",
+    "src/styles/experience.css": "f2e662b88d23b524edf059f5636d09be1f84c5c8d278c307dabf315dd68a448c"
+  },
+  "remainingCheckpoints": [
+    "B: modelo y gestión por formularios, JSON 3.4",
+    "C: arrastre accesible",
+    "D: clasificación integrada, regresión completa, capturas definitivas y PR Draft"
+  ],
+  "limitations": [
+    "Chromium automatizado; dispositivos físicos, otros navegadores y lectores de pantalla requieren revisión manual."
+  ]
+}

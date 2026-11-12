@@ -5,11 +5,11 @@ import React, { useState, useMemo } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
 import { parseFinancialInput } from '../utils/parser';
 import { formatCurrency } from '../utils/finance';
-import { Transaction, Wallet, BudgetSubitem } from '../types/finance';
-import { ALL_PARTIDAS } from '../constants/categories';
+import { Transaction, Wallet, BudgetSubitem, BudgetPartida, MovementType } from '../types/finance';
 import { walletFromText } from '../utils/defaultWallet';
 
 interface QuickInputProps {
+  partidas:BudgetPartida[];
   onAddTransaction: (t: Omit<Transaction, 'id'>) => Promise<SaveResult>;
   wallets: Wallet[];
   subitems?:BudgetSubitem[];
@@ -20,7 +20,7 @@ interface QuickInputProps {
 
 export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   onAddTransaction,
-  wallets,
+  wallets,partidas,
   defaultWalletId, subitems,
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
@@ -28,13 +28,16 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
   const [subitemChoice,setSubitemChoice]=useState<{key:string;id:string}|null>(null);
+  const [typeChoice,setTypeChoice]=useState<{text:string;type:MovementType}|null>(null);
+  const [partidaChoice,setPartidaChoice]=useState<{text:string;code:string}|null>(null);
   const [walletChoice, setWalletChoice] = useState<string | undefined>();
   const parsed = useMemo(() => {
-    const result = parseFinancialInput(inputText);
+    const result = parseFinancialInput(inputText,undefined,partidas,typeChoice?.text===inputText?typeChoice.type:undefined);
     if (!result) return null;
     const selected = walletChoice !== undefined ? wallets.find(w => w.id === walletChoice) : walletFromText(inputText, result.wallet, wallets, defaultWalletId);
-    return { ...result, wallet: selected?.name ?? '' };
-  }, [inputText, wallets, defaultWalletId, walletChoice]);
+    const choice=partidaChoice?.text===inputText?partidas.find(p=>p.type===result.type&&p.code===partidaChoice.code&&!p.archived&&!p.deleted):undefined;
+    return { ...result,...(choice?{code:choice.code,categoryName:choice.groupName,subcategoryName:choice.name}:{}), wallet: selected?.name ?? '' };
+  }, [inputText, wallets, defaultWalletId, walletChoice,partidas,partidaChoice,typeChoice]);
   const [lastNotification, setLastNotification] = useState<string | null>(null);
 
   // Quick prompt chips
@@ -49,11 +52,8 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   const handleConfirm = () => {
     if (!parsed || parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)) return;
 
-    const matched = ALL_PARTIDAS.find(p => p.code === parsed.code && p.type === parsed.type) ||
-      ALL_PARTIDAS.find(p => p.code === parsed.code) || {
-        groupName: parsed.categoryName,
-        name: parsed.subcategoryName,
-      };
+    const matched=partidas.find(p=>p.type===parsed.type&&p.code===parsed.code&&!p.archived&&!p.deleted);
+    if(!matched)return;
 
     void submission.submit(() => onAddTransaction({
       amount: parsed.amount,
@@ -68,9 +68,9 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       processed: parsed.processed,
       notes: `Registro rápido: "${inputText}"`,
     }), () => {
-    setLastNotification(`+ Registrado: ${parsed.type} ${formatCurrency(parsed.amount)} en [${parsed.code}]`);
+    setLastNotification(`+ Registrado: ${parsed.type} ${formatCurrency(parsed.amount)} en ${matched.name}`);
     setInputText('');
-    setWalletChoice(undefined); setSubitemChoice(null);
+    setWalletChoice(undefined); setSubitemChoice(null);setPartidaChoice(null);setTypeChoice(null);
 
     setTimeout(() => {
       setLastNotification(null);
@@ -92,7 +92,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         <input
           type="text"
           value={inputText}
-          onChange={e => { setInputText(e.target.value); if (!e.target.value.trim()) {setWalletChoice(undefined);setSubitemChoice(null);} }}
+          onChange={e => { setInputText(e.target.value);setPartidaChoice(null);setTypeChoice(null);setSubitemChoice(null); if (!e.target.value.trim()) {setWalletChoice(undefined);setSubitemChoice(null);} }}
           onKeyDown={e => {
             if (e.key === 'Enter' && parsed && parsed.amount > 0) {
               e.preventDefault();
@@ -107,7 +107,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           <button
             onClick={() => {
               setInputText('');
-              setWalletChoice(undefined); setSubitemChoice(null);
+              setWalletChoice(undefined); setSubitemChoice(null);setPartidaChoice(null);setTypeChoice(null);
             }}
             className="absolute right-3 text-slate-400 hover:text-white p-1"
             title="Borrar"
@@ -124,7 +124,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           <button
             key={idx}
             type="button"
-            onClick={() => setInputText(pill.text)}
+            onClick={() => {setInputText(pill.text);setPartidaChoice(null);setTypeChoice(null);setSubitemChoice(null);}}
             className="whitespace-nowrap text-[11px] font-medium bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/[0.06] transition-colors cursor-pointer shrink-0 active:scale-95"
           >
             {pill.label}
@@ -146,9 +146,6 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               >
                 {parsed.type}
               </span>
-              <span className="font-mono text-xs font-bold text-sky-400 shrink-0">
-                [{parsed.code}]
-              </span>
               <span className="text-xs text-slate-200 font-semibold truncate" title={parsed.subcategoryName}>
                 {parsed.subcategoryName.split(':')[1] || parsed.subcategoryName}
               </span>
@@ -161,7 +158,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               <button
                 type="button"
                 onClick={handleConfirm}
-                disabled={parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)}
+                disabled={parsed.amount <= 0 || !parsed.code || !wallets.some(w => w.name === parsed.wallet)}
                 className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs px-3 py-1.5 rounded-xl shadow transition-all cursor-pointer flex items-center gap-1 active:scale-95 disabled:opacity-50"
               >
                 <Check className="w-3.5 h-3.5 stroke-[3]" />
@@ -170,6 +167,9 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
             </div>
           </div>
 
+          <label className="block">Tipo<select aria-label="Tipo del registro rápido" value={parsed.type} onChange={e=>{setTypeChoice({text:inputText,type:e.target.value as MovementType});setPartidaChoice(null);setSubitemChoice(null);}}><option value="GASTO">Gasto</option><option value="INGRESO">Ingreso</option></select></label>
+          <label className="block">Partida<select aria-label="Partida del registro rápido" value={parsed.code} onChange={e=>{setPartidaChoice({text:inputText,code:e.target.value});setSubitemChoice(null);}}><option value="" disabled>Selecciona una partida</option>{partidas.filter(p=>p.type===parsed.type&&!p.archived&&!p.deleted).map(p=><option key={p.code} value={p.code}>{p.name}</option>)}</select></label>
+          {!parsed.code&&<p role="status">Selecciona una partida de tu catálogo. No hay una coincidencia inequívoca.</p>}
           <SubitemSelector items={subitems} type={parsed.type} code={parsed.code} value={subitemChoice?.key===`${parsed.type}:${parsed.code}`?subitemChoice.id:''} onChange={id=>setSubitemChoice({key:`${parsed.type}:${parsed.code}`,id})}/>
           <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
             <div className="flex items-center gap-3">

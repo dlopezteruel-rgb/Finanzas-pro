@@ -4,11 +4,10 @@ Aplicación React/Vite con servidor Express. Los datos financieros se guardan en
 
 ## Desarrollo y comprobaciones
 
-Entorno verificado: Node 24.19 y npm 11.9.
+Entorno verificado: Node 24.22.1 y npm 11.9.
 
 ```sh
-# El manifiesto original tiene un conflicto de peer dependencies Vite/esbuild.
-npm install --legacy-peer-deps --package-lock=false
+npm ci
 npm run dev
 npm test
 npm run lint
@@ -204,3 +203,11 @@ Los nuevos metadatos utilizan JSON **3.0**, con validación estricta, Web Locks 
 Los siete módulos aprovechan el ancho del navegador con distribuciones específicas para escritorio, tablet y móvil. Planificación incorpora una asignación en directo del borrador local y muestra el origen y efectivo de cada arrastre junto a su base editable. Los gráficos siguen reflejando datos guardados; se conservan el modelo, los formatos y las protecciones financieras.
 
 Consulta las [decisiones de diseño, capturas comparativas, pruebas y validación manual](docs/phase-4-responsive.md).
+
+## Catálogo personalizable
+
+Familias y partidas se pueden crear, editar, archivar, reactivar y retirar cuando no tienen dependencias. Las identidades son estables y los históricos conservan sus referencias. El orden admite ratón, táctil, teclado y botones alternativos; los traslados solo permiten familias del mismo tipo. Planificación comparte el borrador entre Gastos, Ingresos y Multiperiodo.
+
+Los registros nuevos de movimientos, chat y entrada rápida utilizan el catálogo activo del usuario. Sin una coincidencia inequívoca se exige seleccionar una partida; editar una operación histórica permite conservar su referencia original. Los estados del catálogo utilizan JSON 3.4 cuando corresponde, manteniendo lectura/restauración 2.5–3.3 y copia recuperable verificada antes de la primera escritura incompatible.
+
+Consulta el [modelo, recuperación, checkpoints, pruebas y capturas ficticias](docs/custom-budget-catalog-rebuild.md). Para reproducir las capturas: `CHROMIUM_PATH=/usr/bin/chromium npm run capture:custom-catalog`.

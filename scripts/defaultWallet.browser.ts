@@ -1,3 +1,4 @@
+import {chooseMovementPartida} from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -34,7 +35,7 @@ const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA
 const saved = async (page: Page) => JSON.parse((await raw(page))!);
 const finances = (data: any) => { const { defaultWalletId, version, revision, exportedAt, ...rest } = data; return rest; };
 const dialog = (page: Page, name = 'Movimiento') => page.getByRole('dialog', { name, exact: true });
-async function newMovement(page: Page) { await nav(page, 'Inicio'); await page.getByRole('button', { name: 'Añadir', exact: true }).click(); await dialog(page).waitFor(); }
+async function newMovement(page: Page) { await nav(page, 'Inicio'); await page.getByRole('button', { name: 'Añadir', exact: true }).click(); await dialog(page).waitFor(); await chooseMovementPartida(page); }
 async function choose(page: Page, name: string, id: string) {
   await nav(page, 'Cuentas'); await page.getByRole('button', { name: `Usar como predeterminada ${name}`, exact: true }).click();
   await page.waitForFunction(({ key, id }) => JSON.parse(localStorage.getItem(key)!).defaultWalletId === id, { key: DATA_KEY, id });
@@ -84,11 +85,12 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
         assert.equal(await p.getByLabel('Cartera del registro rápido').inputValue(), ''); assert.equal(await p.getByRole('button', { name: 'Registrar', exact: true }).isDisabled(), true);
         await p.getByLabel('Cartera del registro rápido').selectOption('EFECTIVO FICTICIO'); await p.getByPlaceholder(/^Registrar:/).fill('Gasté 14');
         assert.equal(await p.getByLabel('Cartera del registro rápido').inputValue(), 'EFECTIVO FICTICIO');
+        await p.getByLabel('Partida del registro rápido').selectOption('g');
         await p.getByRole('button', { name: 'Registrar', exact: true }).click(); await p.getByLabel('Cartera del registro rápido').waitFor({ state: 'hidden' });
         assert.equal((await saved(p)).transactions[0].wallet, 'EFECTIVO FICTICIO');
         await nav(p, 'Asistente'); await p.getByRole('textbox', { name: 'Mensaje para el asistente' }).fill('Registra un gasto de 7'); await p.getByRole('button', { name: 'Enviar', exact: true }).click();
         const proposal = dialog(p, 'Revisar propuesta de movimiento'); await proposal.waitFor(); assert.equal(await proposal.getByLabel('Cartera', { exact: true }).inputValue(), '');
-        await proposal.getByLabel('Cartera', { exact: true }).selectOption('BANCO FICTICIO'); await proposal.getByRole('button', { name: 'Confirmar y registrar', exact: true }).click(); await proposal.waitFor({ state: 'hidden' });
+        await proposal.getByLabel('Categoría',{exact:true}).selectOption('g'); await proposal.getByLabel('Cartera', { exact: true }).selectOption('BANCO FICTICIO'); await proposal.getByRole('button', { name: 'Confirmar y registrar', exact: true }).click(); await proposal.waitFor({ state: 'hidden' });
         assert.equal((await saved(p)).transactions[0].wallet, 'BANCO FICTICIO'); assert.equal((await saved(p)).defaultWalletId, undefined);
       } finally { await s.close(); }
     });
