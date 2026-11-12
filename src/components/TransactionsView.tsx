@@ -168,6 +168,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
         <button
           onClick={onOpenNewTransaction}
+          aria-label="Nuevo movimiento"
           className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-2xl shadow transition-all cursor-pointer flex items-center gap-1.5 shrink-0 active:scale-95"
         >
           <Plus className="w-3.5 h-3.5 stroke-[3]" />

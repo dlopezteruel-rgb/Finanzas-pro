@@ -1,3 +1,4 @@
+import {useAsyncForm} from '../utils/useAsyncForm';
 import type { FinanceData } from '../utils/backup';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState } from 'react';
@@ -14,7 +15,7 @@ interface LoansViewProps {
   onAddLoan: (loan: Loan) => Promise<SaveResult>;
   onUpdateLoan: (loan: Loan) => Promise<SaveResult>;
   onDeleteLoan?: (loanId: string) => Promise<SaveResult>;
-  onPayInstallment: (loan: Loan) => void;
+  onPayInstallment: (loan: Loan) => Promise<SaveResult>;
 }
 
 export const LoansView: React.FC<LoansViewProps> = ({
@@ -178,17 +179,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
                     </span>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={e => {
-                      e.stopPropagation();
-                      onPayInstallment(loan);
-                    }}
-                    className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 font-bold text-xs px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all cursor-pointer flex items-center gap-1 active:scale-95"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>Pagar Cuota ({formatCurrency(loan.monthlyPayment)})</span>
-                  </button>
+                  <LoanInstallmentAction loan={loan} onPay={onPayInstallment}/>
                 </div>
               </div>
             );
@@ -212,3 +203,20 @@ export const LoansView: React.FC<LoansViewProps> = ({
     </div>
   );
 };
+
+/** Await the actual write; keep an error/retry surface beside the affected loan. */
+function LoanInstallmentAction({loan,onPay}:{loan:Loan;onPay:(loan:Loan)=>Promise<SaveResult>}){
+  const submission=useAsyncForm();
+  return <div role="group" aria-label={`Pago de cuota de ${loan.name}`} onClick={e=>e.stopPropagation()} className="space-y-1">
+    {submission.error&&<p role="alert">{submission.error}</p>}
+    {submission.saving&&<p role="status">Guardando cuota…</p>}
+    <button type="button" disabled={submission.saving} aria-busy={submission.saving} onClick={e=>{
+      e.stopPropagation();
+      // A mouse double-click represents the same payment, even if storage is fast.
+      if(e.detail>1)return;
+      void submission.submit(()=>onPay(loan),()=>{});
+    }} className="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 hover:text-emerald-300 font-bold text-xs px-3 py-1.5 rounded-xl border border-emerald-500/30 transition-all cursor-pointer flex items-center gap-1 active:scale-95">
+      <Plus className="w-3.5 h-3.5"/><span>Pagar Cuota ({formatCurrency(loan.monthlyPayment)})</span>
+    </button>
+  </div>;
+}

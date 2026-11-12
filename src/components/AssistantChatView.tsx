@@ -1,3 +1,4 @@
+import {naturalInputIssue} from '../utils/naturalInput';
 import type { FinanceData } from '../utils/backup';
 import { financialAssistantContext,localFinancialAdvice,assistantServiceContext } from '../utils/financialAssistant';
 import { economicTransactions } from '../utils/transfers';
@@ -227,7 +228,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         });
         setProposal(draft);
       } else {
-        appendReply('No he podido preparar el movimiento. Indica un importe positivo y revisa que existan categorías disponibles. No se ha registrado nada.');
+        appendReply(`${naturalInputIssue(text)||'No he podido preparar el movimiento. Revisa que existan partidas disponibles.'} No se ha registrado nada.`);
       }
       setIsLoading(false);
       return;
@@ -282,7 +283,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
       {proposal && <MovementProposalModal subitems={financeData.budgetSubitems?.items} proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
       {/* Messages */}
-      <div className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
+      <div role="region" aria-label="Historial del asistente" tabIndex={0} className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (
           <div
             key={m.id}

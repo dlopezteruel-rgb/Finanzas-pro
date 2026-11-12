@@ -1,3 +1,4 @@
+import {madridDate} from '../utils/financialCalendar';
 import {classificationCatalog} from '../utils/budgetCatalog';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { deletionReport } from '../utils/deletion';
@@ -41,7 +42,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   const [interestRate, setInterestRate] = useState<number>(loanToEdit?.interestRate || 5.0);
   const [totalTermMonths, setTotalTermMonths] = useState<number>(loanToEdit?.totalTermMonths || 36);
   const [startDate, setStartDate] = useState(
-    loanToEdit?.startDate || new Date().toISOString().split('T')[0]
+    loanToEdit?.startDate || madridDate()
   );
   const [monthlyPayment, setMonthlyPayment] = useState<number>(loanToEdit?.monthlyPayment || 300);
   const [wallet, setWallet] = useState(initialWalletName(wallets, deletionData.defaultWalletId, loanToEdit?.wallet));
@@ -68,7 +69,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
       setPrincipal(10000);
       setInterestRate(5.0);
       setTotalTermMonths(36);
-      setStartDate(new Date().toISOString().split('T')[0]);
+      setStartDate(madridDate());
       setMonthlyPayment(300);
       setWallet(initialWalletName(wallets, deletionData.defaultWalletId));
       setCode(defaultCode);
@@ -124,7 +125,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
           </div>
           <button
-            onClick={() => submission.close(onClose)} disabled={submission.saving}
+            aria-label="Cerrar préstamo" onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -171,7 +172,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
                   step="0.01"
                   required
                   min="0"
-                  value={principal}
+                  aria-label="Capital inicial (€)" value={principal}
                   onChange={e => setPrincipal(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -189,7 +190,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
                   step="0.01"
                   required
                   min="0"
-                  value={monthlyPayment}
+                  aria-label="Cuota mensual (€)" value={monthlyPayment}
                   onChange={e => setMonthlyPayment(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -209,7 +210,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
                   type="number"
                   step="0.01"
                   min="0"
-                  value={interestRate}
+                  aria-label="Interés TIN/TAE (%)" value={interestRate}
                   onChange={e => setInterestRate(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -225,7 +226,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
                 type="number"
                 min="1"
                 required
-                value={totalTermMonths}
+                aria-label="Plazo total (meses)" value={totalTermMonths}
                 onChange={e => setTotalTermMonths(parseInt(e.target.value, 10) || 1)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500"
               />
@@ -239,7 +240,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
               <input
                 type="date"
                 required
-                value={startDate}
+                aria-label="Fecha de inicio" value={startDate}
                 onChange={e => setStartDate(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               />
@@ -296,7 +297,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              onClick={() => submission.close(onClose)} disabled={submission.saving}
+              aria-label="Cerrar préstamo" onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               Cancelar

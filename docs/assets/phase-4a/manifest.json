@@ -1,0 +1,42 @@
+{
+  "fixture": "responsiveFixture",
+  "clock": "2026-10-31T12:00:00Z",
+  "beforeSource": "cfe4ccd20e5dca2e7fd653a2a65d56a6fb24537e",
+  "captures": [
+    {
+      "file": "390-light-contactos-before.jpg",
+      "width": 390,
+      "theme": "light",
+      "state": "before",
+      "fixtureOnly": true,
+      "sha256": "0dfd42e5e8c99314036278261cff14f0d10f9e9b2ce10b6cd44877456b723143"
+    },
+    {
+      "file": "390-light-contactos-after.jpg",
+      "width": 390,
+      "theme": "light",
+      "state": "after",
+      "fixtureOnly": true,
+      "sha256": "84ee525602589ca0736460c643fae8404e7b36ae15ac71c490f9f383b4393bd4"
+    },
+    {
+      "file": "1280-light-contactos-before.jpg",
+      "width": 1280,
+      "theme": "light",
+      "state": "before",
+      "fixtureOnly": true,
+      "sha256": "964708f6ae2afe03b3ffecf695fb2eabca4216fa7849f25ef79e6a338d35d1af"
+    },
+    {
+      "file": "1280-light-contactos-after.jpg",
+      "width": 1280,
+      "theme": "light",
+      "state": "after",
+      "fixtureOnly": true,
+      "sha256": "1c18368a3cf78c1e22adbb423109803a23dfb235991ea9ea35e47b06ae2182d8"
+    }
+  ],
+  "afterSourceParent": "cfe4ccd20e5dca2e7fd653a2a65d56a6fb24537e",
+  "afterIncludesStabilizationWorkingTree": true,
+  "snapshotUnchangedOnInspection": true
+}

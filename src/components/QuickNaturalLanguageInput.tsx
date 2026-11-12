@@ -3,6 +3,7 @@ import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useMemo } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
+import {naturalInputIssue} from '../utils/naturalInput';
 import { parseFinancialInput } from '../utils/parser';
 import { formatCurrency } from '../utils/finance';
 import { Transaction, Wallet, BudgetSubitem, BudgetPartida, MovementType } from '../types/finance';
@@ -38,12 +39,13 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     const choice=partidaChoice?.text===inputText?partidas.find(p=>p.type===result.type&&p.code===partidaChoice.code&&!p.archived&&!p.deleted):undefined;
     return { ...result,...(choice?{code:choice.code,categoryName:choice.groupName,subcategoryName:choice.name}:{}), wallet: selected?.name ?? '' };
   }, [inputText, wallets, defaultWalletId, walletChoice,partidas,partidaChoice,typeChoice]);
+  const inputIssue=inputText.trim()?naturalInputIssue(inputText):null;
   const [lastNotification, setLastNotification] = useState<string | null>(null);
 
   // Quick prompt chips
   const quickPills = [
     { label: '🍽️ Cena 15,50 €', text: 'Ayer cené fuera por 15,50 € con Openbank' },
-    { label: '💼 Nómina 2.650 €', text: 'Nómina mensual cobrada 2.650 € en Santander' },
+    { label: '💼 Nómina 2.650 €', text: 'Nómina mensual cobrada 2650 € en Santander' },
     { label: '🛒 Super 84,30 €', text: 'Compra supermercado 84,30 € con Openbank' },
     { label: '⛽ Gasolina 55 €', text: 'Gasolina Repsol 55 € con Revolut' },
     { label: '📚 Libros 42 €', text: 'Compré libros por 42 € en efectivo' },
@@ -132,6 +134,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
         ))}
       </div>
 
+      {inputIssue&&<p role="status">{inputIssue}</p>}
       {/* Compact Parsed Card Preview */}
       {parsed && (
         <div className="bg-[#161c2b] border border-sky-500/40 rounded-2xl p-3 shadow-xl animate-fadeIn space-y-2.5">

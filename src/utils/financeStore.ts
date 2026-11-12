@@ -69,8 +69,10 @@ export class FinanceStore {
       this.checkRevision();
       const clearing = typeof transform !== 'function' && 'clear' in transform;
       const catalogEdit = typeof transform !== 'function' && 'catalog' in transform ? transform.catalog : undefined;
-      let candidate = typeof transform === 'function' ? transform(this.data) : 'clear' in transform ? confirmedClearData(this.data, transform.clear, transform.scope) : editCatalog(this.data, transform.catalog);
-      if(candidate===this.data)return this.data;
+      // Callbacks receive a detached draft: failure must never mutate the live state.
+      const draft = typeof transform === 'function' ? structuredClone(this.data) : this.data;
+      let candidate = typeof transform === 'function' ? transform(draft) : 'clear' in transform ? confirmedClearData(this.data, transform.clear, transform.scope) : editCatalog(this.data, transform.catalog);
+      if(candidate===draft && JSON.stringify(candidate)===JSON.stringify(this.data))return this.data;
       candidate = reconcileDefaultWallet(this.data, candidate);
       if (!clearing) candidate = reconcileAutomation(this.data, reconcilePlanning(this.data, invalidatePlanning(this.data, candidate)));
       assertDeletionTransition(this.data, candidate);
@@ -117,7 +119,7 @@ export class FinanceStore {
   restore(next: RestorationInput) {
     return this.exclusive(() => {
       this.checkRevision();
-      const replacement = typeof next === 'function' ? next(this.data) : next;
+      const replacement = typeof next === 'function' ? next(structuredClone(this.data)) : next;
       const restored = commitRestoration(this.storage, this.data, replacement, this.revision);
       this.revision = this.storage.getItem(DATA_KEY);
       this.data = restored;

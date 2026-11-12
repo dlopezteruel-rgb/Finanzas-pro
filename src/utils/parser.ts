@@ -1,3 +1,4 @@
+import {readNaturalInput} from './naturalInput';
 import {normalizeSearch} from './partidaSearch';
 import { MovementType, ParsedMovement, BudgetPartida } from '../types/finance';
 
@@ -20,37 +21,9 @@ export function parseFinancialInput(text: string, referenceDate: Date = new Date
   const raw = text.trim();
   const lower = raw.toLowerCase();
 
-  // 1. EXTRACT AMOUNT
-  // Patterns like: "15,50 €", "15.50€", "15,50 euros", "15 euros", "15€", "por 15,50", "de 15,50"
-  let amount = 0;
-  const amountMatch = raw.match(/(\d+(?:[.,]\d{1,2})?)\s*(?:€|euros?|eur\b)?/i);
-
-  if (amountMatch) {
-    const rawNum = amountMatch[1].replace(',', '.');
-    amount = parseFloat(rawNum);
-  }
-
-  // 2. EXTRACT DATE
-  let targetDate = new Date(referenceDate);
-  if (lower.includes('anteayer') || lower.includes('antes de ayer')) {
-    targetDate.setDate(targetDate.getDate() - 2);
-  } else if (lower.includes('ayer')) {
-    targetDate.setDate(targetDate.getDate() - 1);
-  } else if (lower.includes('hoy')) {
-    // keep today
-  } else {
-    // Check for "el día XX" or "el XX/XX"
-    const dayMatch = lower.match(/(?:el\s+(?:día\s+)?)(\d{1,2})(?:\/(\d{1,2}))?/);
-    if (dayMatch) {
-      const day = parseInt(dayMatch[1], 10);
-      const month = dayMatch[2] ? parseInt(dayMatch[2], 10) - 1 : targetDate.getMonth();
-      if (day >= 1 && day <= 31) {
-        targetDate.setMonth(month);
-        targetDate.setDate(day);
-      }
-    }
-  }
-  const dateStr = targetDate.toISOString().split('T')[0];
+  const input=readNaturalInput(raw,referenceDate);
+  if(!input.ok)return null;
+  const {amount,date:dateStr}=input;
 
   // 3. EXTRACT WALLET / CARTERA
   let wallet = ''; // No implicit bank: the application resolves its actual wallet preference.
