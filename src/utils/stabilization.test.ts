@@ -23,3 +23,14 @@ for(const [text,amount,date] of [['Gasté 15,50 en senderismo',15.5,'2026-10-31'
 test('4A-002: hoy y ayer usan el calendario Madrid, también cerca de medianoche',()=>{const midnight=new Date('2026-11-11T23:30:00Z');assert.equal(parseFinancialInput('Hoy gasté 15 en senderismo',midnight,catalog)!.date,'2026-11-12');assert.equal(parseFinancialInput('Ayer gasté 15 en senderismo',midnight,catalog)!.date,'2026-11-11');});
 
 test('4A-002: el estado no tramitado conserva la intención afirmativa y queda pendiente',()=>{const p=parseFinancialInput('Registra un gasto de 15 en senderismo no tramitado',ref,catalog)!;assert.equal(p.amount,15);assert.equal(p.processed,false);});
+
+import {calculateLoanStatus} from './finance';
+test('4A-009: un movimiento vinculado a otro préstamo no se cuenta por descripción coincidente',()=>{
+  const d=budgetSubitemFixture(false),base={entity:'Banco ficticio',principal:1000,interestRate:5,totalTermMonths:10,startDate:'2026-01-01',monthlyPayment:100,wallet:d.wallets[0].name,code:demoParent.code};
+  const first={...base,id:'house',name:'Casa'},second={...base,id:'family',name:'Casa familiar'},tx={...d.transactions[0],amount:100,loanId:second.id,description:'Cuota mensual: Casa familiar'};
+  assert.equal(calculateLoanStatus(first,[tx],'2026-11-12').totalPagadoReal,0);assert.equal(calculateLoanStatus(second,[tx],'2026-11-12').totalPagadoReal,100);
+});
+test('4A-009: conserva coincidencia por descripción de históricos sin vínculo explícito',()=>{
+  const d=budgetSubitemFixture(false),loan={id:'house',name:'Casa',entity:'Banco ficticio',principal:1000,interestRate:5,totalTermMonths:10,startDate:'2026-01-01',monthlyPayment:100,wallet:d.wallets[0].name,code:demoParent.code},tx={...d.transactions[0],amount:100,description:'Cuota mensual: Casa'};
+  assert.equal(calculateLoanStatus(loan,[tx],'2026-11-12').totalPagadoReal,100);
+});
