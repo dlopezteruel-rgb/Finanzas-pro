@@ -34,3 +34,5 @@ import "./utils/budgetCatalog.test";
 import "./utils/catalogReorder.test";
 
 import "./utils/catalogClassification.test";
+
+import './utils/stabilization.test';

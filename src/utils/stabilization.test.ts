@@ -1,0 +1,36 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {FinanceStore} from './financeStore';
+import {DATA_KEY,makeBackup} from './backup';
+import {parseFinancialInput} from './parser';
+import {proposeChatMovement} from './chatRegistration';
+import {classificationCatalog} from './budgetCatalog';
+import {catalogClassificationFixture} from '../../scripts/catalogClassificationFixture';
+import {budgetSubitemFixture,demoParent} from '../../scripts/budgetSubitemFixture';
+function setup(){const data=budgetSubitemFixture(false),values=new Map([[DATA_KEY,JSON.stringify(makeBackup(data))]]);let writes=0,fail=false;
+  const storage={get length(){return values.size;},key:(i:number)=>[...values.keys()][i]??null,getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>{if(fail)throw new Error('Cuota ficticia');writes++;values.set(k,v);}};
+  return {store:new FinanceStore(storage,data,async write=>write()),raw:()=>storage.getItem(DATA_KEY),writes:()=>writes,fail:()=>{fail=true;}};}
+test('4A-001: callback de mutación que lanza conserva memoria y snapshot',async()=>{const s=setup(),before=structuredClone(s.store.data),raw=s.raw();await assert.rejects(s.store.mutate(d=>{d.wallets[0].initialBalance+=999;throw new Error('Fallo ficticio');}));assert.deepEqual(s.store.data,before);assert.equal(s.raw(),raw);assert.equal(s.writes(),0);});
+test('4A-001: validación rechaza cambio en sitio sin corromper estado',async()=>{const s=setup(),before=structuredClone(s.store.data);await assert.rejects(s.store.mutate(d=>{d.wallets[0].initialBalance=NaN;return d;}));assert.deepEqual(s.store.data,before);assert.equal(s.writes(),0);});
+test('4A-001: cuota rechaza cambio en sitio y conserva memoria y disco',async()=>{const s=setup(),before=structuredClone(s.store.data),raw=s.raw();s.fail();await assert.rejects(s.store.mutate(d=>{d.wallets[0].initialBalance+=1;return d;}));assert.deepEqual(s.store.data,before);assert.equal(s.raw(),raw);});
+test('4A-001: cambio válido en sitio se valida y persiste una sola vez',async()=>{const s=setup(),value=s.store.data.wallets[0].initialBalance+1;await s.store.update('wallets',wallets=>{wallets[0].initialBalance=value;return wallets;});assert.equal(JSON.parse(s.raw()!).wallets[0].initialBalance,value);assert.equal(s.writes(),1);});
+test('4A-001: retorno sin cambios sigue siendo no-op',async()=>{const s=setup(),before=s.store.data;await s.store.mutate(d=>d);assert.equal(s.store.data,before);assert.equal(s.writes(),0);});
+test('4A-001: mutación en sitio no elude previsión archivada',async()=>{const s=setup();await s.store.mutate({catalog:{kind:'archivePartida',parent:demoParent,archived:true}});const before=structuredClone(s.store.data),raw=s.raw();await assert.rejects(s.store.mutate(d=>{d.budgetPlans[0].plannedAmount+=1;return d;}),/solo lectura/);assert.deepEqual(s.store.data,before);assert.equal(s.raw(),raw);});
+test('4A-001: callback de restauración que lanza no altera el estado',async()=>{const s=setup(),before=structuredClone(s.store.data),raw=s.raw();await assert.rejects(s.store.restore(d=>{d.wallets[0].initialBalance+=1;throw new Error('Fallo ficticio');}));assert.deepEqual(s.store.data,before);assert.equal(s.raw(),raw);assert.equal(s.writes(),0);});
+const ref=new Date('2026-10-31T12:00:00Z'),data=catalogClassificationFixture(),catalog=classificationCatalog(data.budgetGroups);
+for(const text of ['El 12/11 no gasté 15 en senderismo','No gasté 15 en senderismo','Ayer no pagué 15 en senderismo','Gasté - 15 en senderismo','Gasté −15 en senderismo','No registres 15 en senderismo','¿Cuánto gasté 15 en senderismo?','Nómina 2.650 €','Gasté -15 en senderismo','Gasté 10 y 20 en senderismo','El 31/02 gasté 15 en senderismo','Gasté 1.000,50 en senderismo','Gasté 9007199254740991 en senderismo','Gasté 1e3 en senderismo','Gasté 12,345 en senderismo','Mañana registra 15 en senderismo','Registra 15 en senderismo el 12/11/2026'])test(`4A-002: entrada peligrosa no se convierte en propuesta: ${text}`,()=>{assert.equal(parseFinancialInput(text,ref,catalog),null);assert.equal(proposeChatMovement(text,data.wallets,catalog,ref),null);});
+for(const [text,amount,date] of [['Gasté 15,50 en senderismo',15.5,'2026-10-31'],['Gasté 15.5 en senderismo',15.5,'2026-10-31'],['Nómina 2650 €',2650,'2026-10-31'],['El 12/11 gasté 15 en senderismo',15,'2026-11-12'],['Ayer gasté 15 en senderismo',15,'2026-10-30']] as const)test(`4A-002: se conserva la entrada inequívoca: ${text}`,()=>{const result=parseFinancialInput(text,ref,catalog)!;assert.equal(result.amount,amount);assert.equal(result.date,date);});
+test('4A-002: hoy y ayer usan el calendario Madrid, también cerca de medianoche',()=>{const midnight=new Date('2026-11-11T23:30:00Z');assert.equal(parseFinancialInput('Hoy gasté 15 en senderismo',midnight,catalog)!.date,'2026-11-12');assert.equal(parseFinancialInput('Ayer gasté 15 en senderismo',midnight,catalog)!.date,'2026-11-11');});
+
+test('4A-002: el estado no tramitado conserva la intención afirmativa y queda pendiente',()=>{const p=parseFinancialInput('Registra un gasto de 15 en senderismo no tramitado',ref,catalog)!;assert.equal(p.amount,15);assert.equal(p.processed,false);});
+
+import {calculateLoanStatus} from './finance';
+test('4A-009: un movimiento vinculado a otro préstamo no se cuenta por descripción coincidente',()=>{
+  const d=budgetSubitemFixture(false),base={entity:'Banco ficticio',principal:1000,interestRate:5,totalTermMonths:10,startDate:'2026-01-01',monthlyPayment:100,wallet:d.wallets[0].name,code:demoParent.code};
+  const first={...base,id:'house',name:'Casa'},second={...base,id:'family',name:'Casa familiar'},tx={...d.transactions[0],amount:100,loanId:second.id,description:'Cuota mensual: Casa familiar'};
+  assert.equal(calculateLoanStatus(first,[tx],'2026-11-12').totalPagadoReal,0);assert.equal(calculateLoanStatus(second,[tx],'2026-11-12').totalPagadoReal,100);
+});
+test('4A-009: conserva coincidencia por descripción de históricos sin vínculo explícito',()=>{
+  const d=budgetSubitemFixture(false),loan={id:'house',name:'Casa',entity:'Banco ficticio',principal:1000,interestRate:5,totalTermMonths:10,startDate:'2026-01-01',monthlyPayment:100,wallet:d.wallets[0].name,code:demoParent.code},tx={...d.transactions[0],amount:100,description:'Cuota mensual: Casa'};
+  assert.equal(calculateLoanStatus(loan,[tx],'2026-11-12').totalPagadoReal,100);
+});

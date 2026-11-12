@@ -1,3 +1,4 @@
+import {madridDate} from './utils/financialCalendar';
 import {applyCatalogReorder} from './utils/catalogReorder';
 import {CatalogManager} from './components/CatalogManager';
 import {classificationCatalog} from './utils/budgetCatalog';
@@ -430,10 +431,10 @@ export default function App() {
 
   const handlePayLoanInstallment = (loan: Loan) => {
     const partida=classificationPartidas.find(p=>p.type==='GASTO'&&p.code===loan.code);
-    if(!partida){setDataError('La partida habitual del préstamo está ausente o archivada. Edita el préstamo y selecciona una partida activa antes de registrar la cuota.');return;}
+    if(!partida){const error='La partida habitual del préstamo está ausente o archivada. Edita el préstamo y selecciona una partida activa antes de registrar la cuota.';setDataError(error);return Promise.resolve({ok:false as const,error});}
     const newTx: Transaction = {
-      id: `tx-loan-${Date.now()}`,
-      date: new Date().toISOString().split('T')[0],
+      id: `tx-loan-${crypto.randomUUID()}`,
+      date: madridDate(),
       amount: loan.monthlyPayment,
       type: 'GASTO',
       code: partida.code,
@@ -445,7 +446,7 @@ export default function App() {
       loanId: loan.id,
       notes: `Pago registrado de préstamo ${loan.entity}`,
     };
-    setTransactions(prev => [newTx, ...prev]);
+    return setTransactions(prev => [newTx, ...prev]);
   };
 
   const handleUpdateLoan = (updatedLoan: Loan) => {

@@ -421,7 +421,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                           <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
                             Historial saldado recientemente ({settledDebts.length})
                           </span>
-                          <div className="space-y-1.5 opacity-80">
+                          <div className="contact-settled-history space-y-1.5">
                             {settledDebts.map(({ item, paidDate }) => (
                               <div
                                 key={`${item.transactionId}-settled`}

@@ -213,7 +213,7 @@ export function calculateLoanStatus(loan: Loan, transactions: Transaction[], ref
   // Find all transactions linked to this loan or matching description/code
   const loanTxs = economicTransactions(transactions).filter(t => {
     if (t.type !== 'GASTO' || t.splitInfo?.accountingVersion === '2.7') return false;
-    if (t.loanId === loan.id) return true;
+    if (t.loanId) return t.loanId === loan.id;
     if (t.description.toLowerCase().includes(loan.name.toLowerCase())) return true;
     return false;
   });

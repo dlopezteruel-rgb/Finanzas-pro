@@ -144,7 +144,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
           </div>
           <button
-            onClick={() => submission.close(onClose)} disabled={submission.saving}
+            aria-label="Cerrar cartera" onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -174,7 +174,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             <div>
               <label className="block text-slate-400 mb-1 font-medium">Tipo de cuenta</label>
               <select
-                value={type}
+                aria-label="Tipo de cuenta" value={type}
                 onChange={e => setType(e.target.value as any)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
@@ -224,7 +224,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                     type="number"
                     step="0.01"
                     required
-                    value={initialBalance}
+                    aria-label="Patrimonio / Saldo base inicial (€)" value={initialBalance}
                     onChange={e => setInitialBalance(e.target.value)}
                     className="w-full bg-[#141926] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono text-base font-bold focus:outline-none focus:border-sky-500 pr-8"
                   />
@@ -246,7 +246,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                     type="number"
                     step="0.01"
                     required
-                    value={targetCurrentBalance}
+                    aria-label="Saldo actual deseado (€)" value={targetCurrentBalance}
                     onChange={e => setTargetCurrentBalance(e.target.value)}
                     className="w-full bg-[#141926] border border-sky-500/50 rounded-xl px-3 py-2 text-sky-200 font-mono text-base font-bold focus:outline-none focus:border-sky-400 pr-8"
                   />
@@ -267,7 +267,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             <input
               type="text"
               placeholder="ES91 2100 0418 4502 0005 1332"
-              value={iban}
+              aria-label="IBAN o detalles (opcional)" value={iban}
               onChange={e => setIban(e.target.value)}
               className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500 text-xs"
             />
@@ -281,6 +281,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                 <button
                   type="button"
                   key={c}
+                  aria-label={`Color ${c}`} aria-pressed={color===c}
                   onClick={() => setColor(c)}
                   className={`w-7 h-7 rounded-full transition-transform cursor-pointer flex items-center justify-center ${
                     color === c ? 'scale-110 ring-2 ring-white shadow-lg' : 'opacity-70 hover:opacity-100'
@@ -299,7 +300,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              onClick={() => submission.close(onClose)} disabled={submission.saving}
+              aria-label="Cerrar cartera" onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               Cancelar

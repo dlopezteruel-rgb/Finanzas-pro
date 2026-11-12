@@ -1,0 +1,301 @@
+{
+  "phase": "4A",
+  "validatedAt": "2026-11-12T13:20:46.420915+00:00",
+  "userTimeZone": "Europe/Madrid",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "fix/phase-4a-stabilization",
+  "base": "cfe4ccd20e5dca2e7fd653a2a65d56a6fb24537e",
+  "sourceCommit": "5b6984895c203b0a0d495bb59e739d7235835214",
+  "checkpoints": {
+    "stabilization": "f2705938e78929bca1719d95ceb7b5ec8f923c0d",
+    "naturalInput": "a37197bb570ff901bf6c9f2aeca684cb081dfefc",
+    "loanLinks": "5b6984895c203b0a0d495bb59e739d7235835214"
+  },
+  "baseline": {
+    "npmCi": {
+      "passed": true,
+      "packages": 187,
+      "command": "npm ci --cache /workspace/work/npm-cache"
+    },
+    "unit": {
+      "passed": 402,
+      "failed": 0,
+      "skipped": 0
+    },
+    "lint": true,
+    "build": true,
+    "chromium": {
+      "passed": 273,
+      "cases": 255,
+      "containers": 18,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7,
+        "customCatalog": 6,
+        "catalogReorder": 10,
+        "catalogClassification": 5,
+        "catalogArchive": 11
+      }
+    }
+  },
+  "final": {
+    "npmCi": {
+      "passed": true,
+      "packages": 188,
+      "command": "npm ci --cache /workspace/work/npm-cache",
+      "onlyAddedDependency": "axe-core 4.14.0 (development only)"
+    },
+    "unit": {
+      "command": "npm test",
+      "passed": 435,
+      "newSinceBase": 33,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "lint": {
+      "command": "npm run lint",
+      "passed": true
+    },
+    "build": {
+      "command": "npm run build",
+      "passed": true
+    },
+    "chromium": {
+      "command": "PHASE4A_AUDIT_REPORT=/workspace/work/4a-final-axe.json CHROMIUM_PATH=/usr/bin/chromium GEMINI_API_KEY='' GOOGLE_API_KEY='' npm run test:ui",
+      "passed": 291,
+      "cases": 270,
+      "containers": 21,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7,
+        "customCatalog": 6,
+        "catalogReorder": 10,
+        "catalogClassification": 5,
+        "catalogArchive": 11,
+        "phase4aSafety": 6,
+        "phase4aLoans": 3,
+        "phase4aAudit": 9
+      }
+    },
+    "diffCheck": {
+      "passed": true,
+      "commands": [
+        "git diff --check",
+        "git diff --cached --check",
+        "git diff origin/main...HEAD --check"
+      ]
+    }
+  },
+  "audit": {
+    "modules": [
+      "Inicio",
+      "Movimientos",
+      "Presupuestos (catálogo y planificación)",
+      "Cuentas",
+      "Contactos",
+      "Deudas",
+      "Asistente"
+    ],
+    "widths": [
+      390,
+      768,
+      1280,
+      1920
+    ],
+    "themes": [
+      "light",
+      "dark"
+    ],
+    "surfaces": 128,
+    "axeVersion": "4.14.0",
+    "baselineRuleOccurrences": {
+      "button-name": 18,
+      "label": 16,
+      "select-name": 8,
+      "color-contrast": 4,
+      "scrollable-region-focusable": 2
+    },
+    "baselineRuleViolations": 48,
+    "finalRuleViolations": 0,
+    "ignoredRules": [],
+    "incompleteRuleOccurrences": {
+      "aria-prohibited-attr": 88,
+      "aria-valid-attr-value": 8,
+      "color-contrast": 36
+    },
+    "details": "docs/phase-4a-accessibility.json",
+    "headingsAndSmallControlsRecorded": true,
+    "fixtureOnly": true,
+    "physicalDevicesTested": false,
+    "screenReadersTested": false,
+    "otherEngines": {
+      "firefox": "launch attempted: executable missing (Playwright firefox-1555)",
+      "webkit": "launch attempted: executable missing (Playwright webkit-2370); not Safari on iPhone"
+    }
+  },
+  "incidents": {
+    "P0Found": 0,
+    "P1Corrected": [
+      "4A-001",
+      "4A-002",
+      "4A-003",
+      "4A-007",
+      "4A-009"
+    ],
+    "P2Corrected": [
+      "4A-004",
+      "4A-005",
+      "4A-006"
+    ],
+    "P3Pending": [
+      "4A-008",
+      "4A-010",
+      "4A-011"
+    ],
+    "table": "docs/phase-4a-stabilization.md"
+  },
+  "captures": {
+    "count": 4,
+    "fixtureOnly": true,
+    "manifest": "docs/assets/phase-4a/manifest.json",
+    "manifestSha256": "74e73d10b9ffed45631b00f5396efe8b85a342afa4097a56ae07168dfd718453"
+  },
+  "environment": {
+    "node": "24.22.1",
+    "npm": "11.9.0",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1"
+  },
+  "warnings": [
+    "Previous Vite warning: __dirname in vite.config.ts; build succeeds",
+    "Deprecated transitive node-domexception 1.0.0 during npm ci",
+    "npm update notice; not applied"
+  ],
+  "failuresAndOmissions": {
+    "finalFailures": 0,
+    "finalSkipped": 0,
+    "expectedReproductionFailures": [
+      "In-place mutation callbacks, unsafe natural inputs and calendar errors failed before corrections",
+      "Strict axe suite failed on original unnamed controls, contrast and scroll region",
+      "Loan payment test created two payments while lock held with different timestamps",
+      "Foreign loanId with matching name failed the new unit test"
+    ],
+    "incompleteFinalAttempts": 2,
+    "incompleteReason": "Stopped to add reproduced negative-input and explicit-loan-link cases; neither counted as a complete regression run",
+    "testPreparationCorrections": [
+      "New test used Importe instead of accessible label Importe (€)",
+      "New test initially treated wallet-balance map as an array; corrected before verified loan reproduction",
+      "Loan reproduction uses distinct fixed instants to avoid confusing duplicate-ID rejection with double-submit prevention"
+    ]
+  },
+  "constraints": {
+    "storageKeyUnchanged": true,
+    "schemaUnchanged": "2.5–3.4",
+    "economicModelsUnchanged": true,
+    "historicalRecordsRewritten": false,
+    "mainModified": false,
+    "merged": false,
+    "deployed": false,
+    "googleAIStudioAccessedOrSynchronized": false,
+    "personalDataUsed": false,
+    "githubActionsAdded": false
+  },
+  "changedFiles": [
+    "docs/assets/phase-4a/1280-light-contactos-after.jpg",
+    "docs/assets/phase-4a/1280-light-contactos-before.jpg",
+    "docs/assets/phase-4a/390-light-contactos-after.jpg",
+    "docs/assets/phase-4a/390-light-contactos-before.jpg",
+    "docs/assets/phase-4a/manifest.json",
+    "docs/phase-4a-accessibility.json",
+    "docs/phase-4a-stabilization.md",
+    "docs/phase-4a-validation.json",
+    "package-lock.json",
+    "package.json",
+    "scripts/phase4aAudit.browser.ts",
+    "scripts/phase4aLoans.browser.ts",
+    "scripts/phase4aSafety.browser.ts",
+    "src/App.tsx",
+    "src/components/AssistantChatView.tsx",
+    "src/components/ContactsView.tsx",
+    "src/components/LoanModal.tsx",
+    "src/components/LoansView.tsx",
+    "src/components/QuickNaturalLanguageInput.tsx",
+    "src/components/TransactionsView.tsx",
+    "src/components/WalletModal.tsx",
+    "src/tests.ts",
+    "src/utils/chatRegistration.ts",
+    "src/utils/finance.ts",
+    "src/utils/financeStore.ts",
+    "src/utils/naturalInput.ts",
+    "src/utils/parser.ts",
+    "src/utils/registrationIntent.ts",
+    "src/utils/stabilization.test.ts"
+  ],
+  "changedFileCount": 29,
+  "sourceSha256": {
+    "package-lock.json": "510cf20ef440a068d9044d94ca1dd0e58fc6ae31a8741877af7f61a7dbfaf701",
+    "package.json": "542823c1324685ca929ef8353b2a4e1105df9a7f81ad702753c5249aa7999ab8",
+    "scripts/phase4aAudit.browser.ts": "8226a41bd5c5d6e57f606584f04f57209d49f074f7016b6da2f8fc73537bb33f",
+    "scripts/phase4aLoans.browser.ts": "979e3772372995103923771c36bf572b5c09b187baad0a1082488f8b40cfe6e2",
+    "scripts/phase4aSafety.browser.ts": "b73f1511aae039c072c9ca826049dd59b1928990189aa7703afb1c03d1569e42",
+    "src/App.tsx": "5221307034254818f9b7695b3312c35b817e2d7d85509602c0008a520c24b365",
+    "src/components/AssistantChatView.tsx": "7c88b743edb634aea7a44ae16cc76840e8501b1c73aa926146a906288b9797e5",
+    "src/components/ContactsView.tsx": "babe7a22eeedf3c8314ba3d5df9fc97cd9f1140cd7a95d6500811fad93eda236",
+    "src/components/LoanModal.tsx": "8255022d6ebe1c85018918da68aebf144d836eebea617c40895b5bf175e1d0d9",
+    "src/components/LoansView.tsx": "3775bd688dbbf3c2bc75e9245877369814d19ccf075fd5b8562159d88397c10a",
+    "src/components/QuickNaturalLanguageInput.tsx": "086dfbb71ff61dfea77b983fe8cc3064e3c61a12c96feb0ec6e4c1d3f6e80664",
+    "src/components/TransactionsView.tsx": "f3cd50b1e0afa82a66ef2a1f963ef21eb0c8980ba717444be6a59dc797f6c335",
+    "src/components/WalletModal.tsx": "356e89b7165cb78b79abb82dfbaec186f204b5ead2b31ad38235685bbd7e27a0",
+    "src/tests.ts": "997608aa1ab21c8f165a99bbbb7d58cf0351f897304a9e763cb68a8bfba2aba3",
+    "src/utils/chatRegistration.ts": "60e999d591fd2bb31fa93367461269373e371e4a3c25a0f1d8500adc76a55b27",
+    "src/utils/finance.ts": "62a3a01dcc884b22f0dc3d2d677f1c19923d7bc7a68f7f3ef0d96713f27d34ea",
+    "src/utils/financeStore.ts": "41273c6c31e85809b22971b0cc8e4342b94ce747b4d4a67ce2d9d3f13c05a18e",
+    "src/utils/naturalInput.ts": "2015d028975468ec88a7d22b7280ac479677b6cbc3f3ee5f7a8321b908927a14",
+    "src/utils/parser.ts": "05c3704003e8a9959adc7ea68946650e8d5b90a2e24594dcfa1ee3b1fdd76404",
+    "src/utils/registrationIntent.ts": "ae94b1a70457e71788ec5cf87d693ac2bf87305f4c9cf37b374e2408e67087c4",
+    "src/utils/stabilization.test.ts": "ca304ce47a42fedb60074a5b299eed816605cab2ed3c797daea6218d685539fe"
+  },
+  "evidenceLogSha256": {
+    "4a-baseline-ci.log": "6772c84697caa16084335c0fa17933c9b5705434f899579f7b2d85e70eb4bf1a",
+    "4a-baseline-unit.log": "d3f5bbb98a989d6ddfce8a4ee52e04f6c34ca933c110bbfac111300259095fad",
+    "4a-baseline-lint.log": "ca4a767b3807d1bd9163e522827ca89f6b64081136e0b5e2b05f7ff724220e8b",
+    "4a-baseline-build.log": "0519ab6073e2ee9e2465fe3a3102624e0f03296214f21e4cbb9d55dbf88a057e",
+    "4a-baseline-browser.log": "068ec4e32f8a2d8e6ef9c118187418fd14ed88d1b7cfb05b4a5b0c8ac3d5c415",
+    "4a-final-ci.log": "c956d591446205a3ba158eb07e4deb490edb83dadb06ce2a42c175d79fb83f1f",
+    "4a-final-unit.log": "d3a26855007b3eb475d0fb1dd2d7e4c93a6a64d2070b6ce4f88cebc7a6f82b77",
+    "4a-final-lint.log": "ca4a767b3807d1bd9163e522827ca89f6b64081136e0b5e2b05f7ff724220e8b",
+    "4a-final-build.log": "641481fc43a8caa635878ff3d9099b3c26df0e40722363b98aa118c5dfc74979",
+    "4a-final-browser.log": "3103209568c4871a840bbc8a0d0b8ba81fb30611c0584d514fd369c39540dd97"
+  }
+}
