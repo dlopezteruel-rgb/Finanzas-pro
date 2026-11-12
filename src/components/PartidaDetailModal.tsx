@@ -1,3 +1,4 @@
+import type {ReorderCallback} from '../utils/catalogReorder';
 import type { FinanceData } from '../utils/backup';
 import { SubitemManager } from './SubitemManager';
 import { monthlySubitems, subitemBudgetRows, subitemsFor, type SubitemEdit } from '../utils/budgetSubitems';
@@ -13,6 +14,7 @@ import { X, Plus, Edit2, Trash2, Check, CheckCircle2, Clock, Calendar, ArrowRigh
 
 interface PartidaDetailModalProps {
   data: FinanceData;
+  onReorder:ReorderCallback;
   onEditSubitem: (edit:SubitemEdit)=>Promise<SaveResult>;
   isOpen: boolean;
   onClose: () => void;
@@ -30,7 +32,7 @@ interface PartidaDetailModalProps {
 }
 
 export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
-  data, onEditSubitem, isOpen,
+  data,onReorder,onEditSubitem,isOpen,
   onClose,
   partida,
   budgetRow,
@@ -182,7 +184,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </div>
         </div>
 
-        <SubitemManager data={data} partida={partida} onEdit={onEditSubitem} onBusy={setSubitemBusy}/>
+        <SubitemManager data={data} partida={partida} onEdit={onEditSubitem} onBusy={setSubitemBusy} onReorder={onReorder}/>
         {subitemsFor(data,partida).length>0&&<section className="subitem-breakdown" aria-label="Desglose de subítems">
           <h3>Subítems · {monthYear}</h3>
           {!monthlySubitems(data,monthYear,partida)&&<p role="status">Pendiente de desglose mensual. La previsión global se conserva sin repartir; distribúyela explícitamente en Planificación.</p>}

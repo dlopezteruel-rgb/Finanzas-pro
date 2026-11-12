@@ -50,3 +50,15 @@ Solo se exporta 3.4 cuando existen los nuevos campos de estado. Abrir, navegar o
 Las validaciones de 3.4 incluyen las capacidades de 3.3 y anteriores (subítems, cartera predeterminada, reglas, préstamos, compartidos, arrastres y fotografías); los estados nuevos se rechazan bajo etiquetas de versión antiguas. Para volver a una aplicación anterior se restaura la copia completa anterior; no se rebaja manualmente la etiqueta ni se mezclan colecciones.
 
 Pruebas nuevas: `src/utils/budgetCatalog.test.ts` y `scripts/customCatalog.browser.ts`. Comando focalizado: `npm run test:ui:custom-catalog`. El informe de B se conserva separado del informe publicado en A.
+
+## Checkpoint C: arrastrar y soltar
+
+B quedó publicado en `d472a9b7808152022ed7a5bdd206ffdbd21991bc` antes de comenzar C. Se mantiene JSON 3.4 sin añadir entidades financieras.
+
+Las asas `GripVertical` aparecen junto a familias, partidas y subítems. Solo las asas interceptan el puntero y desactivan el gesto de desplazamiento; el resto de la pantalla conserva el scroll táctil normal. Se usan eventos de puntero y captura, con un umbral de 6 px antes de iniciar, cursor grab/grabbing, previsualización flotante y destinos con línea de inserción. Los finales de lista tienen destino propio. El desplazamiento automático funciona en la ventana y en contenedores con scroll, incluidos los diálogos de subítems.
+
+Con teclado: enfocar un asa, Espacio/Enter para iniciar, flechas o Inicio/Fin para recorrer los destinos válidos, Enter para confirmar y Escape para cancelar. Se anuncian el elemento, destino y resultado; el foco vuelve al asa tras el guardado. Se conservan los botones anteriores de subir/bajar y el formulario de traslado como alternativa.
+
+`applyCatalogReorder` valida tipo, origen, destino, estado y una fotografía del catálogo capturada al iniciar. Las familias se ordenan únicamente en su tipo; las partidas solo se trasladan a familias activas del mismo tipo; los subítems nunca cambian de padre. Una vista obsoleta se rechaza. El orden se escribe una sola vez con `FinanceStore.mutate`; no hay orden optimista ni pasos parciales. Cancelación, pérdida del puntero, destino inválido o fallo de guardado conservan el orden persistido. Las identidades, subítems mensuales, fotografías, importes y movimientos no se reescriben.
+
+Pruebas: `src/utils/catalogReorder.test.ts` y `scripts/catalogReorder.browser.ts`. Se usan eventos reales de ratón, CDP touchStart/touchMove/touchEnd en Chromium, teclado, recarga, cuota, reintento, conflicto entre pestañas, archivo del destino y desplazamiento automático. Las pruebas táctiles automatizadas no equivalen a una revisión de dispositivos físicos. Comando focalizado: `npm run test:ui:catalog-reorder`.

@@ -1,0 +1,92 @@
+{
+  "checkpoint": "C",
+  "validatedAt": "2026-11-12T08:23:10.195517+00:00",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/custom-budget-catalog-rebuild",
+  "previousCheckpoint": "d472a9b7808152022ed7a5bdd206ffdbd21991bc",
+  "schemaVersion": "3.4 (sin ampliación en C)",
+  "results": {
+    "unit": {
+      "passed": 376,
+      "failed": 0,
+      "skipped": 0,
+      "newSinceB": 7
+    },
+    "lint": {
+      "passed": true
+    },
+    "build": {
+      "passed": true,
+      "warnings": [
+        "Aviso previo de Vite: __dirname en vite.config.ts"
+      ]
+    },
+    "chromium": {
+      "passed": 257,
+      "failed": 0,
+      "skipped": 0,
+      "cases": 241,
+      "containers": 16,
+      "perScript": {
+        "phase1": 57,
+        "sharedUx": 12,
+        "deletion": 23,
+        "planning": 13,
+        "budgetUx": 15,
+        "charts": 8,
+        "automation": 15,
+        "responsive": 16,
+        "intelligent": 25,
+        "visualUx": 12,
+        "routes": 5,
+        "defaultWallet": 14,
+        "budgetSubitems": 19,
+        "catalogPresentation": 7,
+        "customCatalog": 6,
+        "catalogReorder": 10
+      },
+      "command": "GEMINI_API_KEY='' GOOGLE_API_KEY='' CHROMIUM_PATH=/usr/bin/chromium npm run test:ui"
+    },
+    "diffCheck": {
+      "passed": true
+    }
+  },
+  "dragCoverage": [
+    "mouse + touch CDP, ambos temas",
+    "familias, partidas, traslado y subítems",
+    "teclado, foco, cancelación y alternativas",
+    "autoscroll, destino archivado, cuota, reintento y conflicto entre pestañas"
+  ],
+  "environment": {
+    "node": "24.22.1",
+    "chromium": "156.0.8078.79",
+    "playwrightCore": "1.64.1"
+  },
+  "sourceSha256": {
+    "package.json": "d69e415dbba0e9cf01cc1097e218fb3a39816617d8f235783f542f7ea08190c5",
+    "scripts/catalogReorder.browser.ts": "78f1a594f434ca02cac6ebd9c810a4ce32702e00ee4aff51b81fbfb799d4541e",
+    "scripts/catalogReorderFixture.ts": "1973d4beee728e559ba7ee19ef6ada31bee9e2580c703f4a50f68b1528df8887",
+    "src/App.tsx": "f0416b42e5fc3aa01b01e9c06ec563bab08066611be387cdf7d64a6067fdadf4",
+    "src/components/BudgetsView.tsx": "0421ce0f59917eee2bbba79b3fc2c3ef50ad985e102ba840d5c7203f762e5c32",
+    "src/components/PartidaDetailModal.tsx": "e806b538179bc9a7623e3a26f6be5fb0dd705e179c7a10ca0001ab452462458b",
+    "src/components/SubitemManager.tsx": "d52addef65f6a5ca77febbe3124f9928127a517316d8c008dcb490e3de8c53d9",
+    "src/components/useCatalogDrag.tsx": "db62654490554a1e871778c103e05e3bf7ee3b1f461ca781a23c3dcbbbc5ccc3",
+    "src/styles/experience.css": "cb0df910618c2c4d44b9fc2b95a7bee9c9367784552e10a7d2495c1f6e734717",
+    "src/tests.ts": "c6a304703ebaf20634362859fcdccfb2733923deadd50c890b6f9b477289526b",
+    "src/utils/catalogReorder.test.ts": "cdd61d33ba4170a3b120e198cfa0b473dc1a1992d68ad5b8e661152c842420a0",
+    "src/utils/catalogReorder.ts": "92261cd76f5b1fd4388f2d849a1b1b223aabcb4872944ac2506588635aeb64ab"
+  },
+  "safety": {
+    "mainModified": false,
+    "deployed": false,
+    "aiStudioAccessedOrSynced": false,
+    "realDataUsed": false,
+    "lockfileChanged": false
+  },
+  "limitations": [
+    "Tacto automatizado con Chromium CDP; pendiente revisión en dispositivos físicos y otros navegadores."
+  ],
+  "remainingCheckpoints": [
+    "D: clasificación integrada, regresiones, documentación/capturas finales y PR Draft"
+  ]
+}

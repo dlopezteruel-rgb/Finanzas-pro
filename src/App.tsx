@@ -1,3 +1,4 @@
+import {applyCatalogReorder} from './utils/catalogReorder';
 import {CatalogManager} from './components/CatalogManager';
 import {editCatalog} from './utils/budgetCatalog';
 import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
@@ -651,6 +652,7 @@ export default function App() {
         } catalog={<>
           <CatalogManager data={data} onEdit={edit=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>editCatalog(current,edit))}/>
           <BudgetsView
+            data={data} onReorder={request=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>applyCatalogReorder(current,request))}
             currentMonthYear={currentMonthYear}
             summary={summary}
             budgetRows={budgetRows}
@@ -773,6 +775,7 @@ export default function App() {
 
       {/* Partida Specific Detail Modal */}
       <PartidaDetailModal
+        onReorder={request=>mutate(current=>applyCatalogReorder(current,request))}
         isOpen={isPartidaDetailOpen}
         onClose={() => {
           setIsPartidaDetailOpen(false);

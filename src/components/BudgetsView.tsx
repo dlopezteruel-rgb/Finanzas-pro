@@ -1,3 +1,6 @@
+import {useCatalogDrag} from './useCatalogDrag';
+import {catalogReorderScope,type ReorderCallback} from '../utils/catalogReorder';
+import type {FinanceData} from '../utils/backup';
 import { parsePlanningMoney } from '../utils/planning';
 import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -28,6 +31,8 @@ import {
 } from 'lucide-react';
 
 interface BudgetsViewProps {
+  data:FinanceData;
+  onReorder:ReorderCallback;
   currentMonthYear: string;
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
@@ -40,7 +45,7 @@ interface BudgetsViewProps {
 }
 
 export const BudgetsView: React.FC<BudgetsViewProps> = ({
-  currentMonthYear,
+  data,onReorder,currentMonthYear,
   summary,
   budgetRows,
   budgetGroups,
@@ -62,6 +67,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   const [targetGroupCode, setTargetGroupCode] = useState<string>('');
   const moveSubmission = useAsyncForm();
   const catalogSubmission = useAsyncForm();
+  const drag=useCatalogDrag(catalogReorderScope(data),onReorder,catalogSubmission.saving||moveSubmission.saving||editSubmission.saving);
 
   // Quick lookup of budget rows by key
   const rowMap = useMemo(() => {
@@ -230,8 +236,10 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           return (
             <div
               key={group.code}
+              {...drag.target(drag.sourceKind==='partida'?{kind:'partida',type:group.type,groupCode:group.code,label:`Final de ${group.name}`,disabled:!!group.archived}:{kind:'family',type:group.type,code:group.code,label:group.name})}
               className="bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm transition-all"
             >
+              <div className="catalog-family-heading">{drag.handle({kind:'family',type:group.type,code:group.code,label:`familia ${group.name}`})}
               {/* Accordion Package Header */}
               <div
                 role="button" tabIndex={0} aria-expanded={isOpen} aria-label={`Familia ${group.name}`}
@@ -284,6 +292,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 </div>
               </div>
 
+              </div>
               {/* Progress bar across bottom of package header */}
               <div className="w-full bg-slate-800 h-1 overflow-hidden">
                 <div
@@ -323,10 +332,12 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                     return (
                       <div
                         key={key}
+                        {...drag.target({kind:'partida',type:partida.type,groupCode:group.code,beforeCode:partida.code,label:partida.name,disabled:!!group.archived})}
                         className="p-3 hover:bg-white/[0.02] transition-colors space-y-2"
                       >
                         {/* Partida Row */}
-                        <div className="flex items-start justify-between gap-2">
+                        <div className="catalog-partida-heading flex items-start justify-between gap-2">
+                          {drag.handle({kind:'partida',type:partida.type,code:partida.code,label:`partida ${partida.name}`})}
                           {/* Left: accessible opener for the contextual panel */}
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
                             aria-label={`Ver partida ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
@@ -338,7 +349,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                           </button>
 
                           {/* Center / Right: RESTO and Reordering Actions */}
-                          <div className="flex items-center gap-2.5 shrink-0">
+                          <div className="catalog-partida-actions flex items-center gap-2.5 shrink-0">
                             {/* Resto */}
                             <div className="text-right">
                               <span className="text-[9px] text-slate-400 uppercase font-semibold block">RESTO</span>
@@ -359,7 +370,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             <div className="flex flex-col gap-0.5 bg-white/[0.04] p-0.5 rounded-lg border border-white/[0.06]">
                               <button
                                 type="button"
-                                disabled={index === 0 || catalogSubmission.saving}
+                                disabled={index === 0 || catalogSubmission.saving||drag.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'UP'), () => {});
@@ -372,7 +383,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </button>
                               <button
                                 type="button"
-                                disabled={index === group.partidas.length - 1 || catalogSubmission.saving}
+                                disabled={index === group.partidas.length - 1 || catalogSubmission.saving||drag.saving}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'DOWN'), () => {});
@@ -388,7 +399,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Duplicate partida */}
                             <button
                               type="button"
-                              disabled={catalogSubmission.saving}
+                              disabled={catalogSubmission.saving||drag.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 void catalogSubmission.submit(() => onDuplicatePartida(partida), () => {});
@@ -403,7 +414,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                             {/* Change group / Move package */}
                             <button
                               type="button"
-                              disabled={catalogSubmission.saving}
+                              disabled={catalogSubmission.saving||drag.saving}
                               onClick={(e) => {
                                 e.stopPropagation();
                                 moveSubmission.clearError();
@@ -505,6 +516,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
         })}
       </div>
 
+      {drag.sourceKind!=='partida'&&<div className="catalog-drop-end" {...drag.target({kind:'family',type:activeTab,label:'Final de las familias'})}>Final de las familias</div>}
+      {drag.feedback}
       {/* Confirmation Modal for Moving a Partida across packages */}
       {movingPartida && (
         <Overlay title="Mover partida" onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
