@@ -1,3 +1,5 @@
+import {CatalogManager} from './components/CatalogManager';
+import {editCatalog} from './utils/budgetCatalog';
 import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
 /**
  * @license
@@ -359,7 +361,7 @@ export default function App() {
   };
 
   const handleMovePartida = (groupCode: string, partidaIndex: number, direction: 'UP' | 'DOWN') => {
-    return mutate(current => reorderPartida(current, groupCode, partidaIndex, direction));
+    return mutate(current => {const group=current.budgetGroups.find(g=>g.code===groupCode),item=group?.partidas.filter(p=>!p.deleted)[partidaIndex];if(!item)throw new Error('La partida ya no existe.');return reorderPartida(current,groupCode,group!.partidas.indexOf(item),direction);});
   };
 
   const handleDuplicatePartida = (partida: BudgetPartida) => {
@@ -646,7 +648,8 @@ export default function App() {
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty} onRegisterNavigationSave={registerPlanningSave}
             onSave={(edits, savings, scope, approve, deficit, subitems) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit, subitems))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
-        } catalog={
+        } catalog={<>
+          <CatalogManager data={data} onEdit={edit=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>editCatalog(current,edit))}/>
           <BudgetsView
             currentMonthYear={currentMonthYear}
             summary={summary}
@@ -658,7 +661,7 @@ export default function App() {
             onChangePartidaGroup={(...args) => planningState.current.dirty || planningState.current.saving ? Promise.resolve({ ok: false, error: "Guarda o descarta primero el borrador de planificación." }) : handleChangePartidaGroup(...args)}
             onSelectPartidaToView={handleSelectPartidaToView}
           />
-        } />}
+        </>} />}
 
         {activeTab === 'contacts' && (
           <ContactsView

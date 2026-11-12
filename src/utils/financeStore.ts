@@ -1,3 +1,4 @@
+import {assertCatalogTransition} from './budgetCatalog';
 import { assertSubitemTransition } from './budgetSubitems';
 import { assertIntelligentTransition } from './intelligentValidation';
 import { reconcileAutomation } from './planningAutomation';
@@ -73,6 +74,7 @@ export class FinanceStore {
       if (!clearing) candidate = reconcileAutomation(this.data, reconcilePlanning(this.data, invalidatePlanning(this.data, candidate)));
       assertDeletionTransition(this.data, candidate);
       assertWalletTransition(this.data, candidate);
+      assertCatalogTransition(this.data,candidate);
       if (!clearing) {
         assertSubitemTransition(this.data, candidate);
         assertSharedTransition(this.data, candidate);

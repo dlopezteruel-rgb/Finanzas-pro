@@ -10,7 +10,7 @@ export function PartidaSelector({ groups, transactions, type, value, onChange }:
   const catalog = useMemo(() => partidaCatalog(groups), [groups]);
   const results = searchPartidas(catalog, type, query, family, group);
   const recents = recentPartidas(catalog, transactions, type).filter(item => results.includes(item));
-  const current = catalog.find(c => c.partida.type === type && c.partida.code === value)?.partida;
+  const current = groups.flatMap(g=>g.partidas).find(p=>p.type===type&&p.code===value);
   const availableGroups = [...new Map(catalog.filter(c => c.partida.type === type && (!family || c.familyCode === family)).map(c => [`${c.partida.groupCode}:${c.partida.groupName}`, c.partida])).entries()];
   useEffect(() => { setQuery(''); setFamily(''); setGroup(''); setActive(0); }, [type]);
   useEffect(() => { if (open) input.current?.focus(); }, [open]);
@@ -38,7 +38,7 @@ export function PartidaSelector({ groups, transactions, type, value, onChange }:
         }} className="w-full rounded-lg border border-white/10 p-2 bg-[#141926]" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
         <select aria-label="Familia presupuestaria" value={family} onChange={e => { setFamily(e.target.value); setGroup(''); setActive(0); }} className="w-full rounded-lg p-2 bg-[#141926]">
-          <option value="">Todas las familias</option>{groups.filter(g => g.type === type).map(g => <option key={g.code} value={g.code}>{g.name}</option>)}
+          <option value="">Todas las familias</option>{groups.filter(g => g.type === type&&!g.archived&&!g.deleted).map(g => <option key={g.code} value={g.code}>{g.name}</option>)}
         </select>
         <select aria-label="Grupo presupuestario" value={group} onChange={e => { setGroup(e.target.value); setActive(0); }} className="w-full rounded-lg p-2 bg-[#141926]">
           <option value="">Todos los grupos</option>{availableGroups.map(([key, p]) => <option key={key} value={key}>{p.groupName}</option>)}

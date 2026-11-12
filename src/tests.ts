@@ -28,3 +28,5 @@ import './app/paths.test';
 import './utils/defaultWallet.test';
 
 import './utils/budgetSubitems.test';
+
+import "./utils/budgetCatalog.test";

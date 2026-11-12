@@ -1,3 +1,4 @@
+import {hasCustomCatalog,validateCatalog} from './budgetCatalog';
 import { validateSubitems, validateSubitemSnapshot, subitemContent, normalizedSubitemBreakdowns } from './budgetSubitems';
 import { validateIntelligent } from './intelligentValidation';
 import { assertSharedIntegrity, isStructuredShared, sharedMigrationReport } from './sharedExpenses';
@@ -22,7 +23,7 @@ export interface FinanceData {
   defaultWalletId?: string | null;
 }
 export interface Backup extends FinanceData {
-  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9' | '3.0' | '3.1' | '3.2' | '3.3';
+  version: '2.5' | '2.6' | '2.7' | '2.8' | '2.9' | '3.0' | '3.1' | '3.2' | '3.3' | '3.4';
   exportedAt: string;
 }
 export const DATA_KEY = 'finanzas_pro_data_v1';
@@ -97,12 +98,12 @@ export function validateApproval(value: unknown, p: string, advanced: boolean, s
 /** Validate every collection before exposing any of it to application state. */
 export function validateBackup(value: unknown): asserts value is Backup {
   object(value, 'Archivo');
-  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], value.version === '3.3' ? ['planningMonths','planningAutomation','intelligentFinance','defaultWalletId','budgetSubitems'] : value.version === '3.2' ? ['planningMonths','planningAutomation','intelligentFinance','defaultWalletId'] : value.version === '3.1' ? ['planningMonths','planningAutomation','intelligentFinance'] : value.version === '3.0' ? ['planningMonths','planningAutomation'] : value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
-  if (!['2.5', '2.6', '2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2 y 3.3; no se ha modificado ningún dato.');
+  fields(value, ['version', 'exportedAt', 'theme', 'transactions', 'budgetPlans', 'budgetGroups', 'contacts', 'loans', 'wallets'], ['3.3','3.4'].includes(value.version) ? ['planningMonths','planningAutomation','intelligentFinance','defaultWalletId','budgetSubitems'] : value.version === '3.2' ? ['planningMonths','planningAutomation','intelligentFinance','defaultWalletId'] : value.version === '3.1' ? ['planningMonths','planningAutomation','intelligentFinance'] : value.version === '3.0' ? ['planningMonths','planningAutomation'] : value.version === '2.9' ? ['planningMonths'] : [], 'Archivo');
+  if (!['2.5', '2.6', '2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3', '3.4'].includes(value.version)) invalid('version', 'versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3 y 3.4; no se ha modificado ningún dato.');
   if (typeof value.exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T/.test(value.exportedAt) || !isISODate(value.exportedAt.slice(0, 10)) || !Number.isFinite(Date.parse(value.exportedAt))) invalid('exportedAt', 'fecha de exportación inválida.');
   if (value.theme !== 'dark' && value.theme !== 'light') invalid('theme', 'debe ser dark o light.');
   array(value.transactions, 'transactions', (t, p) => {
-    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(value.version === '3.3' ? ['subitemId'] : []), ...(['3.1','3.2','3.3'].includes(value.version) ? ['recurrence','obligationSettlement'] : []), ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3'].includes(value.version) ? ['reimbursement'] : [])], p);
+    fields(t, ['id', 'date', 'amount', 'type', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet', 'processed'], ['loanId', 'notes', 'splitInfo', ...(['3.3','3.4'].includes(value.version) ? ['subitemId'] : []), ...(['3.1','3.2','3.3','3.4'].includes(value.version) ? ['recurrence','obligationSettlement'] : []), ...(value.version !== '2.5' ? ['transfer'] : []), ...(['2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3', '3.4'].includes(value.version) ? ['reimbursement'] : [])], p);
     for (const k of ['id', 'code', 'categoryName', 'subcategoryName', 'description', 'wallet']) string(t[k], `${p}.${k}`);
     date(t.date, `${p}.date`); number(t.amount, `${p}.amount`, 0.01); movementType(t.type, `${p}.type`); bool(t.processed, `${p}.processed`);
     optionalStrings(t, ['loanId', 'notes'], p);
@@ -119,7 +120,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     }
     if (Object.hasOwn(t, 'splitInfo')) {
       const s = t.splitInfo; object(s, `${p}.splitInfo`);
-      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9', '3.0', '3.1', '3.2', '3.3'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
+      fields(s, ['isShared', 'totalParticipants', 'myShare', 'totalOwedToMe', 'participants'], ['2.7', '2.8', '2.9', '3.0', '3.1', '3.2', '3.3', '3.4'].includes(value.version) ? ['accountingVersion', 'walletId', 'settlements', ...(['2.8', '2.9', '3.0', '3.1', '3.2', '3.3', '3.4'].includes(value.version) ? ['distribution'] : [])] : [], `${p}.splitInfo`);
       bool(s.isShared, `${p}.splitInfo.isShared`); number(s.totalParticipants, `${p}.splitInfo.totalParticipants`, 2, true);
       number(s.myShare, `${p}.splitInfo.myShare`); number(s.totalOwedToMe, `${p}.splitInfo.totalOwedToMe`);
       array(s.participants, `${p}.splitInfo.participants`, (participant, q) => {
@@ -149,10 +150,10 @@ export function validateBackup(value: unknown): asserts value is Backup {
     string(plan.code, `${p}.code`); movementType(plan.type, `${p}.type`); number(plan.plannedAmount, `${p}.plannedAmount`);
   });
   array(value.budgetGroups, 'budgetGroups', (group, p) => {
-    fields(group, ['code', 'name', 'type', 'partidas'], [], p);
+    fields(group, ['code', 'name', 'type', 'partidas'], value.version==='3.4'?['archived','deleted']:[], p);
     string(group.code, `${p}.code`); string(group.name, `${p}.name`); movementType(group.type, `${p}.type`);
     array(group.partidas, `${p}.partidas`, (partida, q) => {
-      fields(partida, ['code', 'name', 'groupCode', 'groupName', 'type', 'keywords'], ['description'], q);
+      fields(partida, ['code', 'name', 'groupCode', 'groupName', 'type', 'keywords'], ['description',...(value.version==='3.4'?['archived','deleted']:[])], q);
       for (const k of ['code', 'name', 'groupCode', 'groupName']) string(partida[k], `${q}.${k}`);
       movementType(partida.type, `${q}.type`);
       if (partida.type !== group.type) invalid(`${q}.type`, 'no coincide con el tipo del paquete.');
@@ -179,7 +180,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     if (!['BANK', 'NEOBANK', 'CASH', 'SAVINGS', 'INVESTMENT'].includes(wallet.type)) invalid(`${p}.type`, 'tipo de cartera inválido.');
     number(wallet.initialBalance, `${p}.initialBalance`, -Number.MAX_VALUE); optionalStrings(wallet, ['ibanOrDetails'], p);
   });
-  if (value.version === '3.2' || (value.version === '3.3' && Object.hasOwn(value,'defaultWalletId'))) {
+  if (value.version === '3.2' || (['3.3','3.4'].includes(value.version) && Object.hasOwn(value,'defaultWalletId'))) {
     if (!Object.hasOwn(value, 'defaultWalletId')) invalid('defaultWalletId', '3.2 requiere la preferencia (ID o null).');
     if (value.defaultWalletId !== null) {
       string(value.defaultWalletId, 'defaultWalletId');
@@ -188,8 +189,8 @@ export function validateBackup(value: unknown): asserts value is Backup {
   }
   const checked = value as unknown as Backup;
   for (const k of ['transactions', 'contacts', 'loans', 'wallets'] as const) unique(checked[k].map(item => item.id), k);
-  if (value.version === '3.0' || (['3.1','3.2','3.3'].includes(value.version) && (Object.hasOwn(value,'planningAutomation') || hasAutomation(checked)))) validateAutomation(checked, (a,p,advanced) => validateApproval(a,p,advanced,value.version==='3.3'));
-  if (value.version === '2.9' || (['3.0','3.1','3.2','3.3'].includes(value.version) && Object.hasOwn(value,'planningMonths'))) {
+  if (value.version === '3.0' || (['3.1','3.2','3.3','3.4'].includes(value.version) && (Object.hasOwn(value,'planningAutomation') || hasAutomation(checked)))) validateAutomation(checked, (a,p,advanced) => validateApproval(a,p,advanced,['3.3','3.4'].includes(value.version)));
+  if (value.version === '2.9' || (['3.0','3.1','3.2','3.3','3.4'].includes(value.version) && Object.hasOwn(value,'planningMonths'))) {
     if (!Array.isArray(value.planningMonths) || !value.planningMonths.length) invalid('planningMonths', '2.9 requiere metadatos mensuales no vacíos.');
     array(value.planningMonths, 'planningMonths', (meta, p) => {
       fields(meta, ['monthYear', 'savingsCents', 'revision'], ['approval'], p);
@@ -202,8 +203,8 @@ export function validateBackup(value: unknown): asserts value is Backup {
       planningTotals(lines, meta.savingsCents);
       if (Object.hasOwn(meta, 'approval')) {
         const a = meta.approval;
-        validateApproval(a, `${p}.approval`, ['3.0','3.1','3.2','3.3'].includes(value.version),value.version==='3.3');
-        if(a.revision===meta.revision && value.version==='3.3') {
+        validateApproval(a, `${p}.approval`, ['3.0','3.1','3.2','3.3','3.4'].includes(value.version),['3.3','3.4'].includes(value.version));
+        if(a.revision===meta.revision && ['3.3','3.4'].includes(value.version)) {
           if(normalizedSubitemBreakdowns(a.subitemBreakdowns ?? [])!==normalizedSubitemBreakdowns(subitemContent(checked,meta.monthYear))) invalid(p,'la distribución aprobada vigente no coincide con la previsión actual.');
         }
         if (a.revision > meta.revision) invalid(p, 'la aprobación no puede superar la revisión actual.');
@@ -214,6 +215,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
     unique(checked.planningMonths!.map(m => m.monthYear), 'planningMonths');
   }
   if(value.version==='3.3'&&!Object.hasOwn(value,'budgetSubitems'))invalid('budgetSubitems','3.3 requiere el registro de identidades y previsiones mensuales.');
+  validateCatalog(checked);
   validateSubitems(checked);
   assertTransferIntegrity(checked.transactions, checked.wallets);
   assertSharedIntegrity(checked);
@@ -227,7 +229,7 @@ export function validateBackup(value: unknown): asserts value is Backup {
 
 export function makeBackup(data: FinanceData): Backup {
   const { planningMonths, planningAutomation, ...base } = data;
-  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), ...(planningAutomation && [planningAutomation.rules,planningAutomation.carryovers,planningAutomation.origins,planningAutomation.history].some(a=>a?.length) ? {planningAutomation} : {}), version: data.budgetSubitems !== undefined ? '3.3' : data.defaultWalletId !== undefined ? '3.2' : data.intelligentFinance ? '3.1' : hasAutomation(data) ? '3.0' : planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
+  return { ...base, ...(planningMonths?.length ? { planningMonths } : {}), ...(planningAutomation && [planningAutomation.rules,planningAutomation.carryovers,planningAutomation.origins,planningAutomation.history].some(a=>a?.length) ? {planningAutomation} : {}), version: hasCustomCatalog(data) ? '3.4' : data.budgetSubitems !== undefined ? '3.3' : data.defaultWalletId !== undefined ? '3.2' : data.intelligentFinance ? '3.1' : hasAutomation(data) ? '3.0' : planningMonths?.length ? '2.9' : data.transactions.some(t => t.splitInfo?.distribution) ? '2.8' : data.transactions.some(t => isStructuredShared(t) || t.reimbursement) ? '2.7' : data.transactions.some(t => t.transfer) ? '2.6' : '2.5', exportedAt: new Date().toISOString() };
 }
 export function parseBackup(content: string): Backup {
   if (new Blob([content]).size > MAX_BACKUP_BYTES) throw new Error('El archivo supera el límite de 10 MB.');
@@ -240,6 +242,7 @@ export function parseBackup(content: string): Backup {
 /** Legacy applications can export orphaned links. Warn and preserve, never repair silently. */
 export function backupWarnings(data: FinanceData): string[] {
   const warnings: string[] = [];
+  if(hasCustomCatalog(data))warnings.push('JSON 3.4: catálogo personalizable, archivo e identidades retiradas. Para volver a una versión anterior restaura la copia recuperable completa previa.');
   if(data.budgetSubitems)warnings.push('JSON 3.3: subítems, previsiones mensuales y fotografías. Las versiones anteriores no lo leen: conserva la copia recuperable completa previa.');
   if(data.defaultWalletId !== undefined) warnings.push('JSON 3.2: incluye la cartera predeterminada por ID. Para volver a una versión anterior utiliza la copia recuperable completa previa.');
   if(data.intelligentFinance)warnings.push('JSON 3.1: reglas, ocurrencias y compromisos. Para volver a una versión anterior restaura la copia recuperable previa completa.');

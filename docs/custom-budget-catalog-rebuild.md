@@ -24,3 +24,29 @@ Comando focalizado: `npm run test:ui:catalog-presentation`. `CATALOG_PRESENTATIO
 Los recuentos del checkpoint se registran en `custom-budget-catalog-rebuild-validation.json`. Las capturas definitivas del conjunto, documentación de JSON 3.4 y PR Draft se preparan al cerrar D.
 
 Límites: pruebas automatizadas en Chromium; dispositivos físicos, Safari/Firefox y lectores de pantalla requieren revisión manual. No hay fusión, despliegue ni sincronización de Google AI Studio.
+
+## Checkpoint B: modelo y gestión del catálogo
+
+A quedó publicado en `6125ef4fa9d9f95f61fd10d5af5797f052bd9447` antes de comenzar B.
+
+### Identidades y estados
+
+Se conserva `BudgetGroup.code` como identidad del contenedor y `BudgetPartida.type + code` como identidad de partida. No se interpreta `groupCode` como identidad del contenedor: los catálogos heredados pueden usar allí un subgrupo, por ejemplo `F.003` dentro de `F_EXP`. Renombrar una familia no normaliza esos campos históricos; mover una partida cambia únicamente su organización en el catálogo. Las etiquetas guardadas en movimientos, los importes y las fotografías aprobadas permanecen intactos.
+
+Familias y partidas admiten `archived?: boolean` y `deleted?: true`. Ausencia equivale al comportamiento anterior. Retirar crea un tombstone archivado, conservado en JSON, y nunca libera su código. Una familia solo se retira sin partidas vivas; una partida solo sin referencias de movimientos, préstamos, subítems (también retirados), planes, aprobaciones vigentes o históricas, arrastres, reglas y procedencias. El tipo principal es inmutable. El archivo del contenedor excluye todas sus partidas de nuevas opciones, sin cambiar el estado individual de cada hija.
+
+Las identidades nuevas se generan en la interfaz con `crypto.randomUUID()`, usando los espacios `family-…` y `partida-…`. Las colisiones y códigos usados por históricos también se rechazan en el dominio. La duplicación conserva el mecanismo previo de códigos únicos y da IDs nuevos a los subítems activos; no copia operaciones, cantidades mensuales ni aprobaciones. Las ordenaciones omiten tombstones.
+
+### Interfaz y límites del guardado
+
+En Catálogo, «Gestionar familias y partidas» permite crear, editar metadatos, archivar/reactivar, ordenar familias y confirmar eliminaciones. Los controles de traslado, duplicación y orden de partidas del catálogo siguen disponibles. Los diálogos conservan los campos ante un fallo y solo se cierran tras persistir. Una eliminación muestra sus bloqueos y se comprueba otra vez bajo el lock al confirmar.
+
+`FinanceStore.mutate` verifica identidades, estados, dependencias y nuevas asignaciones, también si una mutación elude el formulario. Los movimientos existentes pueden conservar su partida archivada al editarse; no se pueden asignar nuevos movimientos o previsiones a una partida o familia archivada. Las previsiones archivadas del periodo continúan consultables y sus cantidades se muestran de solo lectura. La integración completa de la interpretación de texto con el catálogo activo corresponde a D.
+
+### JSON 3.4 y recuperación
+
+Solo se exporta 3.4 cuando existen los nuevos campos de estado. Abrir, navegar o consultar formatos 2.5–3.3 no añade esos campos ni escribe datos. Al introducirlos por primera vez, el cambio de versión activa el procedimiento existente: escribir la copia completa anterior, releerla y verificarla antes de escribir el estado nuevo. Se conservan la clave de datos, Web Locks, detección de revisión obsoleta y el guardado atómico. Un fallo de copia, verificación o escritura activa conserva el estado financiero anterior y permite reintentar.
+
+Las validaciones de 3.4 incluyen las capacidades de 3.3 y anteriores (subítems, cartera predeterminada, reglas, préstamos, compartidos, arrastres y fotografías); los estados nuevos se rechazan bajo etiquetas de versión antiguas. Para volver a una aplicación anterior se restaura la copia completa anterior; no se rebaja manualmente la etiqueta ni se mezclan colecciones.
+
+Pruebas nuevas: `src/utils/budgetCatalog.test.ts` y `scripts/customCatalog.browser.ts`. Comando focalizado: `npm run test:ui:custom-catalog`. El informe de B se conserva separado del informe publicado en A.

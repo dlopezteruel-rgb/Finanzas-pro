@@ -4,7 +4,7 @@ import { economicTransactions, isLegacyTransfer } from './transfers';
 export const normalizeSearch = (text: string) => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
 export type CatalogItem = { partida: BudgetPartida; familyCode: string; familyName: string };
 export function partidaCatalog(groups: BudgetGroup[]): CatalogItem[] {
-  return groups.flatMap(g => g.partidas.map(partida => ({ partida, familyCode: g.code, familyName: g.name })));
+  return groups.filter(g=>!g.archived&&!g.deleted).flatMap(g => g.partidas.filter(p=>!p.archived&&!p.deleted).map(partida => ({ partida, familyCode: g.code, familyName: g.name })));
 }
 export function searchPartidas(catalog: CatalogItem[], type: MovementType, query = '', family = '', group = '') {
   const terms = normalizeSearch(query).split(/\s+/).filter(Boolean);

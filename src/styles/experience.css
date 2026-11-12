@@ -148,3 +148,13 @@ button:disabled { cursor: not-allowed; }
 .planning-subitems label input { display: block; min-width: 0; width: 100%; }
 :is(.subitem-manager,.subitem-breakdown) :is(label,button) { max-width: 100%; overflow-wrap: anywhere; }
 .subitem-manage-row > div { min-width: 0; max-width: 100%; }
+
+.catalog-manager { margin-block: 1rem; padding: 1rem; border: 1px solid var(--line); border-radius: 1rem; }
+.catalog-manager > summary { min-height: 44px; font-weight: 700; }
+.catalog-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-block: .5rem; }
+:is(.catalog-manager,.catalog-editor) button { min-height: 44px; padding: .4rem .7rem; border: 1px solid var(--field-line); border-radius: .5rem; color: var(--ink); background: var(--surface); }
+.catalog-manage-family { padding: 1rem; margin-block: 1rem; border: 1px solid var(--line); border-radius: .75rem; }
+.catalog-manage-partida { padding-block: .75rem; border-top: 1px solid var(--line); }
+.catalog-manager :is(h3,h4) { font-weight: 700; margin-block: .5rem; }
+.catalog-editor :is(label,fieldset) { display: grid; gap: .75rem; min-width: 0; }
+.catalog-editor :is(input,textarea,select) { width: 100%; border: 1px solid var(--field-line); border-radius: .5rem; padding: .5rem; }

@@ -74,7 +74,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
 
   // Filter groups by active tab
   const filteredGroups = useMemo(() => {
-    return budgetGroups.filter(g => g.type === activeTab);
+    return budgetGroups.filter(g => g.type === activeTab&&!g.deleted).map(g=>({...g,partidas:g.partidas.filter(p=>!p.deleted)}));
   }, [budgetGroups, activeTab]);
 
   // Toggle accordion group open/close
@@ -249,7 +249,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                   <div className="truncate">
                     <div className="flex items-center gap-2">
                       <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                        {group.name}
+                        {group.name}{group.archived?' · Archivada':''}
                       </h3>
                       <span className="text-[10px] bg-white/[0.05] text-slate-300 px-1.5 py-0.2 rounded-full font-mono">
                         {group.partidas.length} partidas
@@ -331,7 +331,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
                             aria-label={`Ver partida ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
                             <span className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}</span>
+                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}{partida.archived?' · Archivada':''}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </span>
                             <span className="text-[10px] text-slate-400 block mt-0.5">{row.transactionCount > 0 ? `${row.transactionCount} mov. registrados • Toca para ver` : '0 movimientos • Toca para ver'}</span>
@@ -528,7 +528,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 onChange={e => setTargetGroupCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500 text-xs"
               >
-                {budgetGroups.filter(g => g.type === movingPartida.type).map(g => (
+                {budgetGroups.filter(g => g.type === movingPartida.type&&!g.archived&&!g.deleted).map(g => (
                   <option key={g.code} value={g.code}>
                     {g.type}: {g.name}
                   </option>
