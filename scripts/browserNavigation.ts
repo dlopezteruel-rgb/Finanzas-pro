@@ -1,4 +1,4 @@
-import type { Page } from 'playwright-core';
+import type { Page, Locator } from 'playwright-core';
 /** Navigate through the same accessible controls a user sees, including mobile More. */
 export async function navigateModule(page: Page, name: string) {
   const navigation = page.getByRole('navigation', { name: 'Navegación principal' }).filter({ visible: true });
@@ -20,4 +20,14 @@ export async function selectPlanningArea(page: Page, name: 'Gastos' | 'Ingresos'
     return;
   }
   await tab.click();
+}
+
+/** Legacy regression fixtures now explicitly choose their intended movement category. */
+export async function chooseMovementPartida(target:Page|Locator){
+  const page='page' in target?target.page():target;
+  const dialog=page.getByRole('dialog',{name:'Movimiento',exact:true});if(!await dialog.count())return;
+  const trigger=dialog.getByRole('button',{name:'Seleccionar partida presupuestaria',exact:true});
+  if((await trigger.innerText()).trim()!=='Selecciona una partida')return;
+  await trigger.click();const options=dialog.getByRole('listbox').getByRole('option'),restaurant=options.filter({hasText:/Comer fuera/}).first();
+  if(await restaurant.count())await restaurant.click();else if(await options.count())await options.first().click();else await page.keyboard.press('Escape');
 }

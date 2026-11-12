@@ -1,3 +1,4 @@
+import {ALL_PARTIDAS} from '../constants/categories';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { formatCurrency, parseCurrencyInput, calculateMonthlyBudgetRows, calculateMonthlySummary, calculateLoanStatus, calculateWalletBalances } from './finance';
@@ -165,7 +166,7 @@ test('calculateLoanStatus tracks theoretical vs real quotas and pending debt', (
 test('parseFinancialInput correctly classifies user prompt example', () => {
   const text = 'Ayer cené fuera por 15,50 € con Openbank';
   const refDate = new Date('2026-10-30T12:00:00Z');
-  const parsed = parseFinancialInput(text, refDate);
+  const parsed = parseFinancialInput(text, refDate,ALL_PARTIDAS);
 
   assert.ok(parsed, 'Parsed movement should not be null');
   assert.equal(parsed.amount, 15.50);
@@ -178,7 +179,7 @@ test('parseFinancialInput correctly classifies user prompt example', () => {
 
 test('parseFinancialInput correctly classifies salary income', () => {
   const text = 'Nómina mensual cobrada 2450 € en Santander';
-  const parsed = parseFinancialInput(text);
+  const parsed = parseFinancialInput(text,undefined,ALL_PARTIDAS);
 
   assert.ok(parsed);
   assert.equal(parsed.amount, 2450);

@@ -117,7 +117,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
                           {loan.name}
                         </h3>
                         <span className="text-[10px] bg-white/[0.05] text-sky-400 font-mono px-1.5 py-0.5 rounded border border-white/[0.08]">
-                          [{loan.code}]
+                          {deletionData.budgetGroups.flatMap(g=>g.partidas).find(p=>p.type==='GASTO'&&p.code===loan.code)?.name??'Partida histórica'}
                         </span>
                       </div>
                       <span className="text-xs text-slate-400">

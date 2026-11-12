@@ -146,7 +146,7 @@ export function localFinancialAdvice(
         .filter((r) => r.carryCents)
         .map(
           (r) =>
-            `| ${r.code} · ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} |`,
+            `| ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} |`,
         ),
     )}\n${c.partidas.some((r) => r.carryCents) ? "Efectivo = base + arrastre. El arrastre no es un ingreso bancario." : "No hay arrastres guardados en este periodo."}`;
   if (
@@ -166,7 +166,7 @@ export function localFinancialAdvice(
             "| Partida | Base + arrastre | Tramitado propio | Pendiente propio | Desviación |\n| :--- | :--- | :--- | :--- | :--- |",
             exceeded.map(
               (r) =>
-                `| ${r.code} · ${r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
+                `| ${r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
             ),
           )
         : "No hay partidas de gasto al 90 % o por encima del presupuesto guardado."
@@ -202,7 +202,7 @@ export function localFinancialAdvice(
       );
       if (!candidate) continue;
       suggestions.push(
-        `- ${r.code} · ${r.name}: reducir hasta ${money(candidate)} de ${money(r.remainingCents - r.pendingCents)} todavía no ejecutados ni pendientes.`,
+        `- ${r.name}: reducir hasta ${money(candidate)} de ${money(r.remainingCents - r.pendingCents)} todavía no ejecutados ni pendientes.`,
       );
       left -= candidate;
       if (left === 0) break;
@@ -218,7 +218,7 @@ export function localFinancialAdvice(
       "| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |",
       c.partidas.map(
         (r) =>
-          `| ${r.code} · ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
+          `| ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
       ),
     )}\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.`;
   return null;

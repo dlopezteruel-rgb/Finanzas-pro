@@ -62,3 +62,62 @@ Con teclado: enfocar un asa, Espacio/Enter para iniciar, flechas o Inicio/Fin pa
 `applyCatalogReorder` valida tipo, origen, destino, estado y una fotografía del catálogo capturada al iniciar. Las familias se ordenan únicamente en su tipo; las partidas solo se trasladan a familias activas del mismo tipo; los subítems nunca cambian de padre. Una vista obsoleta se rechaza. El orden se escribe una sola vez con `FinanceStore.mutate`; no hay orden optimista ni pasos parciales. Cancelación, pérdida del puntero, destino inválido o fallo de guardado conservan el orden persistido. Las identidades, subítems mensuales, fotografías, importes y movimientos no se reescriben.
 
 Pruebas: `src/utils/catalogReorder.test.ts` y `scripts/catalogReorder.browser.ts`. Se usan eventos reales de ratón, CDP touchStart/touchMove/touchEnd en Chromium, teclado, recarga, cuota, reintento, conflicto entre pestañas, archivo del destino y desplazamiento automático. Las pruebas táctiles automatizadas no equivalen a una revisión de dispositivos físicos. Comando focalizado: `npm run test:ui:catalog-reorder`.
+
+
+## Checkpoint D: integración y cierre
+
+C quedó publicado en `1f0e32ef5dba12ff8208ca8c480831670bf493d2` antes de comenzar D. Los commits de A, B y C se conservan sin reescribirlos.
+
+### Clasificación con el catálogo real
+
+`classificationCatalog` deriva las opciones activas de las familias y partidas actuales. Conserva la distinción entre contenedor y subgrupo heredado; solo utiliza el nombre actual de la familia como contexto cuando ambos representan el mismo nivel. `parser.ts` recibe esas opciones: normaliza acentos, busca nombres y palabras clave completas y deja la clasificación vacía cuando falta evidencia o hay empate. No utiliza el listado estático ni elige la primera partida como reserva. El parser monetario y de fechas mantiene sus limitaciones anteriores; se debe revisar la propuesta.
+
+El registro rápido permite corregir tipo y partida antes de confirmar. Una selección manual pertenece al texto actual y se invalida al cambiarlo. Chat conserva la intención, negaciones y confirmación explícita, pero abre la propuesta sin partida cuando no hay coincidencia fiable. El formulario manual nuevo comienza sin partida, salvo que se abra desde un contexto de partida activo. En todos los casos, guardar requiere una opción válida. No se asigna automáticamente un subítem.
+
+`PartidaSelector` y las búsquedas resuelven las opciones desde el catálogo real. Los nombres visibles sustituyen códigos también en préstamos, periódicos, arrastres, listas de movimientos y resúmenes. Los valores internos y referencias permanecen intactos. Un movimiento existente con partida archivada o ausente conserva su código y etiquetas históricas al editar otros campos; no se reclasifica al abrirlo. Las nuevas opciones excluyen la partida y también sus hijas si se archiva la familia.
+
+El endpoint `/api/parse-movement` acepta `budgetGroups` y aplica el mismo parser local sobre el catálogo validado; no envía la clasificación a Gemini. Sin catálogo devuelve el fallback existente, y un catálogo o fecha inválidos se rechazan. `/api/assistant-chat` conserva su flujo de asesoramiento.
+
+### Integración y protecciones económicas
+
+Se comprueban nuevas asignaciones bajo `FinanceStore.mutate`, además de los formularios. Préstamos y sus nuevas cuotas requieren una partida activa; las cuotas nuevas resuelven nombres actuales sin reescribir las antiguas. Periódicos y automatizaciones no generan registros o previsiones sobre partidas archivadas; sus reglas y resultados anteriores siguen consultables. Los periódicos nuevos guardan las etiquetas actuales. El archivo impide crear subítems y previsiones nuevas desde el detalle sin retirar históricos, cantidades mensuales, aprobaciones ni arrastres anteriores.
+
+Las transferencias, reintegros y liquidaciones mantienen sus relaciones y reglas específicas. Las regresiones conservan los oráculos económicos de saldos, patrimonio, compartidos, préstamos, subítems, fotografías, importaciones, copia verificada, cuota, conflictos, dependencias y eliminación. Los fixtures antiguos de navegador ahora eligen su partida explícitamente para comprobar esas mismas operaciones sin depender de una categoría inicial implícita. En el primer intento completo de D fallaron dos casos de subítems (móvil/escritorio) que todavía esperaban la atribución automática del registro rápido; se corrigió su preparación para elegir partida antes de subítem, conservando sus comprobaciones de persistencia e identidades. Las suites posteriores a ese fallo no se contaron como ejecutadas hasta la repetición completa.
+
+D también completa la cancelación de arrastre con Escape aunque el foco haya salido del asa, el cursor global durante el gesto, la etiqueta de destino y la distribución móvil de nombres y totales. Se prueban estas mejoras junto con las garantías de C; no cambian su esquema ni sus identidades.
+
+### Reproducción y evidencia
+
+```sh
+npm ci
+npm test
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+git diff origin/main...HEAD --check
+CHROMIUM_PATH=/usr/bin/chromium npm run capture:custom-catalog
+```
+
+En este entorno se utiliza `npm ci --cache /workspace/work/npm-cache` porque la caché de HOME no es escribible. La instalación reproducible conserva `package-lock.json`. Las pruebas Chromium usan perfiles aislados, fixtures y bloqueos de servicios externos; las respuestas de asesoramiento se simulan, sin consumir Gemini. Las pruebas de rutas verifican Express real, modo desarrollo/producción y base raíz/prefijo.
+
+Resultado final ejecutado el 12 de noviembre de 2026: **389 unitarias y 262 resultados Chromium** (245 casos y 17 contenedores), sin fallos, omisiones ni cancelaciones. `npm ci` instaló 187 paquetes; lint, build y diff-check finalizaron correctamente. Node 24.22.1, npm 11.9.0, Chromium 156.0.8078.79 y Playwright Core 1.64.1.
+
+El [informe final](custom-budget-catalog-rebuild-final-validation.json) registra comandos, resultados actuales, recuentos por suite, hashes de fuentes, inventario de archivos modificados y limitaciones. Los informes A/B/C permanecen separados como evidencia de cada checkpoint. Las pruebas nuevas de D están en `src/utils/catalogClassification.test.ts` y `scripts/catalogClassification.browser.ts`; la prueba focalizada es `npm run test:ui:catalog-classification`.
+
+### Capturas reales con datos ficticios
+
+Son 60 imágenes: diez superficies en 390 × 844, 768 × 1000 y 1280 × 1000, en claro y oscuro. Cubren planificación general, Gastos, Ingresos, Multiperiodo, gráficos, catálogo, editor, arrastre y Contactos saldados/pendientes. Se fijan reloj, idioma y zona horaria; no se utilizan datos personales ni el almacenamiento del navegador del usuario. Se verifica que consultar y cancelar no modifica el snapshot financiero, sin errores de consola ni solicitudes externas. El [manifiesto](assets/custom-budget-catalog/manifest.json) incluye dimensiones, tema, tamaño y SHA-256 de cada imagen.
+
+| Superficie | Móvil claro / oscuro | Tablet claro / oscuro | Escritorio claro / oscuro |
+| --- | --- | --- | --- |
+| Planificación | [claro](assets/custom-budget-catalog/390-light-planificacion.jpg) · [oscuro](assets/custom-budget-catalog/390-dark-planificacion.jpg) | [claro](assets/custom-budget-catalog/768-light-planificacion.jpg) · [oscuro](assets/custom-budget-catalog/768-dark-planificacion.jpg) | [claro](assets/custom-budget-catalog/1280-light-planificacion.jpg) · [oscuro](assets/custom-budget-catalog/1280-dark-planificacion.jpg) |
+| Gráficos | [claro](assets/custom-budget-catalog/390-light-graficos.jpg) · [oscuro](assets/custom-budget-catalog/390-dark-graficos.jpg) | [claro](assets/custom-budget-catalog/768-light-graficos.jpg) · [oscuro](assets/custom-budget-catalog/768-dark-graficos.jpg) | [claro](assets/custom-budget-catalog/1280-light-graficos.jpg) · [oscuro](assets/custom-budget-catalog/1280-dark-graficos.jpg) |
+| Catálogo editable | [claro](assets/custom-budget-catalog/390-light-catalogo-editor.jpg) · [oscuro](assets/custom-budget-catalog/390-dark-catalogo-editor.jpg) | [claro](assets/custom-budget-catalog/768-light-catalogo-editor.jpg) · [oscuro](assets/custom-budget-catalog/768-dark-catalogo-editor.jpg) | [claro](assets/custom-budget-catalog/1280-light-catalogo-editor.jpg) · [oscuro](assets/custom-budget-catalog/1280-dark-catalogo-editor.jpg) |
+| Arrastre | [claro](assets/custom-budget-catalog/390-light-arrastre.jpg) · [oscuro](assets/custom-budget-catalog/390-dark-arrastre.jpg) | [claro](assets/custom-budget-catalog/768-light-arrastre.jpg) · [oscuro](assets/custom-budget-catalog/768-dark-arrastre.jpg) | [claro](assets/custom-budget-catalog/1280-light-arrastre.jpg) · [oscuro](assets/custom-budget-catalog/1280-dark-arrastre.jpg) |
+| Contactos pendientes | [claro](assets/custom-budget-catalog/390-light-contactos-pendiente.jpg) · [oscuro](assets/custom-budget-catalog/390-dark-contactos-pendiente.jpg) | [claro](assets/custom-budget-catalog/768-light-contactos-pendiente.jpg) · [oscuro](assets/custom-budget-catalog/768-dark-contactos-pendiente.jpg) | [claro](assets/custom-budget-catalog/1280-light-contactos-pendiente.jpg) · [oscuro](assets/custom-budget-catalog/1280-dark-contactos-pendiente.jpg) |
+
+### Límites y trabajo pendiente
+
+Las pruebas automatizadas certifican los casos ejecutados en Chromium, incluido táctil emulado, no dispositivos físicos. Queda revisión manual en Safari/Firefox, Android/iOS físicos y lectores de pantalla. El almacenamiento y sus copias son locales y sin cifrado; se deben exportar respaldos fuera del navegador. Persiste el aviso previo de Vite sobre `__dirname` en su configuración, sin impedir el build. No se cambian los límites conocidos de interpretación monetaria/fechas ni los cálculos financieros fuera del alcance de esta fase.
+
+No se ha recuperado ni sobrescrito el almacenamiento de la ejecución anterior. Si reaparece se comparará antes de incorporar nada. `main`, Google AI Studio y los despliegues se mantienen intactos. La entrega termina con una PR Draft, sin fusionar.

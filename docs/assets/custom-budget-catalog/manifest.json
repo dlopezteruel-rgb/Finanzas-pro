@@ -1,0 +1,610 @@
+{
+  "capturedAt": "2026-11-12T09:28:09.048Z",
+  "fixture": "customCatalogCaptureFixture; exclusivamente ficticia",
+  "fixtureClock": "2026-11-11T12:00:00.000Z",
+  "sourceParentCommit": "1f0e32ef5dba12ff8208ca8c480831670bf493d2",
+  "sourceUncommittedAtCapture": true,
+  "financialSnapshotUnchanged": true,
+  "captures": [
+    {
+      "file": "390-light-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 52696,
+      "sha256": "7d5c88bf33bbcc3e4ce2c0a403c339ada5f21bb32b56dd957e47ea24b636d79c",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 54757,
+      "sha256": "53b04d9b5ff493526df6bd320ca9aaafac0f652a5bda5b1ce6d7f0a2a0eef487",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 57529,
+      "sha256": "9afacc30758cf17fa45aec652a61e4f2f8aa64b8b9e74ede94463c0b0c4d7016",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 47421,
+      "sha256": "0a02b39115548f4ecc1e58e26928f2b3ed9e2fd4375b7daf94af3f734a90d659",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-graficos.jpg",
+      "surface": "graficos",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 43872,
+      "sha256": "131b4a2631353ec657166be6393d19b6b006bc88606182410fa334e957c87053",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 43086,
+      "sha256": "d759067c8895e637a1c89e1fddeaf363649aa132db05a9d123036c3a17e36312",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 40421,
+      "sha256": "e93335ee7cf79ccc8c51ae0d6d5194c4e89c3550e7d989e36221574ba1405020",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 45882,
+      "sha256": "63306793473007126748b0810ab56e14e1ee3db4130bf5bac2d3ecb032940b0d",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 43350,
+      "sha256": "9fd1e9007c2d3928b89215fbeb3e9e448eebb1891c7c23ad8eee62bf9045a834",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-light-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 390,
+      "height": 844,
+      "theme": "light",
+      "bytes": 43846,
+      "sha256": "1ede8d0278adcb03ca8a0fcef4ec320862aaa91b53e9ed7c15066200e69e8a84",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 52022,
+      "sha256": "006bf542a64d816a41b310947a33b6eb5a776ab6e346a478f65deb2b8edeaf1f",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 53507,
+      "sha256": "f7f4a18f213642a3764dd05b6c51a54c8c5e8fa294408c438ce759527df7c500",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 56394,
+      "sha256": "76570ce3efc634430f302cf5cd96c3f70148e1dc532d35861b7534dad356ec63",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 47198,
+      "sha256": "d76d2e87d38d2bb5fea304698b8b1c8ced67844939bc7811c287318fcdb53fe0",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-graficos.jpg",
+      "surface": "graficos",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 43851,
+      "sha256": "196d77d0bdedf799a909ab9abf4cbba65c0455785a8039346662c3c4bcaf4960",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 43229,
+      "sha256": "ee137051c0c2616f7967db77633a0dcb363964bfa78e8861bb1f45943527bc39",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 40319,
+      "sha256": "900ae4c58a96a86998b5ca6115dae656263169b2335b8a6ad7de3bff5b4e648c",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 45533,
+      "sha256": "be0f17ac1307ed93c6329afe6cfbdf974f5f050c25bfe3ff3bcd0b2fdf41549b",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 43713,
+      "sha256": "6170a17095dbfe20ee8f16678ae4726553417d9b875aa13710138f4a150c1a9f",
+      "fixtureOnly": true
+    },
+    {
+      "file": "390-dark-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 390,
+      "height": 844,
+      "theme": "dark",
+      "bytes": 43763,
+      "sha256": "5a8262e1c0ff7591326daafa0736ba7b085d55cfbd08392b489a32f6cb0d3683",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 100398,
+      "sha256": "08bb56c66e30365bff1f53e1e3a94c9daf463948b13cec2cbdbc8c76db871971",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 83066,
+      "sha256": "26059de126e2f93bd3d250ff81b5dd2ad704c49ff069540f63fc2a4ce2bfc6d5",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 85138,
+      "sha256": "7729bd9719802286a81443dbe32d4344a258a25190555d1c4a5e0fdf7375873b",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 91272,
+      "sha256": "98cd9e7e3ae8ef1d65dc6bc7dd06581e8821165b86faacba570939418ce8808e",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-graficos.jpg",
+      "surface": "graficos",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 85236,
+      "sha256": "395b7da64a61462e04c20c11ca59969aef96189fe6cc83cbdbc84f20afc4d747",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 74192,
+      "sha256": "b190ab34a33baa73cbb77820cef07e3f34db67dca06c554ea1f85706c52adc03",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 72797,
+      "sha256": "482205cc61b2a99a01ea77b6385ba50b4cafef8ccec6b2d3aa3c08136f324b22",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 76849,
+      "sha256": "e41ed51728c37fe6a2dd0ca832623dbcc0f0caf6b27f2c059336f0a020b3607d",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 70773,
+      "sha256": "c648b283b621872628638bec417ae9b456f4c3fba8173789a8037d61a5656818",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-light-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 768,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 70987,
+      "sha256": "674c59cf59a863f3a9d5a8abd18e72e6d5beeb7f45a039287c4a532de072dc69",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 98653,
+      "sha256": "190f57761d71d7e6b68decb92d39938ee6a612494a14cd0b6da54e69a7fd6137",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 80347,
+      "sha256": "1e579564f70f47b4be989366fbfcf54b8051132bab14837e11027fc08002bcbe",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 83017,
+      "sha256": "dcb4970a613af39a6c007e392c0c915de7fd666116fe86eae4b1412db61b9f28",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 89247,
+      "sha256": "89bccc56bf11e71502523a11f8f04e11700e2d4e4e2f5be0f03f387d5ce2a1a9",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-graficos.jpg",
+      "surface": "graficos",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 83563,
+      "sha256": "7fb8dfc683dcc86d98122dc299d7dede6ecc0a651763b98afd02275e3c5dc9f9",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 73542,
+      "sha256": "4ed2e702eac4da72f7e1df0abc20a7f7e1da7e2f55d42b7ac19987b7241a4e46",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 72307,
+      "sha256": "0f411bce74bff2bf9553a436857962e5f59f058894f186ebfe52215c71d13a87",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 75665,
+      "sha256": "3c7ff3cfcf44dc7f81ba240efbf004cf7227e775a575d771aa27ee99cbe78060",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 71608,
+      "sha256": "6326be4cdc1b1974d885b0b880249915a505e5f0db81b271787e1f172b067591",
+      "fixtureOnly": true
+    },
+    {
+      "file": "768-dark-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 768,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 71414,
+      "sha256": "151112c88e323843949692b35ee23735e7929b3b8f18645b96561f541a9976ad",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 121136,
+      "sha256": "66595a9d01b0ecb03ebd9caad66e7d7f93837635bd3b59e7e407bcd9712c9184",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 128885,
+      "sha256": "04f6a725b5b6bc4c6373ffea847b835b1f49fb14276376813830f7166049bcf4",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 121961,
+      "sha256": "6602fcebeae1c7a7e8f602ad0379aabec6ff57c018ae05a395398ac48f672708",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 131839,
+      "sha256": "f60d122831bcb332378dd819f8d47bc5c69989e3109bb1c23d28489030bb0248",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-graficos.jpg",
+      "surface": "graficos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 119394,
+      "sha256": "6ed3571e922857177f04c80b4e75477ea4431659f287a96e2cfe69198b9eeb27",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 101167,
+      "sha256": "517e3d6fa31ced17f04f3da795092e440d0c46a5e36f447e1b3f4e416a1f6e95",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 116111,
+      "sha256": "8e029788e4041d6f5a807c100522b14322f42e5b7c5421ad061701622d79b02f",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 108177,
+      "sha256": "dfd8a9336c646b9e9d823525b72820eff110598f241d5c12b383132af5a63d06",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 82275,
+      "sha256": "d091ae5801fac3dc37cb362703f0319822118579c3a94d19944a379ce51bc121",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-light-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 1280,
+      "height": 1000,
+      "theme": "light",
+      "bytes": 82213,
+      "sha256": "996ac41e330eb5d9d2871f2f3b8e765c55e1574fd22f5a42e9c1e66b403df394",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-planificacion.jpg",
+      "surface": "planificacion",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 119377,
+      "sha256": "ad012eb2c40626d2533acb82844871245bf3b6d563c36e313acfbca71ae9b6ba",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-planificacion-gastos.jpg",
+      "surface": "planificacion-gastos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 126362,
+      "sha256": "20efab8effcddcf073ec412ab6f6082d390c54c6b7905e5d3fe4aa00db358a5e",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-planificacion-ingresos.jpg",
+      "surface": "planificacion-ingresos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 120015,
+      "sha256": "8c2503a70d67c296c3f09e17c259201aff41ed00f60f305c816f2067480c1365",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-multiperiodo.jpg",
+      "surface": "multiperiodo",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 129438,
+      "sha256": "68ad11a340888babdf156369b66b8bedca48de5a2265726edf141a588bc227bc",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-graficos.jpg",
+      "surface": "graficos",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 118058,
+      "sha256": "84fdd6c61c864b22611b5992d8151db044a733601e5469f303d0a4cbf60ff9e5",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-catalogo.jpg",
+      "surface": "catalogo",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 103001,
+      "sha256": "01146f3185fb740125b08b190e6bb8e4eeb18f4e3d8bb53a64449bb08d023ce8",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-catalogo-editor.jpg",
+      "surface": "catalogo-editor",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 114989,
+      "sha256": "eeb476a0aaa685a26958cf10911cf4bbb39c797d10b92c7c0eff08720cf301cf",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-arrastre.jpg",
+      "surface": "arrastre",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 107916,
+      "sha256": "9dcb3197bfff95d0236f2f0ff8a25ee9a483f8eda1e515d079953a15d3b074ce",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-contactos-saldado.jpg",
+      "surface": "contactos-saldado",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 84124,
+      "sha256": "ee5dc832a49c753809d388440c8e29458213144b926b278f79cc6cfc56f8de2b",
+      "fixtureOnly": true
+    },
+    {
+      "file": "1280-dark-contactos-pendiente.jpg",
+      "surface": "contactos-pendiente",
+      "width": 1280,
+      "height": 1000,
+      "theme": "dark",
+      "bytes": 83372,
+      "sha256": "afdb4339cef5ce7265ebc42ce5e9ecedb40d443a70264ce52615d359c3f13e53",
+      "fixtureOnly": true
+    }
+  ]
+}

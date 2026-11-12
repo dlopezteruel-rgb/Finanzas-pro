@@ -475,6 +475,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               <div className="flex items-center gap-1">
                                 <span>Previsto efectivo: <strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>{!!row.arrastre&&<> · Base {formatCurrency(row.basePrevisto)} + arrastre {formatCurrency(row.arrastre)}</>}</span>
                                 <button
+                                  disabled={!!group.archived||!!partida.archived||drag.saving}
                                   onClick={() => startEdit(row)}
                                   className="text-slate-400 hover:text-white p-0.5 cursor-pointer"
                                   title="Editar importe previsto"

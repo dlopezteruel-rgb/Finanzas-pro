@@ -1,3 +1,4 @@
+import {catalogEntry,activeCatalogEntry} from './budgetCatalog';
 import { monthlySubitems, subitemsFor, sameSubitemParent, normalizedSubitemBreakdowns } from './budgetSubitems';
 import type { FinanceData } from './backup';
 import type { PlanningCarryover, PlanningOrigin, PlanningRule, PlanningTarget } from '../types/finance';
@@ -27,6 +28,7 @@ export const hasMonthPlan=(data:FinanceData,month:string)=>data.budgetPlans.some
 export { carryObservation, carryIsStale } from './planningCarry';
 import { carryObservation } from './planningCarry';
 function carryBlock(data:FinanceData,source:string,code:string,asOf:string) {
+  const p={type:'GASTO' as const,code};if(catalogEntry(data,p).item&&!activeCatalogEntry(data,p))return 'La partida o su familia está archivada. Reactívala antes de crear o revisar el arrastre.';
   if(data.budgetSubitems?.months.some(m=>(m.monthYear===source||m.monthYear===nextMonth(source))&&m.type==='GASTO'&&m.code===code))return 'Arrastre global bloqueado: esta partida tiene un desglose mensual. Distribuye su previsión manualmente.';
   if(source>=asOf)return 'El origen debe ser un mes transcurrido y cerrado temporalmente.';
   if(data.planningAutomation?.carryovers.some(c=>c.fromMonth===nextMonth(source)&&c.code===code))return 'El destino ya origina otro arrastre: no se permiten cascadas.';
@@ -46,7 +48,8 @@ export function previewAutomation(data:FinanceData,request:AutomationRequest,now
     const dest=p&&monthlySubitems(data,month,p),src=p&&request.kind==='copy'&&monthlySubitems(data,request.source,p);
     const sameDistribution=normalizedSubitemBreakdowns(src?[src]:[])===normalizedSubitemBreakdowns(dest?[dest]:[]);
     const archivedCopy=src&&src.lines.some(l=>data.budgetSubitems?.items.find(i=>i.id===l.subitemId)?.archived&&!dest?.lines.some(d=>d.subitemId===l.subitemId));
-    if(dest&&!src){status='blocked';why='Desglose mensual activo: un importe global no puede sustituir su distribución. Edita los subítems manualmente.';}
+    if(p&&catalogEntry(data,p).item&&!activeCatalogEntry(data,p)){status='blocked';why='Partida o familia archivada: no se generan nuevas previsiones.';}
+    else if(dest&&!src){status='blocked';why='Desglose mensual activo: un importe global no puede sustituir su distribución. Edita los subítems manualmente.';}
     else if(archivedCopy){status='blocked';why='La copia contiene subítems archivados: revisa manualmente la distribución del destino.';}
     else if(protectedMonth(data,month)){status='blocked';why='Mes aprobado o previamente aprobado: edición masiva bloqueada.';}
     else if(month<asOf){status='blocked';why='Solo se generan copias/recurrencias en el mes actual o futuro.';}

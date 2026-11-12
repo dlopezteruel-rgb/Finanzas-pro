@@ -308,7 +308,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     {cat.category}
                                   </span>
                                   <span className="text-[10px] font-mono text-sky-400">
-                                    {cat.code} ({cat.count} {cat.count === 1 ? 'concepto' : 'conceptos'})
+                                    {cat.count} {cat.count === 1 ? 'concepto' : 'conceptos'}
                                   </span>
                                 </div>
                                 <span className="font-bold text-emerald-400 text-sm">

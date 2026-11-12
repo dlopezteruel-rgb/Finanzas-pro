@@ -6,6 +6,7 @@ export type CatalogParent={type:MovementType;code:string};
 export const catalogKey=(p:CatalogParent)=>`${p.type}:${p.code}`;
 export const hasCustomCatalog=(d:FinanceData)=>d.budgetGroups.some(g=>g.archived!==undefined||g.deleted!==undefined||g.partidas.some(p=>p.archived!==undefined||p.deleted!==undefined));
 export const availableCatalogGroups=(groups:BudgetGroup[])=>groups.filter(g=>!g.archived&&!g.deleted).map(g=>({...g,partidas:g.partidas.filter(p=>!p.archived&&!p.deleted)}));
+export const classificationCatalog=(groups:BudgetGroup[])=>availableCatalogGroups(groups).flatMap(g=>g.partidas.map(p=>({...p,groupName:p.groupCode===g.code?g.name:p.groupName})));
 export const catalogEntry=(data:FinanceData,p:CatalogParent)=>{const group=data.budgetGroups.find(g=>g.partidas.some(i=>catalogKey(i)===catalogKey(p)));return {group,item:group?.partidas.find(i=>catalogKey(i)===catalogKey(p))};};
 export const activeCatalogEntry=(data:FinanceData,p:CatalogParent)=>{const {group,item}=catalogEntry(data,p);return !!group&&!group.archived&&!group.deleted&&!!item&&!item.archived&&!item.deleted;};
 function check(ok:unknown,message:string):asserts ok {if(!ok)throw new Error(`Catálogo: ${message}`);}
@@ -110,9 +111,10 @@ export function assertCatalogTransition(previous:FinanceData,next:FinanceData){
   for(const rule of next.planningAutomation?.rules??[])if(rule.target!=='SAVINGS'){
     const old=previous.planningAutomation?.rules.find(r=>r.id===rule.id);if(!old||old.target!==rule.target||old.code!==rule.code){const entry={type:rule.target,code:rule.code!};if(catalogEntry(next,entry).item)requireActive(entry);}
   }
+  for(const loan of next.loans){const old=previous.loans.find(l=>l.id===loan.id);if(!old||old.code!==loan.code){const p={type:'GASTO' as const,code:loan.code};if(hasCustomCatalog(next)||catalogEntry(next,p).item)requireActive(p);}}
   const oldTx=new Map(previous.transactions.map(t=>[t.id,t]));
   for(const t of next.transactions){const old=oldTx.get(t.id);if(old&&catalogKey(old)===catalogKey(t)||t.transfer||t.reimbursement||t.obligationSettlement)continue;
-    const {item,group}=catalogEntry(next,t);if(item)check(!item.archived&&!item.deleted&&!group?.archived&&!group?.deleted,'no se puede clasificar un movimiento nuevo en una partida archivada.');
+    const {item,group}=catalogEntry(next,t);if(item||hasCustomCatalog(next))check(item&&!item.archived&&!item.deleted&&group&&!group.archived&&!group.deleted,'Selecciona una partida activa del catálogo; no se puede clasificar un movimiento nuevo en una partida ausente o archivada.');
   }
   const oldPlans=new Set(previous.budgetPlans.map(p=>`${p.monthYear}:${catalogKey(p)}`));
   for(const p of next.budgetPlans)if(!oldPlans.has(`${p.monthYear}:${catalogKey(p)}`)){const {item,group}=catalogEntry(next,p);if(item)check(!item.archived&&!item.deleted&&!group?.archived&&!group?.deleted,'no se puede crear una previsión nueva en una partida archivada.');}

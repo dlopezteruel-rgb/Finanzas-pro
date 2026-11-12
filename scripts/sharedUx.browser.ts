@@ -1,3 +1,4 @@
+import {chooseMovementPartida} from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -75,7 +76,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     await d.getByLabel('Importe Total (€)', { exact: true }).fill('60'); await d.getByLabel('Concepto', { exact: true }).fill('Cena de interfaz');
     await d.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
     await d.getByLabel('Fecha', { exact: true }).fill('2026-10-08'); await d.getByRole('checkbox', { name: 'Gasto compartido', exact: true }).check();
-    return d;
+    await chooseMovementPartida(d);return d;
   }
 
   await t.test('buscador dinámico, cinco recientes reales, familias/grupos, acentos, tipo y teclado', async () => {

@@ -172,3 +172,13 @@ button:disabled { cursor: not-allowed; }
 .catalog-drag-error { color: var(--danger); }
 .catalog-drag-status:empty { display: none; }
 .catalog-drop-end { padding: .75rem; border: 1px dashed var(--field-line); border-radius: .5rem; color: var(--muted); }
+
+.catalog-is-dragging, .catalog-is-dragging * { cursor: grabbing !important; }
+
+@media (max-width: 767px) {
+  .catalog-family-heading { align-items: flex-start; }
+  .catalog-family-heading > .catalog-drag-handle { margin-top: .75rem; }
+  .catalog-family-toggle { flex-wrap: wrap; align-items: flex-start; }
+  .catalog-family-toggle > :first-child { flex-basis: 100%; }
+  .catalog-family-toggle > .text-right { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; text-align: left; }
+}

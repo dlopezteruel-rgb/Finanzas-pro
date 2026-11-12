@@ -1,3 +1,4 @@
+import type {BudgetPartida} from '../types/finance';
 import { SaveResult } from '../utils/saveResult';
 import React from 'react';
 import {
@@ -24,6 +25,7 @@ import { formatCurrency, calculateLoanStatus } from '../utils/finance';
 import { QuickNaturalLanguageInput } from './QuickNaturalLanguageInput';
 
 interface DashboardViewProps {
+  classificationPartidas:BudgetPartida[];
   charts: React.ReactNode;
   summary: MonthlySummary;
   budgetRows: MonthlyBudgetRow[];
@@ -40,7 +42,7 @@ interface DashboardViewProps {
 }
 
 export const DashboardView: React.FC<DashboardViewProps> = ({
-  charts,
+  charts,classificationPartidas,
   summary,
   budgetRows,
   transactions,
@@ -150,7 +152,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       </div>
 
       {/* 3. Revolut Quick Search / NLP Input */}
-      <div className="home-quick"><QuickNaturalLanguageInput subitems={subitems} wallets={wallets} defaultWalletId={defaultWalletId} onAddTransaction={onAddTransaction} /></div>
+      <div className="home-quick"><QuickNaturalLanguageInput partidas={classificationPartidas} subitems={subitems} wallets={wallets} defaultWalletId={defaultWalletId} onAddTransaction={onAddTransaction} /></div>
 
       {/* 4. Revolut Compact Widget Cards (Horizontal / Grid) */}
       <div className="home-kpis grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -242,7 +244,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 {exceededRows.length > 0 ? `${exceededRows.length} partidas superaron el presupuesto` : `${warningRows.length} partidas en alerta (90%+)`}
               </span>
               <span className="text-[11px] text-slate-400 truncate block">
-                {exceededRows[0] ? `[${exceededRows[0].code}] ${exceededRows[0].name} (Resto: ${formatCurrency(exceededRows[0].resto)})` : 'Revisa tus gastos previstos'}
+                {exceededRows[0] ? `${exceededRows[0].name} (Resto: ${formatCurrency(exceededRows[0].resto)})` : 'Revisa tus gastos previstos'}
               </span>
             </div>
           </div>
@@ -286,8 +288,6 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                     {t.description}
                   </span>
                   <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
-                    <span className="font-mono text-sky-400 font-semibold">[{t.code}]</span>
-                    <span>•</span>
                     <span>{t.wallet}</span>
                     <span>•</span>
                     <span>{t.date.split('-').slice(1).reverse().join('/')}</span>

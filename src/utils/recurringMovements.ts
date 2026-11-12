@@ -1,3 +1,4 @@
+import {catalogEntry,activeCatalogEntry,classificationCatalog,hasCustomCatalog} from './budgetCatalog';
 import type { FinanceData } from "./backup";
 import type {
   MovementOccurrence,
@@ -27,6 +28,7 @@ export function saveMovementRule(
     throw new Error(
       "Selecciona una partida existente o histórica del mismo tipo.",
     );
+  if((!old||old.type!==rule.type||old.code!==rule.code)&&(hasCustomCatalog(data)||catalogEntry(data,rule).item)&&!activeCatalogEntry(data,rule))throw new Error('Selecciona una partida activa para la regla.');
   const candidate = {
     ...data,
     intelligentFinance: {
@@ -163,6 +165,7 @@ export const occurrenceScope = (data: FinanceData) =>
     state: intelligent(data),
     transactions: data.transactions,
     wallets: data.wallets,
+    groups:data.budgetGroups,
   });
 export interface OccurrenceBatch {
   first: string;
@@ -217,6 +220,8 @@ export function applyOccurrenceBatch(
       const r = row.rule,
         wallet = data.wallets.find((w) => w.id === r.walletId);
       if (!wallet) throw new Error("La cartera de la regla no existe.");
+      if((hasCustomCatalog(data)||catalogEntry(data,r).item)&&!activeCatalogEntry(data,r))throw new Error('La partida de la regla está ausente o archivada. Selecciona una partida activa antes de registrar.');
+      const partida=classificationCatalog(data.budgetGroups).find(p=>p.type===r.type&&p.code===r.code);
       occurrence.transactionId = `recurring:${id}`;
       if (data.transactions.some((t) => t.id === occurrence.transactionId))
         throw new Error("Identificador de movimiento ya utilizado.");
@@ -226,8 +231,8 @@ export function applyOccurrenceBatch(
         amount: r.amountCents / 100,
         type: r.type,
         code: r.code,
-        categoryName: r.categoryName,
-        subcategoryName: r.subcategoryName,
+        categoryName: partida?.groupName??r.categoryName,
+        subcategoryName: partida?.name??r.subcategoryName,
         description: r.concept,
         wallet: wallet.name,
         processed: false,

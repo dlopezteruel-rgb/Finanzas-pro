@@ -1,3 +1,4 @@
+import {activeCatalogEntry} from '../utils/budgetCatalog';
 import {useCatalogDrag} from './useCatalogDrag';
 import {catalogReorderScope,type ReorderCallback} from '../utils/catalogReorder';
 import React, {useLayoutEffect,useState} from 'react';
@@ -19,7 +20,7 @@ export function SubitemManager({data,partida,onEdit,onBusy,onReorder}:{data:Fina
     {form.error&&<p role="alert">{form.error}</p>}
     <fieldset disabled={form.saving||drag.saving} className="space-y-2 min-w-0">
       <label>Nombre del nuevo subítem<input aria-label="Nombre del nuevo subítem" maxLength={100} value={name} onChange={e=>setName(e.target.value)}/></label>
-      <button type="button" disabled={!name.trim()} onClick={()=>submit({kind:'create',parent:{type:partida.type,code:partida.code},name,id:crypto.randomUUID()},()=>setName(''))}>Crear subítem</button>
+      <button type="button" disabled={!name.trim()||!activeCatalogEntry(data,partida)} onClick={()=>submit({kind:'create',parent:{type:partida.type,code:partida.code},name,id:crypto.randomUUID()},()=>setName(''))}>Crear subítem</button>
       {items.map((i,n)=><div className="subitem-manage-row" key={i.id} {...drag.target({kind:'subitem',type:i.type,code:i.code,beforeId:i.id,label:i.name})}>
         {drag.handle({kind:'subitem',type:i.type,code:i.code,id:i.id,label:`subítem ${i.name}`})}
         <strong>{i.name}{i.archived?' · Archivado':''}</strong>

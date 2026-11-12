@@ -1,3 +1,4 @@
+import {classificationCatalog} from '../utils/budgetCatalog';
 import React,{useEffect,useLayoutEffect,useState} from 'react';
 import type { FinanceData } from '../utils/backup';
 import type { PlanningRule, PlanningApproval } from '../types/finance';
@@ -36,7 +37,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
   let after:FinanceData|undefined;
   if(preview)try{after=applyAutomationPreview(data,preview)}catch{}
   const totals=(d:FinanceData,m:string)=>annualPlanning(d,m.slice(0,4)).find(r=>r.monthYear===m)!;
-  const targetOptions=new Map([...data.budgetGroups.flatMap(g=>g.partidas).map(p=>[planningKey(p),partName(p.type,p.code)] as const),...data.budgetPlans.map(p=>[planningKey(p),partName(p.type,p.code)] as const),...(a?.rules.filter(r=>r.code).map(r=>[`${r.target}:${r.code}`,partName(r.target,r.code)] as const) ?? [])]);
+  const targetOptions=new Map([...classificationCatalog(data.budgetGroups).map(p=>[planningKey(p),partName(p.type,p.code)] as const),...(a?.rules.filter(r=>r.code&&r.id===ruleId).map(r=>[`${r.target}:${r.code}`,partName(r.target,r.code)] as const) ?? [])]);
   return <section className="planning-card space-y-3" aria-label="Automatización de planificación">
     <h2 className="text-lg font-bold">Planificación multiperiodo</h2>
     <p>Copia, reglas y arrastres requieren revisión y confirmación. Nunca generan movimientos ni modifican saldos bancarios.</p>
@@ -78,8 +79,8 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
         {data.budgetPlans.filter(p=>p.monthYear===carrySource&&p.type==='GASTO').map(p=>{
           let o:ReturnType<typeof carryObservation>;try{o=carryObservation(data,carrySource,p.code)}catch{return <p key={p.code} role="alert">Revisa los importes históricos de {partName(p.type,p.code)} antes de arrastrar.</p>}
           return <div key={p.code} className="planning-family"><p>{partName(p.type,p.code)} · Base {money(o.baseCents)}, propio procesado {money(o.executedCents)}, remanente {money(o.remainder)}</p>
-            <label><input type="checkbox" aria-label={`Seleccionar remanente ${p.code}`} checked={Object.hasOwn(amounts,p.code)} onChange={e=>setAmounts(previous=>{const next={...previous};if(e.target.checked)next[p.code]=planningMoneyInput(o.remainder);else delete next[p.code];return next})}/> Seleccionar partida</label>
-            {Object.hasOwn(amounts,p.code)&&<label>Arrastre (€) <input aria-label={`Arrastre ${p.code} (€)`} inputMode="decimal" value={amounts[p.code]} onChange={e=>setAmounts(previous=>({...previous,[p.code]:e.target.value}))}/></label>}
+            <label><input type="checkbox" aria-label={`Seleccionar remanente ${partName(p.type,p.code)}`} checked={Object.hasOwn(amounts,p.code)} onChange={e=>setAmounts(previous=>{const next={...previous};if(e.target.checked)next[p.code]=planningMoneyInput(o.remainder);else delete next[p.code];return next})}/> Seleccionar partida</label>
+            {Object.hasOwn(amounts,p.code)&&<label>Arrastre (€) <input aria-label={`Arrastre ${partName(p.type,p.code)} (€)`} inputMode="decimal" value={amounts[p.code]} onChange={e=>setAmounts(previous=>({...previous,[p.code]:e.target.value}))}/></label>}
           </div>;
         })}
         <button onClick={()=>{try{prepare({kind:'carry',source:carrySource,amounts:Object.entries(amounts).map(([code,value])=>({code,amountCents:parsePlanningMoney(value)}))})}catch(e){setError((e as Error).message)}}}>Previsualizar arrastre</button>
