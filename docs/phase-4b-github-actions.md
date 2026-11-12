@@ -51,7 +51,7 @@ Los artefactos de éxito contienen logs/JSON; los de fallo incluyen además imá
 
 Permiso global único: **`contents: read`**. Checkout usa `persist-credentials: false`. No hay secretos referenciados, publicación de paquetes, despliegues ni permisos de escritura del repositorio. Gemini/Google API keys están vacías; el ejecutor tampoco propaga GH_TOKEN/GITHUB_TOKEN a los procesos de prueba. Los scripts existentes usan almacenamiento aislado, fixtures ficticios y servicios externos simulados o bloqueados.
 
-No se cambia producción, Google AI Studio, carteras, modelos contables, clave de almacenamiento o JSON. El único ajuste de Vite sustituye `path.resolve(__dirname, '.')` por `path.resolve(import.meta.dirname, '.')`, con la misma ruta; elimina el aviso del cargador nativo en Node 24. Se conservan DISABLE_HMR, HMR y vigilancia de AI Studio.
+No se despliega ni se accede a Google AI Studio. No se modifican la configuración de producción de Gemini, carteras, modelos contables, clave de almacenamiento o JSON. El único ajuste de Vite sustituye `path.resolve(__dirname, '.')` por `path.resolve(import.meta.dirname, '.')`, con la misma ruta; elimina el aviso del cargador nativo en Node 24. Se conservan DISABLE_HMR, HMR y vigilancia de AI Studio.
 
 ## Verificación local inicial
 
@@ -65,7 +65,20 @@ La [prueba roja deliberada](https://github.com/dlopezteruel-rgb/Finanzas-pro/act
 
 El artefacto de fallo `13978008466` se descargó y su ZIP coincidió con el SHA-256 publicado por GitHub. Se verificó y conserva una [captura ficticia del fallo deliberado](assets/phase-4b/controlled-failure.jpg), con [manifiesto y hashes](assets/phase-4b/manifest.json). Contiene únicamente una página de prueba, sin finanzas ni credenciales.
 
-Se ha retirado el archivo temporal y restaurado exactamente el comando de las 21 suites. La siguiente ejecución debe completar los tres trabajos verdes; el fallo deliberado no permanece en la entrega.
+La [ejecución restaurada completa](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641), SHA `bbc69afe4d078e867e4a1f06202f217af82edecb`, terminó correctamente con los tres checks asociados a PR #24. La prueba deliberada está eliminada y `package.json` coincide exactamente con la base.
+
+| Trabajo | Estado | Duración |
+| --- | --- | --- |
+| Unitarias | success | 18 s |
+| Lint, build y diff | success | 18 s |
+| Chromium y axe | success | 553 s |
+
+Resultados: **435 unitarias**, **22 pruebas de infraestructura separadas**, **291 resultados Chromium en 21 suites** (270 casos y 21 contenedores), cero fallos, omisiones, cancelaciones o pendientes. Lint, build y diff real correctos. Axe: **128 superficies, 0 violaciones** y 136 grupos incompletos que requieren revisión manual. No equivalen a una prueba con lector de pantalla.
+
+Entorno remoto registrado: Node 24.22.1, playwright-core 1.64.1 y Chrome for Testing 156.0.8078.4 sobre ubuntu-24.04; la revisión concreta de la imagen está en el informe.
+
+El [informe verificable](phase-4b-ci-results.json) incluye SHA, URL, checks asociados a la PR, estados, tiempos, artefactos y sus hashes de las cinco ejecuciones. Conserva los tres intentos incompletos como fallos reales, sin contarlos como validación satisfactoria. El último commit documental vuelve a ejecutar los tres trabajos; su resultado se publica en la PR.
+
 
 ## Incidencias durante la validación real
 
@@ -81,7 +94,7 @@ La [segunda ejecución](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions
 
 La [tercera ejecución](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386), SHA `a6ee1135b30ca9011014341875f74f14e274e11e`, detectó el mismo patrón en la cartera de una liquidación: 12 resúmenes, 212 correctos y tres fallidos (dos casos y contenedor). El cierre revisa los inicializadores visuales de los diálogos reutilizados y mantiene sus valores, dependencias y callbacks; no cambia lógica económica ni escrituras. También esta ejecución terminó antes de la prueba deliberada.
 
-Los artefactos de la primera ejecución se descargaron y verificaron; el archivo ZIP coincide con su SHA-256 publicado por GitHub. El primer diagnóstico permitió localizar la aserción exacta. La siguiente ejecución conserva la prueba deliberada para completar esa comprobación después de corregir la sincronización.
+Los artefactos de la primera ejecución se descargaron y verificaron; el archivo ZIP coincide con su SHA-256 publicado por GitHub. El primer diagnóstico permitió localizar la aserción exacta. La cuarta ejecución completó la comprobación deliberada y la quinta validó la restauración; sus evidencias aparecen arriba.
 
 ## Interpretación de errores
 

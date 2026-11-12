@@ -1,0 +1,3818 @@
+{
+  "phase": "4B",
+  "repository": "dlopezteruel-rgb/Finanzas-pro",
+  "branch": "feature/phase-4b-github-actions",
+  "base": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+  "pullRequest": {
+    "number": 24,
+    "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/24",
+    "draft": true
+  },
+  "validatedCodeCommit": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+  "baseline": {
+    "npmCi": 188,
+    "unitPassed": 435,
+    "chromiumPassed": 291,
+    "browserSuites": 21,
+    "failed": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "lint": true,
+    "build": true,
+    "chromium": "156.0.8078.79",
+    "node": "24.22.1"
+  },
+  "actionsRuns": [
+    {
+      "purpose": "initial",
+      "id": 43287265075,
+      "name": "FinanZas CI",
+      "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075",
+      "head_sha": "c2135e934fde7e62c5320d1a69853cfbe14d6ec8",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_number": 1,
+      "run_attempt": 1,
+      "created_at": "2026-11-12T19:09:35Z",
+      "run_started_at": "2026-11-12T19:09:35Z",
+      "updated_at": "2026-11-12T19:16:03Z",
+      "pull_requests": [
+        24
+      ],
+      "created_atMadrid": "2026-11-12T20:09:35+01:00",
+      "run_started_atMadrid": "2026-11-12T20:09:35+01:00",
+      "updated_atMadrid": "2026-11-12T20:16:03+01:00",
+      "elapsedSeconds": 386.0,
+      "jobs": [
+        {
+          "id": 131423854030,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:09:38Z",
+          "completed_at": "2026-11-12T19:10:08Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854030",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131423854030",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 30.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:39Z",
+              "completed_at": "2026-11-12T19:09:43Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:43Z",
+              "completed_at": "2026-11-12T19:09:51Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:51Z",
+              "completed_at": "2026-11-12T19:09:58Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:58Z",
+              "completed_at": "2026-11-12T19:10:01Z"
+            },
+            {
+              "name": "Verificar el ejecutor de CI",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:01Z",
+              "completed_at": "2026-11-12T19:10:01Z"
+            },
+            {
+              "name": "Pruebas unitarias completas",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:01Z",
+              "completed_at": "2026-11-12T19:10:03Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:03Z",
+              "completed_at": "2026-11-12T19:10:05Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:05Z",
+              "completed_at": "2026-11-12T19:10:05Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:05Z",
+              "completed_at": "2026-11-12T19:10:05Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:05Z",
+              "completed_at": "2026-11-12T19:10:05Z"
+            }
+          ]
+        },
+        {
+          "id": 131423854695,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:09:38Z",
+          "completed_at": "2026-11-12T19:09:56Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854695",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131423854695",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 18.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:38Z",
+              "completed_at": "2026-11-12T19:09:39Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:39Z",
+              "completed_at": "2026-11-12T19:09:41Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:41Z",
+              "completed_at": "2026-11-12T19:09:45Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:45Z",
+              "completed_at": "2026-11-12T19:09:49Z"
+            },
+            {
+              "name": "Lint, build y diff real contra la base",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:49Z",
+              "completed_at": "2026-11-12T19:09:50Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:50Z",
+              "completed_at": "2026-11-12T19:09:51Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:51Z",
+              "completed_at": "2026-11-12T19:09:54Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:54Z",
+              "completed_at": "2026-11-12T19:09:54Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:54Z",
+              "completed_at": "2026-11-12T19:09:54Z"
+            }
+          ]
+        },
+        {
+          "id": 131423854732,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-12T19:09:38Z",
+          "completed_at": "2026-11-12T19:16:01Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854732",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131423854732",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 383.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:39Z",
+              "completed_at": "2026-11-12T19:09:39Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:39Z",
+              "completed_at": "2026-11-12T19:09:41Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:41Z",
+              "completed_at": "2026-11-12T19:09:45Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:45Z",
+              "completed_at": "2026-11-12T19:09:50Z"
+            },
+            {
+              "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:09:50Z",
+              "completed_at": "2026-11-12T19:10:07Z"
+            },
+            {
+              "name": "Resolver y verificar el ejecutable real",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:10:07Z",
+              "completed_at": "2026-11-12T19:10:07Z"
+            },
+            {
+              "name": "Batería completa Chromium y axe estricta",
+              "status": "completed",
+              "conclusion": "failure",
+              "started_at": "2026-11-12T19:10:07Z",
+              "completed_at": "2026-11-12T19:15:57Z"
+            },
+            {
+              "name": "Conservar diagnóstico del fallo",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:15:57Z",
+              "completed_at": "2026-11-12T19:15:58Z"
+            },
+            {
+              "name": "Conservar logs, versiones y auditoría",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:15:58Z",
+              "completed_at": "2026-11-12T19:15:59Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-12T19:15:59Z",
+              "completed_at": "2026-11-12T19:15:59Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:15:59Z",
+              "completed_at": "2026-11-12T19:15:59Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:15:59Z",
+              "completed_at": "2026-11-12T19:15:59Z"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": 131423854732,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "c2135e934fde7e62c5320d1a69853cfbe14d6ec8",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854732"
+        },
+        {
+          "id": 131423854695,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "c2135e934fde7e62c5320d1a69853cfbe14d6ec8",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854695"
+        },
+        {
+          "id": 131423854030,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "c2135e934fde7e62c5320d1a69853cfbe14d6ec8",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43287265075/job/131423854030"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13975577677,
+          "name": "browser-results-43287265075-1",
+          "size_in_bytes": 29858,
+          "digest": "sha256:339037529d99455b5444d8af714084e701151e643b05690dd6e7a540326e7589",
+          "expired": false,
+          "created_at": "2026-11-12T19:15:59Z",
+          "expires_at": "2026-11-19T19:15:58Z"
+        },
+        {
+          "id": 13975268021,
+          "name": "browser-failure-43287265075-1",
+          "size_in_bytes": 4214444,
+          "digest": "sha256:8a681bb7a3bc3939c981ede0f404f210bb52c1a76f7fc332948bd3572c6ac1c1",
+          "expired": false,
+          "created_at": "2026-11-12T19:15:58Z",
+          "expires_at": "2026-11-19T19:15:57Z"
+        },
+        {
+          "id": 13975266997,
+          "name": "unit-43287265075-1",
+          "size_in_bytes": 14036,
+          "digest": "sha256:e85429bfe237f01191fe4f4e8bf5fc03ced81573c3a5c6015d9f0478c926cce1",
+          "expired": false,
+          "created_at": "2026-11-12T19:10:04Z",
+          "expires_at": "2026-11-19T19:10:03Z"
+        },
+        {
+          "id": 13974733423,
+          "name": "code-43287265075-1",
+          "size_in_bytes": 1483,
+          "digest": "sha256:438411ba435a97ef14ec5679ebc1a2c7d6393e43bdd97a05c8b0b80cdc74ebb8",
+          "expired": false,
+          "created_at": "2026-11-12T19:09:51Z",
+          "expires_at": "2026-11-19T19:09:50Z"
+        }
+      ],
+      "results": {
+        "tools": {
+          "mode": "tools",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "--test",
+                "scripts/ci/check-diff.test.mjs",
+                "scripts/ci/run-check.test.mjs",
+                "scripts/ci/test-results.test.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 477
+            }
+          ],
+          "tests": [
+            {
+              "tests": 20,
+              "suites": 0,
+              "pass": 20,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unit": {
+          "mode": "unit",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "test"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 1111
+            }
+          ],
+          "tests": [
+            {
+              "tests": 435,
+              "suites": 0,
+              "pass": 435,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unitZipSha256": "e85429bfe237f01191fe4f4e8bf5fc03ced81573c3a5c6015d9f0478c926cce1",
+        "diff": {
+          "event": "pull_request",
+          "base": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "mergeBase": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "head": "c2135e934fde7e62c5320d1a69853cfbe14d6ec8",
+          "changedFiles": 14,
+          "passed": true
+        },
+        "code": {
+          "mode": "code",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "scripts/ci/check-diff.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 40
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "lint"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 767
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "build"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 568
+            }
+          ],
+          "tests": [],
+          "error": null
+        },
+        "codeZipSha256": "438411ba435a97ef14ec5679ebc1a2c7d6393e43bdd97a05c8b0b80cdc74ebb8",
+        "environment": {
+          "node": "v24.22.1",
+          "playwrightCore": "1.64.1",
+          "chromium": "Google Chrome for Testing 156.0.8078.4",
+          "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+          "platform": "linux",
+          "architecture": "x64",
+          "runnerImage": "ubuntu24",
+          "runnerImageVersion": "20261111.370.1"
+        },
+        "browser": {
+          "mode": "browser",
+          "node": "v24.22.1",
+          "passed": false,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "run",
+                "test:ui"
+              ],
+              "code": 1,
+              "signal": null,
+              "durationMs": 349317
+            }
+          ],
+          "tests": [
+            {
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 14,
+              "suites": 0,
+              "pass": 12,
+              "fail": 2,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": "npm run test:ui failed (1).",
+          "suites": [
+            "scripts/phase1.browser.ts",
+            "scripts/sharedUx.browser.ts",
+            "scripts/deletion.browser.ts",
+            "scripts/planning.browser.ts",
+            "scripts/budgetUx.browser.ts",
+            "scripts/charts.browser.ts",
+            "scripts/automation.browser.ts",
+            "scripts/responsive.browser.ts",
+            "scripts/intelligent.browser.ts",
+            "scripts/visualUx.browser.ts",
+            "scripts/routes.browser.ts",
+            "scripts/defaultWallet.browser.ts",
+            "scripts/budgetSubitems.browser.ts",
+            "scripts/catalogPresentation.browser.ts",
+            "scripts/customCatalog.browser.ts",
+            "scripts/catalogReorder.browser.ts",
+            "scripts/catalogClassification.browser.ts",
+            "scripts/catalogArchive.browser.ts",
+            "scripts/phase4aSafety.browser.ts",
+            "scripts/phase4aLoans.browser.ts",
+            "scripts/phase4aAudit.browser.ts",
+            "scripts/ciFailureProof.browser.ts"
+          ]
+        },
+        "downloadedArchiveScreenshotFiles": 74,
+        "browserZipSha256": "8a681bb7a3bc3939c981ede0f404f210bb52c1a76f7fc332948bd3572c6ac1c1"
+      }
+    },
+    {
+      "purpose": "second",
+      "id": 43289789623,
+      "name": "FinanZas CI",
+      "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623",
+      "head_sha": "49d2527cb17a2f7349d1cf97d7ce51f38b2ca57d",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_number": 2,
+      "run_attempt": 1,
+      "created_at": "2026-11-12T19:24:11Z",
+      "run_started_at": "2026-11-12T19:24:11Z",
+      "updated_at": "2026-11-12T19:31:19Z",
+      "pull_requests": [
+        24
+      ],
+      "created_atMadrid": "2026-11-12T20:24:11+01:00",
+      "run_started_atMadrid": "2026-11-12T20:24:11+01:00",
+      "updated_atMadrid": "2026-11-12T20:31:19+01:00",
+      "elapsedSeconds": 426.0,
+      "jobs": [
+        {
+          "id": 131432666116,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:24:14Z",
+          "completed_at": "2026-11-12T19:24:36Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666116",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131432666116",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 22.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:15Z",
+              "completed_at": "2026-11-12T19:24:16Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:16Z",
+              "completed_at": "2026-11-12T19:24:17Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:17Z",
+              "completed_at": "2026-11-12T19:24:24Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:24Z",
+              "completed_at": "2026-11-12T19:24:28Z"
+            },
+            {
+              "name": "Verificar el ejecutor de CI",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:28Z",
+              "completed_at": "2026-11-12T19:24:29Z"
+            },
+            {
+              "name": "Pruebas unitarias completas",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:29Z",
+              "completed_at": "2026-11-12T19:24:30Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:30Z",
+              "completed_at": "2026-11-12T19:24:32Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:32Z",
+              "completed_at": "2026-11-12T19:24:32Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:32Z",
+              "completed_at": "2026-11-12T19:24:33Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:33Z",
+              "completed_at": "2026-11-12T19:24:33Z"
+            }
+          ]
+        },
+        {
+          "id": 131432666655,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-12T19:24:13Z",
+          "completed_at": "2026-11-12T19:31:17Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666655",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131432666655",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 424.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:14Z",
+              "completed_at": "2026-11-12T19:24:15Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:15Z",
+              "completed_at": "2026-11-12T19:24:16Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:16Z",
+              "completed_at": "2026-11-12T19:24:22Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:22Z",
+              "completed_at": "2026-11-12T19:24:26Z"
+            },
+            {
+              "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:26Z",
+              "completed_at": "2026-11-12T19:24:45Z"
+            },
+            {
+              "name": "Resolver y verificar el ejecutable real",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:45Z",
+              "completed_at": "2026-11-12T19:24:45Z"
+            },
+            {
+              "name": "Batería completa Chromium y axe estricta",
+              "status": "completed",
+              "conclusion": "failure",
+              "started_at": "2026-11-12T19:24:45Z",
+              "completed_at": "2026-11-12T19:31:11Z"
+            },
+            {
+              "name": "Conservar diagnóstico del fallo",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:31:11Z",
+              "completed_at": "2026-11-12T19:31:13Z"
+            },
+            {
+              "name": "Conservar logs, versiones y auditoría",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:31:13Z",
+              "completed_at": "2026-11-12T19:31:15Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-12T19:31:15Z",
+              "completed_at": "2026-11-12T19:31:15Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:31:15Z",
+              "completed_at": "2026-11-12T19:31:15Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:31:16Z",
+              "completed_at": "2026-11-12T19:31:16Z"
+            }
+          ]
+        },
+        {
+          "id": 131432666760,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:24:13Z",
+          "completed_at": "2026-11-12T19:24:32Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666760",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131432666760",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 19.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:14Z",
+              "completed_at": "2026-11-12T19:24:17Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:17Z",
+              "completed_at": "2026-11-12T19:24:21Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:21Z",
+              "completed_at": "2026-11-12T19:24:25Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:25Z",
+              "completed_at": "2026-11-12T19:24:28Z"
+            },
+            {
+              "name": "Lint, build y diff real contra la base",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:28Z",
+              "completed_at": "2026-11-12T19:24:29Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:29Z",
+              "completed_at": "2026-11-12T19:24:30Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:30Z",
+              "completed_at": "2026-11-12T19:24:31Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:31Z",
+              "completed_at": "2026-11-12T19:24:31Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:24:31Z",
+              "completed_at": "2026-11-12T19:24:31Z"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": 131432666760,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "49d2527cb17a2f7349d1cf97d7ce51f38b2ca57d",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666760"
+        },
+        {
+          "id": 131432666655,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "49d2527cb17a2f7349d1cf97d7ce51f38b2ca57d",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666655"
+        },
+        {
+          "id": 131432666116,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "49d2527cb17a2f7349d1cf97d7ce51f38b2ca57d",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43289789623/job/131432666116"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13976977857,
+          "name": "browser-results-43289789623-1",
+          "size_in_bytes": 71139,
+          "digest": "sha256:acd8a0f7adf4764da2c7cd89e04d31b22158c56b8be9cbef28d0578008beab95",
+          "expired": false,
+          "created_at": "2026-11-12T19:31:15Z",
+          "expires_at": "2026-11-19T19:31:14Z"
+        },
+        {
+          "id": 13976698875,
+          "name": "browser-failure-43289789623-1",
+          "size_in_bytes": 11055343,
+          "digest": "sha256:b86372f9fab5d8eb26c71d2f01c10c1b2346dda54a80a75ce872c81242757c2d",
+          "expired": false,
+          "created_at": "2026-11-12T19:31:13Z",
+          "expires_at": "2026-11-19T19:31:11Z"
+        },
+        {
+          "id": 13976072821,
+          "name": "code-43289789623-1",
+          "size_in_bytes": 1486,
+          "digest": "sha256:3324352adafd20e5960c817188d694115e910561d5cbfa2254323959205bd14f",
+          "expired": false,
+          "created_at": "2026-11-12T19:24:30Z",
+          "expires_at": "2026-11-19T19:24:30Z"
+        },
+        {
+          "id": 13975773933,
+          "name": "unit-43289789623-1",
+          "size_in_bytes": 14159,
+          "digest": "sha256:b4c1773910b6bb2d0d2557e263cfd5e40c17ccb81b146e6f0a728b53d53fedba",
+          "expired": false,
+          "created_at": "2026-11-12T19:24:32Z",
+          "expires_at": "2026-11-19T19:24:31Z"
+        }
+      ],
+      "results": {
+        "tools": {
+          "mode": "tools",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "--test",
+                "scripts/ci/browser-diagnostics.test.mjs",
+                "scripts/ci/check-diff.test.mjs",
+                "scripts/ci/run-check.test.mjs",
+                "scripts/ci/test-results.test.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 829
+            }
+          ],
+          "tests": [
+            {
+              "tests": 22,
+              "suites": 0,
+              "pass": 22,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unit": {
+          "mode": "unit",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "test"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 1555
+            }
+          ],
+          "tests": [
+            {
+              "tests": 435,
+              "suites": 0,
+              "pass": 435,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unitZipSha256": "b4c1773910b6bb2d0d2557e263cfd5e40c17ccb81b146e6f0a728b53d53fedba",
+        "diff": {
+          "event": "pull_request",
+          "base": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "mergeBase": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "head": "49d2527cb17a2f7349d1cf97d7ce51f38b2ca57d",
+          "changedFiles": 16,
+          "passed": true
+        },
+        "code": {
+          "mode": "code",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "scripts/ci/check-diff.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 37
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "lint"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 797
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "build"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 594
+            }
+          ],
+          "tests": [],
+          "error": null
+        },
+        "codeZipSha256": "3324352adafd20e5960c817188d694115e910561d5cbfa2254323959205bd14f",
+        "environment": {
+          "node": "v24.22.1",
+          "playwrightCore": "1.64.1",
+          "chromium": "Google Chrome for Testing 156.0.8078.4",
+          "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+          "platform": "linux",
+          "architecture": "x64",
+          "runnerImage": "ubuntu24",
+          "runnerImageVersion": "20261101.360.1"
+        },
+        "browser": {
+          "mode": "browser",
+          "node": "v24.22.1",
+          "passed": false,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "run",
+                "test:ui"
+              ],
+              "code": 1,
+              "signal": null,
+              "durationMs": 385705
+            }
+          ],
+          "tests": [
+            {
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 14,
+              "suites": 0,
+              "pass": 14,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 19,
+              "suites": 0,
+              "pass": 16,
+              "fail": 3,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": "npm run test:ui failed (1).",
+          "suites": [
+            "scripts/phase1.browser.ts",
+            "scripts/sharedUx.browser.ts",
+            "scripts/deletion.browser.ts",
+            "scripts/planning.browser.ts",
+            "scripts/budgetUx.browser.ts",
+            "scripts/charts.browser.ts",
+            "scripts/automation.browser.ts",
+            "scripts/responsive.browser.ts",
+            "scripts/intelligent.browser.ts",
+            "scripts/visualUx.browser.ts",
+            "scripts/routes.browser.ts",
+            "scripts/defaultWallet.browser.ts",
+            "scripts/budgetSubitems.browser.ts",
+            "scripts/catalogPresentation.browser.ts",
+            "scripts/customCatalog.browser.ts",
+            "scripts/catalogReorder.browser.ts",
+            "scripts/catalogClassification.browser.ts",
+            "scripts/catalogArchive.browser.ts",
+            "scripts/phase4aSafety.browser.ts",
+            "scripts/phase4aLoans.browser.ts",
+            "scripts/phase4aAudit.browser.ts",
+            "scripts/ciFailureProof.browser.ts"
+          ]
+        },
+        "downloadedArchiveScreenshotFiles": 218,
+        "browserZipSha256": "b86372f9fab5d8eb26c71d2f01c10c1b2346dda54a80a75ce872c81242757c2d"
+      }
+    },
+    {
+      "purpose": "third",
+      "id": 43291853386,
+      "name": "FinanZas CI",
+      "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386",
+      "head_sha": "a6ee1135b30ca9011014341875f74f14e274e11e",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_number": 3,
+      "run_attempt": 1,
+      "created_at": "2026-11-12T19:36:14Z",
+      "run_started_at": "2026-11-12T19:36:14Z",
+      "updated_at": "2026-11-12T19:41:42Z",
+      "pull_requests": [
+        24
+      ],
+      "created_atMadrid": "2026-11-12T20:36:14+01:00",
+      "run_started_atMadrid": "2026-11-12T20:36:14+01:00",
+      "updated_atMadrid": "2026-11-12T20:41:42+01:00",
+      "elapsedSeconds": 327.0,
+      "jobs": [
+        {
+          "id": 131439836490,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:36:17Z",
+          "completed_at": "2026-11-12T19:36:34Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836490",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131439836490",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 17.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:17Z",
+              "completed_at": "2026-11-12T19:36:18Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:18Z",
+              "completed_at": "2026-11-12T19:36:20Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:20Z",
+              "completed_at": "2026-11-12T19:36:26Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:26Z",
+              "completed_at": "2026-11-12T19:36:28Z"
+            },
+            {
+              "name": "Lint, build y diff real contra la base",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:28Z",
+              "completed_at": "2026-11-12T19:36:30Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:30Z",
+              "completed_at": "2026-11-12T19:36:31Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:31Z",
+              "completed_at": "2026-11-12T19:36:31Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:31Z",
+              "completed_at": "2026-11-12T19:36:31Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:31Z",
+              "completed_at": "2026-11-12T19:36:31Z"
+            }
+          ]
+        },
+        {
+          "id": 131439836613,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:36:17Z",
+          "completed_at": "2026-11-12T19:36:36Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836613",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131439836613",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 19.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:17Z",
+              "completed_at": "2026-11-12T19:36:18Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:18Z",
+              "completed_at": "2026-11-12T19:36:20Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:20Z",
+              "completed_at": "2026-11-12T19:36:25Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:25Z",
+              "completed_at": "2026-11-12T19:36:29Z"
+            },
+            {
+              "name": "Verificar el ejecutor de CI",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:29Z",
+              "completed_at": "2026-11-12T19:36:30Z"
+            },
+            {
+              "name": "Pruebas unitarias completas",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:30Z",
+              "completed_at": "2026-11-12T19:36:32Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:32Z",
+              "completed_at": "2026-11-12T19:36:33Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:33Z",
+              "completed_at": "2026-11-12T19:36:33Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:33Z",
+              "completed_at": "2026-11-12T19:36:33Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:33Z",
+              "completed_at": "2026-11-12T19:36:33Z"
+            }
+          ]
+        },
+        {
+          "id": 131439836706,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-12T19:36:17Z",
+          "completed_at": "2026-11-12T19:41:41Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836706",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131439836706",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 324.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:17Z",
+              "completed_at": "2026-11-12T19:36:18Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:18Z",
+              "completed_at": "2026-11-12T19:36:19Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:19Z",
+              "completed_at": "2026-11-12T19:36:25Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:25Z",
+              "completed_at": "2026-11-12T19:36:27Z"
+            },
+            {
+              "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:27Z",
+              "completed_at": "2026-11-12T19:36:41Z"
+            },
+            {
+              "name": "Resolver y verificar el ejecutable real",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:36:41Z",
+              "completed_at": "2026-11-12T19:36:41Z"
+            },
+            {
+              "name": "Batería completa Chromium y axe estricta",
+              "status": "completed",
+              "conclusion": "failure",
+              "started_at": "2026-11-12T19:36:41Z",
+              "completed_at": "2026-11-12T19:41:36Z"
+            },
+            {
+              "name": "Conservar diagnóstico del fallo",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:41:36Z",
+              "completed_at": "2026-11-12T19:41:37Z"
+            },
+            {
+              "name": "Conservar logs, versiones y auditoría",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:41:37Z",
+              "completed_at": "2026-11-12T19:41:39Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-12T19:41:39Z",
+              "completed_at": "2026-11-12T19:41:39Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:41:39Z",
+              "completed_at": "2026-11-12T19:41:39Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:41:39Z",
+              "completed_at": "2026-11-12T19:41:39Z"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": 131439836706,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "a6ee1135b30ca9011014341875f74f14e274e11e",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836706"
+        },
+        {
+          "id": 131439836613,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "a6ee1135b30ca9011014341875f74f14e274e11e",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836613"
+        },
+        {
+          "id": 131439836490,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "a6ee1135b30ca9011014341875f74f14e274e11e",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43291853386/job/131439836490"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13978006234,
+          "name": "browser-failure-43291853386-1",
+          "size_in_bytes": 10161041,
+          "digest": "sha256:6c477f742e531c15f84b2ff2da829e186feeb02fe25e118eb76d9453e159cbcb",
+          "expired": false,
+          "created_at": "2026-11-12T19:41:37Z",
+          "expires_at": "2026-11-19T19:41:36Z"
+        },
+        {
+          "id": 13977985461,
+          "name": "code-43291853386-1",
+          "size_in_bytes": 1488,
+          "digest": "sha256:59b07a83c4870deb1d2b41ad22397d92709d638ad135b7a7df3a8e657e8fe6ba",
+          "expired": false,
+          "created_at": "2026-11-12T19:36:31Z",
+          "expires_at": "2026-11-19T19:36:30Z"
+        },
+        {
+          "id": 13977886336,
+          "name": "browser-results-43291853386-1",
+          "size_in_bytes": 64975,
+          "digest": "sha256:8d744a0de017d8df29a79bbc991a0de5e98d4330a72890c8143543c4db8c1f6c",
+          "expired": false,
+          "created_at": "2026-11-12T19:41:38Z",
+          "expires_at": "2026-11-19T19:41:38Z"
+        },
+        {
+          "id": 13976763831,
+          "name": "unit-43291853386-1",
+          "size_in_bytes": 14200,
+          "digest": "sha256:445c71b3560c980a3dfac07ff3de9ee934c1dd18a4b8284e5ad5b906f1630f21",
+          "expired": false,
+          "created_at": "2026-11-12T19:36:33Z",
+          "expires_at": "2026-11-19T19:36:32Z"
+        }
+      ],
+      "results": {
+        "environment": {
+          "node": "v24.22.1",
+          "playwrightCore": "1.64.1",
+          "chromium": "Google Chrome for Testing 156.0.8078.4",
+          "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+          "platform": "linux",
+          "architecture": "x64",
+          "runnerImage": "ubuntu24",
+          "runnerImageVersion": "20261101.360.1"
+        },
+        "browser": {
+          "mode": "browser",
+          "node": "v24.22.1",
+          "passed": false,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "run",
+                "test:ui"
+              ],
+              "code": 1,
+              "signal": null,
+              "durationMs": 294257
+            }
+          ],
+          "tests": [
+            {
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 14,
+              "suites": 0,
+              "pass": 11,
+              "fail": 3,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": "npm run test:ui failed (1).",
+          "suites": [
+            "scripts/phase1.browser.ts",
+            "scripts/sharedUx.browser.ts",
+            "scripts/deletion.browser.ts",
+            "scripts/planning.browser.ts",
+            "scripts/budgetUx.browser.ts",
+            "scripts/charts.browser.ts",
+            "scripts/automation.browser.ts",
+            "scripts/responsive.browser.ts",
+            "scripts/intelligent.browser.ts",
+            "scripts/visualUx.browser.ts",
+            "scripts/routes.browser.ts",
+            "scripts/defaultWallet.browser.ts",
+            "scripts/budgetSubitems.browser.ts",
+            "scripts/catalogPresentation.browser.ts",
+            "scripts/customCatalog.browser.ts",
+            "scripts/catalogReorder.browser.ts",
+            "scripts/catalogClassification.browser.ts",
+            "scripts/catalogArchive.browser.ts",
+            "scripts/phase4aSafety.browser.ts",
+            "scripts/phase4aLoans.browser.ts",
+            "scripts/phase4aAudit.browser.ts",
+            "scripts/ciFailureProof.browser.ts"
+          ]
+        },
+        "downloadedArchiveScreenshotFiles": 0,
+        "browserZipSha256": "8d744a0de017d8df29a79bbc991a0de5e98d4330a72890c8143543c4db8c1f6c"
+      }
+    },
+    {
+      "purpose": "controlled",
+      "id": 43293857881,
+      "name": "FinanZas CI",
+      "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881",
+      "head_sha": "c8e6b0911d8f6383c1f3a7a876aa126916ae6ada",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_number": 4,
+      "run_attempt": 1,
+      "created_at": "2026-11-12T19:48:04Z",
+      "run_started_at": "2026-11-12T19:48:04Z",
+      "updated_at": "2026-11-12T19:56:38Z",
+      "pull_requests": [
+        24
+      ],
+      "created_atMadrid": "2026-11-12T20:48:04+01:00",
+      "run_started_atMadrid": "2026-11-12T20:48:04+01:00",
+      "updated_atMadrid": "2026-11-12T20:56:38+01:00",
+      "elapsedSeconds": 513.0,
+      "jobs": [
+        {
+          "id": 131446812547,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:48:06Z",
+          "completed_at": "2026-11-12T19:48:24Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446812547",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131446812547",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 18.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:07Z",
+              "completed_at": "2026-11-12T19:48:08Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:08Z",
+              "completed_at": "2026-11-12T19:48:09Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:09Z",
+              "completed_at": "2026-11-12T19:48:15Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:15Z",
+              "completed_at": "2026-11-12T19:48:18Z"
+            },
+            {
+              "name": "Verificar el ejecutor de CI",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:18Z",
+              "completed_at": "2026-11-12T19:48:19Z"
+            },
+            {
+              "name": "Pruebas unitarias completas",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:19Z",
+              "completed_at": "2026-11-12T19:48:20Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:20Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            }
+          ]
+        },
+        {
+          "id": 131446813101,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:48:06Z",
+          "completed_at": "2026-11-12T19:48:23Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446813101",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131446813101",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 17.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:07Z",
+              "completed_at": "2026-11-12T19:48:08Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:08Z",
+              "completed_at": "2026-11-12T19:48:09Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:09Z",
+              "completed_at": "2026-11-12T19:48:15Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:15Z",
+              "completed_at": "2026-11-12T19:48:18Z"
+            },
+            {
+              "name": "Lint, build y diff real contra la base",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:18Z",
+              "completed_at": "2026-11-12T19:48:20Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:20Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:21Z",
+              "completed_at": "2026-11-12T19:48:21Z"
+            }
+          ]
+        },
+        {
+          "id": 131446813216,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-12T19:48:07Z",
+          "completed_at": "2026-11-12T19:56:37Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446813216",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131446813216",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 510.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:07Z",
+              "completed_at": "2026-11-12T19:48:10Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:10Z",
+              "completed_at": "2026-11-12T19:48:15Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:15Z",
+              "completed_at": "2026-11-12T19:48:19Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:19Z",
+              "completed_at": "2026-11-12T19:48:22Z"
+            },
+            {
+              "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:22Z",
+              "completed_at": "2026-11-12T19:48:54Z"
+            },
+            {
+              "name": "Resolver y verificar el ejecutable real",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:48:54Z",
+              "completed_at": "2026-11-12T19:48:54Z"
+            },
+            {
+              "name": "Batería completa Chromium y axe estricta",
+              "status": "completed",
+              "conclusion": "failure",
+              "started_at": "2026-11-12T19:48:54Z",
+              "completed_at": "2026-11-12T19:56:33Z"
+            },
+            {
+              "name": "Conservar diagnóstico del fallo",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:56:33Z",
+              "completed_at": "2026-11-12T19:56:34Z"
+            },
+            {
+              "name": "Conservar logs, versiones y auditoría",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:56:34Z",
+              "completed_at": "2026-11-12T19:56:35Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-12T19:56:35Z",
+              "completed_at": "2026-11-12T19:56:35Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:56:35Z",
+              "completed_at": "2026-11-12T19:56:36Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:56:36Z",
+              "completed_at": "2026-11-12T19:56:36Z"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": 131446813216,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "c8e6b0911d8f6383c1f3a7a876aa126916ae6ada",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446813216"
+        },
+        {
+          "id": 131446813101,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "c8e6b0911d8f6383c1f3a7a876aa126916ae6ada",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446813101"
+        },
+        {
+          "id": 131446812547,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "c8e6b0911d8f6383c1f3a7a876aa126916ae6ada",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881/job/131446812547"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13978901301,
+          "name": "code-43293857881-1",
+          "size_in_bytes": 1483,
+          "digest": "sha256:bcbf686fd7b3a1d829ff003c21739e3a60341cfa49c67e2348775ad467997539",
+          "expired": false,
+          "created_at": "2026-11-12T19:48:21Z",
+          "expires_at": "2026-11-19T19:48:20Z"
+        },
+        {
+          "id": 13978516571,
+          "name": "unit-43293857881-1",
+          "size_in_bytes": 14099,
+          "digest": "sha256:e018384f87c8cfbc3eb016fcd38a48191cb6d8da322552adb664682cb6617d96",
+          "expired": false,
+          "created_at": "2026-11-12T19:48:21Z",
+          "expires_at": "2026-11-19T19:48:20Z"
+        },
+        {
+          "id": 13978058179,
+          "name": "browser-results-43293857881-1",
+          "size_in_bytes": 92927,
+          "digest": "sha256:2e8370baa718bf9927b5d901a5215e7d654df13f3a58f1779636003408325d3c",
+          "expired": false,
+          "created_at": "2026-11-12T19:56:35Z",
+          "expires_at": "2026-11-19T19:56:35Z"
+        },
+        {
+          "id": 13978008466,
+          "name": "browser-failure-43293857881-1",
+          "size_in_bytes": 13478905,
+          "digest": "sha256:90f440fd4bdf5f1235d406ae287a17540685ae5a37b2a1c168b1de2c7559444a",
+          "expired": false,
+          "created_at": "2026-11-12T19:56:34Z",
+          "expires_at": "2026-11-19T19:56:33Z"
+        }
+      ],
+      "results": {
+        "tools": {
+          "mode": "tools",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "--test",
+                "scripts/ci/browser-diagnostics.test.mjs",
+                "scripts/ci/check-diff.test.mjs",
+                "scripts/ci/run-check.test.mjs",
+                "scripts/ci/test-results.test.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 536
+            }
+          ],
+          "tests": [
+            {
+              "tests": 22,
+              "suites": 0,
+              "pass": 22,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unit": {
+          "mode": "unit",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "test"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 1096
+            }
+          ],
+          "tests": [
+            {
+              "tests": 435,
+              "suites": 0,
+              "pass": 435,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unitZipSha256": "e018384f87c8cfbc3eb016fcd38a48191cb6d8da322552adb664682cb6617d96",
+        "diff": {
+          "event": "pull_request",
+          "base": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "mergeBase": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "head": "c8e6b0911d8f6383c1f3a7a876aa126916ae6ada",
+          "changedFiles": 22,
+          "passed": true
+        },
+        "code": {
+          "mode": "code",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "scripts/ci/check-diff.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 45
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "lint"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 898
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "build"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 661
+            }
+          ],
+          "tests": [],
+          "error": null
+        },
+        "codeZipSha256": "bcbf686fd7b3a1d829ff003c21739e3a60341cfa49c67e2348775ad467997539",
+        "environment": {
+          "node": "v24.22.1",
+          "playwrightCore": "1.64.1",
+          "chromium": "Google Chrome for Testing 156.0.8078.4",
+          "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+          "platform": "linux",
+          "architecture": "x64",
+          "runnerImage": "ubuntu24",
+          "runnerImageVersion": "20261111.127.1"
+        },
+        "axe": {
+          "surfaces": 128,
+          "violations": 0,
+          "incompleteGroups": 136
+        },
+        "browser": {
+          "mode": "browser",
+          "node": "v24.22.1",
+          "passed": false,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "run",
+                "test:ui"
+              ],
+              "code": 1,
+              "signal": null,
+              "durationMs": 458287
+            }
+          ],
+          "tests": [
+            {
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 14,
+              "suites": 0,
+              "pass": 14,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 19,
+              "suites": 0,
+              "pass": 19,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 7,
+              "suites": 0,
+              "pass": 7,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 10,
+              "suites": 0,
+              "pass": 10,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 11,
+              "suites": 0,
+              "pass": 11,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 3,
+              "suites": 0,
+              "pass": 3,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 9,
+              "suites": 0,
+              "pass": 9,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 1,
+              "suites": 0,
+              "pass": 0,
+              "fail": 1,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": "npm run test:ui failed (1).",
+          "suites": [
+            "scripts/phase1.browser.ts",
+            "scripts/sharedUx.browser.ts",
+            "scripts/deletion.browser.ts",
+            "scripts/planning.browser.ts",
+            "scripts/budgetUx.browser.ts",
+            "scripts/charts.browser.ts",
+            "scripts/automation.browser.ts",
+            "scripts/responsive.browser.ts",
+            "scripts/intelligent.browser.ts",
+            "scripts/visualUx.browser.ts",
+            "scripts/routes.browser.ts",
+            "scripts/defaultWallet.browser.ts",
+            "scripts/budgetSubitems.browser.ts",
+            "scripts/catalogPresentation.browser.ts",
+            "scripts/customCatalog.browser.ts",
+            "scripts/catalogReorder.browser.ts",
+            "scripts/catalogClassification.browser.ts",
+            "scripts/catalogArchive.browser.ts",
+            "scripts/phase4aSafety.browser.ts",
+            "scripts/phase4aLoans.browser.ts",
+            "scripts/phase4aAudit.browser.ts",
+            "scripts/ciFailureProof.browser.ts"
+          ],
+          "perSuite": [
+            {
+              "suite": "scripts/phase1.browser.ts",
+              "status": "passed",
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/sharedUx.browser.ts",
+              "status": "passed",
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/deletion.browser.ts",
+              "status": "passed",
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/planning.browser.ts",
+              "status": "passed",
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/budgetUx.browser.ts",
+              "status": "passed",
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/charts.browser.ts",
+              "status": "passed",
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/automation.browser.ts",
+              "status": "passed",
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/responsive.browser.ts",
+              "status": "passed",
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/intelligent.browser.ts",
+              "status": "passed",
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/visualUx.browser.ts",
+              "status": "passed",
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/routes.browser.ts",
+              "status": "passed",
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/defaultWallet.browser.ts",
+              "status": "passed",
+              "tests": 14,
+              "suites": 0,
+              "pass": 14,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/budgetSubitems.browser.ts",
+              "status": "passed",
+              "tests": 19,
+              "suites": 0,
+              "pass": 19,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogPresentation.browser.ts",
+              "status": "passed",
+              "tests": 7,
+              "suites": 0,
+              "pass": 7,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/customCatalog.browser.ts",
+              "status": "passed",
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogReorder.browser.ts",
+              "status": "passed",
+              "tests": 10,
+              "suites": 0,
+              "pass": 10,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogClassification.browser.ts",
+              "status": "passed",
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogArchive.browser.ts",
+              "status": "passed",
+              "tests": 11,
+              "suites": 0,
+              "pass": 11,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aSafety.browser.ts",
+              "status": "passed",
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aLoans.browser.ts",
+              "status": "passed",
+              "tests": 3,
+              "suites": 0,
+              "pass": 3,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aAudit.browser.ts",
+              "status": "passed",
+              "tests": 9,
+              "suites": 0,
+              "pass": 9,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/ciFailureProof.browser.ts",
+              "status": "failed",
+              "tests": 1,
+              "suites": 0,
+              "pass": 0,
+              "fail": 1,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ]
+        },
+        "downloadedArchiveScreenshotFiles": 272,
+        "browserZipSha256": "90f440fd4bdf5f1235d406ae287a17540685ae5a37b2a1c168b1de2c7559444a"
+      }
+    },
+    {
+      "purpose": "restored",
+      "id": 43295803641,
+      "name": "FinanZas CI",
+      "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641",
+      "head_sha": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success",
+      "run_number": 5,
+      "run_attempt": 1,
+      "created_at": "2026-11-12T19:59:47Z",
+      "run_started_at": "2026-11-12T19:59:47Z",
+      "updated_at": "2026-11-12T20:09:03Z",
+      "pull_requests": [
+        24
+      ],
+      "created_atMadrid": "2026-11-12T20:59:47+01:00",
+      "run_started_atMadrid": "2026-11-12T20:59:47+01:00",
+      "updated_atMadrid": "2026-11-12T21:09:03+01:00",
+      "elapsedSeconds": 556.0,
+      "jobs": [
+        {
+          "id": 131453717003,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:59:50Z",
+          "completed_at": "2026-11-12T20:00:08Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717003",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131453717003",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 18.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:51Z",
+              "completed_at": "2026-11-12T19:59:52Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:52Z",
+              "completed_at": "2026-11-12T19:59:53Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:53Z",
+              "completed_at": "2026-11-12T19:59:59Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:59Z",
+              "completed_at": "2026-11-12T20:00:02Z"
+            },
+            {
+              "name": "Verificar el ejecutor de CI",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:02Z",
+              "completed_at": "2026-11-12T20:00:03Z"
+            },
+            {
+              "name": "Pruebas unitarias completas",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:03Z",
+              "completed_at": "2026-11-12T20:00:04Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:04Z",
+              "completed_at": "2026-11-12T20:00:05Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:05Z",
+              "completed_at": "2026-11-12T20:00:05Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:05Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:06Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            }
+          ]
+        },
+        {
+          "id": 131453717415,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:59:50Z",
+          "completed_at": "2026-11-12T20:00:08Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717415",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131453717415",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 18.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:51Z",
+              "completed_at": "2026-11-12T19:59:52Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:52Z",
+              "completed_at": "2026-11-12T19:59:53Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:53Z",
+              "completed_at": "2026-11-12T19:59:58Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:58Z",
+              "completed_at": "2026-11-12T20:00:03Z"
+            },
+            {
+              "name": "Lint, build y diff real contra la base",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:03Z",
+              "completed_at": "2026-11-12T20:00:05Z"
+            },
+            {
+              "name": "Conservar logs y resúmenes",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:05Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:06Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:06Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:06Z",
+              "completed_at": "2026-11-12T20:00:06Z"
+            }
+          ]
+        },
+        {
+          "id": 131453717469,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-12T19:59:50Z",
+          "completed_at": "2026-11-12T20:09:03Z",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717469",
+          "check_run_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/check-runs/131453717469",
+          "labels": [
+            "ubuntu-24.04"
+          ],
+          "durationSeconds": 553.0,
+          "steps": [
+            {
+              "name": "Set up job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:51Z",
+              "completed_at": "2026-11-12T19:59:52Z"
+            },
+            {
+              "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:52Z",
+              "completed_at": "2026-11-12T19:59:53Z"
+            },
+            {
+              "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T19:59:53Z",
+              "completed_at": "2026-11-12T20:00:00Z"
+            },
+            {
+              "name": "Instalación reproducible",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:00Z",
+              "completed_at": "2026-11-12T20:00:04Z"
+            },
+            {
+              "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:04Z",
+              "completed_at": "2026-11-12T20:00:20Z"
+            },
+            {
+              "name": "Resolver y verificar el ejecutable real",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:20Z",
+              "completed_at": "2026-11-12T20:00:21Z"
+            },
+            {
+              "name": "Batería completa Chromium y axe estricta",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:00:21Z",
+              "completed_at": "2026-11-12T20:08:58Z"
+            },
+            {
+              "name": "Conservar diagnóstico del fallo",
+              "status": "completed",
+              "conclusion": "skipped",
+              "started_at": "2026-11-12T20:08:58Z",
+              "completed_at": "2026-11-12T20:08:58Z"
+            },
+            {
+              "name": "Conservar logs, versiones y auditoría",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:08:58Z",
+              "completed_at": "2026-11-12T20:09:00Z"
+            },
+            {
+              "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:09:00Z",
+              "completed_at": "2026-11-12T20:09:00Z"
+            },
+            {
+              "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:09:00Z",
+              "completed_at": "2026-11-12T20:09:00Z"
+            },
+            {
+              "name": "Complete job",
+              "status": "completed",
+              "conclusion": "success",
+              "started_at": "2026-11-12T20:09:00Z",
+              "completed_at": "2026-11-12T20:09:00Z"
+            }
+          ]
+        }
+      ],
+      "checks": [
+        {
+          "id": 131453717469,
+          "name": "Chromium y axe",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717469"
+        },
+        {
+          "id": 131453717415,
+          "name": "Lint, build y diff",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717415"
+        },
+        {
+          "id": 131453717003,
+          "name": "Unitarias",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+          "html_url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43295803641/job/131453717003"
+        }
+      ],
+      "artifacts": [
+        {
+          "id": 13979981763,
+          "name": "browser-results-43295803641-1",
+          "size_in_bytes": 92194,
+          "digest": "sha256:db37f60d396c082d8cca4a53c1f2e7af83423708cacec620a2ed81d2f251295f",
+          "expired": false,
+          "created_at": "2026-11-12T20:08:59Z",
+          "expires_at": "2026-11-19T20:08:58Z"
+        },
+        {
+          "id": 13977864800,
+          "name": "code-43295803641-1",
+          "size_in_bytes": 1484,
+          "digest": "sha256:1444dda6bc2dcbd8e8b3074048e6132584f88e5251ae85c85eef9103339821d6",
+          "expired": false,
+          "created_at": "2026-11-12T20:00:06Z",
+          "expires_at": "2026-11-19T20:00:05Z"
+        },
+        {
+          "id": 13977574570,
+          "name": "unit-43295803641-1",
+          "size_in_bytes": 14129,
+          "digest": "sha256:2beba1180ac6f53132a3a095fd0bd34726727f20d32beaa32ca8139ab6f467b2",
+          "expired": false,
+          "created_at": "2026-11-12T20:00:05Z",
+          "expires_at": "2026-11-19T20:00:04Z"
+        }
+      ],
+      "results": {
+        "tools": {
+          "mode": "tools",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "--test",
+                "scripts/ci/browser-diagnostics.test.mjs",
+                "scripts/ci/check-diff.test.mjs",
+                "scripts/ci/run-check.test.mjs",
+                "scripts/ci/test-results.test.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 632
+            }
+          ],
+          "tests": [
+            {
+              "tests": 22,
+              "suites": 0,
+              "pass": 22,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unit": {
+          "mode": "unit",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "test"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 1190
+            }
+          ],
+          "tests": [
+            {
+              "tests": 435,
+              "suites": 0,
+              "pass": 435,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null
+        },
+        "unitZipSha256": "2beba1180ac6f53132a3a095fd0bd34726727f20d32beaa32ca8139ab6f467b2",
+        "diff": {
+          "event": "pull_request",
+          "base": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "mergeBase": "8f9b5dd1f7a5da39f38eea46d22daf08864cfdc2",
+          "head": "bbc69afe4d078e867e4a1f06202f217af82edecb",
+          "changedFiles": 22,
+          "passed": true
+        },
+        "code": {
+          "mode": "code",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+                "scripts/ci/check-diff.mjs"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 58
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "lint"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 1290
+            },
+            {
+              "command": [
+                "npm",
+                "run",
+                "build"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 851
+            }
+          ],
+          "tests": [],
+          "error": null
+        },
+        "codeZipSha256": "1444dda6bc2dcbd8e8b3074048e6132584f88e5251ae85c85eef9103339821d6",
+        "axe": {
+          "surfaces": 128,
+          "violations": 0,
+          "incompleteGroups": 136
+        },
+        "environment": {
+          "node": "v24.22.1",
+          "playwrightCore": "1.64.1",
+          "chromium": "Google Chrome for Testing 156.0.8078.4",
+          "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+          "platform": "linux",
+          "architecture": "x64",
+          "runnerImage": "ubuntu24",
+          "runnerImageVersion": "20261101.360.1"
+        },
+        "browser": {
+          "mode": "browser",
+          "node": "v24.22.1",
+          "passed": true,
+          "commands": [
+            {
+              "command": [
+                "npm",
+                "run",
+                "test:ui"
+              ],
+              "code": 0,
+              "signal": null,
+              "durationMs": 517499
+            }
+          ],
+          "tests": [
+            {
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 14,
+              "suites": 0,
+              "pass": 14,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 19,
+              "suites": 0,
+              "pass": 19,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 7,
+              "suites": 0,
+              "pass": 7,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 10,
+              "suites": 0,
+              "pass": 10,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 11,
+              "suites": 0,
+              "pass": 11,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 3,
+              "suites": 0,
+              "pass": 3,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "tests": 9,
+              "suites": 0,
+              "pass": 9,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ],
+          "error": null,
+          "suites": [
+            "scripts/phase1.browser.ts",
+            "scripts/sharedUx.browser.ts",
+            "scripts/deletion.browser.ts",
+            "scripts/planning.browser.ts",
+            "scripts/budgetUx.browser.ts",
+            "scripts/charts.browser.ts",
+            "scripts/automation.browser.ts",
+            "scripts/responsive.browser.ts",
+            "scripts/intelligent.browser.ts",
+            "scripts/visualUx.browser.ts",
+            "scripts/routes.browser.ts",
+            "scripts/defaultWallet.browser.ts",
+            "scripts/budgetSubitems.browser.ts",
+            "scripts/catalogPresentation.browser.ts",
+            "scripts/customCatalog.browser.ts",
+            "scripts/catalogReorder.browser.ts",
+            "scripts/catalogClassification.browser.ts",
+            "scripts/catalogArchive.browser.ts",
+            "scripts/phase4aSafety.browser.ts",
+            "scripts/phase4aLoans.browser.ts",
+            "scripts/phase4aAudit.browser.ts"
+          ],
+          "axe": {
+            "surfaces": 128,
+            "violations": 0,
+            "incompleteGroups": 136,
+            "manualReviewRequired": true
+          },
+          "perSuite": [
+            {
+              "suite": "scripts/phase1.browser.ts",
+              "status": "passed",
+              "tests": 57,
+              "suites": 0,
+              "pass": 57,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/sharedUx.browser.ts",
+              "status": "passed",
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/deletion.browser.ts",
+              "status": "passed",
+              "tests": 23,
+              "suites": 0,
+              "pass": 23,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/planning.browser.ts",
+              "status": "passed",
+              "tests": 13,
+              "suites": 0,
+              "pass": 13,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/budgetUx.browser.ts",
+              "status": "passed",
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/charts.browser.ts",
+              "status": "passed",
+              "tests": 8,
+              "suites": 0,
+              "pass": 8,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/automation.browser.ts",
+              "status": "passed",
+              "tests": 15,
+              "suites": 0,
+              "pass": 15,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/responsive.browser.ts",
+              "status": "passed",
+              "tests": 16,
+              "suites": 0,
+              "pass": 16,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/intelligent.browser.ts",
+              "status": "passed",
+              "tests": 25,
+              "suites": 0,
+              "pass": 25,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/visualUx.browser.ts",
+              "status": "passed",
+              "tests": 12,
+              "suites": 0,
+              "pass": 12,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/routes.browser.ts",
+              "status": "passed",
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/defaultWallet.browser.ts",
+              "status": "passed",
+              "tests": 14,
+              "suites": 0,
+              "pass": 14,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/budgetSubitems.browser.ts",
+              "status": "passed",
+              "tests": 19,
+              "suites": 0,
+              "pass": 19,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogPresentation.browser.ts",
+              "status": "passed",
+              "tests": 7,
+              "suites": 0,
+              "pass": 7,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/customCatalog.browser.ts",
+              "status": "passed",
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogReorder.browser.ts",
+              "status": "passed",
+              "tests": 10,
+              "suites": 0,
+              "pass": 10,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogClassification.browser.ts",
+              "status": "passed",
+              "tests": 5,
+              "suites": 0,
+              "pass": 5,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/catalogArchive.browser.ts",
+              "status": "passed",
+              "tests": 11,
+              "suites": 0,
+              "pass": 11,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aSafety.browser.ts",
+              "status": "passed",
+              "tests": 6,
+              "suites": 0,
+              "pass": 6,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aLoans.browser.ts",
+              "status": "passed",
+              "tests": 3,
+              "suites": 0,
+              "pass": 3,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            },
+            {
+              "suite": "scripts/phase4aAudit.browser.ts",
+              "status": "passed",
+              "tests": 9,
+              "suites": 0,
+              "pass": 9,
+              "fail": 0,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0
+            }
+          ]
+        },
+        "downloadedArchiveScreenshotFiles": 0,
+        "browserZipSha256": "db37f60d396c082d8cca4a53c1f2e7af83423708cacec620a2ed81d2f251295f"
+      }
+    }
+  ],
+  "finalApplicationCounts": {
+    "unit": 435,
+    "chromium": 291,
+    "browserSuites": 21,
+    "ciToolingTestsSeparate": 22
+  },
+  "controlledFailure": {
+    "test": "CI_FAILURE_PROOF_EXPECTED",
+    "failureIsExpected": true,
+    "fileRemovedFromFinalTree": true,
+    "originalBrowserCommandRestored": true,
+    "evidence": "docs/assets/phase-4b/manifest.json"
+  },
+  "workflow": {
+    "file": ".github/workflows/ci.yml",
+    "permissions": {
+      "contents": "read"
+    },
+    "events": [
+      "pull_request toward main (including Draft)",
+      "push to main",
+      "workflow_dispatch"
+    ],
+    "runner": "ubuntu-24.04",
+    "node": "24.22.1",
+    "playwrightCore": "1.64.1",
+    "chromium": "156.0.8078.4",
+    "browserRevision": 1248,
+    "retentionDays": 7,
+    "automaticRetries": false,
+    "continueOnError": false,
+    "deployments": false,
+    "branchProtectionChanged": false
+  },
+  "constraints": {
+    "mainModified": false,
+    "merged": false,
+    "googleAIStudioAccessed": false,
+    "personalDataUsed": false,
+    "financialModelsChanged": false,
+    "jsonSchemaChanged": false,
+    "existingAssertionsRemoved": false,
+    "testTimeoutsIncreased": false
+  },
+  "incidents": [
+    "Real CI detected stale dialog drafts before passive effects; local draft initialization uses useLayoutEffect before display; original browser tests and all assertions are unchanged",
+    "Diagnostic ring overwrote early contexts; unique sequences preserve all current contexts",
+    "Vite __dirname replaced by import.meta.dirname without changing alias or HMR configuration"
+  ],
+  "limitations": [
+    "Push-to-main and workflow_dispatch behavior tested via local event fixtures; live proof uses pull_request because main is not modified",
+    "Required-check branch protection is recommended only; settings untouched",
+    "Axe incomplete groups require manual review; physical devices, screen readers, Firefox and WebKit outside this CI matrix",
+    "GitHub job logs follow repository retention; uploaded diagnostic artifacts retained 7 days"
+  ],
+  "changedFiles": [
+    ".github/workflows/ci.yml",
+    ".gitignore",
+    "docs/assets/phase-4b/controlled-failure.jpg",
+    "docs/assets/phase-4b/manifest.json",
+    "docs/phase-4b-ci-results.json",
+    "docs/phase-4b-github-actions.md",
+    "scripts/ci/browser-diagnostics.mjs",
+    "scripts/ci/browser-diagnostics.test.mjs",
+    "scripts/ci/check-diff.mjs",
+    "scripts/ci/check-diff.test.mjs",
+    "scripts/ci/resolve-browser.mjs",
+    "scripts/ci/run-check.mjs",
+    "scripts/ci/run-check.test.mjs",
+    "scripts/ci/test-results.mjs",
+    "scripts/ci/test-results.test.mjs",
+    "src/components/CreateContactModal.tsx",
+    "src/components/LoanModal.tsx",
+    "src/components/PartidaDetailModal.tsx",
+    "src/components/SettleDebtModal.tsx",
+    "src/components/TransactionModal.tsx",
+    "src/components/TransferModal.tsx",
+    "src/components/WalletModal.tsx",
+    "vite.config.ts"
+  ],
+  "changedFileCount": 23,
+  "sourceSha256": {
+    ".github/workflows/ci.yml": "a0551c1721411c91ede21de1d079ea07d0a0f43c871a2e89ae272729a6d965ce",
+    ".gitignore": "fcbfeb69a295956ab3b374aff94825b0a644c1076c581d5065df126cf1591e4c",
+    "scripts/ci/browser-diagnostics.mjs": "8318842f40eac8908cafc793affebc254ea148079d5bfd14ecd0d314744c1b84",
+    "scripts/ci/browser-diagnostics.test.mjs": "eb0bcce5bd12e2d2bb78d01f0e873f9ef7ab6073f3e2a5c16bae467af716d44a",
+    "scripts/ci/check-diff.mjs": "95396b8ff61643fb3a0ef9bc4ebcb7109818eb797b4bfbbd38ee2e995d17df53",
+    "scripts/ci/check-diff.test.mjs": "f144f8022cab90975051b2e0405a1eeffe71c74d6d7890e40c750745c7b57a61",
+    "scripts/ci/resolve-browser.mjs": "8f42d8447298b5e9b98abaa8a37ab55d3f839ecb5392c6b4176ae6656651f690",
+    "scripts/ci/run-check.mjs": "2e8918680bf54ae3ac1a17f8c670f2b3593c04c7d8bec30aadb5e5804d482229",
+    "scripts/ci/run-check.test.mjs": "c56264d5cf8f1c1baafd7aa17ba7d4036960e84cfbf80e63e9aa1d4c70a4ef3e",
+    "scripts/ci/test-results.mjs": "c27b3fa9f93990c415c06c67938ab3b50860b272984f1b526b5af3c6b5a6ef4c",
+    "scripts/ci/test-results.test.mjs": "f5766df1b7741eb4398199b75ecb159a2b11a7d423f09d31ce3eda247b011608",
+    "vite.config.ts": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489"
+  },
+  "baselineLogSha256": {
+    "4b-baseline-ci.log": "c956d591446205a3ba158eb07e4deb490edb83dadb06ce2a42c175d79fb83f1f",
+    "4b-baseline-unit.log": "75926fdeaacb6c74c2f122e0dddc6866b0583208dee5ae6c7ade3485f180bd09",
+    "4b-baseline-lint.log": "ca4a767b3807d1bd9163e522827ca89f6b64081136e0b5e2b05f7ff724220e8b",
+    "4b-baseline-build.log": "803b2054a539361d01dc7830ac3ff958365c5135d16bbfeb87af087bb8bdf9d1",
+    "4b-baseline-browser.log": "bd326f7560d259b180ef6e9829e71b447ed9bb60962faf79bda92ea40ed81a16"
+  }
+}
