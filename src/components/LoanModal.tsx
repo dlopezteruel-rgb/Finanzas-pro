@@ -6,7 +6,7 @@ import type { FinanceData } from '../utils/backup';
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Loan, Wallet } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { initialWalletName } from '../utils/defaultWallet';
@@ -50,7 +50,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   const [notes, setNotes] = useState(loanToEdit?.notes || '');
   const [confirmDelete, setConfirmDelete] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     submission.clearError();
     if (loanToEdit) {
       setName(loanToEdit.name);

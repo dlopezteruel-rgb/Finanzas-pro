@@ -8,7 +8,7 @@ import { parsePlanningMoney } from '../utils/planning';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import { Overlay } from './Overlay';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { BudgetPartida, MonthlyBudgetRow, Transaction, MovementType } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { X, Plus, Edit2, Trash2, Check, CheckCircle2, Clock, Calendar, ArrowRight } from 'lucide-react';
@@ -51,7 +51,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   const previstoSubmission = useAsyncForm();
   const [previstoError, setPrevistoError] = useState('');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (budgetRow) {
       setPrevistoInput((budgetRow.basePrevisto ?? budgetRow.previsto).toString());
     } else {
@@ -60,7 +60,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
     setIsEditingPrevisto(false);
   }, [budgetRow, isOpen, partida]);
 
-  useEffect(()=>{setSelectedSubitem(null);},[isOpen,partida?.code,partida?.type,monthYear]);
+  useLayoutEffect(()=>{setSelectedSubitem(null);},[isOpen,partida?.code,partida?.type,monthYear]);
 
   if (!isOpen || !partida) return null;
 

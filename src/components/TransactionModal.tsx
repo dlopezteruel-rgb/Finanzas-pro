@@ -1,5 +1,5 @@
 import { SubitemSelector } from './SubitemSelector';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import type { BudgetGroup, BudgetSubitem, BudgetPartida, Contact, MovementType, SharedDistribution, SharedExpenseInfo, Transaction, Wallet } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -41,7 +41,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
     group.partidas.push(p); map.set(key, group); return map;
   }, new Map<string, BudgetGroup>()).values()), [budgetGroups, availablePartidas]);
   const activePartidas=useMemo(()=>classificationCatalog(groups),[groups]);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) return;
     submission.clearError();
     const tx = transactionToEdit, split = tx?.splitInfo, distribution = split?.distribution;
