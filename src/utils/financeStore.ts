@@ -1,4 +1,4 @@
-import {assertCatalogTransition} from './budgetCatalog';
+import {assertCatalogTransition,editCatalog,type CatalogEdit} from './budgetCatalog';
 import { assertSubitemTransition } from './budgetSubitems';
 import { assertIntelligentTransition } from './intelligentValidation';
 import { reconcileAutomation } from './planningAutomation';
@@ -28,7 +28,7 @@ export function loadFinanceData(storage: Pick<Storage, 'getItem'>, defaults: Fin
   return parseBackup(JSON.stringify(makeBackup(data)));
 }
 
-export type FinanceMutation = ((current: FinanceData) => FinanceData) | { clear: ClearDataOptions; scope: string };
+export type FinanceMutation = ((current: FinanceData) => FinanceData) | { clear: ClearDataOptions; scope: string } | { catalog: CatalogEdit };
 export type ExclusiveWrite = <T>(write: () => T) => Promise<T>;
 export type RestorationInput = Backup | ((current: FinanceData) => Backup);
 export const STORAGE_LOCK = 'finanzas-pro-data-write';
@@ -67,14 +67,15 @@ export class FinanceStore {
   mutate(transform: FinanceMutation) {
     return this.exclusive(() => {
       this.checkRevision();
-      const clearing = typeof transform !== 'function';
-      let candidate = clearing ? confirmedClearData(this.data, transform.clear, transform.scope) : transform(this.data);
+      const clearing = typeof transform !== 'function' && 'clear' in transform;
+      const catalogEdit = typeof transform !== 'function' && 'catalog' in transform ? transform.catalog : undefined;
+      let candidate = typeof transform === 'function' ? transform(this.data) : 'clear' in transform ? confirmedClearData(this.data, transform.clear, transform.scope) : editCatalog(this.data, transform.catalog);
       if(candidate===this.data)return this.data;
       candidate = reconcileDefaultWallet(this.data, candidate);
       if (!clearing) candidate = reconcileAutomation(this.data, reconcilePlanning(this.data, invalidatePlanning(this.data, candidate)));
       assertDeletionTransition(this.data, candidate);
       assertWalletTransition(this.data, candidate);
-      assertCatalogTransition(this.data,candidate);
+      assertCatalogTransition(this.data,candidate,catalogEdit);
       if (!clearing) {
         assertSubitemTransition(this.data, candidate);
         assertSharedTransition(this.data, candidate);

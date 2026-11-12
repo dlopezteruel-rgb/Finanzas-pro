@@ -1,6 +1,6 @@
 import {applyCatalogReorder} from './utils/catalogReorder';
 import {CatalogManager} from './components/CatalogManager';
-import {editCatalog,classificationCatalog} from './utils/budgetCatalog';
+import {classificationCatalog} from './utils/budgetCatalog';
 import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
 /**
  * @license
@@ -654,7 +654,7 @@ export default function App() {
             onSave={(edits, savings, scope, approve, deficit, subitems) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit, subitems))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />
         } catalog={<>
-          <CatalogManager data={data} onEdit={edit=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>editCatalog(current,edit))}/>
+          <CatalogManager data={data} onEdit={edit=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate({catalog:edit})}/>
           <BudgetsView
             data={data} onReorder={request=>planningState.current.dirty||planningState.current.saving?Promise.resolve({ok:false,error:"Guarda o descarta primero el borrador de planificación."}):mutate(current=>applyCatalogReorder(current,request))}
             currentMonthYear={currentMonthYear}

@@ -11,13 +11,14 @@
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
     "test": "node --import tsx src/tests.ts",
-    "test:ui": "npm run build && node --import tsx scripts/phase1.browser.ts && node --import tsx scripts/sharedUx.browser.ts && node --import tsx scripts/deletion.browser.ts && node --import tsx scripts/planning.browser.ts && node --import tsx scripts/budgetUx.browser.ts && node --import tsx scripts/charts.browser.ts && node --import tsx scripts/automation.browser.ts && node --import tsx scripts/responsive.browser.ts && node --import tsx scripts/intelligent.browser.ts && node --import tsx scripts/visualUx.browser.ts && node --import tsx scripts/routes.browser.ts && node --import tsx scripts/defaultWallet.browser.ts && node --import tsx scripts/budgetSubitems.browser.ts && node --import tsx scripts/catalogPresentation.browser.ts && node --import tsx scripts/customCatalog.browser.ts && node --import tsx scripts/catalogReorder.browser.ts && node --import tsx scripts/catalogClassification.browser.ts",
+    "test:ui": "npm run build && node --import tsx scripts/phase1.browser.ts && node --import tsx scripts/sharedUx.browser.ts && node --import tsx scripts/deletion.browser.ts && node --import tsx scripts/planning.browser.ts && node --import tsx scripts/budgetUx.browser.ts && node --import tsx scripts/charts.browser.ts && node --import tsx scripts/automation.browser.ts && node --import tsx scripts/responsive.browser.ts && node --import tsx scripts/intelligent.browser.ts && node --import tsx scripts/visualUx.browser.ts && node --import tsx scripts/routes.browser.ts && node --import tsx scripts/defaultWallet.browser.ts && node --import tsx scripts/budgetSubitems.browser.ts && node --import tsx scripts/catalogPresentation.browser.ts && node --import tsx scripts/customCatalog.browser.ts && node --import tsx scripts/catalogReorder.browser.ts && node --import tsx scripts/catalogClassification.browser.ts && node --import tsx scripts/catalogArchive.browser.ts",
     "capture:visual": "npm run build && node --import tsx scripts/visualCapture.ts",
     "test:ui:catalog-presentation": "npm run build && node --import tsx scripts/catalogPresentation.browser.ts",
     "test:ui:custom-catalog": "npm run build && node --import tsx scripts/customCatalog.browser.ts",
     "test:ui:catalog-reorder": "npm run build && node --import tsx scripts/catalogReorder.browser.ts",
     "test:ui:catalog-classification": "npm run build && node --import tsx scripts/catalogClassification.browser.ts",
-    "capture:custom-catalog": "npm run build && node --import tsx scripts/customCatalogCapture.ts"
+    "capture:custom-catalog": "npm run build && node --import tsx scripts/customCatalogCapture.ts",
+    "test:ui:catalog-archive": "npm run build && node --import tsx scripts/catalogArchive.browser.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

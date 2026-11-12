@@ -100,7 +100,7 @@ CHROMIUM_PATH=/usr/bin/chromium npm run capture:custom-catalog
 
 En este entorno se utiliza `npm ci --cache /workspace/work/npm-cache` porque la caché de HOME no es escribible. La instalación reproducible conserva `package-lock.json`. Las pruebas Chromium usan perfiles aislados, fixtures y bloqueos de servicios externos; las respuestas de asesoramiento se simulan, sin consumir Gemini. Las pruebas de rutas verifican Express real, modo desarrollo/producción y base raíz/prefijo.
 
-Resultado final ejecutado el 12 de noviembre de 2026: **389 unitarias y 262 resultados Chromium** (245 casos y 17 contenedores), sin fallos, omisiones ni cancelaciones. `npm ci` instaló 187 paquetes; lint, build y diff-check finalizaron correctamente. Node 24.22.1, npm 11.9.0, Chromium 156.0.8078.79 y Playwright Core 1.64.1.
+Resultado al cerrar el checkpoint D, ejecutado el 12 de noviembre de 2026: **389 unitarias y 262 resultados Chromium** (245 casos y 17 contenedores), sin fallos, omisiones ni cancelaciones. `npm ci` instaló 187 paquetes; lint, build y diff-check finalizaron correctamente. Node 24.22.1, npm 11.9.0, Chromium 156.0.8078.79 y Playwright Core 1.64.1.
 
 El [informe final](custom-budget-catalog-rebuild-final-validation.json) registra comandos, resultados actuales, recuentos por suite, hashes de fuentes, inventario de archivos modificados y limitaciones. Los informes A/B/C permanecen separados como evidencia de cada checkpoint. Las pruebas nuevas de D están en `src/utils/catalogClassification.test.ts` y `scripts/catalogClassification.browser.ts`; la prueba focalizada es `npm run test:ui:catalog-classification`.
 
@@ -121,3 +121,44 @@ Son 60 imágenes: diez superficies en 390 × 844, 768 × 1000 y 1280 × 1000, en
 Las pruebas automatizadas certifican los casos ejecutados en Chromium, incluido táctil emulado, no dispositivos físicos. Queda revisión manual en Safari/Firefox, Android/iOS físicos y lectores de pantalla. El almacenamiento y sus copias son locales y sin cifrado; se deben exportar respaldos fuera del navegador. Persiste el aviso previo de Vite sobre `__dirname` en su configuración, sin impedir el build. No se cambian los límites conocidos de interpretación monetaria/fechas ni los cálculos financieros fuera del alcance de esta fase.
 
 No se ha recuperado ni sobrescrito el almacenamiento de la ejecución anterior. Si reaparece se comparará antes de incorporar nada. `main`, Google AI Studio y los despliegues se mantienen intactos. La entrega termina con una PR Draft, sin fusionar.
+
+
+## Revisión de PR #22: archivo y reglas activas
+
+Esta revisión parte de `e4e0a8158deedf0f40c550e8179b34ec89942c4c`, mantiene `feature/custom-budget-catalog-rebuild` y la PR Draft #22. Los informes A/B/C/D anteriores siguen siendo evidencia de sus respectivos commits; los resultados de esta revisión se registran por separado en [custom-budget-catalog-review-validation.json](custom-budget-catalog-review-validation.json).
+
+### Inmutabilidad económica bajo FinanceStore
+
+`assertCatalogTransition` compara las previsiones por mes, tipo y código y los desgloses mensuales por padre, mes, identidad de subítem y céntimos. Si la partida **o su familia** está archivada en el estado anterior **o** en el nuevo, rechaza cambiar importes, redistribuir un desglose aunque conserve el total, crear o retirar esas previsiones/desgloses. Reordenar las mismas líneas sin alterar identidades ni importes sigue siendo válido. La comprobación se realiza bajo Web Locks y revisión antes de persistir; también afecta a mutaciones directas que eludan los formularios.
+
+Archivar o reactivar conserva las previsiones y desgloses íntegros. La reactivación y una edición económica deben realizarse en **dos operaciones separadas**: no se puede combinar la reactivación con un cambio de importe en una única mutación. Los históricos permanecen consultables y se puede gestionar el estado de sus identidades sin modificar cantidades. Los borrados de previsiones archivadas también se rechazan; para editar o retirar importes se debe reactivar primero. La restauración explícita de una copia completa mantiene su procedimiento independiente de revisión y recuperación.
+
+### Confirmación de reglas afectadas
+
+Antes de archivar, `catalogArchiveImpact` identifica las reglas de movimientos periódicos activas y no retiradas y las automatizaciones de planificación activas que apuntan a la partida. Para una familia incluye sus partidas, sin confundir contenedor y subgrupo heredado. Las reglas inactivas, retiradas o de ahorro independiente no se presentan como reglas activas afectadas.
+
+Si hay reglas activas, el gestor abre «Confirmar archivo con reglas activas», enumera su tipo, nombre y partida y explica las consecuencias: las reglas **se conservan activas**, sin borrarlas, desactivarlas ni reasignarlas; sus nuevos registros o previsiones quedan bloqueados mientras su padre permanezca archivado; los importes y desgloses históricos pasan a solo lectura. Reactivar no ejecuta operaciones automáticamente. Cancelar o Escape no escribe; únicamente «Confirmar archivo» solicita el guardado. Sin reglas activas se mantiene el archivo directo, pero su alcance también se captura y revalida.
+
+La solicitud usa `FinanceStore.mutate({catalog: edit})`, no un cambio directo de flags desde el formulario. Incluye una instantánea transitoria de la identidad, pertenencia y reglas afectadas (también las inactivas para detectar que se activen). Bajo el lock, `FinanceStore` prepara el catálogo y `assertCatalogTransition` vuelve a calcular ese alcance sobre el estado vigente. Si ha cambiado una regla, su importe, activación, destino o pertenencia, se rechaza el archivo y se pide cancelar y revisar de nuevo. También se rechaza introducir reglas nuevas entre la revisión sin dependencias y el guardado. Una mutación directa sin la confirmación requerida no puede archivar identidades con reglas activas; el propio archivo tampoco puede cambiar las reglas afectadas.
+
+Dos operaciones en cola del mismo store conservan esta comprobación del alcance. Una escritura de otra pestaña conserva además la protección habitual por revisión: muestra conflicto y deja el diálogo abierto sin sobrescribir datos. El diálogo mantiene el error, bloquea envíos repetidos y espera el resultado real del almacenamiento. Las instantáneas de revisión no se guardan en JSON; no hay nueva versión, migración ni copia incompatible añadida.
+
+### Pruebas y reproducción de la revisión
+
+Las pruebas unitarias añadidas en `src/utils/budgetCatalog.test.ts` cubren previsiones existentes, cambios de total, redistribución, eliminación, archivo/reactivación, confirmación obligatoria y alcance obsoleto por cambios en reglas. La suite `scripts/catalogArchive.browser.ts` comprueba 390/1280 px, familia/partida y con/sin desglose, cancelación, Escape, confirmación y conservación de reglas e históricos. Un bundle exclusivo de pruebas ejecuta el `FinanceStore` real dentro de Chromium para intentar mutaciones directas y dos escrituras en cola bajo Web Locks. Otro caso modifica una regla desde otra pestaña durante la revisión y comprueba el rechazo sin escrituras adicionales. No se añaden hooks de prueba a la aplicación de producción.
+
+```sh
+npm test
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+git diff origin/main...HEAD --check
+# Solo los casos nuevos:
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui:catalog-archive
+```
+
+Los fixtures contienen únicamente datos ficticios; los perfiles son aislados y bloquean solicitudes externas. El primer intento de la suite nueva usó un código de fixture incorrecto en la sonda del store; se sustituyó por `demoParent` compartido y se repitieron los casos. No se considera ese intento una validación superada. Se mantienen las limitaciones de dispositivos físicos, otros navegadores y lectores de pantalla documentadas arriba, y el aviso previo de Vite sobre `__dirname`.
+
+`main`, Google AI Studio y los despliegues permanecen intactos. No se fusiona la PR ni se modifica el almacenamiento original de la ejecución anterior.
+
+Resultado de la revisión: **402 unitarias y 273 resultados Chromium** (255 casos y 18 contenedores), sin fallos, omisiones ni cancelaciones. Son 13 unitarias y 11 resultados Chromium nuevos respecto al cierre de D. Lint, build y diff-check correctos. El [informe de revisión](custom-budget-catalog-review-validation.json) contiene el inventario, hashes de fuentes y recuentos por suite.

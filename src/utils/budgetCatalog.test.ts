@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {editCatalog,catalogEntry,catalogDependencies,availableCatalogGroups,assertCatalogTransition} from './budgetCatalog';
+import {editCatalog,catalogArchiveImpact,catalogEntry,catalogDependencies,availableCatalogGroups,assertCatalogTransition} from './budgetCatalog';
 import {makeBackup,parseBackup,DATA_KEY,RECOVERY_PREFIX,type FinanceData} from './backup';
 import {FinanceStore} from './financeStore';
 import {budgetSubitemFixture as fixture,demoParent as parent,demoMonth as month} from '../../scripts/budgetSubitemFixture';
@@ -92,4 +92,61 @@ test('catálogo personal: reordenar omite tombstones y nunca cambia su identidad
 test('catálogo personal: una referencia antigua no permite duplicar ni mover una identidad retirada',()=>{
   let d=createFamily(fixture());d=editCatalog(d,{kind:'createPartida',groupCode:'family-new',name:'Sin uso',description:'',keywords:[],id:'old'});const p=catalogEntry(d,{type:'GASTO',code:'partida-old'}).item!;d=editCatalog(d,{kind:'deletePartida',parent:p});
   assert.throws(()=>editCatalog(d,{kind:'duplicatePartida',parent:p}),/ya no existe/);assert.throws(()=>editCatalog(d,{kind:'movePartida',parent:p,groupCode:family(d).code}),/ya no existe/);
+});
+
+// PR #22 review: economic immutability and reviewed active-rule archival.
+for(const target of ['partida','familia'] as const)for(const monthly of [false,true])test(`archivo: FinanceStore protege previsión existente y desglose (${target}, desglose=${monthly})`,async()=>{
+  const {store,storage}=setup(fixture(monthly,monthly));
+  const edit=target==='familia'?{kind:'archiveFamily' as const,code:family(store.data).code}:{kind:'archivePartida' as const,parent};
+  const original=structuredClone(store.data);
+  await store.mutate({catalog:{...edit,archived:true}});
+  assert.deepEqual(store.data.budgetPlans,original.budgetPlans);assert.deepEqual(store.data.budgetSubitems,original.budgetSubitems);
+  const before=storage.getItem(DATA_KEY),writes=storage.writes;
+  const change=(d:FinanceData)=>({...d,budgetPlans:d.budgetPlans.map(p=>p.code===parent.code?{...p,plannedAmount:p.plannedAmount+1}:p),budgetSubitems:d.budgetSubitems?{...d.budgetSubitems,months:d.budgetSubitems.months.map(m=>({...m,lines:m.lines.map((l,i)=>({...l,amountCents:l.amountCents+(i===0?100:0)}))}))}:undefined});
+  await assert.rejects(store.mutate(change),/solo lectura/);
+  await assert.rejects(store.update('budgetPlans',plans=>plans.filter(p=>p.code!==parent.code)),/solo lectura/);
+  if(monthly){
+    await assert.rejects(store.update('budgetSubitems',s=>({...s!,months:s!.months.map(m=>({...m,lines:m.lines.map((l,i)=>({...l,amountCents:l.amountCents+(i===0?100:-100)}))}))})),/desglose.*solo lectura/);
+    await assert.rejects(store.update('budgetSubitems',s=>({...s!,months:[]})),/desglose.*solo lectura/);
+    // Ordering an unchanged distribution is not an economic edit.
+    await store.update('budgetSubitems',s=>({...s!,months:s!.months.map(m=>({...m,lines:[...m.lines].reverse()}))}));
+  }
+  const unchanged=storage.getItem(DATA_KEY);
+  await assert.rejects(store.mutate(d=>change(editCatalog(d,{...edit,archived:false}))),/solo lectura/);
+  assert.equal(storage.getItem(DATA_KEY),unchanged);
+  if(!monthly){assert.equal(before,unchanged);assert.equal(storage.writes,writes);}
+  await store.mutate({catalog:{...edit,archived:false}});
+  assert.deepEqual(store.data.budgetPlans,original.budgetPlans);
+  await store.mutate(change);assert.equal(store.data.budgetPlans.find(p=>p.code===parent.code)!.plannedAmount,101);
+});
+
+import {catalogArchiveFixture} from '../../scripts/catalogArchiveFixture';
+for(const target of ['partida','familia'] as const)test(`archivo: alcance y confirmación explícita de reglas activas (${target})`,async()=>{
+  const {store,storage}=setup(catalogArchiveFixture());
+  const edit=target==='familia'?{kind:'archiveFamily' as const,code:family(store.data).code}:{kind:'archivePartida' as const,parent};
+  const impact=catalogArchiveImpact(store.data,edit),original=structuredClone(store.data),before=storage.getItem(DATA_KEY);
+  assert.equal(impact.dependencies.length,target==='familia'?4:2);
+  assert.ok(!impact.dependencies.some(r=>/inactivo|inactiva|retirado|independiente/.test(r.name)));
+  await assert.rejects(store.mutate(d=>editCatalog(d,{...edit,archived:true})),/reglas activas/);
+  await assert.rejects(store.mutate({catalog:{...edit,archived:true}}),/reglas activas/);
+  assert.equal(storage.getItem(DATA_KEY),before);
+  await store.mutate({catalog:{...edit,archived:true,scope:impact.scope}});
+  for(const field of ['budgetPlans','budgetSubitems','transactions','intelligentFinance','planningAutomation'] as const)assert.deepEqual(store.data[field],original[field]);
+});
+for(const change of ['importe','activar','nueva','reasignar','retirar'] as const)test(`archivo: confirmación obsoleta por cambio simultáneo de reglas (${change})`,async()=>{
+  const {store,storage}=setup(catalogArchiveFixture()),edit={kind:'archivePartida' as const,parent},scope=catalogArchiveImpact(store.data,edit).scope;
+  await store.mutate(d=>({...d,planningAutomation:{...d.planningAutomation!,rules:change==='nueva'?[...d.planningAutomation!.rules,{...d.planningAutomation!.rules[0],id:'new'}]:d.planningAutomation!.rules.flatMap(r=>change==='retirar'&&r.id==='active'?[]:[r.id===(change==='activar'?'inactive':'active')?{...r,...(change==='activar'?{active:true}:change==='reasignar'?{code:'other'}:{amountCents:r.amountCents+1})}:r])}}));
+  const before=storage.getItem(DATA_KEY),writes=storage.writes;
+  await assert.rejects(store.mutate({catalog:{...edit,archived:true,scope}}),/alcance.*cambiado/);
+  assert.equal(storage.getItem(DATA_KEY),before);assert.equal(storage.writes,writes);
+});
+test('archivo: alcance vacío también se revalida si aparece una regla antes de guardar',async()=>{
+  const {store}=setup(catalogArchiveFixture()),edit={kind:'archivePartida' as const,parent:{type:'INGRESO' as const,code:'i'}},scope=catalogArchiveImpact(store.data,edit).scope;
+  await store.mutate(d=>({...d,planningAutomation:{...d.planningAutomation!,rules:[...d.planningAutomation!.rules,{...d.planningAutomation!.rules[0],id:'income',target:'INGRESO',code:'i'}]}}));
+  await assert.rejects(store.mutate({catalog:{...edit,archived:true,scope}}),/alcance.*cambiado/);
+});
+test('archivo: una mutación directa no puede confirmar archivo y cambiar las reglas afectadas',async()=>{
+  const data=catalogArchiveFixture(),edit={kind:'archivePartida' as const,parent,archived:true},scope=catalogArchiveImpact(data,{kind:edit.kind,parent}).scope;
+  const archived=editCatalog(data,edit),changed={...archived,planningAutomation:{...archived.planningAutomation!,rules:archived.planningAutomation!.rules.map(r=>({...r,active:false}))}};
+  assert.throws(()=>assertCatalogTransition(data,changed,{...edit,scope}),/no puede borrar, desactivar ni reasignar/);
 });

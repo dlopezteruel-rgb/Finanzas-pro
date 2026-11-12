@@ -26,15 +26,29 @@ export function catalogDependencies(data:FinanceData,parent:CatalogParent):strin
     data.intelligentFinance?.recurringRules.some(matches)&&'Movimientos periódicos (también retirados)',
   ].filter((s):s is string=>typeof s==='string');
 }
+export type CatalogArchiveTarget={kind:'archiveFamily';code:string}|{kind:'archivePartida';parent:CatalogParent};
+/** Snapshot of the reviewed target and affected rules; never persisted in financial data. */
+export function catalogArchiveImpact(data:FinanceData,target:CatalogArchiveTarget){
+  const group=target.kind==='archiveFamily'?data.budgetGroups.find(g=>g.code===target.code):catalogEntry(data,target.parent).group;
+  const items=target.kind==='archiveFamily'?group?.partidas??[]:[catalogEntry(data,target.parent).item].filter((p):p is BudgetPartida=>!!p);
+  const keys=new Set(items.map(catalogKey));
+  const recurring=(data.intelligentFinance?.recurringRules??[]).filter(r=>keys.has(catalogKey(r))).sort((a,b)=>a.id.localeCompare(b.id));
+  const planning=(data.planningAutomation?.rules??[]).filter(r=>r.target!=='SAVINGS'&&keys.has(`${r.target}:${r.code}`)).sort((a,b)=>a.id.localeCompare(b.id));
+  const dependencies=[...recurring.filter(r=>r.active&&!r.deleted).map(r=>({kind:'Movimiento periódico',id:r.id,name:r.concept,partida:items.find(p=>catalogKey(p)===catalogKey(r))!.name})),
+    ...planning.filter(r=>r.active).map(r=>({kind:'Automatización de planificación',id:r.id,name:r.name,partida:items.find(p=>p.type===r.target&&p.code===r.code)!.name}))];
+  const identity=target.kind==='archiveFamily'?{kind:target.kind,code:target.code}:{kind:target.kind,parent:{type:target.parent.type,code:target.parent.code}};
+  return {name:target.kind==='archiveFamily'?group?.name:items[0]?.name,dependencies,rulesScope:JSON.stringify({recurring,planning}),
+    scope:JSON.stringify({target:identity,group:group?{code:group.code,type:group.type,name:group.name,archived:group.archived,deleted:group.deleted}:null,items,recurring,planning})};
+}
 export type CatalogEdit=
  | {kind:'createFamily';type:MovementType;name:string;id:string}
  | {kind:'renameFamily';code:string;name:string}
- | {kind:'archiveFamily';code:string;archived:boolean}
+ | {kind:'archiveFamily';code:string;archived:boolean;scope?:string}
  | {kind:'deleteFamily';code:string}
  | {kind:'reorderFamily';code:string;direction:-1|1}
  | {kind:'createPartida';groupCode:string;name:string;description:string;keywords:string[];id:string}
  | {kind:'updatePartida';parent:CatalogParent;name:string;description:string;keywords:string[]}
- | {kind:'archivePartida';parent:CatalogParent;archived:boolean}
+ | {kind:'archivePartida';parent:CatalogParent;archived:boolean;scope?:string}
  | {kind:'deletePartida';parent:CatalogParent}
  | {kind:'duplicatePartida';parent:CatalogParent}
  | {kind:'movePartida';parent:CatalogParent;groupCode:string}
@@ -89,12 +103,33 @@ export function validateCatalog(data:FinanceData){
   }
 }
 /** Applied inside the lock, including changes attempted outside the catalog forms. */
-export function assertCatalogTransition(previous:FinanceData,next:FinanceData){
+export function assertCatalogTransition(previous:FinanceData,next:FinanceData,review?:CatalogEdit){
+  const checkArchive=(target:CatalogArchiveTarget)=>{
+    const impact=catalogArchiveImpact(previous,target);
+    const matches=review?.kind===target.kind&&(target.kind==='archiveFamily'?review.kind==='archiveFamily'&&review.code===target.code:review.kind==='archivePartida'&&catalogKey(review.parent)===catalogKey(target.parent));
+    const scope=matches&&review&&'scope' in review?review.scope:undefined;
+    check(!impact.dependencies.length||scope!==undefined,'hay reglas activas afectadas. Revisa sus consecuencias y confirma el archivo.');
+    if(scope!==undefined)check(scope===impact.scope,'el alcance del archivo ha cambiado. Cancela y vuelve a revisar las reglas antes de confirmar.');
+    // Archiving is organizational only: it never changes the affected rules.
+    check(catalogArchiveImpact(next,target).rulesScope===impact.rulesScope,'archivar no puede borrar, desactivar ni reasignar reglas.');
+  };
+  const archived=(data:FinanceData,p:CatalogParent)=>{const {group,item}=catalogEntry(data,p);return !!(group?.archived||item?.archived);};
+  const protectedParent=(p:CatalogParent)=>archived(previous,p)||archived(next,p);
+  const planKey=(p:CatalogParent&{monthYear:string})=>`${p.monthYear}:${catalogKey(p)}`;
+  const beforePlans=new Map(previous.budgetPlans.map(p=>[planKey(p),p]));
+  const afterPlans=new Map(next.budgetPlans.map(p=>[planKey(p),p]));
+  for(const p of [...previous.budgetPlans,...next.budgetPlans])if(protectedParent(p))check(beforePlans.get(planKey(p))?.plannedAmount===afterPlans.get(planKey(p))?.plannedAmount,'la previsión de una partida o familia archivada es de solo lectura. Reactiva primero sin modificar importes.');
+  const normalizeLines=(p:{lines:{subitemId:string;amountCents:number}[]}|undefined)=>p?JSON.stringify(p.lines.map(l=>({subitemId:l.subitemId,amountCents:l.amountCents})).sort((a,b)=>a.subitemId.localeCompare(b.subitemId))):undefined;
+  const beforeMonths=new Map((previous.budgetSubitems?.months??[]).map(p=>[planKey(p),p]));
+  const afterMonths=new Map((next.budgetSubitems?.months??[]).map(p=>[planKey(p),p]));
+  for(const p of [...(previous.budgetSubitems?.months??[]),...(next.budgetSubitems?.months??[])])if(protectedParent(p))check(normalizeLines(beforeMonths.get(planKey(p)))===normalizeLines(afterMonths.get(planKey(p))),'el desglose mensual de un padre archivado es de solo lectura. Reactiva primero sin modificar importes.');
   for(const g of previous.budgetGroups){
     const after=next.budgetGroups.find(i=>i.code===g.code);check(after&&after.type===g.type,'no se puede retirar ni cambiar el tipo de una identidad de familia.');
+    if(!g.archived&&after.archived)checkArchive({kind:'archiveFamily',code:g.code});
     if(g.deleted)check(JSON.stringify(g)===JSON.stringify(after),'las identidades retiradas son permanentes.');
     for(const p of g.partidas){
       const found=catalogEntry(next,p);check(found.item,'no se puede retirar ni cambiar el tipo de una identidad de partida.');
+      if(!p.archived&&found.item.archived)checkArchive({kind:'archivePartida',parent:{type:p.type,code:p.code}});
       if(p.deleted)check(JSON.stringify(p)===JSON.stringify(found.item)&&found.group?.code===g.code,'las identidades retiradas son permanentes.');
       if(found.item.deleted&&!p.deleted)check(!catalogDependencies(previous,p).length,'hay históricos dependientes. Utiliza Archivar.');
       if(found.group?.code!==g.code)check(found.group?.type===g.type&&!found.group.archived&&!found.group.deleted,'el destino debe ser una familia activa del mismo tipo.');
