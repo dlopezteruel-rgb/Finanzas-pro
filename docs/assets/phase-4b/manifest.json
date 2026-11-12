@@ -1,0 +1,9 @@
+{
+  "fixtureOnly": true,
+  "runId": 43293857881,
+  "artifactId": 13978008466,
+  "artifactSha256": "90f440fd4bdf5f1235d406ae287a17540685ae5a37b2a1c168b1de2c7559444a",
+  "screenshot": "controlled-failure.jpg",
+  "screenshotSha256": "d3e0474dbc43d82ebcfe8ffe0c5b5a1c663c46e333d88858f209ce5be806d4ba",
+  "archiveEntry": "browser/screenshots/ciFailureProof.browser.ts-0-0.jpg"
+}

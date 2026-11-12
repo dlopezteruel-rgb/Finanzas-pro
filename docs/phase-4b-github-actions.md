@@ -61,9 +61,11 @@ Se descargó además el navegador declarado por la dependencia, en un almacenami
 
 ## Prueba real de Actions
 
-**Pendiente al publicar este primer checkpoint. No se considera CI validado hasta observar las ejecuciones reales.**
+La [prueba roja deliberada](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43293857881), head `c8e6b0911d8f6383c1f3a7a876aa126916ae6ada`, quedó verificada en GitHub: Unitarias y Código verdes; Chromium rojo únicamente por `CI_FAILURE_PROOF_EXPECTED`, después de **291 resultados correctos de las 21 suites reales**, sin omisiones ni cancelaciones. Axe terminó sus **128 superficies sin violaciones**. El proceso devolvió exit 1 y el check asociado a PR #24 quedó en failure.
 
-La PR Draft se utilizará para un fallo deliberado, señalado como tal, después de ejecutar las 21 suites reales. Se verificará un check rojo y su diagnóstico; después se retirará la prueba temporal y se ejecutará de nuevo la batería completa. No se tocará `main` ni se mantendrá una prueba rota en la entrega final.
+El artefacto de fallo `13978008466` se descargó y su ZIP coincidió con el SHA-256 publicado por GitHub. Se verificó y conserva una [captura ficticia del fallo deliberado](assets/phase-4b/controlled-failure.jpg), con [manifiesto y hashes](assets/phase-4b/manifest.json). Contiene únicamente una página de prueba, sin finanzas ni credenciales.
+
+Se ha retirado el archivo temporal y restaurado exactamente el comando de las 21 suites. La siguiente ejecución debe completar los tres trabajos verdes; el fallo deliberado no permanece en la entrega.
 
 ## Incidencias durante la validación real
 
