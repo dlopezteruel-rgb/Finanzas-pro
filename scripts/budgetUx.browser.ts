@@ -1,3 +1,4 @@
+import { selectPlanningArea } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -31,9 +32,11 @@ const guard = (page: Page) => page.getByRole('dialog', { name: 'Cambios de plani
 const snapshot = (page: Page) => page.evaluate(() => Object.fromEntries(Object.entries(localStorage)));
 const data = (page: Page) => page.evaluate(key => JSON.parse(localStorage.getItem(key)!), DATA_KEY);
 async function fill(page: Page) {
+  await selectPlanningArea(page,'Ingresos');
   await input(page, 'Previsto INGRESO Salario de prueba').fill('3000,00');
-  await input(page, 'Previsto GASTO Gasto diario').fill('200.00');
-  await input(page, 'Previsto GASTO Alquiler de prueba').fill('2000');
+  await selectPlanningArea(page,'Gastos');
+  await selectPlanningArea(page,'Gastos'); await input(page, 'Previsto GASTO Gasto diario').fill('200.00');
+  await selectPlanningArea(page,'Gastos'); await input(page, 'Previsto GASTO Alquiler de prueba').fill('2000');
   await input(page, 'Ahorro objetivo (€)').fill('600');
 }
 async function approve(page: Page) {
@@ -72,49 +75,50 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
         const before = await snapshot(page);
         assert.equal(await tab(page, 'Planificación financiera').getAttribute('aria-selected'), 'true');
         assert.equal(await page.getByRole('navigation').getByRole('button').count(), mobile ? 5 : 7);
-        assert.equal(await page.getByRole('tabpanel').count(), 1);
+        assert.equal(await page.getByRole('tabpanel').count(), 2);
         assert.equal(await page.getByRole('button', { name: /^Ver partida / }).count(), 0);
         await fill(page);
         const expense = section(page, 'Gastos'), income = section(page, 'Ingresos');
         assert.match(await expense.locator(':scope > .planning-section-totals').innerText(), /2 partidas.*2\.200,00/s);
         assert.match(await expense.locator(':scope > .planning-section-totals').innerText(), /Ejecutado: 250,00/);
-        assert.match(await section(page, 'Vida diaria').innerText(), /supera el previsto en 50,00/);
-        await input(page, 'Previsto GASTO Gasto diario').fill('1,234');
-        await section(page, 'Vida diaria').getByRole('button', { name: 'Vida diaria', exact: true }).click();
-        assert.match(await section(page, 'Vida diaria').getByRole('alert').innerText(), /1 importe inválido oculto/);
-        assert.equal(await input(page, 'Previsto GASTO Alquiler de prueba').isVisible(), true);
-        await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
-        await income.getByRole('button', { name: 'Ingresos', exact: true }).click();
-        assert.match(await expense.getByRole('alert').innerText(), /1 importe inválido oculto/);
-        assert.match(await income.innerText(), /3\.000,00.*1\.200,00/s);
+        await selectPlanningArea(page,'Gastos'); assert.match(await section(page, 'Vida diaria').innerText(), /supera el previsto en 50,00/);
+        await selectPlanningArea(page,'Gastos'); await input(page, 'Previsto GASTO Gasto diario').fill('1,234');
+        await selectPlanningArea(page,'Gastos'); await section(page, 'Vida diaria').getByRole('button', { name: 'Vida diaria', exact: true }).click();
+        await selectPlanningArea(page,'Gastos'); assert.match(await section(page, 'Vida diaria').getByRole('alert').innerText(), /1 importe inválido oculto/);
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Alquiler de prueba').isVisible(), true);
+        await selectPlanningArea(page,'Gastos'); await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
+        await selectPlanningArea(page,'Ingresos'); await income.getByRole('button', { name: 'Ingresos', exact: true }).click();
+        await selectPlanningArea(page,'Gastos'); assert.match(await expense.getByRole('alert').innerText(), /1 importe inválido oculto/);
+        await selectPlanningArea(page,'Ingresos'); assert.match(await income.innerText(), /3\.000,00.*1\.200,00/s);
         assert.equal(await planner(page).locator('.planning-totals').first().isVisible(), true);
         assert.equal(await planner(page).getByRole('button', { name: 'Guardar borrador', exact: true }).isDisabled(), true);
         assert.equal(await planner(page).getByRole('button', { name: 'Revisar y aprobar previsión', exact: true }).isDisabled(), true);
-        await income.getByRole('button', { name: 'Ingresos', exact: true }).focus();
+        await selectPlanningArea(page,'Ingresos'); await income.getByRole('button', { name: 'Ingresos', exact: true }).focus();
         await page.keyboard.press('Enter');
-        assert.equal(await input(page, 'Previsto INGRESO Salario de prueba').inputValue(), '3000,00');
+        await selectPlanningArea(page,'Ingresos'); assert.equal(await input(page, 'Previsto INGRESO Salario de prueba').inputValue(), '3000,00');
         await section(page, 'Trabajo').getByRole('button', { name: 'Trabajo', exact: true }).click();
-        assert.equal(await input(page, 'Previsto INGRESO Extra de prueba').isVisible(), true);
+        await selectPlanningArea(page,'Ingresos'); assert.equal(await input(page, 'Previsto INGRESO Extra de prueba').isVisible(), true);
         await section(page, 'Trabajo').getByRole('button', { name: 'Trabajo', exact: true }).click();
-        await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
-        assert.equal(await input(page, 'Previsto GASTO Gasto diario').isVisible(), false);
-        await section(page, 'Vida diaria').getByRole('button', { name: 'Vida diaria', exact: true }).focus();
+        await selectPlanningArea(page,'Gastos'); await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').isVisible(), false);
+        await selectPlanningArea(page,'Gastos'); await section(page, 'Vida diaria').getByRole('button', { name: 'Vida diaria', exact: true }).focus();
         await page.keyboard.press('Space');
-        assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '1,234');
-        assert.equal(await input(page, 'Previsto GASTO Gasto diario').getAttribute('aria-invalid'), 'true');
-        await input(page, 'Previsto GASTO Gasto diario').fill('200,00');
-        for (const name of ['Ingresos', 'Gastos']) {
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '1,234');
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').getAttribute('aria-invalid'), 'true');
+        await selectPlanningArea(page,'Gastos'); await input(page, 'Previsto GASTO Gasto diario').fill('200,00');
+        for (const name of ['Ingresos', 'Gastos'] as const) {
+          await selectPlanningArea(page,name);
           const controls = planner(page).getByRole('group', { name: `Plegado de ${name}`, exact: true });
           await controls.getByRole('button', { name: 'Contraer todo', exact: true }).click();
           assert.equal(await section(page, name).getByRole('button', { name, exact: true }).getAttribute('aria-expanded'), 'false');
           await controls.getByRole('button', { name: 'Expandir todo', exact: true }).click();
         }
-        assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '200,00');
-        assert.equal(await input(page, 'Previsto GASTO Alquiler de prueba').inputValue(), '2000');
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '200,00');
+        await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Alquiler de prueba').inputValue(), '2000');
         assert.equal(await input(page, 'Ahorro objetivo (€)').inputValue(), '600');
         assert.equal(await planner(page).getByRole('button', { name: 'Guardar borrador', exact: true }).isEnabled(), true);
         await input(page, 'Ahorro objetivo (€)').fill('900');
-        await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
+        await selectPlanningArea(page,'Gastos'); await expense.getByRole('button', { name: 'Gastos', exact: true }).click();
         assert.match(await expense.innerText(), /margen por asignar negativo/);
         assert.match(await planner(page).locator('.planning-totals').first().innerText(), /-100,00/);
         const controlled = await expense.getByRole('button', { name: 'Gastos', exact: true }).getAttribute('aria-controls');
@@ -139,16 +143,16 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       await page.keyboard.press('Enter'); await guard(page).waitFor();
       await page.keyboard.press('Escape'); await guard(page).waitFor({ state: 'hidden' });
       assert.equal(await tab(page, 'Catálogo y detalle de partidas').evaluate(el => el === document.activeElement), true);
-      assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '200.00');
+      await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '200.00');
       await tab(page, 'Catálogo y detalle de partidas').click(); await guard(page).getByRole('button', { name: 'Seguir editando' }).click();
-      assert.equal(await input(page, 'Previsto INGRESO Salario de prueba').inputValue(), '3000,00');
+      await selectPlanningArea(page,'Ingresos'); assert.equal(await input(page, 'Previsto INGRESO Salario de prueba').inputValue(), '3000,00');
       await tab(page, 'Catálogo y detalle de partidas').click(); await guard(page).getByRole('button', { name: 'Descartar y continuar' }).click();
       assert.equal(await tab(page, 'Catálogo y detalle de partidas').getAttribute('aria-selected'), 'true');
       assert.equal(await tab(page, 'Catálogo y detalle de partidas').evaluate(el => el === document.activeElement), true);
       assert.equal(await planner(page).count(), 0);
-      await page.keyboard.press('Tab'); assert.equal(await page.getByRole('tabpanel').evaluate(el => el === document.activeElement), true);
+      await page.keyboard.press('Tab'); assert.equal(await page.locator('#budget-panel-catalog').evaluate(el => el === document.activeElement), true);
       await tab(page, 'Catálogo y detalle de partidas').focus(); await page.keyboard.press('Home'); await page.keyboard.press('Space');
-      assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '0');
+      await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '0');
       assert.deepEqual(await snapshot(page), before);
     } finally { await s.close(); }
   });
@@ -159,10 +163,10 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       await fill(page); await approve(page);
       const approved = (await data(page)).planningMonths[0].approval;
       const beforeFolding = await snapshot(page);
-      await section(page, 'Ingresos').getByRole('button', { name: 'Ingresos', exact: true }).click();
+      await selectPlanningArea(page,'Ingresos'); await section(page, 'Ingresos').getByRole('button', { name: 'Ingresos', exact: true }).click();
       await tab(page, 'Catálogo y detalle de partidas').click();
       assert.deepEqual(await snapshot(page), beforeFolding);
-      await page.getByRole('button', { name: /^Ver partida g / }).click();
+      await page.getByRole('button', { name: /^Ver partida Gasto diario/ }).click();
       const panel = page.getByRole('dialog', { name: 'Detalle de partida', exact: true });
       await panel.getByTitle('Editar previsto').click(); await panel.getByRole('textbox', { name: 'Previsto de la partida' }).fill('350,01');
       await panel.getByRole('button', { name: 'Guardar previsto de la partida' }).click();
@@ -171,13 +175,13 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       await page.getByRole('button', { name: /^Paquetes de Ingresos/ }).click();
       const beforeNavigation = await snapshot(page);
       await tab(page, 'Planificación financiera').click();
-      assert.equal(await section(page, 'Ingresos').getByRole('button', { name: 'Ingresos', exact: true }).getAttribute('aria-expanded'), 'false');
-      assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '350.01');
+      await selectPlanningArea(page,'Ingresos'); assert.equal(await section(page, 'Ingresos').getByRole('button', { name: 'Ingresos', exact: true }).getAttribute('aria-expanded'), 'false');
+      await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Gasto diario').inputValue(), '350.01');
       assert.match(await planner(page).innerText(), /Modificada desde la última aprobación/);
       assert.deepEqual((await data(page)).planningMonths[0].approval, approved);
       await tab(page, 'Catálogo y detalle de partidas').click();
-      assert.equal(await page.getByRole('button', { name: /^Ver partida g / }).count(), 0);
-      assert.equal(await page.getByRole('button', { name: /^Ver partida i / }).isVisible(), true);
+      assert.equal(await page.getByRole('button', { name: /^Ver partida Gasto diario/ }).count(), 0);
+      assert.equal(await page.getByRole('button', { name: /^Ver partida Salario de prueba/ }).isVisible(), true);
       assert.equal(await page.locator('input[aria-label="Previsto GASTO Gasto diario"]').count(), 1);
       assert.deepEqual(await snapshot(page), beforeNavigation);
     } finally { await s.close(); }
@@ -222,7 +226,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
     const s = await setup(false, 'dark', initial); const { page } = s;
     try {
       const before = await snapshot(page); const historical = section(page, 'Fuera del catálogo');
-      await input(page, 'Previsto GASTO Partida histórica old').fill('25,50');
+      await selectPlanningArea(page,'Gastos'); await input(page, 'Previsto GASTO Partida histórica 1').fill('25,50');
       await historical.getByRole('button', { name: 'Fuera del catálogo', exact: true }).click();
       assert.match(await historical.innerText(), /1 partida.*25,50/s);
       await section(page, 'Gastos').getByRole('button', { name: 'Gastos', exact: true }).click();
@@ -232,7 +236,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       assert.equal((await data(page)).budgetPlans.find((p: any) => p.code === 'old').plannedAmount, 25.5);
       await section(page, 'Gastos').getByRole('button', { name: 'Gastos', exact: true }).click();
       await historical.getByRole('button', { name: 'Fuera del catálogo', exact: true }).click();
-      assert.equal(await input(page, 'Previsto GASTO Partida histórica old').inputValue(), '25.5');
+      await selectPlanningArea(page,'Gastos'); assert.equal(await input(page, 'Previsto GASTO Partida histórica 1').inputValue(), '25.5');
     } finally { await s.close(); }
   });
 
@@ -315,7 +319,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 2);
       await page.reload(); assert.equal((await data(page)).budgetGroups.flatMap((g: any) => g.partidas).length, 5);
       await navigateModule(page, 'Presupuestos'); await tab(page, 'Catálogo y detalle de partidas').click();
-      await page.getByRole('button', { name: `Ver partida ${copy.code} ${copy.name}`, exact: true }).waitFor();
+      await page.getByRole('button', { name: `Ver partida ${copy.name}`, exact: true }).waitFor();
     } finally { await s.close(); }
   });
 

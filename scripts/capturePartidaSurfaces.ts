@@ -72,7 +72,7 @@ try {
         await photo(`catalogo-${type.toLowerCase()}`, frame.locator('.catalog-family-toggle'), { inner: await geometry(inner), textContrast: contrast, controlContrasts: controls, stateContrasts: states, cardFrame: await geometry(frame) });
       }
       await page.getByRole('button', { name: /^Paquetes de Gastos/ }).click();
-      await page.getByRole('button', { name: `Ver partida ${expense.code} ${expense.name}`, exact: true }).click();
+      await page.getByRole('button', { name: `Ver partida ${expense.name}`, exact: true }).click();
       const detail = page.getByRole('dialog', { name: 'Detalle de partida', exact: true }); await detail.waitFor();
       const detailFile = `${theme}-detalle.jpg`; await page.screenshot({ path: path.join(output, detailFile), type: 'jpeg', quality: 85, animations: 'disabled' });
       captures.push({ file: detailFile, theme, view: 'detalle', frame: await geometry(detail), textContrast: await textContrast(detail.locator('h2')) });

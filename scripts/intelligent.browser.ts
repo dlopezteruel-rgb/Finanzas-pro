@@ -1,3 +1,4 @@
+import { selectPlanningArea } from './browserNavigation';
 import { navigateModule } from './browserNavigation';
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -438,6 +439,7 @@ test(
           const planner = p.getByRole("region", {
             name: "Planificación financiera",
           });
+          await selectPlanningArea(p,"Ingresos");
           await planner
             .getByRole("textbox", {
               name: "Previsto INGRESO Nómina ficticia",

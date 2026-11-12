@@ -329,9 +329,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                         <div className="flex items-start justify-between gap-2">
                           {/* Left: accessible opener for the contextual panel */}
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
-                            aria-label={`Ver partida ${partida.code} ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
+                            aria-label={`Ver partida ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
                             <span className="flex items-center gap-1.5 flex-wrap">
-                              <span className="font-mono text-[10px] font-bold text-sky-400 bg-white/[0.05] px-1.5 py-0.5 rounded border border-white/[0.08]">{partida.code}</span>
                               <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </span>
@@ -518,7 +517,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
             {moveSubmission.error && <p role="alert" className="text-rose-300">{moveSubmission.error}</p>}
             <h3 className="text-sm font-bold text-white">Mover Partida a Otro Paquete</h3>
             <p className="text-slate-300">
-              ¿A qué paquete deseas mover la partida <strong className="text-white">[{movingPartida.code}] {movingPartida.name}</strong>?
+              ¿A qué paquete deseas mover la partida <strong className="text-white">{movingPartida.name}</strong>?
             </p>
 
             <div>

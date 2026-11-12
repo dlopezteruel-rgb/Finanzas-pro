@@ -66,7 +66,8 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     await navigate(page, 'Presupuestos');
     await page.getByRole('tab', { name: 'Catálogo y detalle de partidas', exact: true }).click();
     if (income) await page.getByRole('button', { name: /^Paquetes de Ingresos/ }).click();
-    const opener = page.getByRole('button', { name: new RegExp('^Ver partida ' + code.replaceAll('.', '\\.')) });
+    const name = base().budgetGroups.flatMap(g => g.partidas).find(p => p.code === code)!.name;
+    const opener = page.getByRole('button', { name: `Ver partida ${name}`, exact: true });
     await opener.focus(); await page.keyboard.press('Enter'); await panel(page).waitFor(); return opener;
   }
   async function newShared(page: Page) {
@@ -89,18 +90,18 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       await d.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK');
       const trigger = d.getByRole('button', { name: 'Seleccionar partida presupuestaria' }); await trigger.click();
       const recents = d.getByLabel('Partidas recientes'); assert.equal(await recents.getByRole('button').count(), 5);
-      for (const code of expenseCodes.slice(2)) assert.ok((await recents.innerText()).includes(code));
+      for (const code of expenseCodes.slice(2)) assert.ok((await recents.innerText()).includes(initial.budgetGroups.flatMap(g => g.partidas).find(p => p.code === code && p.type === 'GASTO')!.name));
       const search = d.getByRole('combobox', { name: 'Buscar partida' }); await search.fill('MÉDICOS');
-      const options = d.getByRole('listbox'); assert.equal(await options.getByRole('option').count(), 1); assert.match(await options.innerText(), /F\.003\.001/);
+      const options = d.getByRole('listbox'); assert.equal(await options.getByRole('option').count(), 1); assert.match(await options.innerText(), /Seguro/);
       await search.fill(''); await d.getByLabel('Familia presupuestaria').selectOption('F_EXP');
       const p = catalog.find(c => c.partida.type === 'GASTO' && c.partida.code === 'F.003.001')!.partida;
       await d.getByLabel('Grupo presupuestario').selectOption(`${p.groupCode}:${p.groupName}`); assert.ok((await options.innerText()).includes(p.groupName));
       await d.getByLabel('Familia presupuestaria').selectOption(''); await search.fill('restauracion personalizada');
       assert.equal(await options.getByRole('option').count(), 1); await search.press('ArrowDown'); await search.press('Enter');
-      await search.waitFor({ state: 'hidden' }); assert.match(await trigger.innerText(), /V\.001\.002.*Restauración personalizada/);
+      await search.waitFor({ state: 'hidden' }); assert.match(await trigger.innerText(), /Restauración personalizada/);
       assert.equal(await raw(page), before);
       await d.getByRole('button', { name: 'Ingreso', exact: true }).click(); await trigger.click();
-      assert.equal(await d.getByLabel('Partidas recientes').getByRole('button').count(), 1); assert.match(await d.getByLabel('Partidas recientes').innerText(), /L\.001\.001/);
+      assert.equal(await d.getByLabel('Partidas recientes').getByRole('button').count(), 1); assert.match(await d.getByLabel('Partidas recientes').innerText(), /Nómina/);
       assert.equal((await d.getByRole('listbox').innerText()).includes('V.001.002'), false);
       await d.getByRole('combobox', { name: 'Buscar partida' }).fill('L.001.001'); await d.getByRole('combobox', { name: 'Buscar partida' }).press('Enter'); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
       const saved = (await data(page)).transactions[0]; assert.equal(saved.type, 'INGRESO'); assert.equal(saved.code, 'L.001.001');
@@ -196,7 +197,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       assert.equal(await editor(page).count(), 1); assert.equal(await top.getByLabel('Concepto', { exact: true }).inputValue(), 'Borrador conservado');
       await page.keyboard.press('Escape'); await p.waitFor(); assert.equal(await raw(page), before);
       await normalRow.getByRole('button', { name: 'Editar movimiento', exact: true }).click(); top = editor(page); await top.getByLabel('Concepto', { exact: true }).fill('Normal editado'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' }); assert.match(await normalRow.innerText(), /Normal editado/);
-      await p.getByRole('button', { name: 'Añadir a esta partida', exact: true }).click(); top = await assertTop(page, 'Movimiento'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /V\.001\.002/);
+      await p.getByRole('button', { name: 'Añadir a esta partida', exact: true }).click(); top = await assertTop(page, 'Movimiento'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /Comer fuera/);
       await top.getByLabel('Importe Total (€)').fill('10'); await top.getByLabel('Concepto', { exact: true }).fill('Nuevo desde panel'); await top.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
       const added = (await data(page)).transactions.find(t => t.description === 'Nuevo desde panel')!, row = p.locator(`[data-movement-id="${added.id}"]`);
       await row.getByRole('button', { name: 'Eliminar movimiento', exact: true }).click(); top = await assertTop(page, 'Eliminar movimiento'); const unchanged = await raw(page); await top.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), unchanged);
@@ -227,7 +228,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
     const d = base(); d.transactions = [{ ...normal(), type: 'INGRESO', code: 'L.001.001' }]; const { page, close } = await setup(d);
     try {
       await openPanel(page, 'L.001.001', true); await panel(page).getByRole('button', { name: 'Añadir a esta partida' }).click(); const top = await assertTop(page, 'Movimiento');
-      assert.equal(await top.getByRole('button', { name: 'Ingreso', exact: true }).getAttribute('aria-pressed'), 'true'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /L\.001\.001/);
+      assert.equal(await top.getByRole('button', { name: 'Ingreso', exact: true }).getAttribute('aria-pressed'), 'true'); assert.match(await top.getByRole('button', { name: 'Seleccionar partida presupuestaria' }).innerText(), /Nómina/);
       await top.getByLabel('Importe Total (€)').fill('100'); await top.getByLabel('Concepto', { exact: true }).fill('Ingreso desde panel'); await top.getByLabel('Cartera u Origen', { exact: true }).selectOption('OPENBANK'); await top.locator('button[type=submit]').click(); await top.waitFor({ state: 'hidden' });
       const saved = (await data(page)).transactions.find(t => t.description === 'Ingreso desde panel')!; assert.equal(saved.type, 'INGRESO'); assert.equal(saved.code, 'L.001.001');
     } finally { await close(); }

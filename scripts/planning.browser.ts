@@ -1,3 +1,4 @@
+import { selectPlanningArea } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -18,7 +19,9 @@ const raw=(page:Page)=>page.evaluate(key=>localStorage.getItem(key),DATA_KEY);
 const saved=async(page:Page)=>JSON.parse((await raw(page))!);
 const dialog=(page:Page)=>page.getByRole('dialog',{name:'Revisar y aprobar previsión',exact:true});
 async function fill(page:Page, savings='600') {
+  await selectPlanningArea(page,'Ingresos');
   await editor(page).getByRole('textbox',{name:'Previsto INGRESO Sueldo ficticio',exact:true}).fill('3.000,00');
+  await selectPlanningArea(page,'Gastos');
   await editor(page).getByRole('textbox',{name:'Previsto GASTO Comida ficticia',exact:true}).fill('200.00');
   await editor(page).getByRole('textbox',{name:'Previsto GASTO Alquiler ficticio',exact:true}).fill('2000');
   await editor(page).getByRole('textbox',{name:'Ahorro objetivo (€)',exact:true}).fill(savings);
@@ -42,7 +45,7 @@ test('3A: planificación, aprobación y compatibilidad en Chromium aislado', {ti
     const s=await setup();try{const {page}=s;const before=await raw(page);await fill(page);
       const totals=editor(page).locator('.planning-totals').first();for(const expected of ['3.000,00 €','2.200,00 €','600,00 €','200,00 €','0,00 €'])assert.ok((await totals.textContent())!.includes(expected));
       assert.equal(await raw(page),before);
-      const income=editor(page).getByRole('textbox',{name:'Previsto INGRESO Sueldo ficticio',exact:true});await income.fill('3.000');assert.equal(await income.getAttribute('aria-invalid'),'true');assert.equal(await editor(page).getByRole('button',{name:'Guardar borrador',exact:true}).isDisabled(),true);await income.fill('-1');assert.equal(await income.getAttribute('aria-invalid'),'true');await income.fill('3000');
+      await selectPlanningArea(page,'Ingresos'); const income=editor(page).getByRole('textbox',{name:'Previsto INGRESO Sueldo ficticio',exact:true});await income.fill('3.000');assert.equal(await income.getAttribute('aria-invalid'),'true');assert.equal(await editor(page).getByRole('button',{name:'Guardar borrador',exact:true}).isDisabled(),true);await income.fill('-1');assert.equal(await income.getAttribute('aria-invalid'),'true');await income.fill('3000');
       await nav(page,'Cuentas');const guard=page.getByRole('dialog',{name:'Cambios de planificación sin guardar'});await guard.waitFor();await guard.getByRole('button',{name:'Seguir editando'}).click();assert.equal(await income.inputValue(),'3000');
       await editor(page).getByLabel('Mes de planificación').fill('2030-01');await guard.waitFor();await guard.getByRole('button',{name:'Descartar y continuar'}).click();assert.equal(await editor(page).getByLabel('Mes de planificación').inputValue(),'2030-01');assert.equal(await raw(page),before);
       await editor(page).getByRole('button',{name:'Ver resumen anual'}).click();assert.match((await editor(page).textContent()) ?? '',/Cobertura 0\/12/);assert.equal(await editor(page).getByRole('table').locator('tbody tr').count(),12);assert.equal(await raw(page),before);

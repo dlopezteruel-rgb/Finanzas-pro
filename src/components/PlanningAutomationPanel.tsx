@@ -22,7 +22,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
   const [historyMonth,setHistoryMonth]=useState(month),[compareA,setCompareA]=useState(''),[compareB,setCompareB]=useState('');
   const a=data.planningAutomation;
   const catalog=new Map(data.budgetGroups.flatMap(g=>g.partidas).map(p=>[planningKey(p),p.name]));
-  const partName=(type:string,code?:string)=>type==='SAVINGS'?'Ahorro objetivo':`${type} · ${catalog.get(`${type}:${code}`) ?? `Partida histórica ${code}`}`;
+  const partName=(type:string,code?:string)=>type==='SAVINGS'?'Ahorro objetivo':`${type} · ${catalog.get(`${type}:${code}`) ?? 'Partida histórica'}`;
   const prepare=(request:AutomationRequest)=>{try{setError('');submission.clearError();setPreview(previewAutomation(data,request))}catch(e){setError((e as Error).message)}};
   // A row opens the same reviewed operation; browsing never applies it.
   useEffect(()=>{if(requestCarryReview&&!blocked)prepare({kind:'reviewCarry',id:requestCarryReview.id})},[requestCarryReview]);
@@ -76,7 +76,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
         <label className="block">Mes de origen del remanente <input aria-label="Mes de origen del remanente" type="month" value={carrySource} onChange={e=>{setCarrySource(e.target.value);setAmounts({})}}/></label>
         <p>Solo gastos de un mes transcurrido; destino consecutivo. Se permite un ajuste por origen/partida, sin cascadas. No es efectivo, ingreso, saldo ni ahorro realizado. La ausencia de movimientos no acredita dinero disponible.</p>
         {data.budgetPlans.filter(p=>p.monthYear===carrySource&&p.type==='GASTO').map(p=>{
-          let o:ReturnType<typeof carryObservation>;try{o=carryObservation(data,carrySource,p.code)}catch{return <p key={p.code} role="alert">Revisa los importes históricos de {p.code} antes de arrastrar.</p>}
+          let o:ReturnType<typeof carryObservation>;try{o=carryObservation(data,carrySource,p.code)}catch{return <p key={p.code} role="alert">Revisa los importes históricos de {partName(p.type,p.code)} antes de arrastrar.</p>}
           return <div key={p.code} className="planning-family"><p>{partName(p.type,p.code)} · Base {money(o.baseCents)}, propio procesado {money(o.executedCents)}, remanente {money(o.remainder)}</p>
             <label><input type="checkbox" aria-label={`Seleccionar remanente ${p.code}`} checked={Object.hasOwn(amounts,p.code)} onChange={e=>setAmounts(previous=>{const next={...previous};if(e.target.checked)next[p.code]=planningMoneyInput(o.remainder);else delete next[p.code];return next})}/> Seleccionar partida</label>
             {Object.hasOwn(amounts,p.code)&&<label>Arrastre (€) <input aria-label={`Arrastre ${p.code} (€)`} inputMode="decimal" value={amounts[p.code]} onChange={e=>setAmounts(previous=>({...previous,[p.code]:e.target.value}))}/></label>}
@@ -96,7 +96,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
             <tr><th>Ahorro objetivo</th><td>{money(photoA.totals.savings)}</td><td>{money(photoB.totals.savings)}</td><td>{money(photoB.totals.savings-photoA.totals.savings)}</td></tr>
             <tr><th>Arrastre aprobado</th><td>{money(photoA.carryLines?.reduce((n,l)=>n+l.amountCents,0) ?? 0)}</td><td>{money(photoB.carryLines?.reduce((n,l)=>n+l.amountCents,0) ?? 0)}</td><td>{money((photoB.carryLines?.reduce((n,l)=>n+l.amountCents,0) ?? 0)-(photoA.carryLines?.reduce((n,l)=>n+l.amountCents,0) ?? 0))}</td></tr>
           </tbody></table></div>}
-          {[photoA,photoB].filter((p):p is NonNullable<typeof p>=>!!p).map((photo,index)=><details key={index}><summary>Subítems de la fotografía {index===0?'A':'B'} · n.º {photo.number}</summary>{photo.subitemBreakdowns===undefined?<p>Sin desglose histórico. No se reconstruye con el catálogo actual.</p>:photo.subitemBreakdowns.map(b=><div key={planningKey(b)}><strong>{b.type} · {b.code}</strong>{b.lines.map(l=><p key={l.subitemId}>{l.name}: {money(l.amountCents)}</p>)}</div>)}</details>)}
+          {[photoA,photoB].filter((p):p is NonNullable<typeof p>=>!!p).map((photo,index)=><details key={index}><summary>Subítems de la fotografía {index===0?'A':'B'} · n.º {photo.number}</summary>{photo.subitemBreakdowns===undefined?<p>Sin desglose histórico. No se reconstruye con el catálogo actual.</p>:photo.subitemBreakdowns.map(b=><div key={planningKey(b)}><strong>{partName(b.type,b.code)}</strong>{b.lines.map(l=><p key={l.subitemId}>{l.name}: {money(l.amountCents)}</p>)}</div>)}</details>)}
         </>}
       </>}
       <button disabled={submission.saving} onClick={close}>Cerrar operación</button>

@@ -9,3 +9,15 @@ export async function navigateModule(page: Page, name: string) {
     await page.getByRole('dialog', { name: 'Más opciones', exact: true }).getByRole('button', { name: new RegExp(`^${name}(?:\\s*\\d+)?$`) }).click();
   } else await button.first().click();
 }
+
+/** Select the visible planning area through its public keyboard/touch control. */
+export async function selectPlanningArea(page: Page, name: 'Gastos' | 'Ingresos' | 'Multiperiodo') {
+  const tabs = page.getByRole('tablist', {name: 'Áreas de planificación', exact: true});
+  const tab = tabs.getByRole('tab', {name: new RegExp(`^${name}(?: · Revisar importes)?$`)});
+  if (name === 'Multiperiodo' && await tab.count() === 0) {
+    const summary = page.locator('.planning-multiperiod > details > summary');
+    if (await summary.locator('..').getAttribute('open') === null) await summary.click();
+    return;
+  }
+  await tab.click();
+}

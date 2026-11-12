@@ -91,9 +91,6 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
               }`}>
                 {partida.type}
               </span>
-              <span className="font-mono text-xs font-bold text-sky-400">
-                [{partida.code}]
-              </span>
             </div>
             <h2 className="text-base font-bold text-white mt-1 truncate" title={partida.name}>
               {partida.name}

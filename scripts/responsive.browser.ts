@@ -1,3 +1,4 @@
+import { selectPlanningArea } from './browserNavigation';
 import { navigateModule } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -111,7 +112,7 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
       assert.match(await carry.innerText(), /Presupuesto efectivo: 260,00/);
       assert.match(await live(page).innerText(), /Vista previa local · sin guardar/);
       assert.equal(await graph.getByRole('table').innerText(), storedGraph);
-      await field(page, 'Previsto INGRESO Salario ficticio').fill('3100'); await field(page, 'Ahorro objetivo (€)').fill('650');
+      await selectPlanningArea(page,'Ingresos'); await field(page, 'Previsto INGRESO Salario ficticio').fill('3100'); await selectPlanningArea(page,'Gastos'); await field(page, 'Ahorro objetivo (€)').fill('650');
       assert.equal(await metric(page, 'Pendiente de asignar del mes').innerText(), '640,00 €');
       assert.equal(await metric(page, 'Margen previsto efectivo').innerText(), '540,00 €');
       await field(page, 'Previsto GASTO Comida ficticia').fill('2,');
