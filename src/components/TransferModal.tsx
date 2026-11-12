@@ -3,7 +3,7 @@ import { initialWalletId } from '../utils/defaultWallet';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Wallet, Transaction, TransferInput } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { ArrowLeftRight, X, Check, ArrowRight } from 'lucide-react';
@@ -37,7 +37,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   const [date, setDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [concept, setConcept] = useState<string>('Traspaso de fondos');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen) return;
     submission.clearError();
     setConfirmDelete(initiallyDelete);

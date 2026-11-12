@@ -1,7 +1,7 @@
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Contact } from '../types/finance';
 import { X, UserPlus, Check } from 'lucide-react';
 
@@ -33,7 +33,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
   const [notes, setNotes] = useState('');
   const [color, setColor] = useState(AVATAR_COLORS[0]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     submission.clearError();
     if (contactToEdit) {
       setName(contactToEdit.name || '');

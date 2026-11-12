@@ -1,7 +1,7 @@
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Wallet, SplitParticipant, Contact, SettlementInput, DebtSettlement } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { parseTransferAmount } from '../utils/transfers';
@@ -33,7 +33,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
   const [operationId, setOperationId] = useState('');
   const [walletId, setWallet] = useState(''), [date, setDate] = useState(''), [amount, setAmount] = useState('');
   const [cash, setCash] = useState(true), [processed, setProcessed] = useState(true), [deleting, setDeleting] = useState(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isOpen || !debtItem) return;
     submission.clearError(); setOperationId(crypto.randomUUID());
     setWallet(initialWalletId(wallets, defaultWalletId, settlementToEdit?.walletId));

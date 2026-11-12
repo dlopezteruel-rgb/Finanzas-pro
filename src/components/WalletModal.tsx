@@ -4,7 +4,7 @@ import type { FinanceData } from '../utils/backup';
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useLayoutEffect } from 'react';
 import { Wallet } from '../types/finance';
 import { formatCurrency } from '../utils/finance';
 import { X, Landmark, Trash2, Check, Sparkles, Coins } from 'lucide-react';
@@ -56,7 +56,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     submission.clearError();
     if (walletToEdit) {
       setName(walletToEdit.name);

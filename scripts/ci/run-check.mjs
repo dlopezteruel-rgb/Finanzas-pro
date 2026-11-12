@@ -45,9 +45,17 @@ export async function runCheck(mode){
     }
     summary.passed=true;
   }catch(error){summary.error=error.message;}
+  if(summary.suites)summary.perSuite=summary.suites.map((suite,index)=>{
+    const result=summary.tests[index];
+    const complete=result&&result.tests>0&&result.tests===result.pass&&['fail','cancelled','skipped','todo'].every(key=>result[key]===0);
+    return {suite,status:!result?'not_executed':complete?'passed':'failed',...(result??{})};
+  });
   await writeFile(path.join(dir,'summary.json'),JSON.stringify(summary,null,2)+'\n');
   const totals=summary.tests.reduce((n,t)=>n+(t.tests??0),0),passed=summary.tests.reduce((n,t)=>n+(t.pass??0),0);
-  const markdown=`### ${mode}: ${summary.passed?'PASS':'FAIL'}\n\nNode: ${summary.node}. Completed summaries: ${summary.tests.length}. Results: ${passed}/${totals}.\n\n${summary.error??'All mandatory checks passed.'}\n${summary.axe?`\nAxe: ${summary.axe.surfaces} surfaces, 0 violations; ${summary.axe.incompleteGroups} incomplete groups require manual review.\n`:''}`;
+  const commands=summary.commands.map(c=>`| ${c.command.join(' ')} | ${c.code===0&&!c.signal?'PASS':'FAIL'} | ${(c.durationMs/1000).toFixed(2)} s |`).join('\n');
+  const tests=summary.tests.length?`\nCompleted summaries: ${summary.tests.length}. Results: ${passed}/${totals}; omitted: ${summary.tests.reduce((n,t)=>n+(t.skipped??0),0)}, cancelled: ${summary.tests.reduce((n,t)=>n+(t.cancelled??0),0)}.\n`:'';
+  const suites=summary.perSuite?`\n| Suite | Status | Results |\n| --- | --- | --- |\n${summary.perSuite.map(s=>`| ${s.suite} | ${s.status} | ${s.pass??'—'}/${s.tests??'—'} |`).join('\n')}\n`:'';
+  const markdown=`### ${mode}: ${summary.passed?'PASS':'FAIL'}\n\nNode: ${summary.node}.\n${tests}\n| Command | Status | Duration |\n| --- | --- | --- |\n${commands}\n\n${summary.error??'All mandatory checks passed.'}\n${suites}${summary.axe?`\nAxe: ${summary.axe.surfaces} surfaces, 0 violations; ${summary.axe.incompleteGroups} incomplete groups require manual review.\n`:''}`;
   if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,markdown);
   console.log(markdown);return summary;
 }
