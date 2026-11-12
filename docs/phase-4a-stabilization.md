@@ -85,7 +85,9 @@ CHROMIUM_PATH=/usr/bin/chromium npm run test:ui:phase4a
 
 Única dependencia añadida: **axe-core 4.14.0**, fijada en desarrollo con lockfile para reproducir la auditoría; no forma parte del bundle de la aplicación. `PHASE4A_AUDIT_REPORT=/ruta/informe.json` guarda resultados axe por superficie. `PHASE4A_CAPTURE_DIR=/ruta/capturas` conserva capturas. `PHASE4A_DIST` permite auditar un build anterior aislado. `PHASE4A_AUDIT_ONLY=1` recopila hallazgos sin fallar por axe y sirve exclusivamente para inventario: no es una aceptación de accesibilidad. La batería normal ejecuta la variante estricta.
 
-Checkpoint de correcciones: 427 unitarias, lint/build y suites focalizadas correctas (9 auditoría visual, 6 seguridad y 3 cuotas). La validación completa final se registra por separado; estas cifras focalizadas no la sustituyen.
+Primer checkpoint de correcciones: 427 unitarias, lint/build y suites focalizadas correctas (9 auditoría visual, 6 seguridad y 3 cuotas). La validación completa final se registra por separado; estas cifras focalizadas no la sustituyen.
+
+El cierre amplía los casos a negaciones simples de gasto y signos negativos separados/Unicode. La primera pasada final se interrumpió para añadir estos casos reproducidos; no se contabiliza como una batería completa.
 
 Los intentos previos de reproducción constan como fallos esperados, no como pruebas superadas. Se corrigieron también dos errores de preparación de pruebas nuevas (nombre accesible del campo Importe y uso del mapa de saldos como lista); la prueba de duplicación de cuotas se repitió con instantes distintos para no confundir rechazo por ID repetido con prevención de doble guardado. No se cambian oráculos económicos anteriores para ocultar fallos.
 

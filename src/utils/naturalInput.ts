@@ -7,7 +7,9 @@ export function readNaturalInput(text:string,referenceDate=new Date()):InputResu
   const fail=(error:string):InputResult=>({ok:false,error});
   const lower=text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim().toLowerCase();
   if(!lower)return fail('');
-  if(classifyChatIntent(text)==='negation')return fail('Una negación no prepara movimientos. Utiliza una instrucción afirmativa o el formulario manual.');
+  // Preserve processing-state phrases, but reject explicit negation anywhere else.
+  const intentText=lower.replace(/\b(?:no tramitado|no pagado)\b/g,' ');
+  if(classifyChatIntent(text)==='negation'||/\b(?:no|nunca|jamas|tampoco)\b/.test(intentText))return fail('Una negación no prepara movimientos. Utiliza una instrucción afirmativa o el formulario manual.');
   if(isExplicitFinancialQuery(text))return fail('Una pregunta no prepara movimientos. Utiliza el asistente para consultar.');
   if(!Number.isFinite(referenceDate.getTime()))return fail('La fecha de referencia no es válida. Utiliza el formulario manual.');
   const today=madridDate(referenceDate);
@@ -30,7 +32,7 @@ export function readNaturalInput(text:string,referenceDate=new Date()):InputResu
   const numbers=[...amountText.matchAll(/[+-]?\d+(?:[.,]\d+)*(?:e[+-]?\d+)?/g)];
   if(numbers.length!==1)return fail('Indica un único importe positivo, sin separadores de miles, o utiliza el formulario manual.');
   const number=numbers[0],token=number[0],prefix=amountText.slice(0,number.index),suffix=amountText.slice(number.index!+token.length);
-  if(!/^\d+(?:[.,]\d{1,2})?$/.test(token)||/[\w.,]$/.test(prefix)||(/^[a-z]/.test(suffix)&&!/^euros?\b|^eur\b/.test(suffix)))return fail('El importe es ambiguo o negativo. Usa, por ejemplo, 2650 o 15,50; también puedes utilizar el formulario manual.');
+  if(!/^\d+(?:[.,]\d{1,2})?$/.test(token)||/[\w.,]$/.test(prefix)||/[+\-−–—]\s*$/.test(prefix)||(/^[a-z]/.test(suffix)&&!/^euros?\b|^eur\b/.test(suffix)))return fail('El importe es ambiguo o negativo. Usa, por ejemplo, 2650 o 15,50; también puedes utilizar el formulario manual.');
   const amount=Number(token.replace(',','.')),cents=Math.round(amount*100);
   if(!Number.isSafeInteger(cents)||cents<=0)return fail('El importe debe ser positivo y representable en céntimos. Utiliza el formulario manual.');
   return {ok:true,amount:cents/100,date};
