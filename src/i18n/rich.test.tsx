@@ -26,3 +26,25 @@ if(false){
  const wrong=<I18nText id="confirm_delete_dialog.se_eliminara" values={{wrong:'Cuenta'}} />;
  void missing;void wrong;
 }
+
+import {PlanningSection} from '../components/PlanningSection';
+import {pluralText,translatorFor} from './index';
+test('planificación: el resumen usa plurales completos al plegar importes inválidos y conserva datos y nodos',()=>{
+ const title='MIS PARTIDAS {count} <datos>',planned=123456,executed=789;
+ for(const open of [true,false])for(const count of [1,2]){
+  const html=renderToStaticMarkup(<I18nProvider><PlanningSection title={title} open={open} onToggle={()=>{}} planned={planned} executed={executed} count={count} invalidCount={count}><input value="1234.56" readOnly /></PlanningSection></I18nProvider>);
+  assert.ok(html.includes(`${count} ${count===1?'partida':'partidas'} · Previsto: <strong>1.234,56 €</strong>`));
+  assert.ok(html.includes(`${count} ${count===1?'importe inválido':'importes inválidos'}${open?'':count===1?' oculto':' ocultos'}. Revisa las partidas antes de guardar.`));
+  assert.ok(html.includes('MIS PARTIDAS {count} &lt;datos&gt;'));assert.ok(html.includes('value="1234.56"'));
+ }
+ assert.equal(title,'MIS PARTIDAS {count} <datos>');assert.equal(planned,123456);assert.equal(executed,789);
+});
+test('planificación: plurales extranjeros expresan el error oculto como frase completa, sin fragmentos españoles',()=>{
+ assert.equal(pluralText('en','invalidAmountsHidden',1),'1 hidden invalid amount. Check the budget items before saving.');
+ assert.equal(pluralText('it','invalidAmountsHidden',2),'2 importi non validi nascosti. Controlla le voci prima di salvare.');
+ assert.equal(pluralText('fr','invalidAmountsVisible',1),'1 montant non valide. Vérifiez les postes avant d’enregistrer.');
+ assert.equal(pluralText('pt','invalidAmountsVisible',2),'2 montantes inválidos. Reveja as rubricas antes de guardar.');
+ const userName='GASTO personalizado {name}',code='GASTO';
+ assert.equal(translatorFor('en')('planning.previsto',{type:translatorFor('en')('planning.expenseType'),name:userName}),'Planned EXPENSE GASTO personalizado {name}');
+ assert.equal(code,'GASTO');assert.equal(userName,'GASTO personalizado {name}');
+});

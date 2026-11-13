@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import React, { useId } from 'react';
 import { formatPlanningCents } from '../utils/planning';
 
@@ -16,6 +17,7 @@ export function PlanningSection({ title, family = false, open, onToggle, onAll, 
   carried?: number;
   children: React.ReactNode;
 }) {
+  const { t: uiText, tn: uiCount } = useI18n();
   const id = useId();
   const Heading = family ? 'h3' : 'h2';
   return <section className={family ? 'planning-family space-y-3' : 'planning-card space-y-3'} aria-labelledby={`${id}-title`}>
@@ -25,16 +27,16 @@ export function PlanningSection({ title, family = false, open, onToggle, onAll, 
       </button>
     </Heading>
     <div className="planning-section-totals">
-      <p>{count} {count === 1 ? 'partida' : 'partidas'} · Previsto: <strong>{planned === null ? 'Pendiente de corregir' : formatPlanningCents(planned)}</strong></p>
-      <p>Ejecutado: <strong>{formatPlanningCents(executed)}</strong> · Diferencia: <strong>{planned === null ? '—' : formatPlanningCents(planned - executed)}</strong></p>
-      {invalidCount > 0 && <p role="alert">{invalidCount} {invalidCount === 1 ? `importe inválido${!open ? ' oculto' : ''}` : `importes inválidos${!open ? ' ocultos' : ''}`}. Revisa las partidas antes de guardar.</p>}
-      {planned === null && invalidCount === 0 && <p role="alert">Total fuera del rango seguro. Revisa los importes antes de guardar.</p>}
-      {carried>0&&<p>Incluye {formatPlanningCents(carried)} de arrastres presupuestarios.</p>}
+      <p><I18nText id="planning_section.previsto" values={{ items: uiCount("budgetItems",count), planned: (<strong>{planned === null ? uiText("planning_section.pendiente_de_corregir") : formatPlanningCents(planned)}</strong>) }} /></p>
+      <p><I18nText id="planning_section.ejecutado_diferencia" values={{ executed: (<strong>{formatPlanningCents(executed)}</strong>), content: (<strong>{planned === null ? '—' : formatPlanningCents(planned - executed)}</strong>) }} /></p>
+      {invalidCount > 0 && <p role="alert">{uiCount(open ? "invalidAmountsVisible" : "invalidAmountsHidden",invalidCount)}</p>}
+      {planned === null && invalidCount === 0 && <p role="alert">{uiText("planning_section.total_fuera_del_rango_seguro_revisa_los_importes_antes")}</p>}
+      {carried>0&&<p><I18nText id="planning_section.incluye_de_arrastres_presupuestarios" values={{ carried: (formatPlanningCents(carried)) }} /></p>}
       {warning && <p className="planning-warning">{warning}</p>}
     </div>
-    {onAll && <div className="flex flex-wrap gap-2" role="group" aria-label={`Plegado de ${title}`}>
-      <button type="button" onClick={() => onAll(true)}>Expandir todo</button>
-      <button type="button" onClick={() => onAll(false)}>Contraer todo</button>
+    {onAll && <div className="flex flex-wrap gap-2" role="group" aria-label={uiText("planning_section.plegado_de", { title: title })}>
+      <button type="button" onClick={() => onAll(true)}>{uiText("planning_section.expandir_todo")}</button>
+      <button type="button" onClick={() => onAll(false)}>{uiText("planning_section.contraer_todo")}</button>
     </div>}
     <div id={`${id}-content`} hidden={!open} className={family?'planning-family-content':'planning-block-content'}>{children}</div>
   </section>;

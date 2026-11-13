@@ -1,5 +1,5 @@
 {
-  "scope": "Current 425 registered keys only; not a whole-application residual-text waiver",
+  "scope": "Current registered keys only; not a whole-application residual-text waiver",
   "exceptions": {
     "en": [
       {
@@ -11,6 +11,11 @@
         "key": "transactions.no",
         "text": "NO",
         "reason": "Reviewed native English negative answer; spelling shared with Spanish"
+      },
+      {
+        "key": "planning.manual",
+        "text": "Manual",
+        "reason": "Native English adjective"
       }
     ],
     "it": [
@@ -33,6 +38,16 @@
         "key": "transactions.no",
         "text": "NO",
         "reason": "Reviewed native Italian negative answer; spelling shared with Spanish"
+      },
+      {
+        "key": "planning.previsto",
+        "text": "Previsto {type} {name}",
+        "reason": "Reviewed native it forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "planning_section.previsto",
+        "text": "{items} · Previsto: {planned}",
+        "reason": "Reviewed native it forecast label; shared spelling, values are separately localised"
       }
     ],
     "fr": [
@@ -202,6 +217,36 @@
         "key": "confirm_clear.cancelar",
         "text": "Cancelar",
         "reason": "Reviewed native pt-PT cancel action"
+      },
+      {
+        "key": "planning.manual",
+        "text": "Manual",
+        "reason": "Native pt-PT adjective"
+      },
+      {
+        "key": "planning.copiada",
+        "text": "Copiada",
+        "reason": "Native pt-PT feminine adjective"
+      },
+      {
+        "key": "planning.estado",
+        "text": "Estado",
+        "reason": "Native pt-PT state label"
+      },
+      {
+        "key": "planning.cancelar",
+        "text": "Cancelar",
+        "reason": "Native pt-PT action"
+      },
+      {
+        "key": "planning.previsto",
+        "text": "Previsto {type} {name}",
+        "reason": "Reviewed native pt forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "planning_section.previsto",
+        "text": "{items} · Previsto: {planned}",
+        "reason": "Reviewed native pt forecast label; shared spelling, values are separately localised"
       }
     ]
   }

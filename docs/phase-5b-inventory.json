@@ -3,13 +3,13 @@
   "schemaVersion": 2,
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
-    "type-or-import": 793,
-    "review": 3323,
+    "type-or-import": 801,
+    "review": 3282,
     "ui-message-candidate": 199,
-    "attribute-internal": 2055,
-    "translation-key": 489,
-    "visible-attribute": 166,
-    "visible-text": 539
+    "attribute-internal": 2062,
+    "translation-key": 608,
+    "visible-attribute": 153,
+    "visible-text": 472
   },
   "files": [
     {
@@ -190,20 +190,14 @@
     {
       "file": "src/components/BudgetWorkspace.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "101aa45ea07f824c53b9a961d2f6abaee57b5e439bd747ee0d11cc0b87effd59",
+      "sourceSha256": "fe6edc9dba2beff671dd5db48a2d5f20978c9a6d91bcf10a61d6c0b870a2cc16",
       "counts": {
-        "type-or-import": 3,
+        "type-or-import": 4,
         "review": 8,
         "attribute-internal": 21,
-        "visible-attribute": 2,
-        "visible-text": 2
+        "translation-key": 4
       },
-      "visibleCandidateLines": [
-        34,
-        35,
-        36,
-        51
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": []
     },
     {
@@ -996,58 +990,41 @@
     {
       "file": "src/components/PlanningLiveSummary.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8cf532e174069e2636ebdeb7a43a24b71a326abc9849203295351ed21c7b5d40",
+      "sourceSha256": "0e254629c5b44f82dda888c355971a95d083de57dd9322f1951ae5a6d569abb9",
       "counts": {
-        "type-or-import": 3,
+        "type-or-import": 4,
         "attribute-internal": 16,
-        "visible-attribute": 1,
-        "visible-text": 4,
-        "review": 11
+        "translation-key": 16
       },
-      "visibleCandidateLines": [
-        14,
-        15,
-        17,
-        32
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": []
     },
     {
       "file": "src/components/PlanningSection.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "c1b45231a875234e2b3a8d973950bec1221bf3a59e42263476bd6d6a76397740",
+      "sourceSha256": "05b6f73e707d71a8f8e38fea1d3a8272f4bb9d54c838c890a8d55cfff0c519b8",
       "counts": {
-        "type-or-import": 2,
-        "review": 9,
+        "type-or-import": 3,
+        "review": 2,
         "attribute-internal": 20,
-        "visible-text": 9,
-        "visible-attribute": 1
+        "translation-key": 11
       },
-      "visibleCandidateLines": [
-        28,
-        29,
-        30,
-        31,
-        32,
-        35,
-        36,
-        37
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 28,
+          "line": 30,
           "name": "formatPlanningCents"
         },
         {
-          "line": 29,
+          "line": 31,
           "name": "formatPlanningCents"
         },
         {
-          "line": 29,
+          "line": 31,
           "name": "formatPlanningCents"
         },
         {
-          "line": 32,
+          "line": 34,
           "name": "formatPlanningCents"
         }
       ]
@@ -1080,73 +1057,35 @@
     {
       "file": "src/components/PlanningView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "16567d42cc0bb7964e386fce662c1cd42fbe305721f111212d078c0f1bdfc20b",
+      "sourceSha256": "56af1832edb32762a93c52f5af1450f56322f6a40aac8b3e51428b7ca78172a7",
       "counts": {
-        "type-or-import": 21,
-        "review": 70,
-        "attribute-internal": 66,
-        "ui-message-candidate": 5,
-        "visible-attribute": 9,
-        "visible-text": 52
+        "type-or-import": 26,
+        "review": 47,
+        "attribute-internal": 73,
+        "translation-key": 88,
+        "ui-message-candidate": 5
       },
       "visibleCandidateLines": [
-        114,
-        117,
-        120,
+        119,
         122,
-        128,
-        130,
-        131,
-        133,
-        137,
-        138,
-        141,
-        142,
-        143,
-        148,
-        149,
-        150,
-        154,
-        163,
-        196,
-        201,
-        202,
-        204,
-        205,
-        207,
-        208,
-        209,
-        210,
-        212,
-        213,
-        225,
-        226,
-        227,
-        229,
-        231,
-        232,
-        233,
-        235,
-        236,
-        237,
-        238,
-        240
+        125,
+        127
       ],
       "presentationCalls": [
         {
-          "line": 137,
+          "line": 142,
           "name": "toLocaleString"
         },
         {
-          "line": 143,
+          "line": 148,
           "name": "formatCurrency"
         },
         {
-          "line": 204,
+          "line": 209,
           "name": "formatCurrency"
         },
         {
-          "line": 228,
+          "line": 233,
           "name": "formatCurrency"
         }
       ]

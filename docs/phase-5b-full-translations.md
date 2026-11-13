@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 425/425 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 425/425 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 425/425 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 425/425 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 425 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 543 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -96,3 +96,25 @@ Verificado localmente: 457 unitarias, lint/build; 92 resultados Chromium de regr
 Pendiente: resto de planificación/catálogo/automatizaciones, contactos/compartidos/asistente/gráficos y utilidades que producen UI; fechas/importes de todos los módulos mediante Intl preservando exactamente céntimos; matriz completa 390/768/1280 claro/oscuro, ausencia de residuales, restauración por idioma e imágenes de landing. Por eso uiComplete y flowsVerified siguen en false para en/it/fr/pt.
 
 El inventario v2 incorpora fronteras server/config y distingue errores dentro de callbacks de atributos puramente técnicos. El análisis completo detectó y corrigió un error del propio recorrido: Array.flatMap pasaba su índice como segundo argumento del analizador. Dos pruebas nuevas cubren la clasificación de callbacks y el recorrido completo; no se ha traducido código interno para resolverlo. El informe señala también metadatos HTML, estilos e imágenes, y localiza llamadas de presentación por archivo. Todavía quedan candidatos visibles pendientes; no se deduce una cobertura integral de los recuentos automáticos.
+
+
+### Checkpoint de planificación y aprobación
+
+Se registran 114 mensajes adicionales de PlanningView, PlanningSection, PlanningLiveSummary y BudgetWorkspace y cuatro variantes plurales de errores visibles/ocultos. Total: **543 claves** completas por diccionario. Las pestañas conservan sus identificadores internos; solo sus etiquetas y los estados presentados se localizan. Los avisos locales guardan claves de presentación para actualizar su idioma sin reescribir datos. El estado devuelto por planificación se adapta al presentar, sin modificar utilidades, snapshots ni cálculos. Los textos de aprobación mantienen la confirmación explícita de déficit.
+
+Resultado local: **459 unitarias**, lint/build y diff-check correctos; **13 resultados Chromium** de la regresión española de planificación; **31 resultados** de la nueva suite, que comprueba 30 combinaciones (cinco idiomas × tres anchos × dos temas) y su contenedor. Verifica entradas canónicas, borrador sin escrituras, aceptación explícita de déficit, Escape, devolución de foco, Tab/Shift+Tab dentro del diálogo, aprobación única y persistencia exacta de 300001, 100000 y 250000 céntimos. Conserva nombres ficticios personales y todos los movimientos/cuentas originales.
+
+La suite añade 60 observaciones axe: cero violaciones, **86 grupos incompletos pendientes de revisión manual en esas observaciones**. Son mediciones de esta matriz parcial, separadas de los 136 grupos de referencia; no son nuevos defectos únicos ni certificación de lector de pantalla. Genera diez capturas ficticias de vista previa (390 claro / 1280 oscuro por idioma) como artefactos; contienen otras superficies aún pendientes de traducir. No se presentan como capturas de idiomas habilitados.
+
+El primer intento de la nueva prueba seleccionaba Ingresos solo en móvil y fallaba en escritorio por intentar editar un panel oculto. Se corrigió el recorrido para seleccionar la pestaña en todos los anchos. No se cambió la aplicación ni se ampliaron tiempos para ocultarlo. Una interrupción de esa ejecución dejó logs superpuestos; la ejecución de evidencia se repitió con archivo independiente. Quedan pendientes los errores provenientes de utilidades, nombres históricos generados, Intl general, subítems, automatizaciones y Catálogo, además del resto de P2/P3. Por tanto, los cuatro idiomas siguen bloqueados.
+
+Regresión completa publicada del checkpoint anterior: [Actions 43423672139](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43423672139), SHA `541deb8fec51041aba024892343d7f7e3094724e`: Unitarias, Lint/build/diff y Chromium/axe en verde; artefacto del navegador verificado, **307 resultados / 23 suites**, cero fallos, omisiones o cancelaciones. No sustituye la validación final de la fase.
+
+
+Incidencia **5B-002 — Etiqueta de ahorro en móvil**: la revisión de la captura francesa a 390 px confirmó separación de 0 px entre texto y campo, por lo que el contorno de foco ocultaba el final de la etiqueta. Se añade flex-wrap con espacio de 8 px solo a esa etiqueta. La nueva suite exige separación geométrica suficiente en las 30 combinaciones, sin cambiar valores, restricciones ni parsers. Capturas ficticias de la vista previa (otros módulos siguen pendientes):
+
+| Antes | Después |
+| --- | --- |
+| ![Etiqueta francesa antes](screenshots/phase-5b/planning-fr-390-light-before.png) | ![Etiqueta francesa después](screenshots/phase-5b/planning-fr-390-light-after.png) |
+
+Tras el ajuste visual pasan también los **16 resultados Chromium** de la batería responsive española: siete módulos, 390–1920 px, ambos temas, zoom 125 %/200 %, foco y redimensionado. La matriz multidioma se repite con la comprobación geométrica y pasa 31/31, sin omisiones ni cancelaciones.
