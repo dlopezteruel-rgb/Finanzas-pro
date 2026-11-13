@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1664 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1764 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -252,3 +252,37 @@ Intentos registrados: primera matriz **31 resultados, 16 correctos y 15 fallidos
 La matriz añade **120 observaciones axe, cero violaciones y 240 grupos incompletos**, pendientes de revisión manual; se mantienen separados de los 136 grupos incompletos generales. No se afirma prueba real con lector de pantalla ni dispositivos físicos. Captura ficticia revisada visualmente: [gráficos de cuentas en francés, 390 claro](screenshots/phase-5b/charts-wallets-fr-390-light.png).
 
 La batería incorpora 31 suites; **555 resultados es una expectativa**, que debe verificarse en CI sobre el SHA publicado. Siguen pendientes asistente/registro natural, ayudas/P3, errores restantes y revisión integral. Los cuatro idiomas nuevos permanecen deshabilitados.
+
+### CI verificado de gráficos
+
+[Actions 43481830524](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43481830524), SHA `23135fe902f1459bccd77648ed2b49277048f103`: tres trabajos correctos. Artefacto comprobado: **555 resultados / 31 suites**, cero fallos, omisiones y cancelaciones. Axe general: 128 observaciones, cero violaciones, **136 grupos incompletos**. Matriz de gráficos: 120 observaciones, cero violaciones y **240 grupos incompletos**, igual que en local. Permanecen pendientes de revisión manual.
+
+### Checkpoint de asistente y registro rápido
+
+Se añaden **100 claves**, hasta **1764 por diccionario**, para el asistente, registro rápido, respuestas numéricas locales, diagnósticos de entrada y validación de propuestas. Las sugerencias tienen un ID y una clave de etiqueta; su texto original español enviado al parser/API se conserva exactamente. Las etiquetas no se seleccionan por índice. La interfaz explica en los cinco idiomas que el reconocimiento de entrada libre no incorpora otros idiomas en esta fase. Los ejemplos originales españoles son excepciones deliberadas, anunciadas y comprobadas. No se traducen las instrucciones del usuario, los conceptos/notas creados a partir de ellas ni las respuestas opacas del servicio externo.
+
+La utilidad localFinancialAdvice admite una presentación opcional de salida, utilizando el mismo traductor y formatters del Provider. Es la única utilidad financiera cuya **presentación textual** se adapta en este checkpoint: no cambian reconocimiento, parsers, condiciones, fórmulas, orden de sugerencias, límites ni lectura de datos. La llamada de dos argumentos conserva la salida original española; la API y su fallback siguen usando esa llamada. Los contextos y payloads del servicio permanecen intactos. **53 snapshots ficticios de la implementación anterior** comprueban salida exacta y payload; en cada idioma se comparan todos los argumentos monetarios con los céntimos originales. El renderizado nunca analiza cadenas monetarias para recuperar valores.
+
+Los mensajes locales guardan un descriptor de presentación junto a su contexto original; cambiar de idioma vuelve a mostrar esas cifras, sin traducir datos del usuario ni escribir históricos. Las horas se conservan como instantes ISO de UI y se presentan en Europe/Madrid. El historial remoto y los textos escritos por el usuario permanecen literales. El mensaje de éxito de registro rápido mantiene tipo/importe/nombre originales y se vuelve a presentar al cambiar de idioma; la nota persistida «Registro rápido: …» conserva el formato previo.
+
+Verificación local: **496 unitarias**, **22 pruebas de infraestructura**, lint/build/diff-check correctos. Regresiones españolas: intelligent **25/25** y phase4aSafety **6/6**; se conservan todas las aserciones anteriores. Matriz final nueva: **36/36 resultados en 145,65 s**, cero fallos, omisiones y cancelaciones: 30 combinaciones de cinco idiomas, tres anchos y dos temas, cinco pruebas de la API simulada y contenedor. Comprueba etiquetas y payloads originales, negaciones, importes ambiguos, propuestas editables, Escape/Tab/restauración del foco, cambio cross-tab conservando borrador/foco, confirmaciones dobles con dos guardados únicos de 1625 y 1550 céntimos, recarga, campos financieros originales y ausencia de escrituras durante consultas/cambios de idioma.
+
+La API se simula y toda petición externa se bloquea. Sus cinco casos verifican los cuatro campos originales del request, contexto financiero idéntico, fallback español original y respuesta remota literal. No se solicita Gemini ni se introduce un campo de idioma en la API. La caída simulada del servicio muestra el resumen local nativo sin escribir datos financieros. La matriz registra **120 observaciones axe, cero violaciones y 92 grupos incompletos**, separados de los 136 generales y pendientes de revisión manual. No equivale a prueba con lector de pantalla o dispositivo físico.
+
+Incidencia **5B-007 — Lista de sugerencias sin contenedor**: la auditoría de las respuestas de ahorro detectó listitem; se agrupan los elementos consecutivos bajo ul. Incidencia **5B-008 — Aviso de éxito ilegible o recortado en móvil**: axe detectó un contraste de 1,17:1 en el tema claro; se reutilizan surface/success del tema. La revisión visual posterior detectó elipsis en francés; se permite envolver la frase completa, incluido el nombre personal, y se añade una comprobación de anchura en todos los escenarios. Ninguna regla de axe se desactiva.
+
+Intentos de diagnóstico conservados fuera del repositorio: primera matriz interrumpida al detectar el selector que seguía buscando el nombre español después del cambio de idioma; produjo 36 fallos, incluidos los recorridos posteriores que ya no pudieron abrir el navegador. No se considera validación. Se corrigieron dos selectores de pruebas (nombre vivo y botón oculto por el diálogo) y el recuento de mensajes: abrir una propuesta crea un mensaje del usuario, no una respuesta adicional. Los recorridos focalizados reprodujeron listitem y el contraste (dos resultados fallidos contando cada contenedor). Una matriz posterior pasó 36 casos en 140,47 s, pero la revisión de capturas motivó la prueba adicional de elipsis: el caso francés falló antes de corregir el ajuste de líneas. La matriz final repetida pasa íntegra. Las primeras pruebas de diccionario exigieron revisar ocho coincidencias nativas; los fixtures de snapshots se hicieron deterministas fijando la aprobación y separando el contexto deliberadamente malformado de consultas que requieren importes válidos. No se cambian pruebas para aceptar un resultado económico diferente.
+
+Capturas solo con datos ficticios, revisadas visualmente:
+
+| Aviso español antes: contraste insuficiente | Aviso español después |
+| --- | --- |
+| ![Aviso previo de registro rápido](screenshots/phase-5b/quick-notice-es-before.png) | ![Aviso corregido con colores del tema](screenshots/phase-5b/quick-notice-es-after.png) |
+
+| Aviso francés antes: nombre recortado | Aviso francés después |
+| --- | --- |
+| ![Aviso francés con elipsis](screenshots/phase-5b/quick-notice-fr-before.png) | ![Aviso francés completo](screenshots/phase-5b/quick-notice-fr-after.png) |
+
+[Asistente francés a 390 px, tema claro](screenshots/phase-5b/assistant-fr-390-light.png): captura parcial del historial con foco visible. Los ejemplos españoles y los nombres personales ficticios se conservan deliberadamente.
+
+La batería incorpora **32 suites**; **591 resultados es una expectativa** pendiente de verificación en CI sobre el nuevo SHA. Siguen pendientes la revisión P3/errores restantes, tipos visibles y otros bordes, el inventario semántico final y la validación integral antes de activar idiomas. Los cuatro permanecen deshabilitados.

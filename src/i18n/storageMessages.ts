@@ -6,6 +6,7 @@ import type {DeletionReport,DeletionTarget} from '../utils/deletion';
 
 /** Owned diagnostics and dependency labels only. Never apply to personal fields or saved history. */
 const keys={
+  "No se ha guardado el movimiento.": "assistant.saveFailed",
   "debe ser un objeto.": "storage_message.debe_ser_un_objeto",
   "falta este campo.": "storage_message.falta_este_campo",
   "campo no reconocido.": "storage_message.campo_no_reconocido",

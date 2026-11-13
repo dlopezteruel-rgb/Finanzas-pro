@@ -183,3 +183,8 @@ button:disabled { cursor: not-allowed; }
   .catalog-family-toggle > :first-child { flex-basis: 100%; }
   .catalog-family-toggle > .text-right { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; text-align: left; }
 }
+
+/* Native success text remains readable in both themes. */
+.quick-entry-notice { background: var(--surface); color: var(--success); border: 1px solid var(--success); }
+
+.quick-entry-notice > span { min-width: 0; overflow-wrap: anywhere; }

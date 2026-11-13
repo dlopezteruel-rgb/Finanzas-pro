@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n } from "../i18n";
 import {SubitemSelector} from './SubitemSelector';
 import React, { useState } from 'react';
@@ -41,7 +42,7 @@ export function MovementProposalModal({ proposal, wallets, partidas, subitems, o
       <label className="block">{uiText("movement_proposal.estado")}<select aria-label={uiText("movement_proposal.estado")} className={inputClass} value={String(draft.processed)} onChange={e => setDraft({ ...draft, processed: e.target.value === 'true' })}>
         <option value="true">{uiText("movement_proposal.tramitado")}</option><option value="false">{uiText("movement_proposal.pendiente")}</option>
       </select></label>
-      {(error || saveError) && <p role="alert" className="text-amber-300">{error || saveError}</p>}
+      {(error || saveError) && <p role="alert" className="text-amber-300">{error?uiText('assistant.proposalValidation'):storageOwnedText(saveError,uiText)}</p>}
       <div className="flex justify-end gap-2">
         <button type="button" disabled={busy} onClick={onCancel} className="rounded-xl bg-white/10 px-4 py-2">{uiText("transfer.cancelar")}</button>
         <button type="submit" disabled={busy || !wallets.length || !options.some(p=>p.code===draft.code)} className="rounded-xl bg-sky-500 text-slate-950 font-bold px-4 py-2 disabled:opacity-40">{busy ? uiText("transfer.guardando") : uiText("movement_proposal.confirmar_y_registrar")}</button>

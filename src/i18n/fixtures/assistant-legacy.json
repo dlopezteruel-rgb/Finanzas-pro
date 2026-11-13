@@ -1,0 +1,1438 @@
+{
+  "source": "23135fe902f1459bccd77648ed2b49277048f103",
+  "fictional": true,
+  "rows": [
+    {
+      "scenario": "standard",
+      "query": "¿Cuánto tengo realmente disponible?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nSaldo líquido actual: **1.000,00 €**. Saldo estimado hasta 2026-12-09: **250,00 €**. Mínimo estimado: 250,00 €.\nMargen de planificación tras ahorro objetivo: -100,00 €. No es saldo bancario. Créditos pendientes (200,00 €) y deudas (0,00 €) están separados del efectivo.\nLa planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería.",
+      "moneyCents": [
+        100000,
+        25000,
+        25000,
+        -10000,
+        20000,
+        0
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Qué pagos se aproximan?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Qué parte viene arrastrada?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\n| Partida | Base | Arrastre | Efectivo |\n| :--- | :--- | :--- | :--- |\n\nNo hay arrastres guardados en este periodo.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Qué partidas están en alerta?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay partidas de gasto al 90 % o por encima del presupuesto guardado.\nLa desviación compara el gasto económico propio tramitado con el presupuesto efectivo; los pendientes se muestran separados.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Qué gastos puedo reducir para ahorrar 150 € más?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nSimulación de ahorro adicional: 150,00 €.\n- Alquiler ficticio: reducir hasta 150,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        15000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        15000
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo ahorrar 600 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\n- Alquiler ficticio: reducir hasta 100,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        10000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo ahorrar 1.500,00 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 1.500,00 €; reducción necesaria frente al balance previsto: 1.000,00 €.\n- Alquiler ficticio: reducir hasta 1.000,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        100000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        150000,
+        100000
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo ahorrar 1.500 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo ahorrar 99999999999999999999 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo distribuir mis ingresos?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngresos previstos: 3.000,00 €; gastos efectivos: 2.500,00 €; ahorro objetivo: 600,00 €; margen tras objetivo: -100,00 €.\nÚltima aprobación #1: 2026-11-10T12:00:00.000Z; vigente.\n| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| Nombre personal {amount}$& | 3.000,00 € | 0,00 € | 3.000,00 € | 0,00 € | 0,00 € |\n| Alquiler ficticio | 2.500,00 € | 0,00 € | 2.500,00 € | 0,00 € | 0,00 € |\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        -10000,
+        300000,
+        0,
+        300000,
+        0,
+        0,
+        250000,
+        0,
+        250000,
+        0,
+        0
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "Resumen de mis préstamos y deudas",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "standard",
+      "query": "Consejos generales de organización",
+      "text": null,
+      "moneyCents": []
+    },
+    {
+      "scenario": "standard",
+      "query": "¿Cómo ahorrar?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\n- Alquiler ficticio: reducir hasta 100,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        10000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cuánto tengo realmente disponible?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nSaldo líquido actual: **1.000,00 €**. Saldo estimado hasta 2026-12-09: **250,00 €**. Mínimo estimado: 250,00 €.\nMargen de planificación tras ahorro objetivo: -100,00 €. No es saldo bancario. Créditos pendientes (200,00 €) y deudas (0,00 €) están separados del efectivo.\nLa planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería.",
+      "moneyCents": [
+        100000,
+        25000,
+        25000,
+        -10000,
+        20000,
+        0
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Qué pagos se aproximan?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Qué parte viene arrastrada?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\n| Partida | Base | Arrastre | Efectivo |\n| :--- | :--- | :--- | :--- |\n| Alquiler ficticio | 2.500,00 € | 10,00 € | 2.510,00 € |\nEfectivo = base + arrastre. El arrastre no es un ingreso bancario.",
+      "moneyCents": [
+        250000,
+        1000,
+        251000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Qué partidas están en alerta?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\n| Partida | Base + arrastre | Tramitado propio | Pendiente propio | Desviación |\n| :--- | :--- | :--- | :--- | :--- |\n| Alquiler ficticio | 2.500,00 € + 10,00 € | 2.511,00 € | 12,34 € | 1,00 € |\nLa desviación compara el gasto económico propio tramitado con el presupuesto efectivo; los pendientes se muestran separados.",
+      "moneyCents": [
+        250000,
+        1000,
+        251100,
+        1234,
+        100
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Qué gastos puedo reducir para ahorrar 150 € más?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nSimulación de ahorro adicional: 150,00 €.\nNo hay margen de gasto no comprometido suficiente en las partidas guardadas.\nQuedan 150,00 € sin cubrir: faltan ingresos o es necesario revisar compromisos.\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        50000,
+        15000,
+        15000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo ahorrar 600 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\nNo hay margen de gasto no comprometido suficiente en las partidas guardadas.\nQuedan 100,00 € sin cubrir: faltan ingresos o es necesario revisar compromisos.\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000,
+        10000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo ahorrar 1.500,00 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 1.500,00 €; reducción necesaria frente al balance previsto: 1.000,00 €.\nNo hay margen de gasto no comprometido suficiente en las partidas guardadas.\nQuedan 1.000,00 € sin cubrir: faltan ingresos o es necesario revisar compromisos.\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        50000,
+        150000,
+        100000,
+        100000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo ahorrar 1.500 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo ahorrar 99999999999999999999 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo distribuir mis ingresos?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngresos previstos: 3.000,00 €; gastos efectivos: 2.500,00 €; ahorro objetivo: 600,00 €; margen tras objetivo: -100,00 €.\nÚltima aprobación #1: 2026-11-10T12:00:00.000Z; vigente.\n| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| Nombre personal {amount}$& | 3.000,00 € | 0,00 € | 3.000,00 € | 0,00 € | 0,00 € |\n| Alquiler ficticio | 2.500,00 € | 10,00 € | 2.510,00 € | 2.511,00 € | 12,34 € |\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        -10000,
+        300000,
+        0,
+        300000,
+        0,
+        0,
+        250000,
+        1000,
+        251000,
+        251100,
+        1234
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "Resumen de mis préstamos y deudas",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "exceeded",
+      "query": "Consejos generales de organización",
+      "text": null,
+      "moneyCents": []
+    },
+    {
+      "scenario": "exceeded",
+      "query": "¿Cómo ahorrar?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\nNo hay margen de gasto no comprometido suficiente en las partidas guardadas.\nQuedan 100,00 € sin cubrir: faltan ingresos o es necesario revisar compromisos.\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000,
+        10000
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cuánto tengo realmente disponible?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nSaldo líquido actual: **1.000,00 €**. Saldo estimado hasta 2026-12-09: **250,00 €**. Mínimo estimado: 250,00 €.\nMargen de planificación tras ahorro objetivo: -100,00 €. No es saldo bancario. Créditos pendientes (200,00 €) y deudas (0,00 €) están separados del efectivo.\nLa planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería.",
+      "moneyCents": [
+        100000,
+        25000,
+        25000,
+        -10000,
+        20000,
+        0
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Qué pagos se aproximan?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\nSe muestran los primeros 60 flujos; consulta Tesorería para el detalle completo.\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Qué parte viene arrastrada?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\n| Partida | Base | Arrastre | Efectivo |\n| :--- | :--- | :--- | :--- |\n\nNo hay arrastres guardados en este periodo.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Qué partidas están en alerta?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay partidas de gasto al 90 % o por encima del presupuesto guardado.\nLa desviación compara el gasto económico propio tramitado con el presupuesto efectivo; los pendientes se muestran separados.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Qué gastos puedo reducir para ahorrar 150 € más?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nSimulación de ahorro adicional: 150,00 €.\n- Alquiler ficticio: reducir hasta 150,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        15000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        15000
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo ahorrar 600 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\n- Alquiler ficticio: reducir hasta 100,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        10000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo ahorrar 1.500,00 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 1.500,00 €; reducción necesaria frente al balance previsto: 1.000,00 €.\n- Alquiler ficticio: reducir hasta 1.000,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        100000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        150000,
+        100000
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo ahorrar 1.500 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo ahorrar 99999999999999999999 €?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEscribe un objetivo inequívoco, por ejemplo 1500 o 1.500,00 €. No se ha realizado ninguna modificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo distribuir mis ingresos?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngresos previstos: 3.000,00 €; gastos efectivos: 2.500,00 €; ahorro objetivo: 600,00 €; margen tras objetivo: -100,00 €.\nÚltima aprobación #1: 2026-11-10T12:00:00.000Z; vigente.\n| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n| Nombre personal {amount}$& | 3.000,00 € | 0,00 € | 3.000,00 € | 0,00 € | 0,00 € |\n| Alquiler ficticio | 2.500,00 € | 0,00 € | 2.500,00 € | 0,00 € | 0,00 € |\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.",
+      "moneyCents": [
+        300000,
+        250000,
+        60000,
+        -10000,
+        300000,
+        0,
+        300000,
+        0,
+        0,
+        250000,
+        0,
+        250000,
+        0,
+        0
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "Resumen de mis préstamos y deudas",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\n| 2026-11-15 | Movimiento pendiente | 12,34 € |\n| 2026-11-15 | Propuesta sin registrar | 12,34 € |\n| 2026-11-15 | Compromiso | 12,34 € |\n| 2026-11-15 | Cuota estimada | 12,34 € |\nSe muestran los primeros 60 flujos; consulta Tesorería para el detalle completo.\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234,
+        1234
+      ]
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "Consejos generales de organización",
+      "text": null,
+      "moneyCents": []
+    },
+    {
+      "scenario": "manyFlows",
+      "query": "¿Cómo ahorrar?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nIngreso previsto: 3.000,00 €; gasto efectivo previsto: 2.500,00 €; ahorro objetivo guardado: 600,00 €; balance previsto: 500,00 €.\nObjetivo consultado: 600,00 €; reducción necesaria frente al balance previsto: 100,00 €.\n- Alquiler ficticio: reducir hasta 100,00 € de 2.500,00 € todavía no ejecutados ni pendientes.\n\nSon opciones matemáticas sobre previsiones, no una valoración de qué gasto es prescindible. No se han modificado presupuestos ni registrado movimientos.",
+      "moneyCents": [
+        10000,
+        250000,
+        300000,
+        250000,
+        60000,
+        50000,
+        60000,
+        10000
+      ]
+    },
+    {
+      "scenario": "unsafe",
+      "query": "¿Cómo ahorrar?",
+      "text": "### Datos guardados · 2026-11\nEstado: Aprobado. Importes económicos del mes; tesorería a 2026-11-10.\nEl objetivo solicitado supera el rango de cálculo. Usa un importe en céntimos válido.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cuánto tengo realmente disponible?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nSaldo líquido actual: **1.000,00 €**. Saldo estimado hasta 2026-12-09: **250,00 €**. Mínimo estimado: 250,00 €.\nMargen de planificación tras ahorro objetivo: 0,00 €. No es saldo bancario. Créditos pendientes (200,00 €) y deudas (0,00 €) están separados del efectivo.\nLa planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería.",
+      "moneyCents": [
+        100000,
+        25000,
+        25000,
+        0,
+        20000,
+        0
+      ]
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Qué pagos se aproximan?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Qué parte viene arrastrada?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\n| Partida | Base | Arrastre | Efectivo |\n| :--- | :--- | :--- | :--- |\n\nNo hay arrastres guardados en este periodo.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Qué partidas están en alerta?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay partidas de gasto al 90 % o por encima del presupuesto guardado.\nLa desviación compara el gasto económico propio tramitado con el presupuesto efectivo; los pendientes se muestran separados.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Qué gastos puedo reducir para ahorrar 150 € más?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo ahorrar 600 €?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo ahorrar 1.500,00 €?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo ahorrar 1.500 €?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo ahorrar 99999999999999999999 €?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo distribuir mis ingresos?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nIngresos previstos: 0,00 €; gastos efectivos: 0,00 €; ahorro objetivo: 0,00 €; margen tras objetivo: 0,00 €.\nNo existe aprobación guardada.\n| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |\n\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.",
+      "moneyCents": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "scenario": "empty",
+      "query": "Resumen de mis préstamos y deudas",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nMe deben: 200,00 €. Debo: 0,00 €. Vencido orientativo: 0,00 €.\nReglas activas: 1; pausadas: 0. Propuestas periódicas: ingresos 0,00 €, gastos 950,00 €.\n| Fecha | Fuente | Flujo previsto |\n| :--- | :--- | :--- |\n| 2026-11-15 | Compromiso | 200,00 € |\n| 2026-11-15 | Propuesta sin registrar | -950,00 € |\n\nLos cobros sin vencimiento no tienen fecha estimada. Consulta Deudas y Tesorería para revisar fuentes.",
+      "moneyCents": [
+        20000,
+        0,
+        0,
+        0,
+        95000,
+        20000,
+        -95000
+      ]
+    },
+    {
+      "scenario": "empty",
+      "query": "Consejos generales de organización",
+      "text": null,
+      "moneyCents": []
+    },
+    {
+      "scenario": "empty",
+      "query": "¿Cómo ahorrar?",
+      "text": "### Datos guardados · 2029-02\nEstado: Sin plan. Importes económicos del mes; tesorería a 2026-11-10.\nNo hay ingresos previstos suficientes guardados para calcular cómo distribuirlos o alcanzar un ahorro. Guarda primero ingresos, gastos y objetivo en Planificación.",
+      "moneyCents": []
+    }
+  ],
+  "serviceContexts": {
+    "standard": {
+      "month": "2026-11",
+      "asOf": "2026-11-10",
+      "status": "Aprobado",
+      "units": "integer cents",
+      "totals": {
+        "income": 300000,
+        "expenses": 250000,
+        "savings": 60000,
+        "available": 240000,
+        "margin": -10000,
+        "balance": 50000
+      },
+      "approval": {
+        "number": 1,
+        "approvedAt": "2026-11-10T12:00:00.000Z",
+        "current": true,
+        "totals": {
+          "income": 300000,
+          "expenses": 250000,
+          "savings": 60000,
+          "available": 240000,
+          "margin": -10000,
+          "balance": 50000
+        }
+      },
+      "partidas": [
+        {
+          "code": "i",
+          "name": "Nombre personal {amount}$&",
+          "type": "INGRESO",
+          "baseCents": 300000,
+          "carryCents": 0,
+          "effectiveCents": 300000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 300000
+        },
+        {
+          "code": "g",
+          "name": "Alquiler ficticio",
+          "type": "GASTO",
+          "baseCents": 250000,
+          "carryCents": 0,
+          "effectiveCents": 250000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 250000
+        }
+      ],
+      "obligations": {
+        "receivableCents": 20000,
+        "payableCents": 0,
+        "overdueCents": 0
+      },
+      "recurring": {
+        "active": 1,
+        "paused": 0,
+        "expectedIncomeCents": 0,
+        "expectedExpenseCents": 95000
+      },
+      "treasury": {
+        "from": "2026-11-10",
+        "to": "2026-12-09",
+        "liquidCents": 100000,
+        "projectedCents": 25000,
+        "minimumCents": 25000,
+        "events": [
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 20000
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "proposed",
+            "amountCents": -95000
+          }
+        ],
+        "warnings": [
+          "La planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería."
+        ]
+      }
+    },
+    "exceeded": {
+      "month": "2026-11",
+      "asOf": "2026-11-10",
+      "status": "Aprobado",
+      "units": "integer cents",
+      "totals": {
+        "income": 300000,
+        "expenses": 250000,
+        "savings": 60000,
+        "available": 240000,
+        "margin": -10000,
+        "balance": 50000
+      },
+      "approval": {
+        "number": 1,
+        "approvedAt": "2026-11-10T12:00:00.000Z",
+        "current": true,
+        "totals": {
+          "income": 300000,
+          "expenses": 250000,
+          "savings": 60000,
+          "available": 240000,
+          "margin": -10000,
+          "balance": 50000
+        }
+      },
+      "partidas": [
+        {
+          "code": "i",
+          "name": "Nombre personal {amount}$&",
+          "type": "INGRESO",
+          "baseCents": 300000,
+          "carryCents": 0,
+          "effectiveCents": 300000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 300000
+        },
+        {
+          "code": "g",
+          "name": "Alquiler ficticio",
+          "type": "GASTO",
+          "baseCents": 250000,
+          "carryCents": 1000,
+          "effectiveCents": 251000,
+          "executedCents": 251100,
+          "pendingCents": 1234,
+          "remainingCents": -100
+        }
+      ],
+      "obligations": {
+        "receivableCents": 20000,
+        "payableCents": 0,
+        "overdueCents": 0
+      },
+      "recurring": {
+        "active": 1,
+        "paused": 0,
+        "expectedIncomeCents": 0,
+        "expectedExpenseCents": 95000
+      },
+      "treasury": {
+        "from": "2026-11-10",
+        "to": "2026-12-09",
+        "liquidCents": 100000,
+        "projectedCents": 25000,
+        "minimumCents": 25000,
+        "events": [
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 20000
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "proposed",
+            "amountCents": -95000
+          }
+        ],
+        "warnings": [
+          "La planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería."
+        ]
+      }
+    },
+    "manyFlows": {
+      "month": "2026-11",
+      "asOf": "2026-11-10",
+      "status": "Aprobado",
+      "units": "integer cents",
+      "totals": {
+        "income": 300000,
+        "expenses": 250000,
+        "savings": 60000,
+        "available": 240000,
+        "margin": -10000,
+        "balance": 50000
+      },
+      "approval": {
+        "number": 1,
+        "approvedAt": "2026-11-10T12:00:00.000Z",
+        "current": true,
+        "totals": {
+          "income": 300000,
+          "expenses": 250000,
+          "savings": 60000,
+          "available": 240000,
+          "margin": -10000,
+          "balance": 50000
+        }
+      },
+      "partidas": [
+        {
+          "code": "i",
+          "name": "Nombre personal {amount}$&",
+          "type": "INGRESO",
+          "baseCents": 300000,
+          "carryCents": 0,
+          "effectiveCents": 300000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 300000
+        },
+        {
+          "code": "g",
+          "name": "Alquiler ficticio",
+          "type": "GASTO",
+          "baseCents": 250000,
+          "carryCents": 0,
+          "effectiveCents": 250000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 250000
+        }
+      ],
+      "obligations": {
+        "receivableCents": 20000,
+        "payableCents": 0,
+        "overdueCents": 0
+      },
+      "recurring": {
+        "active": 1,
+        "paused": 0,
+        "expectedIncomeCents": 0,
+        "expectedExpenseCents": 95000
+      },
+      "treasury": {
+        "from": "2026-11-10",
+        "to": "2026-12-09",
+        "liquidCents": 100000,
+        "projectedCents": 25000,
+        "minimumCents": 25000,
+        "events": [
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "pending",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 1234
+          },
+          {
+            "date": "2026-11-15",
+            "source": "loan",
+            "certainty": "estimated",
+            "amountCents": 1234
+          }
+        ],
+        "warnings": [
+          "La planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería."
+        ]
+      }
+    },
+    "unsafe": {
+      "month": "2026-11",
+      "asOf": "2026-11-10",
+      "status": "Aprobado",
+      "units": "integer cents",
+      "totals": {
+        "income": 300000,
+        "expenses": 250000,
+        "savings": 1.5,
+        "available": 240000,
+        "margin": -10000,
+        "balance": 50000
+      },
+      "approval": {
+        "number": 1,
+        "approvedAt": "2026-11-10T12:00:00.000Z",
+        "current": true,
+        "totals": {
+          "income": 300000,
+          "expenses": 250000,
+          "savings": 60000,
+          "available": 240000,
+          "margin": -10000,
+          "balance": 50000
+        }
+      },
+      "partidas": [
+        {
+          "code": "i",
+          "name": "Nombre personal {amount}$&",
+          "type": "INGRESO",
+          "baseCents": 300000,
+          "carryCents": 0,
+          "effectiveCents": 300000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 300000
+        },
+        {
+          "code": "g",
+          "name": "Alquiler ficticio",
+          "type": "GASTO",
+          "baseCents": 250000,
+          "carryCents": 0,
+          "effectiveCents": 250000,
+          "executedCents": 0,
+          "pendingCents": 0,
+          "remainingCents": 250000
+        }
+      ],
+      "obligations": {
+        "receivableCents": 20000,
+        "payableCents": 0,
+        "overdueCents": 0
+      },
+      "recurring": {
+        "active": 1,
+        "paused": 0,
+        "expectedIncomeCents": 0,
+        "expectedExpenseCents": 95000
+      },
+      "treasury": {
+        "from": "2026-11-10",
+        "to": "2026-12-09",
+        "liquidCents": 100000,
+        "projectedCents": 25000,
+        "minimumCents": 25000,
+        "events": [
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 20000
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "proposed",
+            "amountCents": -95000
+          }
+        ],
+        "warnings": [
+          "La planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería."
+        ]
+      }
+    },
+    "empty": {
+      "month": "2029-02",
+      "asOf": "2026-11-10",
+      "status": "Sin plan",
+      "units": "integer cents",
+      "totals": {
+        "income": 0,
+        "expenses": 0,
+        "savings": 0,
+        "available": 0,
+        "margin": 0,
+        "balance": 0
+      },
+      "approval": null,
+      "partidas": [],
+      "obligations": {
+        "receivableCents": 20000,
+        "payableCents": 0,
+        "overdueCents": 0
+      },
+      "recurring": {
+        "active": 1,
+        "paused": 0,
+        "expectedIncomeCents": 0,
+        "expectedExpenseCents": 95000
+      },
+      "treasury": {
+        "from": "2026-11-10",
+        "to": "2026-12-09",
+        "liquidCents": 100000,
+        "projectedCents": 25000,
+        "minimumCents": 25000,
+        "events": [
+          {
+            "date": "2026-11-15",
+            "source": "personal",
+            "certainty": "estimated",
+            "amountCents": 20000
+          },
+          {
+            "date": "2026-11-15",
+            "source": "recurring",
+            "certainty": "proposed",
+            "amountCents": -95000
+          }
+        ],
+        "warnings": [
+          "La planificación presupuestaria es una previsión económica; no se suma como un flujo adicional de tesorería."
+        ]
+      }
+    }
+  }
+}

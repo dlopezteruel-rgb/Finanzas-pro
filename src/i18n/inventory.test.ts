@@ -16,3 +16,11 @@ test('inventario AST: recorre la aplicación y las fronteras API sin tratar el �
  assert.equal(rows.some(row=>/\.test\.tsx?$/.test(row.file)),false);
  assert.ok(rows.every(row=>typeof row.text==='string'&&row.line>0));
 });
+
+test('inventario AST: reconoce la presentación opcional sin ocultar texto arbitrario del servicio',()=>{
+ const source=`export function advice(ui) {return ui?.text('assistant.advice.prefix',{month:'2026-11'})??'Datos guardados';} export function remote(response){return response.text('Contenido remoto');}`;
+ const rows=inventoryFile('fixture.ts',source);
+ assert.equal(rows.find(row=>row.text==='assistant.advice.prefix')?.classification,'translation-key');
+ assert.equal(rows.find(row=>row.text==='Datos guardados')?.classification,'review');
+ assert.equal(rows.find(row=>row.text==='Contenido remoto')?.classification,'review');
+});

@@ -183,6 +183,21 @@
         "key": "financial_charts.tipo_3868d2",
         "text": "Tipo",
         "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "quick_natural_language_input.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "quick.example.dinner",
+        "text": "🍽️ Cena 15,50 €",
+        "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "assistant.negative",
+        "text": "Negativo",
+        "reason": "Reviewed native Italian wording and euro example"
       }
     ],
     "fr": [
@@ -210,6 +225,11 @@
         "key": "chart.row.category",
         "text": "{type} · {name}",
         "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "assistant.favourable",
+        "text": "Favorable",
+        "reason": "Reviewed native French adjective"
       }
     ],
     "pt": [
@@ -812,6 +832,26 @@
         "key": "chart.pagination",
         "text": "Página {page} de {pages}",
         "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "assistant_chat.enviar",
+        "text": "Enviar",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "quick_natural_language_input.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "quick.example.fuel",
+        "text": "⛽ Gasolina 55 €",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "assistant.negative",
+        "text": "Negativo",
+        "reason": "Reviewed native European Portuguese wording and euro example"
       }
     ]
   }
