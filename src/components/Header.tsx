@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { useI18n } from '../i18n';
+import { LanguageSelector } from './LanguageSelector';
+import React, { useState, useRef, useEffect } from 'react';
 import { Brand } from './Brand';
 import { PeriodSelector } from './PeriodSelector';
 import { Calendar, Download, Upload, RotateCcw, MoreHorizontal, ChevronDown, Check, Sparkles, Trash2, Sun, Moon } from 'lucide-react';
@@ -33,7 +35,17 @@ export const Header: React.FC<HeaderProps> = ({
   onResetDemo,
   onClearAllData,
 }) => {
+  const { t } = useI18n();
+  const menuButton = useRef<HTMLButtonElement>(null);
+  const menuPanel = useRef<HTMLDivElement>(null);
   const [showMenu, setShowMenu] = useState(false);
+  useEffect(() => {
+    if (!showMenu) return;
+    menuPanel.current?.querySelector<HTMLButtonElement>('button')?.focus();
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); setShowMenu(false); menuButton.current?.focus(); } };
+    document.addEventListener('keydown', close, true);
+    return () => document.removeEventListener('keydown', close, true);
+  }, [showMenu]);
 
   // Format month name cleanly e.g. "Oct 2026"
   const formatShortMonth = (my: string) => {
@@ -53,8 +65,8 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={onToggleTheme}
             className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white flex items-center justify-center border border-white/[0.08] transition-all cursor-pointer"
-            aria-label={`Cambiar a modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
-            title={`Modo ${theme === 'dark' ? 'claro' : 'oscuro'}`}
+            aria-label={t('theme.switch', { mode: t(theme === 'dark' ? 'theme.light' : 'theme.dark') })}
+            title={t('theme.title', { mode: t(theme === 'dark' ? 'theme.light' : 'theme.dark') })}
           >
             {theme === 'dark' ? (
               <Sun className="w-4 h-4 text-amber-300 hover:rotate-45 transition-transform" />
@@ -68,7 +80,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               onClick={() => setShowMenu(!showMenu)}
               className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 hover:text-white flex items-center justify-center border border-white/[0.08] transition-colors cursor-pointer"
-              aria-label="Opciones y datos"
+              ref={menuButton} aria-label={t('options.title')} aria-expanded={showMenu} aria-controls="options-panel"
             >
               <MoreHorizontal className="w-4 h-4" />
             </button>
@@ -80,7 +92,7 @@ export const Header: React.FC<HeaderProps> = ({
                   className="fixed inset-0 z-40"
                   onClick={() => setShowMenu(false)}
                 />
-                <div className="absolute right-0 mt-2 w-48 bg-[#161c2b] border border-white/10 rounded-2xl p-1.5 shadow-2xl z-50 text-xs animate-fadeIn">
+                <div id="options-panel" ref={menuPanel} role="region" aria-label={t('options.title')} className="absolute right-0 mt-2 w-64 max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-5rem)] overflow-y-auto bg-[#161c2b] border border-white/10 rounded-2xl p-1.5 shadow-2xl z-50 text-xs animate-fadeIn">
                   <button
                     onClick={() => {
                       onExportJSON();
@@ -89,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className="w-full text-left px-3 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-2 cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5 text-sky-400" />
-                    <span>Exportar JSON</span>
+                    <span>{t('options.export')}</span>
                   </button>
 
                   <button
@@ -100,12 +112,12 @@ export const Header: React.FC<HeaderProps> = ({
                     className="w-full text-left px-3 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-2 cursor-pointer"
                   >
                     <Upload className="w-3.5 h-3.5 text-indigo-400" />
-                    <span>Importar JSON</span>
+                    <span>{t('options.import')}</span>
                   </button>
 
                   <button onClick={() => { onOpenRecovery(); setShowMenu(false); }} className="w-full text-left px-3 py-2 rounded-xl text-slate-200 hover:bg-white/10 flex items-center gap-2 cursor-pointer">
                     <Download className="w-3.5 h-3.5 text-sky-400" />
-                    <span>Copias de recuperación</span>
+                    <span>{t('options.recovery')}</span>
                   </button>
                   <div className="my-1 border-t border-white/[0.06]" />
 
@@ -117,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
                     className="w-full text-left px-3 py-2 rounded-xl text-amber-400 hover:bg-white/10 flex items-center gap-2 cursor-pointer"
                   >
                     <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Restablecer datos demo</span>
+                    <span>{t('options.demo')}</span>
                   </button>
 
                   <button
@@ -128,8 +140,9 @@ export const Header: React.FC<HeaderProps> = ({
                     className="w-full text-left px-3 py-2 rounded-xl text-rose-400 hover:bg-rose-500/10 flex items-center gap-2 cursor-pointer font-medium"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
-                    <span>Limpiar todo (Borrar datos)</span>
+                    <span>{t('options.clear')}</span>
                   </button>
+                  <LanguageSelector />
                 </div>
               </>
             )}

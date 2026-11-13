@@ -21,3 +21,50 @@ test('i18n: fecha de presentación mantiene Madrid al cruzar medianoche sin camb
   assert.match(presentationDate(date, 'en'), /1 December 2026/);
   assert.equal(date.toISOString(), before);
 });
+
+import { es, translate, translateFrom, validateDictionary, pluralCategory, LANGUAGE_KEY, readLanguagePreference, writeLanguagePreference } from './index';
+import { readFileSync } from 'node:fs';
+import { makeBackup, parseBackup, DATA_KEY } from '../utils/backup';
+import {editCatalog} from '../utils/budgetCatalog';
+import { intelligentFixture } from '../../scripts/intelligentFixture';
+test('i18n: diccionario completo, sin duplicados y con parámetros compatibles', () => {
+  assert.deepEqual(validateDictionary(Object.entries(es)), []);
+  assert.ok(validateDictionary([...Object.entries(es), ['common.cancel','Cancelar']]).some(e=>e.startsWith('Duplicate')));
+  assert.ok(validateDictionary(Object.entries(es).filter(([k])=>k!=='common.cancel')).some(e=>e==='Missing: common.cancel'));
+  assert.ok(validateDictionary([...Object.entries(es), ['theme.switch','Modo {otro}']]).some(e=>e==='Incompatible: theme.switch'));
+  assert.ok(validateDictionary([...Object.entries(es), ['unknown','No']]).some(e=>e.startsWith('Unknown')));
+  const source = readFileSync(new URL('./es.ts',import.meta.url),'utf8');
+  const keys = [...source.matchAll(/'([^']+)'\s*:/g)].map(m=>m[1]);
+  assert.equal(keys.length, new Set(keys).size);
+});
+test('i18n: fallback español e interpolación literal segura, sin evaluación recursiva',()=>{
+  assert.equal(translateFrom({},'common.cancel'),'Cancelar');
+  assert.equal(translateFrom({'common.cancel':''},'common.cancel'),'Cancelar');
+  assert.equal(translate('theme.switch',{mode:'<img onerror=x>{mode}$&'}),'Cambiar a modo <img onerror=x>{mode}$&');
+  assert.equal(translateFrom({},'theme.switch'),'Cambiar a modo {mode}');
+  assert.equal(pluralCategory(1),'one'); assert.equal(pluralCategory(2),'other');
+});
+test('i18n: preferencias estrictas sin detección de navegador ni reescritura de valores corruptos',()=>{
+  const values=new Map<string,string>(), writes:string[]=[];
+  const storage={getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>{values.set(k,v);writes.push(k);}};
+  assert.equal(readLanguagePreference(storage),'es');
+  for(const value of ['en','it','fr','pt','xx','ES','__proto__','{"language":"es"}','']) {
+    values.set(LANGUAGE_KEY,value); assert.equal(readLanguagePreference(storage),'es');assert.equal(writeLanguagePreference(value,storage),false);assert.equal(values.get(LANGUAGE_KEY),value);
+  }
+  assert.deepEqual(writes,[]); assert.equal(writeLanguagePreference('es',storage),true);assert.equal(readLanguagePreference(storage),'es');assert.deepEqual(writes,[LANGUAGE_KEY]);
+});
+test('i18n: almacenamiento ausente, lectura y cuota denegadas conservan un resultado predecible',()=>{
+  const blocked={getItem(){throw Error('denied');},setItem(){throw Error('quota');}};
+  assert.equal(readLanguagePreference(null),'es');assert.equal(readLanguagePreference(blocked),'es');
+  assert.equal(writeLanguagePreference('es',null),false);assert.equal(writeLanguagePreference('es',blocked),false);
+  assert.equal(readLanguagePreference(),'es'); // Node has no browser storage
+});
+test('i18n: preferencia y presentación no modifican FinanceStore, números, fechas o JSON',()=>{
+  const data=editCatalog(intelligentFixture(),{kind:'createFamily',type:'GASTO',name:'Familia personal ficticia',id:'i18n'}),before=JSON.stringify(data),backup=makeBackup(data),raw=JSON.stringify(backup);
+  assert.equal(backup.version,'3.4');
+  const entries=new Map([[DATA_KEY,raw]]), storage={getItem:(k:string)=>entries.get(k)??null,setItem:(k:string,v:string)=>{entries.set(k,v);}};
+  writeLanguagePreference('es',storage);
+  for(const language of Object.keys(languages) as (keyof typeof languages)[]) { presentationMoney(1234.56,language);presentationDate(new Date('2026-10-31T23:30:00Z'),language); }
+  assert.equal(entries.get(DATA_KEY),raw);assert.equal(JSON.stringify(data),before);assert.deepEqual(parseBackup(raw),parseBackup(JSON.stringify(backup)));
+  assert.equal(raw.includes(LANGUAGE_KEY),false);assert.notEqual(LANGUAGE_KEY,DATA_KEY);
+});

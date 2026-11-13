@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n';
 import {madridDate} from '../utils/financialCalendar';
 import {classificationCatalog} from '../utils/budgetCatalog';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
@@ -31,6 +32,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   onSaveLoan,
   onDeleteLoan,
 }) => {
+  const { t } = useI18n();
   const isEditing = !!loanToEdit;
 
   const submission = useAsyncForm();
@@ -300,7 +302,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
               aria-label="Cerrar préstamo" onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
-              Cancelar
+              {t('common.cancel')}
             </button>
             <button
               type="submit"
