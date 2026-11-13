@@ -18,8 +18,11 @@ test('5A: idioma visual aislado de finanzas',{timeout:120000},async t=>{
   for(const width of [390,768,1280])for(const theme of ['light','dark'] as const)await t.test(`${width}px ${theme}: teclado, disponibilidad, preferencia, tema, axe y cero escrituras financieras`,async()=>{
     const c=await browser.newContext({viewport:{width,height:900},locale:'fr-FR',serviceWorkers:'block'});try{
       await c.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
-      await c.addInitScript(({key,value})=>{if(!localStorage.getItem(key))localStorage.setItem(key,value);},{key:DATA_KEY,value:JSON.stringify(makeBackup({...responsiveFixture(),theme}))});
+      await c.addInitScript(({key,value})=>{(window as any).__name=(fn:unknown)=>fn;if(!localStorage.getItem(key))localStorage.setItem(key,value);
+        const sample=()=>{if(!document.querySelector('.finance-app')){requestAnimationFrame(sample);return;}(window as any).__firstTheme=document.documentElement.getAttribute('data-theme');};requestAnimationFrame(sample);
+      },{key:DATA_KEY,value:JSON.stringify(makeBackup({...responsiveFixture(),theme}))});
       const p=await c.newPage();await p.goto(origin+'/app');const menu=p.getByRole('button',{name:'Opciones y datos',exact:true});await menu.waitFor();
+      await p.waitForFunction(()=>(window as any).__firstTheme!==undefined);assert.equal(await p.evaluate(()=>(window as any).__firstTheme),theme);
       const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
       await p.evaluate(key=>{(window as any).__financialWrites=[];const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites.push(v);return set.call(this,k,v);};},DATA_KEY);
       await menu.focus();await p.keyboard.press('Enter');await p.getByLabel('Idioma',{exact:true}).waitFor();
@@ -44,7 +47,9 @@ test('5A: idioma visual aislado de finanzas',{timeout:120000},async t=>{
       await c.addInitScript(({key,language,value})=>{if(!sessionStorage.getItem('seed')){localStorage.setItem(key,value);localStorage.setItem(language,'{"unknown":true}');sessionStorage.setItem('seed','1');}},{key:DATA_KEY,language:LANGUAGE_KEY,value:JSON.stringify(makeBackup(responsiveFixture()))});
       const p=await c.newPage();await p.goto(origin+'/app');await p.getByRole('button',{name:'Opciones y datos'}).click();const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
       assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'{"unknown":true}');
+      await p.evaluate(key=>{(window as any).__languageEvents=0;addEventListener('storage',event=>{if(event.key===key)(window as any).__languageEvents++;});},LANGUAGE_KEY);
       const other=await c.newPage();await other.goto(origin+'/app');await other.evaluate(k=>localStorage.setItem(k,'en'),LANGUAGE_KEY);
+      await p.waitForFunction(()=>(window as any).__languageEvents===1);
       assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');
       await p.evaluate(key=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)throw new DOMException('quota','QuotaExceededError');return set.call(this,k,v);};},LANGUAGE_KEY);
       await p.getByLabel('Idioma',{exact:true}).selectOption('es');await p.getByRole('status').filter({hasText:'no se ha podido guardar'}).waitFor();

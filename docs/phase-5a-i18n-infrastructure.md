@@ -35,11 +35,11 @@ Nombres personalizados de cuentas/contactos, catálogo, conceptos, notas e hist�
 | P1 | Overlay, PeriodSelector y diálogos comunes | dialog.*, period.*, common.*, form.*; etiquetas, errores y estados pendientes |
 | P1 | App y avisos de almacenamiento/recuperación | storage.*, recovery.*, import.*; instrucciones y confirmaciones con consecuencias exactas |
 | P1 | TransactionModal, LoanModal, TransferModal, SettleDebtModal | movement.*, loan.*, transfer.*, settlement.*; sin traducir valores internos |
-| P1 | Dashboard, Wallets y movimientos | dashboard.*, wallets.*, transactions.*; totales y fechas de presentación |
-| P1 | Planning/Budget, catálogo y automatizaciones | planning.*, catalog.*, automation.*; archivo, dependencias, aprobaciones y plurales |
-| P2 | Contacts y gastos compartidos | contacts.*, shared.*; reparto, reintegros, estados y accesibilidad |
-| P2 | Chat, registro rápido y asistente | assistant.*, proposal.*; textos visibles solamente, sin cambiar el parser |
-| P2 | Charts y leyendas | charts.*; nombres de series estáticas y anuncios accesibles |
+| P1 | DashboardView, WalletsView y TransactionsView | dashboard.*, wallets.*, transactions.*; totales y fechas de presentación |
+| P1 | BudgetWorkspace, PlanningView, BudgetsView, CatalogManager y automatizaciones | planning.*, catalog.*, automation.*; archivo, dependencias, aprobaciones y plurales |
+| P2 | ContactsView, SharedExpenseDetail y gastos compartidos | contacts.*, shared.*; reparto, reintegros, estados y accesibilidad |
+| P2 | AssistantChatView, MovementProposalModal y registro rápido | assistant.*, proposal.*; textos visibles solamente, sin cambiar el parser |
+| P2 | ChartSlot, gráficos y leyendas | charts.*; nombres de series estáticas y anuncios accesibles |
 | P2 | Landing y navegación | completar/verificar claves existentes en los cuatro idiomas previstos |
 | P3 | Ayudas, tooltips y textos largos de módulos | help.*; revisión lingüística contextual y responsive |
 
@@ -52,6 +52,12 @@ Las familias son una propuesta de inventario, no claves declaradas sin uso. 5B d
 3. Unitarias y Chromium completas, navegación/teclado y axe, varios tamaños y ambos temas, verificando ausencia de interfaz mezclada.
 4. Importes/fechas correctos sin modificar parsers o contabilidad; datos personalizados e históricos intactos.
 5. Solo entonces registrar el diccionario y marcar status ready. La existencia parcial de un diccionario no habilita por sí sola un idioma previsto.
+
+## Incidencia observada en GitHub
+
+La ejecución [43399992606](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43399992606) detectó contraste insuficiente al cargar Inicio oscuro a 768 px: seis estados con colores intermedios entre claro y oscuro (4.19:1 y 4.48:1). Fueron 289 resultados correctos y dos fallidos (caso y contenedor); la suite i18n no llegó a ejecutarse. Unitarias y código verdes no equivalen a CI completo correcto.
+
+El tema se aplicaba en un efecto pasivo después del render. Se adelanta únicamente ese atributo a useLayoutEffect, antes del pintado, conservando valores y guardado. La regresión comprueba el tema en el primer frame visible en seis combinaciones y mantiene intacta la auditoría axe. La auditoría focalizada con Chrome for Testing 156.0.8078.4 completó sus ocho escenarios y contenedor sin fallos; se exige otra regresión completa local y remota.
 
 ## Validación
 
