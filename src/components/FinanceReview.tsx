@@ -1,3 +1,4 @@
+import {bankingOwnedText} from '../i18n/bankingMessages';
 import { useI18n } from "../i18n";
 import React from "react";
 import { SafeDialog } from "./SafeDialog";
@@ -26,7 +27,7 @@ export function FinanceReview({
     <SafeDialog title={title} onCancel={() => form.close(onCancel)}>
       {children}
       <p>{uiText("finance_review.solo_se_guardara_al_confirmar_si_cambia_el_formato")}</p>
-      {form.error && <p role="alert">{form.error}</p>}
+      {form.error && <p role="alert">{bankingOwnedText(form.error,uiText)}</p>}
       <div className="finance-actions">
         <button disabled={form.saving} onClick={onCancel}>{uiText("transfer.cancelar")}</button>
         <button

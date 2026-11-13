@@ -1,4 +1,6 @@
-import {useI18n} from "../i18n";
+import {bankingOwnedText} from '../i18n/bankingMessages';
+import {debtReviewText,type DebtReview} from '../i18n/bankingReviews';
+import {useI18n, I18nText } from "../i18n";
 import { initialWalletId } from '../utils/defaultWallet';
 import React, { useState } from "react";
 import type { FinanceData } from "../utils/backup";
@@ -32,7 +34,9 @@ export function DebtsWorkspace({
   onContacts: () => void;
   onMovement: (id: string) => void;
 }) {
-  const { formatCents: money , formatDate } = useI18n();
+  const { t: uiText } = useI18n();
+  const formatting = useI18n();
+  const { formatCents: money , formatDate } = formatting;
   const [direction, setDirection] = useState<"receivable" | "payable">(
       "payable",
     ),
@@ -48,7 +52,7 @@ export function DebtsWorkspace({
     } | null>(null),
     [payAmount, setPayAmount] = useState("");
   const [review, setReview] = useState<{
-    text: string;
+    presentation: DebtReview;
     apply: (d: FinanceData) => FinanceData;
   } | null>(null);
   const today = madridDate(),
@@ -90,7 +94,7 @@ export function DebtsWorkspace({
       saveObligation(data, next);
       setError("");
       setReview({
-        text: `${next.direction === "receivable" ? "Me deben" : "Debo"} ${money(next.principalCents)} · ${next.counterparty.name} · ${next.concept}. Este compromiso no modifica el banco ni crea ingresos/gastos.`,
+        presentation: {kind:"obligation",direction:next.direction,amountCents:next.principalCents,name:next.counterparty.name,concept:next.concept},
         apply: (d) => saveObligation(d, next),
       });
     } catch (e) {
@@ -107,7 +111,7 @@ export function DebtsWorkspace({
       settleObligation(data, pay!.id, input);
       setError("");
       setReview({
-        text: `Liquidación de ${money(input.amountCents)} · ${input.date} · ${input.kind === "bank" ? `Movimiento bancario ${input.processed ? "tramitado" : "pendiente"}; devolución de principal, sin ingreso/gasto económico.` : "Ajuste sin movimiento bancario. Declaro que esta liquidación no debe volver a registrarse contra la cuenta."}`,
+        presentation: {kind:"settlement",amountCents:input.amountCents,date:input.date,method:input.kind,processed:input.processed},
         apply: (d) => settleObligation(d, pay!.id, input),
       });
     } catch (e) {
@@ -115,61 +119,46 @@ export function DebtsWorkspace({
     }
   };
   return (
-    <section className="finance-module" aria-label="Deudas y cobros">
+    <section className="finance-module" aria-label={uiText("debts_workspace.deudas_y_cobros")}>
       <div className="finance-heading">
         <div>
-          <h1>Deudas y cobros</h1>
-          <p>
-            Me deben: {money(totals("receivable"))} · Debo:{" "}
-            {money(totals("payable"))}. Cantidades separadas del saldo líquido.
-          </p>
+          <h1>{uiText("debts_workspace.deudas_y_cobros")}</h1>
+          <p><I18nText id="debts_workspace.me_deben_debo_cantidades_separadas_del_saldo_liquido" values={{ money: (money(totals("receivable"))), content: (" "), money_f4cc9: (money(totals("payable"))) }} /></p>
         </div>
-        <button onClick={create}>Nuevo compromiso personal</button>
+        <button onClick={create}>{uiText("debts_workspace.nuevo_compromiso_personal")}</button>
       </div>
-      <div className="finance-actions" aria-label="Dirección de deuda">
+      <div className="finance-actions" aria-label={uiText("debts_workspace.direccion_de_deuda")}>
         <button
           aria-pressed={direction === "receivable"}
           onClick={() => setDirection("receivable")}
-        >
-          Me deben
-        </button>
+        >{uiText("debts_workspace.me_deben")}</button>
         <button
           aria-pressed={direction === "payable"}
           onClick={() => setDirection("payable")}
-        >
-          Debo
-        </button>
-        <label>
-          Estado
-          <select
-            aria-label="Estado de deudas"
+        >{uiText("debts_workspace.debo")}</button>
+        <label>{uiText("debts_workspace.estado")}<select
+            aria-label={uiText("debts_workspace.estado_de_deudas")}
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           >
-            <option value="all">Todos</option>
-            <option value="open">Pendientes</option>
-            <option value="overdue">Vencidos</option>
-            <option value="closed">Saldados / cancelados</option>
+            <option value="all">{uiText("debts_workspace.todos")}</option>
+            <option value="open">{uiText("debts_workspace.pendientes")}</option>
+            <option value="overdue">{uiText("debts_workspace.vencidos")}</option>
+            <option value="closed">{uiText("debts_workspace.saldados_cancelados")}</option>
           </select>
         </label>
-        <label>
-          Contacto o concepto
-          <input
-            aria-label="Buscar deuda"
+        <label>{uiText("debts_workspace.contacto_o_concepto")}<input
+            aria-label={uiText("debts_workspace.buscar_deuda")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </label>
       </div>
-      <p>
-        Vencido en este bloque:{" "}
-        {money(
+      <p><I18nText id="debts_workspace.vencido_en_este_bloque_los_gastos_compartidos_sin_vencimiento" values={{ content: (" "), money: (money(
           rows
             .filter((r) => r.direction === direction)
             .reduce((n, r) => n + r.overdueCents, 0),
-        )}
-        . Los gastos compartidos sin vencimiento no se consideran vencidos.
-      </p>
+        )) }} /></p>
       <div className="finance-grid">
         {matching.map((r) => (
           <article className="planning-card" key={`${r.source}:${r.id}`}>
@@ -178,41 +167,30 @@ export function DebtsWorkspace({
             </h2>
             <p>
               {r.source === "shared"
-                ? "Gasto compartido"
+                ? uiText("debts_workspace.gasto_compartido")
                 : r.source === "loan"
-                  ? "Préstamo existente"
-                  : "Compromiso personal"}{" "}
-              · {r.closed ? "Saldado / cancelado" : "Pendiente"} ·{" "}
+                  ? uiText("debts_workspace.prestamo_existente")
+                  : uiText("debts_workspace.compromiso_personal")}{" "}
+              · {r.closed ? uiText("debts_workspace.saldado_cancelado") : uiText("debts_workspace.pendiente")} ·{" "}
               {money(r.remainingCents)}
             </p>
-            <p>
-              Vencimiento: {r.dueDate ?? "Sin fecha"}
-              {r.overdueCents > 0 ? ` · Vencido ${money(r.overdueCents)}` : ""}
-            </p>
+            <p><I18nText id="debts_workspace.vencimiento" values={{ content: (r.dueDate ? formatDate(r.dueDate,{day:"2-digit",month:"2-digit",year:"numeric"}) : uiText("debts_workspace.sin_fecha")), content_a0286: (r.overdueCents > 0 ? uiText("debts_workspace.vencido", { overdueCents: money(r.overdueCents) }) : "") }} /></p>
             {r.source === "shared" && (
-              <button onClick={onContacts}>
-                Revisar reparto y liquidaciones en Contactos
-              </button>
+              <button onClick={onContacts}>{uiText("debts_workspace.revisar_reparto_y_liquidaciones_en_contactos")}</button>
             )}
             {r.source === "loan" && (
-              <p>
-                Cuotas, cálculos e historial en Préstamos existentes, más abajo.
-              </p>
+              <p>{uiText("debts_workspace.cuotas_calculos_e_historial_en_prestamos_existentes_mas_abajo")}</p>
             )}
             {r.source === "personal" &&
               (() => {
                 const o = state.obligations.find((o) => o.id === r.id)!;
                 return (
                   <>
-                    <p>
-                      Principal: {money(o.principalCents)} · Reservado
-                      pendiente:{" "}
-                      {money(
+                    <p><I18nText id="debts_workspace.principal_reservado_pendiente" values={{ principalCents: (money(o.principalCents)), content: (" "), money: (money(
                         o.settlements
                           .filter((s) => !s.processed)
                           .reduce((n, s) => n + s.amountCents, 0),
-                      )}
-                    </p>
+                      )) }} /></p>
                     <div className="finance-actions">
                       {!r.closed && (
                         <button
@@ -234,8 +212,8 @@ export function DebtsWorkspace({
                           }}
                         >
                           {direction === "receivable"
-                            ? "Registrar cobro parcial"
-                            : "Registrar pago parcial"}
+                            ? uiText("debts_workspace.registrar_cobro_parcial")
+                            : uiText("debts_workspace.registrar_pago_parcial")}
                         </button>
                       )}
                       <button
@@ -245,49 +223,37 @@ export function DebtsWorkspace({
                           setDraft(o);
                           setAmount(planningMoneyInput(o.principalCents));
                         }}
-                      >
-                        Editar compromiso
-                      </button>
+                      >{uiText("debts_workspace.editar_compromiso")}</button>
                       <button
                         disabled={!!o.settlements.length || o.cancelled}
                         onClick={() =>
                           setReview({
-                            text: `Cancelar ${o.concept}. Se conserva el registro y no hay movimiento bancario.`,
+                            presentation: {kind:"cancel",concept:o.concept},
                             apply: (d) => cancelObligation(d, o.id),
                           })
                         }
-                      >
-                        Cancelar compromiso
-                      </button>
+                      >{uiText("debts_workspace.cancelar_compromiso")}</button>
                     </div>
                     <details>
-                      <summary>
-                        Historial de liquidaciones ({o.settlements.length})
-                      </summary>
-                      {!o.settlements.length && <p>Sin liquidaciones.</p>}
+                      <summary><I18nText id="debts_workspace.historial_de_liquidaciones" values={{ length: (o.settlements.length) }} /></summary>
+                      {!o.settlements.length && <p>{uiText("debts_workspace.sin_liquidaciones")}</p>}
                       {o.settlements.map((s) => (
                         <div key={s.id}>
                           <p>
                             {formatDate(s.date, {day:'2-digit',month:'2-digit',year:'numeric'})} · {money(s.amountCents)} ·{" "}
-                            {s.kind === "bank" ? "Banco" : "Ajuste sin banco"} ·{" "}
-                            {s.processed ? "Tramitado" : "Pendiente"} · {s.note}
+                            {s.kind === "bank" ? uiText("debts_workspace.banco") : uiText("debts_workspace.ajuste_sin_banco")} ·{" "}
+                            {s.processed ? uiText("debts_workspace.tramitado") : uiText("debts_workspace.pendiente")} · {s.note}
                           </p>
                           {s.transactionId && (
                             <button
                               onClick={() => onMovement(s.transactionId!)}
-                            >
-                              Revisar movimiento de liquidación
-                            </button>
+                            >{uiText("debts_workspace.revisar_movimiento_de_liquidacion")}</button>
                           )}
                         </div>
                       ))}
                     </details>
                     {o.settlements.length > 0 && (
-                      <p>
-                        Principal, contraparte y liquidaciones protegidos por
-                        historial. Las correcciones requieren un compromiso
-                        explícito independiente; no se borra el histórico.
-                      </p>
+                      <p>{uiText("debts_workspace.principal_contraparte_y_liquidaciones_protegidos_por_historial_las_correcciones")}</p>
                     )}
                   </>
                 );
@@ -295,24 +261,22 @@ export function DebtsWorkspace({
           </article>
         ))}
       </div>
-      {!matching.length && <p>No hay deudas en este filtro.</p>}
+      {!matching.length && <p>{uiText("debts_workspace.no_hay_deudas_en_este_filtro")}</p>}
       {direction === "payable" && (
-        <section aria-label="Préstamos existentes">
-          <h2>Préstamos existentes</h2>
+        <section aria-label={uiText("debts_workspace.prestamos_existentes")}>
+          <h2>{uiText("debts_workspace.prestamos_existentes")}</h2>
           {loans}
         </section>
       )}
       {draft && (
         <SafeDialog
-          title="Compromiso personal"
+          title={uiText("debts_workspace.compromiso_personal")}
           onCancel={() => {
             if (!review) setDraft(null);
           }}
         >
           <form className="finance-form" onSubmit={propose}>
-            <label>
-              Dirección
-              <select
+            <label>{uiText("debts_workspace.direccion")}<select
                 value={draft.direction}
                 onChange={(e) =>
                   setDraft({
@@ -322,13 +286,11 @@ export function DebtsWorkspace({
                   })
                 }
               >
-                <option value="receivable">Me deben</option>
-                <option value="payable">Debo</option>
+                <option value="receivable">{uiText("debts_workspace.me_deben")}</option>
+                <option value="payable">{uiText("debts_workspace.debo")}</option>
               </select>
             </label>
-            <label>
-              Contacto opcional
-              <select
+            <label>{uiText("debts_workspace.contacto_opcional")}<select
                 value={draft.counterparty.contactId ?? ""}
                 onChange={(e) => {
                   const c = data.contacts.find((c) => c.id === e.target.value);
@@ -341,7 +303,7 @@ export function DebtsWorkspace({
                   });
                 }}
               >
-                <option value="">Contraparte independiente</option>
+                <option value="">{uiText("debts_workspace.contraparte_independiente")}</option>
                 {data.contacts.map((c) => (
                   <option value={c.id} key={c.id}>
                     {c.name}
@@ -349,9 +311,7 @@ export function DebtsWorkspace({
                 ))}
               </select>
             </label>
-            <label>
-              Contraparte
-              <input
+            <label>{uiText("debts_workspace.contraparte")}<input
                 required
                 maxLength={500}
                 value={draft.counterparty.name}
@@ -366,9 +326,7 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            <label>
-              Concepto
-              <input
+            <label>{uiText("debts_workspace.concepto")}<input
                 required
                 maxLength={500}
                 value={draft.concept}
@@ -377,18 +335,14 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            <label>
-              Principal (€)
-              <input
+            <label>{uiText("debts_workspace.principal")}<input
                 inputMode="decimal"
                 required
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
               />
             </label>
-            <label>
-              Fecha del compromiso
-              <input
+            <label>{uiText("debts_workspace.fecha_del_compromiso")}<input
                 required
                 type="date"
                 min="0001-01-01"
@@ -397,9 +351,7 @@ export function DebtsWorkspace({
                 onChange={(e) => setDraft({ ...draft, date: e.target.value })}
               />
             </label>
-            <label>
-              Vencimiento opcional
-              <input
+            <label>{uiText("debts_workspace.vencimiento_opcional")}<input
                 type="date"
                 min={draft.date}
                 max="9999-12-31"
@@ -409,41 +361,31 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            {error && <p role="alert">{error}</p>}
+            {error && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
             <div className="finance-actions">
-              <button type="button" onClick={() => setDraft(null)}>
-                Cancelar
-              </button>
-              <button type="submit">Revisar compromiso</button>
+              <button type="button" onClick={() => setDraft(null)}>{uiText("debts_workspace.cancelar")}</button>
+              <button type="submit">{uiText("debts_workspace.revisar_compromiso")}</button>
             </div>
           </form>
         </SafeDialog>
       )}
       {pay && (
         <SafeDialog
-          title="Liquidación personal"
+          title={uiText("debts_workspace.liquidacion_personal")}
           onCancel={() => {
             if (!review) setPay(null);
           }}
         >
           <form className="finance-form" onSubmit={proposePayment}>
-            <p>
-              No registres un nuevo movimiento si ya existe en tu banco. Usa
-              ajuste sin banco para reflejar un cobro/pago ya registrado, o crea
-              aquí una única devolución de principal.
-            </p>
-            <label>
-              Importe a liquidar (€)
-              <input
+            <p>{uiText("debts_workspace.no_registres_un_nuevo_movimiento_si_ya_existe_en")}</p>
+            <label>{uiText("debts_workspace.importe_a_liquidar")}<input
                 required
                 inputMode="decimal"
                 value={payAmount}
                 onChange={(e) => setPayAmount(e.target.value)}
               />
             </label>
-            <label>
-              Fecha de liquidación
-              <input
+            <label>{uiText("debts_workspace.fecha_de_liquidacion")}<input
                 required
                 type="date"
                 min="0001-01-01"
@@ -457,10 +399,8 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            <label>
-              Modalidad
-              <select
-                aria-label="Modalidad de liquidación"
+            <label>{uiText("debts_workspace.modalidad")}<select
+                aria-label={uiText("debts_workspace.modalidad_de_liquidacion")}
                 value={pay.input.kind}
                 onChange={(e) => {
                   const kind = e.target.value as PersonalSettlement["kind"];
@@ -476,20 +416,14 @@ export function DebtsWorkspace({
                   });
                 }}
               >
-                <option value="adjustment">
-                  Ajuste sin banco / compensación explícita
-                </option>
-                <option value="bank">
-                  Crear movimiento de devolución de principal
-                </option>
+                <option value="adjustment">{uiText("debts_workspace.ajuste_sin_banco_compensacion_explicita")}</option>
+                <option value="bank">{uiText("debts_workspace.crear_movimiento_de_devolucion_de_principal")}</option>
               </select>
             </label>
             {pay.input.kind === "bank" && (
               <>
-                <label>
-                  Cartera de liquidación
-                  <select
-                    aria-label="Cartera de liquidación" required
+                <label>{uiText("debts_workspace.cartera_de_liquidacion")}<select
+                    aria-label={uiText("debts_workspace.cartera_de_liquidacion")} required
                     value={pay.input.walletId ?? ""}
                     onChange={(e) =>
                       setPay({
@@ -499,7 +433,7 @@ export function DebtsWorkspace({
                       })
                     }
                   >
-                    <option value="" disabled>Selecciona una cartera</option>{data.wallets.map((w) => (
+                    <option value="" disabled>{uiText("debts_workspace.selecciona_una_cartera")}</option>{data.wallets.map((w) => (
                       <option value={w.id} key={w.id}>
                         {w.name}
                       </option>
@@ -516,14 +450,10 @@ export function DebtsWorkspace({
                         input: { ...pay.input, processed: e.target.checked },
                       })
                     }
-                  />
-                  Ya tramitado: aplicar al saldo bancario tras confirmar
-                </label>
+                  />{uiText("debts_workspace.ya_tramitado_aplicar_al_saldo_bancario_tras_confirmar")}</label>
               </>
             )}
-            <label>
-              Nota de liquidación
-              <input
+            <label>{uiText("debts_workspace.nota_de_liquidacion")}<input
                 maxLength={500}
                 value={pay.input.note}
                 onChange={(e) =>
@@ -534,19 +464,17 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            {error && <p role="alert">{error}</p>}
+            {error && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
             <div className="finance-actions">
-              <button type="button" onClick={() => setPay(null)}>
-                Cancelar
-              </button>
-              <button type="submit">Revisar liquidación</button>
+              <button type="button" onClick={() => setPay(null)}>{uiText("debts_workspace.cancelar")}</button>
+              <button type="submit">{uiText("debts_workspace.revisar_liquidacion")}</button>
             </div>
           </form>
         </SafeDialog>
       )}
       {review && (
         <FinanceReview
-          title="Confirmar compromiso o liquidación"
+          title={uiText("debts_workspace.confirmar_compromiso_o_liquidacion")}
           onCancel={() => setReview(null)}
           onConfirm={() => mutate(review.apply)}
           onSuccess={() => {
@@ -555,7 +483,7 @@ export function DebtsWorkspace({
             setPay(null);
           }}
         >
-          <p>{review.text}</p>
+          <p>{debtReviewText(review.presentation,uiText,formatting)}</p>
         </FinanceReview>
       )}
     </section>

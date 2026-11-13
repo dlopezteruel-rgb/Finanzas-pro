@@ -1,15 +1,16 @@
-import {useI18n} from "../i18n";
+import {bankingOwnedText,treasuryWarningText,treasuryConceptText} from '../i18n/bankingMessages';
+import {useI18n, I18nText } from "../i18n";
 import React, { useMemo, useState } from "react";
 import type { FinanceData } from "../utils/backup";
 import { treasuryProjection } from "../utils/treasury";
 import { madridDate, shiftMonth } from "../utils/financialCalendar";
 
 const sourceNames = {
-  pending: "Registrado pendiente",
-  recurring: "Propuesta periódica",
-  personal: "Compromiso personal",
-  loan: "Cuota estimada",
-};
+  pending: "treasury.source.pending",
+  recurring: "treasury.source.recurring",
+  personal: "treasury.source.personal",
+  loan: "treasury.source.loan",
+} as const;
 export function TreasuryView({
   data,
   navigate,
@@ -17,6 +18,7 @@ export function TreasuryView({
   data: FinanceData;
   navigate: (source: string, id: string) => void;
 }) {
+  const { t: uiText } = useI18n();
   const { formatCents: money , formatDate } = useI18n();
   const [from, setFrom] = useState(() => madridDate()),
     [days, setDays] = useState(30);
@@ -28,18 +30,12 @@ export function TreasuryView({
     }
   }, [data, from, days]);
   return (
-    <section className="finance-module" aria-label="Previsión de tesorería">
-      <h1>Próximos 30 días · Tesorería</h1>
-      <p>
-        Estimación informativa sobre el saldo líquido actual. Las propuestas y
-        los créditos no son dinero disponible. Consultar esta vista no modifica
-        cuentas.
-      </p>
+    <section className="finance-module" aria-label={uiText("treasury.prevision_de_tesoreria")}>
+      <h1>{uiText("treasury.proximos_30_dias_tesoreria")}</h1>
+      <p>{uiText("treasury.estimacion_informativa_sobre_el_saldo_liquido_actual_las_propuestas")}</p>
       <div className="finance-actions">
-        <label>
-          Fecha inicial
-          <input
-            aria-label="Fecha inicial de tesorería"
+        <label>{uiText("treasury.fecha_inicial")}<input
+            aria-label={uiText("treasury.fecha_inicial_de_tesoreria")}
             type="date"
             min="0001-01-01"
             max="9999-12-31"
@@ -47,51 +43,44 @@ export function TreasuryView({
             onChange={(e) => setFrom(e.target.value)}
           />
         </label>
-        <label>
-          Horizonte
-          <select
-            aria-label="Horizonte de tesorería"
+        <label>{uiText("treasury.horizonte")}<select
+            aria-label={uiText("treasury.horizonte_de_tesoreria")}
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
           >
-            <option value={30}>30 días</option>
-            <option value={90}>90 días / por meses</option>
+            <option value={30}>{uiText("treasury.30_dias")}</option>
+            <option value={90}>{uiText("treasury.90_dias_por_meses")}</option>
           </select>
         </label>
-        <button onClick={() => setFrom(madridDate())}>Desde hoy</button>
+        <button onClick={() => setFrom(madridDate())}>{uiText("treasury.desde_hoy")}</button>
         <button
           disabled={!shiftMonth(from.slice(0, 7), 1)}
           onClick={() => {
             const next = shiftMonth(from.slice(0, 7), 1);
             if (next) setFrom(`${next}-01`);
           }}
-        >
-          Próximo mes
-        </button>
+        >{uiText("treasury.proximo_mes")}</button>
       </div>
-      {result.error && <p role="alert">{result.error}</p>}
+      {result.error && <p role="alert">{bankingOwnedText(result.error,uiText)}</p>}
       {result.value &&
         (() => {
           const p = result.value;
           return (
             <>
-              <p>
-                {p.from} — {p.to}. No incluye efectivo de inversiones ni cobros
-                sin vencimiento.
-              </p>
+              <p><I18nText id="treasury.no_incluye_efectivo_de_inversiones_ni_cobros_sin_vencimiento" values={{ from: (formatDate(p.from,{day:"2-digit",month:"2-digit",year:"numeric"})), to: (formatDate(p.to,{day:"2-digit",month:"2-digit",year:"numeric"})) }} /></p>
               <dl className="finance-grid">
                 {[
-                  ["Saldo líquido actual", p.liquidCents],
-                  ["Entradas esperadas", p.incomeCents],
-                  ["Salidas esperadas", p.expenseCents],
-                  ["Saldo proyectado", p.projectedCents],
-                  ["Mínimo orientativo", p.minimumCents],
+                  [uiText("treasury.metric.liquid"), p.liquidCents],
+                  [uiText("treasury.metric.income"), p.incomeCents],
+                  [uiText("treasury.metric.expense"), p.expenseCents],
+                  [uiText("treasury.metric.projected"), p.projectedCents],
+                  [uiText("treasury.metric.minimum"), p.minimumCents],
                   [
-                    "Cobros sin fecha (fuera del cálculo)",
+                    uiText("treasury.metric.undatedReceivable"),
                     p.undatedReceivableCents,
                   ],
                   [
-                    "Pagos sin fecha (fuera del cálculo)",
+                    uiText("treasury.metric.undatedPayable"),
                     p.undatedPayableCents,
                   ],
                 ].map(([label, value]) => (
@@ -103,19 +92,19 @@ export function TreasuryView({
               </dl>
               {p.warnings.map((w) => (
                 <p role="status" key={w}>
-                  {w}
+                  {treasuryWarningText(w,data,p.from,uiText,formatDate)}
                 </p>
               ))}
               <div className="finance-table">
                 <table>
-                  <caption>Proyección por vencimiento</caption>
+                  <caption>{uiText("treasury.proyeccion_por_vencimiento")}</caption>
                   <thead>
                     <tr>
-                      <th>Fecha / fuente</th>
-                      <th>Concepto / certeza</th>
-                      <th>Flujo</th>
-                      <th>Saldo estimado</th>
-                      <th>Origen</th>
+                      <th>{uiText("treasury.fecha_fuente")}</th>
+                      <th>{uiText("treasury.concepto_certeza")}</th>
+                      <th>{uiText("treasury.flujo")}</th>
+                      <th>{uiText("treasury.saldo_estimado")}</th>
+                      <th>{uiText("treasury.origen")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -123,27 +112,25 @@ export function TreasuryView({
                       <tr key={e.id}>
                         <td>
                           {formatDate(e.date, {day:'2-digit',month:'2-digit',year:'numeric'})}
-                          {e.overdue ? " · Vencido" : ""}
+                          {e.overdue ? uiText("treasury.vencido") : ""}
                           <br />
-                          {sourceNames[e.source]}
+                          {uiText(sourceNames[e.source])}
                         </td>
                         <td>
-                          {e.concept}
+                          {treasuryConceptText(e,data,p.from,uiText,formatDate)}
                           <br />
                           {e.certainty === "registered"
-                            ? "Registrado"
+                            ? uiText("treasury.registrado")
                             : e.certainty === "proposed"
-                              ? "Sin registrar"
-                              : "Estimado"}
+                              ? uiText("treasury.sin_registrar")
+                              : uiText("treasury.estimado")}
                         </td>
                         <td>{money(e.amountCents)}</td>
                         <td>{money(e.projectedCents!)}</td>
                         <td>
                           <button
                             onClick={() => navigate(e.source, e.originId)}
-                          >
-                            Revisar origen
-                          </button>
+                          >{uiText("treasury.revisar_origen")}</button>
                         </td>
                       </tr>
                     ))}
@@ -151,17 +138,17 @@ export function TreasuryView({
                 </table>
               </div>
               {!p.events.length && (
-                <p>Sin flujos conocidos en este horizonte.</p>
+                <p>{uiText("treasury.sin_flujos_conocidos_en_este_horizonte")}</p>
               )}
               <div className="finance-table">
                 <table>
-                  <caption>Proyección por meses del horizonte</caption>
+                  <caption>{uiText("treasury.proyeccion_por_meses_del_horizonte")}</caption>
                   <thead>
                     <tr>
-                      <th>Mes</th>
-                      <th>Entradas</th>
-                      <th>Salidas</th>
-                      <th>Saldo final estimado</th>
+                      <th>{uiText("treasury.mes")}</th>
+                      <th>{uiText("treasury.entradas")}</th>
+                      <th>{uiText("treasury.salidas")}</th>
+                      <th>{uiText("treasury.saldo_final_estimado")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -176,9 +163,7 @@ export function TreasuryView({
                   </tbody>
                 </table>
               </div>
-              <button onClick={() => navigate("planning", "")}>
-                Revisar planificación guardada (separada del flujo)
-              </button>
+              <button onClick={() => navigate("planning", "")}>{uiText("treasury.revisar_planificacion_guardada_separada_del_flujo")}</button>
             </>
           );
         })()}

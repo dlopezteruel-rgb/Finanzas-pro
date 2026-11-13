@@ -26,6 +26,16 @@
         "key": "automation.itemLabel",
         "text": "{type} · {name}",
         "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "debts_workspace.principal",
+        "text": "Principal (€)",
+        "reason": "Native English term for the loan principal"
       }
     ],
     "it": [
@@ -83,6 +93,11 @@
         "key": "automation.itemLabel",
         "text": "{type} · {name}",
         "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
       }
     ],
     "fr": [
@@ -100,6 +115,11 @@
         "key": "automation.itemLabel",
         "text": "{type} · {name}",
         "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
       }
     ],
     "pt": [
@@ -422,6 +442,126 @@
         "key": "automation.frequency.yearly",
         "text": "anual",
         "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "loans.amortizado",
+        "text": "Amortizado: {totalPaid}",
+        "reason": "Native European Portuguese amortisation label"
+      },
+      {
+        "key": "debts_workspace.estado",
+        "text": "Estado",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.todos",
+        "text": "Todos",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.vencidos",
+        "text": "Vencidos",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.banco",
+        "text": "Banco",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.contacto_opcional",
+        "text": "Contacto opcional",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.contraparte",
+        "text": "Contraparte",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "recurring_movements.proxima",
+        "text": "{content} · Próxima:{content_52109}{content_7ecad}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.editar",
+        "text": "Editar {concept}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.pausar",
+        "text": "Pausar",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.eliminar",
+        "text": "Eliminar {concept}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.omitido",
+        "text": "Omitido",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.trimestral",
+        "text": "Trimestral",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.anual",
+        "text": "Anual",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "treasury.horizonte",
+        "text": "Horizonte",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.saldo_estimado",
+        "text": "Saldo estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.vencido",
+        "text": " · Vencido",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.estimado",
+        "text": "Estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.entradas",
+        "text": "Entradas",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.saldo_final_estimado",
+        "text": "Saldo final estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "debts_workspace.vencido",
+        "text": " · Vencido {overdueCents}",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.metric.income",
+        "text": "Entradas esperadas",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
       }
     ]
   }

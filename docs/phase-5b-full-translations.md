@@ -5,7 +5,7 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 ## Checkpoints y estado real
 
 1. Inventario y extracción de P1 bancario/común: validado en español, traducciones pendientes. Reutiliza I18nProvider/useI18n, es.ts, messages.ts y preference.ts; añade mensajes canónicos en es.p1.ts y parámetros React al mismo sistema.
-2. P1 de almacenamiento, inicio, histórico, planificación, catálogo y automatizaciones: pendiente.
+2. P1: inicio, histórico, planificación, catálogo, automatizaciones, préstamos, obligaciones y reglas extraídos; errores globales de almacenamiento/restauración y algunos bordes de presentación pendientes.
 3. P2/P3, diccionarios completos en-GB, it-IT, fr-FR, pt-PT y adaptadores de presentación: pendiente.
 4. Matriz completa multidioma, accesibilidad, activación por idioma validado y entrega: pendiente.
 
@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 955 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1223 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -180,3 +180,17 @@ La revisión de formato aún no certifica todos los flujos P2/P3 ni todos los ca
 CI del checkpoint de automatizaciones publicado: [Actions 43449709288](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43449709288), SHA `2815b3101a50a9ffd167b32a372f4969546e0b35`: tres trabajos verdes. Artefacto comprobado: **421 resultados / 27 suites**, cero fallos, omisiones o cancelaciones. Axe general: 128 observaciones, cero violaciones, **136 grupos incompletos**. Matriz adicional de automatizaciones: 85 observaciones, cero violaciones, **95 grupos incompletos**; todos estos grupos siguen pendientes de revisión manual y no equivalen a defectos únicos ni a resultados verificados.
 
 La [ejecución de CI del checkpoint Intl](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43458500254), SHA `cf27bee87d9e9607f219a486f14ca304761be2f5`, dio Unitarias y Lint/build/diff correctos, pero Chromium falló en cuatro variantes de phase4aSafety (cinco resultados contando su contenedor): la previsión de registro rápido mostraba 12/11/2026 y el oráculo esperaba 2026-11-12. Se añade time/datetime a esa presentación y se conservan ambas comprobaciones: fecha visible y fecha ISO original. No se modifica el parser, las consultas/negaciones, las entradas ni los payloads. La regresión focalizada repetida pasa **6/6** con cero fallos, omisiones y cancelaciones. El check fallido queda registrado; no se considera una batería completa correcta.
+
+### Checkpoint de préstamos, obligaciones, periódicos y tesorería
+
+Se añaden **268 claves**, hasta **1223 por diccionario**, con parámetros compatibles: LoansView, DebtsWorkspace, RecurringMovementsView y TreasuryView; confirmaciones completas por operación; 69 diagnósticos estáticos y adaptadores explícitos para avisos/etiquetas generadas de tesorería. Las categorías personales persistidas «Compromisos personales» y «Devolución de principal…» se excluyen deliberadamente del adaptador: son datos históricos, no etiquetas de error. TIN/TAE conserva literalmente las siglas originales del modelo, sin convertir una tasa en otro indicador.
+
+Las confirmaciones guardan un descriptor de presentación junto al callback de mutación original. Al cambiar de idioma, se actualizan frase, fecha e importe; el callback y los datos confirmados no se traducen ni reconstruyen. Pausar, reactivar o eliminar una regla conserva las advertencias sobre identidades, ocurrencias e históricos. Las liquidaciones distinguen explícitamente devolución de principal, movimiento bancario pendiente/tramitado y compensación sin banco. No cambian las funciones de dominio, importes, identidades, fechas, frecuencia ni scopes. El singular de cuotas usa Intl.PluralRules del idioma sobre el plazo; en francés cero pertenece a one, comprobado expresamente.
+
+Verificado: **478 unitarias**, lint/build/diff-check; regresiones Chromium españolas intelligent (25), phase4aSafety (6), phase4aLoans (3), phase4aAudit (9) e infraestructura 5A (10). Nueva matriz: **31 resultados**, cinco idiomas × 390/768/1280 × claro/oscuro y contenedor, **109,36 s**, sin fallos, omisiones ni cancelaciones. Verifica préstamo de una cuota y de varias, liquidación parcial de 1234 céntimos, exceso rechazado, preview sin escrituras, cambio cross-tab con preview abierta, Escape/foco/Tab, confirmación doble sin duplicado, movimiento bancario explícito, ocurrencia pendiente única de 95000 céntimos, regla intacta, tesorería en lectura y recarga. Cuentas, préstamos, contactos, presupuestos y catálogo se comparan exactamente con su fixture de origen.
+
+La nueva matriz registra **120 observaciones axe, cero violaciones y 128 grupos incompletos**, separados de los **136 grupos incompletos de la auditoría general**. Todos quedan pendientes de revisión manual; no se presentan como accesibilidad verificada. Las capturas generadas contienen solo datos ficticios y superficies parciales, sin afirmar cobertura integral de otros módulos.
+
+Los primeros recorridos de la suite nueva detectaron errores del propio test: intentaba abrir Deudas directamente en móvil, asumía tramitación bancaria sin marcar la casilla e inspeccionaba una propiedad bancaria inexistente. Otro intento consultaba la navegación antes de su montaje. Se corrigió el recorrido para usar Más, esperar la navegación visible y confirmar explícitamente el estado; se comprueban los vínculos obligationSettlement reales. No se relajan las invariantes ni se cambian tiempos. Los intentos fallidos/interrumpidos no se suman a resultados correctos. El oráculo de plural francés cero se corrigió para respetar Intl, manteniendo las pruebas de singular/plural de todos los idiomas.
+
+La batería completa ahora contiene **28 suites** y debe producir 452 resultados si todas terminan; esa cifra es expectativa, no resultado de CI del presente checkpoint. Continúan pendientes almacenamiento/errores globales, P2/P3, inventario semántico final y matriz integral. Los cuatro idiomas siguen deshabilitados.

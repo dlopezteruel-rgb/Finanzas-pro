@@ -43,3 +43,5 @@ import './i18n/inventory.test';
 import './i18n/presenters.test';
 import './i18n/planningMessages.test';
 import './i18n/presentation.test';
+
+import './i18n/bankingReviews.test';
