@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n';
 import React from 'react';
 import { Backup, backupWarnings } from '../utils/backup';
 import { formatCurrency } from '../utils/finance';
@@ -7,6 +8,7 @@ import { resolveDefaultWallet } from '../utils/defaultWallet';
 export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false, error = '', onDismissError }: {
   backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean; error?: string; onDismissError?: () => void;
 }) {
+  const { t } = useI18n();
   const counts = [
     ...(backup.intelligentFinance?[['Reglas de movimientos',backup.intelligentFinance.recurringRules.length],['Identidades de ocurrencias',backup.intelligentFinance.occurrences.length],['Compromisos personales',backup.intelligentFinance.obligations.length],['Liquidaciones personales',backup.intelligentFinance.obligations.reduce((n,o)=>n+o.settlements.length,0)]]:[]),
     ['Movimientos', backup.transactions.length], ['Presupuestos', backup.budgetPlans.length],
@@ -34,8 +36,8 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     {backupWarnings(backup).map(warning => <p className="text-xs text-amber-300" key={warning}>{warning}</p>)}
     <p className="text-xs text-slate-400">Las copias se descargan desde el menú «Copias de recuperación». No se fusionarán datos.</p>
     <div className="flex gap-2 justify-end">
-      <button disabled={busy} onClick={onCancel} className="rounded-xl px-4 py-2 bg-white/10">Cancelar</button>
-      <button disabled={busy} onClick={onConfirm} className="rounded-xl px-4 py-2 bg-sky-500 text-slate-950 font-bold">{busy ? 'Guardando…' : 'Confirmar sustitución'}</button>
+      <button disabled={busy} onClick={onCancel} className="rounded-xl px-4 py-2 bg-white/10">{t('common.cancel')}</button>
+      <button disabled={busy} onClick={onConfirm} className="rounded-xl px-4 py-2 bg-sky-500 text-slate-950 font-bold">{busy ? t('common.saving') : t('common.confirmReplace')}</button>
     </div>
   </SafeDialog>;
 }

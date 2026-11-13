@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n';
 import { SubitemSelector } from './SubitemSelector';
 import React, { useLayoutEffect, useMemo, useState } from 'react';
 import type { BudgetGroup, BudgetSubitem, BudgetPartida, Contact, MovementType, SharedDistribution, SharedExpenseInfo, Transaction, Wallet } from '../types/finance';
@@ -26,6 +27,7 @@ interface TransactionModalProps {
 }
 export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, onSave, wallets, contacts = [], onQuickCreateContact,
   defaultDate, defaultWalletId, subitems=[], initialSubitemId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = [], budgetGroups, transactions = [] }) => {
+  const { t } = useI18n();
   const submission = useAsyncForm();
   const [subitemId,setSubitemId]=useState('');
   const [type, setType] = useState<MovementType>('GASTO'), [code, setCode] = useState(''), [amount, setAmount] = useState(0);
@@ -140,7 +142,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
         <div className="grid grid-cols-2 gap-3"><label>Cartera u Origen<select aria-label="Cartera u Origen" required value={wallet} onChange={e => setWallet(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="" disabled>Selecciona una cartera</option>{wallet && !wallets.some(w => w.name === wallet) && <option value={wallet} disabled>{wallet} (no disponible)</option>}{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}</select></label><label>Estado Tramitación<select aria-label="Estado Tramitación" value={processed ? 'true' : 'false'} onChange={e => setProcessed(e.target.value === 'true')} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="true">Tramitado (SÍ)</option><option value="false">Pendiente (NO)</option></select></label></div>
         <label className="block">Fecha<input aria-label="Fecha" type="date" required value={date} onChange={e => setDate(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2" /></label>
         <label className="block">Notas (opcional)<input value={notes} onChange={e => setNotes(e.target.value)} placeholder="Detalles adicionales..." className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2" /></label>
-        <div className="flex justify-end gap-2"><button type="button" onClick={close} className="rounded-xl p-3 text-slate-300">Cancelar</button><button type="submit" disabled={!code||!wallets.some(w => w.name === wallet) || (isShared && !!splitError)} className="rounded-xl bg-white text-slate-950 font-bold p-3 disabled:opacity-40"><Check className="w-3 h-3 inline" /> {transactionToEdit ? 'Guardar Cambios' : 'Guardar Movimiento'}</button></div>
+        <div className="flex justify-end gap-2"><button type="button" onClick={close} className="rounded-xl p-3 text-slate-300">{t('common.cancel')}</button><button type="submit" disabled={!code||!wallets.some(w => w.name === wallet) || (isShared && !!splitError)} className="rounded-xl bg-white text-slate-950 font-bold p-3 disabled:opacity-40"><Check className="w-3 h-3 inline" /> {transactionToEdit ? 'Guardar Cambios' : 'Guardar Movimiento'}</button></div>
       </fieldset></form>
     </div>
   </Overlay>;

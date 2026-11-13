@@ -1,3 +1,4 @@
+import { useI18n } from '../i18n';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { deletionReport } from '../utils/deletion';
 import type { FinanceData } from '../utils/backup';
@@ -41,6 +42,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   onSaveWallet,
   onDeleteWallet,
 }) => {
+  const { t } = useI18n();
   const isEditing = !!walletToEdit;
 
   const submission = useAsyncForm();
@@ -159,12 +161,12 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           {/* Name & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Nombre de la cuenta</label>
+              <label className="block text-slate-400 mb-1 font-medium">{t('form.walletName')}</label>
               <input
                 type="text"
                 required
                 placeholder="ej. BBVA, REVOLUT, EFECTIVO"
-                aria-label="Nombre de la cuenta"
+                aria-label={t('form.walletName')}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white uppercase focus:outline-none focus:border-sky-500 font-bold"
@@ -303,7 +305,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
               aria-label="Cerrar cartera" onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
-              Cancelar
+              {t('common.cancel')}
             </button>
             <button
               type="submit"

@@ -15,7 +15,7 @@ import { SharedExpenseDetail } from './components/SharedExpenseDetail';
 import { ConfirmDeleteDialog } from './components/ConfirmDeleteDialog';
 import { deleteEntity, deletionReport, type DeletionTarget } from './utils/deletion';
 import type { SaveResult } from './utils/saveResult';
-import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useMemo, useRef, useCallback } from 'react';
 import { adjustDebt, deleteSettlement, isLegacyShared, isStructuredShared, migrateSharedExpenses, saveSettlement, saveSharedTransaction, sharedMigrationReport, sharedViewTransactions, sharedWalletName } from './utils/sharedExpenses';
 import {
   Transaction,
@@ -123,7 +123,7 @@ export default function App() {
   const clearPending = useRef(false);
   const [restoring, setRestoring] = useState(false);
 
-  useEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
+  useLayoutEffect(() => { document.documentElement.setAttribute('data-theme', theme); }, [theme]);
   const handleToggleTheme = () => setTheme(previous => previous === 'dark' ? 'light' : 'dark');
 
   // Current Month/Year period
