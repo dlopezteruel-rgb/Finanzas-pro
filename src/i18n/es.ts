@@ -25,6 +25,7 @@ export const es = {
   'landing.assistantBody': 'Las consultas financieras compatibles se calculan localmente. Otras preguntas pueden recurrir a un servicio externo de IA si el servidor está configurado; la aplicación conserva un resumen local como alternativa.',
   'landing.notice': 'La previsión es una estimación, no un saldo garantizado. Ninguna consulta registra movimientos sin tu confirmación.',
   'landing.footer': 'FinanZas · Finanzas personales con criterio.',
+  'common.confirmDelete': 'Confirmar eliminación', 'common.confirmReplace': 'Confirmar sustitución', 'common.saving': 'Guardando…',
   'common.confirm': 'Confirmar', 'common.cancel': 'Cancelar', 'common.close': 'Cerrar',
   'form.walletName': 'Nombre de la cuenta',
   'common.name': 'Nombre', 'common.save': 'Guardar', 'common.required': 'Campo obligatorio',

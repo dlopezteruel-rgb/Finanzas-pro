@@ -37,7 +37,7 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     <p className="text-xs text-slate-400">Las copias se descargan desde el menú «Copias de recuperación». No se fusionarán datos.</p>
     <div className="flex gap-2 justify-end">
       <button disabled={busy} onClick={onCancel} className="rounded-xl px-4 py-2 bg-white/10">{t('common.cancel')}</button>
-      <button disabled={busy} onClick={onConfirm} className="rounded-xl px-4 py-2 bg-sky-500 text-slate-950 font-bold">{busy ? 'Guardando…' : 'Confirmar sustitución'}</button>
+      <button disabled={busy} onClick={onConfirm} className="rounded-xl px-4 py-2 bg-sky-500 text-slate-950 font-bold">{busy ? t('common.saving') : t('common.confirmReplace')}</button>
     </div>
   </SafeDialog>;
 }

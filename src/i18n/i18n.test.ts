@@ -22,13 +22,14 @@ test('i18n: fecha de presentación mantiene Madrid al cruzar medianoche sin camb
   assert.equal(date.toISOString(), before);
 });
 
-import { es, translate, translateFrom, validateDictionary, pluralCategory, LANGUAGE_KEY, readLanguagePreference, writeLanguagePreference } from './index';
+import { dictionaries, es, translate, translateFrom, validateDictionary, pluralCategory, LANGUAGE_KEY, readLanguagePreference, writeLanguagePreference } from './index';
 import { readFileSync } from 'node:fs';
 import { makeBackup, parseBackup, DATA_KEY } from '../utils/backup';
 import {editCatalog} from '../utils/budgetCatalog';
 import { intelligentFixture } from '../../scripts/intelligentFixture';
 test('i18n: diccionario completo, sin duplicados y con parámetros compatibles', () => {
   assert.deepEqual(validateDictionary(Object.entries(es)), []);
+  for(const dictionary of Object.values(dictionaries)) assert.deepEqual(validateDictionary(Object.entries(dictionary)), []);
   assert.ok(validateDictionary([...Object.entries(es), ['common.cancel','Cancelar']]).some(e=>e.startsWith('Duplicate')));
   assert.ok(validateDictionary(Object.entries(es).filter(([k])=>k!=='common.cancel')).some(e=>e==='Missing: common.cancel'));
   assert.ok(validateDictionary([...Object.entries(es), ['theme.switch','Modo {otro}']]).some(e=>e==='Incompatible: theme.switch'));
@@ -68,3 +69,13 @@ test('i18n: preferencia y presentación no modifican FinanceStore, números, fec
   assert.equal(entries.get(DATA_KEY),raw);assert.equal(JSON.stringify(data),before);assert.deepEqual(parseBackup(raw),parseBackup(JSON.stringify(backup)));
   assert.equal(raw.includes(LANGUAGE_KEY),false);assert.notEqual(LANGUAGE_KEY,DATA_KEY);
 });
+
+// Compile-only contracts, verified by npm run lint; never executed by the runtime suite.
+if (false) {
+  // @ts-expect-error Unknown message keys must be rejected.
+  translate('missing.key');
+  // @ts-expect-error Required interpolation values must be provided.
+  translate('theme.switch');
+  // @ts-expect-error A differently named interpolation parameter is incompatible.
+  translate('theme.switch', { other: 'oscuro' });
+}
