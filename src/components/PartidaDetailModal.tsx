@@ -1,3 +1,4 @@
+import {partidaDisplayName,partidaDisplayFamily} from '../i18n/labels';
 import {storageOwnedText} from '../i18n/storageMessages';
 
 import { useI18n, I18nText } from "../i18n";
@@ -48,7 +49,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   onAddMovementToPartida,
   onUpdatePrevisto, onViewSharedDetails, error = '',
 }) => {
-  const { t: uiText , formatMoney: formatCurrency, formatCents: formatPlanningCents , formatDate } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency, formatCents: formatPlanningCents , formatDate,formatMonth,formatNumber } = useI18n();
   const [selectedSubitem,setSelectedSubitem]=useState<string|null>(null),[subitemBusy,setSubitemBusy]=useState(false);
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
@@ -97,13 +98,13 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
                   : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
               }`}>
-                {partida.type}
+                {uiText(partida.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto')}
               </span>
             </div>
-            <h2 className="text-base font-bold text-white mt-1 truncate" title={partida.name}>
-              {partida.name}
+            <h2 className="text-base font-bold text-white mt-1 truncate" title={partidaDisplayName(partida,uiText,formatNumber)}>
+              {partidaDisplayName(partida,uiText,formatNumber)}
             </h2>
-            <span className="text-[11px] text-slate-400 block mt-0.5"><I18nText id="partida_detail.paquete_periodo" values={{ groupName: (partida.groupName), monthYear: (monthYear) }} /></span>
+            <span className="text-[11px] text-slate-400 block mt-0.5"><I18nText id="partida_detail.paquete_periodo" values={{ groupName: (partidaDisplayFamily(partida,uiText)), monthYear: (formatMonth(monthYear)) }} /></span>
           </div>
 
           <button

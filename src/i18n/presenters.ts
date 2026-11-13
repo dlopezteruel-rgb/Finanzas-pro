@@ -26,3 +26,5 @@ const planningStatusKeys = {
 export function planningStatusText(value:string,t:typeof translate):string{
  return Object.hasOwn(planningStatusKeys,value)?t(planningStatusKeys[value as keyof typeof planningStatusKeys]):value;
 }
+
+export const isCatalogDependencyLabel=(value:string)=>Object.hasOwn(catalogDependencyKeys,value);

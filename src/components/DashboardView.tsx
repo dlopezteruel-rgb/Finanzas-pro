@@ -56,7 +56,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToTab,
   onOpenNewTransaction,
 }) => {
-  const { t: uiText, tn: uiCount , formatMoney: formatCurrency } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency,formatDate,formatPercent } = useI18n();
   const totalLiquid = wallets.filter(w=>w.type!=='INVESTMENT').reduce((sum,w)=>sum+(walletBalances[w.name]??0),0);
 
   // Filter latest transactions
@@ -100,7 +100,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <span className={`font-bold font-mono ${summary.balanceReal >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
             {summary.balanceReal >= 0 ? '+' : ''}{formatCurrency(summary.balanceReal)}
           </span>
-          <span className="text-[11px] text-slate-400"><I18nText id="dashboard.ahorro" values={{ tasaAhorroReal: (summary.tasaAhorroReal) }} /></span>
+          <span className="text-[11px] text-slate-400">{uiText('dashboard.savingsPercentage',{rate:formatPercent(summary.tasaAhorroReal)})}</span>
         </div>
       </div>
 
@@ -278,7 +278,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
                     <span>{t.wallet}</span>
                     <span>•</span>
-                    <span>{t.date.split('-').slice(1).reverse().join('/')}</span>
+                    <span>{formatDate(t.date,{day:'2-digit',month:'2-digit'})}</span>
                   </div>
                 </div>
               </div>

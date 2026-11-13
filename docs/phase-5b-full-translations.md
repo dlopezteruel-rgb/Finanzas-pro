@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1764/1764 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1764 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1879 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -286,3 +286,31 @@ Capturas solo con datos ficticios, revisadas visualmente:
 [Asistente francés a 390 px, tema claro](screenshots/phase-5b/assistant-fr-390-light.png): captura parcial del historial con foco visible. Los ejemplos españoles y los nombres personales ficticios se conservan deliberadamente.
 
 La batería incorpora **32 suites**; **591 resultados es una expectativa** pendiente de verificación en CI sobre el nuevo SHA. Siguen pendientes la revisión P3/errores restantes, tipos visibles y otros bordes, el inventario semántico final y la validación integral antes de activar idiomas. Los cuatro permanecen deshabilitados.
+
+### Corrección de la validación del checkpoint de asistente
+
+[Actions 43486659846](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43486659846), SHA `b842d3589ccadcf334c52224d1dc8d91c71feab6`: Unitarias/infraestructura y Lint/build/diff correctos; Chromium **falló** en intelligent por un oráculo que buscaba «Datos guardados … 2026-11» en una presentación ahora nativa («noviembre 2026»). El artefacto conserva **184 resultados de nueve suites: 182 correctos y dos fallidos**, sin omisiones/cancelaciones; las 23 suites posteriores no se ejecutaron. No se presenta como batería completa correcta.
+
+La ejecución local focalizada 25+6 del apartado anterior había utilizado un dist anterior; por ello **no certifica el checkpoint b842d35**. La nueva matriz de 36 casos sí compilaba su propia vista previa aislada desde las fuentes, y las unitarias eran actuales. Se corrige el procedimiento repitiendo las regresiones con npm run build previo. El oráculo visible se actualiza al mes nativo y se añaden dos comprobaciones: financialContext.month sigue siendo 2026-11 y fallbackReply mantiene exactamente la referencia ISO española de la API. No se reduce ninguna comprobación económica, de persistencia ni de llamadas al servicio.
+
+### Checkpoint P3: diagnósticos, tipos, fechas e identidades visibles
+
+Se añaden **115 claves**, hasta **1879 por diccionario**, incluyendo 103 diagnósticos estáticos nuevos y etiquetas/adaptadores de presentación. domainMessages incorpora los errores conocidos de catálogo, subítems, cambios presupuestarios, traspasos y rechazos de formularios. El envoltorio de dependencias solo traduce etiquetas reconocidas; si el contenido no pertenece al conjunto conocido se conserva literalmente. Se reutiliza una clave existente para la validación de propuestas.
+
+La clasificación AST ahora incluye SaveResult.error y los mensajes de fail/check. Una prueba de cobertura exige presentación nativa para cada diagnóstico estático de los canales UI revisados, utilizando el adaptador real correspondiente: almacenamiento/dominio, gráficos o registro natural. Los mensajes de API/herramientas y el No reply interno que se captura para mostrar el fallback quedan expresamente fuera del canal de UI traducida. Los parámetros, rutas técnicas y mensajes externos desconocidos no se sustituyen indiscriminadamente.
+
+Se muestran nombres nativos para los cinco tipos de cuenta y las etiquetas de tipo de partida; permanecen intactos BANK/NEOBANK/CASH/SAVINGS/INVESTMENT e INGRESO/GASTO en los modelos, opciones y JSON. El nombre personal BANK sigue siendo BANK. Las fechas de movimientos y los meses del resumen anual, tesorería y arrastres utilizan Intl; los valores de controles, datetime e IDs siguen siendo ISO.
+
+Las partidas históricas sintéticas conservan sus campos originales: un WeakMap de metadatos exclusivos de UI identifica el número de etiqueta generado, sin añadir propiedades al registro. El detalle abierto cambia de idioma conservando foco; los nombres personales que coinciden con «Partida histórica 1000» o «Fuera del catálogo» siguen literales. Los contextos anteriores del asistente conservan su procedencia al presentar un aviso sobre una identidad que otra pestaña ya no contiene. No se reescriben nombres, históricos ni payloads. Los 53 snapshots de llamadas de dos argumentos y los céntimos originales siguen pasando.
+
+Incidencia **5B-009 — Validaciones de gasto compartido sin traducir**: la nueva prueba francesa reprodujo el error antes de corregirlo (dos resultados fallidos contando su contenedor). El formulario ahora presenta sus errores mediante el adaptador existente; sus validaciones y cálculos se mantienen. Las etiquetas de la parte propia, pesos e importes utilizan el nombre nativo del participante propio por su identidad, conservando los nombres reales de los contactos. El selector del test de cuenta se corrigió para apuntar al contenedor real de tarjetas; no se añadió una clase al producto para satisfacerlo.
+
+Resultado local: **503 unitarias**, lint/build/diff-check correctos. Los primeros fixtures de las pruebas nuevas se ajustaron para contener una previsión realmente existente y un movimiento pendiente ordinario sin cartera; copiar un reintegro conservaba correctamente su walletId y no reproducía el aviso buscado. El test de cobertura usa el canal real de presentación de cada error y no exime diagnósticos sin mapear.
+
+Tras build actualizado, regresiones españolas: intelligent **25/25** (35,07 s), phase4aSafety **6/6** (9,18 s), cartera predeterminada **14/14** (26,25 s), planificación **13/13** (21,13 s), automatizaciones **15/15** (25,61 s); tras la última corrección del formulario se recompila y pasan phase1 **57/57** (81,17 s) y sharedUx **12/12** (24,63 s). Cero fallos, omisiones y cancelaciones en esas ejecuciones finales. Son regresiones focalizadas; la batería completa del nuevo SHA sigue pendiente.
+
+Nueva matriz: **31/31 resultados en 124,87 s**, cinco idiomas × 390/768/1280 × claro/oscuro y contenedor. Verifica mensajes de validación, reparto sin guardar, nombre propio de cuenta, tipo nativo, rechazo de duplicado con formulario conservado, históricos personales y generados, cambio cross-tab en detalle conservando foco, Escape/restauración del foco, meses nativos con datetime ISO, recarga y **cero escrituras financieras**. Axe registra **120 observaciones, cero violaciones y 150 grupos incompletos**, pendientes de revisión manual y separados de los 136 generales.
+
+Capturas ficticias revisadas visualmente: [cuenta duplicada en francés, 390 claro](screenshots/phase-5b/p3-account-fr-390-light.png) y [detalle histórico generado en francés, 390 claro](screenshots/phase-5b/p3-historical-fr-390-light.png). BANK es el nombre personal ficticio de la cuenta; las llaves/$& de otros nombres son datos literales.
+
+La batería contiene **33 suites**; **622 resultados es una expectativa**, no una ejecución completa del nuevo SHA. Pendiente antes de la entrega: plurales compuestos de avisos/restauración, ejemplos numéricos de entrada, previsualizaciones localizadas de la landing, inventario semántico final, disponibilidad por idioma y ejecución integral local/CI. Los cuatro idiomas nuevos siguen deshabilitados.

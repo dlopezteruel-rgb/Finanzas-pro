@@ -1,5 +1,5 @@
 import {pluralCategory,languages,type Language,type translate} from './messages';
-import {sharedOwnedText} from './sharedMessages';
+import {domainOwnedText} from './domainMessages';
 import {presentationMoney,type presentationFormatters} from './presentation';
 import type {FinanceData} from '../utils/backup';
 import type {DeletionReport,DeletionTarget} from '../utils/deletion';
@@ -172,7 +172,7 @@ export function storageOwnedText(value:string,t:typeof translate,depth=0):string
  // Field paths (including unknown JSON keys) are opaque schema identifiers. No financial parsing.
  const separator=value.lastIndexOf(': ');
  if(separator>0){const reason=value.slice(separator+2),translated=inner(reason);if(translated!==reason||Object.hasOwn(keys,reason)||/^debe ser un número /.test(reason))return t('storage.backup.path',{path:value.slice(0,separator),reason:translated});}
- return sharedOwnedText(value,t);
+ return domainOwnedText(value,t);
 }
 export function restorationTitleText(value:string,t:typeof translate):string{
  const imported=/^Importar «([\s\S]*)»$/.exec(value);

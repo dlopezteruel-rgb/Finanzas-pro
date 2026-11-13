@@ -24,3 +24,10 @@ test('inventario AST: reconoce la presentación opcional sin ocultar texto arbit
  assert.equal(rows.find(row=>row.text==='Datos guardados')?.classification,'review');
  assert.equal(rows.find(row=>row.text==='Contenido remoto')?.classification,'review');
 });
+
+test('inventario AST: incluye rechazos mediante SaveResult, fail y check sin confundir sus condiciones',()=>{
+ const source=`const rejection={ok:false,error:'Selecciona una cuenta.'};fail('Revisa la categoría.');check(type==='GASTO','No se permite cambiar el tipo.');`;
+ const rows=inventoryFile('fixture.ts',source);
+ for(const text of ['Selecciona una cuenta.','Revisa la categoría.','No se permite cambiar el tipo.'])assert.equal(rows.find(row=>row.text===text)?.classification,'ui-message-candidate');
+ assert.equal(rows.find(row=>row.text==='GASTO')?.classification,'review');
+});

@@ -271,12 +271,12 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                     <span>•</span>
                     <span className="text-slate-300 font-semibold">{t.wallet}</span>
                     <span>•</span>
-                    <span>{t.date.split('-').slice(1).reverse().join('/')}</span>
+                    <span>{formatDate(t.date,{day:'2-digit',month:'2-digit'})}</span>
                   </div>
                 </div>
               </div>
 
-              <time className="movement-date" dateTime={t.date}>{t.date.split('-').reverse().join('/')}</time>
+              <time className="movement-date" dateTime={t.date}>{formatDate(t.date,{day:'2-digit',month:'2-digit',year:'numeric'})}</time>
               {/* Amount, Processed Toggle, and Delete */}
               <div className="flex items-center gap-2.5 shrink-0">
                 <div className="text-right space-y-1">

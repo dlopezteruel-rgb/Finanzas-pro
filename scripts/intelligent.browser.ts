@@ -1249,8 +1249,9 @@ test(
           );
           await nav(p, "Asistente");
           let calls = 0;
+          const apiPayloads:any[]=[];
           await p.route("**/api/assistant-chat", (route) => {
-            calls++;
+            calls++;apiPayloads.push(route.request().postDataJSON());
             return route.abort();
           });
           for (const text of [
@@ -1273,11 +1274,13 @@ test(
             assert.deepEqual(await snapshot(p), before);
           }
           assert.equal(calls, 1);
+          assert.equal(apiPayloads[0].financialContext.month,"2026-11");
+          assert.match(apiPayloads[0].fallbackReply,/Datos guardados.*2026-11/s);
           assert.match(
             await p
               .getByRole("region", { name: "Asistente financiero" })
               .innerText(),
-            /Datos guardados.*2026-11/s,
+            /Datos guardados.*noviembre 2026/s,
           );
           const result = await p.request.post(`${new URL(url).origin}/api/assistant-chat`, {
             data: { message: "Sin datos" },

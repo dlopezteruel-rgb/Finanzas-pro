@@ -1,4 +1,4 @@
-import {assistantPresentation,assistantPrompts,type AssistantDisplay} from '../i18n/assistantMessages';
+import {assistantPresentation,assistantPrompts,adviceForDisplay,type AssistantDisplay} from '../i18n/assistantMessages';
 import {storageOwnedText} from '../i18n/storageMessages';
 import {naturalInputText} from '../i18n/naturalMessages';
 import {useI18n, I18nText } from "../i18n";
@@ -85,7 +85,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
     },
   }]);
   const previousMonth=useRef(summary.monthYear);
-  useEffect(()=>{if(previousMonth.current!==summary.monthYear){previousMonth.current=summary.monthYear;const snapshot=context,month=summary.monthYear;appendReply(v=>v.text('assistant.monthChanged',{month:v.month(month),reply:snapshot?localFinancialAdvice(snapshot,'resumen',v)!:v.text('assistant.contextUnavailable')}));}},[summary.monthYear]);
+  useEffect(()=>{if(previousMonth.current!==summary.monthYear){previousMonth.current=summary.monthYear;const snapshot=context,month=summary.monthYear;appendReply(v=>v.text('assistant.monthChanged',{month:v.month(month),reply:snapshot?adviceForDisplay(snapshot,'resumen',v,financeData)!:v.text('assistant.contextUnavailable')}));}},[summary.monthYear]);
 
   const renderMarkdown = (text: string) => {
     const lines = text.split('\n');
@@ -223,7 +223,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
 
     if(!context){appendReply(v=>v.text('assistant.noContext'));setIsLoading(false);return;}
     const localReply=localFinancialAdvice(context,text);
-    if(localReply){const snapshot=context;appendReply(v=>localFinancialAdvice(snapshot,text,v)!);setIsLoading(false);return;}
+    if(localReply){const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,text,v,financeData)!);setIsLoading(false);return;}
 
     // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
@@ -253,7 +253,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
         throw new Error('No reply');
       }
     } catch {
-      const snapshot=context;appendReply(v=>localFinancialAdvice(snapshot,'resumen',v)!);
+      const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,'resumen',v,financeData)!);
     } finally {
       setIsLoading(false);
     }

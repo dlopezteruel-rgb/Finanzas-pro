@@ -1,3 +1,4 @@
+import {walletTypeText} from '../i18n/labels';
 import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
@@ -124,7 +125,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
               >
                 <option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallets.map(w => (
                   <option key={w.id} value={w.id} className="bg-[#141926] text-white">
-                    {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
+                    {w.name} ({walletTypeText(w.type,uiText)}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                   </option>
                 ))}
               </select>
@@ -158,7 +159,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                   .filter(w => w.id !== origin)
                   .map(w => (
                     <option key={w.id} value={w.id} className="bg-[#141926] text-white">
-                      {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
+                      {w.name} ({walletTypeText(w.type,uiText)}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                     </option>
                   ))}
               </select>

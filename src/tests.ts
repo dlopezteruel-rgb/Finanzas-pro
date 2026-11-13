@@ -53,3 +53,5 @@ import './i18n/sharedMessages.test';
 import './i18n/chartMessages.test';
 
 import './i18n/assistantMessages.test';
+
+import './i18n/domainMessages.test';

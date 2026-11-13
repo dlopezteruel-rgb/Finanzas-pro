@@ -1,3 +1,4 @@
+import {rememberHistoricalPartida,partidaDisplayName} from '../i18n/labels';
 import {storageOwnedText} from '../i18n/storageMessages';
 
 import { useI18n, I18nText, type MessageKey } from "../i18n";
@@ -38,14 +39,15 @@ interface Props {
   onDetail: (partida: BudgetPartida, row: MonthlyBudgetRow) => void;
 }
 export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation, onRegisterNavigationSave }: Props) {
-  const { t: uiText , formatMoney: formatCurrency, formatCents: money , formatDate } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency, formatCents: money , formatDate,formatMonth,formatNumber } = useI18n();
   const statusText = (status: string) => planningStatusText(status,uiText);
   // Preserve unknown historical plans as editable rows rather than dropping them.
   const catalog = data.budgetGroups.filter(g=>!g.deleted).flatMap(g=>g.partidas.filter(p=>!p.deleted).map(p=>({...p,archived:!!g.archived||!!p.archived}))).filter(p=>!p.archived||data.budgetPlans.some(b=>b.monthYear===month&&planningKey(b)===planningKey(p))||data.transactions.some(t=>t.date.startsWith(month)&&planningKey(t)===planningKey(p)));
   const known = new Set(catalog.map(planningKey));
   const historicPlans = [...data.budgetPlans,...carryLines(data,month).map(l=>({monthYear:month,code:l.code,type:l.type,plannedAmount:0}))];
-  const missing: BudgetPartida[] = [...new Map(historicPlans.filter(p => p.monthYear === month && !known.has(planningKey(p))).map((p,index) => ({ ...p, name: data.transactions.find(t => planningKey(t) === planningKey(p))?.subcategoryName ?? `Partida histórica ${index + 1}`, groupName: 'Fuera del catálogo', groupCode: 'historical', keywords: [] })).map(p=>[planningKey(p),p])).values()];
+  const missing: BudgetPartida[] = [...new Map(historicPlans.filter(p => p.monthYear === month && !known.has(planningKey(p))).map((p,index) => {const sourceName=data.transactions.find(t => planningKey(t) === planningKey(p))?.subcategoryName;return rememberHistoricalPartida({ ...p, name: sourceName ?? `Partida histórica ${index + 1}`, groupName: 'Fuera del catálogo', groupCode: 'historical', keywords: [] },sourceName==null?index+1:undefined);}).map(p=>[planningKey(p),p])).values()];
   const partidas = [...catalog, ...missing];
+  const displayName=(p:BudgetPartida)=>partidaDisplayName(p,uiText,formatNumber);
   const initialFields = Object.fromEntries(partidas.map(p => [planningKey(p), String(data.budgetPlans.find(b => b.monthYear === month && planningKey(b) === planningKey(p))?.plannedAmount ?? 0)]));
   const initialSavings = planningMoneyInput(data.planningMonths?.find(m => m.monthYear === month)?.savingsCents ?? 0);
   const initialBreakdowns:Record<string,Record<string,string>>=Object.fromEntries(subitemContent(data,month).map(m=>[planningKey(m),Object.fromEntries(m.lines.map(l=>[l.subitemId,planningMoneyInput(l.amountCents)]))]));
@@ -131,7 +133,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
     });
     return ()=>onRegisterNavigationSave?.(null);
   });
-  const names = new Map(partidas.map(p => [planningKey(p), p.name]));
+  const names = new Map(partidas.map(p => [planningKey(p), displayName(p)]));
   return <section className="planning space-y-4" aria-label={uiText("planning.planificacion_financiera")}>
     <div className="planning-card space-y-3">
       <h2 className="text-xl font-bold">{uiText("planning.planificacion_financiera")}</h2>
@@ -178,7 +180,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       const title = type === 'INGRESO' ? uiText("planning.ingresos") : uiText("planning.gastos");
       const blockKey = `block:${type}`;
       const groups = [...data.budgetGroups.filter(g => g.type === type&&!g.deleted).map(g => ({ ...g, partidas:catalog.filter(p=>g.partidas.some(i=>planningKey(i)===planningKey(p))), key: `family:${type}:${g.code}` })),
-        ...(missing.some(p => p.type === type) ? [{ key: `historical:${type}`, name: 'Fuera del catálogo', partidas: missing.filter(p => p.type === type) }] : [])];
+        ...(missing.some(p => p.type === type) ? [{ key: `historical:${type}`, name: uiText('chart.row.outsideCatalog'), partidas: missing.filter(p => p.type === type) }] : [])];
       const stats = (items: BudgetPartida[]) => {
         const keys = new Set(items.map(planningKey));
         const effectiveEdits=combineLines(edits,carryLines(data,month));
@@ -205,16 +207,16 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
               const carries=data.planningAutomation?.carryovers.filter(c=>c.toMonth===month&&c.code===p.code&&p.type==='GASTO') ?? [];
               const cents = errors[key]?undefined:combineLines(edits,carryLines(data,month)).find(l => planningKey(l) === key)?.amountCents ?? 0;
               return <div className="planning-row" key={key}>
-                <label htmlFor={`plan-${key}`}>{p.name}{p.archived?uiText("planning.archivada"):''}<span className="planning-base-label">{uiText("planning.presupuesto_base")}</span></label>
-                <div><input id={`plan-${key}`} aria-label={uiText("planning.previsto", { type: uiText(type === "GASTO" ? "planning.expenseType" : "planning.incomeType"), name: p.name })} inputMode="decimal" readOnly={!!p.archived||breakdowns[key]!==undefined} value={calculated[key]!==undefined ? storageOwnedText(calculated[key],uiText) : fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
+                <label htmlFor={`plan-${key}`}>{displayName(p)}{p.archived?uiText("planning.archivada"):''}<span className="planning-base-label">{uiText("planning.presupuesto_base")}</span></label>
+                <div><input id={`plan-${key}`} aria-label={uiText("planning.previsto", { type: uiText(type === "GASTO" ? "planning.expenseType" : "planning.incomeType"), name: displayName(p) })} inputMode="decimal" readOnly={!!p.archived||breakdowns[key]!==undefined} value={calculated[key]!==undefined ? storageOwnedText(calculated[key],uiText) : fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
                   {errors[key] && <p id={`error-${key}`} role="alert">{storageOwnedText(errors[key],uiText)}</p>}</div>
                 <span><I18nText id="planning.ejecutado" values={{ ejecutado: (formatCurrency(row.ejecutado)) }} /></span><span><I18nText id="planning.diferencia" values={{ content: (cents === undefined ? '—' : money(cents - Math.round(row.ejecutado * 100))) }} /></span>
-                <button onClick={() => onDetail(p, row)} type="button" aria-label={uiText("planning.detalle_06a921", { name: p.name })}>{uiText("planning.detalle")}</button>
+                <button onClick={() => onDetail(p, row)} type="button" aria-label={uiText("planning.detalle_06a921", { name: displayName(p) })}>{uiText("planning.detalle")}</button>
                 {!p.archived&&<PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>}
-                {carries.length>0&&<div className="planning-carry" role="group" aria-label={uiText("planning.arrastre_de", { name: p.name })}>
+                {carries.length>0&&<div className="planning-carry" role="group" aria-label={uiText("planning.arrastre_de", { name: displayName(p) })}>
                   {carries.map(c=><div key={c.id}><p><I18nText id="planning.arrastrados_de" values={{ amountCents: (<strong>+{money(c.amountCents)}</strong>), content: (formatDate(`${c.fromMonth}-15T12:00:00Z`, {month:'long',year:'numeric'})), fromMonth: (<span>({c.fromMonth})</span>) }} /></p>
                     {carryIsStale(data,c)&&<p role="status" className="planning-warning">{uiText("planning.arrastre_potencialmente_desactualizado_revisa_el_origen_el_ajuste_no")}</p>}
-                    <button type="button" disabled={dirty||submission.saving||automationBusy} onClick={()=>setCarryReview({id:c.id})}><I18nText id="planning.revisar_arrastre_de" values={{ name: (p.name) }} /></button>
+                    <button type="button" disabled={dirty||submission.saving||automationBusy} onClick={()=>setCarryReview({id:c.id})}><I18nText id="planning.revisar_arrastre_de" values={{ name: (displayName(p)) }} /></button>
                   </div>)}
                   <p><I18nText id="planning.presupuesto_efectivo_base_editable_arrastre_guardado" values={{ content: (<strong>{cents===undefined?uiText("planning_section.pendiente_de_corregir"):money(cents)}</strong>) }} /></p>
                   {dirty&&<p>{uiText("planning.guarda_o_descarta_el_borrador_antes_de_revisar_el")}</p>}
@@ -232,7 +234,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
     {annual && <div className="planning-card overflow-x-auto"><h2 className="text-lg font-bold"><I18nText id="planning.resumen_anual" values={{ content: (month.slice(0,4)) }} /></h2>
       {yearRows ? <><p><I18nText id="planning.cobertura_12_meses_suma_parcial_de_meses_planificados_no" values={{ length: (yearRows.filter(r => r.status !== 'Sin plan').length) }} /></p>
         <table><caption>{uiText("planning.previsiones_mensuales_guardadas")}</caption><thead><tr><th>{uiText("planning.mes")}</th>{Object.values(labels).map(label => <th key={label}>{uiText(label)}</th>)}<th>{uiText("planning.base_gastos")}</th><th>{uiText("planning.arrastre")}</th><th>{uiText("planning.ejecutado_propio")}</th><th>{uiText("planning.procedencia_registrada")}</th><th>{uiText("planning.estado")}</th></tr></thead><tbody>
-          {yearRows.map(r => <tr key={r.monthYear}><th><button onClick={() => onMonth(r.monthYear)}>{r.monthYear}</button></th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(r.totals[k])}</td>)}<td>{money(r.baseExpenses)}</td><td>{money(r.carryoverCents)}</td><td>{formatCurrency(r.executed)}</td><td>{r.origins.map(o=>o==='copy'?uiText("planning.copiada"):o==='rule'?uiText("planning.regla"):uiText("planning.manual")).join(' / ')||(r.status==='Sin plan'?'—':uiText("planning.manual"))}</td><td>{statusText(r.status)}</td></tr>)}
+          {yearRows.map(r => <tr key={r.monthYear}><th><button onClick={() => onMonth(r.monthYear)}><time dateTime={r.monthYear}>{formatMonth(r.monthYear)}</time></button></th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(r.totals[k])}</td>)}<td>{money(r.baseExpenses)}</td><td>{money(r.carryoverCents)}</td><td>{formatCurrency(r.executed)}</td><td>{r.origins.map(o=>o==='copy'?uiText("planning.copiada"):o==='rule'?uiText("planning.regla"):uiText("planning.manual")).join(' / ')||(r.status==='Sin plan'?'—':uiText("planning.manual"))}</td><td>{statusText(r.status)}</td></tr>)}
         </tbody><tfoot><tr><th>{uiText("planning.total_planificado")}</th>{(Object.keys(labels) as (keyof PlanningTotals)[]).map(k => <td key={k}>{money(yearRows.filter(r => r.status !== 'Sin plan').reduce((sum,r) => sum+r.totals[k],0))}</td>)}<td colSpan={5}>{uiText("planning.parcial_si_cobertura_12")}</td></tr></tfoot></table></> : <p role="alert">{uiText("planning.hay_importes_historicos_con_mas_de_dos_decimales_o")}</p>}
     </div>}
     {currentMeta?.approval && <details className="planning-card"><summary>{uiText("planning.comparar_con_la_ultima_aprobacion")}</summary><Totals totals={currentMeta.approval.totals} /><p><I18nText id="planning.fotografia_n_revision_los_importes_siguientes_son_inmutables" values={{ number: (currentMeta.approval.number), revision: (currentMeta.approval.revision) }} /></p>

@@ -20,7 +20,7 @@ export function TreasuryView({
   navigate: (source: string, id: string) => void;
 }) {
   const { t: uiText } = useI18n();
-  const { formatCents: money , formatDate } = useI18n();
+  const { formatCents: money , formatDate,formatMonth } = useI18n();
   const [from, setFrom] = useState(() => madridDate()),
     [days, setDays] = useState(30);
   const result = useMemo(() => {
@@ -155,7 +155,7 @@ export function TreasuryView({
                   <tbody>
                     {p.months.map((m) => (
                       <tr key={m.month}>
-                        <td>{m.month}</td>
+                        <td><time dateTime={m.month}>{formatMonth(m.month)}</time></td>
                         <td>{money(m.incomeCents)}</td>
                         <td>{money(m.expenseCents)}</td>
                         <td>{money(m.projectedCents)}</td>

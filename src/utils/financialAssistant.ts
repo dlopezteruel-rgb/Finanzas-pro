@@ -24,6 +24,7 @@ export interface LocalAdvicePresentation {
   status: (status: string) => string;
   number: (value: number) => string;
   warning: (text: string) => string;
+  itemName?: (item: Pick<FinancialAssistantContext['partidas'][number],'type'|'code'|'name'>) => string;
 }
 
 /** A computed read model, not a new source of saved financial truth. */
@@ -171,7 +172,7 @@ export function localFinancialAdvice(
         .filter((r) => r.carryCents)
         .map(
           (r) =>
-            `| ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} |`,
+            `| ${ui?.itemName?.(r)??r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} |`,
         ),
     )}\n${c.partidas.some((r) => r.carryCents) ? (ui?.text("assistant.advice.carryNotice")??"Efectivo = base + arrastre. El arrastre no es un ingreso bancario.") : (ui?.text("assistant.advice.noCarry")??"No hay arrastres guardados en este periodo.")}`;
   if (
@@ -190,7 +191,7 @@ export function localFinancialAdvice(
             (ui?.text("assistant.advice.alertsTable")??"| Partida | Base + arrastre | Tramitado propio | Pendiente propio | Desviación |\n| :--- | :--- | :--- | :--- | :--- |"),
             exceeded.map(
               (r) =>
-                `| ${r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
+                `| ${ui?.itemName?.(r)??r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
             ),
           )
         : (ui?.text("assistant.advice.noAlerts")??"No hay partidas de gasto al 90 % o por encima del presupuesto guardado.")})??`${prefix}${
@@ -199,7 +200,7 @@ export function localFinancialAdvice(
             "| Partida | Base + arrastre | Tramitado propio | Pendiente propio | Desviación |\n| :--- | :--- | :--- | :--- | :--- |",
             exceeded.map(
               (r) =>
-                `| ${r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
+                `| ${ui?.itemName?.(r)??r.name} | ${money(r.baseCents)} + ${money(r.carryCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} | ${money(r.executedCents - r.effectiveCents)} |`,
             ),
           )
         : "No hay partidas de gasto al 90 % o por encima del presupuesto guardado."
@@ -235,7 +236,7 @@ export function localFinancialAdvice(
       );
       if (!candidate) continue;
       suggestions.push(
-        (ui?.text("assistant.advice.suggestion",{name:r.name,candidate:money(candidate),available:money(r.remainingCents - r.pendingCents)})??`- ${r.name}: reducir hasta ${money(candidate)} de ${money(r.remainingCents - r.pendingCents)} todavía no ejecutados ni pendientes.`),
+        (ui?.text("assistant.advice.suggestion",{name:ui?.itemName?.(r)??r.name,candidate:money(candidate),available:money(r.remainingCents - r.pendingCents)})??`- ${ui?.itemName?.(r)??r.name}: reducir hasta ${money(candidate)} de ${money(r.remainingCents - r.pendingCents)} todavía no ejecutados ni pendientes.`),
       );
       left -= candidate;
       if (left === 0) break;
@@ -251,13 +252,13 @@ export function localFinancialAdvice(
       (ui?.text("assistant.advice.summaryTable")??"| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |"),
       c.partidas.map(
         (r) =>
-          `| ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
+          `| ${ui?.itemName?.(r)??r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
       ),
     )})??`${prefix}Ingresos previstos: ${money(c.totals.income)}; gastos efectivos: ${money(c.totals.expenses)}; ahorro objetivo: ${money(c.totals.savings)}; margen tras objetivo: ${money(c.totals.margin)}.\n${c.approval ? `Última aprobación #${c.approval.number}: ${c.approval.approvedAt}; ${c.approval.current ? "vigente" : "hay cambios posteriores"}.` : "No existe aprobación guardada."}\n${table(
       "| Partida | Base | Arrastre | Efectivo | Tramitado propio | Pendiente propio |\n| :--- | :--- | :--- | :--- | :--- | :--- |",
       c.partidas.map(
         (r) =>
-          `| ${r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
+          `| ${ui?.itemName?.(r)??r.name} | ${money(r.baseCents)} | ${money(r.carryCents)} | ${money(r.effectiveCents)} | ${money(r.executedCents)} | ${money(r.pendingCents)} |`,
       ),
     )}\nLos importes se calculan desde Planificación y movimientos guardados; las propuestas periódicas no son gasto registrado.`);
   return null;

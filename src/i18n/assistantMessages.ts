@@ -1,5 +1,6 @@
 import type {translate} from './messages';
-import type {LocalAdvicePresentation} from '../utils/financialAssistant';
+import {localFinancialAdvice,type FinancialAssistantContext,type LocalAdvicePresentation} from '../utils/financialAssistant';
+import {assistantItemName} from './labels';
 import {planningStatusText} from './presenters';
 import type {FinanceData} from '../utils/backup';
 import {treasuryWarningText} from './bankingMessages';
@@ -22,9 +23,15 @@ export const quickEntryPrompts=[
 ] as const;
 export function assistantPresentation(t:typeof translate,format:ReturnType<typeof presentationFormatters>,data:FinanceData){
  return {
-  text:t,money:format.formatCents,date:(value:string)=>format.formatDate(value,{day:'2-digit',month:'2-digit',year:'numeric',...(/T/.test(value)?{hour:'2-digit',minute:'2-digit'}:{})}),
+  itemName:(item:Pick<FinancialAssistantContext['partidas'][number],'type'|'code'|'name'>)=>assistantItemName(item,data,t,format.formatNumber),
+  format,text:t,money:format.formatCents,date:(value:string)=>format.formatDate(value,{day:'2-digit',month:'2-digit',year:'numeric',...(/T/.test(value)?{hour:'2-digit',minute:'2-digit'}:{})}),
   month:format.formatMonth,status:(status:string)=>planningStatusText(status,t),number:format.formatNumber,
   warning:(text:string)=>treasuryWarningText(text,data,'',t,format.formatDate),amount:format.formatMoney,percent:format.formatPercent,
- } satisfies LocalAdvicePresentation & {amount:typeof format.formatMoney;percent:typeof format.formatPercent};
+ } satisfies LocalAdvicePresentation & {amount:typeof format.formatMoney;percent:typeof format.formatPercent;format:typeof format};
 }
 export type AssistantDisplay=ReturnType<typeof assistantPresentation>;
+
+/** The original query context keeps its own provenance when another tab edits current data. */
+export function adviceForDisplay(context:FinancialAssistantContext,message:string,view:AssistantDisplay,sourceData:FinanceData):string|null{
+ return localFinancialAdvice(context,message,{...view,warning:value=>treasuryWarningText(value,sourceData,'',view.text,view.format.formatDate),itemName:item=>assistantItemName(item,sourceData,view.text,view.number)});
+}

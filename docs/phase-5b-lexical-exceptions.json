@@ -71,6 +71,21 @@
         "key": "chart.sliceSummary",
         "text": "{name}: {amount} · {percent}",
         "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
       }
     ],
     "it": [
@@ -198,6 +213,21 @@
         "key": "assistant.negative",
         "text": "Negativo",
         "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
       }
     ],
     "fr": [
@@ -230,6 +260,21 @@
         "key": "assistant.favourable",
         "text": "Favorable",
         "reason": "Reviewed native French adjective"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
       }
     ],
     "pt": [
@@ -852,6 +897,41 @@
         "key": "assistant.negative",
         "text": "Negativo",
         "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "domain.catalogo_identificador_invalido_41e98",
+        "text": "Catálogo: identificador inválido.",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "domain.catalogo_tipo_invalido_f68ad",
+        "text": "Catálogo: tipo inválido.",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "walletType.BANK",
+        "text": "Banco",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "walletType.NEOBANK",
+        "text": "Neobanco",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
       }
     ]
   }

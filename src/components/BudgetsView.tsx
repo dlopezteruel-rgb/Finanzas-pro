@@ -522,7 +522,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               >
                 {budgetGroups.filter(g => g.type === movingPartida.type&&!g.archived&&!g.deleted).map(g => (
                   <option key={g.code} value={g.code}>
-                    {g.type}: {g.name}
+                    {uiText('catalog.familyOption',{type:uiText(g.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto'),name:g.name})}
                   </option>
                 ))}
               </select>

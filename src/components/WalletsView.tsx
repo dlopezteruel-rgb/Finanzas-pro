@@ -1,3 +1,4 @@
+import {walletTypeText} from '../i18n/labels';
 import { useI18n, I18nText } from "../i18n";
 import type { FinanceData } from '../utils/backup';
 import { economicTransactions, isLegacyTransfer, transferWalletName } from '../utils/transfers';
@@ -158,7 +159,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                         {w.name}
                       </h3>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.06] text-slate-300">
-                        {w.type}
+                        {walletTypeText(w.type,uiText)}
                       </span>
                     </div>
                     {w.id === defaultWallet?.id && <span className="text-xs text-sky-300 block">{uiText("wallets.predeterminada")}</span>}
