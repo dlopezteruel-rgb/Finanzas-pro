@@ -7,7 +7,13 @@ const Context = createContext({ language: 'es' as Language, t: translate, tn: (f
 export function I18nProvider({ children, requested }: { children: React.ReactNode; requested?: string }) {
   const [language, update] = useState<Language>(() => requested === undefined ? readLanguagePreference() : activeLanguage(requested));
   const [preferenceError, setError] = useState(false);
-  useEffect(() => { document.documentElement.lang = languages[language].locale; }, [language]);
+  useEffect(() => {
+    const text = translatorFor(language);
+    document.documentElement.lang = languages[language].locale;
+    document.title = text('document.title');
+    for (const selector of ['meta[name="description"]', 'meta[property="og:description"]']) document.querySelector(selector)?.setAttribute('content', text('document.description'));
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', text('document.title'));
+  }, [language]);
   useEffect(() => { if (requested !== undefined) update(activeLanguage(requested)); }, [requested]);
   useEffect(() => {
     const sync = (event: StorageEvent) => {

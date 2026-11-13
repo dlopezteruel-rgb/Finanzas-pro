@@ -1,3 +1,4 @@
+import { useI18n } from "../i18n";
 import React, { useState } from "react";
 import { SafeDialog } from "./SafeDialog";
 import {
@@ -16,6 +17,7 @@ export function PeriodSelector({
   periods: string[];
   onChange: (month: string) => void;
 }) {
+  const { t: uiText } = useI18n();
   const [open, setOpen] = useState(false),
     [year, setYear] = useState(month.slice(0, 4)),
     [number, setNumber] = useState(month.slice(5));
@@ -24,14 +26,14 @@ export function PeriodSelector({
   return (
     <div className="period-selector">
       <button
-        aria-label="Mes anterior"
+        aria-label={uiText("period_selector.mes_anterior")}
         disabled={!previous}
         onClick={() => previous && onChange(previous)}
       >
         ‹
       </button>
       <select
-        aria-label="Seleccionar periodo contable"
+        aria-label={uiText("period_selector.seleccionar_periodo_contable")}
         title={monthLabel(month)}
         value={month}
         onChange={(e) => onChange(e.target.value)}
@@ -51,30 +53,26 @@ export function PeriodSelector({
           ))}
       </select>
       <button
-        aria-label="Mes siguiente"
+        aria-label={uiText("period_selector.mes_siguiente")}
         disabled={!next}
         onClick={() => next && onChange(next)}
       >
         ›
       </button>
       <button
-        aria-label="Elegir mes y año"
+        aria-label={uiText("period_selector.elegir_mes_y_ano")}
         onClick={() => {
           setYear(month.slice(0, 4));
           setNumber(month.slice(5));
           setOpen(true);
         }}
-      >
-        Fecha
-      </button>
+      >{uiText("period_selector.fecha")}</button>
       <button
-        aria-label="Ir al mes actual"
+        aria-label={uiText("period_selector.ir_al_mes_actual")}
         onClick={() => onChange(currentMonth())}
-      >
-        Hoy
-      </button>
+      >{uiText("period_selector.hoy")}</button>
       {open && (
-        <SafeDialog title="Elegir mes y año" onCancel={() => setOpen(false)}>
+        <SafeDialog title={uiText("period_selector.elegir_mes_y_ano")} onCancel={() => setOpen(false)}>
           <form
             className="finance-form"
             onSubmit={(e) => {
@@ -85,10 +83,8 @@ export function PeriodSelector({
               }
             }}
           >
-            <label>
-              Mes
-              <select
-                aria-label="Mes"
+            <label>{uiText("period_selector.mes")}<select
+                aria-label={uiText("period_selector.mes")}
                 value={number}
                 onChange={(e) => setNumber(e.target.value)}
               >
@@ -99,10 +95,8 @@ export function PeriodSelector({
                 ))}
               </select>
             </label>
-            <label>
-              Año
-              <input
-                aria-label="Año"
+            <label>{uiText("period_selector.ano")}<input
+                aria-label={uiText("period_selector.ano")}
                 type="number"
                 min="1"
                 max="9999"
@@ -111,11 +105,9 @@ export function PeriodSelector({
                 onChange={(e) => setYear(e.target.value)}
               />
             </label>
-            <p>Rango 0001–9999. Puedes consultar periodos sin actividad.</p>
-            <button type="button" onClick={() => setOpen(false)}>
-              Cancelar
-            </button>
-            <button type="submit">Consultar periodo</button>
+            <p>{uiText("period_selector.rango_0001_9999_puedes_consultar_periodos_sin_actividad")}</p>
+            <button type="button" onClick={() => setOpen(false)}>{uiText("confirm_clear.cancelar")}</button>
+            <button type="submit">{uiText("period_selector.consultar_periodo")}</button>
           </form>
         </SafeDialog>
       )}

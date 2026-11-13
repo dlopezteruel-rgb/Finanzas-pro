@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import { economicTransactions } from '../utils/transfers';
 import React, { useState, useMemo } from 'react';
 import {
@@ -41,6 +42,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   onEditTransaction,
   onOpenNewTransaction,
 }) => {
+  const { t: uiText, tn: uiCount } = useI18n();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
@@ -141,16 +143,16 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
   return (
     <div className="transactions-view">
-      <h1 className="module-title">Movimientos</h1>
-      {currentMonthYear&&<div className="finance-actions"><label>Periodo del listado <select aria-label="Periodo del listado" value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">Todos los periodos</option><option value="selected">Periodo seleccionado: {currentMonthYear}</option></select></label><p>{selectedPeriod==='all'?'Registro de todas las fechas.':`Solo movimientos de ${currentMonthYear}.`}</p></div>}
+      <h1 className="module-title">{uiText("transactions.movimientos")}</h1>
+      {currentMonthYear&&<div className="finance-actions"><label>{uiText("transactions.periodo_del_listado")}<select aria-label={uiText("transactions.periodo_del_listado_b7c82b")} value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">{uiText("transactions.todos_los_periodos")}</option><option value="selected"><I18nText id="transactions.periodo_seleccionado" values={{ currentMonthYear: (currentMonthYear) }} /></option></select></label><p>{selectedPeriod==='all'?uiText("transactions.registro_de_todas_las_fechas"):uiText("transactions.solo_movimientos_de", { currentMonthYear: currentMonthYear })}</p></div>}
       {/* Search & Top Action */}
       <div className="movement-search flex items-center gap-2">
         <div className="relative flex-1">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-3 pointer-events-none" />
           <input
             type="text"
-            aria-label="Buscar movimientos"
-            placeholder="Buscar por concepto, partida (V.001), cartera..."
+            aria-label={uiText("transactions.buscar_movimientos")}
+            placeholder={uiText("transactions.buscar_por_concepto_partida_v_001_cartera")}
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             className="w-full bg-[#141926] border border-white/[0.08] focus:border-sky-500 rounded-2xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-400 focus:outline-none"
@@ -160,24 +162,24 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
         <button
           onClick={handleExportCSV}
           className="p-2.5 rounded-2xl bg-[#141926] border border-white/[0.08] text-slate-300 hover:text-white hover:bg-white/[0.06] transition-colors cursor-pointer shrink-0"
-          title="Descargar CSV"
-          aria-label="Descargar CSV"
+          title={uiText("transactions.descargar_csv")}
+          aria-label={uiText("transactions.descargar_csv")}
         >
           <Download className="w-4 h-4" />
         </button>
 
         <button
           onClick={onOpenNewTransaction}
-          aria-label="Nuevo movimiento"
+          aria-label={uiText("transactions.nuevo_movimiento")}
           className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-2xl shadow transition-all cursor-pointer flex items-center gap-1.5 shrink-0 active:scale-95"
         >
           <Plus className="w-3.5 h-3.5 stroke-[3]" />
-          <span className="hidden sm:inline">Nuevo</span>
+          <span className="hidden sm:inline">{uiText("transactions.nuevo")}</span>
         </button>
       </div>
 
       {/* Segmented Filter Pills (Revolut Style) */}
-      <div className="movement-filters" role="group" aria-label="Filtros del listado">
+      <div className="movement-filters" role="group" aria-label={uiText("transactions.filtros_del_listado")}>
         <button
           onClick={() => setFilterType('ALL')}
           className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
@@ -185,9 +187,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
               ? 'bg-white text-slate-950 font-bold'
               : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'
           }`}
-        >
-          Todos ({transactions.length})
-        </button>
+        ><I18nText id="transactions.todos" values={{ length: (transactions.length) }} /></button>
         <button
           onClick={() => setFilterType('GASTO')}
           className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
@@ -195,9 +195,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
               ? 'bg-rose-500 text-white font-bold'
               : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'
           }`}
-        >
-          Gastos
-        </button>
+        >{uiText("transactions.gastos")}</button>
         <button
           onClick={() => setFilterType('INGRESO')}
           className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
@@ -205,9 +203,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
               ? 'bg-emerald-500 text-slate-950 font-bold'
               : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'
           }`}
-        >
-          Ingresos
-        </button>
+        >{uiText("transactions.ingresos")}</button>
         <button
           onClick={() => setFilterType('PENDING')}
           className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap cursor-pointer transition-colors ${
@@ -215,18 +211,16 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
               ? 'bg-amber-400 text-slate-950 font-bold'
               : 'bg-white/[0.04] text-slate-400 hover:text-white border border-white/[0.06]'
           }`}
-        >
-          Pendientes ({transactions.filter(t => !t.processed).length})
-        </button>
+        ><I18nText id="transactions.pendientes" values={{ length: (transactions.filter(t => !t.processed).length) }} /></button>
 
         {/* Filter Wallet dropdown */}
         <select
-          aria-label="Filtrar por cartera"
+          aria-label={uiText("transactions.filtrar_por_cartera")}
           value={selectedWallet}
           onChange={e => setSelectedWallet(e.target.value)}
           className="bg-white/[0.04] text-slate-300 text-xs font-semibold px-2.5 py-1 rounded-full border border-white/[0.06] focus:outline-none cursor-pointer"
         >
-          <option value="ALL" className="bg-[#141926]">Todas las carteras</option>
+          <option value="ALL" className="bg-[#141926]">{uiText("transactions.todas_las_carteras")}</option>
           {wallets.map(w => (
             <option key={w} value={w} className="bg-[#141926]">{w}</option>
           ))}
@@ -235,26 +229,24 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
       {/* Filter Stats Mini Bar */}
       <div className="movement-stats flex items-center justify-between text-[11px] text-slate-400 px-1">
-        <span>{filtered.length} movimientos encontrados</span>
+        <span>{uiCount("transactionsFound",filtered.length)}</span>
         <div className="flex items-center gap-3">
-          <span>Ingr: <strong className="text-emerald-400 font-mono">+{formatCurrency(totalIncomes)}</strong></span>
-          <span>Gast: <strong className="text-rose-400 font-mono">-{formatCurrency(totalExpenses)}</strong></span>
+          <span><I18nText id="transactions.ingr" values={{ totalIncomes: (<strong className="text-emerald-400 font-mono">+{formatCurrency(totalIncomes)}</strong>) }} /></span>
+          <span><I18nText id="transactions.gast" values={{ totalExpenses: (<strong className="text-rose-400 font-mono">-{formatCurrency(totalExpenses)}</strong>) }} /></span>
         </div>
       </div>
 
       {/* Transactions List */}
-      <div className="movement-list bg-[#141926] border border-white/[0.06] rounded-2xl shadow-sm divide-y divide-white/[0.04]" role="list" aria-label="Movimientos filtrados">
+      <div className="movement-list bg-[#141926] border border-white/[0.06] rounded-2xl shadow-sm divide-y divide-white/[0.04]" role="list" aria-label={uiText("transactions.movimientos_filtrados")}>
         {filtered.length === 0 ? (
-          <div className="py-12 text-center text-slate-400 text-xs">
-            No se encontraron movimientos con los filtros aplicados.
-          </div>
+          <div className="py-12 text-center text-slate-400 text-xs">{uiText("transactions.no_se_encontraron_movimientos_con_los_filtros_aplicados")}</div>
         ) : (
           filtered.map(t => (
             <div
               key={t.id}
               ref={t.id === focusedTransactionId ? focusedRowRef : undefined}
               tabIndex={t.id === focusedTransactionId ? -1 : undefined}
-              aria-label={t.id === focusedTransactionId ? `Movimiento seleccionado: ${t.description}, ${t.date}, ${formatCurrency(t.amount)}` : undefined}
+              aria-label={t.id === focusedTransactionId ? uiText("transactions.movimiento_seleccionado", { description: t.description, date: t.date, amount: formatCurrency(t.amount) }) : undefined}
               data-focused-transaction={t.id === focusedTransactionId ? 'true' : undefined}
               role="listitem" className={`movement-row px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors ${t.id === focusedTransactionId ? 'ring-2 ring-inset ring-sky-400 bg-sky-500/10' : ''}`}
             >
@@ -267,13 +259,11 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                 <div className="truncate">
                   <div className="flex items-center gap-1.5">
                     <span className="text-xs font-bold text-white truncate" title={t.description}>
-                      {t.description}{t.transfer ? ' · Traspaso interno' : t.reimbursement ? ' · Reintegro (no ingreso económico)' : ''}
+                      {t.description}{t.transfer ? uiText("transactions.traspaso_interno") : t.reimbursement ? uiText("transactions.reintegro_no_ingreso_economico") : ''}
                     </span>
-                    {t.splitInfo?.isShared && onViewSharedDetails && <button onClick={() => onViewSharedDetails(t.id)} className="text-sky-300 underline text-[10px]">Ver reparto</button>}
+                    {t.splitInfo?.isShared && onViewSharedDetails && <button onClick={() => onViewSharedDetails(t.id)} className="text-sky-300 underline text-[10px]">{uiText("transactions.ver_reparto")}</button>}
                     {t.splitInfo?.isShared && (
-                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold shrink-0">
-                        Compartido ({formatCurrency(t.splitInfo.totalOwedToMe)})
-                      </span>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold shrink-0"><I18nText id="transactions.compartido" values={{ totalOwedToMe: (formatCurrency(t.splitInfo.totalOwedToMe)) }} /></span>
                     )}
                   </div>
                   <div className="flex items-center gap-1.5 text-[10px] text-slate-400 mt-0.5">
@@ -303,10 +293,10 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                         ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
                         : 'bg-amber-500/15 text-amber-300 border border-amber-500/30'
                     }`}
-                    title={t.transfer ? "Alternar ambos extremos del traspaso" : "Alternar estado de tramitación"}
+                    title={t.transfer ? uiText("transactions.alternar_ambos_extremos_del_traspaso") : uiText("dashboard.alternar_estado_de_tramitacion")}
                   >
                     <span className={`w-1.5 h-1.5 rounded-full ${t.processed ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-                    <span>{t.processed ? 'SÍ' : 'NO'}</span>
+                    <span>{t.processed ? uiText("transactions.si") : uiText("transactions.no")}</span>
                   </button>
                 </div>
 
@@ -314,8 +304,8 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                   type="button"
                   onClick={() => onEditTransaction(t)}
                   className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/[0.08] transition-colors cursor-pointer"
-                  title="Editar movimiento"
-                  aria-label={`Editar movimiento ${t.description}`}
+                  title={uiText("transactions.editar_movimiento")}
+                  aria-label={uiText("transactions.editar_movimiento_e09265", { description: t.description })}
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                 </button>
@@ -324,8 +314,8 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
                   type="button"
                   onClick={() => onDeleteTransaction(t.id)}
                   className="text-slate-400 hover:text-rose-400 p-1.5 rounded-lg hover:bg-rose-500/10 transition-colors cursor-pointer"
-                  title="Eliminar movimiento"
-                  aria-label="Eliminar movimiento"
+                  title={uiText("transactions.eliminar_movimiento")}
+                  aria-label={uiText("transactions.eliminar_movimiento")}
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>

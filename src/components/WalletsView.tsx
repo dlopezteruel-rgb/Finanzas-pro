@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import type { FinanceData } from '../utils/backup';
 import { economicTransactions, isLegacyTransfer, transferWalletName } from '../utils/transfers';
 import { SaveResult } from '../utils/saveResult';
@@ -43,6 +44,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
   onExecuteTransfer,
   onChangeDefaultWallet,
 }) => {
+  const { t: uiText, tn: uiCount } = useI18n();
   const preference = useAsyncForm();
   const defaultWallet = resolveDefaultWallet(wallets, deletionData.defaultWalletId);
   const [selectedWalletToEdit, setSelectedWalletToEdit] = useState<Wallet | null>(null);
@@ -87,15 +89,11 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       {/* Top Banner: Total Patrimony & Action Buttons */}
       <div className="bg-[#141926] border border-white/[0.06] rounded-3xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 shadow-lg">
         <div>
-          <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block">
-            Patrimonio Líquido Total en Cuentas
-          </span>
+          <span className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold block">{uiText("wallets.patrimonio_liquido_total_en_cuentas")}</span>
           <div className="text-2xl sm:text-3xl font-black font-mono text-white mt-0.5">
             {formatCurrency(totalLiquid)}
           </div>
-          <span className="text-xs text-slate-400 mt-1 block">
-            {wallets.length} {wallets.length === 1 ? 'cuenta activa' : 'cuentas activas'} • Clica en una cuenta para editar su patrimonio
-          </span>
+          <span className="text-xs text-slate-400 mt-1 block">{uiCount("activeAccountsHint",wallets.length)}</span>
         </div>
 
         {/* Actions: Traspaso & Añadir Cuenta */}
@@ -104,10 +102,10 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
             onClick={() => setIsTransferModalOpen(true)}
             disabled={wallets.length < 2}
             className="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 disabled:opacity-40 font-bold text-xs px-3.5 py-2.5 rounded-2xl shadow transition-all cursor-pointer flex items-center gap-2 active:scale-95"
-            title="Mover dinero entre tus cuentas"
+            title={uiText("wallets.mover_dinero_entre_tus_cuentas")}
           >
             <ArrowLeftRight className="w-4 h-4" />
-            <span>Ordenar Traspaso</span>
+            <span>{uiText("wallets.ordenar_traspaso")}</span>
           </button>
 
           <button
@@ -115,17 +113,17 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
             className="bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs px-3.5 py-2.5 rounded-2xl shadow transition-all cursor-pointer flex items-center gap-1.5 active:scale-95"
           >
             <Plus className="w-4 h-4 stroke-[3]" />
-            <span>Nueva Cuenta</span>
+            <span>{uiText("wallets.nueva_cuenta")}</span>
           </button>
         </div>
       </div>
 
       {/* Wallets List (Click to edit patrimonio) */}
-      <section aria-label="Cartera predeterminada" className="col-span-full space-y-2 text-sm">
-        <p>{defaultWallet ? `Cartera predeterminada: ${defaultWallet.name}${wallets.length === 1 ? ' (automática: única cartera)' : ''}.` : wallets.length ? 'Sin cartera predeterminada. Selecciona una cartera en cada operación o configura una aquí.' : 'Crea una cartera para registrar operaciones bancarias.'}</p>
+      <section aria-label={uiText("wallets.cartera_predeterminada")} className="col-span-full space-y-2 text-sm">
+        <p>{defaultWallet ? uiText("wallets.cartera_predeterminada_6795e6", { name: defaultWallet.name, content: wallets.length === 1 ? uiText("wallets.automatica_unica_cartera") : '' }) : wallets.length ? uiText("wallets.sin_cartera_predeterminada_selecciona_una_cartera_en_cada_operacion") : uiText("wallets.crea_una_cartera_para_registrar_operaciones_bancarias")}</p>
         {preference.error && <p role="alert">{preference.error}</p>}
-        {preference.saving && <p role="status">Guardando preferencia…</p>}
-        {wallets.length > 1 && deletionData.defaultWalletId && <button type="button" disabled={preference.saving} onClick={() => void preference.submit(() => onChangeDefaultWallet(null), () => {})}>Quitar cartera predeterminada</button>}
+        {preference.saving && <p role="status">{uiText("wallets.guardando_preferencia")}</p>}
+        {wallets.length > 1 && deletionData.defaultWalletId && <button type="button" disabled={preference.saving} onClick={() => void preference.submit(() => onChangeDefaultWallet(null), () => {})}>{uiText("wallets.quitar_cartera_predeterminada")}</button>}
       </section>
       <div className="wallet-cards">
         {wallets.map(w => {
@@ -163,7 +161,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                         {w.type}
                       </span>
                     </div>
-                    {w.id === defaultWallet?.id && <span className="text-xs text-sky-300 block">Predeterminada</span>}
+                    {w.id === defaultWallet?.id && <span className="text-xs text-sky-300 block">{uiText("wallets.predeterminada")}</span>}
                     <span className="text-[10px] text-slate-400 block font-mono">{w.ibanOrDetails}</span>
                   </div>
                 </div>
@@ -175,21 +173,19 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                     handleOpenEdit(w);
                   }}
                   className="p-1.5 rounded-xl bg-white/[0.04] group-hover:bg-sky-500/10 text-slate-400 group-hover:text-sky-400 border border-white/[0.06] group-hover:border-sky-500/30 transition-colors cursor-pointer"
-                  title="Editar cuenta y patrimonio" aria-label={`Editar cuenta y patrimonio ${w.name}`}
+                  title={uiText("wallets.editar_cuenta_y_patrimonio")} aria-label={uiText("wallets.editar_cuenta_y_patrimonio_2223ed", { name: w.name })}
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                 </button>
               </div>
 
               {/* Saldo Actual & Patrimonio Base */}
-              {wallets.length > 1 && <button type="button" aria-label={`Usar como predeterminada ${w.name}`} aria-pressed={w.id === defaultWallet?.id} disabled={preference.saving || w.id === defaultWallet?.id} className="text-xs border border-white/10 rounded-xl px-3 py-2" onClick={event => {
+              {wallets.length > 1 && <button type="button" aria-label={uiText("wallets.usar_como_predeterminada_87eef9", { name: w.name })} aria-pressed={w.id === defaultWallet?.id} disabled={preference.saving || w.id === defaultWallet?.id} className="text-xs border border-white/10 rounded-xl px-3 py-2" onClick={event => {
                 event.stopPropagation(); void preference.submit(() => onChangeDefaultWallet(w.id), () => {});
-              }}>Usar como predeterminada</button>}
+              }}>{uiText("wallets.usar_como_predeterminada")}</button>}
               <div className="bg-[#0c0f17] border border-white/[0.04] rounded-2xl p-3 flex items-center justify-between">
                 <div>
-                  <span className="text-[10px] text-slate-400 block uppercase font-medium">
-                    Saldo Actual
-                  </span>
+                  <span className="text-[10px] text-slate-400 block uppercase font-medium">{uiText("wallets.saldo_actual")}</span>
                   <span
                     className={`text-xl font-black font-mono ${
                       currentBalance >= 0 ? 'text-white' : 'text-rose-400'
@@ -199,9 +195,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                   </span>
                 </div>
                 <div className="text-right text-[11px] text-slate-400">
-                  <span className="block text-[9px] uppercase tracking-wider text-slate-500 font-semibold">
-                    Patrimonio Base
-                  </span>
+                  <span className="block text-[9px] uppercase tracking-wider text-slate-500 font-semibold">{uiText("wallets.patrimonio_base")}</span>
                   <span className="font-mono text-slate-300 font-bold">
                     {formatCurrency(w.initialBalance)}
                   </span>
@@ -232,9 +226,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
               <div className="w-7 h-7 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center">
                 <History className="w-3.5 h-3.5" />
               </div>
-              <h3 className="font-bold text-xs sm:text-sm text-white">
-                Traspasos Recientes entre Cuentas
-              </h3>
+              <h3 className="font-bold text-xs sm:text-sm text-white">{uiText("wallets.traspasos_recientes_entre_cuentas")}</h3>
             </div>
             <button
               onClick={() => setIsTransferModalOpen(true)}
@@ -242,7 +234,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
               className="text-[11px] text-sky-400 hover:text-sky-300 font-semibold cursor-pointer flex items-center gap-1"
             >
               <Plus className="w-3 h-3" />
-              <span>Nuevo traspaso</span>
+              <span>{uiText("wallets.nuevo_traspaso")}</span>
             </button>
           </div>
 

@@ -1,11 +1,16 @@
 {
-  "scope": "Current 264 registered keys only; not a whole-application residual-text waiver",
+  "scope": "Current 425 registered keys only; not a whole-application residual-text waiver",
   "exceptions": {
     "en": [
       {
         "key": "wallet.es91_2100_0418_4502_0005_1332",
         "text": "ES91 2100 0418 4502 0005 1332",
         "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "transactions.no",
+        "text": "NO",
+        "reason": "Reviewed native English negative answer; spelling shared with Spanish"
       }
     ],
     "it": [
@@ -23,6 +28,11 @@
         "key": "restoration.formato_tema",
         "text": "Formato {version} · {content} · Tema {content_5f4b8}",
         "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transactions.no",
+        "text": "NO",
+        "reason": "Reviewed native Italian negative answer; spelling shared with Spanish"
       }
     ],
     "fr": [
@@ -172,6 +182,26 @@
         "key": "theme.light",
         "text": "claro",
         "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "dashboard.ver",
+        "text": "Ver",
+        "reason": "Reviewed native pt-PT imperative"
+      },
+      {
+        "key": "dashboard.ver_todos",
+        "text": "Ver todos ({length}) {arrowright}",
+        "reason": "Reviewed native pt-PT complete label"
+      },
+      {
+        "key": "transactions.todos",
+        "text": "Todos ({length})",
+        "reason": "Reviewed native pt-PT masculine plural label"
+      },
+      {
+        "key": "confirm_clear.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt-PT cancel action"
       }
     ]
   }

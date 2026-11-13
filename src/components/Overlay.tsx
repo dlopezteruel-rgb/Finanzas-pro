@@ -92,7 +92,14 @@ export function Overlay({ children, onClose, title, level = 'dialog' }: {
         });
       }
     };
-  }, [level, title]);
+  }, [level]);
+  // A translated title is presentation, not a new overlay session. Keep focus,
+  // pending fields, stacking order and the original opener while it changes.
+  useLayoutEffect(() => {
+    const wrapper = node.current!;
+    const content = wrapper.querySelector<HTMLElement>('[role="dialog"]') ?? wrapper.firstElementChild as HTMLElement;
+    content.setAttribute('aria-label', title);
+  }, [title]);
   return createPortal(<div ref={node} data-overlay-level={level}
     className={level === 'panel'
       ? 'fixed inset-0 flex justify-end bg-black/10'
