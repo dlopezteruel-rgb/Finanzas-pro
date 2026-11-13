@@ -1,3 +1,4 @@
+import {useI18n} from "../i18n";
 import {classificationCatalog} from '../utils/budgetCatalog';
 import React, { useMemo, useState } from "react";
 import type { FinanceData } from "../utils/backup";
@@ -14,11 +15,7 @@ import {
 } from "../utils/recurringMovements";
 import type { FinanceMutation } from "../utils/financeStore";
 import type { SaveResult } from "../utils/saveResult";
-import {
-  formatPlanningCents as money,
-  parsePlanningMoney,
-  planningMoneyInput,
-} from "../utils/planningMoney";
+import { parsePlanningMoney, planningMoneyInput } from "../utils/planningMoney";
 import { madridDate, realDate } from "../utils/financialCalendar";
 import { FinanceReview } from "./FinanceReview";
 import { SafeDialog } from "./SafeDialog";
@@ -43,6 +40,7 @@ export function RecurringMovementsView({
   mutate: (fn: FinanceMutation) => Promise<SaveResult>;
   onEdit: (t: Transaction) => void;
 }) {
+  const { formatCents: money , formatDate } = useI18n();
   const [first, setFirst] = useState(month),
     [last, setLast] = useState(month);
   const [draft, setDraft] = useState<RecurringMovementRule | null>(null),
@@ -268,14 +266,14 @@ export function RecurringMovementsView({
                 <tr key={r.id}
                   ref={r.id === focusedOccurrenceId ? focusedRowRef : undefined}
                   tabIndex={r.id === focusedOccurrenceId ? -1 : undefined}
-                  aria-label={r.id === focusedOccurrenceId ? `Ocurrencia seleccionada: ${r.rule.concept}, ${r.dueDate}` : undefined}
+                  aria-label={r.id === focusedOccurrenceId ? `Ocurrencia seleccionada: ${r.rule.concept}, ${formatDate(r.dueDate, {day:'2-digit',month:'2-digit',year:'numeric'})}` : undefined}
                   data-focused-occurrence={r.id === focusedOccurrenceId ? 'true' : undefined}
                   className={r.id === focusedOccurrenceId ? 'ring-2 ring-inset ring-sky-400 bg-sky-500/10' : undefined}>
                   <td>
                     {r.status === "proposed" && (
                       <input
                         type="checkbox"
-                        aria-label={`Seleccionar ${r.rule.concept} ${r.dueDate}`}
+                        aria-label={`Seleccionar ${r.rule.concept} ${formatDate(r.dueDate, {day:'2-digit',month:'2-digit',year:'numeric'})}`}
                         checked={selected.includes(r.id)}
                         onChange={(e) =>
                           setSelected((prev) =>
@@ -288,14 +286,14 @@ export function RecurringMovementsView({
                     )}
                   </td>
                   <td>
-                    {r.dueDate}
+                    <time dateTime={r.dueDate}>{formatDate(r.dueDate, {day:'2-digit',month:'2-digit',year:'numeric'})}</time>
                     <br />
                     {txById.get(r.transactionId ?? "")?.description ??
                       r.rule.concept}
                     {r.transactionId &&
                       txById.get(r.transactionId)?.date !== r.dueDate && (
                         <p>
-                          Fecha editada: {txById.get(r.transactionId)?.date}
+                          Fecha editada: {formatDate(txById.get(r.transactionId)?.date, {day:'2-digit',month:'2-digit',year:'numeric'})}
                         </p>
                       )}
                   </td>
@@ -561,7 +559,7 @@ export function RecurringMovementsView({
             .filter((r) => batch.ids.includes(r.id))
             .map((r) => (
               <p key={r.id}>
-                {r.dueDate} · {r.rule.concept} · {money(r.rule.amountCents)} ·{" "}
+                <time dateTime={r.dueDate}>{formatDate(r.dueDate, {day:'2-digit',month:'2-digit',year:'numeric'})}</time> · {r.rule.concept} · {money(r.rule.amountCents)} ·{" "}
                 {data.wallets.find((w) => w.id === r.rule.walletId)?.name}
               </p>
             ))}

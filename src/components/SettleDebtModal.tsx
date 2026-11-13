@@ -4,7 +4,7 @@ import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useLayoutEffect } from 'react';
 import { Wallet, SplitParticipant, Contact, SettlementInput, DebtSettlement } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { parseTransferAmount } from '../utils/transfers';
 import { initialWalletId } from '../utils/defaultWallet';
 import { CheckCircle2, X } from 'lucide-react';
@@ -30,7 +30,7 @@ interface Props {
   onDeleteSettlement: (expenseId: string, id: string) => Promise<SaveResult>;
 }
 export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wallets, defaultWalletId, settlementToEdit, initiallyDelete = false, onConfirmSettle, onDeleteSettlement }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatDate } = useI18n();
   const submission = useAsyncForm();
   const [operationId, setOperationId] = useState('');
   const [walletId, setWallet] = useState(''), [date, setDate] = useState(''), [amount, setAmount] = useState('');
@@ -67,7 +67,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
           <label className="block">{uiText("settle_debt.fecha_del_cobro_o_compensacion")}<input aria-label={uiText("settle_debt.fecha_del_cobro_o_compensacion")} className="block w-full bg-[#0c0f17] rounded-xl p-3" required type="date" value={date} onChange={e => setDate(e.target.value)} /></label>
           <label className="flex gap-2"><input aria-label={uiText("settle_debt.liquidacion_tramitada")} type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />{uiText("settle_debt.liquidacion_tramitada")}</label>
           <div className="grid grid-cols-2 gap-2"><button type="button" onClick={close} className="rounded-xl bg-white/10 p-3">{uiText("transfer.cancelar")}</button><button type="submit" className="rounded-xl bg-emerald-500 text-slate-950 p-3 font-bold"><CheckCircle2 className="w-3 h-3 inline" /> {settlementToEdit ? uiText("settle_debt.guardar_liquidacion") : uiText("settle_debt.confirmar_cobro")}</button></div>
-          {settlementToEdit && (!deleting ? <button type="button" className="text-rose-300" onClick={() => setDeleting(true)}>{uiText("settle_debt.eliminar_liquidacion")}</button> : <div className="space-y-2 text-rose-300"><p><I18nText id="settle_debt.se_eliminara_la_liquidacion_de_para_se_retirara_el" values={{ id: (settlementToEdit.id), amount: (formatCurrency(settlementToEdit.amount)), date: (settlementToEdit.date), name: (debtItem.contact.name), transactionDescription: (debtItem.transactionDescription), content: (settlementToEdit.kind === 'cash' ? uiText("settle_debt.1_movimiento_bancario_vinculado") : uiText("settle_debt.0_movimientos_bancarios_compensacion")), content_cf560: (settlementToEdit.walletId && uiText("settle_debt.cartera", { content: String(wallets.find(w => w.id === settlementToEdit.walletId)?.name) })) }} /></p><button type="button" onClick={() => void submission.submit(() => onDeleteSettlement(debtItem.transactionId, settlementToEdit.id), onClose)}>{uiText("settle_debt.confirmar_eliminacion_de_liquidacion")}</button></div>)}
+          {settlementToEdit && (!deleting ? <button type="button" className="text-rose-300" onClick={() => setDeleting(true)}>{uiText("settle_debt.eliminar_liquidacion")}</button> : <div className="space-y-2 text-rose-300"><p><I18nText id="settle_debt.se_eliminara_la_liquidacion_de_para_se_retirara_el" values={{ id: (settlementToEdit.id), amount: (formatCurrency(settlementToEdit.amount)), date: (formatDate(settlementToEdit.date, {day:'2-digit',month:'2-digit',year:'numeric'})), name: (debtItem.contact.name), transactionDescription: (debtItem.transactionDescription), content: (settlementToEdit.kind === 'cash' ? uiText("settle_debt.1_movimiento_bancario_vinculado") : uiText("settle_debt.0_movimientos_bancarios_compensacion")), content_cf560: (settlementToEdit.walletId && uiText("settle_debt.cartera", { content: String(wallets.find(w => w.id === settlementToEdit.walletId)?.name) })) }} /></p><button type="button" onClick={() => void submission.submit(() => onDeleteSettlement(debtItem.transactionId, settlementToEdit.id), onClose)}>{uiText("settle_debt.confirmar_eliminacion_de_liquidacion")}</button></div>)}
         </fieldset>
       </form>
     </section>

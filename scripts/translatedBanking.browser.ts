@@ -7,7 +7,7 @@ import {chromium} from 'playwright-core';
 import {DATA_KEY,makeBackup} from '../src/utils/backup';
 import {editCatalog} from '../src/utils/budgetCatalog';
 import {responsiveFixture} from './responsiveFixture';
-import {LANGUAGE_KEY,languages,translatorFor,type Language} from '../src/i18n';
+import {LANGUAGE_KEY,languages,translatorFor,presentationFormatters,type Language} from '../src/i18n';
 import {i18nTestBuild} from './i18n/preview';
 
 test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar idiomas de producción',{timeout:180000},async t=>{
@@ -62,9 +62,15 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       assert.equal(JSON.stringify(saved.transactions),JSON.stringify(backup.transactions));
       assert.equal(JSON.stringify(saved.budgetGroups),JSON.stringify(backup.budgetGroups));
       assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
+      const format=presentationFormatters(language);await p.getByText(format.formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
+      const period=p.getByRole('combobox',{name:tr('period_selector.seleccionar_periodo_contable'),exact:true});const periodValue=await period.inputValue();
+      assert.equal(await period.getAttribute('title'),format.formatMonth(periodValue));assert.equal(await period.locator('option:checked').textContent(),format.formatMonth(periodValue,true));
+      await p.getByRole('button',{name:tr('period_selector.elegir_mes_y_ano'),exact:true}).click();const calendar=p.getByRole('dialog',{name:tr('period_selector.elegir_mes_y_ano'),exact:true});
+      await calendar.getByLabel(tr('period_selector.ano'),{exact:true}).fill('1');await calendar.getByLabel(tr('period_selector.mes'),{exact:true}).selectOption('01');assert.equal(await calendar.getByRole('option',{name:format.monthName(1),exact:true}).getAttribute('value'),'01');
+      await calendar.getByRole('button',{name:tr('period_selector.consultar_periodo'),exact:true}).click();await calendar.waitFor({state:'hidden'});assert.equal(await period.inputValue(),'0001-01');assert.equal(await period.locator('option:checked').textContent(),format.formatMonth('0001-01',true));assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
       await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});
       await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[next].locale);
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
+      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);await p.getByText(presentationFormatters(next).formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
       assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
     }finally{await c.close();}
   });

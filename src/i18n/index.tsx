@@ -1,9 +1,11 @@
+import {presentationFormatters} from './presentation';
+export * from './presentation';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { activeLanguage, languages, translate, translatorFor, es, dictionaries, type MessageKey, type MessageSlots, type Language, pluralText, type PluralFamily } from './messages';
 import { LANGUAGE_KEY, readLanguagePreference, writeLanguagePreference } from './preference';
 export * from './messages';
 export * from './preference';
-const Context = createContext({ language: 'es' as Language, t: translate, tn: (family: PluralFamily, count: number) => pluralText('es', family, count), setLanguage: (_value: string): boolean => false, preferenceError: false });
+const Context = createContext({ ...presentationFormatters('es'), language: 'es' as Language, t: translate, tn: (family: PluralFamily, count: number) => pluralText('es', family, count), setLanguage: (_value: string): boolean => false, preferenceError: false });
 export function I18nProvider({ children, requested }: { children: React.ReactNode; requested?: string }) {
   const [language, update] = useState<Language>(() => requested === undefined ? readLanguagePreference() : activeLanguage(requested));
   const [preferenceError, setError] = useState(false);
@@ -27,13 +29,9 @@ export function I18nProvider({ children, requested }: { children: React.ReactNod
     if (!Object.hasOwn(languages, value) || activeLanguage(value) !== value) return false;
     update(value as Language); setError(!writeLanguagePreference(value)); return true;
   };
-  return <Context.Provider value={{ language, t: translatorFor(language), tn: (family, count) => pluralText(language, family, count), setLanguage, preferenceError }}>{children}</Context.Provider>;
+  return <Context.Provider value={{ ...presentationFormatters(language), language, t: translatorFor(language), tn: (family, count) => pluralText(language, family, count), setLanguage, preferenceError }}>{children}</Context.Provider>;
 }
 export const useI18n = () => useContext(Context);
-
-/** Presentation only; never parse these strings or change accounting currency/timezone. */
-export const presentationMoney = (amount: number, language: Language = 'es') => new Intl.NumberFormat(languages[language].locale, { style: 'currency', currency: 'EUR' }).format(amount);
-export const presentationDate = (date: Date, language: Language = 'es') => new Intl.DateTimeFormat(languages[language].locale, { timeZone: 'Europe/Madrid', year: 'numeric', month: 'long', day: 'numeric' }).format(date);
 
 /** Rich text uses the same dictionary and context; named React slots never become HTML. */
 type RichMessageProps<K extends MessageKey> = { id: K } & ([MessageSlots<K>] extends [never] ? { values?: never } : { values: Record<MessageSlots<K>, React.ReactNode> });

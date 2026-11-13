@@ -1,8 +1,9 @@
+import {useI18n} from "../i18n";
 import React, { useMemo, useState } from "react";
 import type { FinanceData } from "../utils/backup";
 import { treasuryProjection } from "../utils/treasury";
 import { madridDate, shiftMonth } from "../utils/financialCalendar";
-import { formatPlanningCents as money } from "../utils/planningMoney";
+
 const sourceNames = {
   pending: "Registrado pendiente",
   recurring: "Propuesta periódica",
@@ -16,6 +17,7 @@ export function TreasuryView({
   data: FinanceData;
   navigate: (source: string, id: string) => void;
 }) {
+  const { formatCents: money , formatDate } = useI18n();
   const [from, setFrom] = useState(() => madridDate()),
     [days, setDays] = useState(30);
   const result = useMemo(() => {
@@ -120,7 +122,7 @@ export function TreasuryView({
                     {p.events.map((e) => (
                       <tr key={e.id}>
                         <td>
-                          {e.date}
+                          {formatDate(e.date, {day:'2-digit',month:'2-digit',year:'numeric'})}
                           {e.overdue ? " · Vencido" : ""}
                           <br />
                           {sourceNames[e.source]}

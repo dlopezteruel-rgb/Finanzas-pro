@@ -1,9 +1,10 @@
+import {useI18n} from "../i18n";
 import {useAsyncForm} from '../utils/useAsyncForm';
 import type { FinanceData } from '../utils/backup';
 import { SaveResult } from '../utils/saveResult';
 import React, { useState } from 'react';
 import { Loan, Transaction, Wallet } from '../types/finance';
-import { formatCurrency, calculateLoanStatus } from '../utils/finance';
+import { calculateLoanStatus } from '../utils/finance';
 import { CreditCard, Plus, CheckCircle2, ShieldCheck, ChevronRight, X, Edit2 } from 'lucide-react';
 import { LoanModal } from './LoanModal';
 
@@ -28,6 +29,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
   onDeleteLoan,
   onPayInstallment,
 }) => {
+  const { formatMoney: formatCurrency } = useI18n();
   const [selectedLoanToEdit, setSelectedLoanToEdit] = useState<Loan | null>(null);
   const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
 
@@ -206,6 +208,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
 
 /** Await the actual write; keep an error/retry surface beside the affected loan. */
 function LoanInstallmentAction({loan,onPay}:{loan:Loan;onPay:(loan:Loan)=>Promise<SaveResult>}){
+  const { formatMoney: formatCurrency } = useI18n();
   const submission=useAsyncForm();
   return <div role="group" aria-label={`Pago de cuota de ${loan.name}`} onClick={e=>e.stopPropagation()} className="space-y-1">
     {submission.error&&<p role="alert">{submission.error}</p>}

@@ -1,3 +1,4 @@
+import {useI18n} from "../i18n";
 import {naturalInputIssue} from '../utils/naturalInput';
 import type { FinanceData } from '../utils/backup';
 import { financialAssistantContext,localFinancialAdvice,assistantServiceContext } from '../utils/financialAssistant';
@@ -13,7 +14,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetPartida } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { classifyChatIntent, proposeChatMovement } from '../utils/chatRegistration';
 import { confirmOnceAsync } from '../utils/confirmation';
 import { MovementProposalModal } from './MovementProposalModal';
@@ -46,6 +47,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   onAddTransaction,
   availablePartidas,
 }) => {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const context=useMemo(()=>{try{return financialAssistantContext(financeData,summary.monthYear)}catch{return null}},[financeData,summary.monthYear]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +57,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   const [proposalError, setProposalError] = useState('');
   const appendReply = (text: string) => setMessages(previous => [...previous, {
     id: crypto.randomUUID(), sender: 'assistant', text,
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    time: formatDate(new Date(), { hour: '2-digit', minute: '2-digit' }),
   }]);
   const cancelProposal = () => { confirmation.current?.cancel(); setProposal(null); };
   const confirmProposal = async (transaction: Omit<Transaction, 'id'>) => {
@@ -88,7 +90,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       id: 'msg-init',
       sender: 'assistant',
       text: initialGreeting,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: formatDate(new Date(), { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
 
@@ -202,7 +204,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       id: `usr-${Date.now()}`,
       sender: 'user',
       text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      time: formatDate(new Date(), { hour: '2-digit', minute: '2-digit' }),
     };
 
     setMessages(prev => [...prev, userMsg]);
@@ -259,7 +261,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
             id: `bot-${Date.now()}`,
             sender: 'assistant',
             text: data.reply,
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            time: formatDate(new Date(), { hour: '2-digit', minute: '2-digit' }),
           },
         ]);
       } else {

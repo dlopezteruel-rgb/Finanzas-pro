@@ -1,12 +1,14 @@
+import {useI18n} from "../../i18n";
 import React, { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { arc, line, pie } from 'd3-shape';
 import type { ChartRow, ChartSeries } from '../../utils/chartData';
-import { formatCurrency } from '../../utils/finance';
+
 
 const colors = ['#38bdf8', '#f59e0b', '#a78bfa', '#34d399', '#fb7185', '#e879f9', '#2dd4bf', '#fda4af'];
 export function InteractiveChart({ title, rows, series, initialType = 'bars', distribution = false, empty = false, onSelect }: {
   title: string; rows: ChartRow[]; series: ChartSeries[]; initialType?: 'bars' | 'line' | 'donut'; distribution?: boolean; empty?: boolean; onSelect?: (row: ChartRow) => void;
 }) {
+  const { formatMoney: formatCurrency } = useI18n();
   const id = useId();
   const host=useRef<HTMLElement>(null), [compact,setCompact]=useState(false);
   useEffect(()=>{const observer=new ResizeObserver(entries=>setCompact(entries[0].contentRect.width<480));if(host.current)observer.observe(host.current);return()=>observer.disconnect()},[]);

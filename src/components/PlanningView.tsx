@@ -7,8 +7,8 @@ import React, { useEffect, useId, useLayoutEffect, useMemo, useState } from 'rea
 import type { FinanceData } from '../utils/backup';
 import type { BudgetPartida, MonthlyBudgetRow, PlanningLine, PlanningTotals, MonthlySubitemPlan } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
-import { annualPlanning, planningKey, planningLines, planningScope, planningStatus, safeCents, parsePlanningMoney, planningMoneyInput, formatPlanningCents } from '../utils/planning';
-import { calculateMonthlySummary, formatCurrency } from '../utils/finance';
+import { annualPlanning, planningKey, planningLines, planningScope, planningStatus, safeCents, parsePlanningMoney, planningMoneyInput } from '../utils/planning';
+import { calculateMonthlySummary } from '../utils/finance';
 import { PlanningAutomationPanel } from './PlanningAutomationPanel';
 import type { AutomationPreview } from '../utils/planningAutomation';
 import { carryLines, combineLines, planningBudgetRows } from '../utils/planningBasis';
@@ -20,11 +20,10 @@ import { planningDraftPreview } from './planningPreview';
 import { carryIsStale } from '../utils/planningCarry';
 import { SafeDialog } from './SafeDialog';
 
-const money = formatPlanningCents;
 const labels = { income: 'planning.metric.income', expenses: 'planning.metric.expenses', savings: 'planning.metric.savings', available: 'planning.metric.available', margin: 'planning.metric.margin', balance: 'planning.metric.balance' } as const satisfies Record<keyof PlanningTotals, MessageKey>;
 
 function Totals({ totals }: { totals: PlanningTotals | null }) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatCents: money } = useI18n();
   return <dl className="planning-totals">{(Object.keys(labels) as (keyof PlanningTotals)[]).map(key => <div key={key}><dt>{uiText(labels[key])}</dt><dd>{totals ? money(totals[key]) : '—'}</dd></div>)}</dl>;
 }
 interface Props {
@@ -38,7 +37,7 @@ interface Props {
   onDetail: (partida: BudgetPartida, row: MonthlyBudgetRow) => void;
 }
 export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation, onRegisterNavigationSave }: Props) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency, formatCents: money , formatDate } = useI18n();
   const statusText = (status: string) => planningStatusText(status,uiText);
   // Preserve unknown historical plans as editable rows rather than dropping them.
   const catalog = data.budgetGroups.filter(g=>!g.deleted).flatMap(g=>g.partidas.filter(p=>!p.deleted).map(p=>({...p,archived:!!g.archived||!!p.archived}))).filter(p=>!p.archived||data.budgetPlans.some(b=>b.monthYear===month&&planningKey(b)===planningKey(p))||data.transactions.some(t=>t.date.startsWith(month)&&planningKey(t)===planningKey(p)));
@@ -141,7 +140,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
         <button type="button" aria-pressed={annual} onClick={() => setAnnual(!annual)}>{annual ? uiText("planning.ocultar_resumen_anual") : uiText("planning.ver_resumen_anual")}</button>
       </div>
       <p role="status">{dirty ? uiText("planning.cambios_locales_sin_guardar", {status: statusText(planningStatus(data,month))}) : statusText(planningStatus(data,month))}</p>
-      {currentMeta?.approval && <p><I18nText id="planning.ultima_aprobacion_n" values={{ number: (currentMeta.approval.number), content: (new Date(currentMeta.approval.approvedAt).toLocaleString('es-ES')) }} /></p>}
+      {currentMeta?.approval && <p><I18nText id="planning.ultima_aprobacion_n" values={{ number: (currentMeta.approval.number), content: (formatDate(currentMeta.approval.approvedAt, {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})) }} /></p>}
       <label className="planning-savings-label">{uiText("planning.ahorro_objetivo")}<input aria-label={uiText("planning.ahorro_objetivo_a54274")} inputMode="decimal" value={savings} aria-invalid={!!savingsError} aria-describedby={savingsError ? 'planning-savings-error' : undefined} disabled={submission.saving} onChange={e => { setSavings(e.target.value); setNotice(''); submission.clearError(); }} /></label>
       {savingsError && <p id="planning-savings-error" role="alert">{planningOwnedText(savingsError,uiText)}</p>}
 
@@ -212,7 +211,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
                 <button onClick={() => onDetail(p, row)} type="button" aria-label={uiText("planning.detalle_06a921", { name: p.name })}>{uiText("planning.detalle")}</button>
                 {!p.archived&&<PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>}
                 {carries.length>0&&<div className="planning-carry" role="group" aria-label={uiText("planning.arrastre_de", { name: p.name })}>
-                  {carries.map(c=><div key={c.id}><p><I18nText id="planning.arrastrados_de" values={{ amountCents: (<strong>+{money(c.amountCents)}</strong>), content: (new Intl.DateTimeFormat('es-ES',{month:'long',year:'numeric',timeZone:'Europe/Madrid'}).format(new Date(`${c.fromMonth}-15T12:00:00Z`))), fromMonth: (<span>({c.fromMonth})</span>) }} /></p>
+                  {carries.map(c=><div key={c.id}><p><I18nText id="planning.arrastrados_de" values={{ amountCents: (<strong>+{money(c.amountCents)}</strong>), content: (formatDate(`${c.fromMonth}-15T12:00:00Z`, {month:'long',year:'numeric'})), fromMonth: (<span>({c.fromMonth})</span>) }} /></p>
                     {carryIsStale(data,c)&&<p role="status" className="planning-warning">{uiText("planning.arrastre_potencialmente_desactualizado_revisa_el_origen_el_ajuste_no")}</p>}
                     <button type="button" disabled={dirty||submission.saving||automationBusy} onClick={()=>setCarryReview({id:c.id})}><I18nText id="planning.revisar_arrastre_de" values={{ name: (p.name) }} /></button>
                   </div>)}

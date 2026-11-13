@@ -4,7 +4,7 @@ import { economicTransactions, isLegacyTransfer, transferWalletName } from '../u
 import { SaveResult } from '../utils/saveResult';
 import React, { useState, useMemo } from 'react';
 import { Wallet, Transaction, TransferInput } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import {
   Landmark,
   Plus,
@@ -44,7 +44,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
   onExecuteTransfer,
   onChangeDefaultWallet,
 }) => {
-  const { t: uiText, tn: uiCount } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency , formatDate } = useI18n();
   const preference = useAsyncForm();
   const defaultWallet = resolveDefaultWallet(wallets, deletionData.defaultWalletId);
   const [selectedWalletToEdit, setSelectedWalletToEdit] = useState<Wallet | null>(null);
@@ -259,7 +259,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
                       {tx.description}
                     </span>
                     <div className="flex items-center gap-2 text-[10px] text-slate-400 font-mono">
-                      <span>{tx.date}</span>
+                      <span>{formatDate(tx.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</span>
                       <span>•</span>
                       <span className="text-slate-300">{tx.wallet}</span>
                     </div>

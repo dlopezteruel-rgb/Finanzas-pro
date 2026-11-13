@@ -1,16 +1,18 @@
+import {useI18n} from "../i18n";
 import React from 'react';
 import type { FinanceData } from '../utils/backup';
 import { cents, isStructuredShared, remainingDebt, sharedWalletName } from '../utils/sharedExpenses';
-import { formatCurrency } from '../utils/finance';
+
 import { SafeDialog } from './SafeDialog';
 
 export function SharedExpenseDetail({ data, id, onClose }: { data: FinanceData; id: string; onClose: () => void }) {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const tx = data.transactions.find(t => t.id === id), split = tx?.splitInfo;
   if (!tx || !split) return <SafeDialog title="Reparto del gasto" onCancel={onClose}><p>El gasto ya no está disponible.</p><button onClick={onClose}>Cerrar reparto</button></SafeDialog>;
   const structured = isStructuredShared(tx), settlements = structured ? split.settlements! : [];
   const pending = structured ? split.participants.reduce((n, p) => n + cents(remainingDebt(tx, p.contactId)), 0) / 100 : undefined;
   return <SafeDialog title="Reparto del gasto" onCancel={onClose}>
-    <p className="font-bold">{tx.description} · {tx.date}</p>
+    <p className="font-bold">{tx.description} · {formatDate(tx.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</p>
     <p className="text-xs text-slate-300">{tx.subcategoryName} · Cartera de origen: {sharedWalletName(tx, data)}</p>
     {!structured && <p role="status" className="text-amber-300 text-sm">Compartido histórico · pendiente de revisión. Se muestran los valores guardados y referencias explícitas; no se verifican ni se deducen pagos o compensaciones. El presupuesto conserva el importe total hasta migrar.</p>}
     {!tx.processed && <p className="text-amber-300 text-sm">Gasto no tramitado: no afecta al saldo real ni al ejecutado presupuestario.</p>}
@@ -33,7 +35,7 @@ export function SharedExpenseDetail({ data, id, onClose }: { data: FinanceData; 
           : <><p>Marca histórica: {p.isPaid ? 'pagado' : 'pendiente'}{p.paidDate ? ` · ${p.paidDate}` : ''}. Cobros y compensaciones pendientes de verificar.</p>
             {p.reimbursementTxId && <p>Referencia guardada: {p.reimbursementTxId}{oldReceipt ? ` · ${formatCurrency(oldReceipt.amount)} · ${oldReceipt.date} · ${oldReceipt.wallet}` : ' · movimiento no disponible'}</p>}</>}
         {payments.map(s => <div key={s.id} className="border-t border-white/10 pt-2 mt-2" aria-label="Registro de liquidación">
-          <p>{s.kind === 'cash' ? 'Reintegro' : 'Compensación sin movimiento bancario'}: {formatCurrency(s.amount)} · {s.date}</p>
+          <p>{s.kind === 'cash' ? 'Reintegro' : 'Compensación sin movimiento bancario'}: {formatCurrency(s.amount)} · {formatDate(s.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</p>
           {s.kind === 'cash' && <p>Cartera receptora: {data.wallets.find(w => w.id === s.walletId)?.name ?? 'No disponible'}</p>}
           <p>Estado: {s.processed ? 'Tramitada' : 'Pendiente de tramitación'}</p>
         </div>)}

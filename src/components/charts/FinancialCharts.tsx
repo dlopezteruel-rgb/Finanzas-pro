@@ -1,7 +1,8 @@
+import {useI18n} from "../../i18n";
 import React, { useMemo, useState } from 'react';
 import type { FinanceData } from '../../utils/backup';
 import { accountingChartWarnings, chartFamilies, economicChartData, economicSeries, monthEnd, planningChartData, walletChartData, type ChartRange, type ChartRow, type EconomicFilter } from '../../utils/chartData';
-import { formatCurrency } from '../../utils/finance';
+
 import { InteractiveChart } from './InteractiveChart';
 
 export type FinancialChartProps = { data: FinanceData; month: string; kind: 'home' | 'movements' | 'planning' | 'wallets'; initialFilter?: EconomicFilter; navigate?: (filter: EconomicFilter) => void };
@@ -14,6 +15,7 @@ function RangeControls({ range, onChange }: { range: ChartRange; onChange: (rang
 }
 function Warnings({data}:{data:FinanceData}) {return <>{accountingChartWarnings(data).map(w=><p key={w} className="chart-warning">{w}</p>)}</>}
 function EconomicCharts({data,month,kind,initialFilter,navigate}:FinancialChartProps) {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const [filter,setFilter]=useState<EconomicFilter>(()=>initialFilter ?? {from:kind==='home'?`${month.slice(0,4)}-01-01`:`${month}-01`,to:monthEnd(month),granularity:'month',type:'all',family:'all',processed:true});
   const [selected,setSelected]=useState<ChartRow|null>(null);
   const [detailPage,setDetailPage]=useState(0);
@@ -39,7 +41,7 @@ function EconomicCharts({data,month,kind,initialFilter,navigate}:FinancialChartP
       <InteractiveChart title={filter.processed?'Evolución del balance económico real':'Balance económico pendiente (no realizado)'} rows={result.value.periods} series={[economicSeries[2]]} initialType="line" empty={!result.value.hasData} onSelect={selectRow}/>
       <InteractiveChart title={filter.processed?'Distribución del gasto económico':'Distribución del gasto pendiente'} rows={result.value.distribution} series={[{key:'amount',label:'Gasto económico'}]} distribution initialType="donut" empty={!result.value.distribution.length} onSelect={selectRow}/>
       {selected&&<section className="chart-detail" aria-label="Detalle económico seleccionado"><h3>Detalle: {selected.label}</h3><p>{detail.length} movimientos económicos. Compartidos estructurados: parte propia; los pagos bancarios se indican aparte.</p>
-        <div className="chart-table"><table><caption>Movimientos económicos del dato seleccionado</caption><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe económico</th><th>Importe bancario original</th><th>Estado</th></tr></thead><tbody>{detail.slice(detailPage*100,(detailPage+1)*100).map(t=><tr key={t.id}><td>{t.date}</td><th scope="row">{t.description}</th><td>{t.type}</td><td>{formatCurrency(t.amount)}</td><td>{formatCurrency(source.get(t.id)?.amount)}</td><td>{t.processed?'Tramitado':'Pendiente'}</td></tr>)}</tbody></table></div>
+        <div className="chart-table"><table><caption>Movimientos económicos del dato seleccionado</caption><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Importe económico</th><th>Importe bancario original</th><th>Estado</th></tr></thead><tbody>{detail.slice(detailPage*100,(detailPage+1)*100).map(t=><tr key={t.id}><td>{formatDate(t.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</td><th scope="row">{t.description}</th><td>{t.type}</td><td>{formatCurrency(t.amount)}</td><td>{formatCurrency(source.get(t.id)?.amount)}</td><td>{t.processed?'Tramitado':'Pendiente'}</td></tr>)}</tbody></table></div>
         {detail.length>100&&<p>Página {detailPage+1} de {Math.ceil(detail.length/100)} <button disabled={!detailPage} onClick={()=>setDetailPage(p=>p-1)}>Anterior</button><button disabled={(detailPage+1)*100>=detail.length} onClick={()=>setDetailPage(p=>p+1)}>Siguiente</button></p>}
         {navigate&&<button type="button" onClick={()=>navigate({...filter,from:selected.from ?? filter.from,to:selected.to ?? filter.to,family:selected.values.amount!==undefined?selected.id:filter.family})}>Ver este análisis en Movimientos</button>}
       </section>}
@@ -62,6 +64,7 @@ function PlanningCharts({data,month}:FinancialChartProps) {
   </div>;
 }
 function WalletCharts({data,month}:FinancialChartProps) {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const [range,setRange]=useState<ChartRange>({from:`${month.slice(0,4)}-01-01`,to:monthEnd(month),granularity:'month'}),[wallet,setWallet]=useState('all'),[selected,setSelected]=useState<ChartRow|null>(null),[bankPage,setBankPage]=useState(0);
   const result=useMemo(()=>derive(()=>walletChartData(data,range,wallet)),[data,range,wallet]);
   const options=useMemo(()=>walletChartData(data,{from:`${month}-01`,to:monthEnd(month),granularity:'month'},'all').names,[data,month]);
@@ -74,7 +77,7 @@ function WalletCharts({data,month}:FinancialChartProps) {
       <InteractiveChart title="Comparación de saldos actuales" rows={result.value.current} series={[{key:'balance',label:'Saldo actual'}]} empty={!result.value.current.length} onSelect={row=>{setWallet(row.id);setSelected(null)}}/>
       <p className="chart-warning">{result.value.limitation}</p>
       <InteractiveChart title="Variación bancaria acumulada registrada (no saldo histórico)" rows={result.value.changes} series={[{key:'total',label:wallet==='all'?'Variación total':`Variación ${wallet}`}]} initialType="line" empty={!result.value.hasMovements} onSelect={row=>{setSelected(row);setBankPage(0)}}/>
-      {selected&&<div className="chart-table"><table><caption>Movimientos bancarios registrados de {selected.label}</caption><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo bancario</th><th>Importe</th></tr></thead><tbody>{data.transactions.filter(t=>ids.has(t.id)).slice(bankPage*100,(bankPage+1)*100).map(t=><tr key={t.id}><td>{t.date}</td><th scope="row">{t.description}</th><td>{t.type}</td><td>{formatCurrency(t.amount)}</td></tr>)}</tbody></table>{ids.size>100&&<p>Página {bankPage+1} de {Math.ceil(ids.size/100)} <button disabled={!bankPage} onClick={()=>setBankPage(p=>p-1)}>Anterior</button><button disabled={(bankPage+1)*100>=ids.size} onClick={()=>setBankPage(p=>p+1)}>Siguiente</button></p>}</div>}
+      {selected&&<div className="chart-table"><table><caption>Movimientos bancarios registrados de {selected.label}</caption><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo bancario</th><th>Importe</th></tr></thead><tbody>{data.transactions.filter(t=>ids.has(t.id)).slice(bankPage*100,(bankPage+1)*100).map(t=><tr key={t.id}><td>{formatDate(t.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</td><th scope="row">{t.description}</th><td>{t.type}</td><td>{formatCurrency(t.amount)}</td></tr>)}</tbody></table>{ids.size>100&&<p>Página {bankPage+1} de {Math.ceil(ids.size/100)} <button disabled={!bankPage} onClick={()=>setBankPage(p=>p-1)}>Anterior</button><button disabled={(bankPage+1)*100>=ids.size} onClick={()=>setBankPage(p=>p+1)}>Siguiente</button></p>}</div>}
     </>}
   </div>;
 }

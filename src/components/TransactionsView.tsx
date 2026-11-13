@@ -20,7 +20,7 @@ import {
   Edit2
 } from 'lucide-react';
 import { Transaction } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 
 interface TransactionsViewProps {
   currentMonthYear?: string;
@@ -42,7 +42,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   onEditTransaction,
   onOpenNewTransaction,
 }) => {
-  const { t: uiText, tn: uiCount } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency , formatDate } = useI18n();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
@@ -246,7 +246,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
               key={t.id}
               ref={t.id === focusedTransactionId ? focusedRowRef : undefined}
               tabIndex={t.id === focusedTransactionId ? -1 : undefined}
-              aria-label={t.id === focusedTransactionId ? uiText("transactions.movimiento_seleccionado", { description: t.description, date: t.date, amount: formatCurrency(t.amount) }) : undefined}
+              aria-label={t.id === focusedTransactionId ? uiText("transactions.movimiento_seleccionado", { description: t.description, date: formatDate(t.date, {day:'2-digit',month:'2-digit',year:'numeric'}), amount: formatCurrency(t.amount) }) : undefined}
               data-focused-transaction={t.id === focusedTransactionId ? 'true' : undefined}
               role="listitem" className={`movement-row px-3.5 py-3 flex items-center justify-between gap-3 hover:bg-white/[0.02] transition-colors ${t.id === focusedTransactionId ? 'ring-2 ring-inset ring-sky-400 bg-sky-500/10' : ''}`}
             >

@@ -1,6 +1,6 @@
 import { useI18n, I18nText } from "../i18n";
 import React, { useId } from 'react';
-import { formatPlanningCents } from '../utils/planning';
+
 
 /** A disclosure hides DOM only; its summaries and controlled inputs remain mounted. */
 export function PlanningSection({ title, family = false, open, onToggle, onAll, planned, executed, count, invalidCount, warning, carried = 0, children }: {
@@ -17,7 +17,7 @@ export function PlanningSection({ title, family = false, open, onToggle, onAll, 
   carried?: number;
   children: React.ReactNode;
 }) {
-  const { t: uiText, tn: uiCount } = useI18n();
+  const { t: uiText, tn: uiCount , formatCents: formatPlanningCents } = useI18n();
   const id = useId();
   const Heading = family ? 'h3' : 'h2';
   return <section className={family ? 'planning-family space-y-3' : 'planning-card space-y-3'} aria-labelledby={`${id}-title`}>

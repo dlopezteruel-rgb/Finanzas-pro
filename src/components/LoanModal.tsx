@@ -9,7 +9,7 @@ import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useLayoutEffect } from 'react';
 import { Loan, Wallet } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { initialWalletName } from '../utils/defaultWallet';
 import { X, CreditCard, Trash2, Check, Landmark, Calendar } from 'lucide-react';
 

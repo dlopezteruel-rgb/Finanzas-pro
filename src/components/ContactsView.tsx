@@ -1,10 +1,11 @@
+import {useI18n} from "../i18n";
 import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import { parseTransferAmount } from '../utils/transfers';
 import React, { useState, useMemo } from 'react';
 import { Contact, Transaction, Wallet, SplitParticipant } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import {
   Users,
   UserPlus,
@@ -49,6 +50,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
   onEditTransaction,
   onUpdateDebtAmount, onEditSettlement,
 }) => {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const debtSubmission = useAsyncForm();
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedContactId, setExpandedContactId] = useState<string | null>(null);
@@ -448,7 +450,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       )}
 
                       {transactions.flatMap(t => (t.splitInfo?.settlements ?? []).filter(s => s.contactId === contact.id).map(s => <div key={s.id} className="contact-settlement text-slate-300">
-                        <span>{s.kind === 'cash' ? 'Reintegro' : 'Compensación'} · {formatCurrency(s.amount)} · {s.date} · {s.processed ? 'Tramitado' : 'Pendiente'}</span>
+                        <span>{s.kind === 'cash' ? 'Reintegro' : 'Compensación'} · {formatCurrency(s.amount)} · {formatDate(s.date, {day:'2-digit',month:'2-digit',year:'numeric'})} · {s.processed ? 'Tramitado' : 'Pendiente'}</span>
                         <button aria-label={`Editar liquidación ${s.id}`} className="text-sky-300" onClick={() => onEditSettlement(t.id, s.id)}>Editar</button>
                         <button aria-label={`Eliminar liquidación ${s.id}`} className="text-rose-300" onClick={() => onEditSettlement(t.id, s.id, true)}>Eliminar</button>
                       </div>))}

@@ -1,3 +1,4 @@
+import {useI18n} from "../i18n";
 import {SubitemSelector} from './SubitemSelector';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -5,7 +6,7 @@ import React, { useState, useMemo } from 'react';
 import { Zap, Check, X, ArrowRight, CornerDownLeft, CheckCircle2 } from 'lucide-react';
 import {naturalInputIssue} from '../utils/naturalInput';
 import { parseFinancialInput } from '../utils/parser';
-import { formatCurrency } from '../utils/finance';
+
 import { Transaction, Wallet, BudgetSubitem, BudgetPartida, MovementType } from '../types/finance';
 import { walletFromText } from '../utils/defaultWallet';
 
@@ -26,6 +27,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
 }) => {
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
   const [subitemChoice,setSubitemChoice]=useState<{key:string;id:string}|null>(null);
@@ -179,7 +181,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               <label>Cartera<select aria-label="Cartera del registro rápido" value={parsed.wallet} onChange={e => setWalletChoice(wallets.find(w => w.name === e.target.value)?.id ?? '')}>
                 <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}
               </select></label>
-              <span>Fecha: <strong className="text-slate-200">{parsed.date}</strong></span>
+              <span>Fecha: <strong className="text-slate-200">{formatDate(parsed.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</strong></span>
             </div>
             <span className={parsed.processed ? 'text-emerald-400 font-medium' : 'text-amber-400 font-medium'}>
               {parsed.processed ? '✓ Tramitado (SÍ)' : '⏳ Pendiente (NO)'}

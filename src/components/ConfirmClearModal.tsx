@@ -1,4 +1,4 @@
-import { formatCurrency } from '../utils/finance';
+
 import { useI18n, I18nText } from "../i18n";
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { clearImpact, clearScope } from '../utils/clearData';
@@ -25,7 +25,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency } = useI18n();
   const [review, setReview] = useState<{ options: ClearDataOptions; scope: string; report: DeletionReport } | null>(null);
   const close = onClose;
   const [options, setOptions] = useState<ClearDataOptions>({

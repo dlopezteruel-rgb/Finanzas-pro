@@ -7,7 +7,7 @@ import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useLayoutEffect } from 'react';
 import { Wallet } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { X, Landmark, Trash2, Check, Sparkles, Coins } from 'lucide-react';
 
 interface WalletModalProps {
@@ -42,7 +42,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   onSaveWallet,
   onDeleteWallet,
 }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency } = useI18n();
   const { t } = useI18n();
   const isEditing = !!walletToEdit;
 

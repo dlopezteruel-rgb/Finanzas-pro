@@ -6,7 +6,7 @@ import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
 import React, { useState, useLayoutEffect } from 'react';
 import { Wallet, Transaction, TransferInput } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { ArrowLeftRight, X, Check, ArrowRight } from 'lucide-react';
 
 interface TransferModalProps {
@@ -29,7 +29,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   walletBalances,
   onExecuteTransfer, transferToEdit, initiallyDelete = false, onDeleteTransfer,
 }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatDate } = useI18n();
   const submission = useAsyncForm();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [processed, setProcessed] = useState(true);
@@ -262,7 +262,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           </div>
           {transferToEdit?.transfer && onDeleteTransfer && <div className="text-rose-300 space-y-2">
             {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>{uiText("transfer.eliminar_traspaso_completo")}</button> : <>
-              <p><I18nText id="transfer.se_eliminaran_juntos_los_dos_extremos_del_traspaso_carteras" values={{ concept: (transferToEdit.transfer.concept), id: (transferToEdit.transfer.id), amount: (formatCurrency(transferToEdit.amount)), date: (transferToEdit.date), content: (wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name), content_af1c0: (wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name) }} /></p>
+              <p><I18nText id="transfer.se_eliminaran_juntos_los_dos_extremos_del_traspaso_carteras" values={{ concept: (transferToEdit.transfer.concept), id: (transferToEdit.transfer.id), amount: (formatCurrency(transferToEdit.amount)), date: (formatDate(transferToEdit.date, {day:'2-digit',month:'2-digit',year:'numeric'})), content: (wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name), content_af1c0: (wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name) }} /></p>
               <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>{uiText("transfer.confirmar_eliminacion_del_traspaso")}</button>
               <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">{uiText("transfer.conservar_traspaso")}</button>
             </>}

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { SafeDialog } from "./SafeDialog";
 import {
   currentMonth,
-  monthLabel,
   MONTH_NAMES,
   shiftMonth,
 } from "../utils/financialCalendar";
@@ -17,7 +16,7 @@ export function PeriodSelector({
   periods: string[];
   onChange: (month: string) => void;
 }) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMonth: monthLabel, monthName } = useI18n();
   const [open, setOpen] = useState(false),
     [year, setYear] = useState(month.slice(0, 4)),
     [number, setNumber] = useState(month.slice(5));
@@ -90,7 +89,7 @@ export function PeriodSelector({
               >
                 {MONTH_NAMES.map((m, i) => (
                   <option value={String(i + 1).padStart(2, "0")} key={m}>
-                    {m}
+                    {monthName(i + 1)}
                   </option>
                 ))}
               </select>

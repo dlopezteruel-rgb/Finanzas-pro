@@ -1,13 +1,13 @@
 import { useI18n } from "../i18n";
 import React, { useState } from 'react';
 import type { planningDraftPreview } from './planningPreview';
-import { formatPlanningCents as money } from '../utils/planning';
+
 
 export function PlanningLiveSummary({ preview, dirty }: {
   preview: ReturnType<typeof planningDraftPreview>;
   dirty: boolean;
 }) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatCents: money } = useI18n();
   const [expanded, setExpanded] = useState(false);
   const { baseTotals, totals, carryCents } = preview;
   const metric = (label: string, value: number | undefined, emphasis = false) => <div className={emphasis ? 'allocation-key' : undefined} key={label}>

@@ -15,7 +15,7 @@ import {
   BudgetPartida,
   MovementType
 } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import {
   ChevronDown,
   ChevronUp,
@@ -57,7 +57,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   onChangePartidaGroup,
   onSelectPartidaToView,
 }) => {
-  const { t: uiText, tn: uiCount } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency } = useI18n();
   const [activeTab, setActiveTab] = useState<'GASTO' | 'INGRESO'>('GASTO');
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [editingKey, setEditingKey] = useState<string | null>(null);

@@ -4,10 +4,10 @@ import React from 'react';
 import type {FinanceData} from '../utils/backup';
 import type {BudgetPartida} from '../types/finance';
 import {subitemsFor,subitemBudgetRows} from '../utils/budgetSubitems';
-import {formatPlanningCents as money,parsePlanningMoney} from '../utils/planningMoney';
+import { parsePlanningMoney } from '../utils/planningMoney';
 
 export function PlanningSubitems({data,partida,month,value,onChange}:{data:FinanceData;partida:BudgetPartida;month:string;value?:Record<string,string>;onChange:(value:Record<string,string>)=>void}) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatCents: money } = useI18n();
   const items=subitemsFor(data,partida),rows=subitemBudgetRows(data,month,partida);
   if(!items.length&&!value)return null;
   const missing=items.filter(i=>!i.archived&&!Object.hasOwn(value ?? {},i.id));

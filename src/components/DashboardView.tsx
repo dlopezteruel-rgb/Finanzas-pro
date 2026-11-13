@@ -22,7 +22,7 @@ import {
   Clock
 } from 'lucide-react';
 import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetSubitem } from '../types/finance';
-import { formatCurrency, calculateLoanStatus } from '../utils/finance';
+import { calculateLoanStatus } from '../utils/finance';
 import { QuickNaturalLanguageInput } from './QuickNaturalLanguageInput';
 
 interface DashboardViewProps {
@@ -56,7 +56,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToTab,
   onOpenNewTransaction,
 }) => {
-  const { t: uiText, tn: uiCount } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency } = useI18n();
   const totalLiquid = wallets.filter(w=>w.type!=='INVESTMENT').reduce((sum,w)=>sum+(walletBalances[w.name]??0),0);
 
   // Filter latest transactions

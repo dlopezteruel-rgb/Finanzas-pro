@@ -7,7 +7,7 @@ import type { FinanceData } from '../utils/backup';
 import type { PlanningRule, PlanningApproval } from '../types/finance';
 import type { SaveResult } from '../utils/saveResult';
 import { applyAutomationPreview, previewAutomation, carryObservation, carryIsStale, protectedMonth, hasMonthPlan, type AutomationPreview, type AutomationRequest } from '../utils/planningAutomation';
-import { annualPlanning, planningKey, formatPlanningCents as money, parsePlanningMoney, planningMoneyInput } from '../utils/planning';
+import { annualPlanning, planningKey, parsePlanningMoney, planningMoneyInput } from '../utils/planning';
 import { nextMonth, monthNumber } from '../utils/planningCalendar';
 import { SafeDialog } from './SafeDialog';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -18,7 +18,7 @@ const actionLabels={copy:'automation.open.copy',recurrences:'automation.open.rec
 type Mode=keyof typeof labels;
 const destinationAfter=(month:string)=>{try{return nextMonth(month)}catch{return month}};
 export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,requestCarryReview}:{data:FinanceData;month:string;blocked:boolean;onBusy:(busy:boolean)=>void;onApply:(preview:AutomationPreview)=>Promise<SaveResult>;requestCarryReview?:{id:string}|null}) {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatCents: money , formatDate } = useI18n();
   const [mode,setMode]=useState<Mode|null>(null),[preview,setPreview]=useState<AutomationPreview|null>(null),[error,setError]=useState(''),[notice,setNotice]=useState(false);
   const submission=useAsyncForm();useLayoutEffect(()=>onBusy(submission.saving),[submission.saving,onBusy]);
   const [source,setSource]=useState(month),[first,setFirst]=useState(()=>destinationAfter(month)),[last,setLast]=useState(()=>destinationAfter(month)),[copySavings,setCopySavings]=useState(true);
@@ -94,7 +94,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
         <label>{uiText("planning_automation_panel.mes_del_historial")}<input aria-label={uiText("planning_automation_panel.mes_del_historial_6a07d0")} type="month" value={historyMonth} onChange={e=>{setHistoryMonth(e.target.value);setCompareA('');setCompareB('')}}/></label>
         <p>{uiText("planning_automation_panel.solo_fotografias_reales_conservadas_de_un_json_2_9")}</p>
         {!selectedHistory.length?<p>{uiText("planning_automation_panel.sin_fotografias_de_aprobacion")}</p>:<>
-          <ol>{selectedHistory.map(p=><li key={p.number}><I18nText id="planning_automation_panel.aprobacion_n_revision" values={{ number: (p.number), revision: (p.revision), approvedAt: (p.approvedAt) }} /></li>)}</ol>
+          <ol>{selectedHistory.map(p=><li key={p.number}><I18nText id="planning_automation_panel.aprobacion_n_revision" values={{ number: (p.number), revision: (p.revision), approvedAt: (formatDate(p.approvedAt, {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})) }} /></li>)}</ol>
           <label>{uiText("planning_automation_panel.version_a")}<select aria-label={uiText("planning_automation_panel.version_a_ab5e26")} value={photoA?.number ?? ''} onChange={e=>setCompareA(e.target.value)}>{selectedHistory.map(p=><option key={p.number} value={p.number}>{p.number}</option>)}</select></label>
           <label>{uiText("planning_automation_panel.version_b")}<select aria-label={uiText("planning_automation_panel.version_b_c7652a")} value={photoB?.number ?? ''} onChange={e=>setCompareB(e.target.value)}>{selectedHistory.map(p=><option key={p.number} value={p.number}>{p.number}</option>)}</select></label>
           {photoA&&photoB&&<div className="chart-table automation-table" tabIndex={0} role="region" aria-label={uiText("planning_automation_panel.comparacion_de_aprobaciones_desplazable")}><table><caption>{uiText("planning_automation_panel.diferencias_entre_fotografias_reales")}</caption><thead><tr><th>{uiText("planning_automation_panel.partida")}</th><th>{'A'}</th><th>{'B'}</th><th>{uiText("planning_automation_panel.diferencia_b_a")}</th></tr></thead><tbody>

@@ -5,14 +5,14 @@ import type {ReorderCallback} from '../utils/catalogReorder';
 import type { FinanceData } from '../utils/backup';
 import { SubitemManager } from './SubitemManager';
 import { monthlySubitems, subitemBudgetRows, subitemsFor, type SubitemEdit } from '../utils/budgetSubitems';
-import { formatPlanningCents } from '../utils/planningMoney';
+
 import { parsePlanningMoney } from '../utils/planning';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import { Overlay } from './Overlay';
 import React, { useState, useLayoutEffect } from 'react';
 import { BudgetPartida, MonthlyBudgetRow, Transaction, MovementType } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { X, Plus, Edit2, Trash2, Check, CheckCircle2, Clock, Calendar, ArrowRight } from 'lucide-react';
 
 interface PartidaDetailModalProps {
@@ -47,7 +47,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   onAddMovementToPartida,
   onUpdatePrevisto, onViewSharedDetails, error = '',
 }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency, formatCents: formatPlanningCents , formatDate } = useI18n();
   const [selectedSubitem,setSelectedSubitem]=useState<string|null>(null),[subitemBusy,setSubitemBusy]=useState(false);
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
@@ -234,7 +234,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                   <div className="flex items-center gap-2 text-[10px] text-slate-400 mt-0.5">
                     <span className="text-slate-300 font-semibold">{t.wallet}</span>
                     <span>•</span>
-                    <span>{t.date}</span>
+                    <span>{formatDate(t.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</span>
                     {t.notes && (
                       <>
                         <span>•</span>

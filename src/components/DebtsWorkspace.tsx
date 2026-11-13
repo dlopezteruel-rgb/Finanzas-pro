@@ -1,3 +1,4 @@
+import {useI18n} from "../i18n";
 import { initialWalletId } from '../utils/defaultWallet';
 import React, { useState } from "react";
 import type { FinanceData } from "../utils/backup";
@@ -13,11 +14,7 @@ import {
   saveObligation,
   settleObligation,
 } from "../utils/personalObligations";
-import {
-  formatPlanningCents as money,
-  parsePlanningMoney,
-  planningMoneyInput,
-} from "../utils/planningMoney";
+import { parsePlanningMoney, planningMoneyInput } from "../utils/planningMoney";
 import { madridDate } from "../utils/financialCalendar";
 import { SafeDialog } from "./SafeDialog";
 import { FinanceReview } from "./FinanceReview";
@@ -35,6 +32,7 @@ export function DebtsWorkspace({
   onContacts: () => void;
   onMovement: (id: string) => void;
 }) {
+  const { formatCents: money , formatDate } = useI18n();
   const [direction, setDirection] = useState<"receivable" | "payable">(
       "payable",
     ),
@@ -270,7 +268,7 @@ export function DebtsWorkspace({
                       {o.settlements.map((s) => (
                         <div key={s.id}>
                           <p>
-                            {s.date} · {money(s.amountCents)} ·{" "}
+                            {formatDate(s.date, {day:'2-digit',month:'2-digit',year:'numeric'})} · {money(s.amountCents)} ·{" "}
                             {s.kind === "bank" ? "Banco" : "Ajuste sin banco"} ·{" "}
                             {s.processed ? "Tramitado" : "Pendiente"} · {s.note}
                           </p>

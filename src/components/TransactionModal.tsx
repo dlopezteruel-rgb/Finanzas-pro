@@ -9,7 +9,7 @@ import { cents } from '../utils/sharedExpenses';
 import { amountCents, weightedCents } from '../utils/sharedDistribution';
 import { parseTransferAmount } from '../utils/transfers';
 import { normalizeSearch } from '../utils/partidaSearch';
-import { formatCurrency } from '../utils/finance';
+
 import { Overlay } from './Overlay';
 import { PartidaSelector } from './PartidaSelector';
 import { initialWalletName } from '../utils/defaultWallet';
@@ -27,7 +27,7 @@ interface TransactionModalProps {
 }
 export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, onSave, wallets, contacts = [], onQuickCreateContact,
   defaultDate, defaultWalletId, subitems=[], initialSubitemId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = [], budgetGroups, transactions = [] }) => {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatCents } = useI18n();
   const { t } = useI18n();
   const submission = useAsyncForm();
   const [subitemId,setSubitemId]=useState('');
@@ -136,9 +136,9 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
             <span>{person.name}</span>
             {method === 'weighted' && <label>{uiText("transaction.peso_de", { name: person.name })}<input aria-label={uiText("transaction.peso_de", { name: person.name })} type="number" min="0" max="1000000" step="0.000001" value={person.id === null ? ownWeight : weights[person.id] ?? '1'} onChange={e => { person.id === null ? setOwnWeight(e.target.value) : setWeights(w => ({ ...w, [person.id!]: e.target.value })); setTouched(true); clear(); }} className="ml-2 w-20 rounded p-1 bg-[#141926] border border-white/10" /></label>}
             {method === 'amounts' && i < selectedContactIds.length && <label>{uiText("transaction.importe_de", { name: person.name })}<input aria-label={uiText("transaction.importe_de", { name: person.name })} inputMode="decimal" value={person.id === null ? ownAmount : amounts[person.id] ?? '0'} onChange={e => { person.id === null ? setOwnAmount(e.target.value) : setAmounts(a => ({ ...a, [person.id!]: e.target.value })); setTouched(true); clear(); }} className="ml-2 w-24 rounded p-1 bg-[#141926] border border-white/10" /></label>}
-            <output aria-label={uiText("transaction.parte_de", { name: person.name })} className="font-mono font-bold">{shares.length ? formatCurrency(shares[i] / 100) : uiText("transaction.sin_asignar")}{method === 'amounts' && i > 0 && i === selectedContactIds.length ? uiText("transaction.resto_automatico") : ''}</output>
+            <output aria-label={uiText("transaction.parte_de", { name: person.name })} className="font-mono font-bold">{shares.length ? formatCents(shares[i]) : uiText("transaction.sin_asignar")}{method === 'amounts' && i > 0 && i === selectedContactIds.length ? uiText("transaction.resto_automatico") : ''}</output>
           </div>)}</div>
-          {!!shares.length && <div className="space-y-1" aria-live="polite"><p><I18nText id="transaction.tu_gasto" values={{ formatCurrency: (<strong>{formatCurrency(shares[0] / 100)}</strong>) }} /></p><p><I18nText id="transaction.total_que_deben_los_demas" values={{ formatCurrency: (<strong>{formatCurrency(shares.slice(1).reduce((a, b) => a + b, 0) / 100)}</strong>) }} /></p><p><I18nText id="transaction.total_repartido" values={{ formatCurrency: (<strong>{formatCurrency(shares.reduce((a, b) => a + b, 0) / 100)}</strong>) }} /></p></div>}
+          {!!shares.length && <div className="space-y-1" aria-live="polite"><p><I18nText id="transaction.tu_gasto" values={{ formatCurrency: (<strong>{formatCents(shares[0])}</strong>) }} /></p><p><I18nText id="transaction.total_que_deben_los_demas" values={{ formatCurrency: (<strong>{formatCents(shares.slice(1).reduce((a, b) => a + b, 0))}</strong>) }} /></p><p><I18nText id="transaction.total_repartido" values={{ formatCurrency: (<strong>{formatCents(shares.reduce((a, b) => a + b, 0))}</strong>) }} /></p></div>}
         </section>}
         <div className="grid grid-cols-2 gap-3"><label>{uiText("transaction.cartera_u_origen")}<select aria-label={uiText("transaction.cartera_u_origen")} required value={wallet} onChange={e => setWallet(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallet && !wallets.some(w => w.name === wallet) && <option value={wallet} disabled>{uiText("transaction.no_disponible", { wallet: wallet })}</option>}{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}</select></label><label>{uiText("transaction.estado_tramitacion")}<select aria-label={uiText("transaction.estado_tramitacion")} value={processed ? 'true' : 'false'} onChange={e => setProcessed(e.target.value === 'true')} className="block w-full bg-[#0c0f17] rounded-xl p-2"><option value="true">{uiText("transaction.tramitado_si")}</option><option value="false">{uiText("transaction.pendiente_no")}</option></select></label></div>
         <label className="block">{uiText("transfer.fecha")}<input aria-label={uiText("transfer.fecha")} type="date" required value={date} onChange={e => setDate(e.target.value)} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2" /></label>

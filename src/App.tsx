@@ -30,12 +30,7 @@ import {
   MonthlyBudgetRow,
   Contact,
 } from './types/finance';
-import {
-  calculateMonthlyBudgetRows,
-  calculateMonthlySummary,
-  calculateWalletBalances,
-  formatCurrency,
-} from './utils/finance';
+import { calculateMonthlyBudgetRows, calculateMonthlySummary, calculateWalletBalances } from './utils/finance';
 import {
   INITIAL_TRANSACTIONS,
   INITIAL_BUDGET_PLANS,
@@ -97,7 +92,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { t: uiText } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatCents } = useI18n();
   const { t } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
@@ -613,7 +608,7 @@ export default function App() {
         {activeTab === 'dashboard' && (<>
           <div className="finance-actions" aria-label={uiText("app.secciones_de_inicio")}><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>{uiText("app.resumen_financiero")}</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>{uiText("app.proximos_30_dias")}</button></div>
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
-          <p className="planning-card"><I18nText id="app.cobros_pendientes_obligaciones_pendientes_separados_del_saldo_bancario" values={{ receivables: (formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)), payables: (formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)) }} /></p>
+          <p className="planning-card"><I18nText id="app.cobros_pendientes_obligaciones_pendientes_separados_del_saldo_bancario" values={{ receivables: (formatCents(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0))), payables: (formatCents(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0))) }} /></p>
           <DashboardView
             classificationPartidas={classificationPartidas}
             subitems={data.budgetSubitems?.items}
