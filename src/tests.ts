@@ -47,3 +47,5 @@ import './i18n/presentation.test';
 import './i18n/bankingReviews.test';
 
 import './i18n/storageMessages.test';
+
+import './i18n/sharedMessages.test';

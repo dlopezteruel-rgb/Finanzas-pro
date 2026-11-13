@@ -41,6 +41,11 @@
         "key": "storage.backup.path",
         "text": "{path}: {reason}",
         "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
       }
     ],
     "it": [
@@ -108,6 +113,11 @@
         "key": "storage.backup.path",
         "text": "{path}: {reason}",
         "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
       }
     ],
     "fr": [
@@ -592,6 +602,56 @@
         "key": "storage.title.import",
         "text": "Importar «{file}»",
         "reason": "Native European Portuguese import instruction; file name is literal"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "contacts.editar",
+        "text": "Editar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.eliminar",
+        "text": "Eliminar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.eliminar_contacto",
+        "text": "Eliminar contacto {name}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.guardar",
+        "text": "Guardar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.participante",
+        "text": "Participante {name}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.compensado",
+        "text": "Compensado: {offset}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.estado",
+        "text": "Estado: {content}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_message.peso_de_contacto_invalido",
+        "text": "Peso de contacto inválido.",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
       }
     ]
   }

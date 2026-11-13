@@ -54,6 +54,10 @@ export const pluralCategory = (count: number, language: Language = 'es') => new 
 export const translatorFor = (language: Language): typeof translate => (key, ...args) => translateFrom(dictionaries[language] ?? es, key, args[0]);
 
 export const pluralFamilies = {
+  contactDebtors: {one:'count.contactDebtors.one',other:'count.contactDebtors.other'},
+  contactDebts: {one:'count.contactDebts.one',other:'count.contactDebts.other'},
+  contactConcepts: {one:'count.contactConcepts.one',other:'count.contactConcepts.other'},
+
   recordedTransactionsHint: { one: 'count.recordedTransactionsHint.one', other: 'count.recordedTransactionsHint.other' },
   invalidAmountsVisible: { one: 'count.invalidAmountsVisible.one', other: 'count.invalidAmountsVisible.other' },
   invalidAmountsHidden: { one: 'count.invalidAmountsHidden.one', other: 'count.invalidAmountsHidden.other' },

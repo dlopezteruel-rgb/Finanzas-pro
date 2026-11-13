@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1394 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1530 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -212,3 +212,23 @@ La ejecución final ampliada completa **36/36 resultados en 93,56 s**, cero fall
 CI publicado anterior: [Actions 43462137791](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43462137791), SHA `2063e219a6e79d5208e7a2f832c923ea4e64bda9`, tres trabajos verdes. Artefacto comprobado: **452 resultados / 28 suites**, cero fallos, omisiones o cancelaciones. Axe general: 128 observaciones, cero violaciones y **136 grupos incompletos**. Matriz de obligaciones: 120 observaciones, cero violaciones y **130 grupos incompletos en CI**, frente a 128 locales; se mantiene la distinción entre observaciones incompletas y violaciones/defectos únicos. El nuevo checkpoint requiere sus propios checks.
 
 La batería completa contiene ahora **29 suites**. El recuento esperado de 488 resultados debe confirmarse con la ejecución completa del SHA publicado, sin usarlo como resultado anticipado.
+
+### Checkpoint de Contactos y gastos compartidos
+
+Se añaden **136 claves**, hasta **1530 por diccionario**: Contactos, detalle de gasto compartido, frases plurales completas y 55 diagnósticos estáticos con su envoltorio de revisión histórica. Las cantidades de personas/deudas/conceptos usan las reglas Intl del mismo sistema, sin construir frases mediante sustantivos concatenados. Se conservan nombres personales, conceptos, categorías históricas, notas, IDs y referencias de reintegros; incluso los nombres que coinciden con una palabra traducible o contienen llaves/$& se muestran literalmente.
+
+La vista histórica sigue distinguiendo los valores declarados de pagos comprobados: una marca «pagado» sin movimiento inequívoco no se presenta como reintegro ni compensación verificados. Se localizan solamente su advertencia y referencias al mostrarlas. No se migra, deduce ni escribe ningún histórico por cambiar de idioma o abrir sus detalles. No cambian sharedExpenses/sharedDistribution, parsers, cálculos ni formatos. El adaptador solo recibe diagnósticos generados; los desconocidos permanecen literales y el anidamiento se limita para evitar recursión ilimitada.
+
+Resultado local: **484 unitarias**, lint/build/diff-check correctos; regresiones españolas **12 resultados sharedUx** y **23 de eliminación segura**, sin fallos, omisiones o cancelaciones. Matriz nueva: **36/36 resultados en 137,02 s** (30 combinaciones de idioma/ancho/tema + cinco históricos + contenedor). Comprueba corrección rechazada conservando formulario/foco, cambio cross-tab, exceso de cobro rechazado, liquidación bancaria única de 1234 céntimos, compensación de 500 céntimos sin banco, gasto propio de 3334 céntimos, ingresos económicos cero y saldo bancario de 912,34 €, dependencias que bloquean eliminar contacto, detalle en lectura, Escape/Tab/foco, recarga y ausencia de migración silenciosa. Las cuentas, contactos, préstamos, catálogo y presupuestos se comparan exactamente con el fixture de origen.
+
+Incidencia **5B-004 — Botón de cierre sin nombre accesible**: la primera matriz detectó button-name en la X de «Corregir deuda». Se añade aria-label con la clave common.close existente; no se desactiva ninguna regla de axe. La primera ejecución registró 36 resultados: 5 correctos y 31 fallidos contando el contenedor, sin omisiones ni cancelaciones; todos los fallos correspondían a ese botón sin nombre. La ejecución final registra **125 observaciones axe, cero violaciones y 145 grupos incompletos** pendientes de revisión manual. Esos grupos son observaciones de esta matriz, separados de los 136 de la auditoría general; no son defectos únicos ni validación con lector de pantalla. La incidencia no requiere cambiar el aspecto del botón ni los datos financieros.
+
+Capturas ficticias revisadas visualmente, procedentes de vistas previas de prueba (idiomas aún bloqueados en producción). Los textos españoles de nombres/conceptos/categorías son datos personales de prueba conservados; los caracteres {amount}/$& son valores literales del fixture, no parámetros sin resolver. Los identificadores operativos y BANK del ejemplo de cuenta siguen como valores técnicos; su presentación restante se revisará antes de completar la fase.
+
+| Contactos francés, 390 claro | Cuentas/restauración portugués, 390 claro |
+| --- | --- |
+| ![Contactos con reparto ficticio y eliminación cancelada](screenshots/phase-5b/contacts-fr-390-light.png) | ![Cuenta ficticia y confirmación de restauración](screenshots/phase-5b/storage-pt-390-light.png) |
+
+CI anterior verificado: [Actions 43470661027](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43470661027), SHA `07335e10560aa533996c165ac60d3bd316db433e`, tres trabajos verdes. Artefacto: **488 resultados / 29 suites**, cero fallos, omisiones o cancelaciones; axe general 128 observaciones, cero violaciones, 136 grupos incompletos. Matriz de almacenamiento: 125 observaciones, cero violaciones y 185 grupos incompletos, igual que la medición local. La batería actual añade compartidos y contiene 30 suites; 524 resultados es su expectativa, todavía no resultado del nuevo SHA.
+
+Siguen pendientes el asistente/registro natural, gráficos, ayudas/restos de P3, otros errores de dominio, revisión semántica final y matriz integral. Los cuatro idiomas nuevos continúan deshabilitados.

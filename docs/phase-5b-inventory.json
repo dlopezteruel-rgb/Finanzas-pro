@@ -3,13 +3,13 @@
   "schemaVersion": 2,
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
-    "type-or-import": 838,
-    "review": 3191,
+    "type-or-import": 840,
+    "review": 3168,
     "ui-message-candidate": 196,
-    "attribute-internal": 2102,
-    "translation-key": 1139,
-    "visible-attribute": 60,
-    "visible-text": 135
+    "attribute-internal": 2105,
+    "translation-key": 1224,
+    "visible-attribute": 46,
+    "visible-text": 89
   },
   "files": [
     {
@@ -39,7 +39,7 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "499908c0513862fbefd6af878dcbe5ff08c9cfececc3bbf462194373faa50773",
+      "sourceSha256": "087a41b0523ddde2b0c26e5026f1d101b951ad1163601250115a92e01ea00bc0",
       "counts": {
         "type-or-import": 65,
         "review": 53,
@@ -295,55 +295,17 @@
     {
       "file": "src/components/ContactsView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8253a7a5a32b34326b583169edc6cd7f6f2452962031593769a72e6e5eda6be2",
+      "sourceSha256": "a5819f51e4994bf6499d5dc2a08c1fc83b58aee5bc18632f91dc6153691656e6",
       "counts": {
-        "type-or-import": 9,
-        "review": 18,
-        "attribute-internal": 129,
-        "visible-text": 28,
-        "visible-attribute": 10
+        "type-or-import": 10,
+        "review": 6,
+        "attribute-internal": 132,
+        "translation-key": 48
       },
-      "visibleCandidateLines": [
-        159,
-        176,
-        187,
-        196,
-        199,
-        208,
-        209,
-        217,
-        236,
-        270,
-        278,
-        299,
-        328,
-        332,
-        339,
-        364,
-        373,
-        398,
-        411,
-        423,
-        440,
-        454,
-        455,
-        465,
-        468,
-        472,
-        481,
-        495,
-        496,
-        499,
-        514,
-        516,
-        525,
-        549,
-        558,
-        569
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 162,
+          "line": 164,
           "name": "formatCurrency"
         },
         {
@@ -351,19 +313,19 @@
           "name": "formatCurrency"
         },
         {
-          "line": 317,
+          "line": 315,
           "name": "formatCurrency"
         },
         {
-          "line": 380,
+          "line": 370,
           "name": "formatCurrency"
         },
         {
-          "line": 444,
+          "line": 430,
           "name": "formatCurrency"
         },
         {
-          "line": 453,
+          "line": 439,
           "name": "formatCurrency"
         }
       ]
@@ -917,38 +879,15 @@
     {
       "file": "src/components/SharedExpenseDetail.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "91e767641217854caed50a664ee46538b4207a2af22b19d71125a3a3136e00fa",
+      "sourceSha256": "3a9d5dc353462613efecc16def7219a72b6ef4e163dcf464c7a1603603de0ada",
       "counts": {
         "type-or-import": 5,
-        "visible-attribute": 4,
-        "visible-text": 18,
+        "translation-key": 37,
         "attribute-internal": 14,
-        "review": 26
+        "review": 15
       },
-      "visibleCandidateLines": [
-        11,
-        14,
-        16,
-        17,
-        18,
-        20,
-        22,
-        31,
-        32,
-        33,
-        34,
-        35,
-        36,
-        37,
-        39,
-        40,
-        44
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": [
-        {
-          "line": 20,
-          "name": "formatCurrency"
-        },
         {
           "line": 21,
           "name": "formatCurrency"
@@ -962,15 +901,11 @@
           "name": "formatCurrency"
         },
         {
-          "line": 23,
+          "line": 24,
           "name": "formatCurrency"
         },
         {
-          "line": 33,
-          "name": "formatCurrency"
-        },
-        {
-          "line": 34,
+          "line": 24,
           "name": "formatCurrency"
         },
         {
@@ -978,15 +913,23 @@
           "name": "formatCurrency"
         },
         {
-          "line": 34,
+          "line": 35,
           "name": "formatCurrency"
         },
         {
-          "line": 36,
+          "line": 35,
           "name": "formatCurrency"
         },
         {
-          "line": 38,
+          "line": 35,
+          "name": "formatCurrency"
+        },
+        {
+          "line": 37,
+          "name": "formatCurrency"
+        },
+        {
+          "line": 39,
           "name": "formatCurrency"
         }
       ]
@@ -1356,9 +1299,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8ad6ded7ee87b318b85b033dea09081ddf3b010a79d1426ee6ee4d06daa43121",
+      "sourceSha256": "3a4ee5d1eae0bdc3cbb7c189c0c325287fe5574e3704cc85cbfb2dd71fe9f8c9",
       "counts": {
-        "type-or-import": 32
+        "type-or-import": 33
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2040,6 +1983,11 @@
     {
       "file": "src/i18n/bankingMessages.ts",
       "knownStaticMessages": 69,
+      "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
+    },
+    {
+      "file": "src/i18n/sharedMessages.ts",
+      "knownStaticMessages": 55,
       "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
     },
     {

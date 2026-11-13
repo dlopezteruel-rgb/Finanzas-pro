@@ -601,7 +601,7 @@ export default function App() {
       </div>}
       {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p><I18nText id="app.gastos_compartidos_historicos_gastos_verificables_y_casos_para_revision" values={{ verifiableExpenses: (sharedMigration.candidates.length), reviewCases: (sharedMigration.issues.length) }} /></p>
-        {sharedMigration.issues.map(issue => <p key={issue}>{issue}</p>)}
+        {sharedMigration.issues.map(issue => <p key={issue}>{storageOwnedText(issue,uiText)}</p>)}
         {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>{uiText("app.revisar_migracion_de_gastos_compartidos")}</button>}
       </div>}
       {/* Main Content Viewport */}

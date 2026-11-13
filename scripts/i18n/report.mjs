@@ -11,7 +11,7 @@ const files=[...new Set(rows.map(row=>row.file))].sort().map(file=>{
  return {file,policy,sourceSha256:createHash('sha256').update(source).digest('hex'),counts:counts(values),visibleCandidateLines:[...new Set(values.filter(row=>['visible-text','visible-attribute','ui-message-candidate'].includes(row.classification)).map(row=>row.line))].sort((a,b)=>a-b),presentationCalls:[...source.matchAll(/\b(?:formatCurrency|formatPlanningCents|monthLabel|toLocaleDateString|toLocaleTimeString|toLocaleString)\s*\(/g)].map(m=>({line:source.slice(0,m.index).split('\n').length,name:m[0].replace(/\s*\($/,'')}))};
 });
 // Domain literals stay in their original code; these explicit UI maps identify reviewed boundaries.
-const presentationBoundaries=['src/i18n/planningMessages.ts','src/i18n/bankingMessages.ts','src/i18n/storageMessages.ts'].map(file=>{
+const presentationBoundaries=['src/i18n/planningMessages.ts','src/i18n/bankingMessages.ts','src/i18n/sharedMessages.ts','src/i18n/storageMessages.ts'].map(file=>{
  const source=readFileSync(file,'utf8'),match=/const keys\s*=\s*(\{[\s\S]*?\}) as const;/.exec(source);
  if(!match)throw Error(`Missing owned-message map: ${file}`);
  return {file,knownStaticMessages:Object.keys(JSON.parse(match[1])).length,policy:'Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history'};
