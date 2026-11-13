@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {inventory,inventoryFile} from '../../scripts/i18n/inventory.mjs';
 test('inventario AST: separa atributos, callbacks de error, claves e identificadores sin modificar las fuentes',()=>{
  const source=`export const View=()=> <button className="fixed" aria-label="Cerrar" onClick={()=>{setError('No se ha guardado.');setType('GASTO');}}>{t('common.close')}</button>`;
@@ -30,4 +32,25 @@ test('inventario AST: incluye rechazos mediante SaveResult, fail y check sin con
  const rows=inventoryFile('fixture.ts',source);
  for(const text of ['Selecciona una cuenta.','Revisa la categoría.','No se permite cambiar el tipo.'])assert.equal(rows.find(row=>row.text===text)?.classification,'ui-message-candidate');
  assert.equal(rows.find(row=>row.text==='GASTO')?.classification,'review');
+});
+
+test('inventario AST: registra ejemplos numéricos y símbolos visibles, conservando los valores internos',()=>{
+ const rows=inventoryFile('fixture.tsx',`const View=()=> <><input placeholder="0,00" value="0"/><button aria-label="Cerrar">→</button></>`);
+ assert.equal(rows.find(row=>row.text==='0,00')?.classification,'visible-attribute');
+ assert.equal(rows.find(row=>row.text==='→')?.classification,'visible-text');
+ assert.equal(rows.some(row=>row.text==='0'&&row.classification==='visible-attribute'),false);
+});
+
+test('inventario AST: los literales dentro de expresiones JSX también son superficies visibles',()=>{
+ const rows=inventoryFile('fixture.tsx',`const View=()=> <><span>{'Texto visible'}</span><span>{'→'}</span></>`);
+ for(const text of ['Texto visible','→'])assert.equal(rows.find(row=>row.text===text)?.classification,'visible-text');
+});
+
+test('inventario publicado: fuentes vigentes y excepciones visibles revisadas una a una',()=>{
+ const report=JSON.parse(readFileSync('docs/phase-5b-inventory.json','utf8'));
+ const rows=inventory(),counts=rows.reduce<Record<string,number>>((all,row)=>(all[row.classification]=(all[row.classification]??0)+1,all),{});
+ assert.deepEqual(report.currentCounts,counts);
+ for(const file of report.files)assert.equal(file.sourceSha256,createHash('sha256').update(readFileSync(file.file)).digest('hex'),`${file.file}: regenerate and review the inventory after changing its source`);
+ assert.equal(report.visibleLiterals.length,rows.filter(row=>['visible-text','visible-attribute'].includes(row.classification)).length);
+ for(const row of report.visibleLiterals)assert.notEqual(row.decision,'PENDING',`${row.file}:${row.line}: ${row.text}`);
 });

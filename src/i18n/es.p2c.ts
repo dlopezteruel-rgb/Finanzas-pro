@@ -29,7 +29,7 @@ export const p2c = {
   "quick_natural_language_input.fecha": "Fecha: {strong}",
   "quick_natural_language_input.tramitado_si": "✓ Tramitado (SÍ)",
   "quick_natural_language_input.pendiente_no": "⏳ Pendiente (NO)",
-  "assistant.examplesLanguage": "Los ejemplos y las consultas sugeridas mantienen su texto original en español para el reconocimiento existente. La entrada libre no incorpora reconocimiento de otros idiomas en esta fase.",
+  "assistant.examplesLanguage": "Los ejemplos y las consultas sugeridas se envían con su texto original en español. La entrada libre mantiene el reconocimiento existente en español.",
   "quick.placeholder": "Registrar: \"Ayer cené fuera por 15,50 € con Openbank\"...",
   "quick.label": "Registro rápido",
   "quick.saved": "+ Registrado: {type} {amount} en {name}",

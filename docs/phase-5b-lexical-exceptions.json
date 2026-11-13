@@ -86,6 +86,11 @@
         "key": "planning.carryLabel",
         "text": "{from} → {to} · {item} · {amount}",
         "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
       }
     ],
     "it": [
@@ -228,6 +233,16 @@
         "key": "planning.carryLabel",
         "text": "{from} → {to} · {item} · {amount}",
         "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      },
+      {
+        "key": "budget.expectedPercentage",
+        "text": "Prevista: {rate}",
+        "reason": "Reviewed native wording; the rate parameter is formatted by Intl"
       }
     ],
     "fr": [
@@ -275,6 +290,11 @@
         "key": "planning.carryLabel",
         "text": "{from} → {to} · {item} · {amount}",
         "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
       }
     ],
     "pt": [
@@ -932,6 +952,16 @@
         "key": "planning.carryLabel",
         "text": "{from} → {to} · {item} · {amount}",
         "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      },
+      {
+        "key": "budget.expectedPercentage",
+        "text": "Prevista: {rate}",
+        "reason": "Reviewed native wording; the rate parameter is formatted by Intl"
       }
     ]
   }

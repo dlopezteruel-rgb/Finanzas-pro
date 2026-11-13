@@ -55,3 +55,5 @@ import './i18n/chartMessages.test';
 import './i18n/assistantMessages.test';
 
 import './i18n/domainMessages.test';
+
+import './i18n/countMessages.test';

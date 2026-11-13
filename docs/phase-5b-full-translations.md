@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1879/1879 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1879 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1895 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -314,3 +314,18 @@ Nueva matriz: **31/31 resultados en 124,87 s**, cinco idiomas × 390/768/1280 ×
 Capturas ficticias revisadas visualmente: [cuenta duplicada en francés, 390 claro](screenshots/phase-5b/p3-account-fr-390-light.png) y [detalle histórico generado en francés, 390 claro](screenshots/phase-5b/p3-historical-fr-390-light.png). BANK es el nombre personal ficticio de la cuenta; las llaves/$& de otros nombres son datos literales.
 
 La batería contiene **33 suites**; **622 resultados es una expectativa**, no una ejecución completa del nuevo SHA. Pendiente antes de la entrega: plurales compuestos de avisos/restauración, ejemplos numéricos de entrada, previsualizaciones localizadas de la landing, inventario semántico final, disponibilidad por idioma y ejecución integral local/CI. Los cuatro idiomas nuevos siguen deshabilitados.
+
+
+### Checkpoint 15 — Plurales compuestos, ejemplos numéricos y landing
+
+Se añaden 16 claves (1895 por idioma), con cuatro combinaciones completas para los dos contadores independientes de los avisos de traspasos y gastos compartidos. La vista previa de recuperación distingue un desglose/cobro de varios. «Los originales» sigue refiriéndose a los registros originales, incluso cuando hay un solo par: no se altera la advertencia económica. Los valores numéricos pasan por el mismo Intl de 5A; los ejemplos decimales de formularios se localizan sin modificar el valor del input ni su parser. Los porcentajes conservan su unidad y redondeo previos.
+
+La landing utiliza cuatro capturas de UI nativa con datos exclusivamente ficticios. `scripts/translatedPreviewCapture.ts` reproduce la captura, rechaza sobrescribir archivos existentes y permite una carpeta alternativa mediante PREVIEW_OUTPUT_DIR. El manifiesto registra hashes, 1440×900, EUR, Europe/Madrid y ausencia de cambios financieros. Los nombres de los datos ficticios permanecen literales. La ayuda del asistente explica en lenguaje de producto que las consultas sugeridas se envían en español y que la entrada libre conserva el reconocimiento existente; no cambia ningún prompt ni intención.
+
+El inventario v3 incluye también símbolos, ejemplos numéricos y literales en expresiones JSX. Documenta individualmente los 89 candidatos visibles restantes: marca, signos/puntuación, identificadores A/B y falsos positivos de operandos internos/opciones Intl. Ninguno se presume una traducción pendiente resuelta por omisión. Una prueba comprueba hashes de todas las fuentes inventariadas, cifras actuales y decisiones sin PENDING.
+
+Validación local: **511 unitarias**, lint/build y diff-check correctos. `translatedCompletion.browser.ts`: **31/31** en 126,59 s, cinco idiomas × tres anchos × dos temas; 120 observaciones axe, cero violaciones y **126 grupos incompletos**, pendientes manuales. Cubre todas las combinaciones de los plurales, previsualización/cancelación de migración histórica, subítems, importes originales, marcadores decimales, imágenes nativas, metadatos, Tab/Shift+Tab/Escape/foco, persistencia y selector real en otra pestaña sin recarga ni escrituras financieras. Se añade como suite 34 sin retirar las anteriores. La suite del asistente completa pasa **36/36** en 153,18 s usando el mismo Chrome for Testing 156.0.8078.4 de CI; 120 observaciones axe, cero violaciones y 92 grupos incompletos.
+
+**Fallo real del checkpoint 14:** [Actions 43496572753](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43496572753), SHA 64e91538970109faa57c0c82f122a9a3c956d663: unitarias 503 y código correctos; Chromium falló en fr/390 claro y oscuro porque una etiqueta interceptaba el clic de «Más». Se ejecutaron 32 suites: **591 resultados, 588 correctos y 3 fallidos** (dos casos y su prueba padre); la última suite no llegó a ejecutarse. No se considera regresión completa correcta. No se reprodujo localmente ni con la copia antigua del aviso y la misma versión de navegador. Se conserva la prueba sin force-click, sin ampliación de timeout ni reintentos, y se añade captura y diagnóstico de hit-testing al fallo para investigar una repetición en CI. La causa sigue pendiente; no se atribuye una corrección al cambio editorial del aviso.
+
+Siguen pendientes el escaneo transversal de residuales, revisión final de cobertura, CI actual y batería local completa. Los cuatro idiomas continúan deshabilitados. Los 136 grupos incompletos de la auditoría general se mantienen separados de los recuentos de las matrices y siguen requiriendo revisión manual; no equivalen a violaciones ni a accesibilidad certificada.

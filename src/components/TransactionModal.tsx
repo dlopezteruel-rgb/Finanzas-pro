@@ -28,7 +28,7 @@ interface TransactionModalProps {
 }
 export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onClose, onSave, wallets, contacts = [], onQuickCreateContact,
   defaultDate, defaultWalletId, subitems=[], initialSubitemId, transactionToEdit, initialPartidaCode, initialContactId, initialMovementType = 'GASTO', availablePartidas = [], budgetGroups, transactions = [] }) => {
-  const { t: uiText , formatMoney: formatCurrency , formatCents } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber } = useI18n();
   const { t } = useI18n();
   const submission = useAsyncForm();
   const [subitemId,setSubitemId]=useState('');
@@ -120,7 +120,7 @@ export const TransactionModal: React.FC<TransactionModalProps> = ({ isOpen, onCl
         {(submission.error || splitError) && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error || splitError,uiText)}</p>}
         {submission.saving && <p role="status">{uiText("transfer.guardando")}</p>}
         <div className="grid grid-cols-2 gap-2">{(['GASTO', 'INGRESO'] as const).map(t => <button type="button" key={t} aria-pressed={type === t} className={`rounded-xl p-2 font-bold ${type === t ? 'bg-sky-500/20 text-sky-300' : 'bg-white/5'}`} onClick={() => { if (type !== t) { setType(t); setSubitemId(''); setCode(''); } clear(); }}>{t === 'GASTO' ? uiText("movement_proposal.gasto") : uiText("movement_proposal.ingreso")}</button>)}</div>
-        <label className="block">{uiText("transaction.importe_total")}<input aria-label={uiText("transaction.importe_total")} type="number" step="0.01" min="0.01" required value={amount || ''} placeholder="0,00" onChange={e => { setAmount(parseFloat(e.target.value) || 0); clear(); }} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-3 text-base font-bold" /></label>
+        <label className="block">{uiText("transaction.importe_total")}<input aria-label={uiText("transaction.importe_total")} type="number" step="0.01" min="0.01" required value={amount || ''} placeholder={formatNumber(0,{minimumFractionDigits:2,maximumFractionDigits:2})} onChange={e => { setAmount(parseFloat(e.target.value) || 0); clear(); }} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-3 text-base font-bold" /></label>
         <div><p className="mb-1 text-slate-400">{uiText("loan.partida_presupuestaria")}</p><PartidaSelector groups={groups} transactions={transactions} type={type} value={code} onChange={next=>{if(next!==code)setSubitemId('');setCode(next);}} /></div>
         <SubitemSelector items={subitems} type={type} code={code} value={subitemId} onChange={setSubitemId}/>
         <label className="block">{uiText("transaction.concepto")}<input aria-label={uiText("transaction.concepto")} value={description} onChange={e => setDescription(e.target.value)} placeholder={uiText("transaction.ej_cena_restaurante_compra_zara_supermercado")} className="block w-full bg-[#0c0f17] rounded-xl border border-white/10 p-2.5" /></label>

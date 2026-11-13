@@ -58,7 +58,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   onChangePartidaGroup,
   onSelectPartidaToView,
 }) => {
-  const { t: uiText, tn: uiCount , formatMoney: formatCurrency } = useI18n();
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency,formatPercent } = useI18n();
   const [activeTab, setActiveTab] = useState<'GASTO' | 'INGRESO'>('GASTO');
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [editingKey, setEditingKey] = useState<string | null>(null);
@@ -159,9 +159,9 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
           <span className="text-[10px] text-slate-400 font-medium block">{uiText("budgets.tasa_de_ahorro")}</span>
           <span className="text-base sm:text-lg font-black font-mono text-white mt-0.5 block">
-            {summary.tasaAhorroReal}%
+            {formatPercent(summary.tasaAhorroReal)}
           </span>
-          <span className="text-[9px] text-emerald-400 mt-1 block"><I18nText id="budgets.prevista" values={{ tasaAhorroPrevista: (summary.tasaAhorroPrevista) }} /></span>
+          <span className="text-[9px] text-emerald-400 mt-1 block">{uiText('budget.expectedPercentage',{rate:formatPercent(summary.tasaAhorroPrevista)})}</span>
         </div>
       </div>
 
@@ -473,13 +473,13 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                           </div>
 
                           <div className="flex items-center gap-1.5">
-                            <span className="font-mono text-slate-400 font-semibold">{row.percent}%</span>
+                            <span className="font-mono text-slate-400 font-semibold">{formatPercent(row.percent,0)}</span>
                             {row.status === 'exceeded' && row.type === 'GASTO' && (
                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">{uiText("budgets.excedido")}</span>
                             )}
                             {row.status === 'warning' && row.type === 'GASTO' && (
                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
-                                90%+
+                                {uiText('budget.atLeastPercentage',{percentage:formatPercent(90,0)})}
                               </span>
                             )}
                             {row.status === 'ok' && (

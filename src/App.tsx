@@ -1,3 +1,5 @@
+import {legacyTransferNotice,legacySharedNotice} from './i18n/countMessages';
+import {pluralCategory} from './i18n/messages';
 import {storageOwnedText} from './i18n/storageMessages';
 import {madridDate} from './utils/financialCalendar';
 import {applyCatalogReorder} from './utils/catalogReorder';
@@ -93,7 +95,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { t: uiText , formatMoney: formatCurrency , formatCents } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,language } = useI18n();
   const { t } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
@@ -595,12 +597,12 @@ export default function App() {
       {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
         <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}</div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
-        <p><I18nText id="app.traspasos_historicos_pares_inequivocos_y_registros_pendientes_de_revision" values={{ unambiguousPairs: (legacyTransfers.pairs.length), pendingRecords: (legacyTransfers.unresolved.length) }} /></p>
-        {legacyTransfers.missingWalletPairs.length > 0 && <p><I18nText id="app.pares_historicos_sin_carteras_existentes_se_excluyen_de_ingresos" values={{ missingAccountPairs: (legacyTransfers.missingWalletPairs.length) }} /></p>}
+        <p>{legacyTransferNotice(legacyTransfers.pairs.length,legacyTransfers.unresolved.length,language,uiText,formatNumber)}</p>
+        {legacyTransfers.missingWalletPairs.length > 0 && <p>{uiText(pluralCategory(legacyTransfers.missingWalletPairs.length,language)==='one'?'storage.warning.missingWalletPairs.one':'storage.warning.missingWalletPairs',{count:formatNumber(legacyTransfers.missingWalletPairs.length)})}</p>}
         {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>{uiText("app.revisar_vinculacion_de_traspasos_historicos")}</button>}
       </div>}
       {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
-        <p><I18nText id="app.gastos_compartidos_historicos_gastos_verificables_y_casos_para_revision" values={{ verifiableExpenses: (sharedMigration.candidates.length), reviewCases: (sharedMigration.issues.length) }} /></p>
+        <p>{legacySharedNotice(sharedMigration.candidates.length,sharedMigration.issues.length,language,uiText,formatNumber)}</p>
         {sharedMigration.issues.map(issue => <p key={issue}>{storageOwnedText(issue,uiText)}</p>)}
         {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>{uiText("app.revisar_migracion_de_gastos_compartidos")}</button>}
       </div>}

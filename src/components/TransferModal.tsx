@@ -31,7 +31,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   walletBalances,
   onExecuteTransfer, transferToEdit, initiallyDelete = false, onDeleteTransfer,
 }) => {
-  const { t: uiText , formatMoney: formatCurrency , formatDate } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatDate,formatNumber } = useI18n();
   const submission = useAsyncForm();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [processed, setProcessed] = useState(true);
@@ -176,7 +176,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 step="0.01"
                 required
                 min="0.01"
-                placeholder="0.00"
+                placeholder={formatNumber(0,{minimumFractionDigits:2,maximumFractionDigits:2})}
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-2xl px-4 py-3 text-white text-lg font-black font-mono focus:outline-none focus:border-sky-500 pr-10"

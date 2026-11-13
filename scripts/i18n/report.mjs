@@ -17,5 +17,14 @@ const presentationBoundaries=['src/i18n/planningMessages.ts','src/i18n/bankingMe
  if(!match)throw Error(`Missing owned-message map: ${file}`);
  return {file,knownStaticMessages:Object.keys(JSON.parse(match[1])).length,policy:'Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history'};
 });
-const report={base:'95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96',schemaVersion:2,status:'in-progress-not-a-completeness-certificate',currentCounts:counts(rows),files,presentationBoundaries,nonTypeScriptSurfaces:[{file:'index.html',policy:'Spanish bootstrap/default; document.title and description/OG metadata localized by existing provider at runtime; exact default tested'},{file:'src/**/*.css',policy:'Style tokens and layout are invariant; no owned generated textual content found in current styles'},{file:'public/brand and preview screenshots',policy:'Brand marks invariant; foreign-language landing preview images still require review/capture before readiness'}]};
+const visibleLiterals=rows.filter(row=>['visible-text','visible-attribute'].includes(row.classification)).map(row=>{
+ const text=row.text.trim();let decision='PENDING';
+ if(text==='FinanZas'&&row.file==='src/components/Brand.tsx')decision='Invariant product brand';
+ else if(/^[\p{P}\p{S}\s]+$/u.test(text))decision='Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker';
+ else if(['A','B'].includes(text)&&row.file==='src/components/PlanningAutomationPanel.tsx')decision='Invariant scenario identifiers A/B';
+ else if(text==='GASTO'&&['src/components/CatalogManager.tsx','src/components/PartidaSelector.tsx'].includes(row.file))decision='Overinclusive AST candidate: internal conditional operand; the displayed branch uses translated keys';
+ else if(['2-digit','numeric'].includes(text)&&['src/components/RecurringMovementsView.tsx','src/components/TransactionsView.tsx'].includes(row.file))decision='Overinclusive AST candidate: Intl date option inside localized title expression, never displayed literally';
+ return {file:row.file,line:row.line,text,decision};
+});
+const report={base:'95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96',schemaVersion:3,status:'in-progress-not-a-completeness-certificate',currentCounts:counts(rows),visibleLiterals,files,presentationBoundaries,nonTypeScriptSurfaces:[{file:'index.html',policy:'Spanish bootstrap/default; document.title and description/OG metadata localized by existing provider at runtime; exact default tested'},{file:'src/**/*.css',policy:'Style tokens and layout are invariant; no owned generated textual content found in current styles'},{file:'public/brand and preview screenshots',policy:'Brand marks invariant. Four native landing previews use fictional fixtures; reproducible captures and hashes in phase-5b-preview-manifest.json. Not readiness certification.'}]};
 writeFileSync(process.argv[2]??'docs/phase-5b-inventory.json',JSON.stringify(report,null,2)+'\n');console.log(report.currentCounts);

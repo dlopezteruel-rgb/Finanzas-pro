@@ -4,7 +4,8 @@ import { Brand } from './Brand';
 import { useI18n } from '../i18n';
 import { paths } from '../app/paths';
 export function LandingPage() {
-  const { t } = useI18n();
+  const { t,language } = useI18n();
+  const preview=language==='es'?paths.preview:paths.preview.replace(/\.jpg$/,`-${language}.jpg`);
   return <div className="landing">
     <a className="skip-link" href="#landing-content">{t('common.skip')}</a>
     <header className="landing-header"><Brand /><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={18} aria-hidden="true" /></a></header>
@@ -14,7 +15,7 @@ export function LandingPage() {
           <div className="landing-cta"><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={20} aria-hidden="true" /></a><a className="button-secondary" href="#beneficios">{t('landing.details')}</a></div>
           <p className="landing-local"><HardDrive size={20} aria-hidden="true" />{t('landing.local')}</p>
         </div>
-        <figure className="landing-preview"><img src={paths.preview} width="1440" height="900" alt={t('landing.previewAlt')} fetchPriority="high" /><figcaption>{t('landing.preview')}</figcaption></figure>
+        <figure className="landing-preview"><img src={preview} width="1440" height="900" alt={t('landing.previewAlt')} fetchPriority="high" /><figcaption>{t('landing.preview')}</figcaption></figure>
       </section>
       <section id="beneficios" className="landing-benefits" aria-labelledby="benefits-title"><h2 id="benefits-title">{t('landing.benefits')}</h2><div className="benefits-grid">
         {([

@@ -64,10 +64,11 @@ export function presentationMonthName(month:number,language:Language='es'):strin
  if(!Number.isInteger(month)||month<1||month>12)throw new RangeError('Expected calendar month 1–12.');
  return presentationDate(new Date(`2000-${String(month).padStart(2,'0')}-15T12:00:00Z`),language,{month:'long'});
 }
-const percentages=new Map<Language,Intl.NumberFormat>(),compactCurrencies=new Map<Language,Intl.NumberFormat>();
-export function presentationPercentage(value:number,language:Language='es'):string{
- let formatter=percentages.get(language);if(!formatter){formatter=new Intl.NumberFormat(languages[language].locale,{style:'unit',unit:'percent',minimumFractionDigits:1,maximumFractionDigits:1});percentages.set(language,formatter);}
- const fixed=Math.abs(value).toFixed(1),match=/^(\d+)\.(\d)$/.exec(fixed);if(!match)return formatter.format(value);
+const percentages=new Map<string,Intl.NumberFormat>(),compactCurrencies=new Map<Language,Intl.NumberFormat>();
+export function presentationPercentage(value:number,language:Language='es',fractionDigits:0|1=1):string{
+ const key=`${language}:${fractionDigits}`;
+ let formatter=percentages.get(key);if(!formatter){formatter=new Intl.NumberFormat(languages[language].locale,{style:'unit',unit:'percent',minimumFractionDigits:fractionDigits,maximumFractionDigits:fractionDigits});percentages.set(key,formatter);}
+ const fixed=Math.abs(value).toFixed(fractionDigits),match=/^(\d+)(?:\.(\d))?$/.exec(fixed);if(!match)return formatter.format(value);
  const units=BigInt(match[1]),signed=value<0?(units===0n?-0:-units):units;
  return formatter.formatToParts(signed).map(part=>part.type==='fraction'?match[2]:part.value).join('');
 }
@@ -77,8 +78,8 @@ export function presentationCompactMoney(value:number,language:Language='es'):st
 }
 export function presentationFormatters(language:Language){
  return {
-  formatNumber:(value:number)=>new Intl.NumberFormat(languages[language].locale).format(value),
-  formatPercent:(value:number)=>presentationPercentage(value,language),
+  formatNumber:(value:number,options?:Pick<Intl.NumberFormatOptions,'minimumFractionDigits'|'maximumFractionDigits'|'useGrouping'>)=>new Intl.NumberFormat(languages[language].locale,options).format(value),
+  formatPercent:(value:number,fractionDigits:0|1=1)=>presentationPercentage(value,language,fractionDigits),
   formatCompactMoney:(value:number)=>presentationCompactMoney(value,language),
   formatMoney:(amount:number|null|undefined)=>presentationMoney(amount,language,'preserve-rounding'),
   formatCents:(cents:number)=>presentationCents(cents,language),

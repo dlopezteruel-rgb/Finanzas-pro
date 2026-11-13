@@ -166,8 +166,8 @@ export const p1g = {
   "storage.warning.migratablePairs": "{count} pares pueden vincularse desde el aviso de traspasos históricos, tras revisar y confirmar la copia previa.",
   "storage.warning.missingWalletPairs": "{count} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales sin crear carteras ni contrapartidas.",
   "storage.warning.unresolved": "{count} registros de posibles traspasos históricos sin correspondencia inequívoca. Se conservan intactos y mantienen sus cálculos anteriores. Su edición individual está bloqueada; requieren revisión manual con una copia de seguridad.",
-  "storage.warning.transferPairs.one": "{count} traspaso histórico inequívoco: su importe se excluye de ingresos y gastos, sin reescribir el original.",
+  "storage.warning.transferPairs.one": "{count} traspaso histórico inequívoco: su importe se excluye de ingresos y gastos, sin reescribir los originales.",
   "storage.warning.migratablePairs.one": "{count} par puede vincularse desde el aviso de traspasos históricos, tras revisar y confirmar la copia previa.",
-  "storage.warning.missingWalletPairs.one": "{count} par histórico sin carteras existentes: se excluye de ingresos y gastos, pero no se puede vincular. Se conserva el original sin crear carteras ni contrapartidas.",
+  "storage.warning.missingWalletPairs.one": "{count} par histórico sin carteras existentes: se excluye de ingresos y gastos, pero no se puede vincular. Se conservan los originales sin crear carteras ni contrapartidas.",
   "storage.warning.unresolved.one": "{count} registro de posible traspaso histórico sin correspondencia inequívoca. Se conserva intacto y mantiene sus cálculos anteriores. Su edición individual está bloqueada; requiere revisión manual con una copia de seguridad."
 } as const;
