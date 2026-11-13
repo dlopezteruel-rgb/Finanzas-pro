@@ -83,7 +83,7 @@ button:disabled { cursor: not-allowed; }
 .allocation-heading span, .allocation-key { border-color: var(--brand); }
 .planning-carry { background: var(--brand-soft); color: var(--ink); border-color: var(--field-line); }
 .planning input[type=month] { width: 13rem; }
-.planning-savings-label { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
+.planning-savings-label, .planning-field-label { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .planning label:has(input[type=month]) { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); white-space: nowrap; }
 .brand img { flex: 0 0 auto; }.brand-wordmark { font-size: 1.375rem; font-weight: 700; letter-spacing: -.04em; line-height: 1.2; }

@@ -3,13 +3,13 @@
   "schemaVersion": 2,
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
-    "type-or-import": 816,
-    "review": 3234,
-    "ui-message-candidate": 197,
-    "attribute-internal": 2064,
-    "translation-key": 832,
-    "visible-attribute": 97,
-    "visible-text": 352
+    "type-or-import": 825,
+    "review": 3203,
+    "ui-message-candidate": 196,
+    "attribute-internal": 2069,
+    "translation-key": 946,
+    "visible-attribute": 78,
+    "visible-text": 265
   },
   "files": [
     {
@@ -203,69 +203,69 @@
     {
       "file": "src/components/BudgetsView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "476115af9f3ead6448eaeb9b3c2b3bf9a9b05e8c31775d13711714070f2282f4",
+      "sourceSha256": "4311baa16c53d2b35fc6aeb173f30a87f91e4b72c0c79cff23e2ca4b53941793",
       "counts": {
-        "type-or-import": 16,
+        "type-or-import": 17,
         "review": 20,
-        "attribute-internal": 160,
-        "translation-key": 51
+        "attribute-internal": 161,
+        "translation-key": 50
       },
       "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 134,
+          "line": 135,
           "name": "formatCurrency"
         },
         {
-          "line": 136,
+          "line": 137,
           "name": "formatCurrency"
         },
         {
-          "line": 142,
+          "line": 143,
           "name": "formatCurrency"
         },
         {
-          "line": 144,
+          "line": 145,
           "name": "formatCurrency"
         },
         {
-          "line": 152,
+          "line": 153,
           "name": "formatCurrency"
         },
         {
-          "line": 252,
+          "line": 253,
           "name": "formatCurrency"
         },
         {
-          "line": 254,
+          "line": 255,
           "name": "formatCurrency"
         },
         {
-          "line": 271,
+          "line": 272,
           "name": "formatCurrency"
         },
         {
-          "line": 347,
+          "line": 348,
           "name": "formatCurrency"
         },
         {
-          "line": 458,
+          "line": 459,
           "name": "formatCurrency"
         },
         {
-          "line": 458,
+          "line": 459,
           "name": "formatCurrency"
         },
         {
-          "line": 458,
+          "line": 459,
           "name": "formatCurrency"
         },
         {
-          "line": 458,
+          "line": 459,
           "name": "formatCurrency"
         },
         {
-          "line": 470,
+          "line": 471,
           "name": "formatCurrency"
         }
       ]
@@ -709,9 +709,9 @@
     {
       "file": "src/components/PartidaDetailModal.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "1410af7f9d15bbd07ff443051fa7f5450aff7f620976fee1f52f879fdaad4383",
+      "sourceSha256": "697f2055ba2bc93c8a15fac19c60a59bc864e948ebab902626b69ed4e08176a2",
       "counts": {
-        "type-or-import": 15,
+        "type-or-import": 16,
         "translation-key": 44,
         "attribute-internal": 83,
         "review": 1
@@ -719,55 +719,55 @@
       "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 119,
+          "line": 120,
           "name": "formatCurrency"
         },
         {
-          "line": 119,
+          "line": 120,
           "name": "formatCurrency"
         },
         {
-          "line": 119,
+          "line": 120,
           "name": "formatCurrency"
         },
         {
-          "line": 147,
+          "line": 148,
           "name": "formatCurrency"
         },
         {
-          "line": 168,
+          "line": 169,
           "name": "formatCurrency"
         },
         {
-          "line": 184,
+          "line": 185,
           "name": "formatCurrency"
         },
         {
-          "line": 195,
+          "line": 196,
           "name": "formatPlanningCents"
         },
         {
-          "line": 195,
+          "line": 196,
           "name": "formatPlanningCents"
         },
         {
-          "line": 195,
+          "line": 196,
           "name": "formatPlanningCents"
         },
         {
-          "line": 195,
+          "line": 196,
           "name": "formatPlanningCents"
         },
         {
-          "line": 249,
-          "name": "formatCurrency"
-        },
-        {
-          "line": 249,
+          "line": 250,
           "name": "formatCurrency"
         },
         {
           "line": 250,
+          "name": "formatCurrency"
+        },
+        {
+          "line": 251,
           "name": "formatCurrency"
         }
       ]
@@ -812,70 +812,14 @@
     {
       "file": "src/components/PlanningAutomationPanel.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "0d67226aa32cc34686d8e7f375e1b1fb9ee32525851a30bd292e149145400022",
+      "sourceSha256": "0052c6db53446eaab0b1929d22d9b8cc56f9f2929e9f1ac648c81fb195027132",
       "counts": {
-        "type-or-import": 11,
-        "review": 71,
-        "attribute-internal": 73,
-        "visible-attribute": 19,
-        "visible-text": 87,
-        "ui-message-candidate": 1
+        "type-or-import": 14,
+        "review": 48,
+        "translation-key": 115,
+        "attribute-internal": 77
       },
-      "visibleCandidateLines": [
-        41,
-        42,
-        43,
-        44,
-        47,
-        49,
-        50,
-        54,
-        56,
-        57,
-        58,
-        59,
-        60,
-        62,
-        64,
-        65,
-        66,
-        67,
-        68,
-        69,
-        70,
-        71,
-        72,
-        73,
-        74,
-        77,
-        78,
-        80,
-        81,
-        82,
-        83,
-        86,
-        89,
-        90,
-        91,
-        92,
-        93,
-        94,
-        95,
-        97,
-        98,
-        100,
-        103,
-        105,
-        106,
-        107,
-        108,
-        109,
-        110,
-        111,
-        112,
-        114,
-        115
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": []
     },
     {
@@ -923,9 +867,9 @@
     {
       "file": "src/components/PlanningSubitems.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "f78ef33e38189c8d6e9149acd63b3c704946484b6974b68fdf9a8e47464f458d",
+      "sourceSha256": "67902a644cc0d192ea27143fc5c303f7346148aae50ebff8b07030cbc1bfa119",
       "counts": {
-        "type-or-import": 6,
+        "type-or-import": 7,
         "attribute-internal": 7,
         "translation-key": 15
       },
@@ -935,35 +879,35 @@
     {
       "file": "src/components/PlanningView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "56af1832edb32762a93c52f5af1450f56322f6a40aac8b3e51428b7ca78172a7",
+      "sourceSha256": "44b7acbdb627459040306c7f55b3c904356ad0fe2078a92310fdc89ce9f4a49d",
       "counts": {
-        "type-or-import": 26,
-        "review": 47,
+        "type-or-import": 28,
+        "review": 39,
         "attribute-internal": 73,
         "translation-key": 88,
         "ui-message-candidate": 5
       },
       "visibleCandidateLines": [
-        119,
-        122,
-        125,
-        127
+        121,
+        124,
+        127,
+        129
       ],
       "presentationCalls": [
         {
-          "line": 142,
+          "line": 144,
           "name": "toLocaleString"
         },
         {
-          "line": 148,
+          "line": 150,
           "name": "formatCurrency"
         },
         {
-          "line": 209,
+          "line": 211,
           "name": "formatCurrency"
         },
         {
-          "line": 233,
+          "line": 235,
           "name": "formatCurrency"
         }
       ]
@@ -1623,9 +1567,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "fdce3b794fb26da38a89b0ca790ba3048adcdb52bb041303599f2feed3c3ad3e",
+      "sourceSha256": "c40408b81c7272f7412c3e229e47c4f39ce3ee0a05e3882c07992408ade6f2f7",
       "counts": {
-        "type-or-import": 28
+        "type-or-import": 29
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

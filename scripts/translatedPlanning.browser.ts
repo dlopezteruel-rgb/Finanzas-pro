@@ -35,7 +35,10 @@ test('5B planificación: cinco idiomas previstos, 390/768/1280 px y dos temas; n
    await p.evaluate(key=>{(window as any).__financialWrites=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
    await editor.getByRole('tab',{name:tr('planning.ingresos'),exact:true}).click();
    const incomeName=tr('planning.previsto',{type:tr('planning.incomeType'),name:'SUELDO NO TRADUCIR'});
-   await editor.getByRole('textbox',{name:incomeName,exact:true}).fill('3000.01');
+   const income=editor.getByRole('textbox',{name:incomeName,exact:true});await income.fill('3.000');
+   await editor.getByText(tr('planning_message.usa_un_importe_no_negativo_con_hasta_dos_decimales_15'),{exact:true}).waitFor();
+   assert.equal(await income.inputValue(),'3.000');assert.equal(await editor.getByRole('button',{name:tr('planning.guardar_borrador'),exact:true}).isDisabled(),true);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+   await income.fill('3000.01');
    await editor.getByRole('tab',{name:tr('planning.gastos'),exact:true}).click();
    const expense=editor.getByRole('textbox',{name:tr('planning.previsto',{type:tr('planning.expenseType'),name:'GASTO NO TRADUCIR'}),exact:true});
    await expense.fill('1000');await editor.getByRole('textbox',{name:tr('planning.ahorro_objetivo_a54274'),exact:true}).fill('2500');

@@ -1,3 +1,4 @@
+import {planningOwnedText} from '../i18n/planningMessages';
 import { useI18n, I18nText } from "../i18n";
 import {activeCatalogEntry} from '../utils/budgetCatalog';
 import type {ReorderCallback} from '../utils/catalogReorder';
@@ -114,8 +115,8 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
           </button>
         </div>
 
-        {(previstoError || previstoSubmission.error) && <p role="alert">{previstoError || previstoSubmission.error}</p>}
-        {error && <p role="alert" className="text-amber-300">{error}</p>}
+        {(previstoError || previstoSubmission.error) && <p role="alert">{planningOwnedText(previstoError || previstoSubmission.error,uiText)}</p>}
+        {error && <p role="alert" className="text-amber-300">{planningOwnedText(error,uiText)}</p>}
         {!!budgetRow?.arrastre&&<p><I18nText id="partida_detail.base_arrastre_efectivo_editar_previsto_modifica_solo_la_base" values={{ basePrevisto: (formatCurrency(budgetRow.basePrevisto)), arrastre: (formatCurrency(budgetRow.arrastre)), previsto: (formatCurrency(budgetRow.previsto)) }} /></p>}
         {/* Metrics Grid */}
         <div className="grid grid-cols-3 gap-2 bg-[#0c0f17] p-3 rounded-2xl border border-white/[0.06]">

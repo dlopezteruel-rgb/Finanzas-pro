@@ -16,3 +16,13 @@ const catalogDependencyKeys={
 export function catalogDependencyText(value:string,t:typeof translate):string{
  return Object.hasOwn(catalogDependencyKeys,value)?t(catalogDependencyKeys[value as keyof typeof catalogDependencyKeys]):value;
 }
+
+
+const planningStatusKeys = {
+ 'Borrador':'planning.draftStatus', 'Sin plan':'planning.noPlanStatus', 'Aprobado':'planning.approvedStatus',
+ 'Modificada desde la última aprobación':'planning.modifiedStatus',
+} as const;
+/** Presentation of planningStatus/annualPlanning only; no status is written back. */
+export function planningStatusText(value:string,t:typeof translate):string{
+ return Object.hasOwn(planningStatusKeys,value)?t(planningStatusKeys[value as keyof typeof planningStatusKeys]):value;
+}

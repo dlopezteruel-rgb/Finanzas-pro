@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 955/955 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 751 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 955 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -139,3 +139,30 @@ Aviso nuevo de build: algunos chunks superan 500 kB minificados al incorporar lo
 CI publicado del checkpoint de Planificación: [Actions 43426545828](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43426545828), SHA `e8ac869677a0bace1ca7c579f8dc0654cd257f25`, tres trabajos verdes. Artefacto verificado: **338 resultados / 24 suites**, cero fallos, omisiones o cancelaciones; auditoría general 128 superficies, cero violaciones, **136 grupos incompletos**. La matriz adicional de Planificación registra 88 grupos incompletos en CI frente a 86 locales; son observaciones que requieren revisión manual, no violaciones ni resultados verificados.
 
 Las capturas PNG de las suites se generan en ci-artifacts/browser localmente. El workflow existente conserva logs/JSON siempre y capturas solo si falla; no se modifica esa política. Las dos imágenes comparativas francesas de esta documentación sí están versionadas y son íntegramente ficticias. Continúan pendientes automatizaciones, otros módulos P1/P2/P3, errores de dominio, presentación Intl global y validación integral sin residuales. Los cuatro idiomas siguen deshabilitados.
+
+
+### Checkpoint de automatizaciones y errores de planificación
+
+Se añaden **204 claves**, total **955 claves completas por diccionario**. PlanningAutomationPanel localiza copias, reglas, recurrencias, arrastres, revisión, eliminación e historial, incluidos sus controles, ayudas, confirmaciones y diferencias antes/después. Las etiquetas de operaciones y los estados presentados son claves; los valores internos y las solicitudes originales no cambian. A/B siguen siendo marcadores invariantes de comparación.
+
+planningMessages.ts adapta al presentar 80 entradas estáticas propias de planificación y del aviso de traslado, además de sus motivos parametrizados. Incluye errores de importes/rangos y variantes completas de motivos de copia con o sin desglose. Los motivos de reglas utilizan su nombre literal y una frecuencia separada de presentación; los de arrastre leen céntimos con la función de dominio existente, sin interpretar cadenas monetarias. Los mensajes, filas, ámbitos y solicitudes originales se conservan para la revalidación de FinanceStore. Los campos técnicos de mensajes «falta/campo no reconocido» permanecen literales. Los diagnósticos desconocidos conservan su texto, lo que sigue siendo cobertura pendiente.
+
+Los errores se traducen al mostrarlos; no se modifica el parser, ni el texto que recibe, ni sus reglas. Los campos editables y las sumas de subítems mantienen entradas canónicas. La advertencia textual de un total inválido se localiza únicamente en el campo de solo lectura; el centinela interno y el borrador original permanecen intactos. No se cambian planningPreview, FinanceStore ni ninguna utilidad financiera.
+
+Pruebas nuevas: **464 unitarias** correctas. Tres casos comprueban que 3.000, -1 y 1.001 siguen rechazándose; 15,50/15.50 siguen siendo 1550 céntimos; MAX_SAFE_INTEGER conserva el último céntimo; el texto no se interpreta como HTML o como parámetros nuevos; y adaptar motivos no cambia la propuesta ni su aplicación posterior. Lint/build y diff-check correctos. Se mantiene visible el aviso de chunks superiores a 500 kB.
+
+Chromium de este checkpoint: **49 resultados españoles** (automation 15, budgetSubitems 19, budgetUx 15), **31 resultados** de Planificación en los cinco idiomas con errores de entrada, y **41 resultados** de automatizaciones. Estos últimos son 30 combinaciones de copia (cinco idiomas × tres anchos × dos temas), cinco recorridos de subítems/cross-tab y cinco de reglas/recurrencias/arrastre/historial, más su contenedor. Cero fallos, omisiones o cancelaciones en las ejecuciones de evidencia. Todos los datos son ficticios.
+
+La batería comprueba confirmación única ante doble envío; cancelación sin escrituras; conflicto omitido por defecto; guardado, pausa y retirada de reglas sin borrar las previsiones generadas; arrastre separado sin movimientos bancarios; revisión y retirada conservando las fotografías; y conservación de 6001/4000 céntimos al corregir un subítem. El cambio cross-tab mantiene el mismo campo y su valor 3.000 mientras cambia el idioma del error. La primera prueba conservaba el nombre anterior de la región en su localizador: fallaron cinco casos y su contenedor, sin fallo de datos; se corrige el recorrido y pasan los 41 resultados completos.
+
+Axe adicional: **85 observaciones de automatización, cero violaciones y 95 grupos incompletos** pendientes de revisión manual. La matriz repetida de Planificación tiene 60 observaciones, cero violaciones y 86 grupos incompletos locales. Se mantienen separados de los **136 grupos de referencia**, sin sumarlos como defectos únicos ni declararlos verificados.
+
+Incidencia **5B-003 — Contorno de foco en reglas**: la etiqueta francesa de importe tenía 0 px de separación en 390 px. Se reutiliza el ajuste flex-wrap/8 px de ahorro en las etiquetas de los campos de regla, sin cambiar controles, validación o cantidades. La nueva prueba exige separación geométrica suficiente en los cinco idiomas. Capturas ficticias comparables:
+
+| Antes | Después |
+| --- | --- |
+| ![Regla francesa antes](screenshots/phase-5b/rule-fr-390-dark-before.png) | ![Regla francesa después](screenshots/phase-5b/rule-fr-390-dark-after.png) |
+
+CI publicado del checkpoint de Catálogo: [Actions 43443220414](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43443220414), SHA `d34c085eef4529e3734c3ca8d8ac205c1beb3541`: tres trabajos verdes; artefacto comprobado con **380 resultados / 26 suites**, sin fallos, omisiones o cancelaciones; axe general 128 superficies, cero violaciones, 136 grupos incompletos. El nuevo SHA requiere sus propios checks.
+
+Continúan pendientes otros módulos P1/P2/P3, los demás errores de dominio, presentación Intl global, inventario semántico final y matriz integral sin residuales. Los cuatro idiomas siguen bloqueados y no se presenta este checkpoint como traducción integral terminada.

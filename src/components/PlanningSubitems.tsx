@@ -1,3 +1,4 @@
+import {planningOwnedText} from '../i18n/planningMessages';
 import { useI18n, I18nText } from "../i18n";
 import React from 'react';
 import type {FinanceData} from '../utils/backup';
@@ -20,7 +21,7 @@ export function PlanningSubitems({data,partida,month,value,onChange}:{data:Finan
       {Object.entries(value).map(([id,input])=>{const item=items.find(i=>i.id===id),row=rows.find(r=>r.id===id);let planned:number|undefined,error='';try{planned=parsePlanningMoney(input);}catch(e){error=(e as Error).message;}
         return <div className="subitem-summary-row" key={id}>
           <label>{item?.name ?? id}{item?.archived?uiText("partida_detail.archivado"):''}<input aria-label={uiText("planning_subitems.previsto_subitem", { content: item?.name ?? id })} inputMode="decimal" value={input} aria-invalid={!!error} onChange={e=>onChange({...value,[id]:e.target.value})}/></label>
-          {error&&<p role="alert">{error}</p>}
+          {error&&<p role="alert">{planningOwnedText(error,uiText)}</p>}
           <span><I18nText id="planning_subitems.ejecutado" values={{ money: (money(row?.executed ?? 0)) }} /></span><span><I18nText id="planning_subitems.resto" values={{ content: (planned===undefined?'—':money(planned-(row?.executed ?? 0))) }} /></span><span><I18nText id="planning_subitems.desviacion" values={{ content: (planned===undefined?'—':money((row?.executed ?? 0)-planned)) }} /></span>
         </div>;
       })}

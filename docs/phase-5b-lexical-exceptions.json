@@ -21,6 +21,11 @@
         "key": "partida_detail.no",
         "text": "NO",
         "reason": "Reviewed native en wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
       }
     ],
     "it": [
@@ -73,6 +78,11 @@
         "key": "partida_detail.no",
         "text": "NO",
         "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
       }
     ],
     "fr": [
@@ -85,6 +95,11 @@
         "key": "language.available",
         "text": "disponible",
         "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
       }
     ],
     "pt": [
@@ -347,6 +362,66 @@
         "key": "drag.destination",
         "text": "Destino: {target}. Enter confirma.",
         "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "planning_automation_panel.trimestral",
+        "text": "Trimestral",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.anual",
+        "text": "Anual",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.antes",
+        "text": "Antes",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.eliminar",
+        "text": "Eliminar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.aplicar",
+        "text": "Aplicar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.bloqueado",
+        "text": "Bloqueado",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.omitido",
+        "text": "Omitido",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.pausar",
+        "text": "Pausar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "automation.frequency.quarterly",
+        "text": "trimestral",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "automation.frequency.yearly",
+        "text": "anual",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
       }
     ]
   }

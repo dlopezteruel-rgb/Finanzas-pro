@@ -1,3 +1,4 @@
+import { p1e } from './es.p1e';
 import { p1d } from './es.p1d';
 import { p1c } from './es.p1c';
 import { p1b } from './es.p1b';
@@ -8,6 +9,7 @@ export const es = {
   ...p1b,
   ...p1c,
   ...p1d,
+  ...p1e,
   ...plurals,
   'document.title': 'FinanZas Pro - Asistente Financiero Personal',
   'document.description': 'Control financiero integral: registro inteligente por lenguaje natural, estructura de partidas presupuestarias, balance previsto vs ejecutado, control de deudas y carteras.',
