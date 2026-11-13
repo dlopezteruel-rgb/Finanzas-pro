@@ -64,8 +64,22 @@ export function presentationMonthName(month:number,language:Language='es'):strin
  if(!Number.isInteger(month)||month<1||month>12)throw new RangeError('Expected calendar month 1–12.');
  return presentationDate(new Date(`2000-${String(month).padStart(2,'0')}-15T12:00:00Z`),language,{month:'long'});
 }
+const percentages=new Map<Language,Intl.NumberFormat>(),compactCurrencies=new Map<Language,Intl.NumberFormat>();
+export function presentationPercentage(value:number,language:Language='es'):string{
+ let formatter=percentages.get(language);if(!formatter){formatter=new Intl.NumberFormat(languages[language].locale,{style:'unit',unit:'percent',minimumFractionDigits:1,maximumFractionDigits:1});percentages.set(language,formatter);}
+ const fixed=Math.abs(value).toFixed(1),match=/^(\d+)\.(\d)$/.exec(fixed);if(!match)return formatter.format(value);
+ const units=BigInt(match[1]),signed=value<0?(units===0n?-0:-units):units;
+ return formatter.formatToParts(signed).map(part=>part.type==='fraction'?match[2]:part.value).join('');
+}
+export function presentationCompactMoney(value:number,language:Language='es'):string{
+ let formatter=compactCurrencies.get(language);if(!formatter){formatter=new Intl.NumberFormat(languages[language].locale,{style:'currency',currency:'EUR',notation:'compact',minimumFractionDigits:0,maximumFractionDigits:1});compactCurrencies.set(language,formatter);}
+ return formatter.format(value);
+}
 export function presentationFormatters(language:Language){
  return {
+  formatNumber:(value:number)=>new Intl.NumberFormat(languages[language].locale).format(value),
+  formatPercent:(value:number)=>presentationPercentage(value,language),
+  formatCompactMoney:(value:number)=>presentationCompactMoney(value,language),
   formatMoney:(amount:number|null|undefined)=>presentationMoney(amount,language,'preserve-rounding'),
   formatCents:(cents:number)=>presentationCents(cents,language),
   formatDate:(value:string|Date|null|undefined,options?:DateOptions)=>value===null||value===undefined?'':typeof value==='string'?presentationISODate(value,language,options):Number.isFinite(value.getTime())?presentationDate(value,language,options):String(value),

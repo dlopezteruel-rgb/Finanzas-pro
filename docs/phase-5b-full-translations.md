@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1530/1530 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1664/1664 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1530 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1664 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -232,3 +232,23 @@ Capturas ficticias revisadas visualmente, procedentes de vistas previas de prueb
 CI anterior verificado: [Actions 43470661027](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43470661027), SHA `07335e10560aa533996c165ac60d3bd316db433e`, tres trabajos verdes. Artefacto: **488 resultados / 29 suites**, cero fallos, omisiones o cancelaciones; axe general 128 observaciones, cero violaciones, 136 grupos incompletos. Matriz de almacenamiento: 125 observaciones, cero violaciones y 185 grupos incompletos, igual que la medición local. La batería actual añade compartidos y contiene 30 suites; 524 resultados es su expectativa, todavía no resultado del nuevo SHA.
 
 Siguen pendientes el asistente/registro natural, gráficos, ayudas/restos de P3, otros errores de dominio, revisión semántica final y matriz integral. Los cuatro idiomas nuevos continúan deshabilitados.
+
+### CI verificado de Contactos y compartidos
+
+[Actions 43474620336](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43474620336), SHA `27f937b3b097ccede430b72235a26408043a665a`: Unitarias, Lint/build/diff y Chromium/axe correctos. Artefacto comprobado: **524 resultados / 30 suites**, cero fallos, omisiones y cancelaciones. Axe general: 128 observaciones, cero violaciones y **136 grupos incompletos** pendientes de revisión manual. Matriz de compartidos en CI: 125 observaciones, cero violaciones y **163 grupos incompletos**, frente a 145 locales; son observaciones incompletas de esta matriz, no infracciones ni defectos únicos.
+
+### Checkpoint de gráficos
+
+Se añaden **134 claves**, hasta **1664 por diccionario**, para los cuatro módulos de gráficos, controles, series, leyendas, fechas, estados, avisos, tablas, selección y lectura. Los adaptadores utilizan IDs de serie/fila estables: no traducen por posición ni modifican el modelo. Las selecciones vuelven a la fila original antes de ejecutar callbacks. Los nombres personales de familias/partidas/cuentas y categorías históricas se conservan incluso cuando coinciden con un rótulo de interfaz. Los envoltorios generados para identidades históricas se localizan de forma explícita, conservando los códigos originales.
+
+Se reutilizan los formatters del Provider para EUR compacto, números y porcentajes nativos. El porcentaje ya expresado de 0 a 100 no se divide ni se devuelve a ningún parser; conserva el redondeo toFixed anterior. Los meses semanales utilizan el lunes real identificado por la fila, incluso si el intervalo visible empieza después. No cambian chartData, cálculos, previsiones, movimientos, FinanceStore ni JSON. Los controles nativos date/month conservan valores ISO; su aspecto interno también depende del navegador/sistema operativo, aparte del idioma de la página.
+
+**489 unitarias**, lint/build/diff-check correctos. Las ocho regresiones Chromium de gráficos pasan en **15,85 s**. El primer recorrido detectó expectativas ISO/punto decimal antiguas; se actualizan solo los rótulos visibles nativos y se añaden comprobaciones de IDs ISO y series originales. No se eliminan comprobaciones económicas, de selección ni de foco.
+
+Incidencia **5B-005 — Tablas de detalle desplazables sin acceso por teclado**: axe detectó scrollable-region-focusable al seleccionar movimientos. Se añaden tabIndex, región y nombre accesible nativo a las dos tablas, igual que en la tabla principal existente. No se ignora la regla. Incidencia **5B-006 — Etiqueta francesa invade el anillo**: la frase completa del centro se distribuye por palabras en dos líneas; no se traduce por fragmentos ni se recorta. La matriz comprueba la anchura SVG real. Son ajustes acotados de presentación y accesibilidad.
+
+Intentos registrados: primera matriz **31 resultados, 16 correctos y 15 fallidos**; tras corregir las tablas, **24 correctos y 7 fallidos**, estos últimos por la etiqueta francesa y el contenedor. Cero omisiones/cancelaciones en ambos. Matriz final: **31/31 resultados en 159,30 s**, cinco idiomas × tres anchos × dos temas y contenedor, cero fallos, omisiones o cancelaciones. Verifica cuatro módulos, cifras exactas, series ocultas, foco/teclado, cambio cross-tab conservando selección y filtros, aprobación/lagunas, intervalos inválidos y vacíos, navegación enlazada, nombres personales, recarga y **cero escrituras financieras**.
+
+La matriz añade **120 observaciones axe, cero violaciones y 240 grupos incompletos**, pendientes de revisión manual; se mantienen separados de los 136 grupos incompletos generales. No se afirma prueba real con lector de pantalla ni dispositivos físicos. Captura ficticia revisada visualmente: [gráficos de cuentas en francés, 390 claro](screenshots/phase-5b/charts-wallets-fr-390-light.png).
+
+La batería incorpora 31 suites; **555 resultados es una expectativa**, que debe verificarse en CI sobre el SHA publicado. Siguen pendientes asistente/registro natural, ayudas/P3, errores restantes y revisión integral. Los cuatro idiomas nuevos permanecen deshabilitados.

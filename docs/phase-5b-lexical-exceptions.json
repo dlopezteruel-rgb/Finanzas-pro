@@ -46,6 +46,31 @@
         "key": "shared_expense_detail.id",
         "text": "ID: {contactId}",
         "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
       }
     ],
     "it": [
@@ -118,6 +143,46 @@
         "key": "shared_expense_detail.id",
         "text": "ID: {contactId}",
         "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "financial_charts.tipo",
+        "text": "Tipo ",
+        "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "financial_charts.tipo_bancario",
+        "text": "Tipo bancario",
+        "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "financial_charts.tipo_3868d2",
+        "text": "Tipo",
+        "reason": "Reviewed native Italian chart label"
       }
     ],
     "fr": [
@@ -140,6 +205,11 @@
         "key": "loans.tin_tae",
         "text": "{entity} • {interestRate}% TIN/TAE",
         "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
       }
     ],
     "pt": [
@@ -652,6 +722,96 @@
         "key": "shared_message.peso_de_contacto_invalido",
         "text": "Peso de contacto inválido.",
         "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "financial_charts.meses",
+        "text": "Meses",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado",
+        "text": "Estado ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado_economico",
+        "text": "Estado económico",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo",
+        "text": "Tipo ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo_economico",
+        "text": "Tipo económico",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.todas",
+        "text": "Todas",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado_98e5ac",
+        "text": "Estado",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.anterior",
+        "text": "Anterior",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.tipo_de_grafico",
+        "text": "Tipo de gráfico ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.tipo_de_grafico_c36918",
+        "text": "Tipo de gráfico: {title}",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.barras",
+        "text": "Barras",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo_3868d2",
+        "text": "Tipo",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "chart.pagination",
+        "text": "Página {page} de {pages}",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
       }
     ]
   }

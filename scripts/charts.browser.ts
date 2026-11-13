@@ -30,9 +30,9 @@ test('Gráficos financieros locales: interacción, contabilidad y solo lectura',
     const s=await setup(mobile,theme);const {page}=s;try{
       const before=await allStorage(page);await open(page,'Gráficos de Inicio');
       const income=chart(page,'Ingresos y gastos reales por periodo');
-      const table=income.getByRole('table');const october=table.getByRole('row').filter({has:page.getByRole('rowheader',{name:'2026-10',exact:true})});
-      assert.match(await october.innerText(),/3\.000,00.*15,00/s);
-      const distribution=chart(page,'Distribución del gasto económico');assert.match(await distribution.getByRole('table').innerText(),/15,00.*100\.0/s);
+      const table=income.getByRole('table');const october=table.locator('tbody tr[data-chart-row="2026-10-01"]');
+      assert.equal(await october.getByRole('rowheader').innerText(),'oct 2026');assert.match(await october.innerText(),/3\.000,00.*15,00/s);
+      const distribution=chart(page,'Distribución del gasto económico');assert.match(await distribution.getByRole('table').innerText(),/15,00.*100,0\s*%/s);
       const slice=distribution.locator('svg [data-chart-point]').first();await slice.evaluate(el=>el.scrollIntoView({block:'center'}));const box=(await slice.boundingBox())!;const position={x:box.width*.9,y:box.height*.5};if(mobile)await slice.tap({position});else await slice.click({position});
       assert.match(await distribution.locator('.chart-readout').innerText(),/15,00/);
       if(process.env.CHART_ARTIFACT_DIR)await page.screenshot({path:`${process.env.CHART_ARTIFACT_DIR}/home-${mobile?'mobile':'desktop'}-${theme}.png`});
@@ -60,7 +60,7 @@ test('Gráficos financieros locales: interacción, contabilidad y solo lectura',
     const s=await setup();const {page}=s;try{
       const before=await allStorage(page);await open(page,'Gráficos de Inicio');const c=chart(page,'Ingresos y gastos reales por periodo');
       await c.getByLabel('Tipo de gráfico: Ingresos y gastos reales por periodo',{exact:true}).selectOption('line');
-      const point=c.locator('svg [data-chart-point]').first();await point.focus();await page.keyboard.press('End');await page.keyboard.press('Enter');assert.match(await c.locator('.chart-readout').innerText(),/2026-10/);
+      const point=c.locator('svg [data-chart-point]').first();await point.focus();await page.keyboard.press('End');await page.keyboard.press('Enter');assert.match(await c.locator('.chart-readout').innerText(),/oct 2026/);assert.equal(await page.locator('svg [data-chart-point]:focus').getAttribute('data-chart-row'),'2026-10-01');assert.equal(await page.locator('svg [data-chart-point]:focus').getAttribute('data-chart-series'),'expenses');
       await c.getByRole('checkbox',{name:'Gastos económicos',exact:true}).uncheck();assert.equal(await c.getByRole('columnheader',{name:'Gastos económicos',exact:true}).count(),0);
       await c.getByRole('checkbox',{name:'Ingresos económicos',exact:true}).uncheck();assert.match(await c.innerText(),/Activa una serie/);
       await panel(page).getByLabel('Desde (gráficos)',{exact:true}).fill('2030-01-01');assert.match(await panel(page).getByRole('alert').innerText(),/rango/);

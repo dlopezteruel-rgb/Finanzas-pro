@@ -3,13 +3,13 @@
   "schemaVersion": 2,
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
-    "type-or-import": 840,
-    "review": 3168,
+    "type-or-import": 844,
+    "review": 3152,
     "ui-message-candidate": 196,
-    "attribute-internal": 2105,
-    "translation-key": 1224,
-    "visible-attribute": 46,
-    "visible-text": 89
+    "attribute-internal": 2085,
+    "translation-key": 1367,
+    "visible-attribute": 22,
+    "visible-text": 19
   },
   "files": [
     {
@@ -1126,74 +1126,42 @@
     {
       "file": "src/components/charts/ChartSlot.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "10b5dbfc21bdf11507971e2751f406a2574082bd38abe3d72b93eb73ceec47f0",
+      "sourceSha256": "6be5f1507749ba2ab1d87da745c8681da6a6e4bd3f5a657e1ad7784108b498fc",
       "counts": {
-        "type-or-import": 2,
-        "review": 8,
-        "attribute-internal": 2,
-        "visible-text": 1
+        "type-or-import": 3,
+        "review": 1,
+        "translation-key": 8,
+        "attribute-internal": 2
       },
-      "visibleCandidateLines": [
-        9
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": []
     },
     {
       "file": "src/components/charts/FinancialCharts.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "eb3c7f1dea37d0475adf8e1cd2cb3908a786a6fa85cf62fb84252e776f417760",
+      "sourceSha256": "721318453cb021ea328fda45e2891d83cf2770bcc7606c8504ec20f865fc7e4d",
       "counts": {
-        "type-or-import": 11,
-        "review": 30,
-        "attribute-internal": 83,
-        "visible-text": 52,
-        "visible-attribute": 20
+        "type-or-import": 13,
+        "review": 28,
+        "attribute-internal": 66,
+        "translation-key": 103
       },
-      "visibleCandidateLines": [
-        11,
-        12,
-        13,
-        31,
-        33,
-        34,
-        35,
-        40,
-        41,
-        42,
-        43,
-        44,
-        45,
-        46,
-        54,
-        55,
-        56,
-        58,
-        59,
-        60,
-        61,
-        62,
-        72,
-        73,
-        76,
-        77,
-        79,
-        80
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 44,
+          "line": 49,
           "name": "formatCurrency"
         },
         {
-          "line": 44,
+          "line": 49,
           "name": "formatCurrency"
         },
         {
-          "line": 76,
+          "line": 84,
           "name": "formatCurrency"
         },
         {
-          "line": 80,
+          "line": 88,
           "name": "formatCurrency"
         }
       ]
@@ -1201,36 +1169,21 @@
     {
       "file": "src/components/charts/InteractiveChart.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "993e162776b9193dfbc0a050349c07962e9156136344b4116da97f088b6bed64",
+      "sourceSha256": "71f3212245c81d5df0e1d758b5b015295672be6ffa8abc89bf584ee1c102a205",
       "counts": {
         "type-or-import": 7,
-        "review": 38,
-        "attribute-internal": 47,
-        "visible-text": 17,
-        "visible-attribute": 4
+        "review": 31,
+        "translation-key": 32,
+        "attribute-internal": 44
       },
-      "visibleCandidateLines": [
-        47,
-        48,
-        50,
-        55,
-        56,
-        58,
-        76,
-        77,
-        78
-      ],
+      "visibleCandidateLines": [],
       "presentationCalls": [
         {
-          "line": 31,
+          "line": 32,
           "name": "formatCurrency"
         },
         {
-          "line": 57,
-          "name": "formatCurrency"
-        },
-        {
-          "line": 67,
+          "line": 58,
           "name": "formatCurrency"
         },
         {
@@ -1238,7 +1191,7 @@
           "name": "formatCurrency"
         },
         {
-          "line": 74,
+          "line": 69,
           "name": "formatCurrency"
         },
         {
@@ -1246,7 +1199,15 @@
           "name": "formatCurrency"
         },
         {
-          "line": 78,
+          "line": 75,
+          "name": "formatCurrency"
+        },
+        {
+          "line": 76,
+          "name": "formatCurrency"
+        },
+        {
+          "line": 79,
           "name": "formatCurrency"
         }
       ]
@@ -1299,9 +1260,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "3a4ee5d1eae0bdc3cbb7c189c0c325287fe5574e3704cc85cbfb2dd71fe9f8c9",
+      "sourceSha256": "668045be44ef9ace2a2e3718a08c0b364aa70d55bae7c5f72e06842cbdf30a02",
       "counts": {
-        "type-or-import": 33
+        "type-or-import": 34
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1993,6 +1954,11 @@
     {
       "file": "src/i18n/storageMessages.ts",
       "knownStaticMessages": 151,
+      "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
+    },
+    {
+      "file": "src/i18n/chartMessages.ts",
+      "knownStaticMessages": 6,
       "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
     }
   ],
