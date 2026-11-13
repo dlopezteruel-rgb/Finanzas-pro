@@ -181,7 +181,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               <label>Cartera<select aria-label="Cartera del registro rápido" value={parsed.wallet} onChange={e => setWalletChoice(wallets.find(w => w.name === e.target.value)?.id ?? '')}>
                 <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}
               </select></label>
-              <span>Fecha: <strong className="text-slate-200">{formatDate(parsed.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</strong></span>
+              <span>Fecha: <strong className="text-slate-200"><time dateTime={parsed.date}>{formatDate(parsed.date, {day:'2-digit',month:'2-digit',year:'numeric'})}</time></strong></span>
             </div>
             <span className={parsed.processed ? 'text-emerald-400 font-medium' : 'text-amber-400 font-medium'}>
               {parsed.processed ? '✓ Tramitado (SÍ)' : '⏳ Pendiente (NO)'}
