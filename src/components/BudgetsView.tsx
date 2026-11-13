@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import {useCatalogDrag} from './useCatalogDrag';
 import {catalogReorderScope,type ReorderCallback} from '../utils/catalogReorder';
 import type {FinanceData} from '../utils/backup';
@@ -55,6 +56,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   onChangePartidaGroup,
   onSelectPartidaToView,
 }) => {
+  const { t: uiText, tn: uiCount } = useI18n();
   const [activeTab, setActiveTab] = useState<'GASTO' | 'INGRESO'>('GASTO');
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [editingKey, setEditingKey] = useState<string | null>(null);
@@ -121,51 +123,43 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
     <div className="catalog-view space-y-4 pb-16 md:pb-6">
       {(editError || editSubmission.error) && <p role="alert">{editError || editSubmission.error}</p>}
       {catalogSubmission.error && <p role="alert">{catalogSubmission.error}</p>}
-      {catalogSubmission.saving && <p role="status">Guardando catálogo…</p>}
+      {catalogSubmission.saving && <p role="status">{uiText("budgets.guardando_catalogo")}</p>}
       {/* 1. Top Summary Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
-          <span className="text-[10px] text-slate-400 font-medium block">Balance Real Mes</span>
+          <span className="text-[10px] text-slate-400 font-medium block">{uiText("budgets.balance_real_mes")}</span>
           <span className={`text-base sm:text-lg font-black font-mono mt-0.5 block ${
             summary.balanceReal >= 0 ? 'text-emerald-400' : 'text-rose-400'
           }`}>
             {summary.balanceReal >= 0 ? '+' : ''}{formatCurrency(summary.balanceReal)}
           </span>
-          <span className="text-[9px] text-slate-400 mt-1 block">
-            Ingr: {formatCurrency(summary.ingresosReales)}
-          </span>
+          <span className="text-[9px] text-slate-400 mt-1 block"><I18nText id="budgets.ingr" values={{ ingresosReales: (formatCurrency(summary.ingresosReales)) }} /></span>
         </div>
 
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
-          <span className="text-[10px] text-slate-400 font-medium block">Balance Previsto</span>
+          <span className="text-[10px] text-slate-400 font-medium block">{uiText("budgets.balance_previsto")}</span>
           <span className="text-base sm:text-lg font-black font-mono text-sky-400 mt-0.5 block">
             {formatCurrency(summary.balancePrevisto)}
           </span>
-          <span className="text-[9px] text-slate-400 mt-1 block">
-            Ingr. prev: {formatCurrency(summary.ingresosPrevistos)}
-          </span>
+          <span className="text-[9px] text-slate-400 mt-1 block"><I18nText id="budgets.ingr_prev" values={{ ingresosPrevistos: (formatCurrency(summary.ingresosPrevistos)) }} /></span>
         </div>
 
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
-          <span className="text-[10px] text-slate-400 font-medium block">Margen / Resto Total</span>
+          <span className="text-[10px] text-slate-400 font-medium block">{uiText("budgets.margen_resto_total")}</span>
           <span className={`text-base sm:text-lg font-black font-mono mt-0.5 block ${
             summary.restoTotal >= 0 ? 'text-emerald-400' : 'text-rose-400'
           }`}>
             {summary.restoTotal >= 0 ? '+' : ''}{formatCurrency(summary.restoTotal)}
           </span>
-          <span className="text-[9px] text-slate-400 mt-1 block">
-            PREVISTO - EJECUTADO
-          </span>
+          <span className="text-[9px] text-slate-400 mt-1 block">{uiText("budgets.previsto_ejecutado")}</span>
         </div>
 
         <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-3">
-          <span className="text-[10px] text-slate-400 font-medium block">Tasa de Ahorro</span>
+          <span className="text-[10px] text-slate-400 font-medium block">{uiText("budgets.tasa_de_ahorro")}</span>
           <span className="text-base sm:text-lg font-black font-mono text-white mt-0.5 block">
             {summary.tasaAhorroReal}%
           </span>
-          <span className="text-[9px] text-emerald-400 mt-1 block">
-            Prevista: {summary.tasaAhorroPrevista}%
-          </span>
+          <span className="text-[9px] text-emerald-400 mt-1 block"><I18nText id="budgets.prevista" values={{ tasaAhorroPrevista: (summary.tasaAhorroPrevista) }} /></span>
         </div>
       </div>
 
@@ -180,9 +174,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 ? 'bg-rose-500 text-white shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
-          >
-            Paquetes de Gastos ({budgetGroups.filter(g => g.type === 'GASTO').length})
-          </button>
+          ><I18nText id="budgets.paquetes_de_gastos" values={{ length: (budgetGroups.filter(g => g.type === 'GASTO').length) }} /></button>
           <button
             onClick={() => setActiveTab('INGRESO')}
             className={`px-4 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
@@ -190,9 +182,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                 ? 'bg-emerald-500 text-slate-950 shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
-          >
-            Paquetes de Ingresos ({budgetGroups.filter(g => g.type === 'INGRESO').length})
-          </button>
+          ><I18nText id="budgets.paquetes_de_ingresos" values={{ length: (budgetGroups.filter(g => g.type === 'INGRESO').length) }} /></button>
         </div>
 
         {/* Expand / Collapse All buttons */}
@@ -200,16 +190,12 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           <button
             onClick={() => handleExpandAll(true)}
             className="hover:text-white underline cursor-pointer px-1"
-          >
-            Desplegar todos
-          </button>
+          >{uiText("budgets.desplegar_todos")}</button>
           <span>•</span>
           <button
             onClick={() => handleExpandAll(false)}
             className="hover:text-white underline cursor-pointer px-1"
-          >
-            Contraer todos
-          </button>
+          >{uiText("budgets.contraer_todos")}</button>
         </div>
       </div>
 
@@ -236,13 +222,13 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           return (
             <div
               key={group.code}
-              {...drag.target(drag.sourceKind==='partida'?{kind:'partida',type:group.type,groupCode:group.code,label:`Final de ${group.name}`,disabled:!!group.archived}:{kind:'family',type:group.type,code:group.code,label:group.name})}
+              {...drag.target(drag.sourceKind==='partida'?{kind:'partida',type:group.type,groupCode:group.code,label:group.name,disabled:!!group.archived}:{kind:'family',type:group.type,code:group.code,label:group.name})}
               className="bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm transition-all"
             >
-              <div className="catalog-family-heading">{drag.handle({kind:'family',type:group.type,code:group.code,label:`familia ${group.name}`})}
+              <div className="catalog-family-heading">{drag.handle({kind:'family',type:group.type,code:group.code,label:group.name})}
               {/* Accordion Package Header */}
               <div
-                role="button" tabIndex={0} aria-expanded={isOpen} aria-label={`Familia ${group.name}`}
+                role="button" tabIndex={0} aria-expanded={isOpen} aria-label={uiText("budgets.familia", { name: group.name })}
                 onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleGroup(group.code)}}}
                 onClick={() => toggleGroup(group.code)}
                 className="catalog-family-toggle p-3.5 flex items-center justify-between gap-3 hover:bg-white/[0.02] cursor-pointer transition-colors select-none"
@@ -257,24 +243,22 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                   <div className="truncate">
                     <div className="flex items-center gap-2">
                       <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                        {group.name}{group.archived?' · Archivada':''}
+                        {group.name}{group.archived?uiText("catalog_manager.archivada"):''}
                       </h3>
-                      <span className="text-[10px] bg-white/[0.05] text-slate-300 px-1.5 py-0.2 rounded-full font-mono">
-                        {group.partidas.length} partidas
-                      </span>
+                      <span className="text-[10px] bg-white/[0.05] text-slate-300 px-1.5 py-0.2 rounded-full font-mono">{uiCount("budgetItems",group.partidas.length)}</span>
                     </div>
 
                     <div className="flex items-center gap-3 text-[11px] text-slate-400 mt-0.5">
-                      <span>Prev: <strong className="text-slate-200 font-mono">{formatCurrency(pkgPrevisto)}</strong></span>
+                      <span><I18nText id="budgets.prev" values={{ pkgPrevisto: (<strong className="text-slate-200 font-mono">{formatCurrency(pkgPrevisto)}</strong>) }} /></span>
                       <span>•</span>
-                      <span>Ejec: <strong className="text-white font-mono">{formatCurrency(pkgEjecutado)}</strong></span>
+                      <span><I18nText id="budgets.ejec" values={{ pkgEjecutado: (<strong className="text-white font-mono">{formatCurrency(pkgEjecutado)}</strong>) }} /></span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Package RESTO highlight */}
                 <div className="text-right shrink-0">
-                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">RESTO PAQUETE</span>
+                  <span className="text-[9px] text-slate-400 uppercase font-semibold block">{uiText("budgets.resto_paquete")}</span>
                   <span className={`text-xs sm:text-sm font-black font-mono ${
                     group.type === 'GASTO'
                       ? pkgResto < 0
@@ -286,9 +270,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                   }`}>
                     {formatCurrency(pkgResto)}
                   </span>
-                  <span className="text-[9px] text-slate-400 font-mono block">
-                    {pkgPercent}% usado
-                  </span>
+                  <span className="text-[9px] text-slate-400 font-mono block"><I18nText id="budgets.usado" values={{ pkgPercent: (pkgPercent) }} /></span>
                 </div>
               </div>
 
@@ -337,22 +319,22 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                       >
                         {/* Partida Row */}
                         <div className="catalog-partida-heading flex items-start justify-between gap-2">
-                          {drag.handle({kind:'partida',type:partida.type,code:partida.code,label:`partida ${partida.name}`})}
+                          {drag.handle({kind:'partida',type:partida.type,code:partida.code,label:partida.name})}
                           {/* Left: accessible opener for the contextual panel */}
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
-                            aria-label={`Ver partida ${partida.name}`} className="min-w-0 flex-1 text-left cursor-pointer group">
+                            aria-label={uiText("budgets.ver_partida", { name: partida.name })} className="min-w-0 flex-1 text-left cursor-pointer group">
                             <span className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}{partida.archived?' · Archivada':''}</span>
+                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}{partida.archived?uiText("catalog_manager.archivada"):''}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </span>
-                            <span className="text-[10px] text-slate-400 block mt-0.5">{row.transactionCount > 0 ? `${row.transactionCount} mov. registrados • Toca para ver` : '0 movimientos • Toca para ver'}</span>
+                            <span className="text-[10px] text-slate-400 block mt-0.5">{uiCount("recordedTransactionsHint",row.transactionCount)}</span>
                           </button>
 
                           {/* Center / Right: RESTO and Reordering Actions */}
                           <div className="catalog-partida-actions flex items-center gap-2.5 shrink-0">
                             {/* Resto */}
                             <div className="text-right">
-                              <span className="text-[9px] text-slate-400 uppercase font-semibold block">RESTO</span>
+                              <span className="text-[9px] text-slate-400 uppercase font-semibold block">{uiText("budgets.resto")}</span>
                               <span className={`text-xs sm:text-sm font-black font-mono ${
                                 row.type === 'GASTO'
                                   ? row.resto < 0
@@ -376,8 +358,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'UP'), () => {});
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
-                                title="Subir partida dentro del paquete"
-                                aria-label={`Subir partida ${partida.name}`}
+                                title={uiText("budgets.subir_partida_dentro_del_paquete")}
+                                aria-label={uiText("budgets.subir_partida", { name: partida.name })}
                               >
                                 <ArrowUp className="w-3 h-3" />
                               </button>
@@ -389,8 +371,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                   void catalogSubmission.submit(() => onMovePartida(group.code, index, 'DOWN'), () => {});
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
-                                title="Bajar partida dentro del paquete"
-                                aria-label={`Bajar partida ${partida.name}`}
+                                title={uiText("budgets.bajar_partida_dentro_del_paquete")}
+                                aria-label={uiText("budgets.bajar_partida", { name: partida.name })}
                               >
                                 <ArrowDown className="w-3 h-3" />
                               </button>
@@ -405,8 +387,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                 void catalogSubmission.submit(() => onDuplicatePartida(partida), () => {});
                               }}
                               className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer border border-white/[0.06]"
-                              title="Duplicar partida presupuestaria"
-                              aria-label={`Duplicar partida ${partida.name}`}
+                              title={uiText("budgets.duplicar_partida_presupuestaria")}
+                              aria-label={uiText("budgets.duplicar_partida", { name: partida.name })}
                             >
                               <Copy className="w-3 h-3" />
                             </button>
@@ -422,8 +404,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                 setTargetGroupCode(group.code);
                               }}
                               className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-slate-400 hover:text-sky-400 transition-colors cursor-pointer border border-white/[0.06]"
-                              title="Cambiar a otro paquete"
-                              aria-label={`Mover de paquete ${partida.name}`}
+                              title={uiText("budgets.cambiar_a_otro_paquete")}
+                              aria-label={uiText("budgets.mover_de_paquete", { name: partida.name })}
                             >
                               <FolderInput className="w-3 h-3" />
                             </button>
@@ -451,7 +433,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                           <div className="flex items-center gap-3">
                             {isEditing ? (
                               <div className="flex items-center gap-1">
-                                <span className="text-slate-400">Previsto:</span>
+                                <span className="text-slate-400">{uiText("budgets.previsto")}</span>
                                 <input
                                   inputMode="decimal"
                                   disabled={editSubmission.saving}
@@ -473,27 +455,25 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </div>
                             ) : (
                               <div className="flex items-center gap-1">
-                                <span>Previsto efectivo: <strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>{!!row.arrastre&&<> · Base {formatCurrency(row.basePrevisto)} + arrastre {formatCurrency(row.arrastre)}</>}</span>
+                                <span>{row.arrastre?<I18nText id="budgets.effectiveWithCarry" values={{effective:<strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>,base:formatCurrency(row.basePrevisto),carry:formatCurrency(row.arrastre)}} />:<I18nText id="budgets.effectiveWithoutCarry" values={{effective:<strong className="text-slate-200 font-mono">{formatCurrency(row.previsto)}</strong>}} />}</span>
                                 <button
                                   disabled={!!group.archived||!!partida.archived||drag.saving}
                                   onClick={() => startEdit(row)}
                                   className="text-slate-400 hover:text-white p-0.5 cursor-pointer"
-                                  title="Editar importe previsto"
+                                  title={uiText("budgets.editar_importe_previsto")}
                                 >
                                   <Edit2 className="w-2.5 h-2.5" />
                                 </button>
                               </div>
                             )}
 
-                            <span>Ejecutado: <strong className="text-white font-mono">{formatCurrency(row.ejecutado)}</strong></span>
+                            <span><I18nText id="budgets.ejecutado" values={{ ejecutado: (<strong className="text-white font-mono">{formatCurrency(row.ejecutado)}</strong>) }} /></span>
                           </div>
 
                           <div className="flex items-center gap-1.5">
                             <span className="font-mono text-slate-400 font-semibold">{row.percent}%</span>
                             {row.status === 'exceeded' && row.type === 'GASTO' && (
-                              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                                Excedido
-                              </span>
+                              <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30">{uiText("budgets.excedido")}</span>
                             )}
                             {row.status === 'warning' && row.type === 'GASTO' && (
                               <span className="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
@@ -501,9 +481,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               </span>
                             )}
                             {row.status === 'ok' && (
-                              <span className="text-[9px] font-semibold text-emerald-400">
-                                ✓ En margen
-                              </span>
+                              <span className="text-[9px] font-semibold text-emerald-400">{uiText("budgets.en_margen")}</span>
                             )}
                           </div>
                         </div>
@@ -517,27 +495,25 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
         })}
       </div>
 
-      {drag.sourceKind!=='partida'&&<div className="catalog-drop-end" {...drag.target({kind:'family',type:activeTab,label:'Final de las familias'})}>Final de las familias</div>}
+      {drag.sourceKind!=='partida'&&<div className="catalog-drop-end" {...drag.target({kind:'family',type:activeTab,label:''})}>{uiText("budgets.final_de_las_familias")}</div>}
       {drag.feedback}
       {/* Confirmation Modal for Moving a Partida across packages */}
       {movingPartida && (
-        <Overlay title="Mover partida" onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
-          <form role="dialog" aria-modal="true" aria-label="Mover partida" aria-busy={moveSubmission.saving}
+        <Overlay title={uiText("budgets.mover_partida")} onClose={() => moveSubmission.close(() => setMovingPartida(null))}>
+          <form role="dialog" aria-modal="true" aria-label={uiText("budgets.mover_partida")} aria-busy={moveSubmission.saving}
             onSubmit={e => { e.preventDefault(); void moveSubmission.submit(() => budgetGroups.some(g => g.code === targetGroupCode && g.type === movingPartida.type)
               ? onChangePartidaGroup(movingPartida, targetGroupCode)
-              : Promise.resolve({ ok: false, error: 'Elige una familia del mismo tipo. No se permite cambiar entre Ingresos y Gastos.' }), () => setMovingPartida(null)); }}
+              : Promise.resolve({ ok: false, error: uiText("budgets.invalidFamilyMove") }), () => setMovingPartida(null)); }}
             className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
           <fieldset disabled={moveSubmission.saving} className="space-y-3.5">
             {moveSubmission.error && <p role="alert" className="text-rose-300">{moveSubmission.error}</p>}
-            <h3 className="text-sm font-bold text-white">Mover Partida a Otro Paquete</h3>
-            <p className="text-slate-300">
-              ¿A qué paquete deseas mover la partida <strong className="text-white">{movingPartida.name}</strong>?
-            </p>
+            <h3 className="text-sm font-bold text-white">{uiText("budgets.mover_partida_a_otro_paquete")}</h3>
+            <p className="text-slate-300"><I18nText id="budgets.a_que_paquete_deseas_mover_la_partida" values={{ name: (<strong className="text-white">{movingPartida.name}</strong>) }} /></p>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Paquete de destino</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("budgets.paquete_de_destino")}</label>
               <select
-                aria-label="Paquete de destino"
+                aria-label={uiText("budgets.paquete_de_destino")}
                 value={targetGroupCode}
                 onChange={e => setTargetGroupCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500 text-xs"
@@ -550,21 +526,19 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               </select>
             </div>
 
-            <p>Solo puedes mover la partida entre familias del mismo tipo. Sus movimientos y presupuestos guardados se conservan.</p>
+            <p>{uiText("budgets.solo_puedes_mover_la_partida_entre_familias_del_mismo")}</p>
 
             <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/[0.06]">
               <button
                 type="button"
                 onClick={() => moveSubmission.close(() => setMovingPartida(null))} disabled={moveSubmission.saving}
                 className="px-3.5 py-2 rounded-xl text-slate-400 hover:text-white"
-              >
-                Cancelar
-              </button>
+              >{uiText("catalog_manager.cancelar")}</button>
               <button
                 type="submit" disabled={moveSubmission.saving}
                 className="bg-white hover:bg-slate-100 text-slate-950 font-bold px-4 py-2 rounded-xl transition-all shadow cursor-pointer"
               >
-                {moveSubmission.saving ? 'Guardando…' : 'Confirmar Traslado'}
+                {moveSubmission.saving ? uiText("catalog_manager.guardando") : uiText("budgets.confirmar_traslado")}
               </button>
             </div>
           </fieldset>

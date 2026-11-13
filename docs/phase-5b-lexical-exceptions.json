@@ -16,6 +16,11 @@
         "key": "planning.manual",
         "text": "Manual",
         "reason": "Native English adjective"
+      },
+      {
+        "key": "partida_detail.no",
+        "text": "NO",
+        "reason": "Reviewed native en wording; shared spelling is intentional, placeholders retain user values"
       }
     ],
     "it": [
@@ -48,6 +53,26 @@
         "key": "planning_section.previsto",
         "text": "{items} · Previsto: {planned}",
         "reason": "Reviewed native it forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "budgets.previsto",
+        "text": "Previsto:",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto",
+        "text": "Previsto",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto_0049c5",
+        "text": "Previsto: {planned}",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.no",
+        "text": "NO",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
       }
     ],
     "fr": [
@@ -247,6 +272,81 @@
         "key": "planning_section.previsto",
         "text": "{items} · Previsto: {planned}",
         "reason": "Reviewed native pt forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "catalog_manager.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.tipo_principal",
+        "text": "Tipo principal",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.guardar_catalogo",
+        "text": "Guardar catálogo",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.prevista",
+        "text": "Prevista: {tasaAhorroPrevista}%",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.previsto",
+        "text": "Previsto:",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.excedido",
+        "text": "Excedido",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto",
+        "text": "Previsto",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.editar_previsto",
+        "text": "Editar previsto",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto_0049c5",
+        "text": "Previsto: {planned}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.subir",
+        "text": "Subir",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.subir_1fde7d",
+        "text": "Subir {name}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.eliminar",
+        "text": "Eliminar {name}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "use_catalog_drag.destino",
+        "text": "Destino: {label}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.saved",
+        "text": "Catálogo guardado.",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "drag.destination",
+        "text": "Destino: {target}. Enter confirma.",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
       }
     ]
   }

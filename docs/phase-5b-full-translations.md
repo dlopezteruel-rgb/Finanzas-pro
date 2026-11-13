@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 543/543 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 751/751 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 543 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 751 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -118,3 +118,24 @@ Incidencia **5B-002 — Etiqueta de ahorro en móvil**: la revisión de la captu
 | ![Etiqueta francesa antes](screenshots/phase-5b/planning-fr-390-light-before.png) | ![Etiqueta francesa después](screenshots/phase-5b/planning-fr-390-light-after.png) |
 
 Tras el ajuste visual pasan también los **16 resultados Chromium** de la batería responsive española: siete módulos, 390–1920 px, ambos temas, zoom 125 %/200 %, foco y redimensionado. La matriz multidioma se repite con la comprobación geométrica y pasa 31/31, sin omisiones ni cancelaciones.
+
+
+### Checkpoint de Catálogo, detalle, subítems y arrastre
+
+Se añaden **206 mensajes canónicos y dos variantes plurales**, 751 claves completas por diccionario. Se localizan la gestión de familias y partidas, confirmación de archivo con reglas activas, traslado, detalle, selectores, desglose mensual y anuncios de arrastre. El mensaje conserva explícitamente que las reglas seguirán activas y no se borran, desactivan ni reasignan; que no se ejecutan automáticamente; y que históricos/importes/desgloses quedan en lectura. Los nombres personales se conservan incluso si coinciden con términos de interfaz.
+
+Las diez etiquetas propias de catalogDependencies se adaptan exclusivamente al presentar mediante claves explícitas en i18n/presenters.ts. Las utilidades permanecen intactas. Un resultado desconocido se conserva y se señala como pendiente de cobertura; no se interpreta como clave ni se aplica este adaptador a nombres o campos del usuario. La fila sintética «Sin subítem» se distingue por la ausencia de ID; un subítem personal con ese nombre conserva su texto literal.
+
+Los anuncios de arrastre guardan claves y referencias de presentación, no frases ya traducidas. El hook construye las descripciones a partir de kind y del nombre literal. Los callbacks conservan los mismos tipos/códigos/IDs/scope y las utilidades de ordenación no cambian. Así, cambiar de idioma con un arrastre por teclado activo actualiza los anuncios y conserva la sesión y el foco.
+
+Verificado localmente: **461 unitarias**, lint/build y diff-check; **40 resultados Chromium españoles** de catalogArchive (11), catalogReorder (10) y budgetSubitems (19). Nuevas suites: translatedCatalog (31 resultados, 30 combinaciones de idiomas/anchos/temas + contenedor) y translatedCatalogDrag (11 resultados, cinco idiomas × ratón/tacto emulado + contenedor). En todos los casos, cero fallos, omisiones o cancelaciones en las ejecuciones de evidencia. El tacto se emula mediante CDP, no se afirma haber probado dispositivos físicos.
+
+La matriz comprueba eliminación bloqueada, archivo explícito, cambio cross-tab en el diálogo, Escape/Tab/Shift+Tab/foco, reactivación, lectura de subítems y recarga; conserva reglas, previsiones, movimientos e históricos. La prueba de arrastre comprueba anuncios nativos durante un cambio cross-tab, cancelación sin escrituras, ordenación confirmada con teclado y con puntero, nombres/identidades y cantidades intactos. Los 60 controles axe del diálogo de archivo dan cero violaciones y **60 grupos incompletos pendientes de revisión manual**, separados de las observaciones de Planificación y de los 136 grupos de referencia.
+
+Se corrigieron dos errores de recorrido en la prueba nueva: el foco inicial pertenece al propio diálogo, y los nombres de subítems debían buscarse en el desglose visible, no en su gestor plegado. También se devuelve expresamente el primer plano a la pestaña revisada tras escribir la preferencia desde la segunda, como haría el usuario. Las ejecuciones de evidencia completan la matriz de Catálogo en 104,53 s y la de arrastre en 25,77 s; los límites finales siguen siendo 300 s y 180 s, sin ampliar los tiempos por control ni relajar aserciones.
+
+Aviso nuevo de build: algunos chunks superan 500 kB minificados al incorporar los diccionarios. No se oculta el aviso ni se cambian dependencias, configuración o workflow para suprimirlo. Se documenta como coste pendiente de revisar antes de la habilitación global.
+
+CI publicado del checkpoint de Planificación: [Actions 43426545828](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43426545828), SHA `e8ac869677a0bace1ca7c579f8dc0654cd257f25`, tres trabajos verdes. Artefacto verificado: **338 resultados / 24 suites**, cero fallos, omisiones o cancelaciones; auditoría general 128 superficies, cero violaciones, **136 grupos incompletos**. La matriz adicional de Planificación registra 88 grupos incompletos en CI frente a 86 locales; son observaciones que requieren revisión manual, no violaciones ni resultados verificados.
+
+Las capturas PNG de las suites se generan en ci-artifacts/browser localmente. El workflow existente conserva logs/JSON siempre y capturas solo si falla; no se modifica esa política. Las dos imágenes comparativas francesas de esta documentación sí están versionadas y son íntegramente ficticias. Continúan pendientes automatizaciones, otros módulos P1/P2/P3, errores de dominio, presentación Intl global y validación integral sin residuales. Los cuatro idiomas siguen deshabilitados.

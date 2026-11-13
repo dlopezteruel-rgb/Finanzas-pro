@@ -20,5 +20,7 @@ export const plurals = {
   "count.invalidAmountsVisible.one": "{count} importe inválido. Revisa las partidas antes de guardar.",
   "count.invalidAmountsVisible.other": "{count} importes inválidos. Revisa las partidas antes de guardar.",
   "count.invalidAmountsHidden.one": "{count} importe inválido oculto. Revisa las partidas antes de guardar.",
-  "count.invalidAmountsHidden.other": "{count} importes inválidos ocultos. Revisa las partidas antes de guardar."
+  "count.invalidAmountsHidden.other": "{count} importes inválidos ocultos. Revisa las partidas antes de guardar.",
+  "count.recordedTransactionsHint.one": "{count} mov. registrado • Toca para ver",
+  "count.recordedTransactionsHint.other": "{count} mov. registrados • Toca para ver"
 } as const;

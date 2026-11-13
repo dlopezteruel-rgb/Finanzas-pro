@@ -40,3 +40,4 @@ import './utils/stabilization.test';
 import './i18n/rich.test';
 import './i18n/dictionaries.test';
 import './i18n/inventory.test';
+import './i18n/presenters.test';
