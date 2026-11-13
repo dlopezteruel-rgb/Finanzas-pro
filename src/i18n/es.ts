@@ -1,4 +1,6 @@
+import { p1 } from './es.p1';
 export const es = {
+  ...p1,
   'common.skip': 'Ir al contenido',
   'nav.label': 'Navegación principal', 'nav.home': 'Inicio', 'nav.movements': 'Movimientos',
   'nav.budgets': 'Presupuestos', 'nav.accounts': 'Cuentas', 'nav.contacts': 'Contactos',

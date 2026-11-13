@@ -1,4 +1,4 @@
-import { useI18n } from '../i18n';
+import { useI18n, I18nText } from "../i18n";
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import { SafeDialog } from './SafeDialog';
 import type { DeletionReport } from '../utils/deletion';
@@ -9,6 +9,7 @@ import { useAsyncForm } from '../utils/useAsyncForm';
 export function ConfirmDeleteDialog({ report, onConfirm, onCancel, confirmLabel, requiredText }: {
   report: DeletionReport; onConfirm: () => Promise<SaveResult>; onCancel: () => void; confirmLabel?: string; requiredText?: string;
 }) {
+  const { t: uiText } = useI18n();
   const { t } = useI18n();
   const submission = useAsyncForm(), [confirmation, setConfirmation] = useState('');
   const cancelButton = useRef<HTMLButtonElement>(null);
@@ -16,16 +17,16 @@ export function ConfirmDeleteDialog({ report, onConfirm, onCancel, confirmLabel,
   const close = () => submission.close(onCancel);
   const blocked = !report.exists || report.blockers.length > 0;
   return <SafeDialog title={report.title} onCancel={close}>
-    <p className="text-sm">Se eliminará: <strong>{report.name}</strong>.</p>
-    <div className="space-y-2 text-xs" aria-label="Relaciones y alcance de la eliminación">
-      {report.relations.length ? <><p>Algunas categorías se solapan; sus cantidades no se suman entre sí.</p><ul className="space-y-2">{report.relations.map(r => <li key={r.label}>
-        <strong>{r.label}: {r.count}</strong>{r.examples.length > 0 && <p className="break-words text-slate-400">{r.examples.join(' · ')}{r.count > r.examples.length ? ` · y ${r.count - r.examples.length} más` : ''}</p>}
-      </li>)}</ul></> : <p>No hay referencias vinculadas que impidan la eliminación.</p>}
+    <p className="text-sm"><I18nText id="confirm_delete_dialog.se_eliminara" values={{ name: (<strong>{report.name}</strong>) }} /></p>
+    <div className="space-y-2 text-xs" aria-label={uiText("confirm_delete_dialog.relaciones_y_alcance_de_la_eliminacion")}>
+      {report.relations.length ? <><p>{uiText("confirm_delete_dialog.algunas_categorias_se_solapan_sus_cantidades_no_se_suman")}</p><ul className="space-y-2">{report.relations.map(r => <li key={r.label}>
+        <strong>{r.label}: {r.count}</strong>{r.examples.length > 0 && <p className="break-words text-slate-400">{r.examples.join(' · ')}{r.count > r.examples.length ? uiText("confirm_delete_dialog.y_mas", { content: r.count - r.examples.length }) : ''}</p>}
+      </li>)}</ul></> : <p>{uiText("confirm_delete_dialog.no_hay_referencias_vinculadas_que_impidan_la_eliminacion")}</p>}
       {report.notices.map(n => <p key={n}>{n}</p>)}
     </div>
-    {(submission.error || blocked) && <div role="alert" className="text-amber-300 text-sm">{submission.error || <><p>No se puede eliminar este elemento.</p>{report.blockers.map(b => <p key={b}>{b}</p>)}</>}</div>}
-    <p className="text-xs text-slate-400">No se borrarán automáticamente otros elementos vinculados. Cancelar conserva los datos.</p>
-    {requiredText && <label className="block text-sm">Escribe {requiredText} para confirmar<input aria-label={`Escribe ${requiredText} para confirmar`} value={confirmation} disabled={submission.saving} onChange={e => setConfirmation(e.target.value)} className="block w-full rounded-xl bg-[#0c0f17] border border-white/10 p-2 mt-1" /></label>}
+    {(submission.error || blocked) && <div role="alert" className="text-amber-300 text-sm">{submission.error || <><p>{uiText("confirm_delete_dialog.no_se_puede_eliminar_este_elemento")}</p>{report.blockers.map(b => <p key={b}>{b}</p>)}</>}</div>}
+    <p className="text-xs text-slate-400">{uiText("confirm_delete_dialog.no_se_borraran_automaticamente_otros_elementos_vinculados_cancelar_conserva")}</p>
+    {requiredText && <label className="block text-sm">{uiText("confirm_delete_dialog.escribe_para_confirmar", { requiredText })}<input aria-label={uiText("confirm_delete_dialog.escribe_para_confirmar", { requiredText: requiredText })} value={confirmation} disabled={submission.saving} onChange={e => setConfirmation(e.target.value)} className="block w-full rounded-xl bg-[#0c0f17] border border-white/10 p-2 mt-1" /></label>}
     {submission.saving && <p role="status">{t('common.saving')}</p>}
     <div className="flex justify-end gap-2" aria-busy={submission.saving}>
       <button ref={cancelButton} data-autofocus disabled={submission.saving} onClick={close} className="rounded-xl bg-white/10 p-3">{t('common.cancel')}</button>

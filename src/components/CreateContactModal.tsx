@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
@@ -27,6 +28,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
   onSaveContact,
   contactToEdit,
 }) => {
+  const { t: uiText } = useI18n();
   const submission = useAsyncForm();
   const [name, setName] = useState('');
   const [phoneOrEmail, setPhoneOrEmail] = useState('');
@@ -67,21 +69,21 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
   };
 
   return (
-    <Overlay title="Contacto" onClose={() => submission.close(onClose)}>
-      <div role="dialog" aria-modal="true" aria-label="Contacto" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
+    <Overlay title={uiText("create_contact.contacto")} onClose={() => submission.close(onClose)}>
+      <div role="dialog" aria-modal="true" aria-label={uiText("create_contact.contacto")} className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
         <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
           <div className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-full bg-sky-500/20 text-sky-400 flex items-center justify-center">
               <UserPlus className="w-4 h-4" />
             </div>
             <h3 className="text-sm font-bold text-white">
-              {contactToEdit ? 'Editar Contacto' : 'Nuevo Contacto'}
+              {contactToEdit ? uiText("create_contact.editar_contacto") : uiText("create_contact.nuevo_contacto")}
             </h3>
           </div>
           <button
             onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-full hover:bg-white/10 cursor-pointer"
-            aria-label="Cerrar modal"
+            aria-label={uiText("create_contact.cerrar_modal")}
           >
             <X className="w-4 h-4" />
           </button>
@@ -90,7 +92,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-3">
           {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
-          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
+          {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
           {/* Contact Avatar Preview */}
           <div className="flex items-center justify-center py-2">
             <div
@@ -110,20 +112,18 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
                 className={`w-6 h-6 rounded-full bg-gradient-to-tr ${c} cursor-pointer transition-transform ${
                   color === c ? 'scale-125 ring-2 ring-white' : 'opacity-70 hover:opacity-100'
                 }`}
-                aria-label="Elegir color de avatar"
+                aria-label={uiText("create_contact.elegir_color_de_avatar")}
               />
             ))}
           </div>
 
           {/* Name Field */}
           <div className="space-y-1">
-            <label className="text-slate-400 font-semibold block text-[11px]">
-              Nombre o alias <span className="text-rose-400">*</span>
-            </label>
+            <label className="text-slate-400 font-semibold block text-[11px]"><I18nText id="create_contact.nombre_o_alias" values={{ span: (<span className="text-rose-400">*</span>) }} /></label>
             <input
               type="text"
               required
-              placeholder="Ej. Carlos Ruiz"
+              placeholder={uiText("create_contact.ej_carlos_ruiz")}
               value={name}
               onChange={e => setName(e.target.value)}
               className="w-full bg-[#0c0f17] text-white rounded-xl px-3 py-2 border border-white/10 focus:outline-none focus:border-sky-500 text-xs"
@@ -132,12 +132,10 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
 
           {/* Phone or Email */}
           <div className="space-y-1">
-            <label className="text-slate-400 font-semibold block text-[11px]">
-              Teléfono, Bizum o Email (opcional)
-            </label>
+            <label className="text-slate-400 font-semibold block text-[11px]">{uiText("create_contact.telefono_bizum_o_email_opcional")}</label>
             <input
               type="text"
-              placeholder="Ej. +34 600 000 000 / carlos@email.com"
+              placeholder={uiText("create_contact.ej_34_600_000_000_carlos_email_com")}
               value={phoneOrEmail}
               onChange={e => setPhoneOrEmail(e.target.value)}
               className="w-full bg-[#0c0f17] text-white rounded-xl px-3 py-2 border border-white/10 focus:outline-none focus:border-sky-500 text-xs"
@@ -146,12 +144,10 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
 
           {/* Notes */}
           <div className="space-y-1">
-            <label className="text-slate-400 font-semibold block text-[11px]">
-              Notas (opcional)
-            </label>
+            <label className="text-slate-400 font-semibold block text-[11px]">{uiText("create_contact.notas_opcional")}</label>
             <input
               type="text"
-              placeholder="Ej. Compañero de piso, cenas, viajes..."
+              placeholder={uiText("create_contact.ej_companero_de_piso_cenas_viajes")}
               value={notes}
               onChange={e => setNotes(e.target.value)}
               className="w-full bg-[#0c0f17] text-white rounded-xl px-3 py-2 border border-white/10 focus:outline-none focus:border-sky-500 text-xs"
@@ -164,16 +160,14 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
               type="button"
               onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 font-semibold transition-colors cursor-pointer"
-            >
-              Cancelar
-            </button>
+            >{uiText("transfer.cancelar")}</button>
             <button
               type="submit"
               disabled={!name.trim()}
               className="py-2 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-50 text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-sky-500/20 transition-colors cursor-pointer"
             >
               <Check className="w-4 h-4" />
-              <span>Guardar</span>
+              <span>{uiText("create_contact.guardar")}</span>
             </button>
           </div>
           </fieldset>

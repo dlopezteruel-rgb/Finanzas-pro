@@ -1,4 +1,4 @@
-import { useI18n } from '../i18n';
+import { useI18n, I18nText } from "../i18n";
 import {madridDate} from '../utils/financialCalendar';
 import {classificationCatalog} from '../utils/budgetCatalog';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
@@ -32,6 +32,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   onSaveLoan,
   onDeleteLoan,
 }) => {
+  const { t: uiText } = useI18n();
   const { t } = useI18n();
   const isEditing = !!loanToEdit;
 
@@ -107,8 +108,8 @@ export const LoanModal: React.FC<LoanModalProps> = ({
 
   return (
     <>
-    <Overlay title="Préstamo" onClose={() => submission.close(onClose)}>
-      <div role="dialog" aria-modal="true" aria-label="Préstamo" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
+    <Overlay title={uiText("loan.prestamo")} onClose={() => submission.close(onClose)}>
+      <div role="dialog" aria-modal="true" aria-label={uiText("loan.prestamo")} className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
@@ -117,17 +118,17 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                {isEditing ? 'Editar Deuda o Préstamo' : 'Nuevo Préstamo o Crédito'}
+                {isEditing ? uiText("loan.editar_deuda_o_prestamo") : uiText("loan.nuevo_prestamo_o_credito")}
               </h3>
               <p className="text-[11px] text-slate-400">
                 {isEditing
-                  ? 'Modifica las condiciones, cuotas y datos de la deuda'
-                  : 'Registra un préstamo personal, hipoteca o crédito'}
+                  ? uiText("loan.modifica_las_condiciones_cuotas_y_datos_de_la_deuda")
+                  : uiText("loan.registra_un_prestamo_personal_hipoteca_o_credito")}
               </p>
             </div>
           </div>
           <button
-            aria-label="Cerrar préstamo" onClick={() => submission.close(onClose)} disabled={submission.saving}
+            aria-label={uiText("loan.cerrar_prestamo")} onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -137,15 +138,15 @@ export const LoanModal: React.FC<LoanModalProps> = ({
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-3.5">
           {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
-          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
+          {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
           {/* Name & Entity */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Nombre de la deuda</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.nombre_de_la_deuda")}</label>
               <input
                 type="text"
                 required
-                placeholder="ej. Préstamo Coche, Hipoteca..."
+                placeholder={uiText("loan.ej_prestamo_coche_hipoteca")}
                 value={name}
                 onChange={e => setName(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-sky-500"
@@ -153,10 +154,10 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Entidad acreedora</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.entidad_acreedora")}</label>
               <input
                 type="text"
-                placeholder="ej. BBVA, Santander, Cetelem..."
+                placeholder={uiText("loan.ej_bbva_santander_cetelem")}
                 value={entity}
                 onChange={e => setEntity(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
@@ -167,14 +168,14 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           {/* Principal & Monthly Payment */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Capital inicial (€)</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.capital_inicial")}</label>
               <div className="relative">
                 <input
                   type="number"
                   step="0.01"
                   required
                   min="0"
-                  aria-label="Capital inicial (€)" value={principal}
+                  aria-label={uiText("loan.capital_inicial")} value={principal}
                   onChange={e => setPrincipal(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -185,14 +186,14 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Cuota mensual (€)</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.cuota_mensual")}</label>
               <div className="relative">
                 <input
                   type="number"
                   step="0.01"
                   required
                   min="0"
-                  aria-label="Cuota mensual (€)" value={monthlyPayment}
+                  aria-label={uiText("loan.cuota_mensual")} value={monthlyPayment}
                   onChange={e => setMonthlyPayment(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono font-bold focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -206,13 +207,13 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           {/* Interest & Term */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Interés TIN/TAE (%)</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.interes_tin_tae")}</label>
               <div className="relative">
                 <input
                   type="number"
                   step="0.01"
                   min="0"
-                  aria-label="Interés TIN/TAE (%)" value={interestRate}
+                  aria-label={uiText("loan.interes_tin_tae")} value={interestRate}
                   onChange={e => setInterestRate(parseFloat(e.target.value) || 0)}
                   className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500 pr-7"
                 />
@@ -223,12 +224,12 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Plazo total (meses)</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.plazo_total_meses")}</label>
               <input
                 type="number"
                 min="1"
                 required
-                aria-label="Plazo total (meses)" value={totalTermMonths}
+                aria-label={uiText("loan.plazo_total_meses")} value={totalTermMonths}
                 onChange={e => setTotalTermMonths(parseInt(e.target.value, 10) || 1)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500"
               />
@@ -238,25 +239,25 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           {/* Start Date & Wallet */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Fecha de inicio</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.fecha_de_inicio")}</label>
               <input
                 type="date"
                 required
-                aria-label="Fecha de inicio" value={startDate}
+                aria-label={uiText("loan.fecha_de_inicio")} value={startDate}
                 onChange={e => setStartDate(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               />
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Cuenta habitual de cobro</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.cuenta_habitual_de_cobro")}</label>
               <select
-                aria-label="Cuenta habitual de cobro" required
+                aria-label={uiText("loan.cuenta_habitual_de_cobro")} required
                 value={wallet}
                 onChange={e => setWallet(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
-                <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => (
+                <option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallets.map(w => (
                   <option key={w.id} value={w.name} className="bg-[#141926] text-white">
                     {w.name}
                   </option>
@@ -268,24 +269,24 @@ export const LoanModal: React.FC<LoanModalProps> = ({
           {/* Partida code & Notes */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Partida presupuestaria</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.partida_presupuestaria")}</label>
               <select
-                aria-label="Partida del préstamo"
+                aria-label={uiText("loan.partida_del_prestamo")}
                 value={code}
                 onChange={e => setCode(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
-                <option value="" disabled>Selecciona una partida</option>
-                {loanToEdit&&!partidas.some(p=>p.code===loanToEdit.code)&&<option value={loanToEdit.code}>Partida histórica (conservar)</option>}
+                <option value="" disabled>{uiText("loan.selecciona_una_partida")}</option>
+                {loanToEdit&&!partidas.some(p=>p.code===loanToEdit.code)&&<option value={loanToEdit.code}>{uiText("loan.partida_historica_conservar")}</option>}
                 {partidas.map(p=><option key={p.code} value={p.code}>{p.name}</option>)}
               </select>
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Notas / Referencia</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("loan.notas_referencia")}</label>
               <input
                 type="text"
-                placeholder="ej. Contrato nº 84920"
+                placeholder={uiText("loan.ej_contrato_n_84920")}
                 value={notes}
                 onChange={e => setNotes(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
@@ -293,13 +294,13 @@ export const LoanModal: React.FC<LoanModalProps> = ({
             </div>
           </div>
 
-          {isEditing && onDeleteLoan && <button type="button" onClick={() => setConfirmDelete(true)} className="text-rose-300 py-2 flex gap-2 items-center"><Trash2 className="w-3.5 h-3.5" />Eliminar esta deuda o préstamo</button>}
+          {isEditing && onDeleteLoan && <button type="button" onClick={() => setConfirmDelete(true)} className="text-rose-300 py-2 flex gap-2 items-center"><I18nText id="loan.eliminar_esta_deuda_o_prestamo" values={{ trash2: (<Trash2 className="w-3.5 h-3.5" />) }} /></button>}
 
           {/* Action buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              aria-label="Cerrar préstamo" onClick={() => submission.close(onClose)} disabled={submission.saving}
+              aria-label={uiText("loan.cerrar_prestamo")} onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               {t('common.cancel')}
@@ -309,7 +310,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
               className="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>{isEditing ? 'Guardar Cambios' : 'Registrar Préstamo'}</span>
+              <span>{isEditing ? uiText("loan.guardar_cambios") : uiText("loan.registrar_prestamo")}</span>
             </button>
           </div>
           </fieldset>

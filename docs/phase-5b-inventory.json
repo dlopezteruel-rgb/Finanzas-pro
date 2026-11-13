@@ -1,0 +1,1717 @@
+{
+  "base": "95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96",
+  "status": "in-progress-not-a-completeness-certificate",
+  "initialCounts": {
+    "type-or-import": 768,
+    "review": 3618,
+    "attribute-internal": 2057,
+    "visible-text": 790,
+    "visible-attribute": 300
+  },
+  "currentCounts": {
+    "type-or-import": 775,
+    "review": 3514,
+    "attribute-internal": 2057,
+    "translation-key": 319,
+    "visible-text": 648,
+    "visible-attribute": 213
+  },
+  "files": [
+    {
+      "file": "src/App.tsx",
+      "policy": "review",
+      "sourceSha256": "246408f8f3e4971a069709ce310e19ecbb0ee7aebdbdeac523cdc42857eae0ba",
+      "counts": {
+        "type-or-import": 64,
+        "review": 72,
+        "attribute-internal": 69,
+        "translation-key": 3,
+        "visible-text": 31,
+        "visible-attribute": 4
+      },
+      "visibleCandidateLines": [
+        547,
+        557,
+        563,
+        599,
+        602,
+        603,
+        604,
+        607,
+        609,
+        614,
+        616,
+        637,
+        732,
+        733,
+        735,
+        737,
+        738,
+        740,
+        743,
+        744,
+        745,
+        746,
+        747
+      ]
+    },
+    {
+      "file": "src/app/Root.tsx",
+      "policy": "review",
+      "sourceSha256": "a485030915e9cfd8a9082820bce115572e6c57f2f88c58c1549c06faf7f32542",
+      "counts": {
+        "type-or-import": 6,
+        "review": 1,
+        "attribute-internal": 7,
+        "translation-key": 6
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/app/paths.ts",
+      "policy": "review",
+      "sourceSha256": "4af9bc980ae2b6f5d418eaca80b6bf9fe3fb462d61504a20cb210050fdbcca2b",
+      "counts": {
+        "type-or-import": 1
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/AssistantChatView.tsx",
+      "policy": "review",
+      "sourceSha256": "7c88b743edb634aea7a44ae16cc76840e8501b1c73aa926146a906288b9797e5",
+      "counts": {
+        "type-or-import": 19,
+        "review": 47,
+        "attribute-internal": 42,
+        "visible-attribute": 5,
+        "visible-text": 7
+      },
+      "visibleCandidateLines": [
+        276,
+        278,
+        279,
+        280,
+        281,
+        286,
+        318,
+        349,
+        350,
+        357
+      ]
+    },
+    {
+      "file": "src/components/Brand.tsx",
+      "policy": "review",
+      "sourceSha256": "3411883b58802f2c15b57377d948e3a5bb37d01aa78cd9db04e342fb1366eb0b",
+      "counts": {
+        "type-or-import": 3,
+        "attribute-internal": 3,
+        "visible-attribute": 1,
+        "visible-text": 1,
+        "translation-key": 1
+      },
+      "visibleCandidateLines": [
+        6,
+        8
+      ]
+    },
+    {
+      "file": "src/components/BudgetWorkspace.tsx",
+      "policy": "review",
+      "sourceSha256": "101aa45ea07f824c53b9a961d2f6abaee57b5e439bd747ee0d11cc0b87effd59",
+      "counts": {
+        "type-or-import": 3,
+        "review": 8,
+        "attribute-internal": 21,
+        "visible-attribute": 2,
+        "visible-text": 2
+      },
+      "visibleCandidateLines": [
+        34,
+        35,
+        36,
+        51
+      ]
+    },
+    {
+      "file": "src/components/BudgetsView.tsx",
+      "policy": "review",
+      "sourceSha256": "35c04769c4dd586adbcf51de442dca89ac1bd93f5fc4d1904aa50eaebfbb4525",
+      "counts": {
+        "type-or-import": 15,
+        "review": 32,
+        "attribute-internal": 158,
+        "visible-text": 32,
+        "visible-attribute": 14
+      },
+      "visibleCandidateLines": [
+        124,
+        128,
+        134,
+        140,
+        144,
+        150,
+        156,
+        162,
+        166,
+        183,
+        193,
+        203,
+        210,
+        245,
+        263,
+        268,
+        270,
+        277,
+        290,
+        343,
+        355,
+        379,
+        380,
+        392,
+        393,
+        408,
+        409,
+        425,
+        426,
+        454,
+        476,
+        481,
+        488,
+        494,
+        504,
+        520,
+        524,
+        525,
+        532,
+        533,
+        538,
+        540,
+        553,
+        560
+      ]
+    },
+    {
+      "file": "src/components/CatalogManager.tsx",
+      "policy": "review",
+      "sourceSha256": "285c0d23ce238a24b20240ca9a5ea193c56f55e656a198a540c4500810536031",
+      "counts": {
+        "type-or-import": 11,
+        "review": 41,
+        "attribute-internal": 52,
+        "visible-attribute": 12,
+        "visible-text": 28
+      },
+      "visibleCandidateLines": [
+        22,
+        23,
+        24,
+        27,
+        28,
+        31,
+        32,
+        33,
+        34,
+        35,
+        39,
+        40,
+        41,
+        46,
+        47,
+        49,
+        51,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        68
+      ]
+    },
+    {
+      "file": "src/components/ConfirmClearModal.tsx",
+      "policy": "review",
+      "sourceSha256": "0db2dda566d841c9b7b10a07c838fe038cacbd944807e37e4df2727e93e34020",
+      "counts": {
+        "type-or-import": 9,
+        "review": 4,
+        "visible-attribute": 7,
+        "attribute-internal": 96,
+        "visible-text": 20
+      },
+      "visibleCandidateLines": [
+        69,
+        79,
+        82,
+        97,
+        98,
+        105,
+        113,
+        122,
+        135,
+        136,
+        151,
+        164,
+        165,
+        180,
+        193,
+        194,
+        209,
+        222,
+        223,
+        238,
+        251,
+        252,
+        267,
+        268,
+        270,
+        274,
+        284
+      ]
+    },
+    {
+      "file": "src/components/ConfirmDeleteDialog.tsx",
+      "policy": "review",
+      "sourceSha256": "d928bf99017c91ef0df992c74f23e75865c58770cdfb58629a00923320dc66d7",
+      "counts": {
+        "type-or-import": 6,
+        "review": 1,
+        "attribute-internal": 13,
+        "translation-key": 12
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/ContactsView.tsx",
+      "policy": "review",
+      "sourceSha256": "babe7a22eeedf3c8314ba3d5df9fc97cd9f1140cd7a95d6500811fad93eda236",
+      "counts": {
+        "type-or-import": 9,
+        "review": 15,
+        "attribute-internal": 129,
+        "visible-text": 28,
+        "visible-attribute": 10
+      },
+      "visibleCandidateLines": [
+        157,
+        174,
+        185,
+        194,
+        197,
+        206,
+        207,
+        215,
+        234,
+        268,
+        276,
+        297,
+        326,
+        330,
+        337,
+        362,
+        371,
+        396,
+        409,
+        421,
+        438,
+        452,
+        453,
+        463,
+        466,
+        470,
+        479,
+        493,
+        494,
+        497,
+        512,
+        514,
+        523,
+        547,
+        556,
+        567
+      ]
+    },
+    {
+      "file": "src/components/CreateContactModal.tsx",
+      "policy": "review",
+      "sourceSha256": "abfd4dcd223f315eabfb23a3fd7756d241c7ac4cd054378e6c97ee4be939a625",
+      "counts": {
+        "type-or-import": 7,
+        "review": 8,
+        "translation-key": 15,
+        "attribute-internal": 41
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/DashboardView.tsx",
+      "policy": "review",
+      "sourceSha256": "457b099ff1f36fc979d7762947e6f977a8557c27e494bc0b2cfe9139e796e022",
+      "counts": {
+        "type-or-import": 8,
+        "review": 19,
+        "attribute-internal": 109,
+        "visible-text": 23,
+        "visible-attribute": 1
+      },
+      "visibleCandidateLines": [
+        89,
+        92,
+        99,
+        103,
+        117,
+        128,
+        139,
+        150,
+        165,
+        166,
+        172,
+        192,
+        199,
+        200,
+        204,
+        217,
+        218,
+        224,
+        229,
+        230,
+        254,
+        264,
+        270,
+        313
+      ]
+    },
+    {
+      "file": "src/components/DebtsWorkspace.tsx",
+      "policy": "review",
+      "sourceSha256": "b0767ced37fc6a79b72d97a822a07b0101eea78ad803e4d13965847162bf2fe7",
+      "counts": {
+        "type-or-import": 14,
+        "review": 41,
+        "attribute-internal": 41,
+        "visible-attribute": 10,
+        "visible-text": 52
+      },
+      "visibleCandidateLines": [
+        120,
+        123,
+        124,
+        125,
+        126,
+        129,
+        131,
+        135,
+        141,
+        144,
+        147,
+        151,
+        152,
+        153,
+        154,
+        157,
+        160,
+        166,
+        172,
+        190,
+        195,
+        200,
+        209,
+        210,
+        250,
+        261,
+        266,
+        269,
+        280,
+        288,
+        300,
+        302,
+        303,
+        309,
+        315,
+        327,
+        328,
+        331,
+        346,
+        354,
+        371,
+        382,
+        391,
+        402,
+        416,
+        419,
+        426,
+        432,
+        437,
+        446,
+        462,
+        465,
+        481,
+        484,
+        491,
+        494,
+        504,
+        521,
+        526,
+        541,
+        544,
+        551
+      ]
+    },
+    {
+      "file": "src/components/FinanceReview.tsx",
+      "policy": "review",
+      "sourceSha256": "632b6fbe65dc662b214d8eb7a28036b20595d8745ef066ab86ca239fb29ac06d",
+      "counts": {
+        "type-or-import": 5,
+        "translation-key": 4,
+        "attribute-internal": 2
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/Header.tsx",
+      "policy": "review",
+      "sourceSha256": "b35f268e127ce48b61d9e5cada7609c003f7c0406e037cee245b23795d692c9b",
+      "counts": {
+        "type-or-import": 9,
+        "review": 8,
+        "attribute-internal": 27,
+        "translation-key": 9,
+        "visible-attribute": 6
+      },
+      "visibleCandidateLines": [
+        68,
+        69
+      ]
+    },
+    {
+      "file": "src/components/LandingPage.tsx",
+      "policy": "review",
+      "sourceSha256": "e4e74b2126ab1d3e9fbd2eb61ed1b7915106094f557db295850ef374121c4fbb",
+      "counts": {
+        "type-or-import": 5,
+        "attribute-internal": 32,
+        "translation-key": 18,
+        "review": 6
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/LanguageSelector.tsx",
+      "policy": "review",
+      "sourceSha256": "88dd907eadd151dbf8b81a4dbc68efdd001beba6eff252387c73ad3321016f2a",
+      "counts": {
+        "type-or-import": 2,
+        "attribute-internal": 11,
+        "translation-key": 3,
+        "review": 3
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/LoanModal.tsx",
+      "policy": "review",
+      "sourceSha256": "f4b0005ccf7ba7e335b75a0c89a215d842005e168f36962872e64a5cb1bda4e8",
+      "counts": {
+        "type-or-import": 14,
+        "review": 7,
+        "translation-key": 36,
+        "attribute-internal": 66
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/LoansView.tsx",
+      "policy": "review",
+      "sourceSha256": "3775bd688dbbf3c2bc75e9245877369814d19ccf075fd5b8562159d88397c10a",
+      "counts": {
+        "type-or-import": 8,
+        "attribute-internal": 47,
+        "visible-text": 15,
+        "review": 4,
+        "visible-attribute": 3
+      },
+      "visibleCandidateLines": [
+        62,
+        69,
+        73,
+        77,
+        86,
+        95,
+        96,
+        125,
+        132,
+        147,
+        157,
+        159,
+        173,
+        210,
+        212,
+        219
+      ]
+    },
+    {
+      "file": "src/components/MovementProposalModal.tsx",
+      "policy": "review",
+      "sourceSha256": "705b42b94dd06320b670d45a3e4656a543500f30b15ccb179dae0ee46e91bed0",
+      "counts": {
+        "type-or-import": 8,
+        "review": 1,
+        "translation-key": 22,
+        "attribute-internal": 25
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/Navigation.tsx",
+      "policy": "review",
+      "sourceSha256": "30566f15900936d9030e731f7d45c11533badcdc0e5e19d77200b7d3e844066b",
+      "counts": {
+        "type-or-import": 11,
+        "review": 14,
+        "translation-key": 14,
+        "attribute-internal": 22
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/Overlay.tsx",
+      "policy": "review",
+      "sourceSha256": "2d862ea312e11d61f1a0fe82c670bc8c258e631294f12fd6f1bfb9ac771e3013",
+      "counts": {
+        "type-or-import": 4,
+        "review": 34,
+        "attribute-internal": 3
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/PartidaDetailModal.tsx",
+      "policy": "review",
+      "sourceSha256": "e02bd2d042fcc078f496c6893f30229b1203157c00d77945d8a34bfb03d82ded",
+      "counts": {
+        "type-or-import": 14,
+        "visible-attribute": 12,
+        "attribute-internal": 83,
+        "visible-text": 28,
+        "review": 6
+      },
+      "visibleCandidateLines": [
+        82,
+        102,
+        103,
+        111,
+        119,
+        124,
+        128,
+        140,
+        156,
+        166,
+        174,
+        190,
+        191,
+        192,
+        193,
+        195,
+        196,
+        197,
+        199,
+        203,
+        212,
+        219,
+        235,
+        236,
+        253,
+        254,
+        264,
+        275,
+        276,
+        285,
+        286
+      ]
+    },
+    {
+      "file": "src/components/PartidaSelector.tsx",
+      "policy": "review",
+      "sourceSha256": "ec532c26f6ca8bd6357cb1882b0ec31cce8dc80e5cac1480f6cc9df63110048f",
+      "counts": {
+        "type-or-import": 3,
+        "review": 6,
+        "attribute-internal": 41,
+        "visible-attribute": 10,
+        "visible-text": 4
+      },
+      "visibleCandidateLines": [
+        21,
+        28,
+        30,
+        40,
+        41,
+        43,
+        44,
+        47,
+        50,
+        59
+      ]
+    },
+    {
+      "file": "src/components/PeriodSelector.tsx",
+      "policy": "review",
+      "sourceSha256": "820e73dd9c34171a9280c44a625d9ef2babce3f36a16091653c3aa45c4151166",
+      "counts": {
+        "type-or-import": 3,
+        "attribute-internal": 6,
+        "visible-attribute": 8,
+        "visible-text": 7
+      },
+      "visibleCandidateLines": [
+        27,
+        34,
+        54,
+        61,
+        67,
+        71,
+        73,
+        77,
+        88,
+        91,
+        102,
+        105,
+        114,
+        115,
+        118
+      ]
+    },
+    {
+      "file": "src/components/PlanningAutomationPanel.tsx",
+      "policy": "review",
+      "sourceSha256": "0d67226aa32cc34686d8e7f375e1b1fb9ee32525851a30bd292e149145400022",
+      "counts": {
+        "type-or-import": 11,
+        "review": 71,
+        "attribute-internal": 74,
+        "visible-attribute": 19,
+        "visible-text": 87
+      },
+      "visibleCandidateLines": [
+        41,
+        42,
+        43,
+        44,
+        47,
+        49,
+        50,
+        54,
+        56,
+        57,
+        58,
+        59,
+        60,
+        62,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        77,
+        78,
+        80,
+        81,
+        82,
+        83,
+        86,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        97,
+        98,
+        100,
+        103,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        114,
+        115
+      ]
+    },
+    {
+      "file": "src/components/PlanningLiveSummary.tsx",
+      "policy": "review",
+      "sourceSha256": "8cf532e174069e2636ebdeb7a43a24b71a326abc9849203295351ed21c7b5d40",
+      "counts": {
+        "type-or-import": 3,
+        "attribute-internal": 16,
+        "visible-attribute": 1,
+        "visible-text": 4,
+        "review": 11
+      },
+      "visibleCandidateLines": [
+        14,
+        15,
+        17,
+        32
+      ]
+    },
+    {
+      "file": "src/components/PlanningSection.tsx",
+      "policy": "review",
+      "sourceSha256": "c1b45231a875234e2b3a8d973950bec1221bf3a59e42263476bd6d6a76397740",
+      "counts": {
+        "type-or-import": 2,
+        "review": 9,
+        "attribute-internal": 20,
+        "visible-text": 9,
+        "visible-attribute": 1
+      },
+      "visibleCandidateLines": [
+        28,
+        29,
+        30,
+        31,
+        32,
+        35,
+        36,
+        37
+      ]
+    },
+    {
+      "file": "src/components/PlanningSubitems.tsx",
+      "policy": "review",
+      "sourceSha256": "7fd9e3f7818d018af8742d83712583e55ee9ea72ce1f53b575b531aee8568bef",
+      "counts": {
+        "type-or-import": 5,
+        "attribute-internal": 7,
+        "visible-attribute": 2,
+        "visible-text": 12,
+        "review": 3
+      },
+      "visibleCandidateLines": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        20,
+        22,
+        25,
+        27
+      ]
+    },
+    {
+      "file": "src/components/PlanningView.tsx",
+      "policy": "review",
+      "sourceSha256": "16567d42cc0bb7964e386fce662c1cd42fbe305721f111212d078c0f1bdfc20b",
+      "counts": {
+        "type-or-import": 21,
+        "review": 75,
+        "attribute-internal": 66,
+        "visible-attribute": 9,
+        "visible-text": 52
+      },
+      "visibleCandidateLines": [
+        128,
+        130,
+        131,
+        133,
+        137,
+        138,
+        141,
+        142,
+        143,
+        148,
+        149,
+        150,
+        154,
+        163,
+        196,
+        201,
+        202,
+        204,
+        205,
+        207,
+        208,
+        209,
+        210,
+        212,
+        213,
+        225,
+        226,
+        227,
+        229,
+        231,
+        232,
+        233,
+        235,
+        236,
+        237,
+        238,
+        240
+      ]
+    },
+    {
+      "file": "src/components/QuickNaturalLanguageInput.tsx",
+      "policy": "review",
+      "sourceSha256": "086dfbb71ff61dfea77b983fe8cc3064e3c61a12c96feb0ec6e4c1d3f6e80664",
+      "counts": {
+        "type-or-import": 11,
+        "review": 16,
+        "attribute-internal": 46,
+        "visible-text": 11,
+        "visible-attribute": 5
+      },
+      "visibleCandidateLines": [
+        86,
+        115,
+        116,
+        168,
+        173,
+        174,
+        175,
+        179,
+        180,
+        182
+      ]
+    },
+    {
+      "file": "src/components/RecurringMovementsView.tsx",
+      "policy": "review",
+      "sourceSha256": "0fb335ee40bea39074bd9142dfb27dc636606d7810d81a481b45461e49de3008",
+      "counts": {
+        "type-or-import": 13,
+        "review": 28,
+        "attribute-internal": 40,
+        "visible-attribute": 11,
+        "visible-text": 40
+      },
+      "visibleCandidateLines": [
+        134,
+        137,
+        138,
+        143,
+        154,
+        161,
+        171,
+        192,
+        200,
+        206,
+        207,
+        212,
+        215,
+        226,
+        229,
+        249,
+        256,
+        259,
+        260,
+        261,
+        262,
+        263,
+        271,
+        278,
+        297,
+        331,
+        332,
+        345,
+        355,
+        382,
+        388,
+        399,
+        402,
+        409,
+        412,
+        437,
+        440,
+        446,
+        453,
+        465,
+        466,
+        467,
+        470,
+        483,
+        486,
+        499,
+        513,
+        516,
+        523,
+        536,
+        576
+      ]
+    },
+    {
+      "file": "src/components/RestorationModal.tsx",
+      "policy": "review",
+      "sourceSha256": "4581b500853ccc892162af60f69e4c0e2741de67aa090fda6c5ac5e5f788dcdb",
+      "counts": {
+        "type-or-import": 6,
+        "review": 17,
+        "attribute-internal": 15,
+        "translation-key": 17
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/SafeDialog.tsx",
+      "policy": "review",
+      "sourceSha256": "8feecb30082e5eb862a548d9972136fbcfafff8fe18be1f564de956d38affdab",
+      "counts": {
+        "type-or-import": 2,
+        "attribute-internal": 4
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/SettleDebtModal.tsx",
+      "policy": "review",
+      "sourceSha256": "e9d6500005d1e5cd6b6cd40b4df8b7cc6f4cc232188b8812ac0fa35f8e05fab8",
+      "counts": {
+        "type-or-import": 10,
+        "review": 3,
+        "translation-key": 28,
+        "attribute-internal": 34
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/SharedExpenseDetail.tsx",
+      "policy": "review",
+      "sourceSha256": "642ede297ebac63dc88c7eab3716cf4bed013e51790b655f2599b03029573bf3",
+      "counts": {
+        "type-or-import": 5,
+        "visible-attribute": 4,
+        "visible-text": 18,
+        "attribute-internal": 14,
+        "review": 20
+      },
+      "visibleCandidateLines": [
+        9,
+        12,
+        14,
+        15,
+        16,
+        18,
+        20,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        37,
+        38,
+        42
+      ]
+    },
+    {
+      "file": "src/components/SubitemManager.tsx",
+      "policy": "review",
+      "sourceSha256": "3802a6e99cc4d1c5056a4c6fd0120238d28dd44a65e33846652f7930133439bc",
+      "counts": {
+        "type-or-import": 9,
+        "attribute-internal": 22,
+        "visible-attribute": 7,
+        "visible-text": 15,
+        "review": 8
+      },
+      "visibleCandidateLines": [
+        17,
+        18,
+        19,
+        22,
+        23,
+        27,
+        28,
+        29,
+        30,
+        32,
+        33,
+        36
+      ]
+    },
+    {
+      "file": "src/components/SubitemSelector.tsx",
+      "policy": "review",
+      "sourceSha256": "630d9a4673a1341f423c6c80a4bac56f29ce9624cfb3db290bff283a404c0d2e",
+      "counts": {
+        "type-or-import": 3,
+        "attribute-internal": 2,
+        "translation-key": 4
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/TransactionModal.tsx",
+      "policy": "review",
+      "sourceSha256": "4547492f0f87a0aebc292e01d74d86787db19057d144924e4d1048893b9634a9",
+      "counts": {
+        "type-or-import": 19,
+        "review": 26,
+        "translation-key": 56,
+        "attribute-internal": 75
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/TransactionsView.tsx",
+      "policy": "review",
+      "sourceSha256": "f3cd50b1e0afa82a66ef2a1f963ef21eb0c8980ba717444be6a59dc797f6c335",
+      "counts": {
+        "type-or-import": 11,
+        "review": 51,
+        "attribute-internal": 92,
+        "visible-text": 16,
+        "visible-attribute": 16
+      },
+      "visibleCandidateLines": [
+        144,
+        145,
+        152,
+        153,
+        163,
+        164,
+        171,
+        175,
+        180,
+        188,
+        198,
+        208,
+        218,
+        224,
+        229,
+        238,
+        240,
+        241,
+        246,
+        248,
+        257,
+        272,
+        274,
+        306,
+        317,
+        318,
+        327,
+        328
+      ]
+    },
+    {
+      "file": "src/components/TransferModal.tsx",
+      "policy": "review",
+      "sourceSha256": "411ca123da0e2ed612f1204a6eeec56dc505a71edb76276fc09140297d6b2e5b",
+      "counts": {
+        "type-or-import": 10,
+        "review": 4,
+        "translation-key": 32,
+        "attribute-internal": 71
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/TreasuryView.tsx",
+      "policy": "review",
+      "sourceSha256": "d3325999cfb772278b6f02cebe6722ea9c6b8850e8e3a3a10eeb77defaa6b065",
+      "counts": {
+        "type-or-import": 5,
+        "review": 17,
+        "attribute-internal": 11,
+        "visible-attribute": 3,
+        "visible-text": 23
+      },
+      "visibleCandidateLines": [
+        29,
+        30,
+        31,
+        37,
+        40,
+        48,
+        51,
+        55,
+        56,
+        59,
+        66,
+        77,
+        109,
+        112,
+        113,
+        114,
+        115,
+        116,
+        142,
+        152,
+        156,
+        159,
+        160,
+        161,
+        162,
+        177
+      ]
+    },
+    {
+      "file": "src/components/WalletModal.tsx",
+      "policy": "review",
+      "sourceSha256": "712c655b2fc7890ee585175b16f4205c7ebb02fa419a99e5d88e6d8f5958071d",
+      "counts": {
+        "type-or-import": 12,
+        "review": 15,
+        "translation-key": 39,
+        "attribute-internal": 71
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/WalletsView.tsx",
+      "policy": "review",
+      "sourceSha256": "a17652072f2da7b45b2e46b8b05d4a3ab51d9433551cdb4cd02691aabd11be88",
+      "counts": {
+        "type-or-import": 11,
+        "attribute-internal": 68,
+        "visible-text": 12,
+        "review": 9,
+        "visible-attribute": 5
+      },
+      "visibleCandidateLines": [
+        90,
+        97,
+        107,
+        110,
+        118,
+        124,
+        127,
+        128,
+        166,
+        178,
+        185,
+        187,
+        190,
+        202,
+        235,
+        245
+      ]
+    },
+    {
+      "file": "src/components/charts/ChartSlot.tsx",
+      "policy": "review",
+      "sourceSha256": "10b5dbfc21bdf11507971e2751f406a2574082bd38abe3d72b93eb73ceec47f0",
+      "counts": {
+        "type-or-import": 2,
+        "review": 8,
+        "attribute-internal": 2,
+        "visible-text": 1
+      },
+      "visibleCandidateLines": [
+        9
+      ]
+    },
+    {
+      "file": "src/components/charts/FinancialCharts.tsx",
+      "policy": "review",
+      "sourceSha256": "944083327aa8be7fe85201753d328cda14f241e8d6bab23aca2395901ba170c3",
+      "counts": {
+        "type-or-import": 11,
+        "review": 24,
+        "attribute-internal": 83,
+        "visible-text": 52,
+        "visible-attribute": 20
+      },
+      "visibleCandidateLines": [
+        10,
+        11,
+        12,
+        29,
+        31,
+        32,
+        33,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        52,
+        53,
+        54,
+        56,
+        57,
+        58,
+        59,
+        60,
+        69,
+        70,
+        73,
+        74,
+        76,
+        77
+      ]
+    },
+    {
+      "file": "src/components/charts/InteractiveChart.tsx",
+      "policy": "review",
+      "sourceSha256": "767f72e3d93e81c8ae16b62b3096aad1db7e3059e65058b47c4c7d7049eccbad",
+      "counts": {
+        "type-or-import": 7,
+        "review": 38,
+        "attribute-internal": 47,
+        "visible-text": 17,
+        "visible-attribute": 4
+      },
+      "visibleCandidateLines": [
+        45,
+        46,
+        48,
+        53,
+        54,
+        56,
+        74,
+        75,
+        76
+      ]
+    },
+    {
+      "file": "src/components/planningPreview.ts",
+      "policy": "review",
+      "sourceSha256": "dee732b51b932778f47821c1a0a3682fc0d5edb0abd81904b624434856c48913",
+      "counts": {
+        "type-or-import": 4
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/components/useCatalogDrag.tsx",
+      "policy": "review",
+      "sourceSha256": "3912d1e7fce25102120d31a543baf8682f2cb9f66c520ca03bc7de570061b245",
+      "counts": {
+        "type-or-import": 6,
+        "review": 23,
+        "attribute-internal": 31,
+        "visible-attribute": 1,
+        "visible-text": 1
+      },
+      "visibleCandidateLines": [
+        33,
+        51
+      ]
+    },
+    {
+      "file": "src/constants/categories.ts",
+      "policy": "protected-personal-or-demo-data",
+      "sourceSha256": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
+      "counts": {
+        "type-or-import": 3,
+        "review": 833
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/main.tsx",
+      "policy": "review",
+      "sourceSha256": "3ebef9c175088e27acb89bac3b03c7b6784ebf4659508e16bad51d3e94112a46",
+      "counts": {
+        "type-or-import": 6,
+        "review": 1
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/tests.ts",
+      "policy": "review",
+      "sourceSha256": "361769eb39aed806f94b70cc80c3eafff0a5043342da62b10257cb5967514594",
+      "counts": {
+        "type-or-import": 25
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/types/finance.ts",
+      "policy": "internal-types-and-enums",
+      "sourceSha256": "add6059cd67392852be1f1fbb45eb33c278b030f1ea3836f9ec6066a4a6b4844",
+      "counts": {
+        "type-or-import": 37
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/backup.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "3b077eeb9db8c86f7c03b3f59e9a03d47c928dc40929dd996c49a018b333af53",
+      "counts": {
+        "type-or-import": 15,
+        "review": 381
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/budgetCatalog.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "fa6576f73fb285f36ad7dca4d927fef9f894c43bed9eb7c7e526b30609001907",
+      "counts": {
+        "type-or-import": 17,
+        "review": 95
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/budgetChanges.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "33d3daa3234e1ac1e563927f97129a7e20df530f741b28df894b882369ca181f",
+      "counts": {
+        "type-or-import": 5,
+        "review": 13
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/budgetSubitems.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "8e5864f07c73446e3a855407a678f708c1d2578f1bb98e445f51676fae816391",
+      "counts": {
+        "type-or-import": 9,
+        "review": 70
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/catalogReorder.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "92261cd76f5b1fd4388f2d849a1b1b223aabcb4872944ac2506588635aeb64ab",
+      "counts": {
+        "type-or-import": 12,
+        "review": 17
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/chartData.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "6e1103596b704f6b4bd506426dc2914c1bf3ba2c0c3512e7df53282ff71c0e38",
+      "counts": {
+        "type-or-import": 15,
+        "review": 64
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/chatRegistration.ts",
+      "policy": "parser-intents-protected; presentation-only-adapter-needed",
+      "sourceSha256": "60e999d591fd2bb31fa93367461269373e371e4a3c25a0f1d8500adc76a55b27",
+      "counts": {
+        "type-or-import": 5,
+        "review": 4
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/clearData.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "eee3464a8893cdec832de681e2dc9be71f24afa6dc4ad62aeb755a14244ba9f4",
+      "counts": {
+        "type-or-import": 3,
+        "review": 31
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/defaultWallet.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "766b36fde5e99b1efdd5dec240cb1f9eed26f1c5d26cc0aaf7d7ef2c7de5fe91",
+      "counts": {
+        "type-or-import": 2,
+        "review": 7
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/deletion.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "d1dfcaa250255f759e92093a7b6cc665911004e8775c66b4ab517af3e1cb956d",
+      "counts": {
+        "type-or-import": 7,
+        "review": 75
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/finance.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "62a3a01dcc884b22f0dc3d2d677f1c19923d7bc7a68f7f3ef0d96713f27d34ea",
+      "counts": {
+        "type-or-import": 8,
+        "review": 20
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/financeStore.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "41273c6c31e85809b22971b0cc8e4342b94ce747b4d4a67ce2d9d3f13c05a18e",
+      "counts": {
+        "type-or-import": 13,
+        "review": 21
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/financialAssistant.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "33db4b93cb963aa2089272be271824f837df3836e25116fc82c69119806a4ace",
+      "counts": {
+        "type-or-import": 9,
+        "review": 56
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/financialCalendar.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "c04d8a870b8b82d4794013cf75c215be7bae5b431b8f11d14eb5c4792f771430",
+      "counts": {
+        "type-or-import": 2,
+        "review": 28
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/intelligentValidation.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "348982dbb557401336db747eab0605b42b5ed5adb1c7c4983f1243eb00ade804",
+      "counts": {
+        "type-or-import": 4,
+        "review": 112
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/naturalInput.ts",
+      "policy": "parser-intents-protected; presentation-only-adapter-needed",
+      "sourceSha256": "2015d028975468ec88a7d22b7280ac479677b6cbc3f3ee5f7a8321b908927a14",
+      "counts": {
+        "type-or-import": 2,
+        "review": 17
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/parser.ts",
+      "policy": "parser-intents-protected; presentation-only-adapter-needed",
+      "sourceSha256": "05c3704003e8a9959adc7ea68946650e8d5b90a2e24594dcfa1ee3b1fdd76404",
+      "counts": {
+        "type-or-import": 3,
+        "review": 87
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/partidaSearch.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "812fb49fac274e160ea90ddc2bc0a1c29ae0e9c652ca0c3a9be587d54daf1f2b",
+      "counts": {
+        "type-or-import": 2,
+        "review": 3
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/personalObligations.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "9dac11964f1c1b982a3ea1eb88a6799a615f654c688255f57df6b8623dbf5d0d",
+      "counts": {
+        "type-or-import": 13,
+        "review": 31
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planning.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "9ecf1c9f7b3c61fcc36f2a904c0b5d3b30bba62d46fea1d146d51c62d86859a6",
+      "counts": {
+        "type-or-import": 6,
+        "review": 24
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningAutomation.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "1384707d7c68f915e59e0895cf478bba07a36305bbaff3b3d7f925435337694c",
+      "counts": {
+        "type-or-import": 26,
+        "review": 117
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningAutomationValidation.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "cd7615388bb63fe4824a339823b731e279ccbf46eece9780afdaa50b73e216a5",
+      "counts": {
+        "type-or-import": 6,
+        "review": 89
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningBasis.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "93a845c123f5a9590c4ce19226a74c7dd13b9e395b2c83504784321c008c4c64",
+      "counts": {
+        "type-or-import": 5,
+        "review": 8
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningCalendar.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "fa96d2eb452560ea1c4e8d69f5d1d99f26ec084229efa3adfb0127fe9a36bc9c",
+      "counts": {
+        "type-or-import": 1,
+        "review": 7
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningCarry.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "7d1930082ef1ddb8085cc260c09f0bcdd8e83ba6007407f16b6341abda420d01",
+      "counts": {
+        "type-or-import": 5,
+        "review": 2
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/planningMoney.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "0f5a1675ef670710518dc92f1f68c39563e013d77a96355f3393429b80bdc176",
+      "counts": {
+        "review": 8
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/recurringMovements.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "198761b2ea813e86e1c46c3875fc50e1073f0994fe5f7978160d676af64da491",
+      "counts": {
+        "type-or-import": 11,
+        "review": 27
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/registrationIntent.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "ae94b1a70457e71788ec5cf87d693ac2bf87305f4c9cf37b374e2408e67087c4",
+      "counts": {
+        "type-or-import": 3,
+        "review": 8
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/saveResult.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "539d48249f0e30400da23ae4bde69a0f68ca90f6dfe19be5a6e03421aaa7c79b",
+      "counts": {
+        "review": 6
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/seedData.ts",
+      "policy": "protected-personal-or-demo-data",
+      "sourceSha256": "860713dc97cf1218c738fb2fd48fd865ef488d883243583cc3af33ebba5c1687",
+      "counts": {
+        "type-or-import": 2,
+        "review": 205
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/sharedDistribution.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "178a307d2220f14d3a648288101ec02de799d3b3a2153a7644a2663d5e728e61",
+      "counts": {
+        "type-or-import": 1,
+        "review": 29
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/sharedExpenses.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "2f5b5af07e921ba44ea049efcadf1658d3f3baeb51fe9bfc766f3a6647f3c85c",
+      "counts": {
+        "type-or-import": 6,
+        "review": 60
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/storageSupport.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "3e8d151e67b0b95b7e37a2383d747861ca6266ef96221033188f239eefd0bb36",
+      "counts": {
+        "review": 3
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/transfers.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "f372dea673fd6389302979cbb15dfa0b706f4fddcda9ee7d526e001f6eafdf41",
+      "counts": {
+        "type-or-import": 3,
+        "review": 52
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/treasury.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "45677fbda4b8109e4e864b47810717c0d417b3c9162e1f561e804536ac934edd",
+      "counts": {
+        "type-or-import": 16,
+        "review": 41
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/useAsyncForm.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
+      "counts": {
+        "type-or-import": 2
+      },
+      "visibleCandidateLines": []
+    },
+    {
+      "file": "src/utils/useFinanceData.ts",
+      "policy": "financial-domain-protected; UI outputs need explicit review",
+      "sourceSha256": "41e08e518f49e19c8f2f83f4c1ad6767ce7f34eeabc0a5d5f8deadd9c49ac659",
+      "counts": {
+        "type-or-import": 5,
+        "review": 8
+      },
+      "visibleCandidateLines": []
+    }
+  ]
+}

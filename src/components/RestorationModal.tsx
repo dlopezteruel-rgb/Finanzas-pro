@@ -1,4 +1,4 @@
-import { useI18n } from '../i18n';
+import { useI18n, I18nText } from "../i18n";
 import React from 'react';
 import { Backup, backupWarnings } from '../utils/backup';
 import { formatCurrency } from '../utils/finance';
@@ -8,6 +8,7 @@ import { resolveDefaultWallet } from '../utils/defaultWallet';
 export function RestorationModal({ backup, label, onCancel, onConfirm, busy = false, error = '', onDismissError }: {
   backup: Backup; label: string; onCancel: () => void; onConfirm: () => void; busy?: boolean; error?: string; onDismissError?: () => void;
 }) {
+  const { t: uiText } = useI18n();
   const { t } = useI18n();
   const counts = [
     ...(backup.intelligentFinance?[['Reglas de movimientos',backup.intelligentFinance.recurringRules.length],['Identidades de ocurrencias',backup.intelligentFinance.occurrences.length],['Compromisos personales',backup.intelligentFinance.obligations.length],['Liquidaciones personales',backup.intelligentFinance.obligations.reduce((n,o)=>n+o.settlements.length,0)]]:[]),
@@ -18,23 +19,23 @@ export function RestorationModal({ backup, label, onCancel, onConfirm, busy = fa
     ['Préstamos', backup.loans.length], ['Carteras', backup.wallets.length],
   ];
   return <SafeDialog title={label} onCancel={() => { if (!busy) onCancel(); }}>
-    {error && <div role="alert" className="text-amber-300 text-sm"><p>{error}</p>{onDismissError && <button onClick={onDismissError}>Cerrar aviso</button>}</div>}
-    <p className="text-sm text-slate-300">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>
-    <p className="text-xs text-slate-400">Formato {backup.version} · {new Date(backup.exportedAt).toLocaleString('es-ES')} · Tema {backup.theme === 'dark' ? 'oscuro' : 'claro'}</p>
-    {backup.budgetSubitems&&<p>Subítems: {backup.budgetSubitems.items.filter(i=>!i.deleted).length} (incluye archivados); {backup.budgetSubitems.months.length} desgloses mensuales. Se conservan las identidades retiradas y las fotografías aprobadas.</p>}
-    <p className="text-sm">Cartera predeterminada tras restaurar: {resolveDefaultWallet(backup.wallets, backup.defaultWalletId)?.name ?? 'sin configurar; requiere selección en cada operación'}{backup.wallets.length === 1 ? ' (automática: única cartera)' : ''}.</p>
+    {error && <div role="alert" className="text-amber-300 text-sm"><p>{error}</p>{onDismissError && <button onClick={onDismissError}>{uiText("restoration.cerrar_aviso")}</button>}</div>}
+    <p className="text-sm text-slate-300">{uiText("restoration.se_sustituiran_todos_los_datos_por_esta_copia_antes")}</p>
+    <p className="text-xs text-slate-400">{uiText("restoration.formato_tema", { version: backup.version, content: new Date(backup.exportedAt).toLocaleString('es-ES'), content_5f4b8: backup.theme === 'dark' ? uiText("restoration.oscuro") : uiText("restoration.claro") })}</p>
+    {backup.budgetSubitems&&<p>{uiText("restoration.subitems_incluye_archivados_desgloses_mensuales_se_conservan_las_identidades", { length: backup.budgetSubitems.items.filter(i=>!i.deleted).length, length_db58b: backup.budgetSubitems.months.length })}</p>}
+    <p className="text-sm"><I18nText id="restoration.cartera_predeterminada_tras_restaurar" values={{ content: (resolveDefaultWallet(backup.wallets, backup.defaultWalletId)?.name ?? uiText("restoration.sin_configurar_requiere_seleccion_en_cada_operacion")), content_086d2: (backup.wallets.length === 1 ? uiText("restoration.automatica_unica_cartera") : '') }} /></p>
     <dl className="grid grid-cols-2 gap-2 text-sm">{counts.map(([name, count]) => <div key={name} className="bg-white/5 rounded-xl p-2"><dt>{name}</dt><dd className="font-bold">{count}</dd></div>)}</dl>
     {label.startsWith('Migrar gastos compartidos') && <div className="space-y-2 text-xs text-slate-300">
-      <p>Solo se añaden vínculos verificables; se conservan los campos originales. La parte propia sustituirá al gasto total en los indicadores y los reintegros vinculados dejarán de contarse como ingresos.</p>
+      <p>{uiText("restoration.solo_se_anaden_vinculos_verificables_se_conservan_los_campos")}</p>
       {backup.transactions.filter(t => t.splitInfo?.accountingVersion === '2.7').map(t => <div key={t.id} className="border border-white/10 rounded-xl p-2 space-y-1">
-        <p>{t.description}: salida {formatCurrency(t.amount)}, gasto propio {formatCurrency(t.splitInfo!.myShare)}, {t.splitInfo!.settlements!.length} cobros vinculados.</p>
-        <p>Cartera: {t.wallet} · Fecha: {t.date}</p>
+        <p>{uiText("restoration.salida_gasto_propio_cobros_vinculados", { description: t.description, amount: formatCurrency(t.amount), myShare: formatCurrency(t.splitInfo!.myShare), length: t.splitInfo!.settlements!.length })}</p>
+        <p>{uiText("restoration.cartera_fecha", { wallet: t.wallet, date: t.date })}</p>
         {t.splitInfo!.participants.map(p => <p key={p.contactId}>{p.contactName} ({p.contactId}): {formatCurrency(p.amount)}</p>)}
-        {t.splitInfo!.settlements!.map(s => <p key={s.id}>Cobro {s.transactionId} · {s.date} · {formatCurrency(s.amount)} · {backup.wallets.find(w => w.id === s.walletId)?.name}</p>)}
+        {t.splitInfo!.settlements!.map(s => <p key={s.id}><I18nText id="restoration.cobro" values={{ transactionId: (s.transactionId), date: (s.date), amount: (formatCurrency(s.amount)), content: (backup.wallets.find(w => w.id === s.walletId)?.name) }} /></p>)}
       </div>)}
     </div>}
     {backupWarnings(backup).map(warning => <p className="text-xs text-amber-300" key={warning}>{warning}</p>)}
-    <p className="text-xs text-slate-400">Las copias se descargan desde el menú «Copias de recuperación». No se fusionarán datos.</p>
+    <p className="text-xs text-slate-400">{uiText("restoration.las_copias_se_descargan_desde_el_menu_copias_de")}</p>
     <div className="flex gap-2 justify-end">
       <button disabled={busy} onClick={onCancel} className="rounded-xl px-4 py-2 bg-white/10">{t('common.cancel')}</button>
       <button disabled={busy} onClick={onConfirm} className="rounded-xl px-4 py-2 bg-sky-500 text-slate-950 font-bold">{busy ? t('common.saving') : t('common.confirmReplace')}</button>

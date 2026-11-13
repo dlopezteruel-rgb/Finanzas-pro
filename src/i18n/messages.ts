@@ -14,7 +14,8 @@ export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>
 export function activeLanguage(requested: string): Language {
   return Object.hasOwn(languages, requested) && languages[requested as Language].status === 'ready' && dictionaries[requested as Language] ? requested as Language : 'es';
 }
-type Slots<S extends string> = S extends `${string}{${infer P}}${infer Tail}` ? P | Slots<Tail> : never;
+export type Slots<S extends string> = S extends `${string}{${infer P}}${infer Tail}` ? P | Slots<Tail> : never;
+export type MessageSlots<K extends MessageKey> = Slots<(typeof es)[K]>;
 type Arguments<K extends MessageKey> = [Slots<(typeof es)[K]>] extends [never] ? [params?: Record<string, string | number>] : [params: Record<Slots<(typeof es)[K]>, string | number>];
 /** React renders this as text, never HTML. Parameters are replaced once, never evaluated. */
 export function translate<K extends MessageKey>(key: K, ...[params]: Arguments<K>): string {
