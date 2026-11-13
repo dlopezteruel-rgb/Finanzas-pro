@@ -1,3 +1,4 @@
+import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -34,7 +35,7 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       const opener=p.getByRole('button',{name:tr('wallets.nueva_cuenta'),exact:true});const openerHandle=await opener.elementHandle();await opener.click();
       const input=p.getByLabel(tr('form.walletName'),{exact:true});await input.fill('Guardar — NO TRADUCIR');await input.focus();const handle=await input.elementHandle();
       await p.addScriptTag({content:axe});
-      async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,surface,width:1280,theme:data.theme,...result});assert.deepEqual(result.violations,[]);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
+      async function inspect(surface:string,shownLanguage:Language=language){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,surface,width:1280,theme:data.theme,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,shownLanguage,data);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
       await inspect('account-draft-before-locale-change');
       const next:Language=language==='en'?'fr':'en',nextText=translatorFor(next);
       const other=await c.newPage();await other.goto(origin+'/app');await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});
@@ -44,7 +45,7 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       assert.equal(await handle!.evaluate(el=>el.isConnected),true,'the same input DOM node must survive a locale change');
       assert.equal(await handle!.evaluate(el=>el===document.activeElement),true,'locale changes must not reinitialise overlay focus');
       assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
-      await inspect('account-draft-after-locale-change');
+      await inspect('account-draft-after-locale-change',next);
       assert.equal(await handle!.evaluate(el=>el===document.activeElement),true);
       await p.keyboard.press('Escape');await p.getByRole('dialog',{name:nextText('wallet.cartera'),exact:true}).waitFor({state:'hidden'});
       assert.equal(await openerHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);

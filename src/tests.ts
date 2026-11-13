@@ -57,3 +57,5 @@ import './i18n/assistantMessages.test';
 import './i18n/domainMessages.test';
 
 import './i18n/countMessages.test';
+
+import './i18n/residuals.test';

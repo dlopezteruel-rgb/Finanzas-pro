@@ -1,3 +1,4 @@
+import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -45,7 +46,7 @@ test('5B planificación: cinco idiomas previstos, 390/768/1280 px y dos temas; n
    await editor.getByText(tr('planning.advertencia_deficit_de_asignacion_o_ahorro_objetivo_superior_a'),{exact:true}).waitFor();
    assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),0);
    await p.addScriptTag({content:axe});
-   async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return{violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,width,theme,surface,...result});assert.deepEqual(result.violations,[]);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
+   async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return{violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,width,theme,surface,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,language,backup);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
    const labelClearance=await editor.getByRole('textbox',{name:tr('planning.ahorro_objetivo_a54274'),exact:true}).evaluate(el=>{
     const range=document.createRange();range.selectNode(el.parentElement!.firstChild!);
     const text=range.getBoundingClientRect(),field=el.getBoundingClientRect();

@@ -188,13 +188,14 @@ export function backupWarningText(value:string,language:Language,t:typeof transl
  for(const warning of warningPatterns){const match=warning.pattern.exec(value);if(match){const count=Number(match[1]);if(Number.isSafeInteger(count))return t(pluralCategory(count,language)==='one'?warning.one:warning.other,{count:new Intl.NumberFormat(languages[language].locale).format(count)});}}
  return storageOwnedText(value,t);
 }
-export type DeletionSource={data:FinanceData;target:DeletionTarget};
+export type DeletionSource={data:FinanceData;target:DeletionTarget|{kind:'clear'}};
 type Format=ReturnType<typeof presentationFormatters>;
 /** The original report continues to guard the operation. This copy is used for rendering only. */
 export function deletionReportForDisplay(report:DeletionReport,source:DeletionSource|undefined,language:Language,t:typeof translate,format:Format):DeletionReport{
  const notice=(value:string)=>{
   const {data,target}=source??{};
   if(data&&target){
+   if(target.kind==='clear'&&value===`Se conservan ${data.contacts.length} contactos, ${data.budgetGroups.length} familias y ${data.budgetGroups.reduce((n,g)=>n+g.partidas.length,0)} partidas del catálogo.`)return t('storage.deletion.catalogRetained',{contacts:format.formatNumber(data.contacts.length),families:format.formatNumber(data.budgetGroups.length),items:format.formatNumber(data.budgetGroups.reduce((n,g)=>n+g.partidas.length,0))});
    if(target.kind==='wallet'){
     const w=data.wallets.find(w=>w.id===target.id);
     if(w&&value===`Saldo base que se retiraría del patrimonio: ${presentationMoney(w.initialBalance,'es')}.`)return t('storage.deletion.wallet',{amount:presentationMoney(w.initialBalance,language)});
@@ -214,5 +215,5 @@ export function deletionReportForDisplay(report:DeletionReport,source:DeletionSo
   for(const relation of report.relations)if(value===`${relation.label}: ${relation.count}. Debes revisar estas relaciones antes de eliminar el elemento.`)return t('storage.deletion.blocker',{label:storageOwnedText(relation.label,t),count:new Intl.NumberFormat(languages[language].locale).format(relation.count)});
   return storageOwnedText(value,t);
  };
- return {...report,title:storageOwnedText(report.title,t),name:!source&&report.title==='Confirmar borrado seleccionado'&&report.name==='Datos seleccionados de todas las fechas'?storageOwnedText(report.name,t):report.name,relations:report.relations.map(r=>({...r,label:storageOwnedText(r.label,t)})),notices:report.notices.map(notice),blockers:report.blockers.map(blocker)};
+ return {...report,title:storageOwnedText(report.title,t),name:(!source||source.target.kind==='clear')&&report.title==='Confirmar borrado seleccionado'&&report.name==='Datos seleccionados de todas las fechas'?storageOwnedText(report.name,t):report.name,relations:report.relations.map(r=>({...r,label:storageOwnedText(r.label,t)})),notices:report.notices.map(notice),blockers:report.blockers.map(blocker)};
 }

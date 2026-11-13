@@ -14,5 +14,6 @@ export const p3b = {
   "restoration.sharedReceipts.other": "{description}: salida {amount}, gasto propio {myShare}, {count} cobros vinculados.",
   "chart.movementCount.other": "{count} movimientos económicos. Compartidos estructurados: parte propia; los pagos bancarios se indican aparte.",
   "budget.atLeastPercentage": "{percentage}+",
-  "budget.expectedPercentage": "Prevista: {rate}"
+  "budget.expectedPercentage": "Prevista: {rate}",
+  "storage.deletion.catalogRetained": "Se conservan los contactos ({contacts}), las familias ({families}) y las partidas del catálogo ({items})."
 } as const;

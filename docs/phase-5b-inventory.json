@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
-    "type-or-import": 868,
-    "review": 2993,
+    "type-or-import": 871,
+    "review": 2994,
     "ui-message-candidate": 359,
-    "attribute-internal": 2084,
-    "translation-key": 1467,
+    "attribute-internal": 2091,
+    "translation-key": 1468,
     "visible-attribute": 12,
     "visible-text": 77
   },
@@ -62,13 +62,13 @@
     },
     {
       "file": "src/components/ConfirmClearModal.tsx",
-      "line": 103,
+      "line": 107,
       "text": "•",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/ConfirmClearModal.tsx",
-      "line": 252,
+      "line": 256,
       "text": ":",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
@@ -530,19 +530,19 @@
     },
     {
       "file": "src/components/WalletsView.tsx",
-      "line": 210,
+      "line": 211,
       "text": "+",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/WalletsView.tsx",
-      "line": 214,
+      "line": 215,
       "text": "-",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/WalletsView.tsx",
-      "line": 264,
+      "line": 265,
       "text": "•",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     }
@@ -581,12 +581,12 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "a72632c6b88d2636441747f25d4c28d38da8c1cf4742ed4278539c9b93922e92",
+      "sourceSha256": "6be4e9527f5c4d7217ae932d1df768a8a95b1290fb22360e06512784f3676f37",
       "counts": {
         "type-or-import": 67,
         "review": 51,
         "ui-message-candidate": 23,
-        "attribute-internal": 65,
+        "attribute-internal": 71,
         "translation-key": 34
       },
       "visibleCandidateLines": [
@@ -796,21 +796,21 @@
     {
       "file": "src/components/ConfirmClearModal.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "47331a8be17d06ad99de6e4b7a78cb8aaf09b00592acef1a34fbd3218eb0acb4",
+      "sourceSha256": "d696291d0309cc21ea559360867cec68a670fc781c2a08bbb4ad5f567d6ac954",
       "counts": {
-        "type-or-import": 10,
-        "review": 2,
-        "translation-key": 28,
-        "attribute-internal": 96,
+        "type-or-import": 11,
+        "review": 3,
+        "translation-key": 29,
+        "attribute-internal": 97,
         "visible-text": 2
       },
       "visibleCandidateLines": [
-        103,
-        252
+        107,
+        256
       ],
       "presentationCalls": [
         {
-          "line": 129,
+          "line": 133,
           "name": "formatCurrency"
         }
       ]
@@ -818,7 +818,7 @@
     {
       "file": "src/components/ConfirmDeleteDialog.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "68a7b71772a1550955cdb4c975c0a9701c80375217455914b1682e01e4f855d6",
+      "sourceSha256": "8502123ee57d284e299da09b84e1fc1598d98763d8263636c1b1ef1ecfb9f1fa",
       "counts": {
         "type-or-import": 7,
         "review": 1,
@@ -1699,42 +1699,42 @@
     {
       "file": "src/components/WalletsView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "df51541a79ed5de50b76d0597e4a64f860ba547187afec7864a61eb059b5a5dc",
+      "sourceSha256": "df0e82c7f02e7f073e4bac6c3258947af2b0c03e683e4effa3d0336dc3789a4f",
       "counts": {
-        "type-or-import": 12,
+        "type-or-import": 13,
         "attribute-internal": 68,
         "translation-key": 21,
         "review": 6,
         "visible-text": 3
       },
       "visibleCandidateLines": [
-        210,
-        214,
-        264
+        211,
+        215,
+        265
       ],
       "presentationCalls": [
         {
-          "line": 95,
+          "line": 96,
           "name": "formatCurrency"
         },
         {
-          "line": 195,
+          "line": 196,
           "name": "formatCurrency"
         },
         {
-          "line": 201,
+          "line": 202,
           "name": "formatCurrency"
         },
         {
-          "line": 210,
+          "line": 211,
           "name": "formatCurrency"
         },
         {
-          "line": 214,
+          "line": 215,
           "name": "formatCurrency"
         },
         {
-          "line": 277,
+          "line": 278,
           "name": "formatCurrency"
         }
       ]
@@ -1755,7 +1755,7 @@
     {
       "file": "src/components/charts/FinancialCharts.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8dfbb1dda041fa57112305b75f2271be8a8f593e59e47db3151cf0c25519b8be",
+      "sourceSha256": "05bfd7dc0c47459938478af1df919e9021684ddf6878fc2bfb3512d30a81e5ef",
       "counts": {
         "type-or-import": 14,
         "ui-message-candidate": 1,
@@ -1879,9 +1879,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "df7e11f8f36407cf0845b03aeee6d25243d5d18f08122f2b1126fc3aa38385a9",
+      "sourceSha256": "eb7da58341d8cb64ac2444cb368e89779ac0114e62b4f8bab6dac445af838e47",
       "counts": {
-        "type-or-import": 37
+        "type-or-import": 38
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

@@ -1,4 +1,5 @@
 import {walletTypeText} from '../i18n/labels';
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import type { FinanceData } from '../utils/backup';
 import { economicTransactions, isLegacyTransfer, transferWalletName } from '../utils/transfers';
@@ -122,7 +123,7 @@ export const WalletsView: React.FC<WalletsViewProps> = ({
       {/* Wallets List (Click to edit patrimonio) */}
       <section aria-label={uiText("wallets.cartera_predeterminada")} className="col-span-full space-y-2 text-sm">
         <p>{defaultWallet ? uiText("wallets.cartera_predeterminada_6795e6", { name: defaultWallet.name, content: wallets.length === 1 ? uiText("wallets.automatica_unica_cartera") : '' }) : wallets.length ? uiText("wallets.sin_cartera_predeterminada_selecciona_una_cartera_en_cada_operacion") : uiText("wallets.crea_una_cartera_para_registrar_operaciones_bancarias")}</p>
-        {preference.error && <p role="alert">{preference.error}</p>}
+        {preference.error && <p role="alert">{storageOwnedText(preference.error,uiText)}</p>}
         {preference.saving && <p role="status">{uiText("wallets.guardando_preferencia")}</p>}
         {wallets.length > 1 && deletionData.defaultWalletId && <button type="button" disabled={preference.saving} onClick={() => void preference.submit(() => onChangeDefaultWallet(null), () => {})}>{uiText("wallets.quitar_cartera_predeterminada")}</button>}
       </section>

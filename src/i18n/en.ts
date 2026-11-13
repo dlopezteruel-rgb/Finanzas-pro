@@ -1895,5 +1895,6 @@ export const en = {
   "restoration.sharedReceipts.other": "{description}: outflow {amount}, own expense {myShare}, {count} linked receipts.",
   "chart.movementCount.other": "{count} economic transactions. Structured shared expenses: own share; bank payments are shown separately.",
   "budget.atLeastPercentage": "{percentage}+",
-  "budget.expectedPercentage": "Planned: {rate}"
+  "budget.expectedPercentage": "Planned: {rate}",
+  "storage.deletion.catalogRetained": "Contacts ({contacts}), families ({families}) and catalogue items ({items}) are retained."
 } as const satisfies Messages;

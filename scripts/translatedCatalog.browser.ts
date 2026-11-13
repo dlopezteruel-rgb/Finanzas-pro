@@ -1,3 +1,4 @@
+import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -31,7 +32,7 @@ test('5B catálogo: archivo explícito y subítems en cinco idiomas, tres anchos
    const archive=p.getByRole('button',{name:tr('catalog_manager.archiveItem',{name:'Ocio ficticio'}),exact:true}),opener=await archive.elementHandle();await archive.click();
    const dialog=p.getByRole('dialog',{name:tr('catalog_manager.confirmar_archivo_con_reglas_activas'),exact:true});await dialog.waitFor();const node=await dialog.elementHandle(),focused=await p.locator(':focus').elementHandle();
    assert.equal(await dialog.locator('li').count(),2);await dialog.getByText('Periódico afectado',{exact:true}).waitFor();await dialog.getByText('Automatización afectada',{exact:true}).waitFor();await dialog.getByText(tr('catalog_manager.las_reglas_se_conservaran_activas_sin_borrarlas_desactivarlas_ni'),{exact:true}).waitFor();
-   mark('archive-open');await p.addScriptTag({content:axe});async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,width,theme,surface,...result});assert.deepEqual(result.violations,[]);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
+   mark('archive-open');await p.addScriptTag({content:axe});async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,width,theme,surface,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,language,data);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);}
    await inspect('archive-confirmation-original-language');mark('axe-original');
    if(width===390&&theme==='light')await p.screenshot({path:path.join(dir,`catalog-archive-preview-${language}-${width}-${theme}.png`)});
    const next:Language=language==='en'?'fr':'en',nt=translatorFor(next),other=await c.newPage();await other.goto(origin+'/app');await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[next].locale);await p.bringToFront();

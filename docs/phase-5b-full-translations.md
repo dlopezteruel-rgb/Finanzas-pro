@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1895/1895 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1896/1896 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1896/1896 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1896/1896 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1896/1896 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1895 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1896 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -336,3 +336,20 @@ Siguen pendientes el escaneo transversal de residuales, revisión final de cober
 [Actions 43502403635](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43502403635), SHA 2b80fee0ea71af7ed66edaf3f7e2091274ed9c83: unitarias y código correctos, navegador fallido en la primera suite. Resultado real: **57 resultados, 53 correctos y 4 fallidos**, contando el padre; las otras 33 suites no se ejecutaron. Los tres casos todavía esperaban «1 pares», «1 registros» y «1 gastos/1 casos», además de la concordancia plural del aviso de una cartera ausente. Se actualizan únicamente esas expectativas al singular correcto y se añade la comprobación explícita de que se conservan los originales sin crear carteras ni contrapartidas. Las aserciones de importación, cálculos, migración explícita, copias anteriores, cancelación, persistencia y campos originales permanecen completas.
 
 Regresión focalizada contra el build publicado de 2b80fee: **57/57** en 119,54 s, cero omisiones/cancelaciones. La primera ejecución local de esos oráculos corrigió tres expectativas y reveló la cuarta concordancia pendiente; se registra como fallo, no como batería correcta. Esta corrección de tests no resuelve ni oculta la incidencia de navegación móvil del checkpoint 14, que sigue pendiente de verificar en CI.
+
+
+### Checkpoint 16 — Revisión transversal de residuales y bordes destructivos
+
+1896 claves por diccionario. El detector exclusivamente de prueba compara texto DOM visible y atributos accesibles con el español canónico; verifica también plantillas con parámetros. Los valores personales literales del fixture y los homógrafos nativos se excluyen explícitamente. No traduce ni reescribe DOM o datos. La prueba del detector demuestra que encuentra una advertencia española real y conserva un nombre personal que coincide con una frase del catálogo.
+
+Se reproducen y corrigen tres omisiones de presentación: **5B-010**, error de cuota al elegir la cartera predeterminada sin pasar por el adaptador nativo; **5B-011**, relaciones y bloqueos del resumen de borrado y aviso de contactos/familias/partidas retenidos sin localizar; **5B-012**, estado y etiqueta originales de la fila seleccionada en gráficos de planificación. El informe de borrado económico y las filas de gráficos siguen intactos: se localizan copias de presentación. La confirmación guarda la procedencia del informe revisado para traducir sus cantidades originales si cambian datos en otra pestaña; el guardado/revalidación financiera no cambia. El aviso retenido usa una frase completa con cantidades entre paréntesis, sin concordancias erróneas ni concatenación de traducciones.
+
+**5B-013 — Accesibilidad:** la nueva auditoría del diálogo de borrado detectó un botón X sin nombre (axe button-name). Recibe common.close del mismo proveedor. No se ignoran reglas. El borrado sigue exigiendo exactamente **BORRAR**, incluso en los otros idiomas; la minúscula es rechazada, cancelar no escribe y el nuevo recorrido no confirma ninguna eliminación. La descarga de copias comprueba bytes originales exactos; solo su marca temporal visible utiliza Intl, conservando claves y nombres de archivo.
+
+Pruebas focalizadas: **513 unitarias**, lint/build/diff-check correctos. Las doce suites multidioma suman **352/352 resultados**, sin omisiones/cancelaciones: cuentas 6; planificación 31; catálogo 31; arrastre 11; automatización 41; préstamos/obligaciones 31; almacenamiento 36; compartidos 36; gráficos 31; asistente 36; presentación histórica 31; cierre 31. No sustituyen la batería española completa de entrega. La primera pasada del detector falló en gráficos: 6 correctos y 25 fallidos, contando el padre, por «Sin plan»; tras corregir la presentación, gráficos pasa **31/31** en 186,11 s. Cierre ampliado pasa **31/31** en 203,69 s, con cuota de preferencia, dos niveles de borrado, confirmación canónica, copias vacías y selector real entre pestañas.
+
+Las matrices contienen **1215 observaciones axe**, cero violaciones y **1495 grupos incompletos**, pendientes de revisión manual; son observaciones repetidas por superficie/idioma/tema, no 1495 defectos únicos ni accesibilidad certificada. La auditoría general y sus 136 grupos de referencia siguen separados. Se repite además el asistente con el preload de capturas de CI: **36/36** en 242,35 s, incluidos los dos casos franceses a 390 px. No demuestra la causa del fallo antiguo; se conserva su diagnóstico y se exige comprobar la regresión remota final.
+
+La instrumentación examina solo datos ficticios, bloquea solicitudes externas y conserva las aserciones de escrituras/cálculos previas. Los diálogos nativos del navegador (selector de archivos, calendario, mensajes nativos HTML) pertenecen a su propia configuración regional; el idioma de la app no sustituye esos controles ni cambia los valores ISO/input que procesan. No se afirman pruebas con lector de pantalla ni dispositivos físicos.
+
+Los cuatro idiomas continúan deshabilitados en este checkpoint. Queda la activación tras esta revisión, comprobar la infraestructura contra los idiomas disponibles y ejecutar la batería completa sobre el build real de producción, además de la validación remota de la entrega.

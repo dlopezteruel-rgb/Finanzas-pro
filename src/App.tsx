@@ -95,7 +95,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
-  const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,language } = useI18n();
+  const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
@@ -741,7 +741,7 @@ export default function App() {
       {showRecovery && <SafeDialog title={uiText("app.copias_de_recuperacion")} onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">{uiText("app.descarga_una_copia_y_utiliza_importar_json_para_revisarla")}</p>
           {recoveryCopies(localStorage).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
-          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: (copy.key.slice('finanzas_pro_recovery_'.length, -37)) }} /></button>)}
+          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
           <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">{uiText("app.cerrar")}</button>
       </SafeDialog>}
 

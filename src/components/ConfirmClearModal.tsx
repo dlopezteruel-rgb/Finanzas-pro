@@ -1,5 +1,6 @@
 
 import { useI18n, I18nText } from "../i18n";
+import {deletionReportForDisplay} from '../i18n/storageMessages';
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { clearImpact, clearScope } from '../utils/clearData';
 import type { FinanceData } from '../utils/backup';
@@ -25,8 +26,9 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
   onClose,
   onConfirm,
 }) => {
-  const { t: uiText , formatMoney: formatCurrency } = useI18n();
-  const [review, setReview] = useState<{ options: ClearDataOptions; scope: string; report: DeletionReport } | null>(null);
+  const format=useI18n();
+  const { t: uiText , formatMoney: formatCurrency,formatNumber,language } = format;
+  const [review, setReview] = useState<{ options: ClearDataOptions; scope: string; report: DeletionReport; data: FinanceData } | null>(null);
   const close = onClose;
   const [options, setOptions] = useState<ClearDataOptions>({
     clearWalletBalances: true,
@@ -38,6 +40,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
   if (!isOpen) return null;
   const impact = clearImpact(data, options);
+  const shownImpact=deletionReportForDisplay(impact,{data,target:{kind:'clear'}},language,uiText,format);
 
   const toggleOption = (key: keyof ClearDataOptions) => {
     setOptions(prev => {
@@ -64,7 +67,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
   const handleExecute = () => {
     if (selectedCount === 0) return;
-    setReview({ options: { ...options }, scope: clearScope(data, options), report: clearImpact(data, options) });
+    setReview({ options: { ...options }, scope: clearScope(data, options), report: clearImpact(data, options), data });
   };
 
   return (
@@ -85,6 +88,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
           </div>
           <button
             onClick={close} disabled={!!review}
+            aria-label={uiText('common.close')}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -249,9 +253,9 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
 
         <section aria-label={uiText("confirm_clear.resumen_del_borrado")} className="rounded-xl border border-white/10 p-3 space-y-1">
           <h4 className="font-bold">{uiText("confirm_clear.alcance_todas_las_fechas")}</h4>
-          {impact.relations.map(r => <p key={r.label}>{r.label}: {r.count}</p>)}
+          {shownImpact.relations.map(r => <p key={r.label}>{r.label}: {formatNumber(r.count)}</p>)}
           <p>{uiText("confirm_clear.se_conservan_contactos_familias_y_partidas_del_catalogo_las")}</p>
-          {impact.blockers.map(b => <p key={b} className="text-amber-300">{b}</p>)}
+          {shownImpact.blockers.map(b => <p key={b} className="text-amber-300">{b}</p>)}
         </section>
         {/* Warning notice */}
         <p className="text-[11px] text-rose-300/80 text-center font-medium bg-rose-500/10 py-1.5 px-3 rounded-xl border border-rose-500/20">{uiText("confirm_clear.se_guardara_una_copia_recuperable_antes_de_borrar_si")}</p>
@@ -280,7 +284,7 @@ export const ConfirmClearModal: React.FC<ConfirmClearModalProps> = ({
         </div>
       </div>
     </Overlay>
-    {review && <ConfirmDeleteDialog report={review.report} requiredText="BORRAR" onCancel={() => setReview(null)} onConfirm={async () => {
+    {review && <ConfirmDeleteDialog report={review.report} source={{data:review.data,target:{kind:'clear'}}} requiredText="BORRAR" onCancel={() => setReview(null)} onConfirm={async () => {
       const result = await onConfirm(review.options, review.scope); if (result.ok) onClose(); return result;
     }} />}
     </>

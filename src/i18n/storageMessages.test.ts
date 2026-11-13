@@ -6,8 +6,14 @@ import {presentationFormatters,presentationMoney} from './presentation';
 import {parseBackup,makeBackup,backupWarnings,type Backup} from '../utils/backup';
 import {deletionReport,deleteEntity} from '../utils/deletion';
 import {saveErrorMessage} from '../utils/saveResult';
+import {clearImpact} from '../utils/clearData';
 import {intelligentFixture} from '../../scripts/intelligentFixture';
 const all=Object.keys(languages) as Language[];
+test('borrado seleccionado: etiquetas, bloqueos y cantidades retenidas nativas; el informe económico sigue intacto',()=>{
+ const data=intelligentFixture(),options={clearWalletBalances:true,clearAllWallets:true,clearTransactions:true,clearBudgets:true,clearDebts:true},report=clearImpact(data,options),before=JSON.stringify(data),original=JSON.stringify(report);
+ for(const language of all){const t=translatorFor(language),format=presentationFormatters(language),shown=deletionReportForDisplay(report,{data,target:{kind:'clear'}},language,t,format);assert.equal(shown.name,t('storage_message.datos_seleccionados_de_todas_las_fechas'));assert.deepEqual(shown.relations.map(r=>r.count),report.relations.map(r=>r.count));assert.equal(shown.relations[0].label,t('storage_message.movimientos_a_eliminar'));assert.equal(shown.notices[0],t('storage.deletion.catalogRetained',{contacts:format.formatNumber(1),families:format.formatNumber(2),items:format.formatNumber(2)}));assert.deepEqual(shown.blockers,report.blockers);}
+ assert.equal(JSON.stringify(report),original);assert.equal(JSON.stringify(data),before);
+});
 test('diagnósticos de almacenamiento: causas y envoltorios nativos sin modificar el error ni interpolar valores',()=>{
  const error=new DOMException('private diagnostic','QuotaExceededError'),raw=saveErrorMessage(error),unknown='<img>{reason}$&';
  for(const language of all){const t=translatorFor(language),translated=t('storage_message.no_hay_espacio_disponible_en_el_almacenamiento_del_navegador_los_datos_anteriores');assert.equal(storageOwnedText(raw,t),translated);assert.equal(storageOwnedText('No se ha aplicado el borrado. '+raw,t),t('storage.wrap.clear',{reason:translated}));assert.equal(storageOwnedText(unknown,t),unknown);assert.equal(restorationTitleText('Importar «'+unknown+'»',t),t('storage.title.import',{file:unknown}));}

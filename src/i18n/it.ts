@@ -1895,5 +1895,6 @@ export const it = {
   "restoration.sharedReceipts.other": "{description}: uscita {amount}, spesa propria {myShare}, {count} incassi collegati.",
   "chart.movementCount.other": "{count} movimenti economici. Spese condivise strutturate: quota propria; i pagamenti bancari sono indicati separatamente.",
   "budget.atLeastPercentage": "{percentage}+",
-  "budget.expectedPercentage": "Prevista: {rate}"
+  "budget.expectedPercentage": "Prevista: {rate}",
+  "storage.deletion.catalogRetained": "Vengono conservati i contatti ({contacts}), le famiglie ({families}) e le voci del catalogo ({items})."
 } as const satisfies Messages;
