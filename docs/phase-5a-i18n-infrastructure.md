@@ -57,11 +57,28 @@ Las familias son una propuesta de inventario, no claves declaradas sin uso. 5B d
 
 La ejecución [43399992606](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43399992606) detectó contraste insuficiente al cargar Inicio oscuro a 768 px: seis estados con colores intermedios entre claro y oscuro (4.19:1 y 4.48:1). Fueron 289 resultados correctos y dos fallidos (caso y contenedor); la suite i18n no llegó a ejecutarse. Unitarias y código verdes no equivalen a CI completo correcto.
 
-El tema se aplicaba en un efecto pasivo después del render. Se adelanta únicamente ese atributo a useLayoutEffect, antes del pintado, conservando valores y guardado. La regresión comprueba el tema en el primer frame visible en seis combinaciones y mantiene intacta la auditoría axe. La auditoría focalizada con Chrome for Testing 156.0.8078.4 completó sus ocho escenarios y contenedor sin fallos; se exige otra regresión completa local y remota.
+El tema se aplicaba en un efecto pasivo después del render. Se adelanta únicamente ese atributo a useLayoutEffect, antes del pintado, conservando valores y guardado. La regresión comprueba el tema en el primer frame visible en seis combinaciones y mantiene intacta la auditoría axe. La auditoría focalizada con Chrome for Testing 156.0.8078.4 completó sus ocho escenarios y contenedor sin fallos; la regresión completa local y remota se detalla abajo.
 
 ## Validación
 
-Resultados iniciales y finales, ejecuciones reales de Actions e incidencias se incorporarán tras completar las baterías. Las referencias históricas no se cuentan como pruebas actuales.
+Base: npm ci instaló 188 paquetes; 435 unitarias y 291 resultados Chromium en 21 suites, sin fallos/omisiones/cancelaciones. La batería inicial se lanzó sobre el build de la base; el recorrido de rutas en desarrollo lee las fuentes del checkout. La batería final se ejecutó íntegramente sobre el código de esta fase con todos los cambios.
+
+Final local: **440 unitarias**, **22 pruebas de infraestructura CI separadas**, **301 resultados Chromium en 22 suites** (279 casos y 22 contenedores), cero fallos, omisiones, pendientes o cancelaciones. npm run lint, npm run build y git diff origin/main...HEAD --check correctos. La suite nueva aporta nueve casos y su contenedor: seis combinaciones 390/768/1280 y claro/oscuro, corrupción/cuota/eventos entre pestañas, lectura denegada e importación/restauración/exportación 3.4.
+
+[Actions real](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43402088101), SHA `abaf9dffee65bd9b61d128b83d5ee9e81641f630`, asociado a PR Draft #25:
+
+| Trabajo | Resultado | Duración |
+| --- | --- | --- |
+| Lint, build y diff | success | 22 s |
+| Unitarias | success | 16 s |
+| Chromium y axe | success | 611 s |
+
+Los artefactos se descargaron y sus SHA-256 coincidieron con GitHub. [Informe de resultados](phase-5a-ci-results.json): versiones exactas, suites, estados y duraciones. El primer intento 43399635857 fue cancelado por el checkpoint posterior y no se cuenta como ejecución completa. La ejecución 43399992606 falló realmente en axe: Inicio, 768 px oscuro, seis nodos de estado con contraste intermedio 4.19:1 y 4.48:1 durante la aplicación tardía del tema. Completó 21 resúmenes, 289 correctos y dos fallidos (caso y contenedor); i18n no llegó a ejecutarse. Se conserva como fallo, sin convertirlo en aprobación. El commit documental final vuelve a ejecutar los tres checks; su URL y resultado definitivo constan en la PR.
+
+Axe estricta existente: 128 superficies sin violaciones; los grupos incompletos siguen separados para revisión manual. La nueva suite ejecuta además axe WCAG 2 A/AA y 2.1 AA sobre el panel abierto en seis combinaciones, sin violaciones. No se ignoran reglas.
+
+Incidencias de desarrollo: lint detectó una referencia a t fuera del ámbito de RestorationModal; se corrigió antes de publicar el primer checkpoint. Aviso npm existente: node-domexception@1.0.0 deprecado y notificación de nueva versión npm; no se actualizan dependencias en esta fase. La corrección acotada aplica data-theme mediante useLayoutEffect antes del primer pintado, manteniendo el mismo tema y callback sin escrituras adicionales. Se añade una comprobación del tema en el primer frame visible en los seis recorridos de i18n, además de conservar todas las aserciones axe. Se repitió la auditoría completa con el mismo Chrome for Testing 156.0.8078.4 que GitHub; sin desactivar reglas, reintentos o esperas arbitrarias. Pendientes: traducción integral y QA lingüístico en 5B, revisión manual de resultados axe incompletos, lectores de pantalla y dispositivos físicos no probados.
+
 
 Se añade `scripts/i18n.browser.ts` al final de npm run test:ui, preservando todas las suites y aserciones existentes. El ejecutor de CI descubre automáticamente la nueva suite. Los tres checks obligatorios continúan siendo Unitarias; Lint, build y diff; Chromium y axe. No se alteran workflow, protecciones o reglas axe.
 
