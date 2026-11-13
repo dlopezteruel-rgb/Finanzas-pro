@@ -1,0 +1,178 @@
+{
+  "scope": "Current 264 registered keys only; not a whole-application residual-text waiver",
+  "exceptions": {
+    "en": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      }
+    ],
+    "it": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "movement_proposal.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.formato_tema",
+        "text": "Formato {version} · {content} · Tema {content_5f4b8}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      }
+    ],
+    "fr": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "language.available",
+        "text": "disponible",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      }
+    ],
+    "pt": [
+      {
+        "key": "transfer.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "loan.capital_inicial",
+        "text": "Capital inicial (€)",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.ct",
+        "text": "CT",
+        "reason": "Native account avatar abbreviation"
+      },
+      {
+        "key": "wallet.neobanco_fintech",
+        "text": "Neobanco / Fintech",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.ver_saldo_inicial",
+        "text": "Ver saldo inicial",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "create_contact.contacto",
+        "text": "Contacto",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "create_contact.notas_opcional",
+        "text": "Notas (opcional)",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "create_contact.guardar",
+        "text": "Guardar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "movement_proposal.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "movement_proposal.estado",
+        "text": "Estado",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.peso_de",
+        "text": "Peso de {name}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.parte_de",
+        "text": "Parte de {name}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.total_repartido",
+        "text": "Total repartido: {formatCurrency}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.formato_tema",
+        "text": "Formato {version} · {content} · Tema {content_5f4b8}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.claro",
+        "text": "claro",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "count.contacts.one",
+        "text": "{count} contacto",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "count.contacts.other",
+        "text": "{count} contactos",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "nav.contacts",
+        "text": "Contactos",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.confirm",
+        "text": "Confirmar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.cancel",
+        "text": "Cancelar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.save",
+        "text": "Guardar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "options.export",
+        "text": "Exportar JSON",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "options.import",
+        "text": "Importar JSON",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "language.label",
+        "text": "Idioma",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "theme.title",
+        "text": "Modo {mode}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "theme.light",
+        "text": "claro",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      }
+    ]
+  }
+}

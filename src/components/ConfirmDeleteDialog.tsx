@@ -9,7 +9,7 @@ import { useAsyncForm } from '../utils/useAsyncForm';
 export function ConfirmDeleteDialog({ report, onConfirm, onCancel, confirmLabel, requiredText }: {
   report: DeletionReport; onConfirm: () => Promise<SaveResult>; onCancel: () => void; confirmLabel?: string; requiredText?: string;
 }) {
-  const { t: uiText } = useI18n();
+  const { t: uiText, tn: uiCount } = useI18n();
   const { t } = useI18n();
   const submission = useAsyncForm(), [confirmation, setConfirmation] = useState('');
   const cancelButton = useRef<HTMLButtonElement>(null);
@@ -20,7 +20,7 @@ export function ConfirmDeleteDialog({ report, onConfirm, onCancel, confirmLabel,
     <p className="text-sm"><I18nText id="confirm_delete_dialog.se_eliminara" values={{ name: (<strong>{report.name}</strong>) }} /></p>
     <div className="space-y-2 text-xs" aria-label={uiText("confirm_delete_dialog.relaciones_y_alcance_de_la_eliminacion")}>
       {report.relations.length ? <><p>{uiText("confirm_delete_dialog.algunas_categorias_se_solapan_sus_cantidades_no_se_suman")}</p><ul className="space-y-2">{report.relations.map(r => <li key={r.label}>
-        <strong>{r.label}: {r.count}</strong>{r.examples.length > 0 && <p className="break-words text-slate-400">{r.examples.join(' · ')}{r.count > r.examples.length ? uiText("confirm_delete_dialog.y_mas", { content: r.count - r.examples.length }) : ''}</p>}
+        <strong>{r.label}: {r.count}</strong>{r.examples.length > 0 && <p className="break-words text-slate-400">{r.examples.join(' · ')}{r.count > r.examples.length ? uiCount("more", r.count - r.examples.length) : ''}</p>}
       </li>)}</ul></> : <p>{uiText("confirm_delete_dialog.no_hay_referencias_vinculadas_que_impidan_la_eliminacion")}</p>}
       {report.notices.map(n => <p key={n}>{n}</p>)}
     </div>

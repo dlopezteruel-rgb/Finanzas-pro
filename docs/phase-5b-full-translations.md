@@ -13,11 +13,21 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
-| Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española en ejecución |
-| English | en-GB | Próximamente, deshabilitado | Pendiente | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | Pendiente | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | Pendiente | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | Pendiente | No verificados |
+| Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
+| English | en-GB | Próximamente, deshabilitado | 264/264 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 264/264 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 264/264 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 264/264 claves registradas; UI incompleta | No verificados |
+
+## Diccionarios y guarda de disponibilidad
+
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 264 claves cada uno: las 69 iniciales y las 195 nuevas canónicas de mensajes P1/plurales. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+
+`isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
+
+Los plurales usan las reglas Intl existentes, claves one/other y familias tipadas; hay casos de cero, uno, varios y cantidades grandes en los cinco locales. Las cantidades se formatean solo para mostrar; no vuelven a ningún parser. La primera aplicación es el contador «y N más» en eliminación, sin cambiar su significado.
+
+Las coincidencias de ortografía nativa (por ejemplo «Guardar» en pt-PT o «disponible» en fr-FR) no se contabilizan como texto español residual. El listado revisado está en phase-5b-lexical-exceptions.json, restringido a las claves actuales, sin eximir superficies pendientes. IBAN y nombres propios de ejemplos siguen intactos. Se conservan TIN/TAE como siglas del modelo existente, sin reinterpretarlas como otros indicadores regulatorios.
 
 ## Inventario reproducible
 
@@ -47,8 +57,8 @@ No cambian FinanceStore, sus revisiones/Web Locks, lógica financiera, cálculos
 | --- | --- | --- | --- | --- |
 | Movimiento | Transaction | Movimento | Opération | Movimento |
 | Cartera/cuenta | Account | Conto | Compte | Conta |
-| Familia presupuestaria | Budget family | Famiglia di bilancio | Famille budgétaire | Família orçamental |
-| Partida | Budget item | Voce di bilancio | Poste budgétaire | Rubrica orçamental |
+| Familia presupuestaria | Budget family | Famiglia di budget | Famille budgétaire | Família orçamental |
+| Partida | Budget item | Voce di budget | Poste budgétaire | Rubrica orçamental |
 | Traspaso | Transfer | Trasferimento | Virement | Transferência |
 | Tramitado/pendiente | Processed/Pending | Contabilizzato/In sospeso | Comptabilisé/En attente | Processado/Pendente |
 | Reintegro compartido | Reimbursement | Rimborso | Remboursement | Reembolso |
@@ -60,3 +70,13 @@ Base recién ejecutada: 440 unitarias; lint/build y 301 resultados Chromium de l
 Primera extracción: 443 unitarias correctas (incluye tres pruebas nuevas de slots, escape de datos y claves de módulos); lint y build correctos. Chromium focalizado: carteras 14/14 y eliminación segura 23/23; batería financiera ampliada 57/57. Total focalizado: 94 resultados, cero fallos, omisiones o cancelaciones. La batería anterior se conserva íntegra.
 
 Los 136 grupos incompletos axe de referencia se mantienen como **pendientes de revisión manual**, separados de violaciones y de resultados verificados. Sus cifras se volverán a medir. No se afirma uso de lector de pantalla ni dispositivos físicos.
+
+### Checkpoint de diccionarios validado localmente
+
+La [primera ejecución de Actions](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43409428078), SHA 4109a04f273117fc3c53f28e2b19d2e96107cde0, terminó con los tres checks verdes. Los 136 grupos incompletos axe siguen siendo revisión manual pendiente, no violaciones ni accesibilidad certificada.
+
+Durante el desarrollo una prueba nueva construyó mal su resultado esperado usando String.replace con `$&`; se corrigió el oráculo para comparar literalmente. La interpolación de producción ya preservaba esos caracteres y no cambió para ocultar un fallo.
+
+Checkpoint de diccionarios: **454 unitarias**, lint/build y **10 resultados Chromium** del selector/preferencias correctos, sin omisiones ni cancelaciones. Son pruebas de las claves, variantes, plurales, slots, seguridad y bloqueo de idiomas no verificados. **No son pruebas de la interfaz completa en los otros cuatro idiomas**. Sus flujos siguen pendientes y bloqueados.
+
+Los tres checks de cada checkpoint se conservan como evidencia de regresión del código publicado; un check verde no certifica por sí solo cobertura lingüística integral.

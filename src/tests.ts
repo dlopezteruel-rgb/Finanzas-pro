@@ -38,3 +38,4 @@ import "./utils/catalogClassification.test";
 import './utils/stabilization.test';
 
 import './i18n/rich.test';
+import './i18n/dictionaries.test';
