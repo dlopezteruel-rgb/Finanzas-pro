@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import {catalogDependencyText} from '../i18n/presenters';
 import React,{useState} from 'react';
@@ -25,7 +26,7 @@ export function CatalogManager({data,onEdit}:{data:FinanceData;onEdit:(edit:Cata
   return <details className="catalog-manager planning-card" aria-label={uiText("catalog_manager.gestion_del_catalogo")}>
     <summary>{uiText("catalog_manager.gestionar_familias_y_partidas")}</summary>
     <p>{uiText("catalog_manager.los_cambios_de_nombres_y_organizacion_conservan_los_movimientos")}</p>
-    {notice&&<p role="status">{uiText("catalog_manager.saved")}</p>}{form.error&&!editor&&!archive&&<p role="alert">{form.error}</p>}
+    {notice&&<p role="status">{uiText("catalog_manager.saved")}</p>}{form.error&&!editor&&!archive&&<p role="alert">{storageOwnedText(form.error,uiText)}</p>}
     <fieldset disabled={form.saving}>
       <div className="catalog-actions"><button type="button" onClick={()=>open({kind:'family'})}>{uiText("catalog_manager.crear_familia")}</button><button type="button" onClick={()=>open({kind:'partida'})} disabled={!groups.some(g=>!g.archived)}>{uiText("catalog_manager.crear_partida")}</button></div>
       {(['GASTO','INGRESO'] as const).map(type=><section key={type} aria-label={uiText("catalog_manager.gestionar", { content: type==='GASTO'?uiText("catalog_manager.gastos"):uiText("catalog_manager.ingresos") })}><h3>{type==='GASTO'?uiText("catalog_manager.gastos"):uiText("catalog_manager.ingresos")}</h3>{groups.filter(g=>g.type===type).map((g,index,typed)=><article key={g.code} className="catalog-manage-family" aria-label={uiText("catalog_manager.gestionar_familia", { name: g.name })}>
@@ -50,7 +51,7 @@ export function CatalogManager({data,onEdit}:{data:FinanceData;onEdit:(edit:Cata
       <p><I18nText id="catalog_manager.vas_a_archivar_estas_reglas_activas_dependen_de_sus" values={{ name: (archive.impact.name) }} /></p>
       <ul>{archive.impact.dependencies.map(r=><li key={`${r.kind}:${r.id}`}>{uiText(r.kind==='Movimiento periódico'?"catalog_manager.recurringDependency":"catalog_manager.planningDependency")}: <strong>{r.name}</strong> · {r.partida}</li>)}</ul>
       <p>{uiText("catalog_manager.las_reglas_se_conservaran_activas_sin_borrarlas_desactivarlas_ni")}</p>
-      {form.error&&<p role="alert">{form.error}</p>}
+      {form.error&&<p role="alert">{storageOwnedText(form.error,uiText)}</p>}
       <div className="catalog-actions"><button type="button" disabled={form.saving} onClick={()=>setArchive(null)}>{uiText("catalog_manager.cancelar")}</button><button type="button" disabled={form.saving} onClick={()=>{void form.submit(()=>onEdit(archive.edit),()=>{setNotice(true);setArchive(null);});}}>{form.saving?uiText("catalog_manager.guardando"):uiText("catalog_manager.confirmar_archivo")}</button></div>
     </SafeDialog>}
     {editor&&<SafeDialog title={title} onCancel={close}><form className="catalog-editor" aria-busy={form.saving} onSubmit={e=>{
@@ -60,7 +61,7 @@ export function CatalogManager({data,onEdit}:{data:FinanceData;onEdit:(edit:Cata
       else if(editor.kind==='family')submit(editor.item?{kind:'renameFamily',code:editor.item.code,name}:{kind:'createFamily',id:crypto.randomUUID(),type,name},true);
       else {const fields={name,description,keywords:keywords.split(',').map(k=>k.trim()).filter(Boolean)};submit(editor.item?{kind:'updatePartida',parent:editor.item,...fields}:{kind:'createPartida',id:crypto.randomUUID(),groupCode,...fields},true);}
     }}><fieldset disabled={form.saving}>
-      {form.error&&<p role="alert">{form.error}</p>}
+      {form.error&&<p role="alert">{storageOwnedText(form.error,uiText)}</p>}
       {removal?<><p><I18nText id="catalog_manager.eliminar_requiere_que_no_existan_dependencias_la_identidad_retirada" values={{ content: (editor.item?.name) }} /></p>{blockers.length>0&&<div role="alert">{uiText("catalog_manager.blockedRemoval",{dependencies:blockers.join(', ')})}</div>}</>:<>
         <label>{uiText("catalog_manager.nombre")}<input aria-label={uiText("catalog_manager.nombre_del_catalogo")} required maxLength={100} value={name} onChange={e=>setName(e.target.value)}/></label>
         {editor.kind==='family'&&!editor.item&&<label>{uiText("catalog_manager.tipo_principal")}<select aria-label={uiText("catalog_manager.tipo_principal")} value={type} onChange={e=>setType(e.target.value as MovementType)}><option value="GASTO">{uiText("catalog_manager.gastos")}</option><option value="INGRESO">{uiText("catalog_manager.ingresos")}</option></select></label>}

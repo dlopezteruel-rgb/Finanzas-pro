@@ -1,4 +1,5 @@
-import {planningOwnedText} from '../i18n/planningMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+
 import { useI18n, I18nText } from "../i18n";
 import {useCatalogDrag} from './useCatalogDrag';
 import {catalogReorderScope,type ReorderCallback} from '../utils/catalogReorder';
@@ -122,8 +123,8 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
 
   return (
     <div className="catalog-view space-y-4 pb-16 md:pb-6">
-      {(editError || editSubmission.error) && <p role="alert">{planningOwnedText(editError || editSubmission.error,uiText)}</p>}
-      {catalogSubmission.error && <p role="alert">{planningOwnedText(catalogSubmission.error,uiText)}</p>}
+      {(editError || editSubmission.error) && <p role="alert">{storageOwnedText(editError || editSubmission.error,uiText)}</p>}
+      {catalogSubmission.error && <p role="alert">{storageOwnedText(catalogSubmission.error,uiText)}</p>}
       {catalogSubmission.saving && <p role="status">{uiText("budgets.guardando_catalogo")}</p>}
       {/* 1. Top Summary Banner */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -507,7 +508,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               : Promise.resolve({ ok: false, error: 'Elige una familia del mismo tipo. No se permite cambiar entre Ingresos y Gastos.' }), () => setMovingPartida(null)); }}
             className="bg-[#141926] border border-white/10 rounded-2xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-3.5">
           <fieldset disabled={moveSubmission.saving} className="space-y-3.5">
-            {moveSubmission.error && <p role="alert" className="text-rose-300">{planningOwnedText(moveSubmission.error,uiText)}</p>}
+            {moveSubmission.error && <p role="alert" className="text-rose-300">{storageOwnedText(moveSubmission.error,uiText)}</p>}
             <h3 className="text-sm font-bold text-white">{uiText("budgets.mover_partida_a_otro_paquete")}</h3>
             <p className="text-slate-300"><I18nText id="budgets.a_que_paquete_deseas_mover_la_partida" values={{ name: (<strong className="text-white">{movingPartida.name}</strong>) }} /></p>
 

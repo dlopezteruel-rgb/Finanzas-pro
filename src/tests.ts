@@ -45,3 +45,5 @@ import './i18n/planningMessages.test';
 import './i18n/presentation.test';
 
 import './i18n/bankingReviews.test';
+
+import './i18n/storageMessages.test';

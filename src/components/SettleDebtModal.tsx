@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
@@ -58,7 +59,7 @@ export const SettleDebtModal: React.FC<Props> = ({ isOpen, onClose, debtItem, wa
       <p><I18nText id="settle_debt.pendiente" values={{ formatCurrency: (<strong>{formatCurrency(debtItem.participant.remainingAmount ?? (debtItem.participant.isPaid ? 0 : debtItem.participant.amount))}</strong>) }} /></p>
       <form onSubmit={submit} aria-busy={submission.saving}>
         <fieldset disabled={submission.saving} className="space-y-3.5">
-          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error,uiText)}</p>}
           {submission.saving && <p role="status">{uiText("transfer.guardando")}</p>}
           <label className="block">{uiText("settle_debt.importe_a_saldar")}<input aria-label={uiText("settle_debt.importe_a_saldar")} className="block w-full bg-[#0c0f17] rounded-xl p-3" type="number" step="0.01" min="0.01" required value={amount} onChange={e => setAmount(e.target.value)} /></label>
           <label className="flex gap-2"><input aria-label={uiText("settle_debt.registrar_entrada_bancaria")} type="checkbox" checked={cash} onChange={e => setCash(e.target.checked)} />{uiText("settle_debt.registrar_entrada_bancaria_reintegro_no_ingreso_economico")}</label>

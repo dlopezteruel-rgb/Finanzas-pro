@@ -1,4 +1,5 @@
-import {bankingOwnedText,treasuryWarningText,treasuryConceptText} from '../i18n/bankingMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+import {treasuryWarningText,treasuryConceptText} from '../i18n/bankingMessages';
 import {useI18n, I18nText } from "../i18n";
 import React, { useMemo, useState } from "react";
 import type { FinanceData } from "../utils/backup";
@@ -61,7 +62,7 @@ export function TreasuryView({
           }}
         >{uiText("treasury.proximo_mes")}</button>
       </div>
-      {result.error && <p role="alert">{bankingOwnedText(result.error,uiText)}</p>}
+      {result.error && <p role="alert">{storageOwnedText(result.error,uiText)}</p>}
       {result.value &&
         (() => {
           const p = result.value;

@@ -1,4 +1,5 @@
-import {bankingOwnedText} from '../i18n/bankingMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+
 import {debtReviewText,type DebtReview} from '../i18n/bankingReviews';
 import {useI18n, I18nText } from "../i18n";
 import { initialWalletId } from '../utils/defaultWallet';
@@ -361,7 +362,7 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            {error && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
+            {error && <p role="alert">{storageOwnedText(error,uiText)}</p>}
             <div className="finance-actions">
               <button type="button" onClick={() => setDraft(null)}>{uiText("debts_workspace.cancelar")}</button>
               <button type="submit">{uiText("debts_workspace.revisar_compromiso")}</button>
@@ -464,7 +465,7 @@ export function DebtsWorkspace({
                 }
               />
             </label>
-            {error && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
+            {error && <p role="alert">{storageOwnedText(error,uiText)}</p>}
             <div className="finance-actions">
               <button type="button" onClick={() => setPay(null)}>{uiText("debts_workspace.cancelar")}</button>
               <button type="submit">{uiText("debts_workspace.revisar_liquidacion")}</button>

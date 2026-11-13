@@ -1,4 +1,5 @@
-import {planningOwnedText} from '../i18n/planningMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+
 import { useI18n, I18nText, type MessageKey } from "../i18n";
 import {planningStatusText} from '../i18n/presenters';
 import { PlanningSubitems } from './PlanningSubitems';
@@ -142,13 +143,13 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       <p role="status">{dirty ? uiText("planning.cambios_locales_sin_guardar", {status: statusText(planningStatus(data,month))}) : statusText(planningStatus(data,month))}</p>
       {currentMeta?.approval && <p><I18nText id="planning.ultima_aprobacion_n" values={{ number: (currentMeta.approval.number), content: (formatDate(currentMeta.approval.approvedAt, {year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'})) }} /></p>}
       <label className="planning-savings-label">{uiText("planning.ahorro_objetivo")}<input aria-label={uiText("planning.ahorro_objetivo_a54274")} inputMode="decimal" value={savings} aria-invalid={!!savingsError} aria-describedby={savingsError ? 'planning-savings-error' : undefined} disabled={submission.saving} onChange={e => { setSavings(e.target.value); setNotice(''); submission.clearError(); }} /></label>
-      {savingsError && <p id="planning-savings-error" role="alert">{planningOwnedText(savingsError,uiText)}</p>}
+      {savingsError && <p id="planning-savings-error" role="alert">{storageOwnedText(savingsError,uiText)}</p>}
 
-      {!totals && <p role="alert"><I18nText id="planning.corrige_los_importes_para_calcular_y_guardar_los_totales" values={{ totalError: (totalError ? planningOwnedText(totalError,uiText) : totalError) }} /></p>}
+      {!totals && <p role="alert"><I18nText id="planning.corrige_los_importes_para_calcular_y_guardar_los_totales" values={{ totalError: (totalError ? storageOwnedText(totalError,uiText) : totalError) }} /></p>}
       {deficit && <p role="alert">{uiText("planning.advertencia_deficit_de_asignacion_o_ahorro_objetivo_superior_a")}</p>}
       <p><I18nText id="planning.balance_real_ahorro_realizado_solo_movimientos_procesados_con_las" values={{ balanceReal: (<strong>{formatCurrency(summary.balanceReal)}</strong>) }} /></p>
       <Totals totals={totals}/>
-      {submission.error && <p role="alert">{planningOwnedText(submission.error,uiText)}</p>}
+      {submission.error && <p role="alert">{storageOwnedText(submission.error,uiText)}</p>}
       {notice && <p role="status">{uiText(notice)}</p>}
       <div className="flex flex-wrap gap-2">
         <button disabled={!valid || submission.saving} onClick={() => commit(false)}>{uiText("planning.guardar_borrador")}</button>
@@ -205,8 +206,8 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
               const cents = errors[key]?undefined:combineLines(edits,carryLines(data,month)).find(l => planningKey(l) === key)?.amountCents ?? 0;
               return <div className="planning-row" key={key}>
                 <label htmlFor={`plan-${key}`}>{p.name}{p.archived?uiText("planning.archivada"):''}<span className="planning-base-label">{uiText("planning.presupuesto_base")}</span></label>
-                <div><input id={`plan-${key}`} aria-label={uiText("planning.previsto", { type: uiText(type === "GASTO" ? "planning.expenseType" : "planning.incomeType"), name: p.name })} inputMode="decimal" readOnly={!!p.archived||breakdowns[key]!==undefined} value={calculated[key]!==undefined ? planningOwnedText(calculated[key],uiText) : fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
-                  {errors[key] && <p id={`error-${key}`} role="alert">{planningOwnedText(errors[key],uiText)}</p>}</div>
+                <div><input id={`plan-${key}`} aria-label={uiText("planning.previsto", { type: uiText(type === "GASTO" ? "planning.expenseType" : "planning.incomeType"), name: p.name })} inputMode="decimal" readOnly={!!p.archived||breakdowns[key]!==undefined} value={calculated[key]!==undefined ? storageOwnedText(calculated[key],uiText) : fields[key] ?? '0'} aria-invalid={!!errors[key]} aria-describedby={errors[key] ? `error-${key}` : undefined} onChange={e => { setFields(prev => ({ ...prev, [key]: e.target.value })); setNotice(''); submission.clearError(); }} />
+                  {errors[key] && <p id={`error-${key}`} role="alert">{storageOwnedText(errors[key],uiText)}</p>}</div>
                 <span><I18nText id="planning.ejecutado" values={{ ejecutado: (formatCurrency(row.ejecutado)) }} /></span><span><I18nText id="planning.diferencia" values={{ content: (cents === undefined ? '—' : money(cents - Math.round(row.ejecutado * 100))) }} /></span>
                 <button onClick={() => onDetail(p, row)} type="button" aria-label={uiText("planning.detalle_06a921", { name: p.name })}>{uiText("planning.detalle")}</button>
                 {!p.archived&&<PlanningSubitems data={data} partida={p} month={month} value={breakdowns[key]} onChange={value=>{setBreakdowns(prev=>({...prev,[key]:value}));setNotice('');submission.clearError();}}/>}
@@ -242,7 +243,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       <p><I18nText id="planning.periodo_se_guardaran_todos_los_importes_el_objetivo_y" values={{ month: (month) }} /></p><Totals totals={totals} />
       {deficit && <><p role="alert">{uiText("planning.existe_deficit_el_margen_es_negativo_o_el_ahorro")}</p><label><input type="checkbox" checked={acceptDeficit} disabled={submission.saving} onChange={e => setAcceptDeficit(e.target.checked)} />{uiText("planning.acepto_aprobar_conscientemente_esta_prevision_con_deficit")}</label></>}
       <details><summary>{uiText("planning.desglose_de_la_aprobacion")}</summary><p>{uiText("planning.prevision_efectiva_incluye_base_y_ajustes_de_arrastre_guardados")}</p>{combineLines(edits,carryLines(data,month)).map(l => <p key={planningKey(l)}>{uiText(l.type === "GASTO" ? "planning.expenseType" : "planning.incomeType")} · {names.get(planningKey(l))}: {money(l.amountCents)}</p>)}{breakdownDrafts.map(b=><div key={planningKey(b)}>{b.lines.map(l=><p key={l.subitemId}>{data.budgetSubitems?.items.find(i=>i.id===l.subitemId)?.name}: {money(l.amountCents)}</p>)}</div>)}</details>
-      {submission.error && <p role="alert">{planningOwnedText(submission.error,uiText)}</p>}
+      {submission.error && <p role="alert">{storageOwnedText(submission.error,uiText)}</p>}
       <div className="flex gap-2"><button disabled={submission.saving} onClick={() => setReview(false)}>{uiText("planning.cancelar")}</button><button disabled={submission.saving || (deficit && !acceptDeficit)} onClick={() => commit(true)}>{submission.saving ? uiText("planning.guardando") : uiText("planning.confirmar_aprobacion")}</button></div>
     </div></SafeDialog>}
   </section>;

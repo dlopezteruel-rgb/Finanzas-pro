@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import {madridDate} from '../utils/financialCalendar';
 import {classificationCatalog} from '../utils/budgetCatalog';
@@ -137,7 +138,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
 
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-3.5">
-          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error,uiText)}</p>}
           {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
           {/* Name & Entity */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -317,7 +318,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
         </form>
       </div>
     </Overlay>
-    {confirmDelete && loanToEdit && onDeleteLoan && <ConfirmDeleteDialog report={deletionReport(deletionData, { kind: 'loan', id: loanToEdit.id })}
+    {confirmDelete && loanToEdit && onDeleteLoan && <ConfirmDeleteDialog source={{data:deletionData,target:{kind:"loan",id:loanToEdit.id}}} report={deletionReport(deletionData, { kind: 'loan', id: loanToEdit.id })}
       onCancel={() => setConfirmDelete(false)} onConfirm={async () => { const result = await onDeleteLoan(loanToEdit.id); if (result.ok) onClose(); return result; }} />}
     </>
   );

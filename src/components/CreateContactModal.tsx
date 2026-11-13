@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { SaveResult } from '../utils/saveResult';
@@ -91,7 +92,7 @@ export const CreateContactModal: React.FC<CreateContactModalProps> = ({
 
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-3">
-          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error,uiText)}</p>}
           {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
           {/* Contact Avatar Preview */}
           <div className="flex items-center justify-center py-2">

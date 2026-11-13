@@ -36,6 +36,11 @@
         "key": "debts_workspace.principal",
         "text": "Principal (€)",
         "reason": "Native English term for the loan principal"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
       }
     ],
     "it": [
@@ -98,6 +103,11 @@
         "key": "loans.tin_tae",
         "text": "{entity} • {interestRate}% TIN/TAE",
         "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
       }
     ],
     "fr": [
@@ -562,6 +572,26 @@
         "key": "treasury.metric.income",
         "text": "Entradas esperadas",
         "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "storage_message.eliminar_contacto",
+        "text": "Eliminar contacto",
+        "reason": "Native European Portuguese delete-contact instruction"
+      },
+      {
+        "key": "storage_message.contactos",
+        "text": "Contactos",
+        "reason": "Native European Portuguese noun"
+      },
+      {
+        "key": "storage.title.import",
+        "text": "Importar «{file}»",
+        "reason": "Native European Portuguese import instruction; file name is literal"
       }
     ]
   }

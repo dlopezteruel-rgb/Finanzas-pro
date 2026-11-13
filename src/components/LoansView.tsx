@@ -1,5 +1,6 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import {loanInstalmentsText} from '../i18n/bankingReviews';
-import {bankingOwnedText} from '../i18n/bankingMessages';
+
 import {useI18n, I18nText } from "../i18n";
 import {useAsyncForm} from '../utils/useAsyncForm';
 import type { FinanceData } from '../utils/backup';
@@ -199,7 +200,7 @@ function LoanInstallmentAction({loan,onPay}:{loan:Loan;onPay:(loan:Loan)=>Promis
   const { formatMoney: formatCurrency } = useI18n();
   const submission=useAsyncForm();
   return <div role="group" aria-label={uiText("loans.pago_de_cuota_de", { name: loan.name })} onClick={e=>e.stopPropagation()} className="space-y-1">
-    {submission.error&&<p role="alert">{bankingOwnedText(submission.error,uiText)}</p>}
+    {submission.error&&<p role="alert">{storageOwnedText(submission.error,uiText)}</p>}
     {submission.saving&&<p role="status">{uiText("loans.guardando_cuota")}</p>}
     <button type="button" disabled={submission.saving} aria-busy={submission.saving} onClick={e=>{
       e.stopPropagation();

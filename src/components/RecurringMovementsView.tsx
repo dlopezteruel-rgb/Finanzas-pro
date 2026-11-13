@@ -1,4 +1,5 @@
-import {bankingOwnedText} from '../i18n/bankingMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+
 import {ruleReviewText,movementFrequencyText,type RuleReview} from '../i18n/bankingReviews';
 import {useI18n, I18nText } from "../i18n";
 import {classificationCatalog} from '../utils/budgetCatalog';
@@ -136,7 +137,7 @@ export function RecurringMovementsView({
         </div>
         <button onClick={create}>{uiText("recurring_movements.nueva_regla_periodica")}</button>
       </div>
-      {error && !draft && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
+      {error && !draft && <p role="alert">{storageOwnedText(error,uiText)}</p>}
       <div className="finance-grid">
         {state.recurringRules
           .filter((r) => !r.deleted)
@@ -222,7 +223,7 @@ export function RecurringMovementsView({
             }
           >{uiText("recurring_movements.seleccionar_propuestas")}</button>
         </div>
-        {rangeError && <p role="alert">{bankingOwnedText(rangeError,uiText)}</p>}
+        {rangeError && <p role="alert">{storageOwnedText(rangeError,uiText)}</p>}
         <div className="finance-table">
           <table>
             <caption>{uiText("recurring_movements.ocurrencias_del_periodo")}</caption>
@@ -455,7 +456,7 @@ export function RecurringMovementsView({
                 }
               />
             </label>
-            {error && <p role="alert">{bankingOwnedText(error,uiText)}</p>}
+            {error && <p role="alert">{storageOwnedText(error,uiText)}</p>}
             <div className="finance-actions">
               <button type="button" onClick={() => setDraft(null)}>{uiText("debts_workspace.cancelar")}</button>
               <button type="submit">{uiText("recurring_movements.revisar_regla")}</button>

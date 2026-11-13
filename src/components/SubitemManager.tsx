@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import {activeCatalogEntry} from '../utils/budgetCatalog';
 import {useCatalogDrag} from './useCatalogDrag';
@@ -19,7 +20,7 @@ export function SubitemManager({data,partida,onEdit,onBusy,onReorder}:{data:Fina
   return <details className="subitem-manager" aria-label={uiText("subitem_manager.gestion_de_subitems")}>
     <summary><I18nText id="subitem_manager.gestionar_subitems" values={{ length: (items.length) }} /></summary>
     <p>{uiText("subitem_manager.opcionales_anadirlos_no_reparte_previsiones_anteriores_los_importes_se")}</p>
-    {form.error&&<p role="alert">{form.error}</p>}
+    {form.error&&<p role="alert">{storageOwnedText(form.error,uiText)}</p>}
     <fieldset disabled={form.saving||drag.saving} className="space-y-2 min-w-0">
       <label>{uiText("subitem_manager.nombre_del_nuevo_subitem")}<input aria-label={uiText("subitem_manager.nombre_del_nuevo_subitem")} maxLength={100} value={name} onChange={e=>setName(e.target.value)}/></label>
       <button type="button" disabled={!name.trim()||!activeCatalogEntry(data,partida)} onClick={()=>submit({kind:'create',parent:{type:partida.type,code:partida.code},name,id:crypto.randomUUID()},()=>setName(''))}>{uiText("subitem_manager.crear_subitem")}</button>

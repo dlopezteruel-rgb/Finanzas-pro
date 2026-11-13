@@ -1,3 +1,4 @@
+import {storageOwnedText} from './i18n/storageMessages';
 import {madridDate} from './utils/financialCalendar';
 import {applyCatalogReorder} from './utils/catalogReorder';
 import {CatalogManager} from './components/CatalogManager';
@@ -538,8 +539,8 @@ export default function App() {
 
   if (loadError) return <main className="app-recovery">
     <Brand /><h1>{t('recovery.title')}</h1>
-    <p role="alert">{loadError}</p>
-    {dataError && <p role="alert">{dataError}</p>}
+    <p role="alert">{storageOwnedText(loadError,uiText)}</p>
+    {dataError && <p role="alert">{storageOwnedText(dataError,uiText)}</p>}
     <p>{uiText("app.conserva_una_copia_de_los_datos_locales_antes_de")}</p>
     <button className="button-primary" onClick={() => {
       try {
@@ -592,7 +593,7 @@ export default function App() {
       />
 
       {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
-        <strong>{uiText("app.guardado_no_disponible")}</strong> {capabilityError}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}</div>}
+        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}</div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p><I18nText id="app.traspasos_historicos_pares_inequivocos_y_registros_pendientes_de_revision" values={{ unambiguousPairs: (legacyTransfers.pairs.length), pendingRecords: (legacyTransfers.unresolved.length) }} /></p>
         {legacyTransfers.missingWalletPairs.length > 0 && <p><I18nText id="app.pares_historicos_sin_carteras_existentes_se_excluyen_de_ingresos" values={{ missingAccountPairs: (legacyTransfers.missingWalletPairs.length) }} /></p>}
@@ -723,12 +724,12 @@ export default function App() {
       </main>
 
       {(dataError || saveError || dataNotice) && <div className={`fixed bottom-20 left-4 right-4 ${dataError ? 'z-[60]' : 'z-40'} max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl`} role={dataError || saveError ? 'alert' : 'status'}>
-        <p>{dataError || saveError || dataNotice}</p>
+        <p>{storageOwnedText(dataError || saveError || dataNotice,uiText)}</p>
         {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>{uiText("app.recargar_datos_actualizados")}</button>}
         <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>{uiText("app.cerrar_aviso")}</button>
       </div>}
       {pendingPlanningNavigation && <SafeDialog title={uiText("app.cambios_de_planificacion_sin_guardar")} onCancel={() => {if(!planningBusy)setPendingPlanningNavigation(null)}}>
-        {planningNavigationFailure&&<p role="alert">{saveError||uiText("app.corrige_los_importes_antes_de_guardar_puedes_seguir_editando")}</p>}
+        {planningNavigationFailure&&<p role="alert">{saveError?storageOwnedText(saveError,uiText):uiText("app.corrige_los_importes_antes_de_guardar_puedes_seguir_editando")}</p>}
         <p>{uiText("app.hay_importes_u_objetivo_sin_guardar_puedes_volver_al")}</p>
         <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>{uiText("app.seguir_editando")}</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}else setPlanningNavigationFailure(true);}}>{uiText("app.guardar_y_continuar")}</button><button disabled={planningBusy} onClick={() => {
           const action = pendingPlanningNavigation; setPendingPlanningNavigation(null); planningState.current = { dirty: false, saving: false }; setPlanningReset(n => n + 1); action();
@@ -746,7 +747,7 @@ export default function App() {
         onClose={() => setTransferToEdit(null)} defaultWalletId={data.defaultWalletId} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
       {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
-      {deleteTarget && <ConfirmDeleteDialog report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? uiText("app.confirmar_eliminacion_del_movimiento") : undefined} />}
+      {deleteTarget && <ConfirmDeleteDialog source={{data,target:deleteTarget}} report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? uiText("app.confirmar_eliminacion_del_movimiento") : undefined} />}
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}

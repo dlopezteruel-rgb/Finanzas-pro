@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { readFile } from 'node:fs/promises';
 import type { Browser, Page } from 'playwright-core';
-import { Backup, DATA_KEY, parseBackup, RECOVERY_PREFIX } from '../src/utils/backup';
+import { Backup, DATA_KEY, parseBackup, backupWarnings, RECOVERY_PREFIX } from '../src/utils/backup';
 import { calculateMonthlyBudgetRows, calculateMonthlySummary, calculateWalletBalances, formatCurrency } from '../src/utils/finance';
 import { STORAGE_LOCK } from '../src/utils/financeStore';
 import { assertTransferIntegrity, transferPair } from '../src/utils/transfers';
@@ -207,7 +207,8 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       // The actual 2.5 import preview must communicate exactly the same policy.
       await page.locator('input[type=file]').setInputFiles({ name: 'historico-sin-destino.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(initial)) });
       const preview = page.getByRole('dialog');
-      assert.match(await preview.innerText(), /sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular/);
+      assert.match(await preview.innerText(), /1 par histórico sin carteras existentes: se excluye de ingresos y gastos, pero no se puede vincular/);
+      assert.ok(backupWarnings(initial).includes('1 pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales sin crear carteras ni contrapartidas.'));
       await preview.getByRole('button', { name: 'Cancelar', exact: true }).click();
       await page.reload(); assert.equal(await raw(page), before);
       assert.deepEqual(await readCopies(page), []);

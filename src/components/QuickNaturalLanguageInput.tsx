@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import {useI18n} from "../i18n";
 import {SubitemSelector} from './SubitemSelector';
 import { SaveResult } from '../utils/saveResult';
@@ -27,7 +28,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   className = '',
   placeholder = 'Registrar: "Ayer cené fuera por 15,50 € con Openbank"...',
 }) => {
-  const { formatMoney: formatCurrency , formatDate } = useI18n();
+  const { formatMoney: formatCurrency , formatDate,t:uiText } = useI18n();
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
   const [subitemChoice,setSubitemChoice]=useState<{key:string;id:string}|null>(null);
@@ -84,7 +85,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      {submission.error && <p role="alert" className="text-amber-300 text-xs">{submission.error}</p>}
+      {submission.error && <p role="alert" className="text-amber-300 text-xs">{storageOwnedText(submission.error,uiText)}</p>}
       {submission.saving && <p role="status" className="text-sky-300 text-xs">Guardando…</p>}
       <fieldset disabled={submission.saving} className="min-w-0 space-y-2">
       {/* Sleek Search & Quick-Entry Bar */}

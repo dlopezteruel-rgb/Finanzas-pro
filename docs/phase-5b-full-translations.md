@@ -14,14 +14,14 @@ Base limpia: `95d08a2dd7c2d9752b8865fc8aa4a32263b5eb96`, merge PR #25. Rama `fea
 | Idioma | Locale | Estado del selector | Cobertura actual | Flujos integrales traducidos |
 | --- | --- | --- | --- | --- |
 | Español | es-ES | Disponible | Referencia canónica, UI previa en español | Regresión española inicial correcta |
-| English | en-GB | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
-| Italiano | it-IT | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
-| Français | fr-FR | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
-| Português | pt-PT | Próximamente, deshabilitado | 1223/1223 claves registradas; UI incompleta | No verificados |
+| English | en-GB | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
+| Italiano | it-IT | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
+| Français | fr-FR | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
+| Português | pt-PT | Próximamente, deshabilitado | 1394/1394 claves registradas; UI incompleta | No verificados |
 
 ## Diccionarios y guarda de disponibilidad
 
-Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1223 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
+Los archivos independientes en.ts, it.ts, fr.ts y pt.ts contienen 1394 claves cada uno: controles y mensajes canónicos P1, contadores plurales y metadatos. Esto es cobertura completa del **catálogo registrado actual**, no de toda la interfaz. Las superficies sin extraer siguen pendientes; por eso los cuatro idiomas siguen inactivos.
 
 `isLanguageAvailable` exige status ready, diccionario completo/compatible y las dos condiciones de languageReadiness: uiComplete y flowsVerified. Un diccionario completo por sí solo no permite activarlo ni persistirlo. Provider, validación de preferencias y selector comparten esa guarda. No hay detección automática del navegador ni un segundo sistema de idiomas.
 
@@ -194,3 +194,21 @@ La nueva matriz registra **120 observaciones axe, cero violaciones y 128 grupos 
 Los primeros recorridos de la suite nueva detectaron errores del propio test: intentaba abrir Deudas directamente en móvil, asumía tramitación bancaria sin marcar la casilla e inspeccionaba una propiedad bancaria inexistente. Otro intento consultaba la navegación antes de su montaje. Se corrigió el recorrido para usar Más, esperar la navegación visible y confirmar explícitamente el estado; se comprueban los vínculos obligationSettlement reales. No se relajan las invariantes ni se cambian tiempos. Los intentos fallidos/interrumpidos no se suman a resultados correctos. El oráculo de plural francés cero se corrigió para respetar Intl, manteniendo las pruebas de singular/plural de todos los idiomas.
 
 La batería completa ahora contiene **28 suites** y debe producir 452 resultados si todas terminan; esa cifra es expectativa, no resultado de CI del presente checkpoint. Continúan pendientes almacenamiento/errores globales, P2/P3, inventario semántico final y matriz integral. Los cuatro idiomas siguen deshabilitados.
+
+### Checkpoint de almacenamiento, restauración y eliminación
+
+Se añaden **171 claves**, hasta **1394 por diccionario**, reutilizando el mismo Provider, mensajes y preferencia. storageMessages adapta únicamente diagnósticos, etiquetas de dependencias y descripciones generadas por la aplicación. No se aplica a nombres, conceptos, notas ni históricos. Los errores desconocidos se conservan literalmente; las rutas de validación JSON y nombres de campos permanecen como identificadores técnicos. El inventario registra las fronteras de presentación revisadas y mantiene sus candidatos de origen, sin presentar esos recuentos como cobertura completa.
+
+Las vistas previas de eliminación reciben el informe original y su contexto de origen. Su copia de presentación mantiene nombre personal, ejemplos, cantidades, bloqueos y callbacks; solo localiza títulos, etiquetas y avisos conocidos. Los importes de los avisos proceden del dato numérico original y nunca se reconstruyen desde un importe formateado. Se conserva incluso el redondeo Intl que ya usaban esos avisos, distinto del formato histórico toFixed de otros componentes. BORRAR sigue siendo la palabra de confirmación invariante; solo se localiza la instrucción que la rodea. No cambian scopes, copias verificadas, Web Locks ni FinanceStore.
+
+**482 unitarias** correctas: incluye diagnósticos de cuota/envoltorios, interpolación literal de nombres/rutas, informe de eliminación inmutable y compatibilidad de presentación con JSON 2.5–3.4. El primer fixture de 3.0 estaba vacío y el validador original lo rechazó; se corrigió el fixture con una regla real sin relajar el validador. Lint/build/diff-check correctos. Regresiones españolas: **57 resultados** de phase1 y **23 resultados** de eliminación segura, sin fallos, omisiones ni cancelaciones en las ejecuciones finales.
+
+La primera ejecución de phase1 detectó una expectativa plural antigua en la vista previa de un único par histórico. Se actualiza la frase visible a singular y se añade una comprobación del mensaje original de backupWarnings. Se conservan todas las comprobaciones de importes excluidos, migración bloqueada, ausencia de nuevas carteras/contrapartidas, cancelación, recarga y copias. La ejecución fallida no se contabiliza como correcta.
+
+La primera matriz nueva de importación/restauración completó **31 resultados**, 30 combinaciones y contenedor, en **105,84 s**: JSON y versión inválidos no escriben; la cuota conserva datos y vista previa; reintentar conserva una copia verificable; el idioma cambia cross-tab sin alterar la propuesta; restaurar, exportar y recargar preservan todos los campos financieros y la preferencia independiente. Se cancela la eliminación de una cuenta cuyo nombre personal coincide con una frase traducible. Esa medición registró 120 observaciones axe, cero violaciones y **180 grupos incompletos** adicionales, pendientes de revisión manual.
+
+La ejecución final ampliada completa **36/36 resultados en 93,56 s**, cero fallos, omisiones o cancelaciones: repite las 30 combinaciones y añade cinco casos de Web Locks no disponible, con mensaje nativo y formulario conservado. Sus 125 observaciones axe registran cero violaciones y **185 grupos incompletos**, pendientes de revisión manual. Los cuatro idiomas siguen deshabilitados: faltan P2/P3, otros errores de dominio, bordes de formato y la revisión integral.
+
+CI publicado anterior: [Actions 43462137791](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43462137791), SHA `2063e219a6e79d5208e7a2f832c923ea4e64bda9`, tres trabajos verdes. Artefacto comprobado: **452 resultados / 28 suites**, cero fallos, omisiones o cancelaciones. Axe general: 128 observaciones, cero violaciones y **136 grupos incompletos**. Matriz de obligaciones: 120 observaciones, cero violaciones y **130 grupos incompletos en CI**, frente a 128 locales; se mantiene la distinción entre observaciones incompletas y violaciones/defectos únicos. El nuevo checkpoint requiere sus propios checks.
+
+La batería completa contiene ahora **29 suites**. El recuento esperado de 488 resultados debe confirmarse con la ejecución completa del SHA publicado, sin usarlo como resultado anticipado.

@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { deletionReport } from '../utils/deletion';
@@ -156,9 +157,9 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-4">
-          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error,uiText)}</p>}
           {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
-          {error && <p role="alert" className="text-amber-300">{error}</p>}
+          {error && <p role="alert" className="text-amber-300">{storageOwnedText(error,uiText)}</p>}
           {/* Name & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -310,7 +311,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
         </form>
       </div>
     </Overlay>
-    {confirmDelete && walletToEdit && onDeleteWallet && <ConfirmDeleteDialog report={deletionReport(deletionData, { kind: 'wallet', id: walletToEdit.id })}
+    {confirmDelete && walletToEdit && onDeleteWallet && <ConfirmDeleteDialog source={{data:deletionData,target:{kind:"wallet",id:walletToEdit.id}}} report={deletionReport(deletionData, { kind: 'wallet', id: walletToEdit.id })}
       onCancel={() => setConfirmDelete(false)} onConfirm={async () => { const result = await onDeleteWallet(walletToEdit.id); if (result.ok) onClose(); return result; }} />}
     </>
   );

@@ -1,3 +1,4 @@
+import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { initialWalletId } from '../utils/defaultWallet';
@@ -100,7 +101,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
         <p className="text-[11px] text-slate-400">{uiText("transfer.los_dos_extremos_se_guardan_juntos_antes_del_primer")}</p>
         <form onSubmit={handleSubmit} aria-busy={submission.saving} className="space-y-4">
           <fieldset disabled={submission.saving} className="space-y-4">
-          {submission.error && <p role="alert" className="text-rose-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-rose-300">{storageOwnedText(submission.error,uiText)}</p>}
           {/* Account Selection Box */}
           <div className="space-y-2 relative">
             {/* Origin Wallet */}
