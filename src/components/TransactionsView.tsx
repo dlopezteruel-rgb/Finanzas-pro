@@ -1,5 +1,5 @@
 import { useI18n, I18nText } from "../i18n";
-import { economicTransactions } from '../utils/transfers';
+import {visibleEconomicTotals} from './transactionTotals';
 import React, { useState, useMemo } from 'react';
 import {
   Search,
@@ -99,13 +99,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     }
   }, [focusedTransactionId, filtered]);
 
-  const totalIncomes = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
-    .filter(t => t.type === 'INGRESO' && t.processed)
-    .reduce((s, t) => s + t.amount, 0);
-
-  const totalExpenses = economicTransactions(transactions).filter(t => filtered.some(f => f.id === t.id))
-    .filter(t => t.type === 'GASTO' && t.processed)
-    .reduce((s, t) => s + t.amount, 0);
+  const {income:totalIncomes,expenses:totalExpenses}=useMemo(()=>visibleEconomicTotals(transactions,filtered),[transactions,filtered]);
 
   const getCategoryIcon = (code: string, type: string) => {
     if (type === 'INGRESO') return <Briefcase className="w-4 h-4 text-emerald-400" />;

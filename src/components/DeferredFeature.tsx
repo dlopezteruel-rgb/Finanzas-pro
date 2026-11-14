@@ -22,7 +22,11 @@ export function deferredFeature<C extends React.ComponentType<any>>(loader:()=>P
  return function DeferredFeature(props:React.ComponentProps<C>){
   const [attempt,setAttempt]=useState(0),[Component,setComponent]=useState(()=>lazy(load));
   const Loaded=Component as React.ComponentType<React.ComponentProps<C>>;
-  const retry=()=>{setComponent(()=>lazy(load));setAttempt(n=>n+1);};
+  const retry=()=>{
+   const target=document.activeElement?.closest<HTMLElement>('[role="tabpanel"]')??document.getElementById('app-content');
+   target?.focus({preventScroll:true});
+   setComponent(()=>lazy(load));setAttempt(n=>n+1);
+  };
   return <FeatureBoundary key={attempt} fallback={<FeatureState name={name} failed retry={retry}/>}><Suspense fallback={<FeatureState name={name}/>}><Loaded {...props}/></Suspense></FeatureBoundary>;
  };
 }

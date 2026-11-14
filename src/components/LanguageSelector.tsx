@@ -10,7 +10,7 @@ export function LanguageSelector({ appearance = 'menu' }: { appearance?: 'menu' 
     </select>
     <p id={`${id}-help`} className={landing ? 'sr-only' : 'mt-2 text-slate-300 leading-relaxed'}>{t('language.help')}</p>
     {pendingLanguage && <p role="status" className="mt-2">{t('language.loading', {language: languages[pendingLanguage].label})}</p>}
-    {languageError && <div className="mt-2"><p role="alert">{t('language.loadError', {language: languages[languageError].label})}</p><button type="button" onClick={retryLanguage}>{t('language.retry')}</button></div>}
+    {languageError && <div className="mt-2"><p role="alert">{t('language.loadError', {language: languages[languageError].label})}</p><button type="button" onClick={()=>{if(retryLanguage())document.getElementById(id)?.focus();}}>{t('language.retry')}</button></div>}
     {preferenceError && <p role="status" className="mt-2">{t('language.storageError')}</p>}
   </div>;
 }

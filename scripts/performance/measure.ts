@@ -4,20 +4,13 @@ import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {gzipSync} from 'node:zlib';
 import os from 'node:os';
 import {chromium,type Page,type CDPSession} from 'playwright-core';
-import {DATA_KEY,makeBackup,parseBackup} from '../../src/utils/backup';
-import {multilingualCatalogFixture} from '../multilingualCatalogFixture';
+import {DATA_KEY} from '../../src/utils/backup';
+import {volumeFixture} from './fixture';
 import {LANGUAGE_KEY} from '../../src/i18n/preference';
 import {navigateModule} from '../browserNavigation';
 
 const dist=path.resolve(process.env.PERF_DIST??'dist'),output=path.resolve(process.env.PERF_OUTPUT??'ci-artifacts/performance.json'),samples=Number(process.env.PERF_SAMPLES??3);
 const profiles=[{name:'mobile',width:390,cpu:4,latency:80,mbps:1.6},{name:'tablet',width:768,cpu:2,latency:40,mbps:5},{name:'desktop',width:1280,cpu:1,latency:20,mbps:10}].filter(p=>!process.env.PERF_PROFILE||p.name===process.env.PERF_PROFILE);
-const base=multilingualCatalogFixture();
-/** Preserve the original synthetic linked graph and append independent, validator-approved records. */
-export function volumeFixture(count:number){
- const data=structuredClone(base),original=data.transactions.find(tx=>tx.id==='income')!;
- while(data.transactions.length<count){const n=data.transactions.length;data.transactions.push({...original,id:`volume-${n}`,type:n%4?'GASTO':'INGRESO',code:n%4?'V.001.002':'L.001.001',amount:(n%10000+1)/100,date:`2026-${n%2?'10':'11'}-${String(n%28+1).padStart(2,'0')}`,description:`Synthetic volume ${n} ${n%10===0?'needle':''}`,categoryName:'Documento ficticio',subcategoryName:'Nombre documental',processed:n%3!==0});}
- const backup=makeBackup(data);parseBackup(JSON.stringify(backup));return backup;
-}
 const app=express(),compressed=new Map<string,Buffer>();
 app.get(/\.(?:js|css)$/,async(req,res,next)=>{try{const file=path.resolve(dist,'.'+req.path);if(!file.startsWith(dist+path.sep))return res.sendStatus(403);let body=compressed.get(file);if(!body){body=gzipSync(await readFile(file));compressed.set(file,body);}res.set({'Content-Type':file.endsWith('.js')?'text/javascript':'text/css','Content-Encoding':'gzip','Cache-Control':'public,max-age=3600','Vary':'Accept-Encoding'}).send(body);}catch{next();}});
 app.use(express.static(dist));app.get('*',(_q,r)=>r.sendFile(path.join(dist,'index.html')));
@@ -32,12 +25,13 @@ async function snapshot(page:Page,cdp:CDPSession,scenario:string,profile:any,sam
  await page.evaluate(()=>new Promise<void>(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>r()))));
  const metrics=await cdp.send('Performance.getMetrics'),m=Object.fromEntries(metrics.metrics.map(x=>[x.name,x.value]));
  const observed=await page.evaluate(()=>{const p=(window as any).__perf,resources=performance.getEntriesByType('resource') as PerformanceResourceTiming[],js=resources.filter(r=>/\.js(?:\?|$)/.test(r.name));return {...p,fcp:performance.getEntriesByName('first-contentful-paint')[0]?.startTime??null,jsEncoded:js.reduce((n,r)=>n+r.encodedBodySize,0),jsDecoded:js.reduce((n,r)=>n+r.decodedBodySize,0),jsTransfer:js.reduce((n,r)=>n+r.transferSize,0),jsResources:js.map(r=>({file:new URL(r.name).pathname,transfer:r.transferSize,encoded:r.encodedBodySize,decoded:r.decodedBodySize})),requests:resources.length,horizontalOverflow:document.documentElement.scrollWidth>innerWidth+1,financialWrites:(window as any).__writes??[]};});
+ if(process.env.PERF_SCREENSHOTS&&sample===0&&['application-cold','planning-first-open'].includes(scenario)){await mkdir(process.env.PERF_SCREENSHOTS,{recursive:true});await page.screenshot({path:path.join(process.env.PERF_SCREENSHOTS,`${profile.name}-${scenario}.png`)});}
  const row={scenario,profile:profile.name,width:profile.width,sample,interactionMs:start===undefined?null:performance.now()-start,scriptDurationMs:m.ScriptDuration*1000,taskDurationMs:m.TaskDuration*1000,heapUsedBytes:m.JSHeapUsedSize,nodes:m.Nodes,...observed};rows.push(row);console.log(JSON.stringify({scenario,profile:profile.name,sample,interactionMs:row.interactionMs,jsEncoded:row.jsEncoded,longTasks:row.longTasks.length}));return row;
 }
 async function fixturePage(profile:any,language='es',count=100,empty=false){
  const c=await browser.newContext({viewport:{width:profile.width,height:900},isMobile:profile.width===390,hasTouch:profile.width===390,locale:'de-DE',timezoneId:'Europe/Madrid',serviceWorkers:'block'});
  // Browser routing is deliberately NOT enabled: it disables HTTP cache and invalidates warm measurements.
- const page=await c.newPage();page.setDefaultTimeout(30000);page.on('pageerror',e=>errors.push(e.message));
+ const page=await c.newPage();page.setDefaultTimeout(count===5000?120000:30000);page.on('pageerror',e=>errors.push(e.message));
  page.on('request',r=>{if(new URL(r.url()).origin!==origin)external.push(r.url());});
  const cdp=await c.newCDPSession(page);await cdp.send('Network.enable');await cdp.send('Network.setBlockedURLs',{urls:['https://*','http://fonts.*']});await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:profile.latency,downloadThroughput:profile.mbps*1000000/8,uploadThroughput:profile.mbps*1000000/8});await cdp.send('Emulation.setCPUThrottlingRate',{rate:profile.cpu});await cdp.send('Performance.enable');
  await c.addInitScript(({key,pref,value,language})=>{if(!sessionStorage.getItem('perf-seeded')){if(value)localStorage.setItem(key,value);localStorage.setItem(pref,language);sessionStorage.setItem('perf-seeded','1');}(window as any).__writes=[];const set=Storage.prototype.setItem,remove=Storage.prototype.removeItem;Storage.prototype.setItem=function(k,v){if(k!==pref)(window as any).__writes.push(`set:${k}`);return set.call(this,k,v);};Storage.prototype.removeItem=function(k){if(k!==pref)(window as any).__writes.push(`remove:${k}`);return remove.call(this,k);};},{key:DATA_KEY,pref:LANGUAGE_KEY,value:empty?null:JSON.stringify(volumeFixture(count)),language});await instrumentation(page);return {c,page,cdp};
@@ -45,6 +39,7 @@ async function fixturePage(profile:any,language='es',count=100,empty=false){
 try{
  for(const profile of profiles)for(let sample=0;sample<samples;sample++){
   for(const language of ['es','en']){const {c,page,cdp}=await fixturePage(profile,language,100,true);try{const start=performance.now();await page.goto(origin+'/');await page.locator('#landing-language').waitFor();await page.waitForFunction(l=>document.documentElement.lang===l,language==='es'?'es-ES':'en-GB');await snapshot(page,cdp,`landing-${language}-cold`,profile,sample,start);}finally{await c.close();}}
+  {const {c,page,cdp}=await fixturePage(profile,'es',100,true);try{const start=performance.now();await page.goto(origin+'/app');await page.locator('.home-quick').waitFor();await snapshot(page,cdp,'application-empty-cold',profile,sample,start);}finally{await c.close();}}
   const {c,page,cdp}=await fixturePage(profile);try{
    let start=performance.now();await page.goto(origin+'/app');await page.locator('.home-quick').waitFor();await snapshot(page,cdp,'application-cold',profile,sample,start);
    start=performance.now();await page.reload();await page.locator('.home-quick').waitFor();await snapshot(page,cdp,'application-warm',profile,sample,start);
