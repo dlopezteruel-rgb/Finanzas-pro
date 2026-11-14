@@ -6,6 +6,8 @@ Base exacta: `7611ab8ed09589ec87c0544ef2c4b7affcf1302c`, merge de PR #26. Refere
 
 Las comprobaciones usan datos ficticios, almacenamiento aislado y bloqueo de solicitudes externas. No se utilizan cuentas ni información financiera personal. La representación interna sigue en EUR, fechas ISO y Europe/Madrid; la localización solo afecta a presentación. FinanceStore, modelos, cálculos, reglas, parsers, Web Locks, migraciones, esquemas y API/prompts del asistente quedan fuera de las correcciones.
 
+Se comparan directamente **116 archivos protegidos, idénticos byte a byte a la base**, incluidos utils, types, constants, services, i18n, servidor, workflow, lockfile y configuración Vite. [Manifiesto y SHA-256](phase-5c-protected-files.json). Los cambios de App, formularios y confirmaciones se limitan a roles/relaciones ARIA; sus callbacks y condiciones financieras se conservan. La apariencia de landing reutiliza el selector existente y no carga FinanceStore.
+
 Este documento es un registro en curso. Los apartados sin resultado final explícito permanecen pendientes y no constituyen una aprobación.
 
 ## Línea base
@@ -28,6 +30,30 @@ Referencia remota 5B, distinta de esta nueva validación: [ejecución 4353959811
 | Gráficos | Cuatro módulos, leyendas, filtros, tablas y enlaces | Matriz charts y detalles axe enriquecidos |
 
 Las matrices existentes recorren los cinco idiomas y ambos temas de la aplicación a 390/768/1280 px. La landing mantiene su paleta clara propia; regresar desde una app oscura no implica que disponga de un modo oscuro independiente. El alcance final ejecutado, con cifras y resultados, se registra al cerrar la validación.
+
+Matriz nueva de landing, aprobada en la suite focalizada de 42 resultados (la regresión completa se registra aparte):
+
+| Idioma | 390 px | 768 px | 1280 px | Tema previo de app | Teclado, lang, persistencia y datos |
+| --- | --- | --- | --- | --- | --- |
+| Español · es-ES | Correcto | Correcto | Correcto | Claro y oscuro | Correctos |
+| English · en-GB | Correcto | Correcto | Correcto | Claro y oscuro | Correctos |
+| Italiano · it-IT | Correcto | Correcto | Correcto | Claro y oscuro | Correctos |
+| Français · fr-FR | Correcto | Correcto | Correcto | Claro y oscuro | Correctos |
+| Português · pt-PT | Correcto | Correcto | Correcto | Claro y oscuro | Correctos |
+
+Son 30 recorridos, con los cinco cambios de idioma repetidos en cada uno. La prueba conserva un sentinel de documento para excluir una recarga por seleccionar idioma, verifica los nombres nativos y la descripción accesible, Home/ArrowDown/Enter/Tab/Shift+Tab, el foco del mismo elemento, la vuelta por historial y la recarga posterior. El importe pendiente 1234.56 y el concepto literal se conservan durante siete cambios entre pestañas. Se observan todas las escrituras/remociones de localStorage ajenas a la preferencia y clear, además de comparar el JSON financiero literal. Las comprobaciones de Escape se realizan en menús, diálogos y el listbox de la aplicación; el selector de landing utiliza el control nativo del navegador.
+
+## Capturas comparativas
+
+Capturas de la aplicación real, con el mismo fixture ficticio y sin retoque. [Manifiesto con procedencia y SHA-256](phase-5c-screenshots.json). Los contornos visibles muestran el foco de teclado conservado en el selector. Las capturas posteriores corresponden al código publicado `791410fdb68be69330d46b344d9e29e60f13a5e4`, usado en la validación completa.
+
+| Resolución | Antes, base 7611ab8 | Después, selector compartido |
+| --- | --- | --- |
+| 390 px, francés | [Antes](screenshots/phase-5c/landing-fr-390-before.png) | [Después](screenshots/phase-5c/landing-fr-390-after.png) |
+| 768 px, francés | [Antes](screenshots/phase-5c/landing-fr-768-before.png) | [Después](screenshots/phase-5c/landing-fr-768-after.png) |
+| 1280 px, francés | [Antes](screenshots/phase-5c/landing-fr-1280-before.png) | [Después](screenshots/phase-5c/landing-fr-1280-after.png) |
+
+Otros ejemplos: português [390](screenshots/phase-5c/landing-pt-390-after.png), [768](screenshots/phase-5c/landing-pt-768-after.png) y [1280 px](screenshots/phase-5c/landing-pt-1280-after.png). Se inspeccionan capturas y geometría DOM; no se afirma haber usado pantallas o dispositivos físicos.
 
 ## Incidencias reproducidas
 
@@ -57,6 +83,10 @@ Los **1663 grupos** de 5B son observaciones repetidas, no 1663 defectos independ
 | color-contrast | 40 | 885 | Reproducidos nonBmp (símbolos), imgNode (texto SVG), elmPartiallyObscured y elmPartiallyObscuring (capas y scroll). Requieren revisión contextual, no una exención global. |
 
 Los informes históricos solo conservan regla y número de nodos. No se inventa una causa específica para un registro sin target. Las reproducciones actuales retienen target, HTML, check, mensaje y datos del motor. La nueva herramienta `scripts/i18n/axe-review.mjs` agrupa dimensiones equivalentes sin descartar observaciones, y falla ante evidencia ausente o inconsistente. Las reglas axe WCAG 2 A/AA y 2.1 AA se mantienen íntegras. La revisión se completa con los resultados actuales y los pendientes manuales al final de la fase.
+
+El [índice del legado](phase-5c-axe-5b-reference.json) conserva los 1663 registros: 33 conjuntos aria-prohibited-attr, 3 aria-valid-attr-value y 47 color-contrast. La [investigación reproducida](phase-5c-axe-investigation.json) distingue seis mecanismos y retiene ejemplos de los 26 estados inspeccionados en la base. Los nuevos informes de las 12 auditorías conservadas añaden targets, HTML y datos de checks sin alterar sus aserciones, superficies ni reglas.
+
+Revisión suplementaria de estilos en gráficos/opciones/recuperación a 390 px, claro y oscuro: texto principal/SVG calculado sobre su ancestro opaco da 14.102:1 en claro y 12.636:1 en oscuro; ayuda de opciones/recuperación 5.999:1 y 8.321:1. Es una comprobación de colores calculados, no prueba de la composición real de todas las capas, recortes o etiquetas. El contraste de SVG, los elementos bajo scroll y las superposiciones continúan necesitando revisión visual contextual. Los glifos decorativos observados (flechas con aria-hidden y texto adyacente) se distinguen del texto informativo. No se eximen reglas ni se convierten automáticamente estos grupos en aprobaciones.
 
 No se han realizado pruebas con lector de pantalla ni dispositivos físicos. Inspección de DOM, teclado automatizado, estilos y capturas no se presentan como tales.
 
@@ -104,6 +134,16 @@ En 5C no se traduce el catálogo ni se cambian sus reglas de edición.
 Medición reproducible mediante `node scripts/i18n/bundle-audit.mjs <salida.json>`. Genera un build de producción en memoria con salida temporal propia; no reemplaza dist mientras se ejecutan pruebas. Registra bytes minificados y gzip por chunk, importaciones y módulos i18n. renderedLength es metadato anterior a la minificación final y no una atribución exacta de bytes comprimidos.
 
 Base: index **1 131 460 bytes**, App **515 671**, FinancialCharts **40 423**. El chunk inicial contiene los cinco diccionarios mediante importaciones estáticas de messages.ts; la landing también los descarga. Español está repartido entre es.ts y es.p*.ts/es.plurals.ts: medir solo es.ts subestimaría su tamaño. El aviso Vite >500 kB permanece documentado.
+
+[Medición estabilizada](phase-5c-bundle-results.json), mismos hashes de archivos que el build probado:
+
+| Chunk | Bytes minificados | gzip nivel 6 | Cambio bruto frente a base | Carga |
+| --- | ---: | ---: | ---: | --- |
+| index-BnuTBXQs.js | 1 132 495 | 307 368 | +1035 | Inicial, incluye landing y cinco diccionarios |
+| App-B8ii7PJF.js | 514 936 | 129 827 | −735 | Diferida al entrar en app |
+| FinancialCharts-BI4HpfTi.js | 40 428 | 12 476 | +5 | Diferida al abrir gráficos |
+
+El movimiento del selector compartido al chunk inicial explica la redistribución entre index y App; el total JavaScript aumenta 305 bytes. Los diccionarios suman 885 708 bytes de fuentes (incluidos los fragmentos españoles). Los módulos i18n en index tienen renderedLength acumulado 878 583; los adaptadores diferidos de App 77 919 y gráficos 4442. No se compara ese metadato con bytes minificados como si fuera un porcentaje exacto. Vite informa CSS 94.12 kB y gzip 17.03 kB. Su estimación gzip del JavaScript y la medición explícita nivel 6 son métodos distintos y se registran como tales. No se modifican las importaciones ni la estrategia de carga de los diccionarios.
 
 Propuesta posterior: carga diferida de diccionarios no seleccionados dentro del proveedor existente, manteniendo fallback, validación, estados de error, secuencia de solicitudes y cambios simultáneos entre pestañas. Medir arranque y cambio de idioma antes/después. No se implementa ese cambio de arquitectura en 5C.
 
