@@ -1,0 +1,548 @@
+{
+  "schemaVersion": 1,
+  "browser": "156.0.8078.79",
+  "samples": 3,
+  "method": "Separate temporary production-mode builds with existing react-dom/profiling renderer and React.Profiler around Root and the ledger. No source/config/dependency edits.3 samples at390/CPU4× and1280/CPU1×; unthrottled local network. Profiling overhead applies to both builds; these are React render/commit observations, NOT regular production FCP/INP or native DOM commit totals. Every action is read-only and preserves raw financial bytes.",
+  "rows": [
+    {
+      "variant": "before",
+      "width": 390,
+      "cpu": 4,
+      "sample": 0,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 2931.400000028312,
+          "baseDuration": 2328.1000000312924,
+          "startTime": 1524.3999999985099,
+          "commitTime": 4481.5
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 2947.400000035763,
+          "baseDuration": 2372.9000000432134,
+          "startTime": 1508.7999999970198,
+          "commitTime": 4481.5
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 136.49999999254942,
+          "baseDuration": 131.60000000149012,
+          "startTime": 9382.39999999851,
+          "commitTime": 9524.5
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 137.3999999910593,
+          "baseDuration": 176.30000001192093,
+          "startTime": 9381.60000000149,
+          "commitTime": 9524.5
+        }
+      ]
+    },
+    {
+      "variant": "before",
+      "width": 390,
+      "cpu": 4,
+      "sample": 1,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 1632.0999999940395,
+          "baseDuration": 1255.0999999940395,
+          "startTime": 1199.5999999940395,
+          "commitTime": 2851
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 1646.7999999970198,
+          "baseDuration": 1303.6999999955297,
+          "startTime": 1185.3999999985099,
+          "commitTime": 2851
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 136.00000002235174,
+          "baseDuration": 134.3000000193715,
+          "startTime": 7330.0999999940395,
+          "commitTime": 7471.0999999940395
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 136.10000002384186,
+          "baseDuration": 182.90000002086163,
+          "startTime": 7330.0999999940395,
+          "commitTime": 7471.0999999940395
+        }
+      ]
+    },
+    {
+      "variant": "before",
+      "width": 390,
+      "cpu": 4,
+      "sample": 2,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 1931.4999999850988,
+          "baseDuration": 1413.2000000104308,
+          "startTime": 1135,
+          "commitTime": 3098.9000000059605
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 1946.2999999821186,
+          "baseDuration": 1462.7999999970198,
+          "startTime": 1122.2000000029802,
+          "commitTime": 3098.9000000059605
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 151.2999999821186,
+          "baseDuration": 144.2999999821186,
+          "startTime": 7446.9000000059605,
+          "commitTime": 7604.30000000447
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 152.1999999806285,
+          "baseDuration": 193.89999996870756,
+          "startTime": 7446.70000000298,
+          "commitTime": 7604.30000000447
+        }
+      ]
+    },
+    {
+      "variant": "before",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 0,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 317.3000000268221,
+          "baseDuration": 240.6000000461936,
+          "startTime": 590.8999999985099,
+          "commitTime": 912.7999999970198
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 320.4000000357628,
+          "baseDuration": 248.50000005215406,
+          "startTime": 587.7999999970198,
+          "commitTime": 912.7999999970198
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 23.19999999552965,
+          "baseDuration": 22.400000013411045,
+          "startTime": 1716.5999999940395,
+          "commitTime": 1741.0999999940395
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 23.19999999552965,
+          "baseDuration": 30.200000017881393,
+          "startTime": 1716.5,
+          "commitTime": 1741.0999999940395
+        }
+      ]
+    },
+    {
+      "variant": "before",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 1,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 330.4999999925494,
+          "baseDuration": 237.3999999910593,
+          "startTime": 657.7000000029802,
+          "commitTime": 994.2000000029802
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 333,
+          "baseDuration": 251.19999999552965,
+          "startTime": 655.2000000029802,
+          "commitTime": 994.2000000029802
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 24.399999991059303,
+          "baseDuration": 23.69999998062849,
+          "startTime": 1699.2999999970198,
+          "commitTime": 1725
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 24.49999999254942,
+          "baseDuration": 37.3999999910593,
+          "startTime": 1699.2000000029802,
+          "commitTime": 1725
+        }
+      ]
+    },
+    {
+      "variant": "before",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 2,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 346.6000000014901,
+          "baseDuration": 231.99999999254942,
+          "startTime": 611.3000000044703,
+          "commitTime": 964.1000000014901
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 349.6000000014901,
+          "baseDuration": 240.99999999254942,
+          "startTime": 608.5,
+          "commitTime": 964.1000000014901
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 25.100000001490116,
+          "baseDuration": 24.5,
+          "startTime": 1918.3000000044703,
+          "commitTime": 1944.3000000044703
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 25.200000002980232,
+          "baseDuration": 33.5,
+          "startTime": 1918.2000000029802,
+          "commitTime": 1944.3000000044703
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "cpu": 4,
+      "sample": 0,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 683.1999999731779,
+          "baseDuration": 333.1999998986721,
+          "startTime": 1303.3000000044703,
+          "commitTime": 2011
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 694.2999999821186,
+          "baseDuration": 411.99999990314245,
+          "startTime": 1293.3000000044703,
+          "commitTime": 2011
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 0.10000000149011612,
+          "baseDuration": 412.09999990463257,
+          "startTime": 5394.39999999851,
+          "commitTime": 5394.60000000149
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 46.900000005960464,
+          "baseDuration": 42.6000000089407,
+          "startTime": 5775.39999999851,
+          "commitTime": 5828.20000000298
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 46.900000005960464,
+          "baseDuration": 121.50000001490116,
+          "startTime": 5775.30000000447,
+          "commitTime": 5828.20000000298
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "cpu": 4,
+      "sample": 1,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 726.6000000014901,
+          "baseDuration": 341.2999999895692,
+          "startTime": 1230.7999999970198,
+          "commitTime": 1976.1999999955297
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 736.2000000029802,
+          "baseDuration": 379.3999999985099,
+          "startTime": 1222.0999999940395,
+          "commitTime": 1976.1999999955297
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 0.9000000059604645,
+          "baseDuration": 379.3999999985099,
+          "startTime": 5494.5999999940395,
+          "commitTime": 5495.5999999940395
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 33.19999998807907,
+          "baseDuration": 32.099999986588955,
+          "startTime": 5883.5999999940395,
+          "commitTime": 5922.79999999702
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 33.29999998211861,
+          "baseDuration": 70.19999999552965,
+          "startTime": 5883.5,
+          "commitTime": 5922.79999999702
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 390,
+      "cpu": 4,
+      "sample": 2,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 0.6000000014901161,
+          "baseDuration": 319.5000000298023,
+          "startTime": 1286.3000000044703,
+          "commitTime": 1356.3999999985099
+        },
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 636.7000000104308,
+          "baseDuration": 301.2999999076128,
+          "startTime": 1399.8000000044703,
+          "commitTime": 2062.8000000044703
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 648.400000013411,
+          "baseDuration": 344.19999991357327,
+          "startTime": 1387.6000000014901,
+          "commitTime": 2062.8000000044703
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 44.5,
+          "baseDuration": 39.50000000745058,
+          "startTime": 6010.89999999851,
+          "commitTime": 6063.20000000298
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 44.600000001490116,
+          "baseDuration": 82.40000001341105,
+          "startTime": 6010.89999999851,
+          "commitTime": 6063.20000000298
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 0,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 168.80000004172325,
+          "baseDuration": 78.70000000298023,
+          "startTime": 662.3999999985099,
+          "commitTime": 837.0999999940395
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 171.40000005066395,
+          "baseDuration": 99.6000000089407,
+          "startTime": 660.0999999940395,
+          "commitTime": 837.0999999940395
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 9.799999997019768,
+          "baseDuration": 8.900000005960464,
+          "startTime": 1589.3999999985099,
+          "commitTime": 1600
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 9.799999997019768,
+          "baseDuration": 29.80000001192093,
+          "startTime": 1589.1999999955297,
+          "commitTime": 1600
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 1,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 142.3000000193715,
+          "baseDuration": 69.50000002980232,
+          "startTime": 555.7999999970198,
+          "commitTime": 703.7999999970198
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 144.70000002533197,
+          "baseDuration": 77.90000003576279,
+          "startTime": 553.6000000014901,
+          "commitTime": 703.7999999970198
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 9.299999997019768,
+          "baseDuration": 8.700000002980232,
+          "startTime": 1628.6000000014901,
+          "commitTime": 1639.1000000014901
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 9.399999998509884,
+          "baseDuration": 17.100000008940697,
+          "startTime": 1628.6000000014901,
+          "commitTime": 1639.1000000014901
+        }
+      ]
+    },
+    {
+      "variant": "after",
+      "width": 1280,
+      "cpu": 1,
+      "sample": 2,
+      "count": 1000,
+      "mount": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 166.80000001192093,
+          "baseDuration": 81.4999999627471,
+          "startTime": 589.5,
+          "commitTime": 763.7999999970198
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 169.1000000089407,
+          "baseDuration": 91.69999995827675,
+          "startTime": 587.1999999955297,
+          "commitTime": 763.7999999970198
+        }
+      ],
+      "filter": [
+        {
+          "id": "ledger",
+          "phase": "update",
+          "actualDuration": 8.699999995529652,
+          "baseDuration": 8.099999986588955,
+          "startTime": 1475.2999999970198,
+          "commitTime": 1484.8999999985099
+        },
+        {
+          "id": "root",
+          "phase": "update",
+          "actualDuration": 8.799999997019768,
+          "baseDuration": 18.299999982118607,
+          "startTime": 1475.1999999955297,
+          "commitTime": 1484.8999999985099
+        }
+      ]
+    }
+  ]
+}

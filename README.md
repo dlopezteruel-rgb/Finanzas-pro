@@ -217,3 +217,7 @@ Consulta el [modelo, recuperación, checkpoints, pruebas y capturas ficticias](d
 Las familias, partidas y subgrupos iniciales con procedencia explícita disponen de nombres de presentación en español, inglés británico, italiano, francés y portugués de Portugal. El idioma no cambia nombres guardados, importes ni históricos. Los nombres creados o renombrados por el usuario permanecen literales; los catálogos antiguos o ambiguos tampoco se traducen automáticamente. Desde la gestión del catálogo se puede revisar y revertir expresamente esa elección.
 
 El metadato opcional de nombres utiliza **JSON 3.5**, con copia recuperable verificada antes de la primera subida de formato y compatibilidad de lectura/restauración **2.5–3.4**. No hay migración al abrir ni un nuevo almacenamiento financiero. Véanse la [arquitectura, matriz de pruebas y límites](docs/phase-5d-multilingual-catalog.md) y el [inventario de 120 nombres en los cinco idiomas](docs/phase-5d-catalogue-inventory.json).
+
+## Rendimiento y carga de idiomas
+
+La fase 5E utiliza diccionarios y pantallas secundarias bajo demanda, manteniendo los contratos financieros y los cinco idiomas. El [informe de rendimiento](docs/phase-5e-performance-optimization.md) publica las mediciones antes/después, sus costes, capturas ficticias y el estado real de validación. Las preferencias visuales `finanzas.ui.language` y `finanzas.ui.theme` son independientes de los datos financieros; el campo `theme` de las copias antiguas permanece como fallback.

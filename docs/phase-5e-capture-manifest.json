@@ -1,0 +1,104 @@
+{
+  "fixture": "volumeFixture(100), original synthetic graph plus validated multi-year budgets; approval/export times fixed to2026-11-14T12Z",
+  "beforeCommit": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
+  "afterCommit": "d9ccb7d7e0a7a6e95362217c252d9d9b58460320",
+  "scope": "Actual production app; viewport screenshots without image editing. Dark theme. Emulation, no physical-device claim. Financial hash is the exact stored fictional snapshot.",
+  "captures": [
+    {
+      "file": "docs/phase-5e-screenshots/before-mobile-planning-first-open.png",
+      "variant": "before",
+      "width": 390,
+      "scenario": "planning-first-open",
+      "sha256": "cdcce626357b5cca4cf87c01df4ed5fa042967a9eaee8b7d6fcaca75a6fffbf5",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/before-desktop-planning-first-open.png",
+      "variant": "before",
+      "width": 1280,
+      "scenario": "planning-first-open",
+      "sha256": "e8f620ac0d5337f1433149378c82746fc37d8cf11a1112e3de5aadeafe4353a0",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/before-tablet-application-cold.png",
+      "variant": "before",
+      "width": 768,
+      "scenario": "application-cold",
+      "sha256": "a70d0311b57a1105b203e6b73ddaf59d3be4b5a82d5765aafd3d6149c0cd6ccf",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/before-mobile-application-cold.png",
+      "variant": "before",
+      "width": 390,
+      "scenario": "application-cold",
+      "sha256": "28648d806e65f376f14ca7ace5ac290d06528646b9577d87609d15eb0a8cb1d6",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/before-tablet-planning-first-open.png",
+      "variant": "before",
+      "width": 768,
+      "scenario": "planning-first-open",
+      "sha256": "44160992679e0fd9c4700d8787c89399c08036a344f0ea0075c24d0a54715c5c",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/before-desktop-application-cold.png",
+      "variant": "before",
+      "width": 1280,
+      "scenario": "application-cold",
+      "sha256": "511e8f91be7933a2c513c6c6bb24f0fba7e873b1637783f0ef1c45a80c2cf3da",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-mobile-planning-first-open.png",
+      "variant": "after",
+      "width": 390,
+      "scenario": "planning-first-open",
+      "sha256": "4fe947349b83fc422ef1b1041dbfd055bbeb1992f02464b1db93ca3497d8e374",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-desktop-planning-first-open.png",
+      "variant": "after",
+      "width": 1280,
+      "scenario": "planning-first-open",
+      "sha256": "e8f620ac0d5337f1433149378c82746fc37d8cf11a1112e3de5aadeafe4353a0",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-tablet-application-cold.png",
+      "variant": "after",
+      "width": 768,
+      "scenario": "application-cold",
+      "sha256": "a70d0311b57a1105b203e6b73ddaf59d3be4b5a82d5765aafd3d6149c0cd6ccf",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-mobile-application-cold.png",
+      "variant": "after",
+      "width": 390,
+      "scenario": "application-cold",
+      "sha256": "28648d806e65f376f14ca7ace5ac290d06528646b9577d87609d15eb0a8cb1d6",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-tablet-planning-first-open.png",
+      "variant": "after",
+      "width": 768,
+      "scenario": "planning-first-open",
+      "sha256": "c8850a43007788dd95af4e6a3d96ddcdd28c7c10bbbb7eb5ac389ff65241cc29",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    },
+    {
+      "file": "docs/phase-5e-screenshots/after-desktop-application-cold.png",
+      "variant": "after",
+      "width": 1280,
+      "scenario": "application-cold",
+      "sha256": "511e8f91be7933a2c513c6c6bb24f0fba7e873b1637783f0ef1c45a80c2cf3da",
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
+    }
+  ]
+}
