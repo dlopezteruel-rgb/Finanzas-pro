@@ -1,0 +1,7056 @@
+{
+  "schemaVersion": 1,
+  "method": "Equivalence is report + surface + rule; every original observation remains referenced. Mechanism counts are node/check occurrences, not distinct defects. Missing details cannot establish a cause or resolution.",
+  "totals": {
+    "surfaces": 1402,
+    "violations": 0,
+    "incompleteGroups": 932,
+    "incompleteNodes": 5728
+  },
+  "rules": {
+    "color-contrast": 931,
+    "aria-valid-attr-value": 1
+  },
+  "mechanisms": {
+    "color-contrast:nonBmp": 306,
+    "color-contrast:elmPartiallyObscuring": 1637,
+    "color-contrast:elmPartiallyObscured": 2122,
+    "color-contrast:bgOverlap": 72,
+    "aria-valid-attr-value:controlsWithinPopup": 1,
+    "color-contrast:shortTextContent": 10,
+    "color-contrast:imgNode": 1580
+  },
+  "groups": [
+    {
+      "report": "axe.json",
+      "surface": "Presupuestos",
+      "rule": "color-contrast",
+      "observationGroups": 8,
+      "nodeOccurrences": 50,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:nonBmp": 48,
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_5_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Planificacion-ingresos",
+      "rule": "color-contrast",
+      "observationGroups": 8,
+      "nodeOccurrences": 18,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:nonBmp": 16,
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_3_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Cartera",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".gap-2\\.5.items-center.flex > div:nth-child(2) > p"
+          ],
+          "html": "<p class=\"text-[11px] text-slate-400\">Crea una nueva cuenta bancaria, efectivo o ahorro</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Movimientos",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span:nth-child(2)"
+          ],
+          "html": "<span>Movimientos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Multiperiodo",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 14,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 2,
+        "color-contrast:nonBmp": 12
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_3_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Catalogo",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contactos",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:bgOverlap": 6
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:bgOverlap"
+          ],
+          "target": [
+            ".px-3 > span"
+          ],
+          "html": "<span>Nuevo Contacto</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it is overlapped by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contacto-expandido",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:bgOverlap": 6
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:bgOverlap"
+          ],
+          "target": [
+            ".py-2 > span"
+          ],
+          "html": "<span>Nuevo Contacto</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it is overlapped by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "landing-language.json",
+      "surface": "movement-listbox-open",
+      "rule": "aria-valid-attr-value",
+      "observationGroups": 1,
+      "nodeOccurrences": 1,
+      "languages": [
+        "en"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 30,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "aria-valid-attr-value:controlsWithinPopup": 1
+      },
+      "examples": [
+        {
+          "causes": [
+            "aria-valid-attr-value:controlsWithinPopup"
+          ],
+          "target": [
+            ".px-3"
+          ],
+          "html": "<button type=\"button\" aria-label=\"Select budget item\" aria-expanded=\"true\" aria-haspopup=\"listbox\" class=\"w-full text-left bg-[#0c0f17] border border-white/10 rounded-xl px-3 py-2.5\" aria-controls=\"_r_1_-options\">Select a budget item</button>",
+          "checks": [
+            {
+              "id": "aria-valid-attr-value",
+              "data": {
+                "messageKey": "controlsWithinPopup",
+                "needsReview": "aria-controls=\"_r_1_-options\""
+              },
+              "relatedNodes": [],
+              "impact": "critical",
+              "message": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"_r_1_-options\""
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "landing-language.json",
+      "surface": "movement-listbox-open",
+      "rule": "color-contrast",
+      "observationGroups": 1,
+      "nodeOccurrences": 3,
+      "languages": [
+        "en"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 30,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 3
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "#_r_1_-4"
+          ],
+          "html": "<button type=\"button\" role=\"option\" aria-selected=\"false\" tabindex=\"-1\" id=\"_r_1_-4\" data-index=\"4\" class=\"w-full rounded-lg text-left p-2 hover:bg-white/5\">Energía ficticia<span class=\"block text-[10px] text-slate-400\">Vivienda</span></button>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"space-y-2 border border-sky-500/30 rounded-xl p-3 bg-[#0c0f17]\">",
+                  "target": [
+                    ".border-sky-500\\/30"
+                  ]
+                }
+              ],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it's partially obscured by another element"
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "landing-language.json",
+      "surface": "named-deletion-impact",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 36,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 36
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "div[role=\"group\"] > p"
+          ],
+          "html": "<p>Algunas categorías se solapan; sus cantidades no se suman entre sí.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [],
+              "impact": "serious",
+              "message": "Element's background color could not be determined because it partially overlaps other elements"
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "copy-invalid-range",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 84,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 84
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".planning.space-y-3 > p:nth-child(4)"
+          ],
+          "html": "<p>Máximo 12 meses. Mes actual o futuro; los meses con aprobación previa están bloqueados.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "copy-preview-before-write",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 204,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 168,
+        "color-contrast:elmPartiallyObscuring": 36
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "th:nth-child(3)"
+          ],
+          "html": "<th>Después</th>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"planning space-y-3\">",
+                  "target": [
+                    "section[aria-modal=\"true\"] > .planning.space-y-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".planning.space-y-3 > p:nth-child(1)"
+          ],
+          "html": "<p>Acción Copiar planificación · Origen guardado 2028-02. Revisa antes/después y omisiones. No se generarán movimientos bancarios.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-canonical-input",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 15,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 5,
+        "color-contrast:nonBmp": 10
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "#planning-live-summary > p[role=\"alert\"]"
+          ],
+          "html": "<p role=\"alert\">Cálculo no disponible. Corrige los importes indicados; no se muestran totales anteriores.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_4_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-after-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 15,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 5,
+        "color-contrast:nonBmp": 10
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".allocation-key:nth-child(2) > dt"
+          ],
+          "html": "<dt>Effective planned margin</dt>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_4_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "rule-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 28,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 19,
+        "color-contrast:elmPartiallyObscured": 9
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "section[aria-modal=\"true\"] > .text-base"
+          ],
+          "html": "<h2 class=\"text-base font-bold\">Confirmar operación de planificación</h2>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "th:nth-child(3)"
+          ],
+          "html": "<th>Después</th>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"planning space-y-3\">",
+                  "target": [
+                    "section[aria-modal=\"true\"] > .planning.space-y-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "carry-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 28,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 20,
+        "color-contrast:elmPartiallyObscured": 8
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "section[aria-modal=\"true\"] > .text-base"
+          ],
+          "html": "<h2 class=\"text-base font-bold\">Confirmar operación de planificación</h2>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "th:nth-child(3)"
+          ],
+          "html": "<th>Después</th>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"planning space-y-3\">",
+                  "target": [
+                    "section[aria-modal=\"true\"] > .planning.space-y-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "immutable-approval-history",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 31,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 9,
+        "color-contrast:elmPartiallyObscured": 20,
+        "color-contrast:shortTextContent": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".planning.space-y-3 > p"
+          ],
+          "html": "<p>Solo fotografías reales conservadas. De un JSON 2.9 previo se conoce únicamente su última aprobación; no se inventan las anteriores.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "tr:nth-child(1) > td:nth-child(2)"
+          ],
+          "html": "<td>2.200,00 €</td>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"planning space-y-3\">",
+                  "target": [
+                    ".planning.space-y-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:shortTextContent"
+          ],
+          "target": [
+            "th:nth-child(2)"
+          ],
+          "html": "<th>A</th>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content is too short to determine if it is actual text content",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "shortTextContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"planning space-y-3\">",
+                  "target": [
+                    ".planning.space-y-3"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-catalog.json",
+      "surface": "archive-confirmation-original-language",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 92,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 92
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".border-white\\/10 > p:nth-child(2)"
+          ],
+          "html": "<p>Vas a archivar «Ocio ficticio». Estas reglas activas dependen de sus partidas:</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-catalog.json",
+      "surface": "archive-confirmation-after-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 96,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 96
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".border-white\\/10 > p:nth-child(2)"
+          ],
+          "html": "<p>You are about to archive “Ocio ficticio”. These active rules depend on its budget items:</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "home-charts",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 888,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:imgNode": 520,
+        "color-contrast:elmPartiallyObscured": 368
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:imgNode"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(1) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because element contains an image node",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "imgNode",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<svg viewBox=\"0 0 480 270\" role=\"group\" aria-label=\"Gráfico interactivo: Ingresos y gastos reales por periodo\">",
+                  "target": [
+                    "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > .chart-table[role=\"region\"] > table > caption"
+          ],
+          "html": "<caption>Ingresos y gastos reales por periodo · tabla de datos</caption>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<details class=\"financial-charts\" open=\"\">",
+                  "target": [
+                    "details"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "movements-linked-filter",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 420,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:imgNode": 300,
+        "color-contrast:elmPartiallyObscured": 120
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:imgNode"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_7_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(1) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because element contains an image node",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "imgNode",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<svg viewBox=\"0 0 480 270\" role=\"group\" aria-label=\"Gráfico interactivo: Ingresos y gastos reales por periodo\">",
+                  "target": [
+                    "section[aria-labelledby=\"_r_7_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_7_-title\"] > .chart-table[role=\"region\"] > table > caption"
+          ],
+          "html": "<caption>Ingresos y gastos reales por periodo · tabla de datos</caption>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<details class=\"financial-charts\" open=\"\">",
+                  "target": [
+                    "details"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "planning-snapshots-and-gaps",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 1548,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 12,
+        "color-contrast:nonBmp": 60,
+        "color-contrast:bgOverlap": 60,
+        "color-contrast:imgNode": 410,
+        "color-contrast:elmPartiallyObscured": 1006
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".allocation-key:nth-child(2) > dt"
+          ],
+          "html": "<dt>Margen previsto efectivo</dt>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_d_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:bgOverlap"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_g_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(1) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it is overlapped by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "bgOverlap",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:imgNode"
+          ],
+          "target": [
+            "g:nth-child(3) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because element contains an image node",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "imgNode",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<svg viewBox=\"0 0 480 270\" role=\"group\" aria-label=\"Gráfico interactivo: Previsión guardada, ejecución y última aprobación\">",
+                  "target": [
+                    "section[aria-labelledby=\"_r_g_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_g_-title\"] > .chart-table[role=\"region\"] > table > caption"
+          ],
+          "html": "<caption>Previsión guardada, ejecución y última aprobación · tabla de datos</caption>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<details class=\"financial-charts\" open=\"\">",
+                  "target": [
+                    ".financial-charts"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "wallet-balances-and-changes",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 500,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:imgNode": 350,
+        "color-contrast:elmPartiallyObscured": 150
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:imgNode"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_i_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(1) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because element contains an image node",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "imgNode",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<svg viewBox=\"0 0 480 270\" role=\"group\" aria-label=\"Gráfico interactivo: Comparación de saldos actuales\">",
+                  "target": [
+                    "section[aria-labelledby=\"_r_i_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "section[aria-labelledby=\"_r_i_-title\"] > .chart-table[role=\"region\"] > table > caption"
+          ],
+          "html": "<caption>Comparación de saldos actuales · tabla de datos</caption>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<details class=\"financial-charts\" open=\"\">",
+                  "target": [
+                    "details"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "unconfirmed-legacy-restoration",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 54,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 129,
+          "group": 0
+        },
+        {
+          "observation": 137,
+          "group": 0
+        },
+        {
+          "observation": 145,
+          "group": 0
+        },
+        {
+          "observation": 153,
+          "group": 0
+        },
+        {
+          "observation": 161,
+          "group": 0
+        },
+        {
+          "observation": 169,
+          "group": 0
+        },
+        {
+          "observation": 177,
+          "group": 0
+        },
+        {
+          "observation": 185,
+          "group": 0
+        },
+        {
+          "observation": 193,
+          "group": 0
+        },
+        {
+          "observation": 201,
+          "group": 0
+        },
+        {
+          "observation": 209,
+          "group": 0
+        },
+        {
+          "observation": 217,
+          "group": 0
+        },
+        {
+          "observation": 225,
+          "group": 0
+        },
+        {
+          "observation": 233,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 46,
+        "color-contrast:shortTextContent": 8
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".border-white\\/10.p-2.space-y-1 > p:nth-child(1)"
+          ],
+          "html": "<p>Gasto personal {count}$&amp; 0: salida 60,00 €, gasto propio 30,00 €, 0 cobros vinculados.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<section role=\"dialog\" aria-modal=\"true\" aria-label=\"Migrar gastos compartidos a 2.7\" class=\"bg-[#141926] text-white border border-white/10 rounded-2xl p-5 max-w-lg w-full space-y-4 max-h-[90vh] overflow-y-auto shadow-xl\" tabindex=\"-1\">",
+                  "target": [
+                    "section"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:shortTextContent"
+          ],
+          "target": [
+            ".bg-white\\/5.p-2.rounded-xl:nth-child(5) > dd"
+          ],
+          "html": "<dd class=\"font-bold\">0</dd>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content is too short to determine if it is actual text content",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "shortTextContent",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"bg-white/5 rounded-xl p-2\"><dt>Préstamos</dt><dd class=\"font-bold\">0</dd></div>",
+                  "target": [
+                    ".bg-white\\/5.p-2.rounded-xl:nth-child(5)"
+                  ]
+                },
+                {
+                  "html": "<section role=\"dialog\" aria-modal=\"true\" aria-label=\"Migrar gastos compartidos a 2.7\" class=\"bg-[#141926] text-white border border-white/10 rounded-2xl p-5 max-w-lg w-full space-y-4 max-h-[90vh] overflow-y-auto shadow-xl\" tabindex=\"-1\">",
+                  "target": [
+                    "section"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "default-preference-quota",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 35,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 131,
+          "group": 0
+        },
+        {
+          "observation": 139,
+          "group": 0
+        },
+        {
+          "observation": 147,
+          "group": 0
+        },
+        {
+          "observation": 155,
+          "group": 0
+        },
+        {
+          "observation": 163,
+          "group": 0
+        },
+        {
+          "observation": 171,
+          "group": 0
+        },
+        {
+          "observation": 179,
+          "group": 0
+        },
+        {
+          "observation": 187,
+          "group": 0
+        },
+        {
+          "observation": 195,
+          "group": 0
+        },
+        {
+          "observation": 203,
+          "group": 0
+        },
+        {
+          "observation": 211,
+          "group": 0
+        },
+        {
+          "observation": 219,
+          "group": 0
+        },
+        {
+          "observation": 227,
+          "group": 0
+        },
+        {
+          "observation": 235,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 35
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".fixed > p"
+          ],
+          "html": "<p>No hay espacio disponible en el almacenamiento del navegador. Los datos anteriores se conservan.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "selected-clear-impact",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 86,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        },
+        {
+          "observation": 132,
+          "group": 0
+        },
+        {
+          "observation": 140,
+          "group": 0
+        },
+        {
+          "observation": 148,
+          "group": 0
+        },
+        {
+          "observation": 156,
+          "group": 0
+        },
+        {
+          "observation": 164,
+          "group": 0
+        },
+        {
+          "observation": 172,
+          "group": 0
+        },
+        {
+          "observation": 180,
+          "group": 0
+        },
+        {
+          "observation": 188,
+          "group": 0
+        },
+        {
+          "observation": 196,
+          "group": 0
+        },
+        {
+          "observation": 204,
+          "group": 0
+        },
+        {
+          "observation": 212,
+          "group": 0
+        },
+        {
+          "observation": 220,
+          "group": 0
+        },
+        {
+          "observation": 228,
+          "group": 0
+        },
+        {
+          "observation": 236,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 86
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".space-y-1 > p:nth-child(5)"
+          ],
+          "html": "<p>Registros de traspaso pendientes de revisión: 1</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"bg-[#141926] border border-rose-500/30 rounded-3xl max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] flex flex-col\" role=\"dialog\" aria-label=\"Borrar datos\" tabindex=\"-1\" aria-modal=\"true\">",
+                  "target": [
+                    ".max-w-md"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "selected-clear-explicit-canonical-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 26,
+      "nodeOccurrences": 74,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        },
+        {
+          "observation": 125,
+          "group": 0
+        },
+        {
+          "observation": 133,
+          "group": 0
+        },
+        {
+          "observation": 141,
+          "group": 0
+        },
+        {
+          "observation": 149,
+          "group": 0
+        },
+        {
+          "observation": 157,
+          "group": 0
+        },
+        {
+          "observation": 165,
+          "group": 0
+        },
+        {
+          "observation": 173,
+          "group": 0
+        },
+        {
+          "observation": 181,
+          "group": 0
+        },
+        {
+          "observation": 189,
+          "group": 0
+        },
+        {
+          "observation": 197,
+          "group": 0
+        },
+        {
+          "observation": 205,
+          "group": 0
+        },
+        {
+          "observation": 213,
+          "group": 0
+        },
+        {
+          "observation": 221,
+          "group": 0
+        },
+        {
+          "observation": 229,
+          "group": 0
+        },
+        {
+          "observation": 237,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 74
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "h2"
+          ],
+          "html": "<h2 class=\"text-base font-bold\">Confirmar borrado seleccionado</h2>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<section role=\"dialog\" aria-modal=\"true\" aria-label=\"Confirmar borrado seleccionado\" class=\"bg-[#141926] text-white border border-white/10 rounded-2xl p-5 max-w-lg w-full space-y-4 max-h-[90vh] overflow-y-auto shadow-xl\" tabindex=\"-1\">",
+                  "target": [
+                    ".max-w-lg"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "empty-recovery-dialog",
+      "rule": "color-contrast",
+      "observationGroups": 24,
+      "nodeOccurrences": 24,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        },
+        {
+          "observation": 126,
+          "group": 0
+        },
+        {
+          "observation": 134,
+          "group": 0
+        },
+        {
+          "observation": 142,
+          "group": 0
+        },
+        {
+          "observation": 150,
+          "group": 0
+        },
+        {
+          "observation": 158,
+          "group": 0
+        },
+        {
+          "observation": 182,
+          "group": 0
+        },
+        {
+          "observation": 190,
+          "group": 0
+        },
+        {
+          "observation": 214,
+          "group": 0
+        },
+        {
+          "observation": 222,
+          "group": 0
+        },
+        {
+          "observation": 230,
+          "group": 0
+        },
+        {
+          "observation": 238,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 24
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".p-5 > .text-sm"
+          ],
+          "html": "<p class=\"text-sm text-slate-300\">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "decimal-placeholder-raw-input",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 146,
+          "group": 0
+        },
+        {
+          "observation": 154,
+          "group": 0
+        },
+        {
+          "observation": 194,
+          "group": 0
+        },
+        {
+          "observation": 202,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 6
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".grid-cols-2.grid.gap-3 > label:nth-child(2)"
+          ],
+          "html": "<label>Stato di contabilizzazione<select aria-label=\"Stato di contabilizzazione\" class=\"block w-full bg-[#0c0f17] rounded-xl p-2\"><option value=\"true\">Contabilizzato (SÌ)</option><option value=\"false\">In sospeso (NO)</option></select></label>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "debt-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 66,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 66
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "section[aria-modal=\"true\"] > .text-base"
+          ],
+          "html": "<h2 class=\"text-base font-bold\">Confirmar compromiso o liquidación</h2>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "rule-pause-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 56
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".bg-\\[\\#141926\\] > p:nth-child(2)"
+          ],
+          "html": "<p>Pausar Alquiler ficticio. Se conservan las ocurrencias y los movimientos.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "occurrence-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 60
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".bg-\\[\\#141926\\] > p:nth-child(2)"
+          ],
+          "html": "<p>Crear movimientos pendientes; no modifica el saldo bancario.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "treasury-read-only",
+      "rule": "color-contrast",
+      "observationGroups": 10,
+      "nodeOccurrences": 50,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscured": 50
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            "th:nth-child(5)"
+          ],
+          "html": "<th>Origen</th>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.6pt (12.8px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<div class=\"finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200\">",
+                  "target": [
+                    ".finance-app"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-planning.json",
+      "surface": "planning-deficit-draft",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 62,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:nonBmp": 60,
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_a_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-planning.json",
+      "surface": "explicit-deficit-approval",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 71,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 71
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".planning.space-y-3 > p:nth-child(1)"
+          ],
+          "html": "<p>Periodo 2028-02. Se guardarán todos los importes, el objetivo y la fotografía aprobada en una sola operación.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "duplicate-account-native-error",
+      "rule": "color-contrast",
+      "observationGroups": 10,
+      "nodeOccurrences": 24,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 24
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".gap-2\\.5.items-center.flex > div:nth-child(2) > p"
+          ],
+          "html": "<p class=\"text-[11px] text-slate-400\">Crea una nueva cuenta bancaria, efectivo o ahorro</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "owned-historical-detail-native-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 22,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 56
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".text-\\[11px\\].mt-0\\.5.block"
+          ],
+          "html": "<span class=\"text-[11px] text-slate-400 block mt-0.5\">Paquete: Fuera del catálogo • Periodo: octubre 2026</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "9.0pt (12px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "annual-months-and-personal-history",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 92,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:nonBmp": 90,
+        "color-contrast:elmPartiallyObscured": 2
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:nonBmp"
+          ],
+          "target": [
+            "button[aria-controls=\"_r_5_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element content contains only non-text characters",
+              "data": {
+                "messageKey": "nonBmp"
+              },
+              "relatedNodes": []
+            }
+          ]
+        },
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscured"
+          ],
+          "target": [
+            ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"] > span"
+          ],
+          "html": "<span>Presupuestos</span>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it's partially obscured by another element",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscured",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": [
+                {
+                  "html": "<button type=\"button\" class=\"nav-button\" aria-current=\"page\">",
+                  "target": [
+                    ".desktop-nav-items > .nav-button[aria-current=\"page\"][type=\"button\"]"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "correction-rejected",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 30
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "fieldset > p:nth-child(2)"
+          ],
+          "html": "<p>Corrige la deuda total de esta persona. La parte propia se ajustará para conservar el total pagado; los cobros ya registrados no se modificarán.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "overpayment-rejected",
+      "rule": "color-contrast",
+      "observationGroups": 16,
+      "nodeOccurrences": 40,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 40
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "p:nth-child(2)"
+          ],
+          "html": "<p>Guardar {amount}$&amp; · Cena personal NO TRADUCIR</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "structured-detail",
+      "rule": "color-contrast",
+      "observationGroups": 22,
+      "nodeOccurrences": 74,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 74
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".p-5 > .font-bold:nth-child(2)"
+          ],
+          "html": "<p class=\"font-bold\">Cena personal NO TRADUCIR · 01/11/2026</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "blocked-contact-deletion",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 255,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 255
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "div[role=\"group\"] > p"
+          ],
+          "html": "<p>Algunas categorías se solapan; sus cantidades no se suman entre sí.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "legacy-unverified-detail",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 31,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 31
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".p-5 > .font-bold:nth-child(2)"
+          ],
+          "html": "<p class=\"font-bold\">Cena personal NO TRADUCIR · 01/11/2026</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "12.0pt (16px)",
+                "fontWeight": "bold",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "invalid-schema",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 125,
+          "group": 0
+        },
+        {
+          "observation": 130,
+          "group": 0
+        },
+        {
+          "observation": 135,
+          "group": 0
+        },
+        {
+          "observation": 140,
+          "group": 0
+        },
+        {
+          "observation": 145,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 30
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".fixed > p"
+          ],
+          "html": "<p>version: versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3 y 3.4; no se ha modificado ningún dato. No se ha modificado ningún dato.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "restoration-before-write",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 90,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 126,
+          "group": 0
+        },
+        {
+          "observation": 131,
+          "group": 0
+        },
+        {
+          "observation": 136,
+          "group": 0
+        },
+        {
+          "observation": 141,
+          "group": 0
+        },
+        {
+          "observation": 146,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 90
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".text-sm:nth-child(2)"
+          ],
+          "html": "<p class=\"text-sm text-slate-300\">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "quota-preserves-preview",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 144,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        },
+        {
+          "observation": 127,
+          "group": 0
+        },
+        {
+          "observation": 132,
+          "group": 0
+        },
+        {
+          "observation": 137,
+          "group": 0
+        },
+        {
+          "observation": 142,
+          "group": 0
+        },
+        {
+          "observation": 147,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 144
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".text-sm:nth-child(3)"
+          ],
+          "html": "<p class=\"text-sm text-slate-300\">Se sustituirán todos los datos por esta copia. Antes se guardará una copia de recuperación del estado actual.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "recoverable-original-download",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 128,
+          "group": 0
+        },
+        {
+          "observation": 133,
+          "group": 0
+        },
+        {
+          "observation": 138,
+          "group": 0
+        },
+        {
+          "observation": 143,
+          "group": 0
+        },
+        {
+          "observation": 148,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 56
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "section > p"
+          ],
+          "html": "<p class=\"text-sm text-slate-300\">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "wallet-deletion-preview",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 68,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        },
+        {
+          "observation": 129,
+          "group": 0
+        },
+        {
+          "observation": 134,
+          "group": 0
+        },
+        {
+          "observation": 139,
+          "group": 0
+        },
+        {
+          "observation": 144,
+          "group": 0
+        },
+        {
+          "observation": 149,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 68
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            ".max-w-lg > .text-sm"
+          ],
+          "html": "<p class=\"text-sm\">Se eliminará: <strong>Eliminar contacto</strong>.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "no-web-locks-form",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 5,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        1280
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 150,
+          "group": 0
+        },
+        {
+          "observation": 151,
+          "group": 0
+        },
+        {
+          "observation": 152,
+          "group": 0
+        },
+        {
+          "observation": 153,
+          "group": 0
+        },
+        {
+          "observation": 154,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "color-contrast:elmPartiallyObscuring": 5
+      },
+      "examples": [
+        {
+          "causes": [
+            "color-contrast:elmPartiallyObscuring"
+          ],
+          "target": [
+            "fieldset > .text-amber-300[role=\"alert\"]"
+          ],
+          "html": "<p role=\"alert\" class=\"text-amber-300\">Este navegador o contenedor no ofrece Web Locks. El guardado está bloqueado para evitar sobrescrituras; utiliza un navegador actualizado compatible.</p>",
+          "checks": [
+            {
+              "id": "color-contrast",
+              "message": "Element's background color could not be determined because it partially overlaps other elements",
+              "data": {
+                "contrastRatio": 0,
+                "fontSize": "10.5pt (14px)",
+                "fontWeight": "normal",
+                "messageKey": "elmPartiallyObscuring",
+                "expectedContrastRatio": "4.5:1"
+              },
+              "relatedNodes": []
+            }
+          ]
+        }
+      ],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    }
+  ]
+}

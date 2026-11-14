@@ -81,6 +81,26 @@
       "state": "after",
       "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
       "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/contacts-768-light.png",
+      "sha256": "64d145955e331c67a956973cc6ca4962735e39bb40be122cf69ae860ff215b59",
+      "width": 768,
+      "language": "es",
+      "appTheme": "light",
+      "state": "supplemental-bgOverlap-review",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; no personal data; screenshot unchanged UI for incomplete axe investigation"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/contacts-768-dark.png",
+      "sha256": "899f40d57abe80049a145798221c532c3fa09ebfcb50e998e3e993d972a0d695",
+      "width": 768,
+      "language": "es",
+      "appTheme": "dark",
+      "state": "supplemental-bgOverlap-review",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; no personal data; screenshot unchanged UI for incomplete axe investigation"
     }
   ]
 }

@@ -1,0 +1,208 @@
+{
+  "applicationSourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+  "scope": "Automated DOM geometry and hit-testing plus real screenshot inspection of synthetic Contacts at 768px in both themes; targeted bgOverlap reproduction. Not a screen reader or general contrast certificate.",
+  "observations": [
+    {
+      "theme": "light",
+      "width": 768,
+      "geometry": {
+        "button": {
+          "x": 580.375,
+          "y": 244,
+          "width": 151.265625,
+          "height": 44
+        },
+        "span": {
+          "x": 614.375,
+          "y": 255.5,
+          "width": 105.265625,
+          "height": 21
+        },
+        "svg": {
+          "x": 592.375,
+          "y": 258,
+          "width": 16,
+          "height": 16
+        },
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(166, 61, 77)",
+        "transform": "none",
+        "topElementAtTextCenter": [
+          {
+            "tag": "SPAN",
+            "role": null,
+            "className": null
+          },
+          {
+            "tag": "BUTTON",
+            "role": null,
+            "className": "flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition-all active:scale-95 cursor-pointer"
+          },
+          {
+            "tag": "DIV",
+            "role": null,
+            "className": "flex items-start justify-between"
+          },
+          {
+            "tag": "DIV",
+            "role": null,
+            "className": "bg-gradient-to-br from-[#141926] via-[#161e31] to-[#121724] border border-white/10 rounded-3xl p-5 shadow-xl relative overflow-hidden"
+          }
+        ],
+        "ownTextReceivesHit": true
+      },
+      "axe": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "tags": [
+              "cat.color",
+              "wcag2aa",
+              "wcag143",
+              "TTv5",
+              "TT13.c",
+              "EN-301-549",
+              "EN-9.1.4.3",
+              "ACT",
+              "RGAAv4",
+              "RGAA-3.2.1"
+            ],
+            "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+            "nodes": [
+              {
+                "any": [
+                  {
+                    "id": "color-contrast",
+                    "data": {
+                      "contrastRatio": 0,
+                      "fontSize": "10.5pt (14px)",
+                      "fontWeight": "normal",
+                      "messageKey": "bgOverlap",
+                      "expectedContrastRatio": "4.5:1"
+                    },
+                    "relatedNodes": [],
+                    "impact": "serious",
+                    "message": "Element's background color could not be determined because it is overlapped by another element"
+                  }
+                ],
+                "all": [],
+                "none": [],
+                "impact": "serious",
+                "html": "<span>Nuevo Contacto</span>",
+                "target": [
+                  ".px-3 > span"
+                ],
+                "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "geometry": {
+        "button": {
+          "x": 580.375,
+          "y": 244,
+          "width": 151.265625,
+          "height": 44
+        },
+        "span": {
+          "x": 614.375,
+          "y": 255.5,
+          "width": 105.265625,
+          "height": 21
+        },
+        "svg": {
+          "x": 592.375,
+          "y": 258,
+          "width": 16,
+          "height": 16
+        },
+        "foreground": "rgb(255, 255, 255)",
+        "background": "rgb(166, 61, 77)",
+        "transform": "none",
+        "topElementAtTextCenter": [
+          {
+            "tag": "SPAN",
+            "role": null,
+            "className": null
+          },
+          {
+            "tag": "BUTTON",
+            "role": null,
+            "className": "flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition-all active:scale-95 cursor-pointer"
+          },
+          {
+            "tag": "DIV",
+            "role": null,
+            "className": "flex items-start justify-between"
+          },
+          {
+            "tag": "DIV",
+            "role": null,
+            "className": "bg-gradient-to-br from-[#141926] via-[#161e31] to-[#121724] border border-white/10 rounded-3xl p-5 shadow-xl relative overflow-hidden"
+          }
+        ],
+        "ownTextReceivesHit": true
+      },
+      "axe": {
+        "violations": [],
+        "incomplete": [
+          {
+            "id": "color-contrast",
+            "impact": "serious",
+            "tags": [
+              "cat.color",
+              "wcag2aa",
+              "wcag143",
+              "TTv5",
+              "TT13.c",
+              "EN-301-549",
+              "EN-9.1.4.3",
+              "ACT",
+              "RGAAv4",
+              "RGAA-3.2.1"
+            ],
+            "description": "Ensure the contrast between foreground and background colors meets WCAG 2 AA minimum contrast ratio thresholds",
+            "help": "Elements must meet minimum color contrast ratio thresholds",
+            "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/color-contrast?application=axeAPI",
+            "nodes": [
+              {
+                "any": [
+                  {
+                    "id": "color-contrast",
+                    "data": {
+                      "contrastRatio": 0,
+                      "fontSize": "10.5pt (14px)",
+                      "fontWeight": "normal",
+                      "messageKey": "bgOverlap",
+                      "expectedContrastRatio": "4.5:1"
+                    },
+                    "relatedNodes": [],
+                    "impact": "serious",
+                    "message": "Element's background color could not be determined because it is overlapped by another element"
+                  }
+                ],
+                "all": [],
+                "none": [],
+                "impact": "serious",
+                "html": "<span>Nuevo Contacto</span>",
+                "target": [
+                  ".px-3 > span"
+                ],
+                "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it is overlapped by another element"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@ Las comprobaciones usan datos ficticios, almacenamiento aislado y bloqueo de sol
 
 Se comparan directamente **116 archivos protegidos, idénticos byte a byte a la base**, incluidos utils, types, constants, services, i18n, servidor, workflow, lockfile y configuración Vite. [Manifiesto y SHA-256](phase-5c-protected-files.json). Los cambios de App, formularios y confirmaciones se limitan a roles/relaciones ARIA; sus callbacks y condiciones financieras se conservan. La apariencia de landing reutiliza el selector existente y no carga FinanceStore.
 
-Este documento es un registro en curso. Los apartados sin resultado final explícito permanecen pendientes y no constituyen una aprobación.
+Los resultados finales se separan de las reproducciones y ejecuciones intermedias. La aplicación corresponde al checkpoint `791410fdb68be69330d46b344d9e29e60f13a5e4`; las pruebas incluyen la corrección de sincronización de `52cfe28f885be69100d601eba4ae056c9eb840e3`. Los commits documentales posteriores conservan esas fuentes.
 
 ## Línea base
 
@@ -18,7 +18,7 @@ Referencia remota 5B, distinta de esta nueva validación: [ejecución 4353959811
 
 ## Superficies y matriz
 
-| Superficie | Cobertura prevista en 5C | Evidencia |
+| Superficie | Cobertura ejecutada en 5C | Evidencia |
 | --- | --- | --- |
 | Landing y entrada/salida | Cinco idiomas × 390/768/1280 px; navegación a app, vuelta y recarga; etiquetas nativas, teclado, lang, metadatos y layout | Nueva suite landingLanguage y capturas reales |
 | Preferencia y pestañas | Cambio repetido sin recargar, dos pestañas landing/app, borrador y foco, cuota/lectura/acceso denegados, valor inválido | Nueva suite y regresión i18n existente |
@@ -60,9 +60,9 @@ Otros ejemplos: português [390](screenshots/phase-5c/landing-pt-390-after.png),
 | ID | Gravedad | Reproducción y resultado previo | Resultado esperado / corrección | Estado y prueba |
 | --- | --- | --- | --- | --- |
 | 5C-01 | P2 | Abrir landing: no hay control de idioma; requiere entrar en app para elegirlo | Reutilizar LanguageSelector, proveedor y preferencia; cambio inmediato y cabecera adaptable | Implementado; cinco regresiones unitarias por idioma y matriz Chromium nueva |
-| 5C-02 | P2 | Brand tiene aria-label sobre span sin rol; axe no puede establecer su soporte | Conservar texto visible y descripción, eliminar nombre ARIA redundante | Reproducido en DOM/axe y unitaria previa |
+| 5C-02 | P2 | Brand tiene aria-label sobre span sin rol; axe no puede establecer su soporte | Conservar texto visible y descripción, eliminar nombre ARIA redundante | Corregido; unitaria y regresión completa aprobadas |
 | 5C-03 | P2 | Contenedores con nombre sin rol: Inicio, Movimientos, Deudas, recientes, reparto, liquidaciones y alcance del borrado | Dar rol group a los grupos ya etiquetados, sin cambiar contenido ni acciones | Reproducido en axe; regresiones Chromium en cinco idiomas |
-| 5C-04 | P2 | Selector de partida cerrado anuncia aria-controls a un listbox aún no montado | Referenciar la lista solo cuando existe; mantener apertura, Escape y foco | Reproducido en axe y unitaria previa |
+| 5C-04 | P2 | Selector de partida cerrado anuncia aria-controls a un listbox aún no montado | Referenciar la lista solo cuando existe; mantener apertura, Escape y foco | Corregido; unitaria, DOM/árbol AX y regresión completa aprobados |
 | 5C-05 | Pendiente manual | Contraste no determinable sobre glifos, SVG y capas/scroll | Conservar evidencia detallada, distinguir mecanismos y revisar ejemplos | No equivale a infracción ni a revisión manual aprobada |
 | 5C-06 | P2 | Abrir selector de partida en Movimiento: listbox contiene li implícitos y opciones con padre incompatible; tres reglas axe fallan | Marcar los li como presentación; las opciones conservan sus roles y teclado | Reproducción real en nueva auditoría abierta; corrección semántica localizada |
 | 5C-07 | P2 · pruebas | La prueba de arrastre consulta foco al ver el nuevo JSON, antes de terminar la publicación React y habilitar el botón | Esperar el estado visible «Orden guardado», exigir botón habilitado y conservar las mismas aserciones de foco, estado e invariantes | Reproducción determinista del intervalo pendiente; no se cambia producción, FinanceStore ni Web Locks |
@@ -92,6 +92,26 @@ Los informes históricos solo conservan regla y número de nodos. No se inventa 
 El [índice del legado](phase-5c-axe-5b-reference.json) conserva los 1663 registros: 33 conjuntos aria-prohibited-attr, 3 aria-valid-attr-value y 47 color-contrast. La [investigación reproducida](phase-5c-axe-investigation.json) distingue seis mecanismos y retiene ejemplos de los 26 estados inspeccionados en la base. Los nuevos informes de las 12 auditorías conservadas añaden targets, HTML y datos de checks sin alterar sus aserciones, superficies ni reglas.
 
 Revisión suplementaria de estilos en gráficos/opciones/recuperación a 390 px, claro y oscuro: texto principal/SVG calculado sobre su ancestro opaco da 14.102:1 en claro y 12.636:1 en oscuro; ayuda de opciones/recuperación 5.999:1 y 8.321:1. Es una comprobación de colores calculados, no prueba de la composición real de todas las capas, recortes o etiquetas. El contraste de SVG, los elementos bajo scroll y las superposiciones continúan necesitando revisión visual contextual. Los glifos decorativos observados (flechas con aria-hidden y texto adyacente) se distinguen del texto informativo. No se eximen reglas ni se convierten automáticamente estos grupos en aprobaciones.
+
+El informe enriquecido añade `bgOverlap` en el texto «Nuevo Contacto». La [reproducción a 768 px en ambos temas](phase-5c-contact-overlap-review.json) conserva las cajas del icono/texto/botón y el hit-test: el texto recibe el punto central y hay 6 px entre icono y texto. El botón mide 151.27 × 44 px, con blanco sobre RGB(166,61,77). La tarjeta contiene un resplandor absoluto con blur y pointer-events:none que se superpone visualmente al área; el motor no puede resolver su composición. Las capturas [clara](screenshots/phase-5c/contacts-768-light.png) y [oscura](screenshots/phase-5c/contacts-768-dark.png) no muestran texto tapado o controles superpuestos en esa reproducción. La geometría/hit-test y el contraste nominal no certifican todas las capas, por lo que se conserva como revisión contextual pendiente y no se cambia CSS para silenciar el resultado.
+
+### Revalidación completa de los 1663 registros
+
+La [comparación de las dos ejecuciones remotas verificadas](phase-5c-axe-revalidation.json) empareja cada registro por informe, superficie, idioma, anchura, tema y cantidades del fixture: **1345/1345 superficies históricas y 1663/1663 observaciones incompletas reejecutadas**, sin perder los 83 conjuntos equivalentes. Incluye los 136 grupos generales y 1527 de matrices solicitados. Las **738 observaciones ARIA** de los 36 conjuntos correspondientes ya no se reportan en esas superficies. Las **925 de contraste**, en 47 conjuntos, permanecen pendientes de revisión contextual; una observación repetida no se convierte en defecto independiente.
+
+El [informe remoto actual agrupado](phase-5c-axe-ci-current.json) contiene además los estados nuevos: **1402 observaciones registradas, 0 violaciones, 932 grupos incompletos en 50 conjuntos equivalentes**. Son 925 grupos de contraste heredados y siete nuevos: seis de contraste y uno controlsWithinPopup con destino comprobado. Los recuentos locales son diferentes y se separan en la validación final. Las aserciones axe existentes sin informe JSON también se conservan; 1402 describe los registros, no todas las llamadas al motor.
+
+| Mecanismo actual | Ocurrencias de nodo/check en CI | Clasificación y seguimiento |
+| --- | ---: | --- |
+| nonBmp | 306 | Glifos no reconocidos como texto; distinguir flechas decorativas con etiqueta/estado de símbolos informativos. |
+| imgNode | 1580 | Texto SVG; colores nominales muestreados, composición/series pendientes de revisión visual contextual. |
+| elmPartiallyObscured | 2122 | Recortes/scroll o elemento parcialmente cubierto; revisar el estado visible y el desplazamiento, sin excluir reglas. |
+| elmPartiallyObscuring | 1637 | Capas de diálogos, ayudas y elementos extensos; composición pendiente de revisión contextual. |
+| bgOverlap | 72 | Resplandor/capas en Contactos; reproducción, geometría y capturas conservadas, sin confirmar todos los estados de composición. |
+| shortTextContent | 10 | Ejemplos reales: cabecera de escenario A y contador 0 en restauración. Son texto informativo que debe conservarse y revisar su contraste. |
+| controlsWithinPopup | 1 | Listbox abierto: ID, opciones y árbol AX comprobados; comportamiento con tecnología asistiva pendiente. |
+
+Estos números suman **5728 ocurrencias de nodo/check**, distintas de los 932 grupos y de los 50 conjuntos. Ningún resultado incompleto se presenta como infracción automática o prueba real con lector de pantalla.
 
 No se han realizado pruebas con lector de pantalla ni dispositivos físicos. Inspección de DOM, teclado automatizado, estilos y capturas no se presentan como tales.
 
@@ -156,6 +176,61 @@ Propuesta posterior: carga diferida de diccionarios no seleccionados dentro del 
 
 ## Validación final y entrega
 
-Pendientes: batería completa del código final, clasificación de los informes finales enriquecidos, capturas comparativas, commit publicado y PR Draft nueva con los tres checks del SHA final. Se registrarán separadamente resultados locales y GitHub Actions; ningún resultado de 5B sustituye esta validación.
+Resultados finales locales, [por suite y entorno](phase-5c-local-results.json):
+
+| Comprobación | Resultado |
+| --- | --- |
+| npm ci | 188 paquetes, lockfile sin cambios; aviso de node-domexception deprecado conservado |
+| npm test | **528/528**, 0 fallos/omisiones/cancelaciones/pendientes |
+| Infraestructura CI separada | **22/22**, 0 fallos/omisiones/cancelaciones/pendientes |
+| npm run lint | Correcto |
+| npm run build | Correcto, aviso conocido de chunks >500 kB |
+| npm run test:ui | **698/698 resultados, 35 suites**, 0 fallos/omisiones/cancelaciones/pendientes |
+| git diff --check y origin/main...HEAD --check | Correctos |
+| Axe general | 128 superficies, 0 violaciones, **36** grupos incompletos |
+| Axe matrices multidioma | 1217 observaciones, 0 violaciones, **853** grupos incompletos |
+| Axe suite nueva | 57 observaciones, 0 violaciones, **7** grupos incompletos |
+
+Node **24.22.1**, Chromium del sistema **156.0.8078.79**, playwright-core **1.64.1**, axe-core **4.14.0**. Duración del comando completo de navegador: **2087.606 s (34 min 47.606 s)**, incluye su build. Se verifican uno a uno los recuentos originales de las 34 suites: **655 resultados conservados**, más **43** de la suite nueva. Los contenedores node:test cuentan como resultados, conforme a la referencia anterior. Los [896 grupos incompletos locales](phase-5c-axe-current.json) quedan separados de los remotos.
+
+### GitHub Actions real
+
+[Ejecución 43590336967](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43590336967), SHA **52cfe28f885be69100d601eba4ae056c9eb840e3**, evento workflow_dispatch. [Resultados, versiones, SHA-256 verificados y estados por suite](phase-5c-ci-results.json).
+
+| Trabajo | Resultado verificado |
+| --- | --- |
+| Unitarias | success; 528 unitarias y 22 de infraestructura |
+| Lint, build y diff | success; diff no vacío de seis archivos contra su padre e7c40ef, conforme al evento manual |
+| Chromium y axe | success; 698 resultados en 35 suites, cero fallos/omisiones/cancelaciones/pendientes |
+
+Runner ubuntu-24.04, imagen **20261111.370.1**, Node **24.22.1**, Chrome for Testing **156.0.8078.4** (revisión 1248), ruta real resuelta por el script existente. Duración del comando de navegador: **1834.551 s (30 min 34.551 s)**. Los tres artefactos descargados coinciden con sus SHA-256 publicados por GitHub. Axe remoto: **128/0/40** generales, **1217/0/885** matrices y **57/0/7** nuevos (superficies/violaciones/grupos incompletos). No se sustituyen estos datos por los locales ni se presentan sus diferencias como omisiones.
+
+La ejecución anterior [43588474022](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43588474022), SHA 791410f, tuvo Unitarias y Código correctos, pero Chromium fue **cancelado por la concurrencia del workflow al publicar el checkpoint de pruebas nuevo**. No se cuenta como una ejecución completa aprobada. El [registro de intentos](phase-5c-validation-attempts.json) conserva también el fallo local y las suites sin ejecutar.
+
+La PR Draft de entrega ejecuta nuevamente los tres checks sobre su SHA documental final y compara realmente la PR con main. La URL y la verificación de ese SHA se registran en su descripción y checks asociados; esta tabla fija la ejecución remota completa del checkpoint de pruebas. No se fusiona, despliega ni cambia la protección de rama.
+
+Reproducción local en el entorno utilizado:
+
+```bash
+npm ci
+npm test
+node scripts/ci/run-check.mjs tools
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium node scripts/ci/run-check.mjs browser
+git diff --check
+git diff origin/main...HEAD --check
+```
+
+El ejecutor browser llama exactamente a npm run test:ui y exige todos los resúmenes completos. En GitHub no se presupone /usr/bin/chromium: se conservan la CLI de playwright-core instalada y el resolvedor existentes. El workflow, sus permisos y límites no se modifican.
 
 La entrada libre del asistente conserva el reconocimiento existente en español. Cambiar idioma no amplía sus intenciones ni garantiza reconocimiento en inglés/italiano/francés/portugués. Los ejemplos y ayudas mantienen ese límite explícito; los prompts y la API no cambian.
+
+## Pendientes y límites de la revisión
+
+- 5D: nombres de presentación del catálogo inicial y distinción explícita de nombres personales, subgrupos heredados y procedencia. Los bloqueos adicionales de edición sin identidad/pasos concretos no se han reproducido y no se descartan.
+- Contraste con SVG, resplandores, composición y scroll: los resultados incompletos permanecen identificados por mecanismo y superficie. Los ejemplos inspeccionados y el contraste nominal no certifican todos sus estados.
+- Tecnología asistiva: se han probado teclado, foco y árbol nativo de Chromium de manera automatizada. No se ha utilizado lector de pantalla, dispositivo físico, Safari en iPhone, Firefox ni WebKit en 5C.
+- P3 heredados: controles táctiles compactos y jerarquía de encabezados registrados en 4A, pendientes de priorización y revisión física/asistiva; esta fase no los presenta como resueltos.
+- Rendimiento: los cinco diccionarios siguen en la carga inicial y Vite mantiene su aviso de chunks >500 kB. La carga diferida es una propuesta posterior.
+- Reconocimiento natural: mantiene las limitaciones lingüísticas existentes; traducir la UI no modifica el parser ni el servicio del asistente.
