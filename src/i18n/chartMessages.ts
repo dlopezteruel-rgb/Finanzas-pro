@@ -5,6 +5,7 @@ import {chartCatalog} from '../utils/chartData';
 import {realDate} from '../utils/financialCalendar';
 import {planningStatusText} from './presenters';
 import {storageOwnedText} from './storageMessages';
+import {catalogPresentation} from './catalogNames';
 import type {presentationFormatters} from './presentation';
 type Format=ReturnType<typeof presentationFormatters>;
 const dateOptions={day:'2-digit',month:'2-digit',year:'numeric'} as const;
@@ -23,29 +24,32 @@ export function economicSeriesForDisplay(series:readonly ChartSeries[],t:typeof 
  return series.map(s=>{const known=labels[s.key as keyof typeof labels];return known&&s.label===known.source?{...s,label:t(known.key)}:{...s};});
 }
 /** Family IDs distinguish synthetic wrappers from literal personal family names. */
-export function chartFamilyForDisplay<T extends {id:string;label:string}>(row:T,t:typeof translate):T{
+export function chartFamilyForDisplay<T extends {id:string;label:string}>(row:T,t:typeof translate,data:FinanceData|null=null):T{
  const prefix='Fuera del catálogo · ';
- return row.id.startsWith('historical:')&&row.label.startsWith(prefix)?{...row,label:t('chart.row.outsideFamily',{name:row.label.slice(prefix.length)})}:{...row};
+ if(row.id.startsWith('historical:')&&row.label.startsWith(prefix))return {...row,label:t('chart.row.outsideFamily',{name:row.label.slice(prefix.length)})};
+ const family=data?.budgetGroups.find(g=>`${g.type}:${g.code}`===row.id);
+ return {...row,label:family?catalogPresentation(data,t).family(family):row.label};
 }
 /** Only the period arrays from the existing bucketer are passed here, never account-name rows. */
 export function bucketRowsForDisplay(rows:readonly ChartRow[],range:ChartRange,t:typeof translate,format:Format):ChartRow[]{
  return rows.map(row=>({...row,label:realDate(row.id)?range.granularity==='week'?t('chart.row.week',{date:format.formatDate(row.id,dateOptions)}):format.formatMonth(row.id.slice(0,7),true):row.label}));
 }
-export function economicRowForDisplay(row:ChartRow,range:ChartRange,t:typeof translate,format:Format):ChartRow{
- return row.values.amount!==undefined?chartFamilyForDisplay(row,t):bucketRowsForDisplay([row],range,t,format)[0];
+export function economicRowForDisplay(row:ChartRow,range:ChartRange,t:typeof translate,format:Format,data:FinanceData|null=null):ChartRow{
+ return row.values.amount!==undefined?chartFamilyForDisplay(row,t,data):bucketRowsForDisplay([row],range,t,format)[0];
 }
 export function planningComparisonForDisplay(rows:readonly ChartRow[],data:FinanceData,t:typeof translate):ChartRow[]{
- const catalog=chartCatalog(data);
+ const catalog=chartCatalog(data),names=catalogPresentation(data,t);
  return rows.map(row=>{
   if(row.id==='snapshot:INGRESO'||row.id==='snapshot:GASTO')return {...row,label:t('chart.row.snapshotOutside',{type:t(row.id==='snapshot:INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto')})};
   const type=row.id.startsWith('INGRESO:')?'INGRESO':row.id.startsWith('GASTO:')?'GASTO':null;if(!type)return {...row};
   const code=row.id.slice(type.length+1),typeLabel=t(type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto');
-  if(row.label===`${type} · Fotografía ${code}`)return {...row,label:t('chart.row.snapshotItem',{type:typeLabel,code})};
+  if(row.label===`${type} · Fotografía ${code}`)return {...row,label:t('chart.row.category',{type:typeLabel,name:t('planning.partida_historica')})};
   const prefix=type==='INGRESO'?'Ingreso · ':'Gasto · ';if(!row.label.startsWith(prefix))return {...row};
   const name=row.label.slice(prefix.length),personal=data.budgetGroups.some(g=>g.type===type&&g.code===code&&g.name===name)||data.budgetGroups.flatMap(g=>g.partidas).some(p=>p.type===type&&p.code===code&&p.name===name)||data.transactions.some(tx=>tx.type===type&&tx.code===code&&tx.subcategoryName===name);
   let label=name;
   if(!personal&&name==='Fuera del catálogo')label=t('chart.row.outsideCatalog');
-  else if(!personal&&name===`Partida ${code}`&&catalog.some(p=>p.type===type&&p.code===code&&p.name===name))label=t('chart.row.historicalItem',{code});
+  else if(!personal&&name===`Partida ${code}`&&catalog.some(p=>p.type===type&&p.code===code&&p.name===name))label=t('planning.partida_historica');
+  else {const family=data.budgetGroups.find(g=>g.type===type&&g.code===code&&g.name===name),item=data.budgetGroups.flatMap(g=>g.partidas).find(p=>p.type===type&&p.code===code&&p.name===name);if(family)label=names.family(family);else if(item)label=names.item(item);}
   return {...row,label:t('chart.row.category',{type:typeLabel,name:label})};
  });
 }

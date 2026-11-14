@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {rememberHistoricalPartida,partidaDisplayName} from '../i18n/labels';
 import {storageOwnedText} from '../i18n/storageMessages';
 
@@ -40,6 +41,7 @@ interface Props {
 }
 export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, onAutomation, onRegisterNavigationSave }: Props) {
   const { t: uiText , formatMoney: formatCurrency, formatCents: money , formatDate,formatMonth,formatNumber } = useI18n();
+  const catalogNames=useCatalogNames();
   const statusText = (status: string) => planningStatusText(status,uiText);
   // Preserve unknown historical plans as editable rows rather than dropping them.
   const catalog = data.budgetGroups.filter(g=>!g.deleted).flatMap(g=>g.partidas.filter(p=>!p.deleted).map(p=>({...p,archived:!!g.archived||!!p.archived}))).filter(p=>!p.archived||data.budgetPlans.some(b=>b.monthYear===month&&planningKey(b)===planningKey(p))||data.transactions.some(t=>t.date.startsWith(month)&&planningKey(t)===planningKey(p)));
@@ -47,7 +49,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
   const historicPlans = [...data.budgetPlans,...carryLines(data,month).map(l=>({monthYear:month,code:l.code,type:l.type,plannedAmount:0}))];
   const missing: BudgetPartida[] = [...new Map(historicPlans.filter(p => p.monthYear === month && !known.has(planningKey(p))).map((p,index) => {const sourceName=data.transactions.find(t => planningKey(t) === planningKey(p))?.subcategoryName;return rememberHistoricalPartida({ ...p, name: sourceName ?? `Partida histórica ${index + 1}`, groupName: 'Fuera del catálogo', groupCode: 'historical', keywords: [] },sourceName==null?index+1:undefined);}).map(p=>[planningKey(p),p])).values()];
   const partidas = [...catalog, ...missing];
-  const displayName=(p:BudgetPartida)=>partidaDisplayName(p,uiText,formatNumber);
+  const displayName=(p:BudgetPartida)=>partidaDisplayName(p,uiText,formatNumber,catalogNames.item);
   const initialFields = Object.fromEntries(partidas.map(p => [planningKey(p), String(data.budgetPlans.find(b => b.monthYear === month && planningKey(b) === planningKey(p))?.plannedAmount ?? 0)]));
   const initialSavings = planningMoneyInput(data.planningMonths?.find(m => m.monthYear === month)?.savingsCents ?? 0);
   const initialBreakdowns:Record<string,Record<string,string>>=Object.fromEntries(subitemContent(data,month).map(m=>[planningKey(m),Object.fromEntries(m.lines.map(l=>[l.subitemId,planningMoneyInput(l.amountCents)]))]));
@@ -180,7 +182,7 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       const title = type === 'INGRESO' ? uiText("planning.ingresos") : uiText("planning.gastos");
       const blockKey = `block:${type}`;
       const groups = [...data.budgetGroups.filter(g => g.type === type&&!g.deleted).map(g => ({ ...g, partidas:catalog.filter(p=>g.partidas.some(i=>planningKey(i)===planningKey(p))), key: `family:${type}:${g.code}` })),
-        ...(missing.some(p => p.type === type) ? [{ key: `historical:${type}`, name: uiText('chart.row.outsideCatalog'), partidas: missing.filter(p => p.type === type) }] : [])];
+        ...(missing.some(p => p.type === type) ? [{ code:'', key: `historical:${type}`, name: uiText('chart.row.outsideCatalog'), partidas: missing.filter(p => p.type === type) }] : [])];
       const stats = (items: BudgetPartida[]) => {
         const keys = new Set(items.map(planningKey));
         const effectiveEdits=combineLines(edits,carryLines(data,month));
@@ -201,8 +203,8 @@ export function PlanningView({ data, month, onMonth, onSave, onDirty, onDetail, 
       <PlanningSection title={title} open={isOpen(blockKey)} onToggle={() => toggle(blockKey)}
         {...blockStats} warning={[blockStats.warning, deficitWarning].filter(Boolean).join(' ')}
         onAll={open => setExpanded(previous => ({ ...previous, [blockKey]: open, ...Object.fromEntries(groups.map(g => [g.key, open])) }))}>
-        {groups.map(group => <PlanningSection key={group.key} title={group.name} family open={isOpen(group.key)} onToggle={() => toggle(group.key)} {...stats(group.partidas)}>
-          <fieldset disabled={submission.saving} className="space-y-2" aria-label={uiText("planning.importes_de", { name: group.name })}>
+        {groups.map(group => <PlanningSection key={group.key} title={catalogNames.familyRef(group.code,group.name)} family open={isOpen(group.key)} onToggle={() => toggle(group.key)} {...stats(group.partidas)}>
+          <fieldset disabled={submission.saving} className="space-y-2" aria-label={uiText("planning.importes_de", { name: catalogNames.familyRef(group.code,group.name) })}>
             {group.partidas.map(p => { const key = planningKey(p), row = rows.find(r => planningKey(r) === key)!;
               const carries=data.planningAutomation?.carryovers.filter(c=>c.toMonth===month&&c.code===p.code&&p.type==='GASTO') ?? [];
               const cents = errors[key]?undefined:combineLines(edits,carryLines(data,month)).find(l => planningKey(l) === key)?.amountCents ?? 0;

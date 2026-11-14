@@ -1,3 +1,4 @@
+import {catalogMessages} from './es.catalog';
 import { p3b } from './es.p3b';
 import { p3 } from './es.p3';
 import { p2c } from './es.p2c';
@@ -12,6 +13,7 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  ...catalogMessages,
   ...p1,
   ...p1b,
   ...p1c,

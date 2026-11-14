@@ -962,6 +962,16 @@
         "key": "budget.expectedPercentage",
         "text": "Prevista: {rate}",
         "reason": "Reviewed native wording; the rate parameter is formatted by Intl"
+      },
+      {
+        "key": "catalog.name.item.INGRESO:L.001.007",
+        "text": "Incentivos",
+        "reason": "5D: reviewed native financial wording with identical spelling for this specific stable catalogue identity."
+      },
+      {
+        "key": "catalog.name.item.INGRESO:O.001.001",
+        "text": "Reembolsos de compras",
+        "reason": "5D: reviewed native financial wording with identical spelling for this specific stable catalogue identity."
       }
     ]
   }

@@ -1,3 +1,4 @@
+import {catalogNamesDiagnostic} from './catalogNames';
 import {pluralCategory,languages,type Language,type translate} from './messages';
 import {domainOwnedText} from './domainMessages';
 import {presentationMoney,type presentationFormatters} from './presentation';
@@ -6,6 +7,8 @@ import type {DeletionReport,DeletionTarget} from '../utils/deletion';
 
 /** Owned diagnostics and dependency labels only. Never apply to personal fields or saved history. */
 const keys={
+  "versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4 y 3.5; no se ha modificado ningún dato.": "storage_message.version_no_compatible_se_admiten_los_formatos_2_5_2_6_2",
+  "JSON 3.5: nombres de catálogo de sistema elegidos explícitamente. Las copias anteriores conservan sus nombres; utiliza la copia recuperable previa para volver atrás.": "catalog.names.backup35",
   "No se ha guardado el movimiento.": "assistant.saveFailed",
   "debe ser un objeto.": "storage_message.debe_ser_un_objeto",
   "falta este campo.": "storage_message.falta_este_campo",
@@ -160,6 +163,7 @@ const keys={
   "Transferencias": "storage_message.transferencias"
 } as const;
 export function storageOwnedText(value:string,t:typeof translate,depth=0):string{
+ const catalogDiagnostic=catalogNamesDiagnostic(value,t);if(catalogDiagnostic)return catalogDiagnostic;
  if(Object.hasOwn(keys,value))return t(keys[value as keyof typeof keys]);
  if(depth>8)return value;
  const inner=(text:string)=>storageOwnedText(text,t,depth+1);

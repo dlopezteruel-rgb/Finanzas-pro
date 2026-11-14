@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 
 import { useI18n, I18nText } from "../i18n";
@@ -59,6 +60,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
   onSelectPartidaToView,
 }) => {
   const { t: uiText, tn: uiCount , formatMoney: formatCurrency,formatPercent } = useI18n();
+  const catalogNames=useCatalogNames();
   const [activeTab, setActiveTab] = useState<'GASTO' | 'INGRESO'>('GASTO');
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({});
   const [editingKey, setEditingKey] = useState<string | null>(null);
@@ -230,7 +232,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               <div className="catalog-family-heading">{drag.handle({kind:'family',type:group.type,code:group.code,label:group.name})}
               {/* Accordion Package Header */}
               <div
-                role="button" tabIndex={0} aria-expanded={isOpen} aria-label={uiText("budgets.familia", { name: group.name })}
+                role="button" tabIndex={0} aria-expanded={isOpen} aria-label={uiText("budgets.familia", { name: catalogNames.family(group) })}
                 onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleGroup(group.code)}}}
                 onClick={() => toggleGroup(group.code)}
                 className="catalog-family-toggle p-3.5 flex items-center justify-between gap-3 hover:bg-white/[0.02] cursor-pointer transition-colors select-none"
@@ -245,7 +247,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                   <div className="truncate">
                     <div className="flex items-center gap-2">
                       <h3 className="text-xs sm:text-sm font-bold text-white truncate">
-                        {group.name}{group.archived?uiText("catalog_manager.archivada"):''}
+                        {catalogNames.family(group)}{group.archived?uiText("catalog_manager.archivada"):''}
                       </h3>
                       <span className="text-[10px] bg-white/[0.05] text-slate-300 px-1.5 py-0.2 rounded-full font-mono">{uiCount("budgetItems",group.partidas.length)}</span>
                     </div>
@@ -300,7 +302,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                     const row = rowMap[`${partida.type}:${partida.code}`] || {
                       code: partida.code,
                       groupName: partida.groupName,
-                      name: partida.name,
+                      name: catalogNames.item(partida),
                       type: partida.type,
                       previsto: 0,
                       ejecutado: 0,
@@ -324,9 +326,9 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                           {drag.handle({kind:'partida',type:partida.type,code:partida.code,label:partida.name})}
                           {/* Left: accessible opener for the contextual panel */}
                           <button type="button" onClick={() => onSelectPartidaToView(partida, row)}
-                            aria-label={uiText("budgets.ver_partida", { name: partida.name })} className="min-w-0 flex-1 text-left cursor-pointer group">
+                            aria-label={uiText("budgets.ver_partida", { name: catalogNames.item(partida) })} className="min-w-0 flex-1 text-left cursor-pointer group">
                             <span className="flex items-center gap-1.5 flex-wrap">
-                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={partida.name}>{partida.name}{partida.archived?uiText("catalog_manager.archivada"):''}</span>
+                              <span className="text-xs font-bold text-white group-hover:text-sky-300 transition-colors truncate" title={catalogNames.item(partida)}>{catalogNames.item(partida)}{partida.archived?uiText("catalog_manager.archivada"):''}</span>
                               <Eye className="w-3 h-3 text-slate-500 group-hover:text-sky-400 opacity-0 group-hover:opacity-100 transition-opacity" />
                             </span>
                             <span className="text-[10px] text-slate-400 block mt-0.5">{uiCount("recordedTransactionsHint",row.transactionCount)}</span>
@@ -361,7 +363,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
                                 title={uiText("budgets.subir_partida_dentro_del_paquete")}
-                                aria-label={uiText("budgets.subir_partida", { name: partida.name })}
+                                aria-label={uiText("budgets.subir_partida", { name: catalogNames.item(partida) })}
                               >
                                 <ArrowUp className="w-3 h-3" />
                               </button>
@@ -374,7 +376,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                                 }}
                                 className="p-1 hover:text-white text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
                                 title={uiText("budgets.bajar_partida_dentro_del_paquete")}
-                                aria-label={uiText("budgets.bajar_partida", { name: partida.name })}
+                                aria-label={uiText("budgets.bajar_partida", { name: catalogNames.item(partida) })}
                               >
                                 <ArrowDown className="w-3 h-3" />
                               </button>
@@ -390,7 +392,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               }}
                               className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-slate-400 hover:text-white transition-colors cursor-pointer border border-white/[0.06]"
                               title={uiText("budgets.duplicar_partida_presupuestaria")}
-                              aria-label={uiText("budgets.duplicar_partida", { name: partida.name })}
+                              aria-label={uiText("budgets.duplicar_partida", { name: catalogNames.item(partida) })}
                             >
                               <Copy className="w-3 h-3" />
                             </button>
@@ -407,7 +409,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
                               }}
                               className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.1] text-slate-400 hover:text-sky-400 transition-colors cursor-pointer border border-white/[0.06]"
                               title={uiText("budgets.cambiar_a_otro_paquete")}
-                              aria-label={uiText("budgets.mover_de_paquete", { name: partida.name })}
+                              aria-label={uiText("budgets.mover_de_paquete", { name: catalogNames.item(partida) })}
                             >
                               <FolderInput className="w-3 h-3" />
                             </button>
@@ -510,7 +512,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
           <fieldset disabled={moveSubmission.saving} className="space-y-3.5">
             {moveSubmission.error && <p role="alert" className="text-rose-300">{storageOwnedText(moveSubmission.error,uiText)}</p>}
             <h3 className="text-sm font-bold text-white">{uiText("budgets.mover_partida_a_otro_paquete")}</h3>
-            <p className="text-slate-300"><I18nText id="budgets.a_que_paquete_deseas_mover_la_partida" values={{ name: (<strong className="text-white">{movingPartida.name}</strong>) }} /></p>
+            <p className="text-slate-300"><I18nText id="budgets.a_que_paquete_deseas_mover_la_partida" values={{ name: (<strong className="text-white">{catalogNames.item(movingPartida)}</strong>) }} /></p>
 
             <div>
               <label className="block text-slate-400 mb-1 font-medium">{uiText("budgets.paquete_de_destino")}</label>
@@ -522,7 +524,7 @@ export const BudgetsView: React.FC<BudgetsViewProps> = ({
               >
                 {budgetGroups.filter(g => g.type === movingPartida.type&&!g.archived&&!g.deleted).map(g => (
                   <option key={g.code} value={g.code}>
-                    {uiText('catalog.familyOption',{type:uiText(g.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto'),name:g.name})}
+                    {uiText('catalog.familyOption',{type:uiText(g.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto'),name:catalogNames.family(g)})}
                   </option>
                 ))}
               </select>

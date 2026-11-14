@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {partidaDisplayName,partidaDisplayFamily} from '../i18n/labels';
 import {storageOwnedText} from '../i18n/storageMessages';
 
@@ -50,6 +51,7 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
   onUpdatePrevisto, onViewSharedDetails, error = '',
 }) => {
   const { t: uiText , formatMoney: formatCurrency, formatCents: formatPlanningCents , formatDate,formatMonth,formatNumber } = useI18n();
+  const catalogNames=useCatalogNames();
   const [selectedSubitem,setSelectedSubitem]=useState<string|null>(null),[subitemBusy,setSubitemBusy]=useState(false);
   const [isEditingPrevisto, setIsEditingPrevisto] = useState(false);
   const [previstoInput, setPrevistoInput] = useState('0');
@@ -101,10 +103,10 @@ export const PartidaDetailModal: React.FC<PartidaDetailModalProps> = ({
                 {uiText(partida.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto')}
               </span>
             </div>
-            <h2 className="text-base font-bold text-white mt-1 truncate" title={partidaDisplayName(partida,uiText,formatNumber)}>
-              {partidaDisplayName(partida,uiText,formatNumber)}
+            <h2 className="text-base font-bold text-white mt-1 truncate" title={partidaDisplayName(partida,uiText,formatNumber,catalogNames.item)}>
+              {partidaDisplayName(partida,uiText,formatNumber,catalogNames.item)}
             </h2>
-            <span className="text-[11px] text-slate-400 block mt-0.5"><I18nText id="partida_detail.paquete_periodo" values={{ groupName: (partidaDisplayFamily(partida,uiText)), monthYear: (formatMonth(monthYear)) }} /></span>
+            <span className="text-[11px] text-slate-400 block mt-0.5"><I18nText id="partida_detail.paquete_periodo" values={{ groupName: (partidaDisplayFamily(partida,uiText,catalogNames.subgroup)), monthYear: (formatMonth(monthYear)) }} /></span>
           </div>
 
           <button

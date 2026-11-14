@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import { useI18n, I18nText } from "../i18n";
 import type {BudgetPartida} from '../types/finance';
 import { SaveResult } from '../utils/saveResult';
@@ -57,6 +58,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onOpenNewTransaction,
 }) => {
   const { t: uiText, tn: uiCount , formatMoney: formatCurrency,formatDate,formatPercent } = useI18n();
+  const catalogNames=useCatalogNames();
   const totalLiquid = wallets.filter(w=>w.type!=='INVESTMENT').reduce((sum,w)=>sum+(walletBalances[w.name]??0),0);
 
   // Filter latest transactions
@@ -238,7 +240,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                 {exceededRows.length > 0 ? uiCount("overBudget",exceededRows.length) : uiCount("budgetAlert",warningRows.length)}
               </span>
               <span className="text-[11px] text-slate-400 truncate block">
-                {exceededRows[0] ? uiText("dashboard.resto", { name: exceededRows[0].name, resto: formatCurrency(exceededRows[0].resto) }) : uiText("dashboard.revisa_tus_gastos_previstos")}
+                {exceededRows[0] ? uiText("dashboard.resto", { name: catalogNames.itemRef(exceededRows[0].type,exceededRows[0].code,exceededRows[0].name), resto: formatCurrency(exceededRows[0].resto) }) : uiText("dashboard.revisa_tus_gastos_previstos")}
               </span>
             </div>
           </div>

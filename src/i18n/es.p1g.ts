@@ -12,7 +12,7 @@ export const p1g = {
   "storage_message.linea_monetaria_invalida": "línea monetaria inválida.",
   "storage_message.totales_inconsistentes_con_la_fotografia": "totales inconsistentes con la fotografía.",
   "storage_message.base_arrastre_no_coincide_con_la_fotografia_efectiva": "base + arrastre no coincide con la fotografía efectiva.",
-  "storage_message.version_no_compatible_se_admiten_los_formatos_2_5_2_6_2": "versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3 y 3.4; no se ha modificado ningún dato.",
+  "storage_message.version_no_compatible_se_admiten_los_formatos_2_5_2_6_2": "versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4 y 3.5; no se ha modificado ningún dato.",
   "storage_message.fecha_de_exportacion_invalida": "fecha de exportación inválida.",
   "storage_message.debe_ser_dark_o_light": "debe ser dark o light.",
   "storage_message.modelo_no_compatible": "modelo no compatible.",
