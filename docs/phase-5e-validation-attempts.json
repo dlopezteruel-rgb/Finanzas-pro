@@ -876,6 +876,11 @@
       "name": "concurrent-wallet-label-smoke",
       "kind": "instrumentation-error",
       "reason": "Exact accessible label is Nueva Cuenta, corrected initial casing. Final original phase1 suite57/57 passed with actual guarded finance writes."
+    },
+    {
+      "name": "isolated-browser-probe",
+      "kind": "failed",
+      "reason": "IIFE esbuild did not receive Vite SSR=false. Exact compile-time flag preserves browser-only path; original25 cases and assertions pass. No production/SSR/financial code changes."
     }
   ],
   "githubAttempts": [
@@ -894,6 +899,14 @@
       "unit": "success",
       "code": "success",
       "browser": "failure: repeated lazy suspension on month change; final source corrected"
+    },
+    {
+      "run": 43653525846,
+      "head": "d9ccb7d7e0a7a6e95362217c252d9d9b58460320",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43653525846",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure: isolated esbuild IIFE needed the browser SSR=false constant; application unchanged; original25/25 passed after adapter correction"
     }
   ]
 }
