@@ -36,3 +36,26 @@ import "./utils/catalogReorder.test";
 import "./utils/catalogClassification.test";
 
 import './utils/stabilization.test';
+
+import './i18n/rich.test';
+import './i18n/dictionaries.test';
+import './i18n/inventory.test';
+import './i18n/presenters.test';
+import './i18n/planningMessages.test';
+import './i18n/presentation.test';
+
+import './i18n/bankingReviews.test';
+
+import './i18n/storageMessages.test';
+
+import './i18n/sharedMessages.test';
+
+import './i18n/chartMessages.test';
+
+import './i18n/assistantMessages.test';
+
+import './i18n/domainMessages.test';
+
+import './i18n/countMessages.test';
+
+import './i18n/residuals.test';

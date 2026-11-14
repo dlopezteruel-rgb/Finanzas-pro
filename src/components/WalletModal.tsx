@@ -1,4 +1,5 @@
-import { useI18n } from '../i18n';
+import {storageOwnedText} from '../i18n/storageMessages';
+import { useI18n, I18nText } from "../i18n";
 import { ConfirmDeleteDialog } from './ConfirmDeleteDialog';
 import { deletionReport } from '../utils/deletion';
 import type { FinanceData } from '../utils/backup';
@@ -7,7 +8,7 @@ import { SaveResult } from '../utils/saveResult';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import React, { useState, useLayoutEffect } from 'react';
 import { Wallet } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { X, Landmark, Trash2, Check, Sparkles, Coins } from 'lucide-react';
 
 interface WalletModalProps {
@@ -42,6 +43,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
   onSaveWallet,
   onDeleteWallet,
 }) => {
+  const { t: uiText , formatMoney: formatCurrency } = useI18n();
   const { t } = useI18n();
   const isEditing = !!walletToEdit;
 
@@ -123,8 +125,8 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 
   return (
     <>
-    <Overlay title="Cartera" onClose={() => submission.close(onClose)}>
-      <div role="dialog" aria-modal="true" aria-label="Cartera" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
+    <Overlay title={uiText("wallet.cartera")} onClose={() => submission.close(onClose)}>
+      <div role="dialog" aria-modal="true" aria-label={uiText("wallet.cartera")} className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm sm:max-w-md w-full p-5 sm:p-6 shadow-2xl text-xs space-y-4 max-h-[90vh] overflow-y-auto">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-2.5">
@@ -132,21 +134,21 @@ export const WalletModal: React.FC<WalletModalProps> = ({
               className="wallet-initials w-9 h-9 rounded-xl flex items-center justify-center font-black text-xs shadow-sm"
               style={{ borderColor: color }}
             >
-              {name.slice(0, 2) || 'CT'}
+              {name.slice(0, 2) || uiText("wallet.ct")}
             </div>
             <div>
               <h3 className="text-base font-bold text-white">
-                {isEditing ? 'Editar Cuenta y Patrimonio' : 'Nueva Cuenta o Cartera'}
+                {isEditing ? uiText("wallet.editar_cuenta_y_patrimonio") : uiText("wallet.nueva_cuenta_o_cartera")}
               </h3>
               <p className="text-[11px] text-slate-400">
                 {isEditing
-                  ? 'Ajusta el saldo inicial, patrimonio y datos de la cuenta'
-                  : 'Crea una nueva cuenta bancaria, efectivo o ahorro'}
+                  ? uiText("wallet.ajusta_el_saldo_inicial_patrimonio_y_datos_de_la")
+                  : uiText("wallet.crea_una_nueva_cuenta_bancaria_efectivo_o_ahorro")}
               </p>
             </div>
           </div>
           <button
-            aria-label="Cerrar cartera" onClick={() => submission.close(onClose)} disabled={submission.saving}
+            aria-label={uiText("wallet.cerrar_cartera")} onClick={() => submission.close(onClose)} disabled={submission.saving}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
@@ -155,9 +157,9 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 
         <form onSubmit={handleSubmit} aria-busy={submission.saving}>
           <fieldset disabled={submission.saving} className="space-y-4">
-          {submission.error && <p role="alert" className="text-amber-300">{submission.error}</p>}
-          {submission.saving && <p role="status" className="text-sky-300">Guardando…</p>}
-          {error && <p role="alert" className="text-amber-300">{error}</p>}
+          {submission.error && <p role="alert" className="text-amber-300">{storageOwnedText(submission.error,uiText)}</p>}
+          {submission.saving && <p role="status" className="text-sky-300">{uiText("transfer.guardando")}</p>}
+          {error && <p role="alert" className="text-amber-300">{storageOwnedText(error,uiText)}</p>}
           {/* Name & Type */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
@@ -165,7 +167,7 @@ export const WalletModal: React.FC<WalletModalProps> = ({
               <input
                 type="text"
                 required
-                placeholder="ej. BBVA, REVOLUT, EFECTIVO"
+                placeholder={uiText("wallet.ej_bbva_revolut_efectivo")}
                 aria-label={t('form.walletName')}
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -174,17 +176,17 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-400 mb-1 font-medium">Tipo de cuenta</label>
+              <label className="block text-slate-400 mb-1 font-medium">{uiText("wallet.tipo_de_cuenta")}</label>
               <select
-                aria-label="Tipo de cuenta" value={type}
+                aria-label={uiText("wallet.tipo_de_cuenta")} value={type}
                 onChange={e => setType(e.target.value as any)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
               >
-                <option value="BANK">Bancaria habitual</option>
-                <option value="NEOBANK">Neobanco / Fintech</option>
-                <option value="SAVINGS">Cuenta de Ahorro</option>
-                <option value="INVESTMENT">Inversión / Bróker</option>
-                <option value="CASH">Efectivo / Metálico</option>
+                <option value="BANK">{uiText("wallet.bancaria_habitual")}</option>
+                <option value="NEOBANK">{uiText("wallet.neobanco_fintech")}</option>
+                <option value="SAVINGS">{uiText("wallet.cuenta_de_ahorro")}</option>
+                <option value="INVESTMENT">{uiText("wallet.inversion_broker")}</option>
+                <option value="CASH">{uiText("wallet.efectivo_metalico")}</option>
               </select>
             </div>
           </div>
@@ -193,23 +195,21 @@ export const WalletModal: React.FC<WalletModalProps> = ({
           <div className="bg-[#0c0f17] border border-white/[0.08] rounded-2xl p-3.5 space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-bold text-sky-400 uppercase tracking-wider flex items-center gap-1.5">
-                <Coins className="w-3.5 h-3.5" />
-                Patrimonio y Saldo de la cuenta
-              </span>
+                <Coins className="w-3.5 h-3.5" />{uiText("wallet.patrimonio_y_saldo_de_la_cuenta")}</span>
               {isEditing && currentCalculatedBalance !== undefined && (
                 <button
                   type="button"
                   onClick={() => setIsCalibratingCurrent(!isCalibratingCurrent)}
                   className="text-[10px] text-sky-400 hover:text-sky-300 font-semibold cursor-pointer underline"
                 >
-                  {isCalibratingCurrent ? 'Ver saldo inicial' : 'Ajustar al saldo actual directo'}
+                  {isCalibratingCurrent ? uiText("wallet.ver_saldo_inicial") : uiText("wallet.ajustar_al_saldo_actual_directo")}
                 </button>
               )}
             </div>
 
             {isEditing && currentCalculatedBalance !== undefined && !isCalibratingCurrent && (
               <div className="flex items-center justify-between bg-white/[0.03] p-2.5 rounded-xl border border-white/[0.04]">
-                <span className="text-[11px] text-slate-400">Saldo actual en vivo:</span>
+                <span className="text-[11px] text-slate-400">{uiText("wallet.saldo_actual_en_vivo")}</span>
                 <span className={`text-sm font-black font-mono ${currentCalculatedBalance >= 0 ? 'text-white' : 'text-rose-400'}`}>
                   {formatCurrency(currentCalculatedBalance)}
                 </span>
@@ -218,15 +218,13 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 
             {!isCalibratingCurrent ? (
               <div>
-                <label className="block text-slate-400 mb-1 text-[11px]">
-                  Patrimonio / Saldo base inicial (€)
-                </label>
+                <label className="block text-slate-400 mb-1 text-[11px]">{uiText("wallet.patrimonio_saldo_base_inicial")}</label>
                 <div className="relative">
                   <input
                     type="number"
                     step="0.01"
                     required
-                    aria-label="Patrimonio / Saldo base inicial (€)" value={initialBalance}
+                    aria-label={uiText("wallet.patrimonio_saldo_base_inicial")} value={initialBalance}
                     onChange={e => setInitialBalance(e.target.value)}
                     className="w-full bg-[#141926] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono text-base font-bold focus:outline-none focus:border-sky-500 pr-8"
                   />
@@ -234,21 +232,17 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                     €
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-500 mt-1">
-                  Punto de partida patrimonial. Las transacciones tramitadas sumarán o restarán a esta base.
-                </p>
+                <p className="text-[10px] text-slate-500 mt-1">{uiText("wallet.punto_de_partida_patrimonial_las_transacciones_tramitadas_sumaran_o")}</p>
               </div>
             ) : (
               <div>
-                <label className="block text-sky-300 mb-1 text-[11px] font-semibold">
-                  Quiero que el saldo actual de la cuenta quede exactamente en (€):
-                </label>
+                <label className="block text-sky-300 mb-1 text-[11px] font-semibold">{uiText("wallet.quiero_que_el_saldo_actual_de_la_cuenta_quede")}</label>
                 <div className="relative">
                   <input
                     type="number"
                     step="0.01"
                     required
-                    aria-label="Saldo actual deseado (€)" value={targetCurrentBalance}
+                    aria-label={uiText("wallet.saldo_actual_deseado")} value={targetCurrentBalance}
                     onChange={e => setTargetCurrentBalance(e.target.value)}
                     className="w-full bg-[#141926] border border-sky-500/50 rounded-xl px-3 py-2 text-sky-200 font-mono text-base font-bold focus:outline-none focus:border-sky-400 pr-8"
                   />
@@ -256,20 +250,18 @@ export const WalletModal: React.FC<WalletModalProps> = ({
                     €
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-400 mt-1">
-                  Se recalibrará automáticamente el patrimonio inicial para que tu saldo en cuenta coincida con lo que tienes en el banco hoy.
-                </p>
+                <p className="text-[10px] text-slate-400 mt-1">{uiText("wallet.se_recalibrara_automaticamente_el_patrimonio_inicial_para_que_tu")}</p>
               </div>
             )}
           </div>
 
           {/* IBAN / Details */}
           <div>
-            <label className="block text-slate-400 mb-1 font-medium">IBAN o detalles (opcional)</label>
+            <label className="block text-slate-400 mb-1 font-medium">{uiText("wallet.iban_o_detalles_opcional")}</label>
             <input
               type="text"
-              placeholder="ES91 2100 0418 4502 0005 1332"
-              aria-label="IBAN o detalles (opcional)" value={iban}
+              placeholder={uiText("wallet.es91_2100_0418_4502_0005_1332")}
+              aria-label={uiText("wallet.iban_o_detalles_opcional")} value={iban}
               onChange={e => setIban(e.target.value)}
               className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono focus:outline-none focus:border-sky-500 text-xs"
             />
@@ -277,13 +269,13 @@ export const WalletModal: React.FC<WalletModalProps> = ({
 
           {/* Color Selector */}
           <div>
-            <label className="block text-slate-400 mb-1.5 font-medium">Color de la tarjeta</label>
+            <label className="block text-slate-400 mb-1.5 font-medium">{uiText("wallet.color_de_la_tarjeta")}</label>
             <div className="flex items-center gap-2">
               {PRESET_COLORS.map(c => (
                 <button
                   type="button"
                   key={c}
-                  aria-label={`Color ${c}`} aria-pressed={color===c}
+                  aria-label={uiText("wallet.color", { c: c })} aria-pressed={color===c}
                   onClick={() => setColor(c)}
                   className={`w-7 h-7 rounded-full transition-transform cursor-pointer flex items-center justify-center ${
                     color === c ? 'scale-110 ring-2 ring-white shadow-lg' : 'opacity-70 hover:opacity-100'
@@ -296,13 +288,13 @@ export const WalletModal: React.FC<WalletModalProps> = ({
             </div>
           </div>
 
-          {isEditing && onDeleteWallet && <button type="button" onClick={() => setConfirmDelete(true)} className="text-rose-300 py-2 flex gap-2 items-center"><Trash2 className="w-3.5 h-3.5" />Eliminar esta cuenta bancaria</button>}
+          {isEditing && onDeleteWallet && <button type="button" onClick={() => setConfirmDelete(true)} className="text-rose-300 py-2 flex gap-2 items-center"><I18nText id="wallet.eliminar_esta_cuenta_bancaria" values={{ trash2: (<Trash2 className="w-3.5 h-3.5" />) }} /></button>}
 
           {/* Action buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
-              aria-label="Cerrar cartera" onClick={() => submission.close(onClose)} disabled={submission.saving}
+              aria-label={uiText("wallet.cerrar_cartera")} onClick={() => submission.close(onClose)} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
             >
               {t('common.cancel')}
@@ -312,14 +304,14 @@ export const WalletModal: React.FC<WalletModalProps> = ({
               className="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>{isEditing ? 'Guardar Cambios' : 'Crear Cuenta'}</span>
+              <span>{isEditing ? uiText("loan.guardar_cambios") : uiText("wallet.crear_cuenta")}</span>
             </button>
           </div>
           </fieldset>
         </form>
       </div>
     </Overlay>
-    {confirmDelete && walletToEdit && onDeleteWallet && <ConfirmDeleteDialog report={deletionReport(deletionData, { kind: 'wallet', id: walletToEdit.id })}
+    {confirmDelete && walletToEdit && onDeleteWallet && <ConfirmDeleteDialog source={{data:deletionData,target:{kind:"wallet",id:walletToEdit.id}}} report={deletionReport(deletionData, { kind: 'wallet', id: walletToEdit.id })}
       onCancel={() => setConfirmDelete(false)} onConfirm={async () => { const result = await onDeleteWallet(walletToEdit.id); if (result.ok) onClose(); return result; }} />}
     </>
   );

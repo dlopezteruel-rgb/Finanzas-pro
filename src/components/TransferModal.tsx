@@ -1,3 +1,6 @@
+import {walletTypeText} from '../i18n/labels';
+import {storageOwnedText} from '../i18n/storageMessages';
+import { useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { initialWalletId } from '../utils/defaultWallet';
 import { SaveResult } from '../utils/saveResult';
@@ -5,7 +8,7 @@ import { useAsyncForm } from '../utils/useAsyncForm';
 import { parseTransferAmount, validTransferAmount } from '../utils/transfers';
 import React, { useState, useLayoutEffect } from 'react';
 import { Wallet, Transaction, TransferInput } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { ArrowLeftRight, X, Check, ArrowRight } from 'lucide-react';
 
 interface TransferModalProps {
@@ -28,6 +31,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   walletBalances,
   onExecuteTransfer, transferToEdit, initiallyDelete = false, onDeleteTransfer,
 }) => {
+  const { t: uiText , formatMoney: formatCurrency , formatDate,formatNumber } = useI18n();
   const submission = useAsyncForm();
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [processed, setProcessed] = useState(true);
@@ -74,8 +78,8 @@ export const TransferModal: React.FC<TransferModalProps> = ({
   const close = () => submission.close(onClose);
 
   return (
-    <Overlay title="Traspaso" onClose={close}>
-      <div role="dialog" aria-modal="true" aria-label="Traspaso" className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl text-xs space-y-4">
+    <Overlay title={uiText("transfer.traspaso")} onClose={close}>
+      <div role="dialog" aria-modal="true" aria-label={uiText("transfer.traspaso")} className="bg-[#141926] border border-white/10 rounded-3xl max-w-md w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl text-xs space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
@@ -83,38 +87,32 @@ export const TransferModal: React.FC<TransferModalProps> = ({
               <ArrowLeftRight className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">{transferToEdit ? "Editar Traspaso entre Cuentas" : "Ordenar Traspaso entre Cuentas"}</h3>
-              <p className="text-[11px] text-slate-400">
-                Mueve dinero entre tus bancos y carteras al instante
-              </p>
+              <h3 className="text-base font-bold text-white">{transferToEdit ? uiText("transfer.editar_traspaso_entre_cuentas") : uiText("transfer.ordenar_traspaso_entre_cuentas")}</h3>
+              <p className="text-[11px] text-slate-400">{uiText("transfer.mueve_dinero_entre_tus_bancos_y_carteras_al_instante")}</p>
             </div>
           </div>
           <button
-            onClick={close} disabled={submission.saving} aria-label="Cerrar traspaso"
+            onClick={close} disabled={submission.saving} aria-label={uiText("transfer.cerrar_traspaso")}
             className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-white/[0.05] transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-[11px] text-slate-400">Los dos extremos se guardan juntos. Antes del primer traspaso se conserva una copia recuperable del estado anterior.</p>
+        <p className="text-[11px] text-slate-400">{uiText("transfer.los_dos_extremos_se_guardan_juntos_antes_del_primer")}</p>
         <form onSubmit={handleSubmit} aria-busy={submission.saving} className="space-y-4">
           <fieldset disabled={submission.saving} className="space-y-4">
-          {submission.error && <p role="alert" className="text-rose-300">{submission.error}</p>}
+          {submission.error && <p role="alert" className="text-rose-300">{storageOwnedText(submission.error,uiText)}</p>}
           {/* Account Selection Box */}
           <div className="space-y-2 relative">
             {/* Origin Wallet */}
             <div className="bg-[#0c0f17] border border-white/[0.08] rounded-2xl p-3 space-y-1">
               <div className="flex items-center justify-between">
-                <label className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block">
-                  Cuenta de Origen (Salida de dinero)
-                </label>
-                <span className="text-[10px] text-slate-400">
-                  Saldo actual: <strong className="text-white font-mono">{formatCurrency(originBalance)}</strong>
-                </span>
+                <label className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block">{uiText("transfer.cuenta_de_origen_salida_de_dinero")}</label>
+                <span className="text-[10px] text-slate-400"><I18nText id="transfer.saldo_actual" values={{ originBalance: (<strong className="text-white font-mono">{formatCurrency(originBalance)}</strong>) }} /></span>
               </div>
               <select
-                aria-label="Cuenta de origen" required
+                aria-label={uiText("transfer.cuenta_de_origen")} required
                 value={origin}
                 onChange={e => {
                   setOrigin(e.target.value);
@@ -125,9 +123,9 @@ export const TransferModal: React.FC<TransferModalProps> = ({
                 }}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
-                <option value="" disabled>Selecciona una cartera</option>{wallets.map(w => (
+                <option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallets.map(w => (
                   <option key={w.id} value={w.id} className="bg-[#141926] text-white">
-                    {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
+                    {w.name} ({walletTypeText(w.type,uiText)}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                   </option>
                 ))}
               </select>
@@ -138,7 +136,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
               <button
                 type="button"
                 onClick={handleSwap}
-                title="Intercambiar origen y destino"
+                title={uiText("transfer.intercambiar_origen_y_destino")}
                 className="w-8 h-8 rounded-full bg-sky-500 hover:bg-sky-400 text-slate-950 flex items-center justify-center shadow-lg transition-transform active:rotate-180 cursor-pointer"
               >
                 <ArrowLeftRight className="w-4 h-4 stroke-[2.5]" />
@@ -148,24 +146,20 @@ export const TransferModal: React.FC<TransferModalProps> = ({
             {/* Destination Wallet */}
             <div className="bg-[#0c0f17] border border-white/[0.08] rounded-2xl p-3 space-y-1 pt-3.5">
               <div className="flex items-center justify-between">
-                <label className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block">
-                  Cuenta de Destino (Entrada de dinero)
-                </label>
-                <span className="text-[10px] text-slate-400">
-                  Saldo actual: <strong className="text-white font-mono">{formatCurrency(destBalance)}</strong>
-                </span>
+                <label className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold block">{uiText("transfer.cuenta_de_destino_entrada_de_dinero")}</label>
+                <span className="text-[10px] text-slate-400"><I18nText id="transfer.saldo_actual_9624fe" values={{ destBalance: (<strong className="text-white font-mono">{formatCurrency(destBalance)}</strong>) }} /></span>
               </div>
               <select
-                aria-label="Cuenta de destino" required
+                aria-label={uiText("transfer.cuenta_de_destino")} required
                 value={destination}
                 onChange={e => setDestination(e.target.value)}
                 className="w-full bg-transparent text-white font-bold text-sm focus:outline-none cursor-pointer"
               >
-                <option value="" disabled>Selecciona una cartera</option>{wallets
+                <option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallets
                   .filter(w => w.id !== origin)
                   .map(w => (
                     <option key={w.id} value={w.id} className="bg-[#141926] text-white">
-                      {w.name} ({w.type}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
+                      {w.name} ({walletTypeText(w.type,uiText)}) · {formatCurrency(walletBalances[w.name] ?? w.initialBalance)}
                     </option>
                   ))}
               </select>
@@ -174,15 +168,15 @@ export const TransferModal: React.FC<TransferModalProps> = ({
 
           {/* Amount input */}
           <div className="space-y-1.5">
-            <label className="text-slate-400 block font-medium">Importe a transferir (€)</label>
+            <label className="text-slate-400 block font-medium">{uiText("transfer.importe_a_transferir")}</label>
             <div className="relative">
               <input
-                aria-label="Importe a transferir (€)"
+                aria-label={uiText("transfer.importe_a_transferir")}
                 type="number"
                 step="0.01"
                 required
                 min="0.01"
-                placeholder="0.00"
+                placeholder={formatNumber(0,{minimumFractionDigits:2,maximumFractionDigits:2})}
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-2xl px-4 py-3 text-white text-lg font-black font-mono focus:outline-none focus:border-sky-500 pr-10"
@@ -210,10 +204,10 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           {/* Date and Concept */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="text-slate-400 block font-medium mb-1">Fecha</label>
+              <label className="text-slate-400 block font-medium mb-1">{uiText("transfer.fecha")}</label>
               <div className="relative">
                 <input
-                  aria-label="Fecha"
+                  aria-label={uiText("transfer.fecha")}
                   type="date"
                   required
                   value={date}
@@ -224,11 +218,11 @@ export const TransferModal: React.FC<TransferModalProps> = ({
             </div>
 
             <div>
-              <label className="text-slate-400 block font-medium mb-1">Concepto / Nota</label>
+              <label className="text-slate-400 block font-medium mb-1">{uiText("transfer.concepto_nota")}</label>
               <input
-                aria-label="Concepto / Nota"
+                aria-label={uiText("transfer.concepto_nota")}
                 type="text"
-                placeholder="ej. Ahorro, Recarga..."
+                placeholder={uiText("transfer.ej_ahorro_recarga")}
                 value={concept}
                 onChange={e => setConcept(e.target.value)}
                 className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white focus:outline-none focus:border-sky-500"
@@ -240,7 +234,7 @@ export const TransferModal: React.FC<TransferModalProps> = ({
           {parsedAmount > 0 && origin && destination && (
             <div className="bg-sky-500/10 border border-sky-500/20 rounded-2xl p-3 text-slate-300 space-y-1">
               <div className="flex items-center justify-between text-[11px]">
-                <span className="text-slate-400">Resumen del traspaso:</span>
+                <span className="text-slate-400">{uiText("transfer.resumen_del_traspaso")}</span>
                 <span className="font-bold text-sky-400 font-mono">{formatCurrency(parsedAmount)}</span>
               </div>
               <div className="flex items-center gap-2 text-xs font-semibold text-white">
@@ -251,30 +245,28 @@ export const TransferModal: React.FC<TransferModalProps> = ({
             </div>
           )}
 
-          {transferToEdit && <label className="flex gap-2 text-slate-300"><input type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />Tramitado (ambos extremos)</label>}
+          {transferToEdit && <label className="flex gap-2 text-slate-300"><input type="checkbox" checked={processed} onChange={e => setProcessed(e.target.checked)} />{uiText("transfer.tramitado_ambos_extremos")}</label>}
           {/* Submit buttons */}
           <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
             <button
               type="button"
               onClick={close} disabled={submission.saving}
               className="py-2.5 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold transition-colors cursor-pointer"
-            >
-              Cancelar
-            </button>
+            >{uiText("transfer.cancelar")}</button>
             <button
               type="submit"
               disabled={submission.saving || !validTransferAmount(parsedAmount) || !origin || !destination || origin === destination}
               className="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 disabled:opacity-30 disabled:cursor-not-allowed text-slate-950 font-bold flex items-center justify-center gap-1.5 shadow-lg shadow-sky-500/20 transition-all cursor-pointer"
             >
               <Check className="w-4 h-4 stroke-[3]" />
-              <span>{submission.saving ? "Guardando…" : "Confirmar Traspaso"}</span>
+              <span>{submission.saving ? uiText("transfer.guardando") : uiText("transfer.confirmar_traspaso")}</span>
             </button>
           </div>
           {transferToEdit?.transfer && onDeleteTransfer && <div className="text-rose-300 space-y-2">
-            {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>Eliminar traspaso completo</button> : <>
-              <p>Se eliminarán juntos los dos extremos del traspaso «{transferToEdit.transfer.concept}» ({transferToEdit.transfer.id}): {formatCurrency(transferToEdit.amount)} · {transferToEdit.date}. Carteras: {wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name} → {wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name}. Se retirarán 2 movimientos; el patrimonio total no cambia.</p>
-              <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>Confirmar eliminación del traspaso</button>
-              <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">Conservar traspaso</button>
+            {!confirmDelete ? <button type="button" onClick={() => setConfirmDelete(true)}>{uiText("transfer.eliminar_traspaso_completo")}</button> : <>
+              <p><I18nText id="transfer.se_eliminaran_juntos_los_dos_extremos_del_traspaso_carteras" values={{ concept: (transferToEdit.transfer.concept), id: (transferToEdit.transfer.id), amount: (formatCurrency(transferToEdit.amount)), date: (formatDate(transferToEdit.date, {day:'2-digit',month:'2-digit',year:'numeric'})), content: (wallets.find(w => w.id === transferToEdit.transfer!.fromWalletId)?.name), content_af1c0: (wallets.find(w => w.id === transferToEdit.transfer!.toWalletId)?.name) }} /></p>
+              <button type="button" disabled={submission.saving} onClick={() => void submission.submit(() => onDeleteTransfer(transferToEdit.transfer!.id), onClose)}>{uiText("transfer.confirmar_eliminacion_del_traspaso")}</button>
+              <button type="button" onClick={() => setConfirmDelete(false)} className="ml-3">{uiText("transfer.conservar_traspaso")}</button>
             </>}
           </div>}
           </fieldset>

@@ -1,10 +1,12 @@
+import {storageOwnedText} from '../i18n/storageMessages';
+import {useI18n, I18nText } from "../i18n";
 import { Overlay } from './Overlay';
 import { useAsyncForm } from '../utils/useAsyncForm';
 import type { SaveResult } from '../utils/saveResult';
 import { parseTransferAmount } from '../utils/transfers';
 import React, { useState, useMemo } from 'react';
 import { Contact, Transaction, Wallet, SplitParticipant } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import {
   Users,
   UserPlus,
@@ -49,6 +51,8 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
   onEditTransaction,
   onUpdateDebtAmount, onEditSettlement,
 }) => {
+  const { t: uiText,tn:uiCount } = useI18n();
+  const { formatMoney: formatCurrency , formatDate } = useI18n();
   const debtSubmission = useAsyncForm();
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedContactId, setExpandedContactId] = useState<string | null>(null);
@@ -154,15 +158,15 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
           <div className="space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-sky-400 font-semibold tracking-wide uppercase">
               <Users className="w-3.5 h-3.5" />
-              <span>Contactos y Cuentas Compartidas</span>
+              <span>{uiText("contacts.contactos_y_cuentas_compartidas")}</span>
             </div>
             <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               {formatCurrency(totalPendingOwed)}
             </div>
             <p className="text-xs text-slate-400">
               {debtorsCount === 0
-                ? 'Nadie te debe dinero actualmente · Cuentas al día'
-                : `${debtorsCount} ${debtorsCount === 1 ? 'persona te debe' : 'personas te deben'} dinero en gastos compartidos`}
+                ? uiText("contacts.nadie_te_debe_dinero_actualmente_cuentas_al_dia")
+                : uiCount("contactDebtors",debtorsCount)}
             </p>
           </div>
 
@@ -171,7 +175,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
             className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs shadow-lg shadow-sky-500/20 transition-all active:scale-95 cursor-pointer"
           >
             <UserPlus className="w-4 h-4" />
-            <span>Nuevo Contacto</span>
+            <span>{uiText("contacts.nuevo_contacto")}</span>
           </button>
         </div>
       </div>
@@ -182,7 +186,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5 pointer-events-none" />
           <input
             type="text"
-            placeholder="Buscar contactos o teléfono..."
+            placeholder={uiText("contacts.buscar_contactos_o_telefono")}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             className="w-full bg-[#141926] text-white placeholder-slate-400 text-xs pl-9 pr-4 py-2.5 rounded-2xl border border-white/[0.08] focus:outline-none focus:border-sky-500"
@@ -191,10 +195,10 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
         <button
           onClick={() => onOpenNewSharedTransaction()}
           className="px-3.5 py-2.5 bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 text-xs font-semibold rounded-2xl border border-white/[0.08] flex items-center gap-1.5 cursor-pointer"
-          title="Crear un gasto compartido"
+          title={uiText("contacts.crear_un_gasto_compartido")}
         >
           <Receipt className="w-4 h-4 text-sky-400" />
-          <span className="hidden sm:inline">Dividir Gasto</span>
+          <span className="hidden sm:inline">{uiText("contacts.dividir_gasto")}</span>
         </button>
       </div>
 
@@ -203,16 +207,14 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
         {filteredContacts.length === 0 ? (
           <div className="bg-[#141926] border border-white/[0.06] rounded-2xl p-8 text-center space-y-2">
             <Users className="w-8 h-8 text-slate-500 mx-auto" />
-            <p className="text-sm font-semibold text-white">No hay contactos registrados</p>
-            <p className="text-xs text-slate-400">
-              Añade contactos para gestionar deudas de comidas, viajes o compras compartidas.
-            </p>
+            <p className="text-sm font-semibold text-white">{uiText("contacts.no_hay_contactos_registrados")}</p>
+            <p className="text-xs text-slate-400">{uiText("contacts.anade_contactos_para_gestionar_deudas_de_comidas_viajes_o")}</p>
             <button
               onClick={() => onOpenCreateContact(null)}
               className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500 text-slate-950 font-bold text-xs cursor-pointer"
             >
               <UserPlus className="w-3.5 h-3.5" />
-              <span>Añadir primer contacto</span>
+              <span>{uiText("contacts.anadir_primer_contacto")}</span>
             </button>
           </div>
         ) : (
@@ -231,7 +233,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                 >
                   {/* Contact Summary Header */}
                   <div
-                    role="button" tabIndex={0} aria-expanded={isExpanded} aria-label={`Detalle de ${contact.name}`}
+                    role="button" tabIndex={0} aria-expanded={isExpanded} aria-label={uiText("contacts.detalle_de", { name: contact.name })}
                     onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setExpandedContactId(isExpanded ? null : contact.id)}}}
                     onClick={() => setExpandedContactId(isExpanded ? null : contact.id)}
                     className="contact-summary p-3.5 sm:p-4 flex items-center justify-between gap-3 cursor-pointer hover:bg-white/[0.02]"
@@ -250,7 +252,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                           <span className="font-bold text-sm text-white">{contact.name}</span>
                           {pendingDebts.length > 0 && (
                             <span className="text-[10px] px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 font-semibold">
-                              {pendingDebts.length} {pendingDebts.length === 1 ? 'deuda' : 'deudas'}
+                              {uiCount("contactDebts",pendingDebts.length)}
                             </span>
                           )}
                         </div>
@@ -265,7 +267,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       <div className="text-right">
                         {totalPendingAmount > 0 ? (
                           <>
-                            <div className="text-xs text-slate-400 font-medium">Te debe</div>
+                            <div className="text-xs text-slate-400 font-medium">{uiText("contacts.te_debe")}</div>
                             <div className="text-base font-black text-emerald-400">
                               {formatCurrency(totalPendingAmount)}
                             </div>
@@ -273,7 +275,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                         ) : (
                           <div className="flex items-center gap-1 text-xs text-slate-400 font-medium bg-white/[0.03] px-2.5 py-1 rounded-full border border-white/[0.06]">
                             <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                            <span>Al día</span>
+                            <span>{uiText("contacts.al_dia")}</span>
                           </div>
                         )}
                       </div>
@@ -294,9 +296,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       {/* Breakdown by Partida / Category (Restaurante vs Ropa vs otros) */}
                       {debtsByCategory.length > 0 && (
                         <div className="space-y-1.5">
-                          <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                            Resumen de deudas por partida
-                          </div>
+                          <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">{uiText("contacts.resumen_de_deudas_por_partida")}</div>
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                             {debtsByCategory.map(cat => (
                               <div
@@ -308,7 +308,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     {cat.category}
                                   </span>
                                   <span className="text-[10px] font-mono text-sky-400">
-                                    {cat.count} {cat.count === 1 ? 'concepto' : 'conceptos'}
+                                    {uiCount("contactConcepts",cat.count)}
                                   </span>
                                 </div>
                                 <span className="font-bold text-emerald-400 text-sm">
@@ -323,20 +323,14 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       {/* Detailed Pending Debts List */}
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                            Deudas pendientes ({pendingDebts.length})
-                          </span>
+                          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider"><I18nText id="contacts.deudas_pendientes" values={{ length: (pendingDebts.length) }} /></span>
                           {pendingDebts.length > 1 && (
-                            <span className="text-[10px] text-slate-400">
-                              Puedes saldarlas individualmente
-                            </span>
+                            <span className="text-[10px] text-slate-400">{uiText("contacts.puedes_saldarlas_individualmente")}</span>
                           )}
                         </div>
 
                         {pendingDebts.length === 0 ? (
-                          <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-center text-slate-400">
-                            No hay deudas pendientes con este contacto.
-                          </div>
+                          <div className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.04] text-center text-slate-400">{uiText("contacts.no_hay_deudas_pendientes_con_este_contacto")}</div>
                         ) : (
                           <div className="space-y-2">
                             {pendingDebts.map(debt => (
@@ -359,16 +353,14 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     <span className="font-bold text-white text-xs group-hover:text-sky-300 transition-colors">
                                       {debt.transactionDescription}
                                     </span>
-                                    <span className="text-[10px] px-2 py-0.2 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">
-                                      Pendiente
-                                    </span>
+                                    <span className="text-[10px] px-2 py-0.2 rounded-full bg-amber-500/10 text-amber-300 border border-amber-500/20">{uiText("contacts.pendiente")}</span>
                                   </div>
                                   <div className="text-[11px] text-slate-400 flex items-center gap-2">
                                     <span className="font-mono text-sky-400">{debt.transactionCode}</span>
                                     <span>·</span>
                                     <span>{debt.transactionSubcategory}</span>
                                     <span>•</span>
-                                    <span className="text-slate-500">Clica para editar</span>
+                                    <span className="text-slate-500">{uiText("contacts.clica_para_editar")}</span>
                                   </div>
                                 </div>
 
@@ -393,7 +385,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                       setNewDebtAmountInput(debt.participant.amount.toString());
                                     }}
                                     className="p-1.5 rounded-lg bg-white/[0.04] hover:bg-sky-500/10 text-slate-400 hover:text-sky-400 border border-white/[0.06] transition-colors cursor-pointer"
-                                    title="Editar importe de la deuda"
+                                    title={uiText("contacts.editar_importe_de_la_deuda")}
                                   >
                                     <Edit2 className="w-3.5 h-3.5" />
                                   </button>
@@ -406,7 +398,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                     className="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-emerald-500/10 transition-colors cursor-pointer shrink-0"
                                   >
                                     <ArrowDownLeft className="w-3.5 h-3.5" />
-                                    <span>Saldar deuda</span>
+                                    <span>{uiText("contacts.saldar_deuda")}</span>
                                   </button>
                                 </div>
                               </div>
@@ -418,9 +410,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       {/* Settled Debts History */}
                       {settledDebts.length > 0 && (
                         <div className="space-y-1.5 pt-2 border-t border-white/[0.06]">
-                          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-                            Historial saldado recientemente ({settledDebts.length})
-                          </span>
+                          <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block"><I18nText id="contacts.historial_saldado_recientemente" values={{ length: (settledDebts.length) }} /></span>
                           <div className="contact-settled-history space-y-1.5">
                             {settledDebts.map(({ item, paidDate }) => (
                               <div
@@ -434,9 +424,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                                       {item.transactionDescription}
                                     </span>
                                   </div>
-                                  <span className="text-[10px] text-slate-500">
-                                    {item.transactionSubcategory} · Saldado {paidDate || '✓'}
-                                  </span>
+                                  <span className="text-[10px] text-slate-500"><I18nText id="contacts.saldado" values={{ transactionSubcategory: (item.transactionSubcategory), date: (paidDate ? formatDate(paidDate,{day:"2-digit",month:"2-digit",year:"numeric"}) : "✓") }} /></span>
                                 </div>
                                 <span className="font-semibold text-slate-300 line-through">
                                   {formatCurrency(item.participant.amount)}
@@ -448,9 +436,9 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                       )}
 
                       {transactions.flatMap(t => (t.splitInfo?.settlements ?? []).filter(s => s.contactId === contact.id).map(s => <div key={s.id} className="contact-settlement text-slate-300">
-                        <span>{s.kind === 'cash' ? 'Reintegro' : 'Compensación'} · {formatCurrency(s.amount)} · {s.date} · {s.processed ? 'Tramitado' : 'Pendiente'}</span>
-                        <button aria-label={`Editar liquidación ${s.id}`} className="text-sky-300" onClick={() => onEditSettlement(t.id, s.id)}>Editar</button>
-                        <button aria-label={`Eliminar liquidación ${s.id}`} className="text-rose-300" onClick={() => onEditSettlement(t.id, s.id, true)}>Eliminar</button>
+                        <span>{s.kind === 'cash' ? uiText("contacts.reintegro") : uiText("contacts.compensacion")} · {formatCurrency(s.amount)} · {formatDate(s.date, {day:'2-digit',month:'2-digit',year:'numeric'})} · {s.processed ? uiText("contacts.tramitado") : uiText("contacts.pendiente")}</span>
+                        <button aria-label={uiText("contacts.editar_liquidacion", { id: s.id })} className="text-sky-300" onClick={() => onEditSettlement(t.id, s.id)}>{uiText("contacts.editar")}</button>
+                        <button aria-label={uiText("contacts.eliminar_liquidacion", { id: s.id })} className="text-rose-300" onClick={() => onEditSettlement(t.id, s.id, true)}>{uiText("contacts.eliminar")}</button>
                       </div>))}
                       {/* Bottom actions for this contact */}
                       <div className="flex flex-wrap gap-3 items-center justify-between pt-2 border-t border-white/[0.06]">
@@ -460,14 +448,14 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                             className="px-2.5 py-1.5 rounded-lg bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 flex items-center gap-1 cursor-pointer transition-colors"
                           >
                             <Edit2 className="w-3 h-3 text-sky-400" />
-                            <span>Editar</span>
+                            <span>{uiText("contacts.editar")}</span>
                           </button>
                           <button
-                            aria-label={`Eliminar contacto ${contact.name}`} onClick={() => onDeleteContact(contact.id)}
+                            aria-label={uiText("contacts.eliminar_contacto", { name: contact.name })} onClick={() => onDeleteContact(contact.id)}
                             className="px-2.5 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 flex items-center gap-1 cursor-pointer transition-colors"
                           >
                             <Trash2 className="w-3 h-3" />
-                            <span>Eliminar</span>
+                            <span>{uiText("contacts.eliminar")}</span>
                           </button>
                         </div>
 
@@ -476,7 +464,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                           className="px-3 py-1.5 rounded-xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-300 border border-sky-500/20 font-semibold flex items-center gap-1.5 cursor-pointer"
                         >
                           <Receipt className="w-3.5 h-3.5 text-sky-400" />
-                          <span>Dividir nuevo gasto con {contact.name.split(' ')[0]}</span>
+                          <span><I18nText id="contacts.dividir_nuevo_gasto_con" values={{ content: (contact.name.split(' ')[0]) }} /></span>
                         </button>
                       </div>
                     </div>
@@ -490,16 +478,17 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
 
       {/* Quick Edit Pending Debt Modal */}
       {editingDebt && (
-        <Overlay title="Corregir deuda" onClose={() => debtSubmission.close(() => setEditingDebt(null))}>
-          <div role="dialog" aria-modal="true" aria-label="Corregir deuda" className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-4">
+        <Overlay title={uiText("contacts.corregir_deuda")} onClose={() => debtSubmission.close(() => setEditingDebt(null))}>
+          <div role="dialog" aria-modal="true" aria-label={uiText("contacts.corregir_deuda")} className="bg-[#141926] border border-white/10 rounded-3xl max-w-sm w-full p-5 shadow-2xl text-xs space-y-4">
             <div className="flex items-center justify-between pb-2 border-b border-white/[0.06]">
               <div>
-                <h3 className="text-sm font-bold text-white">Editar Deuda Pendiente</h3>
+                <h3 className="text-sm font-bold text-white">{uiText("contacts.editar_deuda_pendiente")}</h3>
                 <p className="text-[11px] text-slate-400 truncate max-w-[240px]">
                   {editingDebt.description}
                 </p>
               </div>
               <button
+                aria-label={uiText("common.close")}
                 onClick={() => debtSubmission.close(() => setEditingDebt(null))} disabled={debtSubmission.saving}
                 className="text-slate-400 hover:text-white p-1"
               >
@@ -508,19 +497,17 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
             </div>
 
             <fieldset disabled={debtSubmission.saving} className="space-y-3">
-              {debtSubmission.error && <p role="alert" className="text-amber-300">{debtSubmission.error}</p>}
-              <p>Corrige la deuda total de esta persona. La parte propia se ajustará para conservar el total pagado; los cobros ya registrados no se modificarán.</p>
+              {debtSubmission.error && <p role="alert" className="text-amber-300">{storageOwnedText(debtSubmission.error,uiText)}</p>}
+              <p>{uiText("contacts.corrige_la_deuda_total_de_esta_persona_la_parte")}</p>
               <div>
-                <label className="block text-slate-400 mb-1 font-medium">
-                  Importe que debe el contacto (€)
-                </label>
+                <label className="block text-slate-400 mb-1 font-medium">{uiText("contacts.importe_que_debe_el_contacto")}</label>
                 <div className="relative">
                   <input
                     type="number"
                     step="0.01"
                     min="0"
                     required
-                    aria-label="Deuda total del participante (€)"
+                    aria-label={uiText("contacts.deuda_total_del_participante")}
                     value={newDebtAmountInput}
                     onChange={e => setNewDebtAmountInput(e.target.value)}
                     className="w-full bg-[#0c0f17] border border-white/[0.08] rounded-xl px-3 py-2 text-white font-mono text-base font-bold focus:outline-none focus:border-sky-500 pr-8"
@@ -544,18 +531,17 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                   className="w-full py-2 px-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-sky-400 text-[11px] font-semibold flex items-center justify-center gap-1.5 cursor-pointer border border-white/[0.06]"
                 >
                   <Receipt className="w-3.5 h-3.5" />
-                  <span>Editar movimiento completo</span>
+                  <span>{uiText("contacts.editar_movimiento_completo")}</span>
                 </button>
               )}
 
               <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/[0.06]">
                 <button
                   type="button"
-                  onClick={() => debtSubmission.close(() => setEditingDebt(null))} disabled={debtSubmission.saving}
+                  aria-label={uiText("common.close")}
+                onClick={() => debtSubmission.close(() => setEditingDebt(null))} disabled={debtSubmission.saving}
                   className="py-2 px-3 rounded-xl bg-white/[0.06] hover:bg-white/[0.1] text-slate-200 font-semibold cursor-pointer"
-                >
-                  Cancelar
-                </button>
+                >{uiText("contacts.cancelar")}</button>
                 <button
                   type="button"
                   onClick={() => {
@@ -564,7 +550,7 @@ export const ContactsView: React.FC<ContactsViewProps> = ({
                   className="py-2 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold flex items-center justify-center gap-1 cursor-pointer"
                 >
                   <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span>Guardar</span>
+                  <span>{uiText("contacts.guardar")}</span>
                 </button>
               </div>
             </fieldset>

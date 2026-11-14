@@ -1,0 +1,968 @@
+{
+  "scope": "Current registered keys only; not a whole-application residual-text waiver",
+  "exceptions": {
+    "en": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "transactions.no",
+        "text": "NO",
+        "reason": "Reviewed native English negative answer; spelling shared with Spanish"
+      },
+      {
+        "key": "planning.manual",
+        "text": "Manual",
+        "reason": "Native English adjective"
+      },
+      {
+        "key": "partida_detail.no",
+        "text": "NO",
+        "reason": "Reviewed native en wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "debts_workspace.principal",
+        "text": "Principal (€)",
+        "reason": "Native English term for the loan principal"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      }
+    ],
+    "it": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "movement_proposal.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.formato_tema",
+        "text": "Formato {version} · {content} · Tema {content_5f4b8}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transactions.no",
+        "text": "NO",
+        "reason": "Reviewed native Italian negative answer; spelling shared with Spanish"
+      },
+      {
+        "key": "planning.previsto",
+        "text": "Previsto {type} {name}",
+        "reason": "Reviewed native it forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "planning_section.previsto",
+        "text": "{items} · Previsto: {planned}",
+        "reason": "Reviewed native it forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "budgets.previsto",
+        "text": "Previsto:",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto",
+        "text": "Previsto",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto_0049c5",
+        "text": "Previsto: {planned}",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.no",
+        "text": "NO",
+        "reason": "Reviewed native it wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "financial_charts.tipo",
+        "text": "Tipo ",
+        "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "financial_charts.tipo_bancario",
+        "text": "Tipo bancario",
+        "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "financial_charts.tipo_3868d2",
+        "text": "Tipo",
+        "reason": "Reviewed native Italian chart label"
+      },
+      {
+        "key": "quick_natural_language_input.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "quick.example.dinner",
+        "text": "🍽️ Cena 15,50 €",
+        "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "assistant.negative",
+        "text": "Negativo",
+        "reason": "Reviewed native Italian wording and euro example"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      },
+      {
+        "key": "budget.expectedPercentage",
+        "text": "Prevista: {rate}",
+        "reason": "Reviewed native wording; the rate parameter is formatted by Intl"
+      }
+    ],
+    "fr": [
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "language.available",
+        "text": "disponible",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "assistant.favourable",
+        "text": "Favorable",
+        "reason": "Reviewed native French adjective"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      }
+    ],
+    "pt": [
+      {
+        "key": "transfer.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "loan.capital_inicial",
+        "text": "Capital inicial (€)",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.ct",
+        "text": "CT",
+        "reason": "Native account avatar abbreviation"
+      },
+      {
+        "key": "wallet.neobanco_fintech",
+        "text": "Neobanco / Fintech",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.ver_saldo_inicial",
+        "text": "Ver saldo inicial",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "wallet.es91_2100_0418_4502_0005_1332",
+        "text": "ES91 2100 0418 4502 0005 1332",
+        "reason": "Invariant example IBAN"
+      },
+      {
+        "key": "create_contact.contacto",
+        "text": "Contacto",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "create_contact.notas_opcional",
+        "text": "Notas (opcional)",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "create_contact.guardar",
+        "text": "Guardar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "movement_proposal.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "movement_proposal.estado",
+        "text": "Estado",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.peso_de",
+        "text": "Peso de {name}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.parte_de",
+        "text": "Parte de {name}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "transaction.total_repartido",
+        "text": "Total repartido: {formatCurrency}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.formato_tema",
+        "text": "Formato {version} · {content} · Tema {content_5f4b8}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "restoration.claro",
+        "text": "claro",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "count.contacts.one",
+        "text": "{count} contacto",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "count.contacts.other",
+        "text": "{count} contactos",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "nav.contacts",
+        "text": "Contactos",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.confirm",
+        "text": "Confirmar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.cancel",
+        "text": "Cancelar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "common.save",
+        "text": "Guardar",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "options.export",
+        "text": "Exportar JSON",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "options.import",
+        "text": "Importar JSON",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "language.label",
+        "text": "Idioma",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "theme.title",
+        "text": "Modo {mode}",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "theme.light",
+        "text": "claro",
+        "reason": "Reviewed native lexical coincidence; identical spelling is valid in this locale"
+      },
+      {
+        "key": "dashboard.ver",
+        "text": "Ver",
+        "reason": "Reviewed native pt-PT imperative"
+      },
+      {
+        "key": "dashboard.ver_todos",
+        "text": "Ver todos ({length}) {arrowright}",
+        "reason": "Reviewed native pt-PT complete label"
+      },
+      {
+        "key": "transactions.todos",
+        "text": "Todos ({length})",
+        "reason": "Reviewed native pt-PT masculine plural label"
+      },
+      {
+        "key": "confirm_clear.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt-PT cancel action"
+      },
+      {
+        "key": "planning.manual",
+        "text": "Manual",
+        "reason": "Native pt-PT adjective"
+      },
+      {
+        "key": "planning.copiada",
+        "text": "Copiada",
+        "reason": "Native pt-PT feminine adjective"
+      },
+      {
+        "key": "planning.estado",
+        "text": "Estado",
+        "reason": "Native pt-PT state label"
+      },
+      {
+        "key": "planning.cancelar",
+        "text": "Cancelar",
+        "reason": "Native pt-PT action"
+      },
+      {
+        "key": "planning.previsto",
+        "text": "Previsto {type} {name}",
+        "reason": "Reviewed native pt forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "planning_section.previsto",
+        "text": "{items} · Previsto: {planned}",
+        "reason": "Reviewed native pt forecast label; shared spelling, values are separately localised"
+      },
+      {
+        "key": "catalog_manager.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.tipo_principal",
+        "text": "Tipo principal",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.guardar_catalogo",
+        "text": "Guardar catálogo",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.prevista",
+        "text": "Prevista: {tasaAhorroPrevista}%",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.previsto",
+        "text": "Previsto:",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "budgets.excedido",
+        "text": "Excedido",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto",
+        "text": "Previsto",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.editar_previsto",
+        "text": "Editar previsto",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "partida_detail.previsto_0049c5",
+        "text": "Previsto: {planned}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.subir",
+        "text": "Subir",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.subir_1fde7d",
+        "text": "Subir {name}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "subitem_manager.eliminar",
+        "text": "Eliminar {name}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "use_catalog_drag.destino",
+        "text": "Destino: {label}",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "catalog_manager.saved",
+        "text": "Catálogo guardado.",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "drag.destination",
+        "text": "Destino: {target}. Enter confirma.",
+        "reason": "Reviewed native pt wording; shared spelling is intentional, placeholders retain user values"
+      },
+      {
+        "key": "automation.itemLabel",
+        "text": "{type} · {name}",
+        "reason": "Invariant separator template; the type is localised separately and the personal name remains literal"
+      },
+      {
+        "key": "planning_automation_panel.trimestral",
+        "text": "Trimestral",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.anual",
+        "text": "Anual",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.antes",
+        "text": "Antes",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.eliminar",
+        "text": "Eliminar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.aplicar",
+        "text": "Aplicar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.bloqueado",
+        "text": "Bloqueado",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.omitido",
+        "text": "Omitido",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "planning_automation_panel.pausar",
+        "text": "Pausar",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "automation.frequency.quarterly",
+        "text": "trimestral",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "automation.frequency.yearly",
+        "text": "anual",
+        "reason": "Reviewed native pt-PT wording; shared spelling is intentional"
+      },
+      {
+        "key": "loans.tin_tae",
+        "text": "{entity} • {interestRate}% TIN/TAE",
+        "reason": "Original model acronyms and rates are invariant; no regulatory reinterpretation"
+      },
+      {
+        "key": "loans.amortizado",
+        "text": "Amortizado: {totalPaid}",
+        "reason": "Native European Portuguese amortisation label"
+      },
+      {
+        "key": "debts_workspace.estado",
+        "text": "Estado",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.todos",
+        "text": "Todos",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.vencidos",
+        "text": "Vencidos",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.banco",
+        "text": "Banco",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.contacto_opcional",
+        "text": "Contacto opcional",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.contraparte",
+        "text": "Contraparte",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "debts_workspace.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native European Portuguese control label"
+      },
+      {
+        "key": "recurring_movements.proxima",
+        "text": "{content} · Próxima:{content_52109}{content_7ecad}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.editar",
+        "text": "Editar {concept}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.pausar",
+        "text": "Pausar",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.eliminar",
+        "text": "Eliminar {concept}",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.omitido",
+        "text": "Omitido",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.trimestral",
+        "text": "Trimestral",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "recurring_movements.anual",
+        "text": "Anual",
+        "reason": "Reviewed native European Portuguese recurring-rule label"
+      },
+      {
+        "key": "treasury.horizonte",
+        "text": "Horizonte",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.saldo_estimado",
+        "text": "Saldo estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.vencido",
+        "text": " · Vencido",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.estimado",
+        "text": "Estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.entradas",
+        "text": "Entradas",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.saldo_final_estimado",
+        "text": "Saldo final estimado",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "debts_workspace.vencido",
+        "text": " · Vencido {overdueCents}",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "treasury.metric.income",
+        "text": "Entradas esperadas",
+        "reason": "Reviewed native European Portuguese treasury/overdue label"
+      },
+      {
+        "key": "storage.backup.path",
+        "text": "{path}: {reason}",
+        "reason": "Invariant separator between a literal schema field path and its separately translated diagnostic"
+      },
+      {
+        "key": "storage_message.eliminar_contacto",
+        "text": "Eliminar contacto",
+        "reason": "Native European Portuguese delete-contact instruction"
+      },
+      {
+        "key": "storage_message.contactos",
+        "text": "Contactos",
+        "reason": "Native European Portuguese noun"
+      },
+      {
+        "key": "storage.title.import",
+        "text": "Importar «{file}»",
+        "reason": "Native European Portuguese import instruction; file name is literal"
+      },
+      {
+        "key": "shared_expense_detail.id",
+        "text": "ID: {contactId}",
+        "reason": "Invariant ID acronym and literal historical reference"
+      },
+      {
+        "key": "contacts.editar",
+        "text": "Editar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.eliminar",
+        "text": "Eliminar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.eliminar_contacto",
+        "text": "Eliminar contacto {name}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.cancelar",
+        "text": "Cancelar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "contacts.guardar",
+        "text": "Guardar",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.participante",
+        "text": "Participante {name}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.compensado",
+        "text": "Compensado: {offset}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_expense_detail.estado",
+        "text": "Estado: {content}",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "shared_message.peso_de_contacto_invalido",
+        "text": "Peso de contacto inválido.",
+        "reason": "Reviewed native European Portuguese interface wording; personal values remain literal"
+      },
+      {
+        "key": "chart.readout",
+        "text": "{row} · {series}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.readoutNote",
+        "text": "{row} · {series}: {value} · {note}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.row.category",
+        "text": "{type} · {name}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.pointTitle",
+        "text": "{row}: {value}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "chart.sliceSummary",
+        "text": "{name}: {amount} · {percent}",
+        "reason": "Invariant punctuation joining separately localised labels and literal/formatted values"
+      },
+      {
+        "key": "financial_charts.meses",
+        "text": "Meses",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado",
+        "text": "Estado ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado_economico",
+        "text": "Estado económico",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo",
+        "text": "Tipo ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo_economico",
+        "text": "Tipo económico",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.todas",
+        "text": "Todas",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.estado_98e5ac",
+        "text": "Estado",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.anterior",
+        "text": "Anterior",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.tipo_de_grafico",
+        "text": "Tipo de gráfico ",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.tipo_de_grafico_c36918",
+        "text": "Tipo de gráfico: {title}",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "interactive_chart.barras",
+        "text": "Barras",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "financial_charts.tipo_3868d2",
+        "text": "Tipo",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "chart.pagination",
+        "text": "Página {page} de {pages}",
+        "reason": "Reviewed native European Portuguese chart control or pagination wording"
+      },
+      {
+        "key": "assistant_chat.enviar",
+        "text": "Enviar",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "quick_natural_language_input.tipo",
+        "text": "Tipo",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "quick.example.fuel",
+        "text": "⛽ Gasolina 55 €",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "assistant.negative",
+        "text": "Negativo",
+        "reason": "Reviewed native European Portuguese wording and euro example"
+      },
+      {
+        "key": "domain.catalogo_identificador_invalido_41e98",
+        "text": "Catálogo: identificador inválido.",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "domain.catalogo_tipo_invalido_f68ad",
+        "text": "Catálogo: tipo inválido.",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "walletType.BANK",
+        "text": "Banco",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "walletType.NEOBANK",
+        "text": "Neobanco",
+        "reason": "Reviewed native European Portuguese wording; spelling shared with Spanish"
+      },
+      {
+        "key": "catalog.familyOption",
+        "text": "{type}: {name}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.monthItem",
+        "text": "{month} · {item}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "planning.carryLabel",
+        "text": "{from} → {to} · {item} · {amount}",
+        "reason": "Structural template with named fields and invariant separators; no owned words"
+      },
+      {
+        "key": "budget.atLeastPercentage",
+        "text": "{percentage}+",
+        "reason": "Invariant threshold sign; the percentage parameter uses native Intl formatting"
+      },
+      {
+        "key": "budget.expectedPercentage",
+        "text": "Prevista: {rate}",
+        "reason": "Reviewed native wording; the rate parameter is formatted by Intl"
+      }
+    ]
+  }
+}

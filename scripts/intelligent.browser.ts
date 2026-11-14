@@ -363,7 +363,8 @@ test(
             .click();
           const focused = p.locator('[data-focused-occurrence="true"]');
           await focused.waitFor();
-          assert.match(await focused.innerText(), /2028-01-31/);
+          assert.match(await focused.innerText(), /31\/01\/2028/);
+          assert.equal(await focused.locator("time").getAttribute("datetime"), "2028-01-31");
           assert.equal(
             await p.getByLabel("Ocurrencias desde").inputValue(),
             "2028-01",
@@ -378,9 +379,10 @@ test(
               ) === "true",
           );
           assert.equal(await focused.count(), 1);
-          assert.match(await focused.innerText(), /2028-02-15/);
+          assert.match(await focused.innerText(), /15\/02\/2028/);
+          assert.equal(await focused.locator("time").getAttribute("datetime"), "2028-02-15");
           const choice = p.getByRole("checkbox", {
-            name: "Seleccionar Alquiler ficticio 2028-02-15",
+            name: "Seleccionar Alquiler ficticio 15/02/2028",
             exact: true,
           });
           await choice.check();
@@ -587,7 +589,11 @@ test(
             .click();
           assert.match(
             await review(p, "Confirmar ocurrencias").innerText(),
-            /2028-02-29/,
+            /29\/02\/2028/,
+          );
+          assert.equal(
+            await review(p, "Confirmar ocurrencias").locator('time[datetime="2028-02-29"]').count(),
+            1,
           );
           const untouched = await snapshot(p);
           await p.evaluate(async (lock) => {
@@ -1243,8 +1249,9 @@ test(
           );
           await nav(p, "Asistente");
           let calls = 0;
+          const apiPayloads:any[]=[];
           await p.route("**/api/assistant-chat", (route) => {
-            calls++;
+            calls++;apiPayloads.push(route.request().postDataJSON());
             return route.abort();
           });
           for (const text of [
@@ -1267,11 +1274,13 @@ test(
             assert.deepEqual(await snapshot(p), before);
           }
           assert.equal(calls, 1);
+          assert.equal(apiPayloads[0].financialContext.month,"2026-11");
+          assert.match(apiPayloads[0].fallbackReply,/Datos guardados.*2026-11/s);
           assert.match(
             await p
               .getByRole("region", { name: "Asistente financiero" })
               .innerText(),
-            /Datos guardados.*2026-11/s,
+            /Datos guardados.*noviembre 2026/s,
           );
           const result = await p.request.post(`${new URL(url).origin}/api/assistant-chat`, {
             data: { message: "Sin datos" },
@@ -1295,7 +1304,7 @@ test(
                 assert.equal(
                   await p.evaluate(
                     () =>
-                      document.documentElement.scrollWidth <= innerWidth + 1,
+                      document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
                   ),
                   true,
                   name,

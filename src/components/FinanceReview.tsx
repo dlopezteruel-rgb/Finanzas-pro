@@ -1,3 +1,5 @@
+import {storageOwnedText} from '../i18n/storageMessages';
+import { useI18n } from "../i18n";
 import React from "react";
 import { SafeDialog } from "./SafeDialog";
 import { useAsyncForm } from "../utils/useAsyncForm";
@@ -19,24 +21,20 @@ export function FinanceReview({
   onSuccess: () => void;
   disabled?: boolean;
 }) {
+  const { t: uiText } = useI18n();
   const form = useAsyncForm();
   return (
     <SafeDialog title={title} onCancel={() => form.close(onCancel)}>
       {children}
-      <p>
-        Solo se guardará al confirmar. Si cambia el formato se conservará una
-        copia recuperable verificada.
-      </p>
-      {form.error && <p role="alert">{form.error}</p>}
+      <p>{uiText("finance_review.solo_se_guardara_al_confirmar_si_cambia_el_formato")}</p>
+      {form.error && <p role="alert">{storageOwnedText(form.error,uiText)}</p>}
       <div className="finance-actions">
-        <button disabled={form.saving} onClick={onCancel}>
-          Cancelar
-        </button>
+        <button disabled={form.saving} onClick={onCancel}>{uiText("transfer.cancelar")}</button>
         <button
           disabled={form.saving || disabled}
           onClick={() => void form.submit(onConfirm, onSuccess)}
         >
-          {form.saving ? "Guardando…" : "Confirmar operación"}
+          {form.saving ? uiText("transfer.guardando") : uiText("finance_review.confirmar_operacion")}
         </button>
       </div>
     </SafeDialog>

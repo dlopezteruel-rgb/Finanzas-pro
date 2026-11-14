@@ -1,20 +1,32 @@
+import { languageReadiness } from './readiness';
+export { languageReadiness } from './readiness';
+import { en } from './en';
+import { it } from './it';
+import { fr } from './fr';
+import { pt } from './pt';
 export const languages = {
   es: { locale: 'es-ES', label: 'Español', status: 'ready' },
-  en: { locale: 'en-GB', label: 'English', status: 'planned' },
-  it: { locale: 'it-IT', label: 'Italiano', status: 'planned' },
-  fr: { locale: 'fr-FR', label: 'Français', status: 'planned' },
-  pt: { locale: 'pt-PT', label: 'Português', status: 'planned' },
+  en: { locale: 'en-GB', label: 'English', status: 'ready' },
+  it: { locale: 'it-IT', label: 'Italiano', status: 'ready' },
+  fr: { locale: 'fr-FR', label: 'Français', status: 'ready' },
+  pt: { locale: 'pt-PT', label: 'Português', status: 'ready' },
 } as const;
 export type Language = keyof typeof languages;
 import { es } from './es';
 export { es } from './es';
 export type MessageKey = keyof typeof es;
 export type Messages = Record<MessageKey, string>;
-export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es };
-export function activeLanguage(requested: string): Language {
-  return Object.hasOwn(languages, requested) && languages[requested as Language].status === 'ready' && dictionaries[requested as Language] ? requested as Language : 'es';
+export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es, en, it, fr, pt };
+export function isLanguageAvailable(requested: string): requested is Language {
+  if (!Object.hasOwn(languages, requested)) return false;
+  const language = requested as Language, dictionary = dictionaries[language], readiness = languageReadiness[language];
+  return languages[language].status === 'ready' && readiness.uiComplete && readiness.flowsVerified && !!dictionary && validateDictionary(Object.entries(dictionary)).length === 0;
 }
-type Slots<S extends string> = S extends `${string}{${infer P}}${infer Tail}` ? P | Slots<Tail> : never;
+export function activeLanguage(requested: string): Language {
+  return isLanguageAvailable(requested) ? requested : 'es';
+}
+export type Slots<S extends string> = S extends `${string}{${infer P}}${infer Tail}` ? P | Slots<Tail> : never;
+export type MessageSlots<K extends MessageKey> = Slots<(typeof es)[K]>;
 type Arguments<K extends MessageKey> = [Slots<(typeof es)[K]>] extends [never] ? [params?: Record<string, string | number>] : [params: Record<Slots<(typeof es)[K]>, string | number>];
 /** React renders this as text, never HTML. Parameters are replaced once, never evaluated. */
 export function translate<K extends MessageKey>(key: K, ...[params]: Arguments<K>): string {
@@ -40,3 +52,28 @@ export function validateDictionary(entries: readonly (readonly [string, string])
 export const pluralCategory = (count: number, language: Language = 'es') => new Intl.PluralRules(languages[language].locale).select(count);
 
 export const translatorFor = (language: Language): typeof translate => (key, ...args) => translateFrom(dictionaries[language] ?? es, key, args[0]);
+
+export const pluralFamilies = {
+  contactDebtors: {one:'count.contactDebtors.one',other:'count.contactDebtors.other'},
+  contactDebts: {one:'count.contactDebts.one',other:'count.contactDebts.other'},
+  contactConcepts: {one:'count.contactConcepts.one',other:'count.contactConcepts.other'},
+
+  recordedTransactionsHint: { one: 'count.recordedTransactionsHint.one', other: 'count.recordedTransactionsHint.other' },
+  invalidAmountsVisible: { one: 'count.invalidAmountsVisible.one', other: 'count.invalidAmountsVisible.other' },
+  invalidAmountsHidden: { one: 'count.invalidAmountsHidden.one', other: 'count.invalidAmountsHidden.other' },
+  loans: { one: 'count.loans.one', other: 'count.loans.other' },
+  overBudget: { one: 'count.overBudget.one', other: 'count.overBudget.other' },
+  budgetAlert: { one: 'count.budgetAlert.one', other: 'count.budgetAlert.other' },
+  transactionsFound: { one: 'count.transactionsFound.one', other: 'count.transactionsFound.other' },
+  activeAccountsHint: { one: 'count.activeAccountsHint.one', other: 'count.activeAccountsHint.other' },
+
+  more: { one: 'count.more.one', other: 'count.more.other' },
+  budgetItems: { one: 'count.budgetItems.one', other: 'count.budgetItems.other' },
+  transactions: { one: 'count.transactions.one', other: 'count.transactions.other' },
+  contacts: { one: 'count.contacts.one', other: 'count.contacts.other' },
+} as const satisfies Record<string, { one: MessageKey; other: MessageKey }>;
+export type PluralFamily = keyof typeof pluralFamilies;
+export function pluralText(language: Language, family: PluralFamily, count: number): string {
+  const variants = pluralFamilies[family], key = pluralCategory(count, language) === 'one' ? variants.one : variants.other;
+  return translatorFor(language)(key, { count: new Intl.NumberFormat(languages[language].locale).format(count) });
+}

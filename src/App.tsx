@@ -1,3 +1,6 @@
+import {legacyTransferNotice,legacySharedNotice} from './i18n/countMessages';
+import {pluralCategory} from './i18n/messages';
+import {storageOwnedText} from './i18n/storageMessages';
 import {madridDate} from './utils/financialCalendar';
 import {applyCatalogReorder} from './utils/catalogReorder';
 import {CatalogManager} from './components/CatalogManager';
@@ -30,12 +33,7 @@ import {
   MonthlyBudgetRow,
   Contact,
 } from './types/finance';
-import {
-  calculateMonthlyBudgetRows,
-  calculateMonthlySummary,
-  calculateWalletBalances,
-  formatCurrency,
-} from './utils/finance';
+import { calculateMonthlyBudgetRows, calculateMonthlySummary, calculateWalletBalances } from './utils/finance';
 import {
   INITIAL_TRANSACTIONS,
   INITIAL_BUDGET_PLANS,
@@ -47,7 +45,7 @@ import { BUDGET_GROUPS } from './constants/categories';
 import { Header } from './components/Header';
 import { Brand } from './components/Brand';
 import { paths } from './app/paths';
-import { useI18n } from './i18n';
+import { useI18n, I18nText } from './i18n';
 import { Navigation, NavTab } from './components/Navigation';
 import { DashboardView } from './components/DashboardView';
 import { TransactionsView } from './components/TransactionsView';
@@ -97,6 +95,7 @@ function downloadJSON(content: string, filename: string) {
 }
 
 export default function App() {
+  const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
@@ -542,9 +541,9 @@ export default function App() {
 
   if (loadError) return <main className="app-recovery">
     <Brand /><h1>{t('recovery.title')}</h1>
-    <p role="alert">{loadError}</p>
-    {dataError && <p role="alert">{dataError}</p>}
-    <p>Conserva una copia de los datos locales antes de corregir el archivo o solicitar ayuda.</p>
+    <p role="alert">{storageOwnedText(loadError,uiText)}</p>
+    {dataError && <p role="alert">{storageOwnedText(dataError,uiText)}</p>}
+    <p>{uiText("app.conserva_una_copia_de_los_datos_locales_antes_de")}</p>
     <button className="button-primary" onClick={() => {
       try {
       const raw: Record<string, string | null> = {};
@@ -554,13 +553,13 @@ export default function App() {
       }
       downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
       } catch { setDataError(t('recovery.blocked')); }
-    }}>Descargar datos locales sin modificar</button>
+    }}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>
     <a href={paths.home}>{t('recovery.back')}</a>
   </main>;
 
   return (
     <div className="finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
-      <a className="skip-link" href="#app-content">Ir al contenido</a>
+      <a className="skip-link" href="#app-content">{uiText("app.ir_al_contenido")}</a>
       {/* Hidden File Input for JSON import */}
       <input
         type="file"
@@ -596,24 +595,23 @@ export default function App() {
       />
 
       {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
-        <strong>Guardado no disponible.</strong> {capabilityError} Puedes consultar y exportar tus datos; los formularios conservarán lo introducido si no se puede guardar.
-      </div>}
+        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}</div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
-        <p>Traspasos históricos: {legacyTransfers.pairs.length} pares inequívocos y {legacyTransfers.unresolved.length} registros pendientes de revisión. Los originales no se han reescrito. Los pares inequívocos no cuentan como ingreso ni gasto; los registros ambiguos conservan sus cálculos anteriores y bloquean la edición individual.</p>
-        {legacyTransfers.missingWalletPairs.length > 0 && <p>{legacyTransfers.missingWalletPairs.length} pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales.</p>}
-        {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>Revisar vinculación de traspasos históricos</button>}
+        <p>{legacyTransferNotice(legacyTransfers.pairs.length,legacyTransfers.unresolved.length,language,uiText,formatNumber)}</p>
+        {legacyTransfers.missingWalletPairs.length > 0 && <p>{uiText(pluralCategory(legacyTransfers.missingWalletPairs.length,language)==='one'?'storage.warning.missingWalletPairs.one':'storage.warning.missingWalletPairs',{count:formatNumber(legacyTransfers.missingWalletPairs.length)})}</p>}
+        {legacyTransfers.migratablePairs.length > 0 && <button className="mt-2 underline" onClick={() => prepareRestoration(makeBackup(migrateLegacyTransfers(data)), 'Vincular traspasos históricos (migración a 2.6)')}>{uiText("app.revisar_vinculacion_de_traspasos_historicos")}</button>}
       </div>}
       {(sharedMigration.candidates.length > 0 || sharedMigration.issues.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
-        <p>Gastos compartidos históricos: {sharedMigration.candidates.length} gastos verificables y {sharedMigration.issues.length} casos para revisión. Hasta migrarlos conservan el gasto total y el tratamiento anterior de los ingresos. No se han reescrito los originales.</p>
-        {sharedMigration.issues.map(issue => <p key={issue}>{issue}</p>)}
-        {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>Revisar migración de gastos compartidos</button>}
+        <p>{legacySharedNotice(sharedMigration.candidates.length,sharedMigration.issues.length,language,uiText,formatNumber)}</p>
+        {sharedMigration.issues.map(issue => <p key={issue}>{storageOwnedText(issue,uiText)}</p>)}
+        {sharedMigration.candidates.length > 0 && <button className="underline" onClick={() => prepareRestoration(makeBackup(migrateSharedExpenses(data)), 'Migrar gastos compartidos a 2.7')}>{uiText("app.revisar_migracion_de_gastos_compartidos")}</button>}
       </div>}
       {/* Main Content Viewport */}
       <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
         {activeTab === 'dashboard' && (<>
-          <div className="finance-actions" aria-label="Secciones de inicio"><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>Resumen financiero</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>Próximos 30 días</button></div>
+          <div className="finance-actions" aria-label={uiText("app.secciones_de_inicio")}><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>{uiText("app.resumen_financiero")}</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>{uiText("app.proximos_30_dias")}</button></div>
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
-          <p className="planning-card">Cobros pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0)/100)} · Obligaciones pendientes: {formatCurrency(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0)/100)}. Separados del saldo bancario.</p>
+          <p className="planning-card"><I18nText id="app.cobros_pendientes_obligaciones_pendientes_separados_del_saldo_bancario" values={{ receivables: (formatCents(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0))), payables: (formatCents(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0))) }} /></p>
           <DashboardView
             classificationPartidas={classificationPartidas}
             subitems={data.budgetSubitems?.items}
@@ -634,7 +632,7 @@ export default function App() {
         </>)}
 
         {activeTab === 'transactions' && (<>
-          <div className="finance-actions" aria-label="Secciones de movimientos"><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>Movimientos registrados</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>Movimientos periódicos</button></div>
+          <div className="finance-actions" aria-label={uiText("app.secciones_de_movimientos")}><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>{uiText("app.movimientos_registrados")}</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>{uiText("app.movimientos_periodicos")}</button></div>
           {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} focusedOccurrenceId={focusedOccurrenceId} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView
@@ -728,30 +726,30 @@ export default function App() {
       </main>
 
       {(dataError || saveError || dataNotice) && <div className={`fixed bottom-20 left-4 right-4 ${dataError ? 'z-[60]' : 'z-40'} max-w-xl mx-auto bg-[#141926] border border-sky-500/40 rounded-2xl p-4 text-sm shadow-xl`} role={dataError || saveError ? 'alert' : 'status'}>
-        <p>{dataError || saveError || dataNotice}</p>
-        {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>Recargar datos actualizados</button>}
-        <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>Cerrar aviso</button>
+        <p>{storageOwnedText(dataError || saveError || dataNotice,uiText)}</p>
+        {conflict && <button className="block mt-2 text-sky-400" onClick={() => window.location.reload()}>{uiText("app.recargar_datos_actualizados")}</button>}
+        <button className="mt-2 text-sky-400" onClick={() => { setDataError(''); setDataNotice(''); }}>{uiText("app.cerrar_aviso")}</button>
       </div>}
-      {pendingPlanningNavigation && <SafeDialog title="Cambios de planificación sin guardar" onCancel={() => {if(!planningBusy)setPendingPlanningNavigation(null)}}>
-        {planningNavigationFailure&&<p role="alert">{saveError||'Corrige los importes antes de guardar. Puedes seguir editando sin perder el borrador.'}</p>}
-        <p>Hay importes u objetivo sin guardar. Puedes volver al editor o descartar el borrador local para continuar.</p>
-        <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>Seguir editando</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}else setPlanningNavigationFailure(true);}}>Guardar y continuar</button><button disabled={planningBusy} onClick={() => {
+      {pendingPlanningNavigation && <SafeDialog title={uiText("app.cambios_de_planificacion_sin_guardar")} onCancel={() => {if(!planningBusy)setPendingPlanningNavigation(null)}}>
+        {planningNavigationFailure&&<p role="alert">{saveError?storageOwnedText(saveError,uiText):uiText("app.corrige_los_importes_antes_de_guardar_puedes_seguir_editando")}</p>}
+        <p>{uiText("app.hay_importes_u_objetivo_sin_guardar_puedes_volver_al")}</p>
+        <div className="flex flex-wrap gap-2"><button disabled={planningBusy} onClick={() => setPendingPlanningNavigation(null)}>{uiText("app.seguir_editando")}</button><button disabled={planningBusy} onClick={async()=>{const action=pendingPlanningNavigation;if(await planningNavigationSave.current?.()){setPendingPlanningNavigation(null);planningState.current={dirty:false,saving:false};action();}else setPlanningNavigationFailure(true);}}>{uiText("app.guardar_y_continuar")}</button><button disabled={planningBusy} onClick={() => {
           const action = pendingPlanningNavigation; setPendingPlanningNavigation(null); planningState.current = { dirty: false, saving: false }; setPlanningReset(n => n + 1); action();
-        }}>Descartar y continuar</button></div>
+        }}>{uiText("app.descartar_y_continuar")}</button></div>
       </SafeDialog>}
       {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
-      {showRecovery && <SafeDialog title="Copias de recuperación" onCancel={() => setShowRecovery(false)}>
-          <p className="text-sm text-slate-300">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>
-          {recoveryCopies(localStorage).length === 0 && <p>No hay copias anteriores.</p>}
-          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}>Descargar {copy.key.slice('finanzas_pro_recovery_'.length, -37)}</button>)}
-          <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">Cerrar</button>
+      {showRecovery && <SafeDialog title={uiText("app.copias_de_recuperacion")} onCancel={() => setShowRecovery(false)}>
+          <p className="text-sm text-slate-300">{uiText("app.descarga_una_copia_y_utiliza_importar_json_para_revisarla")}</p>
+          {recoveryCopies(localStorage).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
+          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
+          <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">{uiText("app.cerrar")}</button>
       </SafeDialog>}
 
       <TransferModal isOpen={!!transferToEdit} transferToEdit={transferToEdit} initiallyDelete={deleteTransferInitially}
         onClose={() => setTransferToEdit(null)} defaultWalletId={data.defaultWalletId} wallets={wallets} walletBalances={walletBalances}
         onExecuteTransfer={handleExecuteTransfer} onDeleteTransfer={handleDeleteTransfer} />
       {sharedDetailId && <SharedExpenseDetail data={data} id={sharedDetailId} onClose={() => setSharedDetailId(null)} />}
-      {deleteTarget && <ConfirmDeleteDialog report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? 'Confirmar eliminación del movimiento' : undefined} />}
+      {deleteTarget && <ConfirmDeleteDialog source={{data,target:deleteTarget}} report={deletionReport(data, deleteTarget)} onCancel={() => setDeleteTarget(null)} onConfirm={() => mutate(current => deleteEntity(current, deleteTarget))} confirmLabel={deleteTarget.kind === 'transaction' ? uiText("app.confirmar_eliminacion_del_movimiento") : undefined} />}
       {/* New / Edit Transaction Modal */}
       <TransactionModal
         isOpen={isTxModalOpen}

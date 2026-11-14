@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { readFile } from 'node:fs/promises';
 import type { Browser, Page } from 'playwright-core';
-import { Backup, DATA_KEY, parseBackup, RECOVERY_PREFIX } from '../src/utils/backup';
+import { Backup, DATA_KEY, parseBackup, backupWarnings, RECOVERY_PREFIX } from '../src/utils/backup';
 import { calculateMonthlyBudgetRows, calculateMonthlySummary, calculateWalletBalances, formatCurrency } from '../src/utils/finance';
 import { STORAGE_LOCK } from '../src/utils/financeStore';
 import { assertTransferIntegrity, transferPair } from '../src/utils/transfers';
@@ -196,8 +196,9 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
     try {
       const before = await raw(page);
       const notice = page.getByRole('status').filter({ hasText: 'Traspasos históricos:' });
-      await notice.waitFor(); assert.match(await notice.innerText(), /1 pares inequívocos y 0 registros pendientes/);
-      assert.match(await notice.innerText(), /sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular/);
+      await notice.waitFor(); assert.match(await notice.innerText(), /1 par inequívoco y 0 registros pendientes/);
+      assert.match(await notice.innerText(), /sin carteras existentes: se excluye de ingresos y gastos, pero no se puede vincular/);
+      assert.match(await notice.innerText(), /Se conservan los originales sin crear carteras ni contrapartidas/);
       assert.equal(await page.getByRole('button', { name: 'Revisar vinculación de traspasos históricos' }).count(), 0);
       await navigate(page, 'Movimientos');
       const income = page.getByText('Ingr:', { exact: false }).filter({ hasText: 'Ingr:' }).last();
@@ -207,7 +208,8 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       // The actual 2.5 import preview must communicate exactly the same policy.
       await page.locator('input[type=file]').setInputFiles({ name: 'historico-sin-destino.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(initial)) });
       const preview = page.getByRole('dialog');
-      assert.match(await preview.innerText(), /sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular/);
+      assert.match(await preview.innerText(), /1 par histórico sin carteras existentes: se excluye de ingresos y gastos, pero no se puede vincular/);
+      assert.ok(backupWarnings(initial).includes('1 pares históricos sin carteras existentes: se excluyen de ingresos y gastos, pero no se pueden vincular. Se conservan los originales sin crear carteras ni contrapartidas.'));
       await preview.getByRole('button', { name: 'Cancelar', exact: true }).click();
       await page.reload(); assert.equal(await raw(page), before);
       assert.deepEqual(await readCopies(page), []);
@@ -311,7 +313,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
     const original = { ...fixture, transactions: [...history, ambiguous, ...fixture.transactions] };
     const { context, page } = await setup(original);
     try {
-      await page.getByRole('status').filter({ hasText: '1 pares inequívocos y 1 registros pendientes' }).waitFor();
+      await page.getByRole('status').filter({ hasText: '1 par inequívoco y 1 registro pendiente' }).waitFor();
       const before = await raw(page);
       await navigate(page, 'Revisar vinculación de traspasos históricos');
       await page.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), before);
@@ -322,7 +324,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       for (const old of history) { const { transfer, ...preserved } = saved.transactions.find(t => t.id === old.id)!; assert.deepEqual(preserved, old); }
       assert.deepEqual((await readCopies(page))[0].transactions, original.transactions);
       await page.reload(); assert.deepEqual((await data(page)).transactions, saved.transactions);
-      await page.getByRole('status').filter({ hasText: '0 pares inequívocos y 1 registros pendientes' }).waitFor();
+      await page.getByRole('status').filter({ hasText: '0 pares inequívocos y 1 registro pendiente' }).waitFor();
       assert.equal(await page.getByRole('button', { name: 'Revisar vinculación de traspasos históricos' }).count(), 0);
     } finally { await context.close(); }
   });

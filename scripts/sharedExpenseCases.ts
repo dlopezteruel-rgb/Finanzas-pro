@@ -163,7 +163,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     initial.transactions.push(ambiguous, { id: 'legacy-cash', amount: 20, type: 'INGRESO', date: '2026-10-09', code: e.code, categoryName: e.categoryName, subcategoryName: e.subcategoryName, description: 'Reintegro Ana: Cena ficticia', wallet: 'REVOLUT', processed: true });
     const { context, page } = await setup(initial);
     try {
-      const before = await raw(page); await page.getByRole('status').filter({ hasText: '1 gastos verificables y 1 casos para revisión' }).waitFor();
+      const before = await raw(page); await page.getByRole('status').filter({ hasText: '1 gasto verificable y 1 caso para revisión' }).waitFor();
       await navigate(page, 'Revisar migración de gastos compartidos'); const preview = page.getByRole('dialog');
       assert.match(await preview.innerText(), /gasto propio 20,00/); await preview.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await raw(page), before);
       await navigate(page, 'Revisar migración de gastos compartidos'); await page.getByRole('button', { name: 'Confirmar sustitución' }).click(); await preview.waitFor({ state: 'hidden' });

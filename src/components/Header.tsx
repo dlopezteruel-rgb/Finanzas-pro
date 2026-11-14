@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Brand } from './Brand';
 import { PeriodSelector } from './PeriodSelector';
 import { Calendar, Download, Upload, RotateCcw, MoreHorizontal, ChevronDown, Check, Sparkles, Trash2, Sun, Moon } from 'lucide-react';
-import { formatCurrency } from '../utils/finance';
+
 
 interface HeaderProps {
   currentMonthYear: string;
@@ -47,13 +47,6 @@ export const Header: React.FC<HeaderProps> = ({
     return () => document.removeEventListener('keydown', close, true);
   }, [showMenu]);
 
-  // Format month name cleanly e.g. "Oct 2026"
-  const formatShortMonth = (my: string) => {
-    const [year, month] = my.split('-');
-    const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
-    const m = date.toLocaleDateString('es-ES', { month: 'short' });
-    return `${m.charAt(0).toUpperCase() + m.slice(1)} ${year}`;
-  };
 
   return (
     <header className="app-header sticky top-0 z-40 border-b">

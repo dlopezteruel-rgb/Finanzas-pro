@@ -1,0 +1,78 @@
+import {assertNoSpanishOwnedText} from './i18n/residuals';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import express from 'express';
+import path from 'node:path';
+import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {chromium} from 'playwright-core';
+import {DATA_KEY,makeBackup} from '../src/utils/backup';
+import {editCatalog} from '../src/utils/budgetCatalog';
+import {responsiveFixture} from './responsiveFixture';
+import {LANGUAGE_KEY,languages,translatorFor,presentationFormatters,type Language} from '../src/i18n';
+import {i18nTestBuild} from './i18n/preview';
+
+test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar idiomas de producción',{timeout:180000},async t=>{
+  const bundle=await i18nTestBuild();t.after(bundle.dispose);
+  const app=express();app.use(express.static(bundle.dist));app.get('*',(_q,r)=>r.sendFile(path.join(bundle.dist,'index.html')));
+  const server=await new Promise<ReturnType<typeof app.listen>>(resolve=>{const s=app.listen(0,'127.0.0.1',()=>resolve(s));});t.after(()=>new Promise<void>(r=>server.close(()=>r())));
+  const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`;
+  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
+  const observations:any[]=[];
+  const axe=await readFile('node_modules/axe-core/axe.min.js','utf8');
+  t.after(async()=>{const dir=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(dir,{recursive:true});await writeFile(path.join(dir,'translated-banking.json'),JSON.stringify({isolatedPreview:bundle.preview,productionAvailability:bundle.availability,coverage:'P1 account form and locale-change safety only; not whole-application readiness',observations},null,2)+'\n');});
+  const data=editCatalog(responsiveFixture(),{kind:'createFamily',type:'GASTO',name:'Familia personal NO TRADUCIR',id:'i18n-fixture'}),backup=makeBackup(data);assert.equal(backup.version,'3.4');
+  for(const language of Object.keys(languages) as Language[])await t.test(`${language}: cambio cross-tab conserva borrador, foco y datos financieros`,async()=>{
+    const c=await browser.newContext({viewport:{width:1280,height:1000},locale:'de-DE',timezoneId:'Europe/Madrid',serviceWorkers:'block'});try{
+      const external:string[]=[],errors:string[]=[];
+      await c.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():(external.push(r.request().url()),r.abort()));
+      await c.addInitScript(({key,value,preference,language})=>{(window as any).__name=(fn:unknown)=>fn;if(!localStorage.getItem(key))localStorage.setItem(key,value);if(!localStorage.getItem(preference))localStorage.setItem(preference,language);},{key:DATA_KEY,value:JSON.stringify(backup),preference:LANGUAGE_KEY,language});
+      const p=await c.newPage();p.on('pageerror',e=>errors.push(e.message));await p.goto(origin+'/app');const tr=translatorFor(language);
+      const nav=p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true});await nav.getByRole('button',{name:tr('nav.accounts'),exact:true}).click();
+      assert.equal(await p.evaluate(()=>document.documentElement.lang),languages[language].locale);
+      assert.equal(await p.title(),tr('document.title'));assert.equal(await p.locator('meta[name=description]').getAttribute('content'),tr('document.description'));
+      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
+      await p.evaluate(key=>{(window as any).__financialWrites=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
+      const opener=p.getByRole('button',{name:tr('wallets.nueva_cuenta'),exact:true});const openerHandle=await opener.elementHandle();await opener.click();
+      const input=p.getByLabel(tr('form.walletName'),{exact:true});await input.fill('Guardar — NO TRADUCIR');await input.focus();const handle=await input.elementHandle();
+      await p.addScriptTag({content:axe});
+      async function inspect(surface:string,shownLanguage:Language=language){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});observations.push({language,surface,width:1280,theme:data.theme,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,shownLanguage,data);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true);}
+      await inspect('account-draft-before-locale-change');
+      const next:Language=language==='en'?'fr':'en',nextText=translatorFor(next);
+      const other=await c.newPage();await other.goto(origin+'/app');await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});
+      await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[next].locale);
+      assert.equal(await p.title(),nextText('document.title'));
+      assert.equal(await p.getByLabel(nextText('form.walletName'),{exact:true}).inputValue(),'Guardar — NO TRADUCIR');
+      assert.equal(await handle!.evaluate(el=>el.isConnected),true,'the same input DOM node must survive a locale change');
+      assert.equal(await handle!.evaluate(el=>el===document.activeElement),true,'locale changes must not reinitialise overlay focus');
+      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      await inspect('account-draft-after-locale-change',next);
+      assert.equal(await handle!.evaluate(el=>el===document.activeElement),true);
+      await p.keyboard.press('Escape');await p.getByRole('dialog',{name:nextText('wallet.cartera'),exact:true}).waitFor({state:'hidden'});
+      assert.equal(await openerHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      assert.equal(await p.evaluate(()=>(window as any).__financialWrites),0);
+      await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:language});
+      await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[language].locale);
+      await p.getByRole('button',{name:tr('wallets.nueva_cuenta'),exact:true}).click();
+      await p.getByLabel(tr('form.walletName'),{exact:true}).fill('NO TRADUCIR DATOS');
+      await p.getByLabel(tr('wallet.patrimonio_saldo_base_inicial'),{exact:true}).fill('1234.56');
+      await p.getByRole('button',{name:tr('wallet.crear_cuenta'),exact:true}).click();
+      await p.getByRole('dialog',{name:tr('wallet.cartera'),exact:true}).waitFor({state:'hidden'});
+      const after=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),saved=JSON.parse(after!);
+      const created=saved.wallets.filter((w:any)=>!backup.wallets.some(original=>original.id===w.id));
+      assert.equal(created.length,1);assert.equal(created[0].name,'NO TRADUCIR DATOS');assert.equal(created[0].initialBalance,1234.56);
+      assert.equal(JSON.stringify(saved.transactions),JSON.stringify(backup.transactions));
+      assert.equal(JSON.stringify(saved.budgetGroups),JSON.stringify(backup.budgetGroups));
+      assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
+      const format=presentationFormatters(language);await p.getByText(format.formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
+      const period=p.getByRole('combobox',{name:tr('period_selector.seleccionar_periodo_contable'),exact:true});const periodValue=await period.inputValue();
+      assert.equal(await period.getAttribute('title'),format.formatMonth(periodValue));assert.equal(await period.locator('option:checked').textContent(),format.formatMonth(periodValue,true));
+      await p.getByRole('button',{name:tr('period_selector.elegir_mes_y_ano'),exact:true}).click();const calendar=p.getByRole('dialog',{name:tr('period_selector.elegir_mes_y_ano'),exact:true});
+      await calendar.getByLabel(tr('period_selector.ano'),{exact:true}).fill('1');await calendar.getByLabel(tr('period_selector.mes'),{exact:true}).selectOption('01');assert.equal(await calendar.getByRole('option',{name:format.monthName(1),exact:true}).getAttribute('value'),'01');
+      await calendar.getByRole('button',{name:tr('period_selector.consultar_periodo'),exact:true}).click();await calendar.waitFor({state:'hidden'});assert.equal(await period.inputValue(),'0001-01');assert.equal(await period.locator('option:checked').textContent(),format.formatMonth('0001-01',true));assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
+      await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});
+      await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[next].locale);
+      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);await p.getByText(presentationFormatters(next).formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
+      assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+    }finally{await c.close();}
+  });
+});

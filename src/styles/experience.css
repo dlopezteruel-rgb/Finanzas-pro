@@ -83,6 +83,7 @@ button:disabled { cursor: not-allowed; }
 .allocation-heading span, .allocation-key { border-color: var(--brand); }
 .planning-carry { background: var(--brand-soft); color: var(--ink); border-color: var(--field-line); }
 .planning input[type=month] { width: 13rem; }
+.planning-savings-label, .planning-field-label { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; }
 .planning label:has(input[type=month]) { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .brand { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); white-space: nowrap; }
 .brand img { flex: 0 0 auto; }.brand-wordmark { font-size: 1.375rem; font-weight: 700; letter-spacing: -.04em; line-height: 1.2; }
@@ -182,3 +183,13 @@ button:disabled { cursor: not-allowed; }
   .catalog-family-toggle > :first-child { flex-basis: 100%; }
   .catalog-family-toggle > .text-right { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; text-align: left; }
 }
+
+/* Native success text remains readable in both themes. */
+.quick-entry-notice { background: var(--surface); color: var(--success); border: 1px solid var(--success); }
+
+.quick-entry-notice > span { min-width: 0; overflow-wrap: anywhere; }
+
+/* Translated captions and personal account names must not widen the mobile viewport. */
+.quick-entry-metadata, .quick-entry-fields { flex-wrap: wrap; gap: .5rem .75rem; min-width: 0; }
+.quick-entry-metadata > *, .quick-entry-fields { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.quick-entry-fields label { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem .5rem; min-width: 0; max-width: 100%; }

@@ -45,7 +45,7 @@ test('3B Automatización: copia, reglas, arrastre, historia y recuperación en C
       const before=await snapshot(page),source=(await data(page)).planningMonths.find((m:any)=>m.monthYear==='2028-02');await showCopy(page);
       assert.equal(await preview(page).getByRole('table').locator('tbody tr').count(),6);assert.match(await preview(page).innerText(),/Resumen 2028-03.*3\.000,00.*2\.200,00.*600,00.*200,00/s);assert.deepEqual(await snapshot(page),before);
       const tableScroll=preview(page).getByRole('region',{name:'Diferencias de planificación desplazables',exact:true});
-      await tableScroll.focus();if(mobile){assert.equal(await tableScroll.evaluate(el=>el.scrollWidth>el.clientWidth),true);await page.keyboard.press('ArrowRight');await page.waitForFunction(()=>document.activeElement?.scrollLeft!>0);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true)}
+      await tableScroll.focus();if(mobile){assert.equal(await tableScroll.evaluate(el=>el.scrollWidth>el.clientWidth),true);await page.keyboard.press('ArrowRight');await page.waitForFunction(()=>document.activeElement?.scrollLeft!>0);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true)}
       for(let i=0;i<4;i++){await page.keyboard.press(i%2?'Shift+Tab':'Tab');assert.equal(await preview(page).evaluate(el=>el.contains(document.activeElement)),true)}
       if(process.env.AUTOMATION_ARTIFACT_DIR)await page.screenshot({path:`${process.env.AUTOMATION_ARTIFACT_DIR}/copy-${mobile?'mobile':'desktop'}-${theme}.png`});
       await page.keyboard.press('Escape');await preview(page).waitFor({state:'hidden'});await page.keyboard.press('Escape');assert.deepEqual(await snapshot(page),before);
@@ -57,7 +57,7 @@ test('3B Automatización: copia, reglas, arrastre, historia y recuperación en C
       await page.evaluate(()=>(window as any).releaseAutomation());await preview(page).waitFor({state:'hidden'});assert.equal(await page.evaluate(()=>(window as any).automationWrites),1);
       const result=await data(page);assert.equal(result.version,'3.0');assert.deepEqual(result.transactions,JSON.parse(before[DATA_KEY]).transactions);assert.deepEqual(result.planningMonths.find((m:any)=>m.monthYear==='2028-02'),source);assert.equal(result.planningMonths.find((m:any)=>m.monthYear==='2028-03').approval,undefined);assert.equal(result.budgetPlans.filter((p:any)=>p.monthYear==='2028-04').length,2);
       await showCopy(page);assert.equal(await preview(page).getByRole('button',{name:'Confirmar cambios de planificación',exact:true}).isDisabled(),true);assert.match(await preview(page).innerText(),/Omitido/);
-      await page.keyboard.press('Escape');await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);assert.equal(await page.locator('#root').evaluate(el=>el.contains(document.activeElement)),true);
+      await page.keyboard.press('Escape');await page.keyboard.press('Escape');assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);assert.equal(await page.locator('#root').evaluate(el=>el.contains(document.activeElement)),true);
     }finally{await s.close()}
   });
   await t.test('borrador local bloquea automatización y destinos existentes/protegidos exigen resolución',async()=>{

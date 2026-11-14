@@ -1,4 +1,32 @@
+import { p3b } from './es.p3b';
+import { p3 } from './es.p3';
+import { p2c } from './es.p2c';
+import { p2b } from './es.p2b';
+import { p2a } from './es.p2a';
+import { p1g } from './es.p1g';
+import { p1f } from './es.p1f';
+import { p1e } from './es.p1e';
+import { p1d } from './es.p1d';
+import { p1c } from './es.p1c';
+import { p1b } from './es.p1b';
+import { plurals } from './es.plurals';
+import { p1 } from './es.p1';
 export const es = {
+  ...p1,
+  ...p1b,
+  ...p1c,
+  ...p1d,
+  ...p1e,
+  ...p1f,
+  ...p1g,
+  ...p2a,
+  ...p2b,
+  ...p2c,
+  ...p3,
+  ...p3b,
+  ...plurals,
+  'document.title': 'FinanZas Pro - Asistente Financiero Personal',
+  'document.description': 'Control financiero integral: registro inteligente por lenguaje natural, estructura de partidas presupuestarias, balance previsto vs ejecutado, control de deudas y carteras.',
   'common.skip': 'Ir al contenido',
   'nav.label': 'Navegación principal', 'nav.home': 'Inicio', 'nav.movements': 'Movimientos',
   'nav.budgets': 'Presupuestos', 'nav.accounts': 'Cuentas', 'nav.contacts': 'Contactos',
@@ -34,7 +62,7 @@ export const es = {
   'options.recovery': 'Copias de recuperación', 'options.demo': 'Restablecer datos demo',
   'options.clear': 'Limpiar todo (Borrar datos)',
   'language.label': 'Idioma', 'language.available': 'disponible', 'language.planned': 'próximamente',
-  'language.help': 'Los demás idiomas estarán disponibles cuando sus traducciones estén verificadas.',
+  'language.help': "El idioma cambia solo la interfaz. Tus datos conservan su texto original. La entrada libre del asistente mantiene el reconocimiento existente en español.",
   'language.storageError': 'La preferencia se mantiene en esta pestaña, pero no se ha podido guardar en este navegador.',
   'theme.switch': 'Cambiar a modo {mode}', 'theme.title': 'Modo {mode}',
   'theme.light': 'claro', 'theme.dark': 'oscuro',

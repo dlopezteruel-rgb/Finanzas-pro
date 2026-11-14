@@ -1,3 +1,7 @@
+import {assistantServiceReplyForDisplay,assistantPresentation,assistantPrompts,adviceForDisplay,type AssistantDisplay} from '../i18n/assistantMessages';
+import {storageOwnedText} from '../i18n/storageMessages';
+import {naturalInputText} from '../i18n/naturalMessages';
+import {useI18n, I18nText } from "../i18n";
 import {naturalInputIssue} from '../utils/naturalInput';
 import type { FinanceData } from '../utils/backup';
 import { financialAssistantContext,localFinancialAdvice,assistantServiceContext } from '../utils/financialAssistant';
@@ -13,7 +17,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetPartida } from '../types/finance';
-import { formatCurrency } from '../utils/finance';
+
 import { classifyChatIntent, proposeChatMovement } from '../utils/chatRegistration';
 import { confirmOnceAsync } from '../utils/confirmation';
 import { MovementProposalModal } from './MovementProposalModal';
@@ -23,6 +27,7 @@ interface Message {
   sender: 'user' | 'assistant';
   text: string;
   time: string;
+  display?: (view:AssistantDisplay)=>string;
 }
 
 interface AssistantChatProps {
@@ -46,6 +51,8 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   onAddTransaction,
   availablePartidas,
 }) => {
+  const format=useI18n();const {t:uiText,formatMoney:formatCurrency,formatDate}=format;
+  const view=assistantPresentation(uiText,format,financeData);
   const context=useMemo(()=>{try{return financialAssistantContext(financeData,summary.monthYear)}catch{return null}},[financeData,summary.monthYear]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -53,9 +60,9 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   const confirmation = useRef<ReturnType<typeof confirmOnceAsync<Omit<Transaction, 'id'>>> | null>(null);
   const [confirming, setConfirming] = useState(false);
   const [proposalError, setProposalError] = useState('');
-  const appendReply = (text: string) => setMessages(previous => [...previous, {
-    id: crypto.randomUUID(), sender: 'assistant', text,
-    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  const appendReply = (reply: string|((view:AssistantDisplay)=>string)) => setMessages(previous => [...previous, {
+    id: crypto.randomUUID(), sender: 'assistant', text:typeof reply==='string'?reply:'',display:typeof reply==='function'?reply:undefined,
+    time: new Date().toISOString(),
   }]);
   const cancelProposal = () => { confirmation.current?.cancel(); setProposal(null); };
   const confirmProposal = async (transaction: Omit<Transaction, 'id'>) => {
@@ -64,51 +71,29 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
     try {
       if (await confirmation.current?.confirm(transaction)) {
         setProposal(null);
-        appendReply(`✓ Movimiento registrado: ${formatCurrency(transaction.amount)} · ${transaction.description} · ${transaction.wallet} · ${transaction.processed ? 'Tramitado' : 'Pendiente'}.`);
+        appendReply(v=>v.text('assistant.registered',{amount:v.amount(transaction.amount),description:transaction.description,wallet:transaction.wallet,status:v.text(transaction.processed?'financial_charts.tramitado':'financial_charts.pendiente')}));
       }
     } catch (error) { setProposalError(error instanceof Error ? error.message : 'No se ha guardado el movimiento.'); }
     finally { setConfirming(false); }
   };
 
-  const initialGreeting = `¡Hola! Soy tu asistente financiero personal.
-Te ayudo a registrar movimientos en lenguaje natural, auditar tus presupuestos y vigilar tus deudas.
-
-### Estado Financiero (${summary.monthYear})
-| Métrica | Importe | Estado |
-| :--- | :--- | :--- |
-| **Balance Real** | **${formatCurrency(summary.balanceReal)}** | ${summary.balanceReal >= 0 ? 'Favorable' : 'Negativo'} |
-| **Balance Previsto** | **${formatCurrency(summary.balancePrevisto)}** | Objetivo |
-| **Resto Presupuesto** | **${formatCurrency(summary.restoTotal)}** | Margen disponible |
-| **Tasa Ahorro** | **${summary.tasaAhorroReal}%** | Real alcanzada |
-
-Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
-
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 'msg-init',
-      sender: 'assistant',
-      text: initialGreeting,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  const greetingSummary=useRef(summary);
+  const [messages, setMessages] = useState<Message[]>([{
+    id:'msg-init',sender:'assistant',text:'',time:new Date().toISOString(),display:v=>{
+      const initial=greetingSummary.current;
+      return v.text('assistant.greeting',{month:v.month(initial.monthYear),actualBalance:v.amount(initial.balanceReal),status:v.text(initial.balanceReal>=0?'assistant.favourable':'assistant.negative'),plannedBalance:v.amount(initial.balancePrevisto),remaining:v.amount(initial.restoTotal),rate:v.percent(initial.tasaAhorroReal)});
     },
-  ]);
-
+  }]);
   const previousMonth=useRef(summary.monthYear);
-  useEffect(()=>{if(previousMonth.current!==summary.monthYear){previousMonth.current=summary.monthYear;appendReply(`Periodo consultado: ${summary.monthYear}. ${context?localFinancialAdvice(context,'resumen'):'No se puede calcular el contexto con los datos guardados.'}`)}},[summary.monthYear]);
-
-  const quickQuestions = [
-    '¿Cuánto tengo realmente disponible?',
-    '¿Qué gastos puedo reducir para ahorrar 150 € más?',
-    '¿Qué pagos y cobros se aproximan?',
-    '¿Qué partidas están en alerta?',
-    'Ayer cené fuera por 15,50 € con Openbank',
-    'Resumen de mis préstamos y deudas',
-  ];
+  useEffect(()=>{if(previousMonth.current!==summary.monthYear){previousMonth.current=summary.monthYear;const snapshot=context,month=summary.monthYear;appendReply(v=>v.text('assistant.monthChanged',{month:v.month(month),reply:snapshot?adviceForDisplay(snapshot,'resumen',v,financeData)!:v.text('assistant.contextUnavailable')}));}},[summary.monthYear]);
 
   const renderMarkdown = (text: string) => {
     const lines = text.split('\n');
     const elements: React.ReactNode[] = [];
     let tableRows: string[][] = [];
     let isTable = false;
+    let listItems:React.ReactNode[]=[];
+    const flushList=(key:string)=>{if(listItems.length){elements.push(<ul key={key}>{listItems}</ul>);listItems=[];}};
 
     const flushTable = (key: string) => {
       if (tableRows.length > 0) {
@@ -157,6 +142,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
 
     lines.forEach((line, index) => {
       const trimmed = line.trim();
+      if(!trimmed.startsWith('- ')&&!trimmed.startsWith('* '))flushList(`list-${index}`);
       if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
         isTable = true;
         const cols = trimmed.slice(1, -1).split('|');
@@ -173,7 +159,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
           </h4>
         );
       } else if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
-        elements.push(
+        listItems.push(
           <li key={index} className="ml-3 list-disc text-slate-300 text-[11px] my-0.5">
             {renderInline(trimmed.substring(2))}
           </li>
@@ -187,6 +173,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
       }
     });
 
+    flushList('list-end');
     if (isTable) {
       flushTable('table-end');
     }
@@ -194,15 +181,15 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
     return elements;
   };
 
-  const handleSendMessage = async (textToSend?: string) => {
+  const handleSendMessage = async (textToSend?: string,ownedLabel?:typeof assistantPrompts[number]['label']) => {
     const text = textToSend || inputMessage;
     if (!text.trim() || isLoading || proposal) return;
 
     const userMsg: Message = {
       id: `usr-${Date.now()}`,
       sender: 'user',
-      text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      text,display:ownedLabel?v=>v.text(ownedLabel):undefined,
+      time: new Date().toISOString(),
     };
 
     setMessages(prev => [...prev, userMsg]);
@@ -213,7 +200,7 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
     // Queries and negations never reach the registration callback.
     const intent = classifyChatIntent(text);
     if (intent === 'negation') {
-      appendReply('No se ha registrado ningún movimiento. Puedes formular una consulta o pedir una propuesta con «Registra un gasto de…».');
+      appendReply(v=>v.text('assistant.negation'));
       setIsLoading(false);
       return;
     }
@@ -228,18 +215,19 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         });
         setProposal(draft);
       } else {
-        appendReply(`${naturalInputIssue(text)||'No he podido preparar el movimiento. Revisa que existan partidas disponibles.'} No se ha registrado nada.`);
+        const issue=naturalInputIssue(text);appendReply(v=>v.text('assistant.proposalFailed',{reason:issue?naturalInputText(issue,v.text):v.text('assistant.cannotPropose')}));
       }
       setIsLoading(false);
       return;
     }
 
-    if(!context){appendReply('No puedo calcular el contexto guardado de este periodo. Revisa los importes y los avisos de datos; no se ha modificado nada.');setIsLoading(false);return;}
+    if(!context){appendReply(v=>v.text('assistant.noContext'));setIsLoading(false);return;}
     const localReply=localFinancialAdvice(context,text);
-    if(localReply){appendReply(localReply);setIsLoading(false);return;}
+    if(localReply){const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,text,v,financeData)!);setIsLoading(false);return;}
 
     // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
+      const fallbackReply=localFinancialAdvice(context,'resumen');
       const response = await fetch(paths.assistant, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -247,43 +235,45 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
           message: text,
           summary,
           financialContext:assistantServiceContext(context),
-          fallbackReply:localFinancialAdvice(context,'resumen'),
+          fallbackReply,
         }),
       });
 
       const data = await response.json();
       if (data && data.reply) {
+        const shown=assistantServiceReplyForDisplay(data.reply,fallbackReply,context,financeData);
         setMessages(prev => [
           ...prev,
           {
             id: `bot-${Date.now()}`,
             sender: 'assistant',
-            text: data.reply,
-            time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+            text: typeof shown==='string'?shown:'',
+            display: typeof shown==='function'?shown:undefined,
+            time: new Date().toISOString(),
           },
         ]);
       } else {
         throw new Error('No reply');
       }
     } catch {
-      appendReply(localFinancialAdvice(context,'resumen')!);
+      const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,'resumen',v,financeData)!);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <section className="assistant-layout" aria-label="Asistente financiero">
+    <section className="assistant-layout" aria-label={uiText("assistant_chat.asistente_financiero")}>
       <aside className="planning-card assistant-context">
-        <h1 className="module-title">Asistente</h1>
-        <h2>Tu contexto del mes · {summary.monthYear}</h2>
-        <dl><div><dt>Ingresos reales</dt><dd>{formatCurrency(summary.ingresosReales)}</dd></div><div><dt>Gastos ejecutados</dt><dd>{formatCurrency(summary.gastosEjecutados)}</dd></div><div><dt>Balance real</dt><dd>{formatCurrency(summary.balanceReal)}</dd></div></dl>
-        <p>Las consultas numéricas se calculan localmente. Otras consultas usan el asistente existente con métricas agregadas, sin contactos ni respaldos completos. Las consultas utilizan datos guardados. Revisa cualquier propuesta antes de confirmar un movimiento.</p>
+        <h1 className="module-title">{uiText("assistant_chat.asistente")}</h1>
+        <h2><I18nText id="assistant_chat.tu_contexto_del_mes" values={{ monthYear: (format.formatMonth(summary.monthYear)) }} /></h2>
+        <dl><div><dt>{uiText("assistant_chat.ingresos_reales")}</dt><dd>{formatCurrency(summary.ingresosReales)}</dd></div><div><dt>{uiText("assistant_chat.gastos_ejecutados")}</dt><dd>{formatCurrency(summary.gastosEjecutados)}</dd></div><div><dt>{uiText("assistant_chat.balance_real")}</dt><dd>{formatCurrency(summary.balanceReal)}</dd></div></dl>
+        <p>{uiText("assistant_chat.las_consultas_numericas_se_calculan_localmente_otras_consultas_usan")}</p>
       </aside>
       <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
-      {proposal && <MovementProposalModal subitems={financeData.budgetSubitems?.items} proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={proposalError} />}
+      {proposal && <MovementProposalModal subitems={financeData.budgetSubitems?.items} proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={storageOwnedText(proposalError,uiText)} />}
       {/* Messages */}
-      <div role="region" aria-label="Historial del asistente" tabIndex={0} className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
+      <div role="region" aria-label={uiText("assistant_chat.historial_del_asistente")} tabIndex={0} className="assistant-messages flex-1 overflow-y-auto p-3.5 space-y-3">
         {messages.map(m => (
           <div
             key={m.id}
@@ -306,8 +296,8 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
                   : 'bg-[#0c0f17] border border-white/[0.06] text-slate-200 rounded-tl-none shadow-md'
               }`}
             >
-              {m.sender === 'assistant' ? renderMarkdown(m.text) : <p>{m.text}</p>}
-              <span className="text-[9px] text-slate-400 block text-right mt-1.5">{m.time}</span>
+              {m.sender === 'assistant' ? renderMarkdown(m.display?m.display(view):m.text) : <p>{m.display?m.display(view):m.text}</p>}
+              <span className="text-[9px] text-slate-400 block text-right mt-1.5"><time dateTime={m.time}>{formatDate(m.time,{hour:'2-digit',minute:'2-digit'})}</time></span>
             </div>
           </div>
         ))}
@@ -315,24 +305,25 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
         {isLoading && (
           <div className="flex items-center gap-2 text-slate-400 text-xs pl-9">
             <div className="w-2 h-2 rounded-full bg-sky-400 animate-ping" />
-            <span>Consultando datos...</span>
+            <span>{uiText("assistant_chat.consultando_datos")}</span>
           </div>
         )}
       </div>
 
       {/* Suggested Quick Chips */}
       <div className="assistant-suggestions px-3 py-2 bg-[#0c0f17]/60 border-t border-white/[0.04] flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-        {quickQuestions.map((q, i) => (
+        {assistantPrompts.map(q => (
           <button
-            key={i}
-            onClick={() => handleSendMessage(q)}
+            key={q.id}
+            onClick={() => handleSendMessage(q.text,q.label)}
             className="text-[11px] font-medium bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 hover:text-white px-2.5 py-1 rounded-full border border-white/[0.06] whitespace-nowrap cursor-pointer shrink-0 active:scale-95 transition-colors"
           >
-            {q}
+            {uiText(q.label)}
           </button>
         ))}
       </div>
 
+      <p className="px-3 py-2 text-xs text-slate-400">{uiText("assistant.examplesLanguage")}</p>
       {/* Input */}
       <div className="p-3 bg-[#0c0f17] border-t border-white/[0.06]">
         <form
@@ -346,15 +337,15 @@ Pruébame dictando: *"Ayer cené fuera por 15,50 € con Openbank"*`;
             type="text"
             value={inputMessage}
             onChange={e => setInputMessage(e.target.value)}
-            aria-label="Mensaje para el asistente"
-            placeholder="Pregunta o registra un gasto..."
+            aria-label={uiText("assistant_chat.mensaje_para_el_asistente")}
+            placeholder={uiText("assistant_chat.pregunta_o_registra_un_gasto")}
             className="flex-1 bg-[#141926] border border-white/[0.08] focus:border-sky-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none"
           />
           <button
             type="submit"
             disabled={!inputMessage.trim() || isLoading}
             className="bg-white hover:bg-slate-100 disabled:opacity-40 text-slate-950 p-2.5 rounded-xl font-bold transition-all cursor-pointer shadow active:scale-95"
-            aria-label="Enviar"
+            aria-label={uiText("assistant_chat.enviar")}
           >
             <Send className="w-4 h-4" />
           </button>

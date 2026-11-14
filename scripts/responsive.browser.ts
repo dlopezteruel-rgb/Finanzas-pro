@@ -20,7 +20,7 @@ const raw = (p: Page) => p.evaluate(() => Object.fromEntries(Object.entries(loca
 const metric = (p: Page, label: string) => live(p).getByText(label, { exact: true }).locator('..').locator('dd');
 const field = (p: Page, label: string) => planner(p).getByRole('textbox', { name: label, exact: true });
 async function noOverflow(page: Page) {
-  const size = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, width: innerWidth }));
+  const size = await page.evaluate(() => ({ scroll: document.documentElement.scrollWidth, width: document.documentElement.clientWidth }));
   assert.ok(size.scroll <= size.width + 1, `desbordamiento global: ${JSON.stringify(size)}`);
 }
 async function expandLive(page: Page) {

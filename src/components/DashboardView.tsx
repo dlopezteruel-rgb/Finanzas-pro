@@ -1,3 +1,4 @@
+import { useI18n, I18nText } from "../i18n";
 import type {BudgetPartida} from '../types/finance';
 import { SaveResult } from '../utils/saveResult';
 import React from 'react';
@@ -21,7 +22,7 @@ import {
   Clock
 } from 'lucide-react';
 import { MonthlySummary, Transaction, MonthlyBudgetRow, Loan, Wallet, BudgetSubitem } from '../types/finance';
-import { formatCurrency, calculateLoanStatus } from '../utils/finance';
+import { calculateLoanStatus } from '../utils/finance';
 import { QuickNaturalLanguageInput } from './QuickNaturalLanguageInput';
 
 interface DashboardViewProps {
@@ -55,6 +56,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
   onNavigateToTab,
   onOpenNewTransaction,
 }) => {
+  const { t: uiText, tn: uiCount , formatMoney: formatCurrency,formatDate,formatPercent } = useI18n();
   const totalLiquid = wallets.filter(w=>w.type!=='INVESTMENT').reduce((sum,w)=>sum+(walletBalances[w.name]??0),0);
 
   // Filter latest transactions
@@ -86,21 +88,19 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
 
   return (
     <div className="dashboard-view">
-      <h1 className="module-title">Inicio</h1>
+      <h1 className="module-title">{uiText("dashboard.inicio")}</h1>
       {/* 1. Revolut Hero Balance Header */}
       <div className="home-hero text-center pt-2 pb-1 space-y-1">
-        <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400">
-          Saldo líquido actual
-        </span>
+        <span className="text-[11px] font-semibold tracking-wider uppercase text-slate-400">{uiText("dashboard.saldo_liquido_actual")}</span>
         <div className="text-3xl sm:text-4xl font-black tracking-tight text-white font-mono">
           {formatCurrency(totalLiquid)}
         </div>
         <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400">
-          <span>Balance Real mes:</span>
+          <span>{uiText("dashboard.balance_real_mes")}</span>
           <span className={`font-bold font-mono ${summary.balanceReal >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
             {summary.balanceReal >= 0 ? '+' : ''}{formatCurrency(summary.balanceReal)}
           </span>
-          <span className="text-[11px] text-slate-400">({summary.tasaAhorroReal}% ahorro)</span>
+          <span className="text-[11px] text-slate-400">{uiText('dashboard.savingsPercentage',{rate:formatPercent(summary.tasaAhorroReal)})}</span>
         </div>
       </div>
 
@@ -114,7 +114,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="w-12 h-12 rounded-full bg-white text-slate-950 flex items-center justify-center shadow-lg group-hover:scale-105 active:scale-95 transition-all">
             <Plus className="w-5 h-5 stroke-[2.8]" />
           </div>
-          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">Añadir</span>
+          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">{uiText("dashboard.anadir")}</span>
         </button>
 
         {/* Budgets / Analytics */}
@@ -125,7 +125,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="w-12 h-12 rounded-full bg-[#181f30] text-sky-400 flex items-center justify-center border border-white/[0.08] group-hover:bg-[#1f293d] group-hover:scale-105 active:scale-95 transition-all">
             <PieChart className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">Presupuesto</span>
+          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">{uiText("dashboard.presupuesto")}</span>
         </button>
 
         {/* Loans */}
@@ -136,7 +136,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="w-12 h-12 rounded-full bg-[#181f30] text-indigo-400 flex items-center justify-center border border-white/[0.08] group-hover:bg-[#1f293d] group-hover:scale-105 active:scale-95 transition-all">
             <CreditCard className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">Deudas</span>
+          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">{uiText("dashboard.deudas")}</span>
         </button>
 
         {/* Wallets */}
@@ -147,7 +147,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           <div className="w-12 h-12 rounded-full bg-[#181f30] text-emerald-400 flex items-center justify-center border border-white/[0.08] group-hover:bg-[#1f293d] group-hover:scale-105 active:scale-95 transition-all">
             <Landmark className="w-5 h-5 stroke-[2.2]" />
           </div>
-          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">Cuentas</span>
+          <span className="text-[11px] font-semibold text-slate-300 group-hover:text-white">{uiText("dashboard.cuentas")}</span>
         </button>
       </div>
 
@@ -162,16 +162,14 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           className="bg-[#141926] hover:bg-[#181f30] border border-white/[0.06] rounded-2xl p-3.5 flex flex-col justify-between transition-colors cursor-pointer"
         >
           <div className="flex items-center justify-between text-[11px] text-slate-400">
-            <span>Presupuesto Restante</span>
-            <span className="text-sky-400 font-bold">Detalle ▾</span>
+            <span>{uiText("dashboard.presupuesto_restante")}</span>
+            <span className="text-sky-400 font-bold">{uiText("dashboard.detalle")}</span>
           </div>
           <div className="my-1.5">
             <span className={`text-xl font-black font-mono ${summary.restoTotal >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
               {summary.restoTotal >= 0 ? '+' : ''}{formatCurrency(summary.restoTotal)}
             </span>
-            <span className="text-[10px] text-slate-400 block">
-              RESTO = PREVISTO - EJECUTADO
-            </span>
+            <span className="text-[10px] text-slate-400 block">{uiText("dashboard.resto_previsto_ejecutado")}</span>
           </div>
           <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1">
             <div
@@ -189,19 +187,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           className="bg-[#141926] hover:bg-[#181f30] border border-white/[0.06] rounded-2xl p-3.5 flex flex-col justify-between transition-colors cursor-pointer"
         >
           <div className="flex items-center justify-between text-[11px] text-slate-400">
-            <span>Balance Previsto</span>
+            <span>{uiText("dashboard.balance_previsto")}</span>
             <span className="text-slate-400 font-mono text-[10px]">{formatCurrency(summary.balancePrevisto)}</span>
           </div>
           <div className="my-1.5">
             <span className="text-xl font-black font-mono text-white">
               {formatCurrency(summary.balanceReal)}
             </span>
-            <span className="text-[10px] text-emerald-400 font-medium block">
-              Ingr: {formatCurrency(summary.ingresosReales)} • Gast: {formatCurrency(summary.gastosEjecutados)}
-            </span>
+            <span className="text-[10px] text-emerald-400 font-medium block"><I18nText id="dashboard.ingr_gast" values={{ ingresosReales: (formatCurrency(summary.ingresosReales)), gastosEjecutados: (formatCurrency(summary.gastosEjecutados)) }} /></span>
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-white/[0.04]">
-            <span>Desviación:</span>
+            <span>{uiText("dashboard.desviacion")}</span>
             <span className={`font-bold ${summary.balanceReal >= summary.balancePrevisto ? 'text-emerald-400' : 'text-amber-400'}`}>
               {summary.balanceReal >= summary.balancePrevisto ? '+' : ''}{formatCurrency(summary.balanceReal - summary.balancePrevisto)}
             </span>
@@ -214,20 +210,18 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
           className="bg-[#141926] hover:bg-[#181f30] border border-white/[0.06] rounded-2xl p-3.5 flex flex-col justify-between transition-colors cursor-pointer"
         >
           <div className="flex items-center justify-between text-[11px] text-slate-400">
-            <span>Deuda Pendiente Real</span>
-            <span className="text-indigo-400 font-bold">{loans.length} préstamos</span>
+            <span>{uiText("dashboard.deuda_pendiente_real")}</span>
+            <span className="text-indigo-400 font-bold">{uiCount("loans",loans.length)}</span>
           </div>
           <div className="my-1.5">
             <span className="text-xl font-black font-mono text-rose-400">
               {formatCurrency(totalPendingDebt)}
             </span>
-            <span className="text-[10px] text-slate-400 block">
-              Cuota mes: {formatCurrency(loans.reduce((s, l) => s + l.monthlyPayment, 0))}
-            </span>
+            <span className="text-[10px] text-slate-400 block"><I18nText id="dashboard.cuota_mes" values={{ formatCurrency: (formatCurrency(loans.reduce((s, l) => s + l.monthlyPayment, 0))) }} /></span>
           </div>
           <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-white/[0.04]">
-            <span>Estado amortización:</span>
-            <span className="text-emerald-400 font-medium">Tramitaciones al día</span>
+            <span>{uiText("dashboard.estado_amortizacion")}</span>
+            <span className="text-emerald-400 font-medium">{uiText("dashboard.tramitaciones_al_dia")}</span>
           </div>
         </div>
       </div>
@@ -241,19 +235,17 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </div>
             <div className="truncate">
               <span className="font-semibold text-rose-300 block">
-                {exceededRows.length > 0 ? `${exceededRows.length} partidas superaron el presupuesto` : `${warningRows.length} partidas en alerta (90%+)`}
+                {exceededRows.length > 0 ? uiCount("overBudget",exceededRows.length) : uiCount("budgetAlert",warningRows.length)}
               </span>
               <span className="text-[11px] text-slate-400 truncate block">
-                {exceededRows[0] ? `${exceededRows[0].name} (Resto: ${formatCurrency(exceededRows[0].resto)})` : 'Revisa tus gastos previstos'}
+                {exceededRows[0] ? uiText("dashboard.resto", { name: exceededRows[0].name, resto: formatCurrency(exceededRows[0].resto) }) : uiText("dashboard.revisa_tus_gastos_previstos")}
               </span>
             </div>
           </div>
           <button
             onClick={() => onNavigateToTab('budgets')}
             className="text-[11px] font-bold text-rose-300 hover:text-white shrink-0 px-2.5 py-1 rounded-lg bg-rose-500/20 border border-rose-500/30 cursor-pointer"
-          >
-            Ver
-          </button>
+          >{uiText("dashboard.ver")}</button>
         </div>
       )}
 
@@ -261,15 +253,11 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
       {/* 6. Revolut-Style Transactions List */}
       <div className="home-recent bg-[#141926] border border-white/[0.06] rounded-2xl overflow-hidden shadow-sm">
         <div className="p-3.5 border-b border-white/[0.06] flex items-center justify-between">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-            Últimos Movimientos
-          </h2>
+          <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">{uiText("dashboard.ultimos_movimientos")}</h2>
           <button
             onClick={() => onNavigateToTab('transactions')}
             className="text-xs font-semibold text-sky-400 hover:text-sky-300 flex items-center gap-1 cursor-pointer"
-          >
-            Ver todos ({transactions.length}) <ArrowRight className="w-3.5 h-3.5" />
-          </button>
+          ><I18nText id="dashboard.ver_todos" values={{ length: (transactions.length), arrowright: (<ArrowRight className="w-3.5 h-3.5" />) }} /></button>
         </div>
 
         <div className="divide-y divide-white/[0.04]">
@@ -290,7 +278,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                   <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
                     <span>{t.wallet}</span>
                     <span>•</span>
-                    <span>{t.date.split('-').slice(1).reverse().join('/')}</span>
+                    <span>{formatDate(t.date,{day:'2-digit',month:'2-digit'})}</span>
                   </div>
                 </div>
               </div>
@@ -310,10 +298,10 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
                       ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/25'
                       : 'bg-amber-500/15 text-amber-300 border border-amber-500/30 hover:bg-amber-500/25'
                   }`}
-                  title="Alternar estado de tramitación"
+                  title={uiText("dashboard.alternar_estado_de_tramitacion")}
                 >
                   <span className={`w-1.5 h-1.5 rounded-full ${t.processed ? 'bg-emerald-400' : 'bg-amber-400'}`} />
-                  <span>{t.processed ? 'Tramitado' : 'Pendiente'}</span>
+                  <span>{t.processed ? uiText("dashboard.tramitado") : uiText("dashboard.pendiente")}</span>
                 </button>
               </div>
             </div>

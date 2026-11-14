@@ -1,0 +1,23 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {languages,translatorFor,type Language} from './messages';
+import {presentationFormatters} from './presentation';
+import {economicSeriesForDisplay,chartFamilyForDisplay,bucketRowsForDisplay,planningComparisonForDisplay,planningAnnualForDisplay,chartOwnedText} from './chartMessages';
+import {economicSeries,economicChartData,planningChartData,rangeBuckets} from '../utils/chartData';
+import {chartFixture} from '../../scripts/chartFixture';
+const percent={es:'33,3\u00a0%',en:'33.3%',it:'33,3%',fr:'33,3\u00a0%',pt:'33,3%'};
+const rounded={es:'1,1\u00a0%',en:'1.1%',it:'1,1%',fr:'1,1\u00a0%',pt:'1,1%'};
+const compact={es:'1\u00a0mil\u00a0€',en:'€1k',it:'1K\u00a0€',fr:'1\u00a0k\u00a0€',pt:'1\u00a0mil\u00a0€'};
+for(const language of Object.keys(languages) as Language[])test(`gráficos ${language}: etiquetas nativas, identidades/valores originales y nombres personales literales`,()=>{
+ const t=translatorFor(language),format=presentationFormatters(language),data=chartFixture();
+ data.budgetGroups[1].name='Fuera del catálogo';data.budgetGroups[1].partidas[0].name='Partida g';data.budgetPlans.push({monthYear:'2026-10',type:'GASTO',code:'orphan',plannedAmount:10});
+ data.transactions.push({...data.transactions.find(tx=>tx.id==='income')!,id:'personal-history',type:'GASTO',code:'unlisted',amount:1,categoryName:'Ingresos económicos',subcategoryName:'Partida unlisted',description:'Literal {value}$&'});
+ const before=JSON.stringify(data),range={from:'2026-10-01',to:'2026-10-31',granularity:'month' as const},model=economicChartData(data,{...range,type:'all',family:'all',processed:true}),rawModel=JSON.stringify(model),seriesBefore=JSON.stringify(economicSeries);
+ const periods=bucketRowsForDisplay(model.periods,range,t,format);assert.equal(periods[0].label,format.formatMonth('2026-10',true));assert.deepEqual(periods.map(r=>r.id),model.periods.map(r=>r.id));assert.deepEqual(periods.map(r=>r.values),model.periods.map(r=>r.values));assert.deepEqual(periods.map(r=>[r.from,r.to,r.ids]),model.periods.map(r=>[r.from,r.to,r.ids]));
+ const week={...range,granularity:'week' as const},weeks=rangeBuckets(week).map(r=>({...r,values:{amount:1}})),nativeWeeks=bucketRowsForDisplay(weeks,week,t,format);assert.equal(nativeWeeks[0].label,t('chart.row.week',{date:format.formatDate(weeks[0].id,{day:'2-digit',month:'2-digit',year:'numeric'})}));assert.equal(nativeWeeks[0].from,'2026-10-01');assert.equal(nativeWeeks[0].id,'2026-09-28','the week label preserves its actual Monday, independently of the clipped range');
+ const personal=model.distribution.find(r=>r.id==='GASTO:G')!,historical=model.distribution.find(r=>r.id.startsWith('historical:'))!;assert.equal(chartFamilyForDisplay(personal,t).label,'Fuera del catálogo');assert.equal(chartFamilyForDisplay(historical,t).label,t('chart.row.outsideFamily',{name:'Ingresos económicos'}));
+ const nativeSeries=economicSeriesForDisplay(economicSeries,t);assert.deepEqual(nativeSeries.map(s=>s.key),economicSeries.map(s=>s.key));assert.equal(nativeSeries[0].label,t('chart.series.economicIncome'));
+ const planned=planningChartData(data,'2026-10','partida'),plannedBefore=JSON.stringify(planned),comparison=planningComparisonForDisplay(planned.comparison,data,t);assert.equal(comparison.find(r=>r.id==='GASTO:g')!.label,t('chart.row.category',{type:t('movement_proposal.gasto'),name:'Partida g'}));assert.equal(comparison.find(r=>r.id==='GASTO:orphan')!.label,t('chart.row.category',{type:t('movement_proposal.gasto'),name:t('chart.row.historicalItem',{code:'orphan'})}));assert.equal(comparison.find(r=>r.id==='GASTO:unlisted')!.label,t('chart.row.category',{type:t('movement_proposal.gasto'),name:'Partida unlisted'}));assert.deepEqual(comparison.map(r=>[r.id,r.values]),planned.comparison.map(r=>[r.id,r.values]));const annual=planningAnnualForDisplay(planned.annual,t,format);assert.deepEqual(annual.map(r=>[r.id,r.values]),planned.annual.map(r=>[r.id,r.values]));assert.equal(annual[9].label,format.formatMonth('2026-10',true));
+ assert.equal(format.formatPercent(33.333),percent[language]);assert.equal(format.formatPercent(1.15),rounded[language],'the previous toFixed rounding is retained');assert.equal(format.formatCompactMoney(1000),compact[language]);assert.equal(chartOwnedText('No se pudieron calcular los datos.',t),t('chart.error.calculate'));assert.equal(chartOwnedText('Dato personal {value}$&',t),'Dato personal {value}$&');
+ assert.equal(JSON.stringify(data),before);assert.equal(JSON.stringify(model),rawModel);assert.equal(JSON.stringify(planned),plannedBefore);assert.equal(JSON.stringify(economicSeries),seriesBefore);
+});
