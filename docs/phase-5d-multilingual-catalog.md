@@ -64,3 +64,77 @@ Se hacen **60 observaciones axe estrictas** en los diálogos nuevos y detalles d
 La revisión real de la interfaz detectó que los estilos del editor estiraban la casilla del diálogo nuevo a **306 × 13 px**, con el texto en otra fila. Se limita el cambio a `.catalog-name-review`: casilla 18 × 18 px y etiqueta flexible con área mínima de 44 px. La matriz comprueba esas dimensiones, foco y Escape en las 30 combinaciones, además de axe y desbordamiento.
 
 Se añade una guarda defensiva para identidades duplicadas: no se ofrecen como nombres de sistema y se mantiene el rechazo de importación existente, sin corregir ni consolidar automáticamente datos malformados. Resultado unitario actual: **576/576**; infraestructura **22/22**, lint y diff-check correctos. La regresión integral fresca de las 36 suites se ejecuta a continuación; su resultado se registrará separadamente.
+
+## Inventario y cobertura
+
+El [inventario de las 120 identidades](phase-5d-catalogue-inventory.json) contiene tipo, identidad, clave y texto en cada variante regional. No se emplean posiciones de array, prefijos aproximados ni sustituciones globales. Los cinco diccionarios siguen habilitados y completos; la referencia española y el resto suman 2034 claves cada uno tras esta fase.
+
+| Superficie | Presentación actual | Datos conservados literalmente / cobertura |
+| --- | --- | --- |
+| Catálogo y familias | Resolver central de familia/partida | 30 combinaciones; gestión, ARIA, drag y destinos; IDs originales |
+| Editor de familias/partidas | Nombre visible separado de intención de edición | Cinco idiomas; crear/renombrar; borradores entre pestañas; guardar sin edición no personaliza |
+| Subítems y detalle | Padre y subgrupo localizados; subítems personales | Nombres de subítems originales y fotografías; detalle/teclado/axe en 30 combinaciones |
+| Selectores de movimiento y préstamo | Familia, partida y subgrupo por identidad | El valor seleccionado conserva tipo/código; registros previos y parsers intactos |
+| Registro rápido y propuestas | Opciones/etiqueta de categoría actuales | Texto libre, conceptos, reconocimiento en español, confirmación y payload originales |
+| Movimientos | Etiquetas documentales completas | No se recortan por dos puntos; regresión específica en los cinco idiomas |
+| Planificación y presupuestos | Familia y partida actuales; campos monetarios originales | Ninguna traducción vuelve a un parser; aprobaciones, revisiones y céntimos inalterados |
+| Automatizaciones | Partida actual de selector/regla/previsualización | Nombre personal de regla y procedencia original; montos y peticiones sin traducir |
+| Reglas periódicas | Partida actual, con fallback al nombre guardado si falta | Concepto, identidad de regla y ocurrencias sin cambios |
+| Tesorería/calendario | Conservan su presentación i18n anterior | Muestran conceptos de eventos, no una etiqueta propia de catálogo que sustituir; cálculos sin cambios |
+| Gráficos/leyendas | Familias y partidas actuales en sus adaptadores visuales | IDs y series exactos; fallbacks propios sin código; nombres personales parecidos a códigos intactos |
+| Aprobaciones/fotografías | Encabezados por identidad actual cuando no existe nombre documental | Los nombres capturados de subítems y el contenido original de los registros se mantienen; no se reconstruyen fotografías |
+| Asistente | Nombres actuales del catálogo en presentación local con procedencia explícita | Reconocimiento, prompts, contexto del servicio, API y respuestas externas sin sustituciones |
+| Contactos/compartidos/liquidaciones | Mantienen etiquetas del movimiento original | Los agregados conservan la clasificación documental, relaciones, reintegros y reparto en céntimos |
+
+| Idioma | Familias | Partidas | Subgrupos | Personalización literal | Navegador |
+| --- | ---: | ---: | ---: | --- | --- |
+| es-ES | 12/12 | 77/77 | 31/31 | Sí | 390, 768, 1280; claro/oscuro |
+| en-GB | 12/12 | 77/77 | 31/31 | Sí | 390, 768, 1280; claro/oscuro |
+| it-IT | 12/12 | 77/77 | 31/31 | Sí | 390, 768, 1280; claro/oscuro |
+| fr-FR | 12/12 | 77/77 | 31/31 | Sí | 390, 768, 1280; claro/oscuro |
+| pt-PT | 12/12 | 77/77 | 31/31 | Sí | 390, 768, 1280; claro/oscuro |
+
+## Procedencia, personalización y límites deliberados
+
+- Un perfil nuevo construido por la aplicación declara los nombres iniciales de sistema. Un perfil antiguo, una clave heredada, un archivo 2.5–3.4 o datos sin declaración válida conserva los nombres guardados. No se atribuye procedencia por coincidencia de nombre/código.
+- JSON 3.5 transporta la declaración explícita y la valida contra identidades únicas y nombres canónicos. La versión 3.4 rechaza el campo nuevo. Los formatos anteriores mantienen sus validaciones; no se normalizan duplicados, referencias o nombres malformados para abrirlos.
+- Crear y duplicar producen nombres personales. Renombrar retira solo la elección correspondiente. Una descripción o palabra clave editada sin cambiar el nombre conserva esa elección. Una modificación directa incompatible se rechaza antes de guardar.
+- La revisión puede activar o retirar la presentación de identidades compatibles no retiradas, incluidas las archivadas. Las declaraciones de identidades retiradas se conservan; no se ofrecen como elementos reactivables ni se reutilizan sus códigos.
+- No se ofrece un botón que sobrescriba un nombre personal distinto con el español inicial. Para identificarlo como nombre original se requiere una acción consciente de renombrado y posterior revisión. La elección de presentación no reescribe el texto guardado.
+- Los subgrupos heredados son campos compartidos `groupCode/groupName`, no familias independientes ni subítems. Se traducen solo por su declaración específica, manteniendo la diferencia respecto a la familia contenedora actual.
+- Los nombres guardados en el diálogo de revisión aparecen en su idioma original como evidencia de la elección. Los nombres de movimientos, conceptos, notas, contactos, cuentas, reglas personales y subítems históricos son datos documentales. Esa presencia deliberada de español no es una cadena de interfaz sin traducir.
+- Los textos libres y palabras clave del catálogo mantienen su contenido; no se amplía el reconocimiento natural a otros idiomas. La clasificación sigue usando el catálogo original y los mismos IDs.
+
+## Restricciones de edición investigadas
+
+Se reproducen creación y renombrado de familias y partidas, con nombre predeterminado y personal, sin una prohibición especial por pertenecer al registro inicial. Los controles de gestión están dentro del desplegable «Gestionar familias y partidas» en la pestaña de Catálogo; se comprueba su acceso con nombres nativos y teclado.
+
+La eliminación de una familia requiere que no tenga partidas ni históricos dependientes. Una partida con movimientos, previsiones, identidades de subítems, aprobaciones, préstamos, reglas, orígenes o arrastres debe archivarse. Estas dependencias incluyen registros pendientes/inactivos o retirados según las reglas existentes; no se borran para habilitar un botón. Crear una partida requiere una familia activa. Los cambios de catálogo siguen bloqueados si hay un borrador de planificación pendiente. Los errores y confirmaciones existentes continúan localizados en los cinco idiomas.
+
+El archivo con reglas activas sigue exigiendo la revisión de consecuencias y confirmación explícita, con revalidación bajo FinanceStore. No se desactiva ni reasigna ninguna regla. Los traslados continúan restringidos al mismo tipo económico. No se ha reproducido un bloqueo adicional de renombrado/creación por ser una familia inicial. Sin una identidad y pasos concretos de un caso adicional, no se elimina ninguna protección financiera.
+
+## Capturas comparativas
+
+Las [18 capturas reales](phase-5d-capture-manifest.json) proceden de dos compilaciones separadas: base 5C y código de 5D, con fixtures sintéticos iguales. El manifiesto verifica hashes de las imágenes y de los datos de cada par, incluidos los timestamps de aprobación. Se añade únicamente la selección de nombres en el escenario posterior; las etiquetas e importes guardados coinciden. No son imágenes generadas ni datos de Google AI Studio.
+
+| Vista | Antes | Después |
+| --- | --- | --- |
+| Inglés, móvil 390, claro | [5C](phase-5d-screenshots/catalog-en-390-light-before.png) | [5D](phase-5d-screenshots/catalog-en-390-light-after.png) |
+| Francés, tablet 768, oscuro | [5C](phase-5d-screenshots/catalog-fr-768-dark-before.png) | [5D](phase-5d-screenshots/catalog-fr-768-dark-after.png) |
+| Portugués, escritorio 1280, claro | [5C](phase-5d-screenshots/catalog-pt-1280-light-before.png) | [5D](phase-5d-screenshots/catalog-pt-1280-light-after.png) |
+
+Se revisan visualmente el catálogo móvil en inglés y el diálogo portugués de escritorio oscuro, además de las comprobaciones geométricas/teclado automatizadas. La matriz automatizada cubre ambos temas y los tres anchos; no se presenta la inspección de unas capturas como revisión humana exhaustiva de todos los estados. No hay prueba con lector de pantalla ni dispositivo físico.
+
+## Tamaño y entorno
+
+Node 24.22.1, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79. La compilación de referencia y la actual usan el mismo lockfile. Se conservan los avisos de chunks superiores a 500 kB: entrada 1132,49 → 1181,07 kB minificados (310,02 → 323,98 kB gzip); App 514,93 → 532,62 kB (130,57 → 134,64 kB gzip). No se añade una dependencia ni una refactorización de carga diferida.
+
+La primera reinstalación final falló porque npm intentó escribir en la caché inaccesible `/home/agent/.npm`. Se repitió `npm ci` con `NPM_CONFIG_CACHE=/workspace/work/npm-cache`: 188 paquetes instalados correctamente, sin modificar el lockfile. Se conserva la advertencia de deprecación de `node-domexception@1.0.0`; no se oculta ni actualiza una dependencia fuera del alcance.
+
+## Corrección adicional — Recibo del registro rápido
+
+Se detectó un aviso posterior al guardado que conservaba `matched.name` sin identidad, mostrando una categoría inicial en español dentro de una confirmación nativa. La prueba nueva `catalogQuickReceipt.browser.ts` reproduce el fallo antes de corregir: el caso español pasa y fallan los cuatro idiomas extranjeros (el contenedor también cuenta como resultado fallido). Se corrige exclusivamente el estado de presentación del recibo: retiene tipo/código y resuelve el nombre al renderizar. El movimiento conserva los campos originales, sin traducirlos.
+
+Resultado específico posterior: **6/6**, sin omitidos/cancelados. Se añade como suite 37, manteniendo las 35 originales y la matriz 5D de 43 resultados. La ejecución integral anterior se interrumpió deliberadamente con **30 suites/524 resultados aprobados**, antes de su finalización; su salida 130 y los estados `not_executed` se conservan y no se consideran éxito global. Se reinicia la batería íntegra contra la corrección.
+
+Las cuatro pruebas adicionales de JSON 3.5 cubren la subida respaldada y la restauración con transferencias/repartos/reintegros, arrastres/fotografías/préstamos, subítems/reglas activas y compromisos personales/cartera predeterminada. Junto a las cinco regresiones del nombre documental con dos puntos, el total unitario actual es **585/585**, con todas las pruebas originales conservadas. El script de capturas verifica también igualdad de los datos de cada par, incluidos los timestamps de aprobación.

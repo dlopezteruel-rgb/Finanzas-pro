@@ -15,12 +15,18 @@ import {planningChartData} from '../utils/chartData';
 import {planningComparisonForDisplay,chartFamilyForDisplay} from './chartMessages';
 import {PartidaSelector} from '../components/PartidaSelector';
 import {CatalogManager} from '../components/CatalogManager';
+import {TransactionsView} from '../components/TransactionsView';
 import {storageOwnedText,backupWarningText} from './storageMessages';
 import {assistantItemName} from './labels';
 import {budgetSubitemFixture} from '../../scripts/budgetSubitemFixture';
 
 const fixture=():FinanceData=>({...budgetSubitemFixture(true,true),budgetGroups:structuredClone(BUDGET_GROUPS),catalogNames:systemCatalogNames()});
 for(const language of Object.keys(languages) as Language[]){
+ test(`5D ${language}: la etiqueta documental personal conserva todos sus dos puntos y caracteres de código`,()=>{
+  const data=fixture(),tx={...data.transactions[0],subcategoryName:'F.001.001 · Nombre personal: primera parte: segunda parte'},before=JSON.stringify(tx),noop=()=>{};
+  const html=renderToStaticMarkup(<I18nProvider requested={language}><TransactionsView transactions={[tx]} onToggleProcessed={noop} onDeleteTransaction={noop} onEditTransaction={noop} onOpenNewTransaction={noop}/></I18nProvider>);
+  assert.ok(html.includes(tx.subcategoryName));assert.equal(JSON.stringify(tx),before);
+ });
  test(`5D ${language}: las 120 identidades tienen claves explícitas, traducciones y fallback tipados`,()=>{
   const data=fixture(),before=JSON.stringify(data),t=translatorFor(language),view=catalogPresentation(data,t);
   assert.equal(Object.values(catalogNameKeys).reduce((n,keys)=>n+Object.keys(keys).length,0),120);

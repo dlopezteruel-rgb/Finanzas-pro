@@ -211,3 +211,9 @@ Familias y partidas se pueden crear, editar, archivar, reactivar y retirar cuand
 Los registros nuevos de movimientos, chat y entrada rápida utilizan el catálogo activo del usuario. Sin una coincidencia inequívoca se exige seleccionar una partida; editar una operación histórica permite conservar su referencia original. Los estados del catálogo utilizan JSON 3.4 cuando corresponde, manteniendo lectura/restauración 2.5–3.3 y copia recuperable verificada antes de la primera escritura incompatible.
 
 Consulta el [modelo, recuperación, checkpoints, pruebas y capturas ficticias](docs/custom-budget-catalog-rebuild.md). Para reproducir las capturas: `CHROMIUM_PATH=/usr/bin/chromium npm run capture:custom-catalog`.
+
+### Catálogo multidioma y nombres personales (5D)
+
+Las familias, partidas y subgrupos iniciales con procedencia explícita disponen de nombres de presentación en español, inglés británico, italiano, francés y portugués de Portugal. El idioma no cambia nombres guardados, importes ni históricos. Los nombres creados o renombrados por el usuario permanecen literales; los catálogos antiguos o ambiguos tampoco se traducen automáticamente. Desde la gestión del catálogo se puede revisar y revertir expresamente esa elección.
+
+El metadato opcional de nombres utiliza **JSON 3.5**, con copia recuperable verificada antes de la primera subida de formato y compatibilidad de lectura/restauración **2.5–3.4**. No hay migración al abrir ni un nuevo almacenamiento financiero. Véanse la [arquitectura, matriz de pruebas y límites](docs/phase-5d-multilingual-catalog.md) y el [inventario de 120 nombres en los cinco idiomas](docs/phase-5d-catalogue-inventory.json).

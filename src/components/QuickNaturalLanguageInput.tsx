@@ -48,7 +48,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     return { ...result,...(choice?{code:choice.code,categoryName:choice.groupName,subcategoryName:choice.name}:{}), wallet: selected?.name ?? '' };
   }, [inputText, wallets, defaultWalletId, walletChoice,partidas,partidaChoice,typeChoice]);
   const inputIssue=inputText.trim()?naturalInputIssue(inputText):null;
-  const [lastNotification, setLastNotification] = useState<{type:MovementType;amount:number;name:string} | null>(null);
+  const [lastNotification, setLastNotification] = useState<{type:MovementType;code:string;amount:number;name:string} | null>(null);
 
   const handleConfirm = () => {
     if (!parsed || parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)) return;
@@ -69,7 +69,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       processed: parsed.processed,
       notes: `Registro rápido: "${inputText}"`,
     }), () => {
-    setLastNotification({type:parsed.type,amount:parsed.amount,name:matched.name});
+    setLastNotification({type:parsed.type,code:matched.code,amount:parsed.amount,name:matched.name});
     setInputText('');
     setWalletChoice(undefined); setSubitemChoice(null);setPartidaChoice(null);setTypeChoice(null);
 
@@ -194,7 +194,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       {lastNotification && (
         <div role="status" className="quick-entry-notice p-2.5 rounded-xl text-xs flex items-center gap-2 animate-fadeIn">
           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-          <span className="font-medium">{uiText("quick.saved",{type:uiText(lastNotification.type==='INGRESO'?"quick_natural_language_input.ingreso":"quick_natural_language_input.gasto"),amount:formatCurrency(lastNotification.amount),name:lastNotification.name})}</span>
+          <span className="font-medium">{uiText("quick.saved",{type:uiText(lastNotification.type==='INGRESO'?"quick_natural_language_input.ingreso":"quick_natural_language_input.gasto"),amount:formatCurrency(lastNotification.amount),name:catalogNames.itemRef(lastNotification.type,lastNotification.code,lastNotification.name)})}</span>
         </div>
       )}
     </div>

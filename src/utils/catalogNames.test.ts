@@ -6,6 +6,10 @@ import {FinanceStore,loadFinanceData} from './financeStore';
 import {editCatalog,assertCatalogTransition} from './budgetCatalog';
 import {systemCatalogNames,defaultFamilies,defaultItems,defaultSubgroups,isSystemFamily,isSystemItem,isSystemSubgroup,catalogNameCandidates,catalogNamesScope,reviewCatalogNames,selectedCatalogNames,validateCatalogNames} from './catalogNames';
 import {budgetSubitemFixture} from '../../scripts/budgetSubitemFixture';
+import {chartFixture} from '../../scripts/chartFixture';
+import {responsiveFixture} from '../../scripts/responsiveFixture';
+import {catalogArchiveFixture} from '../../scripts/catalogArchiveFixture';
+import {intelligentFixture,movementRule,personalObligation} from '../../scripts/intelligentFixture';
 
 const fixture=():FinanceData=>({...budgetSubitemFixture(true,true),budgetGroups:structuredClone(BUDGET_GROUPS)});
 const fresh=():FinanceData=>({...fixture(),catalogNames:systemCatalogNames()});
@@ -86,4 +90,16 @@ test('5D: identidades duplicadas no reciben traducción y conservan el rechazo d
  assert.equal(isSystemFamily(d,g),false);assert.equal(isSystemItem(d,p),false);assert.ok(!catalogNameCandidates(d).some(t=>t.kind==='family'&&t.code===g.code||t.kind==='item'&&t.type===p.type&&t.code===p.code));
  const before=JSON.stringify(d);assert.throws(()=>parseBackup(JSON.stringify(makeBackup(d))),/contiene identificadores duplicados/);assert.equal(JSON.stringify(d),before);
  assert.throws(()=>reviewCatalogNames(d,[{kind:'family',code:g.code}],catalogNamesScope(d)),/selección inválida/);assert.throws(()=>validateCatalogNames({...d,catalogNames:systemCatalogNames()}),/Nombres del catálogo/);
+});
+for(const [label,factory] of [
+ ['transferencias y repartos con reintegros',chartFixture],
+ ['arrastres, fotografías y préstamos',()=>responsiveFixture(false)],
+ ['subítems y reglas activas',catalogArchiveFixture],
+ ['compromisos personales y cartera predeterminada',()=>({...intelligentFixture(),defaultWalletId:'bank',intelligentFinance:{recurringRules:[movementRule()],occurrences:[],obligations:[personalObligation()]}})],
+] as const)test(`5D: JSON 3.5 conserva ${label} al subir formato y exportar/restaurar`,async()=>{
+ const source=parseBackup(JSON.stringify(makeBackup(factory()))),{store,storage}=setup(source);
+ await store.mutate({catalog:{kind:'reviewNames',selected:[],scope:catalogNamesScope(store.data)}});assert.equal(makeBackup(store.data).version,'3.5');unchanged(source,store.data);
+ const exported=parseBackup(JSON.stringify(makeBackup(store.data)));unchanged(source,exported);assert.deepEqual(exported.catalogNames,{version:1,families:[],items:[],subgroups:[]});
+ const copy=parseBackup([...storage.values].find(([k])=>k.startsWith(RECOVERY_PREFIX))![1]);unchanged(source,copy);assert.equal(copy.catalogNames,undefined);
+ await store.restore(makeBackup(source));unchanged(source,store.data);assert.equal(store.data.catalogNames,undefined);
 });
