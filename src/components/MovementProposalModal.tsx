@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n } from "../i18n";
 import {SubitemSelector} from './SubitemSelector';
@@ -11,6 +12,7 @@ export function MovementProposalModal({ proposal, wallets, partidas, subitems, o
   onConfirm: (transaction: Omit<Transaction, 'id'>) => void; onCancel: () => void; busy?: boolean; saveError?: string;
 }) {
   const { t: uiText } = useI18n();
+  const catalogNames=useCatalogNames();
   const [draft, setDraft] = useState(proposal);
   const [error, setError] = useState('');
   const inputClass = 'block w-full mt-1 bg-[#0c0f17] border border-white/10 rounded-xl px-3 py-2 text-white';
@@ -35,7 +37,7 @@ export function MovementProposalModal({ proposal, wallets, partidas, subitems, o
         <option value="" disabled>{uiText("transfer.selecciona_una_cartera")}</option>{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}
       </select></label>
       <label className="block">{uiText("movement_proposal.categoria")}<select aria-label={uiText("movement_proposal.categoria")} className={inputClass} required value={draft.code} onChange={e => setDraft({ ...draft, code: e.target.value, subitemId:draft.code===e.target.value?draft.subitemId:undefined })}>
-        <option value="" disabled>{uiText("loan.selecciona_una_partida")}</option>{options.map(p => <option key={p.code} value={p.code}>{p.name}</option>)}
+        <option value="" disabled>{uiText("loan.selecciona_una_partida")}</option>{options.map(p => <option key={p.code} value={p.code}>{catalogNames.item(p)}</option>)}
       </select></label>
       <SubitemSelector items={subitems} type={draft.type} code={draft.code} value={draft.subitemId} onChange={id=>setDraft({...draft,subitemId:id||undefined})}/>
       <label className="block">{uiText("transaction.concepto")}<input className={inputClass} required value={draft.description} onChange={e => setDraft({ ...draft, description: e.target.value })} /></label>

@@ -164,6 +164,9 @@ button:disabled { cursor: not-allowed; }
 .catalog-manager :is(h3,h4) { font-weight: 700; margin-block: .5rem; }
 .catalog-editor :is(label,fieldset) { display: grid; gap: .75rem; min-width: 0; }
 .catalog-editor :is(input,textarea,select) { width: 100%; border: 1px solid var(--field-line); border-radius: .5rem; padding: .5rem; }
+.catalog-name-review label { display: flex; align-items: flex-start; gap: .75rem; min-height: 44px; }
+.catalog-name-review input[type=checkbox] { width: 1.125rem; height: 1.125rem; flex: 0 0 auto; padding: 0; margin-top: .25rem; accent-color: var(--brand); }
+.catalog-name-review small { color: var(--muted); }
 
 .catalog-drag-handle { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 44px; width: 44px; min-width: 44px; min-height: 44px; border: 1px solid var(--field-line); border-radius: .5rem; background: var(--surface); color: var(--muted); cursor: grab; touch-action: none; user-select: none; }
 .catalog-drag-handle[data-dragging=true] { cursor: grabbing; color: var(--brand-ink); background: var(--brand-soft); }

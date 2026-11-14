@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {quickEntryPrompts} from '../i18n/assistantMessages';
 import {naturalInputText} from '../i18n/naturalMessages';
 import {storageOwnedText} from '../i18n/storageMessages';
@@ -30,7 +31,8 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
   className = '',
   placeholder,
 }) => {
-  const format=useI18n(); const {formatMoney:formatCurrency,formatDate,t:uiText}=format;
+  const format=useI18n();
+  const catalogNames=useCatalogNames(); const {formatMoney:formatCurrency,formatDate,t:uiText}=format;
   const exampleHint=React.useId();
   const submission = useAsyncForm();
   const [inputText, setInputText] = useState('');
@@ -46,7 +48,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
     return { ...result,...(choice?{code:choice.code,categoryName:choice.groupName,subcategoryName:choice.name}:{}), wallet: selected?.name ?? '' };
   }, [inputText, wallets, defaultWalletId, walletChoice,partidas,partidaChoice,typeChoice]);
   const inputIssue=inputText.trim()?naturalInputIssue(inputText):null;
-  const [lastNotification, setLastNotification] = useState<{type:MovementType;amount:number;name:string} | null>(null);
+  const [lastNotification, setLastNotification] = useState<{type:MovementType;code:string;amount:number;name:string} | null>(null);
 
   const handleConfirm = () => {
     if (!parsed || parsed.amount <= 0 || !wallets.some(w => w.name === parsed.wallet)) return;
@@ -67,7 +69,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       processed: parsed.processed,
       notes: `Registro rápido: "${inputText}"`,
     }), () => {
-    setLastNotification({type:parsed.type,amount:parsed.amount,name:matched.name});
+    setLastNotification({type:parsed.type,code:matched.code,amount:parsed.amount,name:matched.name});
     setInputText('');
     setWalletChoice(undefined); setSubitemChoice(null);setPartidaChoice(null);setTypeChoice(null);
 
@@ -148,8 +150,8 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
               >
                 {uiText(parsed.type==='INGRESO'?"quick_natural_language_input.ingreso":"quick_natural_language_input.gasto")}
               </span>
-              <span className="text-xs text-slate-200 font-semibold truncate" title={parsed.subcategoryName}>
-                {parsed.subcategoryName.split(':')[1] || parsed.subcategoryName}
+              <span className="text-xs text-slate-200 font-semibold truncate" title={catalogNames.itemRef(parsed.type,parsed.code,parsed.subcategoryName)}>
+                {catalogNames.itemRef(parsed.type,parsed.code,parsed.subcategoryName)}
               </span>
             </div>
 
@@ -170,7 +172,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           </div>
 
           <label className="block">{uiText("quick_natural_language_input.tipo")}<select aria-label={uiText("quick_natural_language_input.tipo_del_registro_rapido")} value={parsed.type} onChange={e=>{setTypeChoice({text:inputText,type:e.target.value as MovementType});setPartidaChoice(null);setSubitemChoice(null);}}><option value="GASTO">{uiText("quick_natural_language_input.gasto")}</option><option value="INGRESO">{uiText("quick_natural_language_input.ingreso")}</option></select></label>
-          <label className="block">{uiText("quick_natural_language_input.partida")}<select aria-label={uiText("quick_natural_language_input.partida_del_registro_rapido")} value={parsed.code} onChange={e=>{setPartidaChoice({text:inputText,code:e.target.value});setSubitemChoice(null);}}><option value="" disabled>{uiText("quick_natural_language_input.selecciona_una_partida")}</option>{partidas.filter(p=>p.type===parsed.type&&!p.archived&&!p.deleted).map(p=><option key={p.code} value={p.code}>{p.name}</option>)}</select></label>
+          <label className="block">{uiText("quick_natural_language_input.partida")}<select aria-label={uiText("quick_natural_language_input.partida_del_registro_rapido")} value={parsed.code} onChange={e=>{setPartidaChoice({text:inputText,code:e.target.value});setSubitemChoice(null);}}><option value="" disabled>{uiText("quick_natural_language_input.selecciona_una_partida")}</option>{partidas.filter(p=>p.type===parsed.type&&!p.archived&&!p.deleted).map(p=><option key={p.code} value={p.code}>{catalogNames.item(p)}</option>)}</select></label>
           {!parsed.code&&<p role="status">{uiText("quick_natural_language_input.selecciona_una_partida_de_tu_catalogo_no_hay_una")}</p>}
           <SubitemSelector items={subitems} type={parsed.type} code={parsed.code} value={subitemChoice?.key===`${parsed.type}:${parsed.code}`?subitemChoice.id:''} onChange={id=>setSubitemChoice({key:`${parsed.type}:${parsed.code}`,id})}/>
           <div className="quick-entry-metadata flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
@@ -192,7 +194,7 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
       {lastNotification && (
         <div role="status" className="quick-entry-notice p-2.5 rounded-xl text-xs flex items-center gap-2 animate-fadeIn">
           <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-          <span className="font-medium">{uiText("quick.saved",{type:uiText(lastNotification.type==='INGRESO'?"quick_natural_language_input.ingreso":"quick_natural_language_input.gasto"),amount:formatCurrency(lastNotification.amount),name:lastNotification.name})}</span>
+          <span className="font-medium">{uiText("quick.saved",{type:uiText(lastNotification.type==='INGRESO'?"quick_natural_language_input.ingreso":"quick_natural_language_input.gasto"),amount:formatCurrency(lastNotification.amount),name:catalogNames.itemRef(lastNotification.type,lastNotification.code,lastNotification.name)})}</span>
         </div>
       )}
     </div>

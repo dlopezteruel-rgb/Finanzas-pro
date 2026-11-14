@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n, I18nText } from "../i18n";
 import {madridDate} from '../utils/financialCalendar';
@@ -34,6 +35,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
   onDeleteLoan,
 }) => {
   const { t: uiText } = useI18n();
+  const catalogNames=useCatalogNames();
   const { t } = useI18n();
   const isEditing = !!loanToEdit;
 
@@ -279,7 +281,7 @@ export const LoanModal: React.FC<LoanModalProps> = ({
               >
                 <option value="" disabled>{uiText("loan.selecciona_una_partida")}</option>
                 {loanToEdit&&!partidas.some(p=>p.code===loanToEdit.code)&&<option value={loanToEdit.code}>{uiText("loan.partida_historica_conservar")}</option>}
-                {partidas.map(p=><option key={p.code} value={p.code}>{p.name}</option>)}
+                {partidas.map(p=><option key={p.code} value={p.code}>{catalogNames.item(p)}</option>)}
               </select>
             </div>
 

@@ -1,0 +1,55 @@
+{
+  "text": "Paquete: FIJOS - Vivienda • Periodo: noviembre 2026",
+  "color": "rgb(90, 100, 114)",
+  "fontSize": "12px",
+  "lineHeight": "18px",
+  "bounds": {
+    "x": 21,
+    "y": 79,
+    "width": 292.5625,
+    "height": 18
+  },
+  "parent": {
+    "x": 21,
+    "y": 25,
+    "width": 300.5625,
+    "height": 72
+  },
+  "stack": [
+    {
+      "tag": "SPAN",
+      "class": "text-[11px] text-slate-400 block mt-0.5",
+      "background": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "DIV",
+      "class": "min-w-0 pr-2",
+      "background": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "DIV",
+      "class": "flex items-start justify-between pb-3 border-b border-white/[0.06]",
+      "background": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "tag": "DIV",
+      "class": "bg-[#141926] border border-white/10 max-w-xl w-full sm:w-[min(36rem,90vw)] h-dvh p-5 shadow-2xl text-xs space-y-4 flex flex-col overflow-y-auto subitem-detail",
+      "background": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "fixed inset-0 flex justify-end bg-black/10",
+      "background": "oklab(0 0 0 / 0.1)"
+    },
+    {
+      "tag": "BODY",
+      "class": "",
+      "background": "rgb(247, 244, 239)"
+    }
+  ],
+  "applicationSourceCommit": "c4c98c152158f7e1406212e80bf084cebda9cc76",
+  "contrastRatioAgainstVerifiedWhiteBackground": 5.999003404562351,
+  "scope": "Representative native DOM and screenshot inspection: es-ES, 390px, light, first system expense item. No screen reader. Other observations remain manual-review-required.",
+  "screenshot": "docs/phase-5d-screenshots/detail-es-390-light-review.png",
+  "screenshotSha256": "243ff2db5db7d5dedfcf33cd86af4c0a3ab184d5acbc3ce29c7b06c07292308f"
+}

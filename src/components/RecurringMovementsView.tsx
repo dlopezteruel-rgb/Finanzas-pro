@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 
 import {ruleReviewText,movementFrequencyText,type RuleReview} from '../i18n/bankingReviews';
@@ -39,6 +40,7 @@ export function RecurringMovementsView({
   onEdit: (t: Transaction) => void;
 }) {
   const { t: uiText } = useI18n();
+  const catalogNames=useCatalogNames();
   const formatting = useI18n();
   const { formatCents: money , formatDate } = formatting;
   const [first, setFirst] = useState(month),
@@ -147,7 +149,7 @@ export function RecurringMovementsView({
               <p><I18nText id="recurring_movements.dia" values={{ type: (uiText(r.type==='INGRESO'?'movement_proposal.ingreso':'movement_proposal.gasto')), amountCents: (money(r.amountCents)), content: (" "), content_02b32: (movementFrequencyText(r.frequency,uiText)), day: (r.day) }} /></p>
               <p>
                 {data.wallets.find((w) => w.id === r.walletId)?.name} ·{" "}
-                {r.subcategoryName}
+                {catalogNames.itemRef(r.type,r.code,r.subcategoryName)}
               </p>
               <p><I18nText id="recurring_movements.proxima" values={{ content: (r.active ? uiText("recurring_movements.activa") : uiText("recurring_movements.pausada")), content_52109: (" "), content_7ecad: (nextRuleDate(r, madridDate()) ?? uiText("recurring_movements.sin_proxima_fecha")) }} /></p>
               <div className="finance-actions">
@@ -389,7 +391,7 @@ export function RecurringMovementsView({
                     value={`${p.type}:${p.code}`}
                     key={`${p.type}:${p.code}`}
                   >
-                    {p.type} · {p.name}
+                    {uiText(p.type==='GASTO'?'movement_proposal.gasto':'movement_proposal.ingreso')} · {catalogNames.item(p)}
                   </option>
                 ))}
               </select>

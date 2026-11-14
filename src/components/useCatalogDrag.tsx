@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 import { useI18n } from "../i18n";
 import React,{useEffect,useId,useLayoutEffect,useRef,useState} from 'react';
@@ -12,12 +13,14 @@ type Feedback = {key:'drag.cancelled'|'drag.invalid'} | {key:'drag.saved'|'drag.
 /** Pointer capture supports mouse/pen/touch. Only release persists; cancellation never writes. */
 export function useCatalogDrag(scope:string,onReorder:ReorderCallback,disabled=false){
   const { t: uiText } = useI18n();
+  const catalogNames=useCatalogNames();
   const owner=useId(),session=useRef<Session|null>(null),frame=useRef<number|undefined>(undefined),pending=useRef(false),mounted=useRef(true);
   const restoreFocus=useRef<HTMLElement|null>(null);
   useLayoutEffect(()=>{if(restoreFocus.current&&!pending.current){const node=restoreFocus.current;restoreFocus.current=null;if(node.isConnected)node.focus({preventScroll:true});}});
   const [view,setView]=useState<Session|null>(null),[saving,setSaving]=useState(false),[message,setMessage]=useState<Feedback|null>(null),[error,setError]=useState('');
-  const describeSource=(source:DragSource)=>uiText(source.kind==='family'?'drag.family':source.kind==='partida'?'drag.item':'drag.subitem',{name:source.label});
-  const describeTarget=(target:DropTarget)=>target.kind==='family'&&target.code===undefined?uiText('budgets.final_de_las_familias'):target.kind==='subitem'&&target.beforeId===undefined?uiText('subitem_manager.final_de_los_subitems'):target.kind==='partida'&&target.beforeCode===undefined?uiText('drag.endOf',{name:target.label}):target.label;
+  const describeSource=(source:DragSource)=>uiText(source.kind==='family'?'drag.family':source.kind==='partida'?'drag.item':'drag.subitem',{name:source.kind==='family'?catalogNames.familyRef(source.code,source.label):source.kind==='partida'?catalogNames.itemRef(source.type,source.code,source.label):source.label});
+  const targetLabel=(target:DropTarget)=>target.kind==='family'?catalogNames.familyRef(target.code??'',target.label):target.kind==='partida'?(target.beforeCode?catalogNames.itemRef(target.type,target.beforeCode,target.label):catalogNames.familyRef(target.groupCode,target.label)):target.label;
+  const describeTarget=(target:DropTarget)=>target.kind==='family'&&target.code===undefined?uiText('budgets.final_de_las_familias'):target.kind==='subitem'&&target.beforeId===undefined?uiText('subitem_manager.final_de_los_subitems'):target.kind==='partida'&&target.beforeCode===undefined?uiText('drag.endOf',{name:targetLabel(target)}):targetLabel(target);
   const messageText=message===null?'':'source' in message?uiText(message.key,{source:describeSource(message.source)}):'target' in message?uiText(message.key,{target:describeTarget(message.target)}):uiText(message.key);
   const refresh=()=>setView(session.current?{...session.current}:null);
   const stop=()=>{if(frame.current!==undefined)cancelAnimationFrame(frame.current);frame.current=undefined;session.current=null;setView(null);};

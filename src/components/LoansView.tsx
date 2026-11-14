@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 import {loanInstalmentsText} from '../i18n/bankingReviews';
 
@@ -33,6 +34,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
   onPayInstallment,
 }) => {
   const { t: uiText } = useI18n();
+  const catalogNames=useCatalogNames();
   const { formatMoney: formatCurrency,language } = useI18n();
   const [selectedLoanToEdit, setSelectedLoanToEdit] = useState<Loan | null>(null);
   const [isLoanModalOpen, setIsLoanModalOpen] = useState(false);
@@ -116,7 +118,7 @@ export const LoansView: React.FC<LoansViewProps> = ({
                           {loan.name}
                         </h3>
                         <span className="text-[10px] bg-white/[0.05] text-sky-400 font-mono px-1.5 py-0.5 rounded border border-white/[0.08]">
-                          {deletionData.budgetGroups.flatMap(g=>g.partidas).find(p=>p.type==='GASTO'&&p.code===loan.code)?.name??uiText("loans.partida_historica")}
+                          {catalogNames.itemRef('GASTO',loan.code,uiText("loans.partida_historica"))}
                         </span>
                       </div>
                       <span className="text-xs text-slate-400"><I18nText id="loans.tin_tae" values={{ entity: (loan.entity), interestRate: (loan.interestRate) }} /></span>

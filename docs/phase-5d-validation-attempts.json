@@ -1,0 +1,524 @@
+{
+  "schemaVersion": 1,
+  "base": "0a155a81ac31a96f28d515f64502507c91773f30",
+  "correctedApplicationSource": "c4c98c152158f7e1406212e80bf084cebda9cc76",
+  "baseline": {
+    "unit": 528,
+    "infrastructure": 22,
+    "npmCiPackages": 188,
+    "lint": "passed",
+    "build": "passed",
+    "browser": "5C reference only; no new initial full-browser execution claimed"
+  },
+  "environmentFailure": {
+    "command": "npm ci",
+    "result": "failed",
+    "reason": "Inaccessible /home/agent/.npm cache, ENOENT; tarball retry warnings did not establish a dependency integrity result",
+    "correction": "NPM_CONFIG_CACHE=/workspace/work/npm-cache npm ci",
+    "correctedResult": "188 packages installed, unchanged lockfile"
+  },
+  "testDraftDiagnostics": {
+    "scope": "New test authoring only, not product regressions or final approvals",
+    "corrections": [
+      "Expected catalogue order by economic type rather than original constant-array order",
+      "Use the existing movement dialog name and navigate to the home Add action",
+      "Close options with the existing Escape behaviour",
+      "Use the actual .home-quick container"
+    ],
+    "note": "Incomplete/cancelled draft runs are not presented as successful validation; no existing assertion or timeout was relaxed"
+  },
+  "focused": [
+    {
+      "name": "matrix37",
+      "results": [
+        {
+          "tests": 37,
+          "suites": 0,
+          "pass": 37,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "logSha256": "8e31f92814cfcfd302325beb6c36bb183309d81eb83f9ecb5c74582034b4ddea",
+      "scope": "Focused execution, not a substitute for the complete final battery"
+    },
+    {
+      "name": "matrix43",
+      "results": [
+        {
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "logSha256": "8b292c483e43e72e5ad6a186a99042dd2939cbf8db7961e6794d6595faf56ab5",
+      "scope": "Focused execution, not a substitute for the complete final battery"
+    },
+    {
+      "name": "matrix43-with-income",
+      "results": [
+        {
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "logSha256": "5ca0fe842291a0dc0ec713d8d7230d7aa91292dd3bf31c6dfa256d5460d9c75e",
+      "scope": "Focused execution, not a substitute for the complete final battery"
+    },
+    {
+      "name": "quickReceiptBefore",
+      "results": [
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 1,
+          "fail": 5,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "logSha256": "68b9578e67ea97a6210f0549c9b4acd9ac782915f46a8b6aad06a1654cd59e7b",
+      "scope": "Focused execution, not a substitute for the complete final battery"
+    },
+    {
+      "name": "quickReceiptAfter",
+      "results": [
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "logSha256": "bb7a5160c8c149487e73c5adec569926f33d74d1a86c429abba97799642c54c4",
+      "scope": "Focused execution, not a substitute for the complete final battery"
+    }
+  ],
+  "actualReceiptRegression": {
+    "caseFailures": 4,
+    "parentAlsoFailed": true,
+    "receipts": [
+      {
+        "language": "en",
+        "actual": "+ Recorded: Expense €5.00 in Transporte: Gasolina / Combustible",
+        "expected": "+ Recorded: Expense €5.00 in Transport: petrol / fuel"
+      },
+      {
+        "language": "it",
+        "actual": "+ Registrato: Uscita 5,00 € in Transporte: Gasolina / Combustible",
+        "expected": "+ Registrato: Uscita 5,00 € in Trasporti: benzina / carburante"
+      },
+      {
+        "language": "fr",
+        "actual": "+ Enregistré : Dépense de 5,00 € dans Transporte: Gasolina / Combustible",
+        "expected": "+ Enregistré : Dépense de 5,00 € dans Transports : essence / carburant"
+      },
+      {
+        "language": "pt",
+        "actual": "+ Registado: Despesa de 5,00 € em Transporte: Gasolina / Combustible",
+        "expected": "+ Registado: Despesa de 5,00 € em Transportes: gasolina / combustível"
+      }
+    ],
+    "correction": "Transient UI state retains type/code; the receipt resolves its display label without modifying saved categoryName/subcategoryName"
+  },
+  "stoppedFullRun": {
+    "reason": "Deliberately interrupted to validate the quick-entry receipt correction in a fresh full battery",
+    "passed": false,
+    "exitCode": 130,
+    "durationMs": 1450335,
+    "completeSummaries": 30,
+    "completedResults": 524,
+    "perSuite": [
+      {
+        "suite": "scripts/phase1.browser.ts",
+        "status": "passed",
+        "tests": 57,
+        "suites": 0,
+        "pass": 57,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/sharedUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/deletion.browser.ts",
+        "status": "passed",
+        "tests": 23,
+        "suites": 0,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/planning.browser.ts",
+        "status": "passed",
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetUx.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/charts.browser.ts",
+        "status": "passed",
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/automation.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/responsive.browser.ts",
+        "status": "passed",
+        "tests": 16,
+        "suites": 0,
+        "pass": 16,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/intelligent.browser.ts",
+        "status": "passed",
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/visualUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/routes.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/defaultWallet.browser.ts",
+        "status": "passed",
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetSubitems.browser.ts",
+        "status": "passed",
+        "tests": 19,
+        "suites": 0,
+        "pass": 19,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogPresentation.browser.ts",
+        "status": "passed",
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/customCatalog.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogReorder.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogClassification.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogArchive.browser.ts",
+        "status": "passed",
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aSafety.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aLoans.browser.ts",
+        "status": "passed",
+        "tests": 3,
+        "suites": 0,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aAudit.browser.ts",
+        "status": "passed",
+        "tests": 9,
+        "suites": 0,
+        "pass": 9,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/i18n.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedBanking.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedPlanning.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCatalog.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCatalogDrag.browser.ts",
+        "status": "passed",
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedAutomation.browser.ts",
+        "status": "passed",
+        "tests": 41,
+        "suites": 0,
+        "pass": 41,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedObligations.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedStorage.browser.ts",
+        "status": "passed",
+        "tests": 36,
+        "suites": 0,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedShared.browser.ts",
+        "status": "passed",
+        "tests": 36,
+        "suites": 0,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCharts.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedAssistant.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedPresentation.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedCompletion.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/landingLanguage.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/multilingualCatalog.browser.ts",
+        "status": "not_executed"
+      }
+    ]
+  },
+  "previousCI": {
+    "run": 43619336978,
+    "sha": "1717416ba57bda17c36d3a96925391b457700395",
+    "conclusion": "cancelled",
+    "reason": "Workflow concurrency cancelled the earlier run after publishing the corrected checkpoint; not a complete successful run"
+  },
+  "currentFullValidation": {
+    "source": "c4c98c152158f7e1406212e80bf084cebda9cc76",
+    "status": "passed",
+    "localResults": "phase-5d-local-results.json",
+    "ciResults": "phase-5d-ci-results.json",
+    "ciRun": 43621981501,
+    "unit": 585,
+    "infrastructure": 22,
+    "chromium": 747,
+    "suites": 37,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0
+  }
+}

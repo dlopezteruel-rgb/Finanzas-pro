@@ -23,7 +23,11 @@ export function loadFinanceData(storage: Pick<Storage, 'getItem'>, defaults: Fin
   const data = { ...defaults };
   for (const field of Object.keys(legacyKeys) as (keyof FinanceData)[]) {
     const saved = storage.getItem(legacyKeys[field]!);
-    if (saved !== null) (data as any)[field] = field === 'theme' ? saved : JSON.parse(saved);
+    if (saved !== null) {
+      // A legacy profile must not inherit provenance from newly constructed defaults.
+      delete data.catalogNames;
+      (data as any)[field] = field === 'theme' ? saved : JSON.parse(saved);
+    }
   }
   return parseBackup(JSON.stringify(makeBackup(data)));
 }

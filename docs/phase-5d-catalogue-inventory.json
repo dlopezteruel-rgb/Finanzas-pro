@@ -1,0 +1,1559 @@
+{
+  "counts": {
+    "families": 12,
+    "items": 77,
+    "subgroups": 31,
+    "total": 120
+  },
+  "policy": "Stable identity keys; only explicitly declared canonical names are translated. Personal names, ambiguous old/imported data and original documentary labels remain literal.",
+  "rows": [
+    {
+      "kind": "family",
+      "identity": "L",
+      "key": "catalog.name.family.L",
+      "translations": {
+        "es-ES": "LABORALES",
+        "en-GB": "EMPLOYMENT INCOME",
+        "it-IT": "REDDITI DA LAVORO",
+        "fr-FR": "REVENUS DU TRAVAIL",
+        "pt-PT": "RENDIMENTOS DO TRABALHO"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.001",
+      "key": "catalog.name.item.INGRESO:L.001.001",
+      "translations": {
+        "es-ES": "Fijo (Nómina principal)",
+        "en-GB": "Fixed salary (main employment)",
+        "it-IT": "Stipendio fisso (lavoro principale)",
+        "fr-FR": "Salaire fixe (emploi principal)",
+        "pt-PT": "Salário fixo (emprego principal)"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "L.001",
+      "key": "catalog.name.subgroup.INGRESO:L.001",
+      "translations": {
+        "es-ES": "LABORALES",
+        "en-GB": "EMPLOYMENT INCOME",
+        "it-IT": "REDDITI DA LAVORO",
+        "fr-FR": "REVENUS DU TRAVAIL",
+        "pt-PT": "RENDIMENTOS DO TRABALHO"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.002",
+      "key": "catalog.name.item.INGRESO:L.001.002",
+      "translations": {
+        "es-ES": "Variable / bonus",
+        "en-GB": "Variable pay / bonuses",
+        "it-IT": "Retribuzione variabile / bonus",
+        "fr-FR": "Rémunération variable / primes",
+        "pt-PT": "Remuneração variável / prémios"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.003",
+      "key": "catalog.name.item.INGRESO:L.001.003",
+      "translations": {
+        "es-ES": "Horas extra",
+        "en-GB": "Overtime",
+        "it-IT": "Straordinari",
+        "fr-FR": "Heures supplémentaires",
+        "pt-PT": "Horas extraordinárias"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.004",
+      "key": "catalog.name.item.INGRESO:L.001.004",
+      "translations": {
+        "es-ES": "Pagas extra",
+        "en-GB": "Additional salary payments",
+        "it-IT": "Mensilità aggiuntive",
+        "fr-FR": "Versements de salaire supplémentaires",
+        "pt-PT": "Subsídios salariais adicionais"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.005",
+      "key": "catalog.name.item.INGRESO:L.001.005",
+      "translations": {
+        "es-ES": "Dietas",
+        "en-GB": "Subsistence allowances",
+        "it-IT": "Indennità di trasferta",
+        "fr-FR": "Indemnités de déplacement",
+        "pt-PT": "Ajudas de custo"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.006",
+      "key": "catalog.name.item.INGRESO:L.001.006",
+      "translations": {
+        "es-ES": "Desplazamientos / Kilometraje",
+        "en-GB": "Travel / mileage allowances",
+        "it-IT": "Rimborsi viaggio / chilometrici",
+        "fr-FR": "Indemnités de transport / kilométriques",
+        "pt-PT": "Deslocações / quilometragem"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.001.007",
+      "key": "catalog.name.item.INGRESO:L.001.007",
+      "translations": {
+        "es-ES": "Incentivos",
+        "en-GB": "Incentive payments",
+        "it-IT": "Incentivi",
+        "fr-FR": "Primes d’intéressement",
+        "pt-PT": "Incentivos"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.002.001",
+      "key": "catalog.name.item.INGRESO:L.002.001",
+      "translations": {
+        "es-ES": "Honorarios profesionales",
+        "en-GB": "Professional fees",
+        "it-IT": "Compensi professionali",
+        "fr-FR": "Honoraires professionnels",
+        "pt-PT": "Honorários profissionais"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "L.002",
+      "key": "catalog.name.subgroup.INGRESO:L.002",
+      "translations": {
+        "es-ES": "LABORALES",
+        "en-GB": "EMPLOYMENT INCOME",
+        "it-IT": "REDDITI DA LAVORO",
+        "fr-FR": "REVENUS DU TRAVAIL",
+        "pt-PT": "RENDIMENTOS DO TRABALHO"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "L.002.002",
+      "key": "catalog.name.item.INGRESO:L.002.002",
+      "translations": {
+        "es-ES": "Facturación clientes",
+        "en-GB": "Client invoicing",
+        "it-IT": "Fatturazione ai clienti",
+        "fr-FR": "Facturation clients",
+        "pt-PT": "Faturação a clientes"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "F_INC",
+      "key": "catalog.name.family.F_INC",
+      "translations": {
+        "es-ES": "FINANCIEROS",
+        "en-GB": "FINANCIAL INCOME",
+        "it-IT": "REDDITI FINANZIARI",
+        "fr-FR": "REVENUS FINANCIERS",
+        "pt-PT": "RENDIMENTOS FINANCEIROS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "F.001.001",
+      "key": "catalog.name.item.INGRESO:F.001.001",
+      "translations": {
+        "es-ES": "Rendimientos bancarios (intereses, depósitos)",
+        "en-GB": "Bank returns (interest, deposits)",
+        "it-IT": "Rendimenti bancari (interessi, depositi)",
+        "fr-FR": "Produits bancaires (intérêts, dépôts)",
+        "pt-PT": "Rendimentos bancários (juros, depósitos)"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "F.001",
+      "key": "catalog.name.subgroup.INGRESO:F.001",
+      "translations": {
+        "es-ES": "FINANCIEROS",
+        "en-GB": "FINANCIAL INCOME",
+        "it-IT": "REDDITI FINANZIARI",
+        "fr-FR": "REVENUS FINANCIERS",
+        "pt-PT": "RENDIMENTOS FINANCEIROS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "F.002.001",
+      "key": "catalog.name.item.INGRESO:F.002.001",
+      "translations": {
+        "es-ES": "Inversiones (dividendos, fondos, criptomonedas)",
+        "en-GB": "Investments (dividends, funds, cryptocurrencies)",
+        "it-IT": "Investimenti (dividendi, fondi, criptovalute)",
+        "fr-FR": "Placements (dividendes, fonds, cryptomonnaies)",
+        "pt-PT": "Investimentos (dividendos, fundos, criptomoedas)"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "F.002",
+      "key": "catalog.name.subgroup.INGRESO:F.002",
+      "translations": {
+        "es-ES": "FINANCIEROS",
+        "en-GB": "FINANCIAL INCOME",
+        "it-IT": "REDDITI FINANZIARI",
+        "fr-FR": "REVENUS FINANCIERS",
+        "pt-PT": "RENDIMENTOS FINANCEIROS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "F.003.001",
+      "key": "catalog.name.item.INGRESO:F.003.001",
+      "translations": {
+        "es-ES": "Préstamos / créditos recibidos",
+        "en-GB": "Loans / credit received",
+        "it-IT": "Prestiti / crediti ricevuti",
+        "fr-FR": "Prêts / crédits reçus",
+        "pt-PT": "Empréstimos / créditos recebidos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "F.003",
+      "key": "catalog.name.subgroup.INGRESO:F.003",
+      "translations": {
+        "es-ES": "FINANCIEROS",
+        "en-GB": "FINANCIAL INCOME",
+        "it-IT": "REDDITI FINANZIARI",
+        "fr-FR": "REVENUS FINANCIERS",
+        "pt-PT": "RENDIMENTOS FINANCEIROS"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "P_INC",
+      "key": "catalog.name.family.P_INC",
+      "translations": {
+        "es-ES": "PATRIMONIALES",
+        "en-GB": "PROPERTY INCOME",
+        "it-IT": "REDDITI PATRIMONIALI",
+        "fr-FR": "REVENUS DU PATRIMOINE",
+        "pt-PT": "RENDIMENTOS PATRIMONIAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "P.001.001",
+      "key": "catalog.name.item.INGRESO:P.001.001",
+      "translations": {
+        "es-ES": "Alquiler vivienda",
+        "en-GB": "Residential rent received",
+        "it-IT": "Affitto di abitazioni",
+        "fr-FR": "Loyers de logements",
+        "pt-PT": "Rendas de habitação"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "P.001",
+      "key": "catalog.name.subgroup.INGRESO:P.001",
+      "translations": {
+        "es-ES": "PATRIMONIALES",
+        "en-GB": "PROPERTY INCOME",
+        "it-IT": "REDDITI PATRIMONIALI",
+        "fr-FR": "REVENUS DU PATRIMOINE",
+        "pt-PT": "RENDIMENTOS PATRIMONIAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "P.001.002",
+      "key": "catalog.name.item.INGRESO:P.001.002",
+      "translations": {
+        "es-ES": "Alquiler local",
+        "en-GB": "Commercial rent received",
+        "it-IT": "Affitto di locali commerciali",
+        "fr-FR": "Loyers de locaux commerciaux",
+        "pt-PT": "Rendas de espaços comerciais"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "P.001.003",
+      "key": "catalog.name.item.INGRESO:P.001.003",
+      "translations": {
+        "es-ES": "Alquiler garaje",
+        "en-GB": "Garage rent received",
+        "it-IT": "Affitto di garage",
+        "fr-FR": "Loyers de garages",
+        "pt-PT": "Rendas de garagens"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "P.002.001",
+      "key": "catalog.name.item.INGRESO:P.002.001",
+      "translations": {
+        "es-ES": "Cesión de uso",
+        "en-GB": "Granting of use rights",
+        "it-IT": "Cessione del diritto d'uso",
+        "fr-FR": "Cession de droits d’usage",
+        "pt-PT": "Cedência de uso"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "P.002",
+      "key": "catalog.name.subgroup.INGRESO:P.002",
+      "translations": {
+        "es-ES": "PATRIMONIALES",
+        "en-GB": "PROPERTY INCOME",
+        "it-IT": "REDDITI PATRIMONIALI",
+        "fr-FR": "REVENUS DU PATRIMOINE",
+        "pt-PT": "RENDIMENTOS PATRIMONIAIS"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "X_INC",
+      "key": "catalog.name.family.X_INC",
+      "translations": {
+        "es-ES": "EXTRAORDINARIOS",
+        "en-GB": "EXCEPTIONAL INCOME",
+        "it-IT": "ENTRATE STRAORDINARIE",
+        "fr-FR": "REVENUS EXCEPTIONNELS",
+        "pt-PT": "RENDIMENTOS EXTRAORDINÁRIOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "X.001.001",
+      "key": "catalog.name.item.INGRESO:X.001.001",
+      "translations": {
+        "es-ES": "Ventas no habituales (Wallapop, segunda mano)",
+        "en-GB": "Occasional sales (Wallapop, second-hand)",
+        "it-IT": "Vendite occasionali (Wallapop, usato)",
+        "fr-FR": "Ventes occasionnelles (Wallapop, occasion)",
+        "pt-PT": "Vendas ocasionais (Wallapop, segunda mão)"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "X.001",
+      "key": "catalog.name.subgroup.INGRESO:X.001",
+      "translations": {
+        "es-ES": "EXTRAORDINARIOS",
+        "en-GB": "EXCEPTIONAL INCOME",
+        "it-IT": "ENTRATE STRAORDINARIE",
+        "fr-FR": "REVENUS EXCEPTIONNELS",
+        "pt-PT": "RENDIMENTOS EXTRAORDINÁRIOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "X.002.001",
+      "key": "catalog.name.item.INGRESO:X.002.001",
+      "translations": {
+        "es-ES": "Indemnizaciones",
+        "en-GB": "Compensation received",
+        "it-IT": "Indennizzi",
+        "fr-FR": "Indemnités",
+        "pt-PT": "Indemnizações"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "X.002",
+      "key": "catalog.name.subgroup.INGRESO:X.002",
+      "translations": {
+        "es-ES": "EXTRAORDINARIOS",
+        "en-GB": "EXCEPTIONAL INCOME",
+        "it-IT": "ENTRATE STRAORDINARIE",
+        "fr-FR": "REVENUS EXCEPTIONNELS",
+        "pt-PT": "RENDIMENTOS EXTRAORDINÁRIOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "X.003.001",
+      "key": "catalog.name.item.INGRESO:X.003.001",
+      "translations": {
+        "es-ES": "Premios y sorteos",
+        "en-GB": "Prizes and draws",
+        "it-IT": "Premi e lotterie",
+        "fr-FR": "Prix et tirages au sort",
+        "pt-PT": "Prémios e sorteios"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "X.003",
+      "key": "catalog.name.subgroup.INGRESO:X.003",
+      "translations": {
+        "es-ES": "EXTRAORDINARIOS",
+        "en-GB": "EXCEPTIONAL INCOME",
+        "it-IT": "ENTRATE STRAORDINARIE",
+        "fr-FR": "REVENUS EXCEPTIONNELS",
+        "pt-PT": "RENDIMENTOS EXTRAORDINÁRIOS"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "E_INC",
+      "key": "catalog.name.family.E_INC",
+      "translations": {
+        "es-ES": "EMPRESARIALES",
+        "en-GB": "BUSINESS INCOME",
+        "it-IT": "REDDITI D'IMPRESA",
+        "fr-FR": "REVENUS D’ENTREPRISE",
+        "pt-PT": "RENDIMENTOS EMPRESARIAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "E.001.001",
+      "key": "catalog.name.item.INGRESO:E.001.001",
+      "translations": {
+        "es-ES": "Ventas de productos",
+        "en-GB": "Product sales",
+        "it-IT": "Vendite di prodotti",
+        "fr-FR": "Ventes de produits",
+        "pt-PT": "Vendas de produtos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "E.001",
+      "key": "catalog.name.subgroup.INGRESO:E.001",
+      "translations": {
+        "es-ES": "EMPRESARIALES",
+        "en-GB": "BUSINESS INCOME",
+        "it-IT": "REDDITI D'IMPRESA",
+        "fr-FR": "REVENUS D’ENTREPRISE",
+        "pt-PT": "RENDIMENTOS EMPRESARIAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "E.002.001",
+      "key": "catalog.name.item.INGRESO:E.002.001",
+      "translations": {
+        "es-ES": "Proyectos y contratos",
+        "en-GB": "Projects and contracts",
+        "it-IT": "Progetti e contratti",
+        "fr-FR": "Projets et contrats",
+        "pt-PT": "Projetos e contratos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "E.002",
+      "key": "catalog.name.subgroup.INGRESO:E.002",
+      "translations": {
+        "es-ES": "EMPRESARIALES",
+        "en-GB": "BUSINESS INCOME",
+        "it-IT": "REDDITI D'IMPRESA",
+        "fr-FR": "REVENUS D’ENTREPRISE",
+        "pt-PT": "RENDIMENTOS EMPRESARIAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "E.003.001",
+      "key": "catalog.name.item.INGRESO:E.003.001",
+      "translations": {
+        "es-ES": "Operativos empresariales",
+        "en-GB": "Business operating income",
+        "it-IT": "Entrate operative d'impresa",
+        "fr-FR": "Revenus d’exploitation",
+        "pt-PT": "Rendimentos operacionais empresariais"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "E.003",
+      "key": "catalog.name.subgroup.INGRESO:E.003",
+      "translations": {
+        "es-ES": "EMPRESARIALES",
+        "en-GB": "BUSINESS INCOME",
+        "it-IT": "REDDITI D'IMPRESA",
+        "fr-FR": "REVENUS D’ENTREPRISE",
+        "pt-PT": "RENDIMENTOS EMPRESARIAIS"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "A_INC",
+      "key": "catalog.name.family.A_INC",
+      "translations": {
+        "es-ES": "AYUDAS Y TRANSFERENCIAS",
+        "en-GB": "GRANTS AND TRANSFERS",
+        "it-IT": "SUSSIDI E TRASFERIMENTI",
+        "fr-FR": "AIDES ET TRANSFERTS",
+        "pt-PT": "APOIOS E TRANSFERÊNCIAS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "A.001.001",
+      "key": "catalog.name.item.INGRESO:A.001.001",
+      "translations": {
+        "es-ES": "Subvenciones públicas",
+        "en-GB": "Public grants",
+        "it-IT": "Sovvenzioni pubbliche",
+        "fr-FR": "Subventions publiques",
+        "pt-PT": "Subsídios públicos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "A.001",
+      "key": "catalog.name.subgroup.INGRESO:A.001",
+      "translations": {
+        "es-ES": "AYUDAS Y TRANSFERENCIAS",
+        "en-GB": "GRANTS AND TRANSFERS",
+        "it-IT": "SUSSIDI E TRASFERIMENTI",
+        "fr-FR": "AIDES ET TRANSFERTS",
+        "pt-PT": "APOIOS E TRANSFERÊNCIAS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "A.001.002",
+      "key": "catalog.name.item.INGRESO:A.001.002",
+      "translations": {
+        "es-ES": "Becas de estudio / investigación",
+        "en-GB": "Study / research grants",
+        "it-IT": "Borse di studio / ricerca",
+        "fr-FR": "Bourses d’études / de recherche",
+        "pt-PT": "Bolsas de estudo / investigação"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "A.002.001",
+      "key": "catalog.name.item.INGRESO:A.002.001",
+      "translations": {
+        "es-ES": "Aportaciones familiares",
+        "en-GB": "Family contributions",
+        "it-IT": "Contributi familiari",
+        "fr-FR": "Contributions familiales",
+        "pt-PT": "Contribuições familiares"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "A.002",
+      "key": "catalog.name.subgroup.INGRESO:A.002",
+      "translations": {
+        "es-ES": "AYUDAS Y TRANSFERENCIAS",
+        "en-GB": "GRANTS AND TRANSFERS",
+        "it-IT": "SUSSIDI E TRASFERIMENTI",
+        "fr-FR": "AIDES ET TRANSFERTS",
+        "pt-PT": "APOIOS E TRANSFERÊNCIAS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "A.002.002",
+      "key": "catalog.name.item.INGRESO:A.002.002",
+      "translations": {
+        "es-ES": "Donaciones recibidas",
+        "en-GB": "Donations received",
+        "it-IT": "Donazioni ricevute",
+        "fr-FR": "Dons reçus",
+        "pt-PT": "Donativos recebidos"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "O_INC",
+      "key": "catalog.name.family.O_INC",
+      "translations": {
+        "es-ES": "OTROS INGRESOS",
+        "en-GB": "OTHER INCOME",
+        "it-IT": "ALTRE ENTRATE",
+        "fr-FR": "AUTRES REVENUS",
+        "pt-PT": "OUTROS RENDIMENTOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "O.001.001",
+      "key": "catalog.name.item.INGRESO:O.001.001",
+      "translations": {
+        "es-ES": "Reembolsos de compras",
+        "en-GB": "Purchase refunds",
+        "it-IT": "Rimborsi di acquisti",
+        "fr-FR": "Remboursements d’achats",
+        "pt-PT": "Reembolsos de compras"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "O.001",
+      "key": "catalog.name.subgroup.INGRESO:O.001",
+      "translations": {
+        "es-ES": "OTROS INGRESOS",
+        "en-GB": "OTHER INCOME",
+        "it-IT": "ALTRE ENTRATE",
+        "fr-FR": "AUTRES REVENUS",
+        "pt-PT": "OUTROS RENDIMENTOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "O.001.002",
+      "key": "catalog.name.item.INGRESO:O.001.002",
+      "translations": {
+        "es-ES": "Devoluciones tributarias (Hacienda)",
+        "en-GB": "Tax refunds (Spanish tax authority)",
+        "it-IT": "Rimborsi fiscali (fisco spagnolo)",
+        "fr-FR": "Remboursements fiscaux (fisc espagnol)",
+        "pt-PT": "Reembolsos fiscais (autoridade tributária espanhola)"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "INGRESO",
+      "identity": "O.002.001",
+      "key": "catalog.name.item.INGRESO:O.002.001",
+      "translations": {
+        "es-ES": "Ajustes contables positivos",
+        "en-GB": "Positive accounting adjustments",
+        "it-IT": "Rettifiche contabili positive",
+        "fr-FR": "Ajustements comptables positifs",
+        "pt-PT": "Ajustamentos contabilísticos positivos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "INGRESO",
+      "identity": "O.002",
+      "key": "catalog.name.subgroup.INGRESO:O.002",
+      "translations": {
+        "es-ES": "OTROS INGRESOS",
+        "en-GB": "OTHER INCOME",
+        "it-IT": "ALTRE ENTRATE",
+        "fr-FR": "AUTRES REVENUS",
+        "pt-PT": "OUTROS RENDIMENTOS"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "F_EXP",
+      "key": "catalog.name.family.F_EXP",
+      "translations": {
+        "es-ES": "FIJOS",
+        "en-GB": "FIXED EXPENSES",
+        "it-IT": "SPESE FISSE",
+        "fr-FR": "DÉPENSES FIXES",
+        "pt-PT": "DESPESAS FIXAS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.001.001",
+      "key": "catalog.name.item.GASTO:F.001.001",
+      "translations": {
+        "es-ES": "Vivienda: Alquiler / hipoteca",
+        "en-GB": "Housing: rent / mortgage",
+        "it-IT": "Abitazione: affitto / mutuo",
+        "fr-FR": "Logement : loyer / prêt immobilier",
+        "pt-PT": "Habitação: renda / crédito à habitação"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "F.001",
+      "key": "catalog.name.subgroup.GASTO:F.001",
+      "translations": {
+        "es-ES": "FIJOS - Vivienda",
+        "en-GB": "FIXED – Housing",
+        "it-IT": "FISSE – Abitazione",
+        "fr-FR": "FIXES – Logement",
+        "pt-PT": "FIXAS – Habitação"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.001.002",
+      "key": "catalog.name.item.GASTO:F.001.002",
+      "translations": {
+        "es-ES": "Vivienda: Comunidad de propietarios",
+        "en-GB": "Housing: owners’ association charges",
+        "it-IT": "Abitazione: spese condominiali",
+        "fr-FR": "Logement : charges de copropriété",
+        "pt-PT": "Habitação: condomínio"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.001.003",
+      "key": "catalog.name.item.GASTO:F.001.003",
+      "translations": {
+        "es-ES": "Vivienda: IBI y tasas municipales",
+        "en-GB": "Housing: IBI property tax and municipal charges",
+        "it-IT": "Abitazione: imposta immobiliare spagnola IBI e tributi comunali",
+        "fr-FR": "Logement : taxe foncière espagnole IBI et taxes municipales",
+        "pt-PT": "Habitação: imposto imobiliário espanhol IBI e taxas municipais"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.001.004",
+      "key": "catalog.name.item.GASTO:F.001.004",
+      "translations": {
+        "es-ES": "Vivienda: Seguros del hogar",
+        "en-GB": "Housing: home insurance",
+        "it-IT": "Abitazione: assicurazione casa",
+        "fr-FR": "Logement : assurance habitation",
+        "pt-PT": "Habitação: seguro de habitação"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.001.005",
+      "key": "catalog.name.item.GASTO:F.001.005",
+      "translations": {
+        "es-ES": "Vivienda: Garaje fijo",
+        "en-GB": "Housing: regular garage space",
+        "it-IT": "Abitazione: posto auto fisso",
+        "fr-FR": "Logement : garage permanent",
+        "pt-PT": "Habitação: garagem fixa"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.002.001",
+      "key": "catalog.name.item.GASTO:F.002.001",
+      "translations": {
+        "es-ES": "Suministros: Luz y electricidad",
+        "en-GB": "Utilities: electricity",
+        "it-IT": "Utenze: elettricità",
+        "fr-FR": "Charges : électricité",
+        "pt-PT": "Serviços: eletricidade"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "F.002",
+      "key": "catalog.name.subgroup.GASTO:F.002",
+      "translations": {
+        "es-ES": "FIJOS - Suministros",
+        "en-GB": "FIXED – Utilities",
+        "it-IT": "FISSE – Utenze",
+        "fr-FR": "FIXES – Charges",
+        "pt-PT": "FIXAS – Serviços"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.002.002",
+      "key": "catalog.name.item.GASTO:F.002.002",
+      "translations": {
+        "es-ES": "Suministros: Agua",
+        "en-GB": "Utilities: water",
+        "it-IT": "Utenze: acqua",
+        "fr-FR": "Charges : eau",
+        "pt-PT": "Serviços: água"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.002.003",
+      "key": "catalog.name.item.GASTO:F.002.003",
+      "translations": {
+        "es-ES": "Suministros: Gas y calefacción",
+        "en-GB": "Utilities: gas and heating",
+        "it-IT": "Utenze: gas e riscaldamento",
+        "fr-FR": "Charges : gaz et chauffage",
+        "pt-PT": "Serviços: gás e aquecimento"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.002.004",
+      "key": "catalog.name.item.GASTO:F.002.004",
+      "translations": {
+        "es-ES": "Suministros: Internet y teléfono",
+        "en-GB": "Utilities: internet and telephone",
+        "it-IT": "Utenze: internet e telefono",
+        "fr-FR": "Charges : internet et téléphone",
+        "pt-PT": "Serviços: internet e telefone"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.003.001",
+      "key": "catalog.name.item.GASTO:F.003.001",
+      "translations": {
+        "es-ES": "Salud: Seguros médicos",
+        "en-GB": "Health: medical insurance",
+        "it-IT": "Salute: assicurazione sanitaria",
+        "fr-FR": "Santé : assurance médicale",
+        "pt-PT": "Saúde: seguro de saúde"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "F.003",
+      "key": "catalog.name.subgroup.GASTO:F.003",
+      "translations": {
+        "es-ES": "FIJOS - Salud y Bienestar",
+        "en-GB": "FIXED – Health and wellbeing",
+        "it-IT": "FISSE – Salute e benessere",
+        "fr-FR": "FIXES – Santé et bien-être",
+        "pt-PT": "FIXAS – Saúde e bem-estar"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.003.002",
+      "key": "catalog.name.item.GASTO:F.003.002",
+      "translations": {
+        "es-ES": "Salud: Gimnasio",
+        "en-GB": "Health: gym",
+        "it-IT": "Salute: palestra",
+        "fr-FR": "Santé : salle de sport",
+        "pt-PT": "Saúde: ginásio"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.003.003",
+      "key": "catalog.name.item.GASTO:F.003.003",
+      "translations": {
+        "es-ES": "Salud: Entrenamientos / Fisio recurrente",
+        "en-GB": "Health: regular training / physiotherapy",
+        "it-IT": "Salute: allenamento / fisioterapia ricorrenti",
+        "fr-FR": "Santé : entraînement / kinésithérapie réguliers",
+        "pt-PT": "Saúde: treino / fisioterapia regulares"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.004.001",
+      "key": "catalog.name.item.GASTO:F.004.001",
+      "translations": {
+        "es-ES": "Familiares: Regalos y compromisos",
+        "en-GB": "Family: gifts and commitments",
+        "it-IT": "Famiglia: regali e impegni",
+        "fr-FR": "Famille : cadeaux et engagements",
+        "pt-PT": "Família: presentes e compromissos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "F.004",
+      "key": "catalog.name.subgroup.GASTO:F.004",
+      "translations": {
+        "es-ES": "FIJOS - Familiares",
+        "en-GB": "FIXED – Family",
+        "it-IT": "FISSE – Famiglia",
+        "fr-FR": "FIXES – Famille",
+        "pt-PT": "FIXAS – Família"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.004.002",
+      "key": "catalog.name.item.GASTO:F.004.002",
+      "translations": {
+        "es-ES": "Familiares: Boda / eventos familiares",
+        "en-GB": "Family: weddings / family events",
+        "it-IT": "Famiglia: matrimoni / eventi familiari",
+        "fr-FR": "Famille : mariages / événements familiaux",
+        "pt-PT": "Família: casamentos / eventos familiares"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "F.004.003",
+      "key": "catalog.name.item.GASTO:F.004.003",
+      "translations": {
+        "es-ES": "Familiares: Educación recurrente",
+        "en-GB": "Family: regular education costs",
+        "it-IT": "Famiglia: istruzione ricorrente",
+        "fr-FR": "Famille : frais d’éducation réguliers",
+        "pt-PT": "Família: despesas regulares de educação"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "V_EXP",
+      "key": "catalog.name.family.V_EXP",
+      "translations": {
+        "es-ES": "VARIABLES",
+        "en-GB": "VARIABLE EXPENSES",
+        "it-IT": "SPESE VARIABILI",
+        "fr-FR": "DÉPENSES VARIABLES",
+        "pt-PT": "DESPESAS VARIÁVEIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.001.001",
+      "key": "catalog.name.item.GASTO:V.001.001",
+      "translations": {
+        "es-ES": "Alimentación: Supermercado",
+        "en-GB": "Food: supermarket",
+        "it-IT": "Alimentazione: supermercato",
+        "fr-FR": "Alimentation : supermarché",
+        "pt-PT": "Alimentação: supermercado"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "V.001",
+      "key": "catalog.name.subgroup.GASTO:V.001",
+      "translations": {
+        "es-ES": "VARIABLES - Alimentación",
+        "en-GB": "VARIABLE – Food",
+        "it-IT": "VARIABILI – Alimentazione",
+        "fr-FR": "VARIABLES – Alimentation",
+        "pt-PT": "VARIÁVEIS – Alimentação"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.001.002",
+      "key": "catalog.name.item.GASTO:V.001.002",
+      "translations": {
+        "es-ES": "Alimentación: Comer fuera / cafeterías",
+        "en-GB": "Food: eating out / cafés",
+        "it-IT": "Alimentazione: pasti fuori / caffetterie",
+        "fr-FR": "Alimentation : restaurants / cafés",
+        "pt-PT": "Alimentação: refeições fora / cafés"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.001.003",
+      "key": "catalog.name.item.GASTO:V.001.003",
+      "translations": {
+        "es-ES": "Alimentación: Domicilio / Delivery",
+        "en-GB": "Food: home delivery",
+        "it-IT": "Alimentazione: consegne a domicilio",
+        "fr-FR": "Alimentation : livraison à domicile",
+        "pt-PT": "Alimentação: entrega ao domicílio"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.002.001",
+      "key": "catalog.name.item.GASTO:V.002.001",
+      "translations": {
+        "es-ES": "Transporte: Gasolina / Combustible",
+        "en-GB": "Transport: petrol / fuel",
+        "it-IT": "Trasporti: benzina / carburante",
+        "fr-FR": "Transports : essence / carburant",
+        "pt-PT": "Transportes: gasolina / combustível"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "V.002",
+      "key": "catalog.name.subgroup.GASTO:V.002",
+      "translations": {
+        "es-ES": "VARIABLES - Transporte",
+        "en-GB": "VARIABLE – Transport",
+        "it-IT": "VARIABILI – Trasporti",
+        "fr-FR": "VARIABLES – Transports",
+        "pt-PT": "VARIÁVEIS – Transportes"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.002.002",
+      "key": "catalog.name.item.GASTO:V.002.002",
+      "translations": {
+        "es-ES": "Transporte: Transporte público",
+        "en-GB": "Transport: public transport",
+        "it-IT": "Trasporti: mezzi pubblici",
+        "fr-FR": "Transports : transports en commun",
+        "pt-PT": "Transportes: transportes públicos"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.002.003",
+      "key": "catalog.name.item.GASTO:V.002.003",
+      "translations": {
+        "es-ES": "Transporte: Peajes y parkings",
+        "en-GB": "Transport: tolls and parking",
+        "it-IT": "Trasporti: pedaggi e parcheggi",
+        "fr-FR": "Transports : péages et stationnement",
+        "pt-PT": "Transportes: portagens e estacionamento"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.002.004",
+      "key": "catalog.name.item.GASTO:V.002.004",
+      "translations": {
+        "es-ES": "Transporte: Mantenimiento y multas",
+        "en-GB": "Transport: maintenance and fines",
+        "it-IT": "Trasporti: manutenzione e multe",
+        "fr-FR": "Transports : entretien et amendes",
+        "pt-PT": "Transportes: manutenção e multas"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.003.001",
+      "key": "catalog.name.item.GASTO:V.003.001",
+      "translations": {
+        "es-ES": "Higiene y Hogar: Limpieza",
+        "en-GB": "Hygiene and home: cleaning",
+        "it-IT": "Igiene e casa: pulizia",
+        "fr-FR": "Hygiène et maison : entretien",
+        "pt-PT": "Higiene e casa: limpeza"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "V.003",
+      "key": "catalog.name.subgroup.GASTO:V.003",
+      "translations": {
+        "es-ES": "VARIABLES - Higiene y Hogar",
+        "en-GB": "VARIABLE – Hygiene and home",
+        "it-IT": "VARIABILI – Igiene e casa",
+        "fr-FR": "VARIABLES – Hygiène et maison",
+        "pt-PT": "VARIÁVEIS – Higiene e casa"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "V.003.002",
+      "key": "catalog.name.item.GASTO:V.003.002",
+      "translations": {
+        "es-ES": "Higiene y Hogar: Aseo personal",
+        "en-GB": "Hygiene and home: personal care",
+        "it-IT": "Igiene e casa: cura personale",
+        "fr-FR": "Hygiène et maison : soins personnels",
+        "pt-PT": "Higiene e casa: cuidados pessoais"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "P_EXP",
+      "key": "catalog.name.family.P_EXP",
+      "translations": {
+        "es-ES": "PERSONALES",
+        "en-GB": "PERSONAL EXPENSES",
+        "it-IT": "SPESE PERSONALI",
+        "fr-FR": "DÉPENSES PERSONNELLES",
+        "pt-PT": "DESPESAS PESSOAIS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.001.001",
+      "key": "catalog.name.item.GASTO:P.001.001",
+      "translations": {
+        "es-ES": "Ocio: Suscripciones digitales",
+        "en-GB": "Leisure: digital subscriptions",
+        "it-IT": "Tempo libero: abbonamenti digitali",
+        "fr-FR": "Loisirs : abonnements numériques",
+        "pt-PT": "Lazer: subscrições digitais"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "P.001",
+      "key": "catalog.name.subgroup.GASTO:P.001",
+      "translations": {
+        "es-ES": "PERSONALES - Ocio",
+        "en-GB": "PERSONAL – Leisure",
+        "it-IT": "PERSONALI – Tempo libero",
+        "fr-FR": "PERSONNELLES – Loisirs",
+        "pt-PT": "PESSOAIS – Lazer"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.001.002",
+      "key": "catalog.name.item.GASTO:P.001.002",
+      "translations": {
+        "es-ES": "Ocio: Copas / bebidas / noche",
+        "en-GB": "Leisure: drinks / nightlife",
+        "it-IT": "Tempo libero: bevande / vita notturna",
+        "fr-FR": "Loisirs : boissons / sorties nocturnes",
+        "pt-PT": "Lazer: bebidas / vida noturna"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.001.003",
+      "key": "catalog.name.item.GASTO:P.001.003",
+      "translations": {
+        "es-ES": "Ocio: Eventos, cine y otros",
+        "en-GB": "Leisure: events, cinema and other activities",
+        "it-IT": "Tempo libero: eventi, cinema e altre attività",
+        "fr-FR": "Loisirs : événements, cinéma et autres activités",
+        "pt-PT": "Lazer: eventos, cinema e outras atividades"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.002.001",
+      "key": "catalog.name.item.GASTO:P.002.001",
+      "translations": {
+        "es-ES": "Viajes: Hoteles y alojamiento",
+        "en-GB": "Travel: hotels and accommodation",
+        "it-IT": "Viaggi: hotel e alloggi",
+        "fr-FR": "Voyages : hôtels et hébergement",
+        "pt-PT": "Viagens: hotéis e alojamento"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "P.002",
+      "key": "catalog.name.subgroup.GASTO:P.002",
+      "translations": {
+        "es-ES": "PERSONALES - Viajes",
+        "en-GB": "PERSONAL – Travel",
+        "it-IT": "PERSONALI – Viaggi",
+        "fr-FR": "PERSONNELLES – Voyages",
+        "pt-PT": "PESSOAIS – Viagens"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.002.002",
+      "key": "catalog.name.item.GASTO:P.002.002",
+      "translations": {
+        "es-ES": "Viajes: Transporte viajes (vuelos, trenes)",
+        "en-GB": "Travel: transport (flights, trains)",
+        "it-IT": "Viaggi: trasporti (voli, treni)",
+        "fr-FR": "Voyages : transports (avions, trains)",
+        "pt-PT": "Viagens: transportes (voos, comboios)"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.002.003",
+      "key": "catalog.name.item.GASTO:P.002.003",
+      "translations": {
+        "es-ES": "Viajes: Comidas en viajes",
+        "en-GB": "Travel: meals",
+        "it-IT": "Viaggi: pasti",
+        "fr-FR": "Voyages : repas",
+        "pt-PT": "Viagens: refeições"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.002.004",
+      "key": "catalog.name.item.GASTO:P.002.004",
+      "translations": {
+        "es-ES": "Viajes: Entretenimiento y tours",
+        "en-GB": "Travel: entertainment and tours",
+        "it-IT": "Viaggi: intrattenimento e visite",
+        "fr-FR": "Voyages : divertissements et visites",
+        "pt-PT": "Viagens: entretenimento e visitas"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.002.005",
+      "key": "catalog.name.item.GASTO:P.002.005",
+      "translations": {
+        "es-ES": "Viajes: Souvenirs y compras",
+        "en-GB": "Travel: souvenirs and shopping",
+        "it-IT": "Viaggi: souvenir e acquisti",
+        "fr-FR": "Voyages : souvenirs et achats",
+        "pt-PT": "Viagens: lembranças e compras"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.003.001",
+      "key": "catalog.name.item.GASTO:P.003.001",
+      "translations": {
+        "es-ES": "Moda y Estética: Ropa",
+        "en-GB": "Fashion and beauty: clothing",
+        "it-IT": "Moda ed estetica: abbigliamento",
+        "fr-FR": "Mode et beauté : vêtements",
+        "pt-PT": "Moda e estética: roupa"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "P.003",
+      "key": "catalog.name.subgroup.GASTO:P.003",
+      "translations": {
+        "es-ES": "PERSONALES - Moda y Estética",
+        "en-GB": "PERSONAL – Fashion and beauty",
+        "it-IT": "PERSONALI – Moda ed estetica",
+        "fr-FR": "PERSONNELLES – Mode et beauté",
+        "pt-PT": "PESSOAIS – Moda e estética"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.003.002",
+      "key": "catalog.name.item.GASTO:P.003.002",
+      "translations": {
+        "es-ES": "Moda y Estética: Zapatos",
+        "en-GB": "Fashion and beauty: shoes",
+        "it-IT": "Moda ed estetica: scarpe",
+        "fr-FR": "Mode et beauté : chaussures",
+        "pt-PT": "Moda e estética: calçado"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.003.003",
+      "key": "catalog.name.item.GASTO:P.003.003",
+      "translations": {
+        "es-ES": "Moda y Estética: Peluquería y barbería",
+        "en-GB": "Fashion and beauty: hairdressers and barbers",
+        "it-IT": "Moda ed estetica: parrucchiere e barbiere",
+        "fr-FR": "Mode et beauté : coiffure et barbier",
+        "pt-PT": "Moda e estética: cabeleireiro e barbearia"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "P.003.004",
+      "key": "catalog.name.item.GASTO:P.003.004",
+      "translations": {
+        "es-ES": "Moda y Estética: Complementos",
+        "en-GB": "Fashion and beauty: accessories",
+        "it-IT": "Moda ed estetica: accessori",
+        "fr-FR": "Mode et beauté : accessoires",
+        "pt-PT": "Moda e estética: acessórios"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "E_EXP",
+      "key": "catalog.name.family.E_EXP",
+      "translations": {
+        "es-ES": "ECONÓMICOS Y CRÉDITOS",
+        "en-GB": "FINANCES AND LOANS",
+        "it-IT": "FINANZE E PRESTITI",
+        "fr-FR": "FINANCES ET CRÉDITS",
+        "pt-PT": "FINANÇAS E CRÉDITOS"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.001.001",
+      "key": "catalog.name.item.GASTO:E.001.001",
+      "translations": {
+        "es-ES": "Ahorro: Acciones e Inversión",
+        "en-GB": "Savings: shares and investments",
+        "it-IT": "Risparmio: azioni e investimenti",
+        "fr-FR": "Épargne : actions et placements",
+        "pt-PT": "Poupança: ações e investimentos"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "E.001",
+      "key": "catalog.name.subgroup.GASTO:E.001",
+      "translations": {
+        "es-ES": "ECONÓMICOS - Ahorro e Inversión",
+        "en-GB": "FINANCES – Savings and investments",
+        "it-IT": "FINANZE – Risparmio e investimenti",
+        "fr-FR": "FINANCES – Épargne et placements",
+        "pt-PT": "FINANÇAS – Poupança e investimentos"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.001.002",
+      "key": "catalog.name.item.GASTO:E.001.002",
+      "translations": {
+        "es-ES": "Ahorro: Fondos indexados",
+        "en-GB": "Savings: index funds",
+        "it-IT": "Risparmio: fondi indicizzati",
+        "fr-FR": "Épargne : fonds indiciels",
+        "pt-PT": "Poupança: fundos de índice"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.001.003",
+      "key": "catalog.name.item.GASTO:E.001.003",
+      "translations": {
+        "es-ES": "Ahorro: Imprevistos / Fondo de emergencia",
+        "en-GB": "Savings: contingencies / emergency fund",
+        "it-IT": "Risparmio: imprevisti / fondo d'emergenza",
+        "fr-FR": "Épargne : imprévus / fonds d’urgence",
+        "pt-PT": "Poupança: imprevistos / fundo de emergência"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.002.001",
+      "key": "catalog.name.item.GASTO:E.002.001",
+      "translations": {
+        "es-ES": "Créditos: Cuotas de préstamos personales",
+        "en-GB": "Credit: personal loan instalments",
+        "it-IT": "Crediti: rate di prestiti personali",
+        "fr-FR": "Crédits : échéances de prêts personnels",
+        "pt-PT": "Créditos: prestações de empréstimos pessoais"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "E.002",
+      "key": "catalog.name.subgroup.GASTO:E.002",
+      "translations": {
+        "es-ES": "ECONÓMICOS - Créditos y Préstamos",
+        "en-GB": "FINANCES – Credit and loans",
+        "it-IT": "FINANZE – Crediti e prestiti",
+        "fr-FR": "FINANCES – Crédits et prêts",
+        "pt-PT": "FINANÇAS – Créditos e empréstimos"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.002.002",
+      "key": "catalog.name.item.GASTO:E.002.002",
+      "translations": {
+        "es-ES": "Créditos: Tarjetas de crédito / Aplazado",
+        "en-GB": "Credit: credit cards / deferred payments",
+        "it-IT": "Crediti: carte di credito / pagamenti dilazionati",
+        "fr-FR": "Crédits : cartes de crédit / paiements différés",
+        "pt-PT": "Créditos: cartões de crédito / pagamentos diferidos"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.002.003",
+      "key": "catalog.name.item.GASTO:E.002.003",
+      "translations": {
+        "es-ES": "Créditos: Devoluciones de deuda a particulares",
+        "en-GB": "Credit: debt repayments to individuals",
+        "it-IT": "Crediti: rimborsi di debiti a privati",
+        "fr-FR": "Crédits : remboursement de dettes à des particuliers",
+        "pt-PT": "Créditos: reembolso de dívidas a particulares"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.003.001",
+      "key": "catalog.name.item.GASTO:E.003.001",
+      "translations": {
+        "es-ES": "Grandes Compras: Vehículo",
+        "en-GB": "Major purchases: vehicle",
+        "it-IT": "Grandi acquisti: veicolo",
+        "fr-FR": "Grands achats : véhicule",
+        "pt-PT": "Grandes compras: veículo"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "E.003",
+      "key": "catalog.name.subgroup.GASTO:E.003",
+      "translations": {
+        "es-ES": "ECONÓMICOS - Grandes Compras",
+        "en-GB": "FINANCES – Major purchases",
+        "it-IT": "FINANZE – Grandi acquisti",
+        "fr-FR": "FINANCES – Grands achats",
+        "pt-PT": "FINANÇAS – Grandes compras"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "E.003.002",
+      "key": "catalog.name.item.GASTO:E.003.002",
+      "translations": {
+        "es-ES": "Grandes Compras: Vivienda y reformas mayores",
+        "en-GB": "Major purchases: housing and major renovations",
+        "it-IT": "Grandi acquisti: abitazione e grandi ristrutturazioni",
+        "fr-FR": "Grands achats : logement et rénovations importantes",
+        "pt-PT": "Grandes compras: habitação e obras de grande dimensão"
+      }
+    },
+    {
+      "kind": "family",
+      "identity": "D_EXP",
+      "key": "catalog.name.family.D_EXP",
+      "translations": {
+        "es-ES": "DIDÁCTICO",
+        "en-GB": "EDUCATION",
+        "it-IT": "ISTRUZIONE",
+        "fr-FR": "FORMATION",
+        "pt-PT": "FORMAÇÃO"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "D.001.001",
+      "key": "catalog.name.item.GASTO:D.001.001",
+      "translations": {
+        "es-ES": "Didáctico: Cursos y certificaciones",
+        "en-GB": "Education: courses and certifications",
+        "it-IT": "Istruzione: corsi e certificazioni",
+        "fr-FR": "Formation : cours et certifications",
+        "pt-PT": "Formação: cursos e certificações"
+      }
+    },
+    {
+      "kind": "subgroup",
+      "type": "GASTO",
+      "identity": "D.001",
+      "key": "catalog.name.subgroup.GASTO:D.001",
+      "translations": {
+        "es-ES": "DIDÁCTICO",
+        "en-GB": "EDUCATION",
+        "it-IT": "ISTRUZIONE",
+        "fr-FR": "FORMATION",
+        "pt-PT": "FORMAÇÃO"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "D.001.002",
+      "key": "catalog.name.item.GASTO:D.001.002",
+      "translations": {
+        "es-ES": "Didáctico: Máster y Posgrado",
+        "en-GB": "Education: master’s and postgraduate study",
+        "it-IT": "Istruzione: master e formazione post-laurea",
+        "fr-FR": "Formation : master et études de troisième cycle",
+        "pt-PT": "Formação: mestrados e pós-graduações"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "D.001.003",
+      "key": "catalog.name.item.GASTO:D.001.003",
+      "translations": {
+        "es-ES": "Didáctico: Grado universitario",
+        "en-GB": "Education: undergraduate degree",
+        "it-IT": "Istruzione: laurea",
+        "fr-FR": "Formation : diplôme universitaire de premier cycle",
+        "pt-PT": "Formação: licenciatura"
+      }
+    },
+    {
+      "kind": "item",
+      "type": "GASTO",
+      "identity": "D.001.004",
+      "key": "catalog.name.item.GASTO:D.001.004",
+      "translations": {
+        "es-ES": "Didáctico: Libros y material educativo",
+        "en-GB": "Education: books and learning materials",
+        "it-IT": "Istruzione: libri e materiale didattico",
+        "fr-FR": "Formation : livres et matériel pédagogique",
+        "pt-PT": "Formação: livros e material didático"
+      }
+    }
+  ]
+}

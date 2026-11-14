@@ -1,0 +1,190 @@
+{
+  "fixtureOnly": true,
+  "beforeCommit": "0a155a81ac31a96f28d515f64502507c91773f30",
+  "afterSourceCommit": "c4c98c152158f7e1406212e80bf084cebda9cc76",
+  "afterProductionSourceSha256": "56b2c668be2ce595e1948bb5cc758c764ce913199383306c875882b466abd730",
+  "browser": "156.0.8078.79",
+  "note": "Before: original 5C build and legacy literal catalogue. After: 5D build with explicitly selected system names. Raw names and financial collections are identical, including approval timestamps; pair hashes are verified. Only catalogue-name metadata differs. Desktop emulation only; no physical-device claims.",
+  "captures": [
+    {
+      "file": "catalog-en-390-light-before.png",
+      "state": "before",
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "211a0452a4fd020217fcfe094efe76aadc3d637a2d290dc9b6f37742b12b1b48"
+    },
+    {
+      "file": "catalog-en-390-light-after.png",
+      "state": "after",
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "9318a0c0e09d6bc13a3e82953108f5fd99f26e0ff0a7859c10573471d57d60a1"
+    },
+    {
+      "file": "review-en-390-light.png",
+      "state": "after",
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "surface": "review",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "7e92d4e670c7f01d2f2262368aa5d588956f66d253550d5a3391338efc762047"
+    },
+    {
+      "file": "catalog-en-390-dark-before.png",
+      "state": "before",
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "b663ab42b6c2d2f0c62256ead8ba3281edabbb765fcd7e8756fdf3c40c9f303c"
+    },
+    {
+      "file": "catalog-en-390-dark-after.png",
+      "state": "after",
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "95a4cab63b37b312832bbc1735a13e1cee9fa8b634f369bd2352121678957db9"
+    },
+    {
+      "file": "review-en-390-dark.png",
+      "state": "after",
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "surface": "review",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "a4808d5eeeea4846d7049c3f0a367bf1c8aad638485261fdef3c75ee5ca701d6"
+    },
+    {
+      "file": "catalog-fr-768-light-before.png",
+      "state": "before",
+      "language": "fr",
+      "width": 768,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "78e1637ec9e7e546eb1a5be03a1bbc2280a835c039fcdf9153b9968739169a59"
+    },
+    {
+      "file": "catalog-fr-768-light-after.png",
+      "state": "after",
+      "language": "fr",
+      "width": 768,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "a697f36041a754a5b59beafb732f0d0768de3b4b22a674ef4f7100d83f2e8e25"
+    },
+    {
+      "file": "review-fr-768-light.png",
+      "state": "after",
+      "language": "fr",
+      "width": 768,
+      "theme": "light",
+      "surface": "review",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "708e11a4926ab388a82b122d3a0ac310aa3f106f433b619fe2731fb2ea65274e"
+    },
+    {
+      "file": "catalog-fr-768-dark-before.png",
+      "state": "before",
+      "language": "fr",
+      "width": 768,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "c1297c7610f15c178afab7b2a02e413e8e3a3b258b5d460214082d7096f54be9"
+    },
+    {
+      "file": "catalog-fr-768-dark-after.png",
+      "state": "after",
+      "language": "fr",
+      "width": 768,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "52ece0e2ed4141c341af7d2649c187d857acd38ce1aebd5d4d55b194479e3393"
+    },
+    {
+      "file": "review-fr-768-dark.png",
+      "state": "after",
+      "language": "fr",
+      "width": 768,
+      "theme": "dark",
+      "surface": "review",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "e245c6216fc78cc1df2adeef74fa4f1932cc4520e255a0f2a70fadc1df62ba21"
+    },
+    {
+      "file": "catalog-pt-1280-light-before.png",
+      "state": "before",
+      "language": "pt",
+      "width": 1280,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "bfc631ed884fef9d6a1245148087909aa1c2027644531700d48663bf44ddecad"
+    },
+    {
+      "file": "catalog-pt-1280-light-after.png",
+      "state": "after",
+      "language": "pt",
+      "width": 1280,
+      "theme": "light",
+      "surface": "catalogue",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "17febc23cc3a7d34c34137fde0590cccf598d1c7711ccf4ccbe0ea93b9c262ec"
+    },
+    {
+      "file": "review-pt-1280-light.png",
+      "state": "after",
+      "language": "pt",
+      "width": 1280,
+      "theme": "light",
+      "surface": "review",
+      "financeSha256": "5453197edd7ea676a308d515cb45e61161719c04ceaf895c459f14715ba40e96",
+      "sha256": "02bfbed8d37ffa82edd8e54297692e7605813b3d48fe803c37e5263a985d3110"
+    },
+    {
+      "file": "catalog-pt-1280-dark-before.png",
+      "state": "before",
+      "language": "pt",
+      "width": 1280,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "8997a229490859a0283d9b881ae3c56753a45ccfad013dcdda8e64b6538f3b3a"
+    },
+    {
+      "file": "catalog-pt-1280-dark-after.png",
+      "state": "after",
+      "language": "pt",
+      "width": 1280,
+      "theme": "dark",
+      "surface": "catalogue",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "572688453d825fa2a9a310f734d68d63783e6b08149a6a27752fa204b168d1e7"
+    },
+    {
+      "file": "review-pt-1280-dark.png",
+      "state": "after",
+      "language": "pt",
+      "width": 1280,
+      "theme": "dark",
+      "surface": "review",
+      "financeSha256": "592114686201d3d5f032930853e9bb9dd2407065037fbb3996ebc49409909c2e",
+      "sha256": "b045535634db6809f4a3fd46f0d6773da82ebb8289f24cc8037d578b2c77a902"
+    }
+  ]
+}

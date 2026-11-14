@@ -30,6 +30,8 @@ import './utils/defaultWallet.test';
 import './utils/budgetSubitems.test';
 
 import "./utils/budgetCatalog.test";
+import './utils/catalogNames.test';
+import './i18n/catalogNames.test';
 
 import "./utils/catalogReorder.test";
 

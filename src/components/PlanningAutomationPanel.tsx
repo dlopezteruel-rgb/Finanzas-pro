@@ -1,3 +1,4 @@
+import {useCatalogNames} from '../i18n/catalogNames';
 import {storageOwnedText} from '../i18n/storageMessages';
 import {automationReasonText} from '../i18n/planningMessages';
 import { useI18n, I18nText } from "../i18n";
@@ -20,6 +21,7 @@ type Mode=keyof typeof labels;
 const destinationAfter=(month:string)=>{try{return nextMonth(month)}catch{return month}};
 export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,requestCarryReview}:{data:FinanceData;month:string;blocked:boolean;onBusy:(busy:boolean)=>void;onApply:(preview:AutomationPreview)=>Promise<SaveResult>;requestCarryReview?:{id:string}|null}) {
   const { t: uiText , formatCents: money , formatDate,formatMonth } = useI18n();
+  const catalogNames=useCatalogNames();
   const [mode,setMode]=useState<Mode|null>(null),[preview,setPreview]=useState<AutomationPreview|null>(null),[error,setError]=useState(''),[notice,setNotice]=useState(false);
   const submission=useAsyncForm();useLayoutEffect(()=>onBusy(submission.saving),[submission.saving,onBusy]);
   const [source,setSource]=useState(month),[first,setFirst]=useState(()=>destinationAfter(month)),[last,setLast]=useState(()=>destinationAfter(month)),[copySavings,setCopySavings]=useState(true);
@@ -28,7 +30,7 @@ export function PlanningAutomationPanel({data,month,blocked,onBusy,onApply,reque
   const [ruleId,setRuleId]=useState(''),[ruleName,setRuleName]=useState(''),[ruleTarget,setRuleTarget]=useState('SAVINGS'),[ruleAmount,setRuleAmount]=useState('0'),[frequency,setFrequency]=useState<PlanningRule['frequency']>('monthly'),[ruleStart,setRuleStart]=useState(month),[ruleEnd,setRuleEnd]=useState(''),[active,setActive]=useState(true);
   const [historyMonth,setHistoryMonth]=useState(month),[compareA,setCompareA]=useState(''),[compareB,setCompareB]=useState('');
   const a=data.planningAutomation;
-  const catalog=new Map(data.budgetGroups.flatMap(g=>g.partidas).map(p=>[planningKey(p),p.name]));
+  const catalog=new Map(data.budgetGroups.flatMap(g=>g.partidas).map(p=>[planningKey(p),catalogNames.item(p)]));
   const partName=(type:string,code?:string)=>type==='SAVINGS'?uiText('planning.metric.savings'):uiText('automation.itemLabel',{type:type==='GASTO'?uiText('planning.expenseType'):type==='INGRESO'?uiText('planning.incomeType'):type,name:catalog.get(`${type}:${code}`) ?? uiText('planning.partida_historica')});
   const prepare=(request:AutomationRequest)=>{try{setError('');submission.clearError();setPreview(previewAutomation(data,request))}catch(e){setError((e as Error).message)}};
   // A row opens the same reviewed operation; browsing never applies it.

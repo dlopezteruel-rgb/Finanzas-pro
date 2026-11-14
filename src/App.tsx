@@ -1,3 +1,5 @@
+import {CatalogNamesProvider} from './i18n/catalogNames';
+import {systemCatalogNames} from './utils/catalogNames';
 import {legacyTransferNotice,legacySharedNotice} from './i18n/countMessages';
 import {pluralCategory} from './i18n/messages';
 import {storageOwnedText} from './i18n/storageMessages';
@@ -82,7 +84,7 @@ import { DebtsWorkspace } from './components/DebtsWorkspace';
 import { RecurringMovementsView } from './components/RecurringMovementsView';
 
 const DEMO_DATA: FinanceData = {
-  theme: 'dark', budgetGroups: BUDGET_GROUPS, transactions: INITIAL_TRANSACTIONS,
+  theme: 'dark', budgetGroups: BUDGET_GROUPS, catalogNames:systemCatalogNames(), transactions: INITIAL_TRANSACTIONS,
   budgetPlans: INITIAL_BUDGET_PLANS, loans: INITIAL_LOANS, wallets: INITIAL_WALLETS,
   contacts: INITIAL_CONTACTS,
 };
@@ -558,7 +560,7 @@ export default function App() {
   </main>;
 
   return (
-    <div className="finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
+    <CatalogNamesProvider value={data}><div className="finance-app min-h-screen bg-[#0c0f17] text-slate-100 flex flex-col font-sans selection:bg-sky-500/30 selection:text-sky-200">
       <a className="skip-link" href="#app-content">{uiText("app.ir_al_contenido")}</a>
       {/* Hidden File Input for JSON import */}
       <input
@@ -833,6 +835,6 @@ export default function App() {
         onSaveContact={handleSaveContact}
         contactToEdit={contactToEdit}
       />
-    </div>
+    </div></CatalogNamesProvider>
   );
 }
