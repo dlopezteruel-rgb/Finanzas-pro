@@ -1,0 +1,59 @@
+{
+  "base": "0a155a81ac31a96f28d515f64502507c91773f30",
+  "applicationSourceCommit": "c4c98c152158f7e1406212e80bf084cebda9cc76",
+  "policy": "The only changed domain files are backup format guards, catalogue presentation provenance and the legacy-load provenance guard. Existing mutation/Web Locks/revision/restoration code below the recorded markers is byte-identical. Financial types gain only the separately reviewed optional metadata definitions.",
+  "files": {
+    ".github/workflows/ci.yml": "ebb3963cdc54eb207545a6b85f9c6f657df4934be8588a7dc8963e81ae03eb24",
+    "package-lock.json": "510cf20ef440a068d9044d94ca1dd0e58fc6ae31a8741877af7f61a7dbfaf701",
+    "server.ts": "ed3b4ae2cceafd2cd51370a4ce4279dd6bc621b63cca19804eb7ae6a883406e6",
+    "src/constants/categories.ts": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
+    "src/utils/budgetChanges.ts": "33d3daa3234e1ac1e563927f97129a7e20df530f741b28df894b882369ca181f",
+    "src/utils/budgetSubitems.ts": "8e5864f07c73446e3a855407a678f708c1d2578f1bb98e445f51676fae816391",
+    "src/utils/catalogReorder.ts": "92261cd76f5b1fd4388f2d849a1b1b223aabcb4872944ac2506588635aeb64ab",
+    "src/utils/chartData.ts": "6e1103596b704f6b4bd506426dc2914c1bf3ba2c0c3512e7df53282ff71c0e38",
+    "src/utils/chatRegistration.ts": "60e999d591fd2bb31fa93367461269373e371e4a3c25a0f1d8500adc76a55b27",
+    "src/utils/clearData.ts": "eee3464a8893cdec832de681e2dc9be71f24afa6dc4ad62aeb755a14244ba9f4",
+    "src/utils/confirmation.ts": "806308ae3028d854c57ca40fdb5672738b04e3a284aca626481d626a3d03d22f",
+    "src/utils/defaultWallet.ts": "766b36fde5e99b1efdd5dec240cb1f9eed26f1c5d26cc0aaf7d7ef2c7de5fe91",
+    "src/utils/deletion.ts": "d1dfcaa250255f759e92093a7b6cc665911004e8775c66b4ab517af3e1cb956d",
+    "src/utils/finance.ts": "62a3a01dcc884b22f0dc3d2d677f1c19923d7bc7a68f7f3ef0d96713f27d34ea",
+    "src/utils/financialAssistant.ts": "e48b59d99d49f6ff35e80d5d4abd0c065820192346d2d1bad627168dcb85944f",
+    "src/utils/financialCalendar.ts": "c04d8a870b8b82d4794013cf75c215be7bae5b431b8f11d14eb5c4792f771430",
+    "src/utils/intelligentValidation.ts": "348982dbb557401336db747eab0605b42b5ed5adb1c7c4983f1243eb00ade804",
+    "src/utils/naturalInput.ts": "2015d028975468ec88a7d22b7280ac479677b6cbc3f3ee5f7a8321b908927a14",
+    "src/utils/parser.ts": "05c3704003e8a9959adc7ea68946650e8d5b90a2e24594dcfa1ee3b1fdd76404",
+    "src/utils/partidaSearch.ts": "812fb49fac274e160ea90ddc2bc0a1c29ae0e9c652ca0c3a9be587d54daf1f2b",
+    "src/utils/personalObligations.ts": "9dac11964f1c1b982a3ea1eb88a6799a615f654c688255f57df6b8623dbf5d0d",
+    "src/utils/planning.ts": "9ecf1c9f7b3c61fcc36f2a904c0b5d3b30bba62d46fea1d146d51c62d86859a6",
+    "src/utils/planningAutomation.ts": "1384707d7c68f915e59e0895cf478bba07a36305bbaff3b3d7f925435337694c",
+    "src/utils/planningAutomationValidation.ts": "cd7615388bb63fe4824a339823b731e279ccbf46eece9780afdaa50b73e216a5",
+    "src/utils/planningBasis.ts": "93a845c123f5a9590c4ce19226a74c7dd13b9e395b2c83504784321c008c4c64",
+    "src/utils/planningCalendar.ts": "fa96d2eb452560ea1c4e8d69f5d1d99f26ec084229efa3adfb0127fe9a36bc9c",
+    "src/utils/planningCarry.ts": "7d1930082ef1ddb8085cc260c09f0bcdd8e83ba6007407f16b6341abda420d01",
+    "src/utils/planningMoney.ts": "0f5a1675ef670710518dc92f1f68c39563e013d77a96355f3393429b80bdc176",
+    "src/utils/recurringMovements.ts": "198761b2ea813e86e1c46c3875fc50e1073f0994fe5f7978160d676af64da491",
+    "src/utils/registrationIntent.ts": "ae94b1a70457e71788ec5cf87d693ac2bf87305f4c9cf37b374e2408e67087c4",
+    "src/utils/saveResult.ts": "539d48249f0e30400da23ae4bde69a0f68ca90f6dfe19be5a6e03421aaa7c79b",
+    "src/utils/seedData.ts": "860713dc97cf1218c738fb2fd48fd865ef488d883243583cc3af33ebba5c1687",
+    "src/utils/sharedDistribution.ts": "178a307d2220f14d3a648288101ec02de799d3b3a2153a7644a2663d5e728e61",
+    "src/utils/sharedExpenses.ts": "2f5b5af07e921ba44ea049efcadf1658d3f3baeb51fe9bfc766f3a6647f3c85c",
+    "src/utils/storageSupport.ts": "3e8d151e67b0b95b7e37a2383d747861ca6266ef96221033188f239eefd0bb36",
+    "src/utils/transfers.ts": "f372dea673fd6389302979cbb15dfa0b706f4fddcda9ee7d526e001f6eafdf41",
+    "src/utils/treasury.ts": "45677fbda4b8109e4e864b47810717c0d417b3c9162e1f561e804536ac934edd",
+    "src/utils/useAsyncForm.ts": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
+    "src/utils/useFinanceData.ts": "41e08e518f49e19c8f2f83f4c1ad6767ce7f34eeabc0a5d5f8deadd9c49ac659",
+    "vite.config.ts": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489"
+  },
+  "sections": {
+    "src/utils/financeStore.ts": {
+      "from": "export type FinanceMutation",
+      "sha256": "7455c5393a832336537778862c014350ae4e9f8a580bf2b7dbb2e34c06d9055d",
+      "byteIdentical": true
+    },
+    "src/utils/backup.ts": {
+      "from": "export class StorageConflictError",
+      "sha256": "2bfc5ade72c852f2bcd2e63a217096fc2dd0813e4c418ccc47842dc6282cb915",
+      "byteIdentical": true
+    }
+  }
+}

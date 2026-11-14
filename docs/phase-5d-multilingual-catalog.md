@@ -127,7 +127,7 @@ Se revisan visualmente el catálogo móvil en inglés y el diálogo portugués d
 
 ## Tamaño y entorno
 
-Node 24.22.1, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79. La compilación de referencia y la actual usan el mismo lockfile. Se conservan los avisos de chunks superiores a 500 kB: entrada 1132,49 → 1181,07 kB minificados (310,02 → 323,98 kB gzip); App 514,93 → 532,62 kB (130,57 → 134,64 kB gzip). No se añade una dependencia ni una refactorización de carga diferida.
+Node 24.22.1, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79. La compilación de referencia y la actual usan el mismo lockfile. Se conservan los avisos de chunks superiores a 500 kB: entrada 1132,49 → 1181,07 kB minificados (310,02 → 323,98 kB gzip); App 514,93 → 532,66 kB (130,57 → 134,65 kB gzip). No se añade una dependencia ni una refactorización de carga diferida.
 
 La primera reinstalación final falló porque npm intentó escribir en la caché inaccesible `/home/agent/.npm`. Se repitió `npm ci` con `NPM_CONFIG_CACHE=/workspace/work/npm-cache`: 188 paquetes instalados correctamente, sin modificar el lockfile. Se conserva la advertencia de deprecación de `node-domexception@1.0.0`; no se oculta ni actualiza una dependencia fuera del alcance.
 
@@ -138,3 +138,88 @@ Se detectó un aviso posterior al guardado que conservaba `matched.name` sin ide
 Resultado específico posterior: **6/6**, sin omitidos/cancelados. Se añade como suite 37, manteniendo las 35 originales y la matriz 5D de 43 resultados. La ejecución integral anterior se interrumpió deliberadamente con **30 suites/524 resultados aprobados**, antes de su finalización; su salida 130 y los estados `not_executed` se conservan y no se consideran éxito global. Se reinicia la batería íntegra contra la corrección.
 
 Las cuatro pruebas adicionales de JSON 3.5 cubren la subida respaldada y la restauración con transferencias/repartos/reintegros, arrastres/fotografías/préstamos, subítems/reglas activas y compromisos personales/cartera predeterminada. Junto a las cinco regresiones del nombre documental con dos puntos, el total unitario actual es **585/585**, con todas las pruebas originales conservadas. El script de capturas verifica también igualdad de los datos de cada par, incluidos los timestamps de aprobación.
+
+## GitHub Actions: ejecución completa del código y las pruebas
+
+[Ejecución 43621981501](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43621981501), evento `pull_request`, SHA **c4c98c152158f7e1406212e80bf084cebda9cc76**. Los tres trabajos han terminado con `success`. Los ZIP descargados de Unitarias, Código y Chromium coinciden con sus SHA-256 publicados por GitHub; sus identificadores/digests, comandos y estados por suite están en [resultados remotos](phase-5d-ci-results.json).
+
+| Trabajo | Resultado remoto verificado |
+| --- | --- |
+| Unitarias | **585/585** y **22/22** de infraestructura; cero fallos, omisiones, cancelaciones o pendientes |
+| Lint, build y diff | Correctos; diff real de la PR contra su base, sin rebajar comprobaciones |
+| Chromium y axe | **747/747 resultados en 37 suites**; cero fallos, omisiones, cancelaciones o pendientes |
+
+Se comparan las 35 suites anteriores una a una: conservan sus **698 resultados**. Se añaden **43** de catálogo y **6** de recibos, contando los contenedores node:test igual que la referencia. El comando completo de navegador dura **1974,583 s (32 min 54,583 s)**, incluido su build.
+
+Entorno remoto real: ubuntu-24.04 (`ubuntu24`), imagen **20261111.127.1**, Node **24.22.1**, playwright-core **1.64.1**, Chrome for Testing **156.0.8078.4**, revisión **1248**. El ejecutable se resuelve mediante el script existente; no se presupone `/usr/bin/chromium` en Actions. No se modifica el workflow, sus permisos, tiempos, dependencias ni protecciones.
+
+La ejecución previa [43619336978](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43619336978), SHA 1717416, fue cancelada por la concurrencia configurada al publicar la corrección del recibo. No se presenta como aprobación integral. El [registro de intentos](phase-5d-validation-attempts.json) diferencia esa cancelación, la interrupción local, los borradores de pruebas y la regresión real corregida.
+
+El commit documental de entrega vuelve a activar los tres checks de la PR. La URL y el estado del SHA exacto final se registran en la descripción y checks de [PR Draft #28](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/28); esta tabla fija la ejecución completa del checkpoint de aplicación/pruebas, cuyo código queda congelado durante la documentación.
+
+## Accesibilidad: violaciones y resultados incompletos
+
+El [informe remoto agrupado](phase-5d-axe-ci.json) conserva **1462 observaciones registradas, cero violaciones y 944 grupos incompletos en 51 conjuntos equivalentes**. Las aserciones axe adicionales de las suites anteriores siguen ejecutándose; 1462 describe los registros JSON, no todas las llamadas al motor.
+
+| Área | Observaciones | Violaciones | Grupos incompletos remotos |
+| --- | ---: | ---: | ---: |
+| Auditoría general | 128 | 0 | 40 |
+| Matrices anteriores | 1217 | 0 | 885 |
+| Landing | 57 | 0 | 7 |
+| Catálogo 5D | 60 | 0 | 12 |
+
+Los 944 grupos son **943 de contraste y uno `controlsWithinPopup`**, con **5763 ocurrencias de nodo/check**, no 944 defectos distintos. Se mantiene la clasificación de [5C](phase-5c-multilingual-stabilization.md) y sus referencias a los 136 + 1527 grupos históricos de 5B. No se cierra automáticamente un pendiente porque deje de aparecer en una ejecución o cambie su cardinalidad entre navegadores.
+
+Los nuevos incompletos se concentran en un conjunto de contraste del detalle de partida, con mecanismo `elmPartiallyObscuring`: 12 grupos/28 nodos en CI. En la ejecución específica local se registraron 10 grupos/22 nodos; la tabla local definitiva se informa por separado. El motor no pudo determinar un fondo al considerar un solapamiento parcial; eso no es una infracción automática ni prueba de contraste correcto.
+
+Se inspeccionó una [captura real adicional](phase-5d-screenshots/detail-es-390-light-review.png) y su [DOM/estilos nativos](phase-5d-detail-review.json), **español/390 px/claro**. El texto del paquete se ve completo en ese estado; la pila del punto central lleva al fondo blanco del panel. Su color calculado `rgb(90,100,114)`, tamaño 12 px y fondo blanco producen **5,999:1**. Esta comprobación representativa no da por revisados los demás estados, ni equivale a una prueba con lector de pantalla o dispositivo físico. Los conjuntos siguen etiquetados `manual-review-required`.
+
+## Integridad y pendientes
+
+Los [40 archivos protegidos](phase-5d-protected-files.json) son idénticos byte a byte a la base, incluidos cálculos, transferencias, compartidos, préstamos/compromisos, planificación/aprobaciones, parsers, API/prompt del asistente, catálogo original, lockfile, Vite y workflow. Se verifican además como idénticos los bloques existentes de mutación/Web Locks/revisión de FinanceStore y el protocolo de restauración. La única modificación de carga de FinanceStore evita heredar procedencia de defaults en perfiles antiguos; los cambios de formato y metadatos se justificaron antes del código.
+
+Pendientes deliberados: revisión contextual de contraste y `controlsWithinPopup`; evaluación con lectores de pantalla/dispositivos físicos y otros motores; aviso de bundles grandes; catálogo antiguo de procedencia ambigua literal hasta elección explícita; reconocimiento natural existente en español. No se cambia el significado económico del catálogo ni se añaden capacidades de IA.
+
+Sin fusión, despliegue, sincronización con Google AI Studio, cambios de main ni de sus protecciones.
+
+## Validación local completa posterior a la corrección
+
+[Resultados locales y recuentos por suite](phase-5d-local-results.json), código y pruebas **c4c98c152158f7e1406212e80bf084cebda9cc76**. No hay cambios de aplicación/pruebas durante el cierre documental.
+
+| Comprobación | Resultado local real |
+| --- | --- |
+| npm ci | 188 paquetes; caché del workspace; lockfile intacto |
+| npm test | **585/585**, 0 fallos/omisiones/cancelaciones/pendientes |
+| Infraestructura CI | **22/22**, 0 fallos/omisiones/cancelaciones/pendientes |
+| npm run lint | Correcto, 0 errores TypeScript |
+| npm run build | Correcto; se conserva el aviso de chunks >500 kB |
+| npm run test:ui | **747/747 resultados en 37 suites**, 0 fallos/omisiones/cancelaciones/pendientes |
+| git diff --check y origin/main...HEAD --check | Correctos |
+
+El comando de navegador completo dura **2309,668 s (38 min 29,668 s)**, incluido su build. Los 698 resultados de las 35 suites anteriores se comparan individualmente con la referencia real de 5C, sin sustituirla por cifras asumidas. Las pruebas nuevas suman **57 unitarias y 49 resultados Chromium**.
+
+| Área axe local | Observaciones | Violaciones | Grupos incompletos |
+| --- | ---: | ---: | ---: |
+| General | 128 | 0 | 36 |
+| Matrices anteriores | 1217 | 0 | 853 |
+| Landing | 57 | 0 | 7 |
+| Catálogo 5D | 60 | 0 | 10 |
+
+El [agrupado local](phase-5d-axe-local.json) contiene **1462 observaciones, 0 violaciones y 906 grupos incompletos en 49 conjuntos equivalentes**, con 5517 ocurrencias de nodo/check. Son 905 grupos de contraste y uno `controlsWithinPopup`. CI conserva sus cifras diferentes (**944 grupos/51 conjuntos**); los dos entornos ejecutan las mismas 1462 observaciones y 37 suites completas. No se interpreta la diferencia de clasificación/renderizado como omisión de pruebas ni se presenta ningún incompleto como aprobado automáticamente.
+
+Reproducción con el entorno utilizado:
+
+```bash
+NPM_CONFIG_CACHE=/workspace/work/npm-cache npm ci
+npm test
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+node scripts/ci/run-check.mjs tools
+git diff --check
+git diff origin/main...HEAD --check
+```
+
+La variable de caché es una adaptación del sandbox local, no un requisito del producto ni un cambio de dependencias. Actions instala su navegador fijado mediante playwright-core y establece su ruta real. La captura comparativa utiliza `scripts/multilingualCatalogCapture.ts <dist-base-5C>` contra una compilación separada del commit original; el manifiesto fija los hashes y el SHA del código posterior.
+
+La [relación completa de los 78 archivos modificados](phase-5d-modified-files.txt) permite revisar código, pruebas, inventarios y las 19 imágenes (18 comparativas/de revisión reproducibles y una inspección adicional del detalle). Los informes originales de ejecución están en los artefactos de Actions con su retención existente de siete días; los agrupados con referencias, ejemplos, mecanismos y hashes se conservan en el repositorio.
