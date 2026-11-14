@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "base": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+  "scope": "Read-only initial catalogue registry, not a classification of personal or imported data. No stored names rewritten.",
+  "families": [
+    {
+      "identity": "L",
+      "type": "INGRESO",
+      "defaultName": "LABORALES",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.001"
+          },
+          "defaultName": "Fijo (Nómina principal)",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.002"
+          },
+          "defaultName": "Variable / bonus",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.003"
+          },
+          "defaultName": "Horas extra",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.004"
+          },
+          "defaultName": "Pagas extra",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.005"
+          },
+          "defaultName": "Dietas",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.006"
+          },
+          "defaultName": "Desplazamientos / Kilometraje",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.001.007"
+          },
+          "defaultName": "Incentivos",
+          "legacySubgroup": {
+            "code": "L.001",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.002.001"
+          },
+          "defaultName": "Honorarios profesionales",
+          "legacySubgroup": {
+            "code": "L.002",
+            "name": "LABORALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "L.002.002"
+          },
+          "defaultName": "Facturación clientes",
+          "legacySubgroup": {
+            "code": "L.002",
+            "name": "LABORALES"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "F_INC",
+      "type": "INGRESO",
+      "defaultName": "FINANCIEROS",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "F.001.001"
+          },
+          "defaultName": "Rendimientos bancarios (intereses, depósitos)",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FINANCIEROS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "F.002.001"
+          },
+          "defaultName": "Inversiones (dividendos, fondos, criptomonedas)",
+          "legacySubgroup": {
+            "code": "F.002",
+            "name": "FINANCIEROS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "F.003.001"
+          },
+          "defaultName": "Préstamos / créditos recibidos",
+          "legacySubgroup": {
+            "code": "F.003",
+            "name": "FINANCIEROS"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "P_INC",
+      "type": "INGRESO",
+      "defaultName": "PATRIMONIALES",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "P.001.001"
+          },
+          "defaultName": "Alquiler vivienda",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PATRIMONIALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "P.001.002"
+          },
+          "defaultName": "Alquiler local",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PATRIMONIALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "P.001.003"
+          },
+          "defaultName": "Alquiler garaje",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PATRIMONIALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "P.002.001"
+          },
+          "defaultName": "Cesión de uso",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PATRIMONIALES"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "X_INC",
+      "type": "INGRESO",
+      "defaultName": "EXTRAORDINARIOS",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "X.001.001"
+          },
+          "defaultName": "Ventas no habituales (Wallapop, segunda mano)",
+          "legacySubgroup": {
+            "code": "X.001",
+            "name": "EXTRAORDINARIOS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "X.002.001"
+          },
+          "defaultName": "Indemnizaciones",
+          "legacySubgroup": {
+            "code": "X.002",
+            "name": "EXTRAORDINARIOS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "X.003.001"
+          },
+          "defaultName": "Premios y sorteos",
+          "legacySubgroup": {
+            "code": "X.003",
+            "name": "EXTRAORDINARIOS"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "E_INC",
+      "type": "INGRESO",
+      "defaultName": "EMPRESARIALES",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "E.001.001"
+          },
+          "defaultName": "Ventas de productos",
+          "legacySubgroup": {
+            "code": "E.001",
+            "name": "EMPRESARIALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "E.002.001"
+          },
+          "defaultName": "Proyectos y contratos",
+          "legacySubgroup": {
+            "code": "E.002",
+            "name": "EMPRESARIALES"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "E.003.001"
+          },
+          "defaultName": "Operativos empresariales",
+          "legacySubgroup": {
+            "code": "E.003",
+            "name": "EMPRESARIALES"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "A_INC",
+      "type": "INGRESO",
+      "defaultName": "AYUDAS Y TRANSFERENCIAS",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "A.001.001"
+          },
+          "defaultName": "Subvenciones públicas",
+          "legacySubgroup": {
+            "code": "A.001",
+            "name": "AYUDAS Y TRANSFERENCIAS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "A.001.002"
+          },
+          "defaultName": "Becas de estudio / investigación",
+          "legacySubgroup": {
+            "code": "A.001",
+            "name": "AYUDAS Y TRANSFERENCIAS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "A.002.001"
+          },
+          "defaultName": "Aportaciones familiares",
+          "legacySubgroup": {
+            "code": "A.002",
+            "name": "AYUDAS Y TRANSFERENCIAS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "A.002.002"
+          },
+          "defaultName": "Donaciones recibidas",
+          "legacySubgroup": {
+            "code": "A.002",
+            "name": "AYUDAS Y TRANSFERENCIAS"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "O_INC",
+      "type": "INGRESO",
+      "defaultName": "OTROS INGRESOS",
+      "items": [
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "O.001.001"
+          },
+          "defaultName": "Reembolsos de compras",
+          "legacySubgroup": {
+            "code": "O.001",
+            "name": "OTROS INGRESOS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "O.001.002"
+          },
+          "defaultName": "Devoluciones tributarias (Hacienda)",
+          "legacySubgroup": {
+            "code": "O.001",
+            "name": "OTROS INGRESOS"
+          }
+        },
+        {
+          "identity": {
+            "type": "INGRESO",
+            "code": "O.002.001"
+          },
+          "defaultName": "Ajustes contables positivos",
+          "legacySubgroup": {
+            "code": "O.002",
+            "name": "OTROS INGRESOS"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "F_EXP",
+      "type": "GASTO",
+      "defaultName": "FIJOS",
+      "items": [
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.001.001"
+          },
+          "defaultName": "Vivienda: Alquiler / hipoteca",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FIJOS - Vivienda"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.001.002"
+          },
+          "defaultName": "Vivienda: Comunidad de propietarios",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FIJOS - Vivienda"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.001.003"
+          },
+          "defaultName": "Vivienda: IBI y tasas municipales",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FIJOS - Vivienda"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.001.004"
+          },
+          "defaultName": "Vivienda: Seguros del hogar",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FIJOS - Vivienda"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.001.005"
+          },
+          "defaultName": "Vivienda: Garaje fijo",
+          "legacySubgroup": {
+            "code": "F.001",
+            "name": "FIJOS - Vivienda"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.002.001"
+          },
+          "defaultName": "Suministros: Luz y electricidad",
+          "legacySubgroup": {
+            "code": "F.002",
+            "name": "FIJOS - Suministros"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.002.002"
+          },
+          "defaultName": "Suministros: Agua",
+          "legacySubgroup": {
+            "code": "F.002",
+            "name": "FIJOS - Suministros"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.002.003"
+          },
+          "defaultName": "Suministros: Gas y calefacción",
+          "legacySubgroup": {
+            "code": "F.002",
+            "name": "FIJOS - Suministros"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.002.004"
+          },
+          "defaultName": "Suministros: Internet y teléfono",
+          "legacySubgroup": {
+            "code": "F.002",
+            "name": "FIJOS - Suministros"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.003.001"
+          },
+          "defaultName": "Salud: Seguros médicos",
+          "legacySubgroup": {
+            "code": "F.003",
+            "name": "FIJOS - Salud y Bienestar"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.003.002"
+          },
+          "defaultName": "Salud: Gimnasio",
+          "legacySubgroup": {
+            "code": "F.003",
+            "name": "FIJOS - Salud y Bienestar"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.003.003"
+          },
+          "defaultName": "Salud: Entrenamientos / Fisio recurrente",
+          "legacySubgroup": {
+            "code": "F.003",
+            "name": "FIJOS - Salud y Bienestar"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.004.001"
+          },
+          "defaultName": "Familiares: Regalos y compromisos",
+          "legacySubgroup": {
+            "code": "F.004",
+            "name": "FIJOS - Familiares"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.004.002"
+          },
+          "defaultName": "Familiares: Boda / eventos familiares",
+          "legacySubgroup": {
+            "code": "F.004",
+            "name": "FIJOS - Familiares"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "F.004.003"
+          },
+          "defaultName": "Familiares: Educación recurrente",
+          "legacySubgroup": {
+            "code": "F.004",
+            "name": "FIJOS - Familiares"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "V_EXP",
+      "type": "GASTO",
+      "defaultName": "VARIABLES",
+      "items": [
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.001.001"
+          },
+          "defaultName": "Alimentación: Supermercado",
+          "legacySubgroup": {
+            "code": "V.001",
+            "name": "VARIABLES - Alimentación"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.001.002"
+          },
+          "defaultName": "Alimentación: Comer fuera / cafeterías",
+          "legacySubgroup": {
+            "code": "V.001",
+            "name": "VARIABLES - Alimentación"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.001.003"
+          },
+          "defaultName": "Alimentación: Domicilio / Delivery",
+          "legacySubgroup": {
+            "code": "V.001",
+            "name": "VARIABLES - Alimentación"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.002.001"
+          },
+          "defaultName": "Transporte: Gasolina / Combustible",
+          "legacySubgroup": {
+            "code": "V.002",
+            "name": "VARIABLES - Transporte"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.002.002"
+          },
+          "defaultName": "Transporte: Transporte público",
+          "legacySubgroup": {
+            "code": "V.002",
+            "name": "VARIABLES - Transporte"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.002.003"
+          },
+          "defaultName": "Transporte: Peajes y parkings",
+          "legacySubgroup": {
+            "code": "V.002",
+            "name": "VARIABLES - Transporte"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.002.004"
+          },
+          "defaultName": "Transporte: Mantenimiento y multas",
+          "legacySubgroup": {
+            "code": "V.002",
+            "name": "VARIABLES - Transporte"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.003.001"
+          },
+          "defaultName": "Higiene y Hogar: Limpieza",
+          "legacySubgroup": {
+            "code": "V.003",
+            "name": "VARIABLES - Higiene y Hogar"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "V.003.002"
+          },
+          "defaultName": "Higiene y Hogar: Aseo personal",
+          "legacySubgroup": {
+            "code": "V.003",
+            "name": "VARIABLES - Higiene y Hogar"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "P_EXP",
+      "type": "GASTO",
+      "defaultName": "PERSONALES",
+      "items": [
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.001.001"
+          },
+          "defaultName": "Ocio: Suscripciones digitales",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PERSONALES - Ocio"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.001.002"
+          },
+          "defaultName": "Ocio: Copas / bebidas / noche",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PERSONALES - Ocio"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.001.003"
+          },
+          "defaultName": "Ocio: Eventos, cine y otros",
+          "legacySubgroup": {
+            "code": "P.001",
+            "name": "PERSONALES - Ocio"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.002.001"
+          },
+          "defaultName": "Viajes: Hoteles y alojamiento",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PERSONALES - Viajes"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.002.002"
+          },
+          "defaultName": "Viajes: Transporte viajes (vuelos, trenes)",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PERSONALES - Viajes"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.002.003"
+          },
+          "defaultName": "Viajes: Comidas en viajes",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PERSONALES - Viajes"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.002.004"
+          },
+          "defaultName": "Viajes: Entretenimiento y tours",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PERSONALES - Viajes"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.002.005"
+          },
+          "defaultName": "Viajes: Souvenirs y compras",
+          "legacySubgroup": {
+            "code": "P.002",
+            "name": "PERSONALES - Viajes"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.003.001"
+          },
+          "defaultName": "Moda y Estética: Ropa",
+          "legacySubgroup": {
+            "code": "P.003",
+            "name": "PERSONALES - Moda y Estética"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.003.002"
+          },
+          "defaultName": "Moda y Estética: Zapatos",
+          "legacySubgroup": {
+            "code": "P.003",
+            "name": "PERSONALES - Moda y Estética"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.003.003"
+          },
+          "defaultName": "Moda y Estética: Peluquería y barbería",
+          "legacySubgroup": {
+            "code": "P.003",
+            "name": "PERSONALES - Moda y Estética"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "P.003.004"
+          },
+          "defaultName": "Moda y Estética: Complementos",
+          "legacySubgroup": {
+            "code": "P.003",
+            "name": "PERSONALES - Moda y Estética"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "E_EXP",
+      "type": "GASTO",
+      "defaultName": "ECONÓMICOS Y CRÉDITOS",
+      "items": [
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.001.001"
+          },
+          "defaultName": "Ahorro: Acciones e Inversión",
+          "legacySubgroup": {
+            "code": "E.001",
+            "name": "ECONÓMICOS - Ahorro e Inversión"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.001.002"
+          },
+          "defaultName": "Ahorro: Fondos indexados",
+          "legacySubgroup": {
+            "code": "E.001",
+            "name": "ECONÓMICOS - Ahorro e Inversión"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.001.003"
+          },
+          "defaultName": "Ahorro: Imprevistos / Fondo de emergencia",
+          "legacySubgroup": {
+            "code": "E.001",
+            "name": "ECONÓMICOS - Ahorro e Inversión"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.002.001"
+          },
+          "defaultName": "Créditos: Cuotas de préstamos personales",
+          "legacySubgroup": {
+            "code": "E.002",
+            "name": "ECONÓMICOS - Créditos y Préstamos"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.002.002"
+          },
+          "defaultName": "Créditos: Tarjetas de crédito / Aplazado",
+          "legacySubgroup": {
+            "code": "E.002",
+            "name": "ECONÓMICOS - Créditos y Préstamos"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.002.003"
+          },
+          "defaultName": "Créditos: Devoluciones de deuda a particulares",
+          "legacySubgroup": {
+            "code": "E.002",
+            "name": "ECONÓMICOS - Créditos y Préstamos"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.003.001"
+          },
+          "defaultName": "Grandes Compras: Vehículo",
+          "legacySubgroup": {
+            "code": "E.003",
+            "name": "ECONÓMICOS - Grandes Compras"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "E.003.002"
+          },
+          "defaultName": "Grandes Compras: Vivienda y reformas mayores",
+          "legacySubgroup": {
+            "code": "E.003",
+            "name": "ECONÓMICOS - Grandes Compras"
+          }
+        }
+      ]
+    },
+    {
+      "identity": "D_EXP",
+      "type": "GASTO",
+      "defaultName": "DIDÁCTICO",
+      "items": [
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "D.001.001"
+          },
+          "defaultName": "Didáctico: Cursos y certificaciones",
+          "legacySubgroup": {
+            "code": "D.001",
+            "name": "DIDÁCTICO"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "D.001.002"
+          },
+          "defaultName": "Didáctico: Máster y Posgrado",
+          "legacySubgroup": {
+            "code": "D.001",
+            "name": "DIDÁCTICO"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "D.001.003"
+          },
+          "defaultName": "Didáctico: Grado universitario",
+          "legacySubgroup": {
+            "code": "D.001",
+            "name": "DIDÁCTICO"
+          }
+        },
+        {
+          "identity": {
+            "type": "GASTO",
+            "code": "D.001.004"
+          },
+          "defaultName": "Didáctico: Libros y material educativo",
+          "legacySubgroup": {
+            "code": "D.001",
+            "name": "DIDÁCTICO"
+          }
+        }
+      ]
+    }
+  ],
+  "customIdentityAnalysis": {
+    "editorCreatedFamilies": "family-<id>",
+    "editorCreatedItems": "partida-<id>",
+    "duplicates": "Can retain the original numeric code pattern; prefix alone is insufficient to infer provenance.",
+    "imports": "Existing schema stores literal names, no reliable built-in/user-override provenance flag.",
+    "legacySubgroups": "Fields on items, not independently editable BudgetGroup entities."
+  }
+}

@@ -1,0 +1,255 @@
+{
+  "schemaVersion": 1,
+  "node": "v24.22.1",
+  "method": "Vite production build in memory; gzip level 6. Bundler module renderedLength is before final chunk minification and is not an exact share of minified/compressed bytes. Dictionary source sizes include all Spanish fragments.",
+  "chunks": [
+    {
+      "file": "assets/index-DWUIywFF.js",
+      "entry": true,
+      "initial": true,
+      "bytes": 1131460,
+      "gzipBytes": 306947,
+      "imports": [],
+      "dynamicImports": [
+        "assets/App-Css6EkEn.js"
+      ],
+      "translationModules": [
+        {
+          "file": "src/i18n/readiness.ts",
+          "renderedLength": 356
+        },
+        {
+          "file": "src/i18n/en.ts",
+          "renderedLength": 167633
+        },
+        {
+          "file": "src/i18n/it.ts",
+          "renderedLength": 174461
+        },
+        {
+          "file": "src/i18n/fr.ts",
+          "renderedLength": 178930
+        },
+        {
+          "file": "src/i18n/pt.ts",
+          "renderedLength": 172652
+        },
+        {
+          "file": "src/i18n/es.p3b.ts",
+          "renderedLength": 3509
+        },
+        {
+          "file": "src/i18n/es.p3.ts",
+          "renderedLength": 12754
+        },
+        {
+          "file": "src/i18n/es.p2c.ts",
+          "renderedLength": 10430
+        },
+        {
+          "file": "src/i18n/es.p2b.ts",
+          "renderedLength": 10183
+        },
+        {
+          "file": "src/i18n/es.p2a.ts",
+          "renderedLength": 13093
+        },
+        {
+          "file": "src/i18n/es.p1g.ts",
+          "renderedLength": 21187
+        },
+        {
+          "file": "src/i18n/es.p1f.ts",
+          "renderedLength": 24372
+        },
+        {
+          "file": "src/i18n/es.p1e.ts",
+          "renderedLength": 21380
+        },
+        {
+          "file": "src/i18n/es.p1d.ts",
+          "renderedLength": 14599
+        },
+        {
+          "file": "src/i18n/es.p1c.ts",
+          "renderedLength": 8710
+        },
+        {
+          "file": "src/i18n/es.p1b.ts",
+          "renderedLength": 11384
+        },
+        {
+          "file": "src/i18n/es.plurals.ts",
+          "renderedLength": 1705
+        },
+        {
+          "file": "src/i18n/es.p1.ts",
+          "renderedLength": 13819
+        },
+        {
+          "file": "src/i18n/es.ts",
+          "renderedLength": 4586
+        },
+        {
+          "file": "src/i18n/messages.ts",
+          "renderedLength": 3746
+        },
+        {
+          "file": "src/i18n/presentation.ts",
+          "renderedLength": 5766
+        },
+        {
+          "file": "src/i18n/preference.ts",
+          "renderedLength": 628
+        },
+        {
+          "file": "src/i18n/index.tsx",
+          "renderedLength": 2700
+        }
+      ]
+    },
+    {
+      "file": "assets/App-Css6EkEn.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 515671,
+      "gzipBytes": 130099,
+      "imports": [
+        "assets/index-DWUIywFF.js"
+      ],
+      "dynamicImports": [
+        "assets/FinancialCharts-BJzcLLBb.js"
+      ],
+      "translationModules": [
+        {
+          "file": "src/i18n/countMessages.ts",
+          "renderedLength": 1433
+        },
+        {
+          "file": "src/i18n/planningMessages.ts",
+          "renderedLength": 12174
+        },
+        {
+          "file": "src/i18n/bankingMessages.ts",
+          "renderedLength": 11538
+        },
+        {
+          "file": "src/i18n/sharedMessages.ts",
+          "renderedLength": 7396
+        },
+        {
+          "file": "src/i18n/presenters.ts",
+          "renderedLength": 1254
+        },
+        {
+          "file": "src/i18n/domainMessages.ts",
+          "renderedLength": 12793
+        },
+        {
+          "file": "src/i18n/storageMessages.ts",
+          "renderedLength": 24499
+        },
+        {
+          "file": "src/i18n/labels.ts",
+          "renderedLength": 1276
+        },
+        {
+          "file": "src/i18n/assistantMessages.ts",
+          "renderedLength": 2445
+        },
+        {
+          "file": "src/i18n/naturalMessages.ts",
+          "renderedLength": 1404
+        },
+        {
+          "file": "src/i18n/bankingReviews.ts",
+          "renderedLength": 1707
+        }
+      ]
+    },
+    {
+      "file": "assets/FinancialCharts-BJzcLLBb.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 40423,
+      "gzipBytes": 12470,
+      "imports": [
+        "assets/App-Css6EkEn.js",
+        "assets/index-DWUIywFF.js"
+      ],
+      "dynamicImports": [],
+      "translationModules": [
+        {
+          "file": "src/i18n/chartMessages.ts",
+          "renderedLength": 4442
+        }
+      ]
+    }
+  ],
+  "dictionaries": [
+    {
+      "language": "es",
+      "files": [
+        "src/i18n/es.p1.ts",
+        "src/i18n/es.p1b.ts",
+        "src/i18n/es.p1c.ts",
+        "src/i18n/es.p1d.ts",
+        "src/i18n/es.p1e.ts",
+        "src/i18n/es.p1f.ts",
+        "src/i18n/es.p1g.ts",
+        "src/i18n/es.p2a.ts",
+        "src/i18n/es.p2b.ts",
+        "src/i18n/es.p2c.ts",
+        "src/i18n/es.p3.ts",
+        "src/i18n/es.p3b.ts",
+        "src/i18n/es.plurals.ts",
+        "src/i18n/es.ts"
+      ],
+      "sourceBytes": 175358,
+      "sourceGzipBytes": 43802,
+      "chunk": "assets/index-DWUIywFF.js",
+      "initial": true
+    },
+    {
+      "language": "en",
+      "files": [
+        "src/i18n/en.ts"
+      ],
+      "sourceBytes": 169956,
+      "sourceGzipBytes": 43590,
+      "chunk": "assets/index-DWUIywFF.js",
+      "initial": true
+    },
+    {
+      "language": "it",
+      "files": [
+        "src/i18n/it.ts"
+      ],
+      "sourceBytes": 177409,
+      "sourceGzipBytes": 45515,
+      "chunk": "assets/index-DWUIywFF.js",
+      "initial": true
+    },
+    {
+      "language": "fr",
+      "files": [
+        "src/i18n/fr.ts"
+      ],
+      "sourceBytes": 185041,
+      "sourceGzipBytes": 46895,
+      "chunk": "assets/index-DWUIywFF.js",
+      "initial": true
+    },
+    {
+      "language": "pt",
+      "files": [
+        "src/i18n/pt.ts"
+      ],
+      "sourceBytes": 177944,
+      "sourceGzipBytes": 45373,
+      "chunk": "assets/index-DWUIywFF.js",
+      "initial": true
+    }
+  ],
+  "proposalOnly": "Consider lazy-loading non-selected dictionaries behind the existing provider, with validated readiness, request-race/error handling and cross-tab/fallback tests. No loading strategy or runtime source changed by this audit."
+}

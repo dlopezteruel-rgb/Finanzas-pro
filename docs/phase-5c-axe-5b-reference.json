@@ -1,0 +1,9137 @@
+{
+  "schemaVersion": 1,
+  "method": "Equivalence is report + surface + rule; every original observation remains referenced. Mechanism counts are node/check occurrences, not distinct defects. Missing details cannot establish a cause or resolution.",
+  "totals": {
+    "surfaces": 1345,
+    "violations": 0,
+    "incompleteGroups": 1663,
+    "incompleteNodes": 6717
+  },
+  "rules": {
+    "aria-prohibited-attr": 670,
+    "aria-valid-attr-value": 68,
+    "color-contrast": 925
+  },
+  "mechanisms": {
+    "details-not-retained": 6717
+  },
+  "groups": [
+    {
+      "report": "axe.json",
+      "surface": "Inicio",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 16,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 16
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Movimiento",
+      "rule": "aria-valid-attr-value",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Movimientos",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 16,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 16
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Presupuestos",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Presupuestos",
+      "rule": "color-contrast",
+      "observationGroups": 8,
+      "nodeOccurrences": 50,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 67,
+          "group": 1
+        },
+        {
+          "observation": 83,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 50
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Planificacion-ingresos",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Planificacion-ingresos",
+      "rule": "color-contrast",
+      "observationGroups": 8,
+      "nodeOccurrences": 18,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 1
+        },
+        {
+          "observation": 20,
+          "group": 1
+        },
+        {
+          "observation": 36,
+          "group": 1
+        },
+        {
+          "observation": 52,
+          "group": 1
+        },
+        {
+          "observation": 68,
+          "group": 1
+        },
+        {
+          "observation": 84,
+          "group": 1
+        },
+        {
+          "observation": 100,
+          "group": 1
+        },
+        {
+          "observation": 116,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 18
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Multiperiodo",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Catalogo",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Cuentas",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 120,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Cartera",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 2
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contactos",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contacto-expandido",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Deudas",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 16,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 125,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 16
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Asistente",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 8,
+      "nodeOccurrences": 8,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        390,
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 127,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 8
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Movimientos",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 34,
+          "group": 1
+        },
+        {
+          "observation": 50,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 2
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Multiperiodo",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 14,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 37,
+          "group": 1
+        },
+        {
+          "observation": 53,
+          "group": 1
+        },
+        {
+          "observation": 69,
+          "group": 1
+        },
+        {
+          "observation": 85,
+          "group": 1
+        },
+        {
+          "observation": 101,
+          "group": 1
+        },
+        {
+          "observation": 117,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 14
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Catalogo",
+      "rule": "color-contrast",
+      "observationGroups": 2,
+      "nodeOccurrences": 2,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 38,
+          "group": 1
+        },
+        {
+          "observation": 54,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 2
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contactos",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 42,
+          "group": 1
+        },
+        {
+          "observation": 58,
+          "group": 1
+        },
+        {
+          "observation": 74,
+          "group": 1
+        },
+        {
+          "observation": 90,
+          "group": 1
+        },
+        {
+          "observation": 106,
+          "group": 1
+        },
+        {
+          "observation": 122,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 6
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "axe.json",
+      "surface": "Contacto-expandido",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "es"
+      ],
+      "widths": [
+        768,
+        1280,
+        1920
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 43,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 91,
+          "group": 1
+        },
+        {
+          "observation": 107,
+          "group": 1
+        },
+        {
+          "observation": 123,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 6
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-assistant.json",
+      "surface": "quick-preview",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-assistant.json",
+      "surface": "assistant-local-replies",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-assistant.json",
+      "surface": "quick-confirmed-once",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-assistant.json",
+      "surface": "long-personal-wallet-without-overflow",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 2,
+      "nodeOccurrences": 4,
+      "languages": [
+        "fr"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 4
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "copy-invalid-range",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 84,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 84
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "copy-preview-before-write",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 204,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 204
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-canonical-input",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 5,
+      "nodeOccurrences": 5,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 5
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-canonical-input",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 15,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 60,
+          "group": 1
+        },
+        {
+          "observation": 62,
+          "group": 1
+        },
+        {
+          "observation": 64,
+          "group": 1
+        },
+        {
+          "observation": 66,
+          "group": 1
+        },
+        {
+          "observation": 68,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 15
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-after-cross-tab",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 5,
+      "nodeOccurrences": 5,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 5
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "subitem-invalid-after-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 15,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 61,
+          "group": 1
+        },
+        {
+          "observation": 63,
+          "group": 1
+        },
+        {
+          "observation": 65,
+          "group": 1
+        },
+        {
+          "observation": 67,
+          "group": 1
+        },
+        {
+          "observation": 69,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 15
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "rule-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 28,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 28
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "carry-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 28,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 28
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-automation.json",
+      "surface": "immutable-approval-history",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 31,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 31
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-catalog.json",
+      "surface": "archive-confirmation-original-language",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 92,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 92
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-catalog.json",
+      "surface": "archive-confirmation-after-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 96,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 96
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "home-charts",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "home-charts",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 888,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 1
+        },
+        {
+          "observation": 4,
+          "group": 1
+        },
+        {
+          "observation": 8,
+          "group": 1
+        },
+        {
+          "observation": 12,
+          "group": 1
+        },
+        {
+          "observation": 16,
+          "group": 1
+        },
+        {
+          "observation": 20,
+          "group": 1
+        },
+        {
+          "observation": 24,
+          "group": 1
+        },
+        {
+          "observation": 28,
+          "group": 1
+        },
+        {
+          "observation": 32,
+          "group": 1
+        },
+        {
+          "observation": 36,
+          "group": 1
+        },
+        {
+          "observation": 40,
+          "group": 1
+        },
+        {
+          "observation": 44,
+          "group": 1
+        },
+        {
+          "observation": 48,
+          "group": 1
+        },
+        {
+          "observation": 52,
+          "group": 1
+        },
+        {
+          "observation": 56,
+          "group": 1
+        },
+        {
+          "observation": 60,
+          "group": 1
+        },
+        {
+          "observation": 64,
+          "group": 1
+        },
+        {
+          "observation": 68,
+          "group": 1
+        },
+        {
+          "observation": 72,
+          "group": 1
+        },
+        {
+          "observation": 76,
+          "group": 1
+        },
+        {
+          "observation": 80,
+          "group": 1
+        },
+        {
+          "observation": 84,
+          "group": 1
+        },
+        {
+          "observation": 88,
+          "group": 1
+        },
+        {
+          "observation": 92,
+          "group": 1
+        },
+        {
+          "observation": 96,
+          "group": 1
+        },
+        {
+          "observation": 100,
+          "group": 1
+        },
+        {
+          "observation": 104,
+          "group": 1
+        },
+        {
+          "observation": 108,
+          "group": 1
+        },
+        {
+          "observation": 112,
+          "group": 1
+        },
+        {
+          "observation": 116,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 888
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "movements-linked-filter",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "movements-linked-filter",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 420,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 1
+        },
+        {
+          "observation": 5,
+          "group": 1
+        },
+        {
+          "observation": 9,
+          "group": 1
+        },
+        {
+          "observation": 13,
+          "group": 1
+        },
+        {
+          "observation": 17,
+          "group": 1
+        },
+        {
+          "observation": 21,
+          "group": 1
+        },
+        {
+          "observation": 25,
+          "group": 1
+        },
+        {
+          "observation": 29,
+          "group": 1
+        },
+        {
+          "observation": 33,
+          "group": 1
+        },
+        {
+          "observation": 37,
+          "group": 1
+        },
+        {
+          "observation": 41,
+          "group": 1
+        },
+        {
+          "observation": 45,
+          "group": 1
+        },
+        {
+          "observation": 49,
+          "group": 1
+        },
+        {
+          "observation": 53,
+          "group": 1
+        },
+        {
+          "observation": 57,
+          "group": 1
+        },
+        {
+          "observation": 61,
+          "group": 1
+        },
+        {
+          "observation": 65,
+          "group": 1
+        },
+        {
+          "observation": 69,
+          "group": 1
+        },
+        {
+          "observation": 73,
+          "group": 1
+        },
+        {
+          "observation": 77,
+          "group": 1
+        },
+        {
+          "observation": 81,
+          "group": 1
+        },
+        {
+          "observation": 85,
+          "group": 1
+        },
+        {
+          "observation": 89,
+          "group": 1
+        },
+        {
+          "observation": 93,
+          "group": 1
+        },
+        {
+          "observation": 97,
+          "group": 1
+        },
+        {
+          "observation": 101,
+          "group": 1
+        },
+        {
+          "observation": 105,
+          "group": 1
+        },
+        {
+          "observation": 109,
+          "group": 1
+        },
+        {
+          "observation": 113,
+          "group": 1
+        },
+        {
+          "observation": 117,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 420
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "planning-snapshots-and-gaps",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "planning-snapshots-and-gaps",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 1548,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 1
+        },
+        {
+          "observation": 6,
+          "group": 1
+        },
+        {
+          "observation": 10,
+          "group": 1
+        },
+        {
+          "observation": 14,
+          "group": 1
+        },
+        {
+          "observation": 18,
+          "group": 1
+        },
+        {
+          "observation": 22,
+          "group": 1
+        },
+        {
+          "observation": 26,
+          "group": 1
+        },
+        {
+          "observation": 30,
+          "group": 1
+        },
+        {
+          "observation": 34,
+          "group": 1
+        },
+        {
+          "observation": 38,
+          "group": 1
+        },
+        {
+          "observation": 42,
+          "group": 1
+        },
+        {
+          "observation": 46,
+          "group": 1
+        },
+        {
+          "observation": 50,
+          "group": 1
+        },
+        {
+          "observation": 54,
+          "group": 1
+        },
+        {
+          "observation": 58,
+          "group": 1
+        },
+        {
+          "observation": 62,
+          "group": 1
+        },
+        {
+          "observation": 66,
+          "group": 1
+        },
+        {
+          "observation": 70,
+          "group": 1
+        },
+        {
+          "observation": 74,
+          "group": 1
+        },
+        {
+          "observation": 78,
+          "group": 1
+        },
+        {
+          "observation": 82,
+          "group": 1
+        },
+        {
+          "observation": 86,
+          "group": 1
+        },
+        {
+          "observation": 90,
+          "group": 1
+        },
+        {
+          "observation": 94,
+          "group": 1
+        },
+        {
+          "observation": 98,
+          "group": 1
+        },
+        {
+          "observation": 102,
+          "group": 1
+        },
+        {
+          "observation": 106,
+          "group": 1
+        },
+        {
+          "observation": 110,
+          "group": 1
+        },
+        {
+          "observation": 114,
+          "group": 1
+        },
+        {
+          "observation": 118,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 1548
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "wallet-balances-and-changes",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-charts.json",
+      "surface": "wallet-balances-and-changes",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 500,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 7,
+          "group": 1
+        },
+        {
+          "observation": 11,
+          "group": 1
+        },
+        {
+          "observation": 15,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 23,
+          "group": 1
+        },
+        {
+          "observation": 27,
+          "group": 1
+        },
+        {
+          "observation": 31,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 39,
+          "group": 1
+        },
+        {
+          "observation": 43,
+          "group": 1
+        },
+        {
+          "observation": 47,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 55,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 63,
+          "group": 1
+        },
+        {
+          "observation": 67,
+          "group": 1
+        },
+        {
+          "observation": 71,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 79,
+          "group": 1
+        },
+        {
+          "observation": 83,
+          "group": 1
+        },
+        {
+          "observation": 87,
+          "group": 1
+        },
+        {
+          "observation": 91,
+          "group": 1
+        },
+        {
+          "observation": 95,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 103,
+          "group": 1
+        },
+        {
+          "observation": 107,
+          "group": 1
+        },
+        {
+          "observation": 111,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        },
+        {
+          "observation": 119,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 500
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "legacy-composite-plurals",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 128,
+          "group": 0
+        },
+        {
+          "observation": 136,
+          "group": 0
+        },
+        {
+          "observation": 144,
+          "group": 0
+        },
+        {
+          "observation": 152,
+          "group": 0
+        },
+        {
+          "observation": 160,
+          "group": 0
+        },
+        {
+          "observation": 168,
+          "group": 0
+        },
+        {
+          "observation": 176,
+          "group": 0
+        },
+        {
+          "observation": 184,
+          "group": 0
+        },
+        {
+          "observation": 192,
+          "group": 0
+        },
+        {
+          "observation": 200,
+          "group": 0
+        },
+        {
+          "observation": 208,
+          "group": 0
+        },
+        {
+          "observation": 216,
+          "group": 0
+        },
+        {
+          "observation": 224,
+          "group": 0
+        },
+        {
+          "observation": 232,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "unconfirmed-legacy-restoration",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 54,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 129,
+          "group": 0
+        },
+        {
+          "observation": 137,
+          "group": 0
+        },
+        {
+          "observation": 145,
+          "group": 0
+        },
+        {
+          "observation": 153,
+          "group": 0
+        },
+        {
+          "observation": 161,
+          "group": 0
+        },
+        {
+          "observation": 169,
+          "group": 0
+        },
+        {
+          "observation": 177,
+          "group": 0
+        },
+        {
+          "observation": 185,
+          "group": 0
+        },
+        {
+          "observation": 193,
+          "group": 0
+        },
+        {
+          "observation": 201,
+          "group": 0
+        },
+        {
+          "observation": 209,
+          "group": 0
+        },
+        {
+          "observation": 217,
+          "group": 0
+        },
+        {
+          "observation": 225,
+          "group": 0
+        },
+        {
+          "observation": 233,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 54
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "decimal-placeholder-raw-input",
+      "rule": "aria-valid-attr-value",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        },
+        {
+          "observation": 130,
+          "group": 0
+        },
+        {
+          "observation": 138,
+          "group": 0
+        },
+        {
+          "observation": 146,
+          "group": 0
+        },
+        {
+          "observation": 154,
+          "group": 0
+        },
+        {
+          "observation": 162,
+          "group": 0
+        },
+        {
+          "observation": 170,
+          "group": 0
+        },
+        {
+          "observation": 178,
+          "group": 0
+        },
+        {
+          "observation": 186,
+          "group": 0
+        },
+        {
+          "observation": 194,
+          "group": 0
+        },
+        {
+          "observation": 202,
+          "group": 0
+        },
+        {
+          "observation": 210,
+          "group": 0
+        },
+        {
+          "observation": 218,
+          "group": 0
+        },
+        {
+          "observation": 226,
+          "group": 0
+        },
+        {
+          "observation": 234,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "default-preference-quota",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 131,
+          "group": 0
+        },
+        {
+          "observation": 139,
+          "group": 0
+        },
+        {
+          "observation": 147,
+          "group": 0
+        },
+        {
+          "observation": 155,
+          "group": 0
+        },
+        {
+          "observation": 163,
+          "group": 0
+        },
+        {
+          "observation": 171,
+          "group": 0
+        },
+        {
+          "observation": 179,
+          "group": 0
+        },
+        {
+          "observation": 187,
+          "group": 0
+        },
+        {
+          "observation": 195,
+          "group": 0
+        },
+        {
+          "observation": 203,
+          "group": 0
+        },
+        {
+          "observation": 211,
+          "group": 0
+        },
+        {
+          "observation": 219,
+          "group": 0
+        },
+        {
+          "observation": 227,
+          "group": 0
+        },
+        {
+          "observation": 235,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "default-preference-quota",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 35,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 11,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 27,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 43,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 83,
+          "group": 1
+        },
+        {
+          "observation": 91,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 107,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        },
+        {
+          "observation": 123,
+          "group": 1
+        },
+        {
+          "observation": 131,
+          "group": 1
+        },
+        {
+          "observation": 139,
+          "group": 1
+        },
+        {
+          "observation": 147,
+          "group": 1
+        },
+        {
+          "observation": 155,
+          "group": 1
+        },
+        {
+          "observation": 163,
+          "group": 1
+        },
+        {
+          "observation": 171,
+          "group": 1
+        },
+        {
+          "observation": 179,
+          "group": 1
+        },
+        {
+          "observation": 187,
+          "group": 1
+        },
+        {
+          "observation": 195,
+          "group": 1
+        },
+        {
+          "observation": 203,
+          "group": 1
+        },
+        {
+          "observation": 211,
+          "group": 1
+        },
+        {
+          "observation": 219,
+          "group": 1
+        },
+        {
+          "observation": 227,
+          "group": 1
+        },
+        {
+          "observation": 235,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 35
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "selected-clear-impact",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 86,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        },
+        {
+          "observation": 132,
+          "group": 0
+        },
+        {
+          "observation": 140,
+          "group": 0
+        },
+        {
+          "observation": 148,
+          "group": 0
+        },
+        {
+          "observation": 156,
+          "group": 0
+        },
+        {
+          "observation": 164,
+          "group": 0
+        },
+        {
+          "observation": 172,
+          "group": 0
+        },
+        {
+          "observation": 180,
+          "group": 0
+        },
+        {
+          "observation": 188,
+          "group": 0
+        },
+        {
+          "observation": 196,
+          "group": 0
+        },
+        {
+          "observation": 204,
+          "group": 0
+        },
+        {
+          "observation": 212,
+          "group": 0
+        },
+        {
+          "observation": 220,
+          "group": 0
+        },
+        {
+          "observation": 228,
+          "group": 0
+        },
+        {
+          "observation": 236,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 86
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "selected-clear-explicit-canonical-confirmation",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        },
+        {
+          "observation": 125,
+          "group": 0
+        },
+        {
+          "observation": 133,
+          "group": 0
+        },
+        {
+          "observation": 141,
+          "group": 0
+        },
+        {
+          "observation": 149,
+          "group": 0
+        },
+        {
+          "observation": 157,
+          "group": 0
+        },
+        {
+          "observation": 165,
+          "group": 0
+        },
+        {
+          "observation": 173,
+          "group": 0
+        },
+        {
+          "observation": 181,
+          "group": 0
+        },
+        {
+          "observation": 189,
+          "group": 0
+        },
+        {
+          "observation": 197,
+          "group": 0
+        },
+        {
+          "observation": 205,
+          "group": 0
+        },
+        {
+          "observation": 213,
+          "group": 0
+        },
+        {
+          "observation": 221,
+          "group": 0
+        },
+        {
+          "observation": 229,
+          "group": 0
+        },
+        {
+          "observation": 237,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "selected-clear-explicit-canonical-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 26,
+      "nodeOccurrences": 74,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 5,
+          "group": 1
+        },
+        {
+          "observation": 13,
+          "group": 1
+        },
+        {
+          "observation": 21,
+          "group": 1
+        },
+        {
+          "observation": 29,
+          "group": 1
+        },
+        {
+          "observation": 37,
+          "group": 1
+        },
+        {
+          "observation": 45,
+          "group": 1
+        },
+        {
+          "observation": 53,
+          "group": 1
+        },
+        {
+          "observation": 61,
+          "group": 1
+        },
+        {
+          "observation": 101,
+          "group": 1
+        },
+        {
+          "observation": 109,
+          "group": 1
+        },
+        {
+          "observation": 117,
+          "group": 1
+        },
+        {
+          "observation": 125,
+          "group": 1
+        },
+        {
+          "observation": 133,
+          "group": 1
+        },
+        {
+          "observation": 141,
+          "group": 1
+        },
+        {
+          "observation": 149,
+          "group": 1
+        },
+        {
+          "observation": 157,
+          "group": 1
+        },
+        {
+          "observation": 165,
+          "group": 1
+        },
+        {
+          "observation": 173,
+          "group": 1
+        },
+        {
+          "observation": 181,
+          "group": 1
+        },
+        {
+          "observation": 189,
+          "group": 1
+        },
+        {
+          "observation": 197,
+          "group": 1
+        },
+        {
+          "observation": 205,
+          "group": 1
+        },
+        {
+          "observation": 213,
+          "group": 1
+        },
+        {
+          "observation": 221,
+          "group": 1
+        },
+        {
+          "observation": 229,
+          "group": 1
+        },
+        {
+          "observation": 237,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 74
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "empty-recovery-dialog",
+      "rule": "color-contrast",
+      "observationGroups": 24,
+      "nodeOccurrences": 24,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        },
+        {
+          "observation": 126,
+          "group": 0
+        },
+        {
+          "observation": 134,
+          "group": 0
+        },
+        {
+          "observation": 142,
+          "group": 0
+        },
+        {
+          "observation": 150,
+          "group": 0
+        },
+        {
+          "observation": 158,
+          "group": 0
+        },
+        {
+          "observation": 182,
+          "group": 0
+        },
+        {
+          "observation": 190,
+          "group": 0
+        },
+        {
+          "observation": 214,
+          "group": 0
+        },
+        {
+          "observation": 222,
+          "group": 0
+        },
+        {
+          "observation": 230,
+          "group": 0
+        },
+        {
+          "observation": 238,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 24
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "landing-native-image-copy-and-metadata",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        },
+        {
+          "observation": 127,
+          "group": 0
+        },
+        {
+          "observation": 135,
+          "group": 0
+        },
+        {
+          "observation": 143,
+          "group": 0
+        },
+        {
+          "observation": 151,
+          "group": 0
+        },
+        {
+          "observation": 159,
+          "group": 0
+        },
+        {
+          "observation": 167,
+          "group": 0
+        },
+        {
+          "observation": 175,
+          "group": 0
+        },
+        {
+          "observation": 183,
+          "group": 0
+        },
+        {
+          "observation": 191,
+          "group": 0
+        },
+        {
+          "observation": 199,
+          "group": 0
+        },
+        {
+          "observation": 207,
+          "group": 0
+        },
+        {
+          "observation": 215,
+          "group": 0
+        },
+        {
+          "observation": 223,
+          "group": 0
+        },
+        {
+          "observation": 231,
+          "group": 0
+        },
+        {
+          "observation": 239,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-completion.json",
+      "surface": "decimal-placeholder-raw-input",
+      "rule": "color-contrast",
+      "observationGroups": 6,
+      "nodeOccurrences": 6,
+      "languages": [
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 98,
+          "group": 1
+        },
+        {
+          "observation": 106,
+          "group": 1
+        },
+        {
+          "observation": 146,
+          "group": 1
+        },
+        {
+          "observation": 154,
+          "group": 1
+        },
+        {
+          "observation": 194,
+          "group": 1
+        },
+        {
+          "observation": 202,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 6
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "debt-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 66,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 66
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "rule-pause-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 56
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "occurrence-confirmation",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "treasury-read-only",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-obligations.json",
+      "surface": "treasury-read-only",
+      "rule": "color-contrast",
+      "observationGroups": 10,
+      "nodeOccurrences": 50,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 7,
+          "group": 1
+        },
+        {
+          "observation": 27,
+          "group": 1
+        },
+        {
+          "observation": 31,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 55,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 79,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 103,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 50
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-planning.json",
+      "surface": "planning-deficit-draft",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-planning.json",
+      "surface": "planning-deficit-draft",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 62,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 1
+        },
+        {
+          "observation": 2,
+          "group": 1
+        },
+        {
+          "observation": 4,
+          "group": 1
+        },
+        {
+          "observation": 6,
+          "group": 1
+        },
+        {
+          "observation": 8,
+          "group": 1
+        },
+        {
+          "observation": 10,
+          "group": 1
+        },
+        {
+          "observation": 12,
+          "group": 1
+        },
+        {
+          "observation": 14,
+          "group": 1
+        },
+        {
+          "observation": 16,
+          "group": 1
+        },
+        {
+          "observation": 18,
+          "group": 1
+        },
+        {
+          "observation": 20,
+          "group": 1
+        },
+        {
+          "observation": 22,
+          "group": 1
+        },
+        {
+          "observation": 24,
+          "group": 1
+        },
+        {
+          "observation": 26,
+          "group": 1
+        },
+        {
+          "observation": 28,
+          "group": 1
+        },
+        {
+          "observation": 30,
+          "group": 1
+        },
+        {
+          "observation": 32,
+          "group": 1
+        },
+        {
+          "observation": 34,
+          "group": 1
+        },
+        {
+          "observation": 36,
+          "group": 1
+        },
+        {
+          "observation": 38,
+          "group": 1
+        },
+        {
+          "observation": 40,
+          "group": 1
+        },
+        {
+          "observation": 42,
+          "group": 1
+        },
+        {
+          "observation": 44,
+          "group": 1
+        },
+        {
+          "observation": 46,
+          "group": 1
+        },
+        {
+          "observation": 48,
+          "group": 1
+        },
+        {
+          "observation": 50,
+          "group": 1
+        },
+        {
+          "observation": 52,
+          "group": 1
+        },
+        {
+          "observation": 54,
+          "group": 1
+        },
+        {
+          "observation": 56,
+          "group": 1
+        },
+        {
+          "observation": 58,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 62
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-planning.json",
+      "surface": "explicit-deficit-approval",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 71,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 71
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "shared-form-native-diagnostic-and-self",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "shared-form-native-diagnostic-and-self",
+      "rule": "aria-valid-attr-value",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 1
+        },
+        {
+          "observation": 4,
+          "group": 1
+        },
+        {
+          "observation": 8,
+          "group": 1
+        },
+        {
+          "observation": 12,
+          "group": 1
+        },
+        {
+          "observation": 16,
+          "group": 1
+        },
+        {
+          "observation": 20,
+          "group": 1
+        },
+        {
+          "observation": 24,
+          "group": 1
+        },
+        {
+          "observation": 28,
+          "group": 1
+        },
+        {
+          "observation": 32,
+          "group": 1
+        },
+        {
+          "observation": 36,
+          "group": 1
+        },
+        {
+          "observation": 40,
+          "group": 1
+        },
+        {
+          "observation": 44,
+          "group": 1
+        },
+        {
+          "observation": 48,
+          "group": 1
+        },
+        {
+          "observation": 52,
+          "group": 1
+        },
+        {
+          "observation": 56,
+          "group": 1
+        },
+        {
+          "observation": 60,
+          "group": 1
+        },
+        {
+          "observation": 64,
+          "group": 1
+        },
+        {
+          "observation": 68,
+          "group": 1
+        },
+        {
+          "observation": 72,
+          "group": 1
+        },
+        {
+          "observation": 76,
+          "group": 1
+        },
+        {
+          "observation": 80,
+          "group": 1
+        },
+        {
+          "observation": 84,
+          "group": 1
+        },
+        {
+          "observation": 88,
+          "group": 1
+        },
+        {
+          "observation": 92,
+          "group": 1
+        },
+        {
+          "observation": 96,
+          "group": 1
+        },
+        {
+          "observation": 100,
+          "group": 1
+        },
+        {
+          "observation": 104,
+          "group": 1
+        },
+        {
+          "observation": 108,
+          "group": 1
+        },
+        {
+          "observation": 112,
+          "group": 1
+        },
+        {
+          "observation": 116,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "duplicate-account-native-error",
+      "rule": "color-contrast",
+      "observationGroups": 10,
+      "nodeOccurrences": 24,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 24
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "owned-historical-detail-native-cross-tab",
+      "rule": "color-contrast",
+      "observationGroups": 22,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 56
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "annual-months-and-personal-history",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-presentation.json",
+      "surface": "annual-months-and-personal-history",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 92,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 7,
+          "group": 1
+        },
+        {
+          "observation": 11,
+          "group": 1
+        },
+        {
+          "observation": 15,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 23,
+          "group": 1
+        },
+        {
+          "observation": 27,
+          "group": 1
+        },
+        {
+          "observation": 31,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 39,
+          "group": 1
+        },
+        {
+          "observation": 43,
+          "group": 1
+        },
+        {
+          "observation": 47,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 55,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 63,
+          "group": 1
+        },
+        {
+          "observation": 67,
+          "group": 1
+        },
+        {
+          "observation": 71,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 79,
+          "group": 1
+        },
+        {
+          "observation": 83,
+          "group": 1
+        },
+        {
+          "observation": 87,
+          "group": 1
+        },
+        {
+          "observation": 91,
+          "group": 1
+        },
+        {
+          "observation": 95,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 103,
+          "group": 1
+        },
+        {
+          "observation": 107,
+          "group": 1
+        },
+        {
+          "observation": 111,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        },
+        {
+          "observation": 119,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 92
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "correction-rejected",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "overpayment-rejected",
+      "rule": "color-contrast",
+      "observationGroups": 16,
+      "nodeOccurrences": 40,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 73,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 40
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "structured-detail",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 78,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "structured-detail",
+      "rule": "color-contrast",
+      "observationGroups": 22,
+      "nodeOccurrences": 74,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 1
+        },
+        {
+          "observation": 6,
+          "group": 1
+        },
+        {
+          "observation": 10,
+          "group": 1
+        },
+        {
+          "observation": 14,
+          "group": 1
+        },
+        {
+          "observation": 26,
+          "group": 1
+        },
+        {
+          "observation": 30,
+          "group": 1
+        },
+        {
+          "observation": 34,
+          "group": 1
+        },
+        {
+          "observation": 38,
+          "group": 1
+        },
+        {
+          "observation": 50,
+          "group": 1
+        },
+        {
+          "observation": 54,
+          "group": 1
+        },
+        {
+          "observation": 58,
+          "group": 1
+        },
+        {
+          "observation": 62,
+          "group": 1
+        },
+        {
+          "observation": 66,
+          "group": 1
+        },
+        {
+          "observation": 70,
+          "group": 1
+        },
+        {
+          "observation": 74,
+          "group": 1
+        },
+        {
+          "observation": 78,
+          "group": 1
+        },
+        {
+          "observation": 82,
+          "group": 1
+        },
+        {
+          "observation": 86,
+          "group": 1
+        },
+        {
+          "observation": 98,
+          "group": 1
+        },
+        {
+          "observation": 102,
+          "group": 1
+        },
+        {
+          "observation": 106,
+          "group": 1
+        },
+        {
+          "observation": 110,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 74
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "blocked-contact-deletion",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "blocked-contact-deletion",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 250,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 1
+        },
+        {
+          "observation": 7,
+          "group": 1
+        },
+        {
+          "observation": 11,
+          "group": 1
+        },
+        {
+          "observation": 15,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 23,
+          "group": 1
+        },
+        {
+          "observation": 27,
+          "group": 1
+        },
+        {
+          "observation": 31,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 39,
+          "group": 1
+        },
+        {
+          "observation": 43,
+          "group": 1
+        },
+        {
+          "observation": 47,
+          "group": 1
+        },
+        {
+          "observation": 51,
+          "group": 1
+        },
+        {
+          "observation": 55,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 63,
+          "group": 1
+        },
+        {
+          "observation": 67,
+          "group": 1
+        },
+        {
+          "observation": 71,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 79,
+          "group": 1
+        },
+        {
+          "observation": 83,
+          "group": 1
+        },
+        {
+          "observation": 87,
+          "group": 1
+        },
+        {
+          "observation": 91,
+          "group": 1
+        },
+        {
+          "observation": 95,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 103,
+          "group": 1
+        },
+        {
+          "observation": 107,
+          "group": 1
+        },
+        {
+          "observation": 111,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        },
+        {
+          "observation": 119,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 250
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-shared.json",
+      "surface": "legacy-unverified-detail",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 31,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 31
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "invalid-schema",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 60,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 0
+        },
+        {
+          "observation": 5,
+          "group": 0
+        },
+        {
+          "observation": 10,
+          "group": 0
+        },
+        {
+          "observation": 15,
+          "group": 0
+        },
+        {
+          "observation": 20,
+          "group": 0
+        },
+        {
+          "observation": 25,
+          "group": 0
+        },
+        {
+          "observation": 30,
+          "group": 0
+        },
+        {
+          "observation": 35,
+          "group": 0
+        },
+        {
+          "observation": 40,
+          "group": 0
+        },
+        {
+          "observation": 45,
+          "group": 0
+        },
+        {
+          "observation": 50,
+          "group": 0
+        },
+        {
+          "observation": 55,
+          "group": 0
+        },
+        {
+          "observation": 60,
+          "group": 0
+        },
+        {
+          "observation": 65,
+          "group": 0
+        },
+        {
+          "observation": 70,
+          "group": 0
+        },
+        {
+          "observation": 75,
+          "group": 0
+        },
+        {
+          "observation": 80,
+          "group": 0
+        },
+        {
+          "observation": 85,
+          "group": 0
+        },
+        {
+          "observation": 90,
+          "group": 0
+        },
+        {
+          "observation": 95,
+          "group": 0
+        },
+        {
+          "observation": 100,
+          "group": 0
+        },
+        {
+          "observation": 105,
+          "group": 0
+        },
+        {
+          "observation": 110,
+          "group": 0
+        },
+        {
+          "observation": 115,
+          "group": 0
+        },
+        {
+          "observation": 120,
+          "group": 0
+        },
+        {
+          "observation": 125,
+          "group": 0
+        },
+        {
+          "observation": 130,
+          "group": 0
+        },
+        {
+          "observation": 135,
+          "group": 0
+        },
+        {
+          "observation": 140,
+          "group": 0
+        },
+        {
+          "observation": 145,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 60
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "invalid-schema",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 0,
+          "group": 1
+        },
+        {
+          "observation": 5,
+          "group": 1
+        },
+        {
+          "observation": 10,
+          "group": 1
+        },
+        {
+          "observation": 15,
+          "group": 1
+        },
+        {
+          "observation": 20,
+          "group": 1
+        },
+        {
+          "observation": 25,
+          "group": 1
+        },
+        {
+          "observation": 30,
+          "group": 1
+        },
+        {
+          "observation": 35,
+          "group": 1
+        },
+        {
+          "observation": 40,
+          "group": 1
+        },
+        {
+          "observation": 45,
+          "group": 1
+        },
+        {
+          "observation": 50,
+          "group": 1
+        },
+        {
+          "observation": 55,
+          "group": 1
+        },
+        {
+          "observation": 60,
+          "group": 1
+        },
+        {
+          "observation": 65,
+          "group": 1
+        },
+        {
+          "observation": 70,
+          "group": 1
+        },
+        {
+          "observation": 75,
+          "group": 1
+        },
+        {
+          "observation": 80,
+          "group": 1
+        },
+        {
+          "observation": 85,
+          "group": 1
+        },
+        {
+          "observation": 90,
+          "group": 1
+        },
+        {
+          "observation": 95,
+          "group": 1
+        },
+        {
+          "observation": 100,
+          "group": 1
+        },
+        {
+          "observation": 105,
+          "group": 1
+        },
+        {
+          "observation": 110,
+          "group": 1
+        },
+        {
+          "observation": 115,
+          "group": 1
+        },
+        {
+          "observation": 120,
+          "group": 1
+        },
+        {
+          "observation": 125,
+          "group": 1
+        },
+        {
+          "observation": 130,
+          "group": 1
+        },
+        {
+          "observation": 135,
+          "group": 1
+        },
+        {
+          "observation": 140,
+          "group": 1
+        },
+        {
+          "observation": 145,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "restoration-before-write",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 90,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 1,
+          "group": 0
+        },
+        {
+          "observation": 6,
+          "group": 0
+        },
+        {
+          "observation": 11,
+          "group": 0
+        },
+        {
+          "observation": 16,
+          "group": 0
+        },
+        {
+          "observation": 21,
+          "group": 0
+        },
+        {
+          "observation": 26,
+          "group": 0
+        },
+        {
+          "observation": 31,
+          "group": 0
+        },
+        {
+          "observation": 36,
+          "group": 0
+        },
+        {
+          "observation": 41,
+          "group": 0
+        },
+        {
+          "observation": 46,
+          "group": 0
+        },
+        {
+          "observation": 51,
+          "group": 0
+        },
+        {
+          "observation": 56,
+          "group": 0
+        },
+        {
+          "observation": 61,
+          "group": 0
+        },
+        {
+          "observation": 66,
+          "group": 0
+        },
+        {
+          "observation": 71,
+          "group": 0
+        },
+        {
+          "observation": 76,
+          "group": 0
+        },
+        {
+          "observation": 81,
+          "group": 0
+        },
+        {
+          "observation": 86,
+          "group": 0
+        },
+        {
+          "observation": 91,
+          "group": 0
+        },
+        {
+          "observation": 96,
+          "group": 0
+        },
+        {
+          "observation": 101,
+          "group": 0
+        },
+        {
+          "observation": 106,
+          "group": 0
+        },
+        {
+          "observation": 111,
+          "group": 0
+        },
+        {
+          "observation": 116,
+          "group": 0
+        },
+        {
+          "observation": 121,
+          "group": 0
+        },
+        {
+          "observation": 126,
+          "group": 0
+        },
+        {
+          "observation": 131,
+          "group": 0
+        },
+        {
+          "observation": 136,
+          "group": 0
+        },
+        {
+          "observation": 141,
+          "group": 0
+        },
+        {
+          "observation": 146,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 90
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "quota-preserves-preview",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 144,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 2,
+          "group": 0
+        },
+        {
+          "observation": 7,
+          "group": 0
+        },
+        {
+          "observation": 12,
+          "group": 0
+        },
+        {
+          "observation": 17,
+          "group": 0
+        },
+        {
+          "observation": 22,
+          "group": 0
+        },
+        {
+          "observation": 27,
+          "group": 0
+        },
+        {
+          "observation": 32,
+          "group": 0
+        },
+        {
+          "observation": 37,
+          "group": 0
+        },
+        {
+          "observation": 42,
+          "group": 0
+        },
+        {
+          "observation": 47,
+          "group": 0
+        },
+        {
+          "observation": 52,
+          "group": 0
+        },
+        {
+          "observation": 57,
+          "group": 0
+        },
+        {
+          "observation": 62,
+          "group": 0
+        },
+        {
+          "observation": 67,
+          "group": 0
+        },
+        {
+          "observation": 72,
+          "group": 0
+        },
+        {
+          "observation": 77,
+          "group": 0
+        },
+        {
+          "observation": 82,
+          "group": 0
+        },
+        {
+          "observation": 87,
+          "group": 0
+        },
+        {
+          "observation": 92,
+          "group": 0
+        },
+        {
+          "observation": 97,
+          "group": 0
+        },
+        {
+          "observation": 102,
+          "group": 0
+        },
+        {
+          "observation": 107,
+          "group": 0
+        },
+        {
+          "observation": 112,
+          "group": 0
+        },
+        {
+          "observation": 117,
+          "group": 0
+        },
+        {
+          "observation": 122,
+          "group": 0
+        },
+        {
+          "observation": 127,
+          "group": 0
+        },
+        {
+          "observation": 132,
+          "group": 0
+        },
+        {
+          "observation": 137,
+          "group": 0
+        },
+        {
+          "observation": 142,
+          "group": 0
+        },
+        {
+          "observation": 147,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 144
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "recoverable-original-download",
+      "rule": "color-contrast",
+      "observationGroups": 28,
+      "nodeOccurrences": 56,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 3,
+          "group": 0
+        },
+        {
+          "observation": 8,
+          "group": 0
+        },
+        {
+          "observation": 13,
+          "group": 0
+        },
+        {
+          "observation": 18,
+          "group": 0
+        },
+        {
+          "observation": 23,
+          "group": 0
+        },
+        {
+          "observation": 28,
+          "group": 0
+        },
+        {
+          "observation": 33,
+          "group": 0
+        },
+        {
+          "observation": 38,
+          "group": 0
+        },
+        {
+          "observation": 43,
+          "group": 0
+        },
+        {
+          "observation": 48,
+          "group": 0
+        },
+        {
+          "observation": 53,
+          "group": 0
+        },
+        {
+          "observation": 58,
+          "group": 0
+        },
+        {
+          "observation": 63,
+          "group": 0
+        },
+        {
+          "observation": 68,
+          "group": 0
+        },
+        {
+          "observation": 83,
+          "group": 0
+        },
+        {
+          "observation": 88,
+          "group": 0
+        },
+        {
+          "observation": 93,
+          "group": 0
+        },
+        {
+          "observation": 98,
+          "group": 0
+        },
+        {
+          "observation": 103,
+          "group": 0
+        },
+        {
+          "observation": 108,
+          "group": 0
+        },
+        {
+          "observation": 113,
+          "group": 0
+        },
+        {
+          "observation": 118,
+          "group": 0
+        },
+        {
+          "observation": 123,
+          "group": 0
+        },
+        {
+          "observation": 128,
+          "group": 0
+        },
+        {
+          "observation": 133,
+          "group": 0
+        },
+        {
+          "observation": 138,
+          "group": 0
+        },
+        {
+          "observation": 143,
+          "group": 0
+        },
+        {
+          "observation": 148,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 56
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "wallet-deletion-preview",
+      "rule": "aria-prohibited-attr",
+      "observationGroups": 30,
+      "nodeOccurrences": 30,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 0
+        },
+        {
+          "observation": 9,
+          "group": 0
+        },
+        {
+          "observation": 14,
+          "group": 0
+        },
+        {
+          "observation": 19,
+          "group": 0
+        },
+        {
+          "observation": 24,
+          "group": 0
+        },
+        {
+          "observation": 29,
+          "group": 0
+        },
+        {
+          "observation": 34,
+          "group": 0
+        },
+        {
+          "observation": 39,
+          "group": 0
+        },
+        {
+          "observation": 44,
+          "group": 0
+        },
+        {
+          "observation": 49,
+          "group": 0
+        },
+        {
+          "observation": 54,
+          "group": 0
+        },
+        {
+          "observation": 59,
+          "group": 0
+        },
+        {
+          "observation": 64,
+          "group": 0
+        },
+        {
+          "observation": 69,
+          "group": 0
+        },
+        {
+          "observation": 74,
+          "group": 0
+        },
+        {
+          "observation": 79,
+          "group": 0
+        },
+        {
+          "observation": 84,
+          "group": 0
+        },
+        {
+          "observation": 89,
+          "group": 0
+        },
+        {
+          "observation": 94,
+          "group": 0
+        },
+        {
+          "observation": 99,
+          "group": 0
+        },
+        {
+          "observation": 104,
+          "group": 0
+        },
+        {
+          "observation": 109,
+          "group": 0
+        },
+        {
+          "observation": 114,
+          "group": 0
+        },
+        {
+          "observation": 119,
+          "group": 0
+        },
+        {
+          "observation": 124,
+          "group": 0
+        },
+        {
+          "observation": 129,
+          "group": 0
+        },
+        {
+          "observation": 134,
+          "group": 0
+        },
+        {
+          "observation": 139,
+          "group": 0
+        },
+        {
+          "observation": 144,
+          "group": 0
+        },
+        {
+          "observation": 149,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 30
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "wallet-deletion-preview",
+      "rule": "color-contrast",
+      "observationGroups": 30,
+      "nodeOccurrences": 68,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        390,
+        768,
+        1280
+      ],
+      "themes": [
+        "dark",
+        "light"
+      ],
+      "references": [
+        {
+          "observation": 4,
+          "group": 1
+        },
+        {
+          "observation": 9,
+          "group": 1
+        },
+        {
+          "observation": 14,
+          "group": 1
+        },
+        {
+          "observation": 19,
+          "group": 1
+        },
+        {
+          "observation": 24,
+          "group": 1
+        },
+        {
+          "observation": 29,
+          "group": 1
+        },
+        {
+          "observation": 34,
+          "group": 1
+        },
+        {
+          "observation": 39,
+          "group": 1
+        },
+        {
+          "observation": 44,
+          "group": 1
+        },
+        {
+          "observation": 49,
+          "group": 1
+        },
+        {
+          "observation": 54,
+          "group": 1
+        },
+        {
+          "observation": 59,
+          "group": 1
+        },
+        {
+          "observation": 64,
+          "group": 1
+        },
+        {
+          "observation": 69,
+          "group": 1
+        },
+        {
+          "observation": 74,
+          "group": 1
+        },
+        {
+          "observation": 79,
+          "group": 1
+        },
+        {
+          "observation": 84,
+          "group": 1
+        },
+        {
+          "observation": 89,
+          "group": 1
+        },
+        {
+          "observation": 94,
+          "group": 1
+        },
+        {
+          "observation": 99,
+          "group": 1
+        },
+        {
+          "observation": 104,
+          "group": 1
+        },
+        {
+          "observation": 109,
+          "group": 1
+        },
+        {
+          "observation": 114,
+          "group": 1
+        },
+        {
+          "observation": 119,
+          "group": 1
+        },
+        {
+          "observation": 124,
+          "group": 1
+        },
+        {
+          "observation": 129,
+          "group": 1
+        },
+        {
+          "observation": 134,
+          "group": 1
+        },
+        {
+          "observation": 139,
+          "group": 1
+        },
+        {
+          "observation": 144,
+          "group": 1
+        },
+        {
+          "observation": 149,
+          "group": 1
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 68
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    },
+    {
+      "report": "translated-storage.json",
+      "surface": "no-web-locks-form",
+      "rule": "color-contrast",
+      "observationGroups": 5,
+      "nodeOccurrences": 5,
+      "languages": [
+        "en",
+        "es",
+        "fr",
+        "it",
+        "pt"
+      ],
+      "widths": [
+        1280
+      ],
+      "themes": [
+        "dark"
+      ],
+      "references": [
+        {
+          "observation": 150,
+          "group": 0
+        },
+        {
+          "observation": 151,
+          "group": 0
+        },
+        {
+          "observation": 152,
+          "group": 0
+        },
+        {
+          "observation": 153,
+          "group": 0
+        },
+        {
+          "observation": 154,
+          "group": 0
+        }
+      ],
+      "mechanisms": {
+        "details-not-retained": 5
+      },
+      "examples": [],
+      "status": "manual-review-required",
+      "isAutomaticViolation": false
+    }
+  ],
+  "source": {
+    "run": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43539598118",
+    "sha": "d12fadb7084cda7579bd74e4684acbdba68f8351",
+    "artifactSha256": "780ea2053559e4c6f1fd51d078c47d5852b4d25c1dd1814ad4ce6363a3935fb7",
+    "note": "Historical reports retained rule and node count only. Causes cannot be assigned retrospectively to individual nodes."
+  }
+}
