@@ -13,6 +13,9 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "language.loading": "Cargando {language}…",
+  "language.loadError": "No se pudo cargar {language}. Se conserva el idioma anterior.",
+  "language.retry": "Reintentar carga",
   ...catalogMessages,
   ...p1,
   ...p1b,

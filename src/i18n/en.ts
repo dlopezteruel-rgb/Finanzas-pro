@@ -1,6 +1,9 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "language.loading": "Loading {language}…",
+  "language.loadError": "Could not load {language}. The previous language is preserved.",
+  "language.retry": "Retry loading",
   "common.skip": "Skip to content",
   "nav.label": "Main navigation",
   "nav.home": "Home",
