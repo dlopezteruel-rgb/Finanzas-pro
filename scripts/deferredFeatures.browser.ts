@@ -6,7 +6,7 @@ import {mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import {chromium,type Route} from 'playwright-core';
 import {DATA_KEY,makeBackup} from '../src/utils/backup';
 import {multilingualCatalogFixture} from './multilingualCatalogFixture';
-import {navigateModule} from './browserNavigation';
+import {navigateModule,selectPlanningArea} from './browserNavigation';
 import {translatorFor} from '../src/i18n';
 const deferred=()=>{let resolve!:()=>void;return {promise:new Promise<void>(r=>{resolve=r;}),resolve:()=>resolve()};};
 test('5E: módulos diferidos, recuperación y paneles visitados sin perder estado',{timeout:120000},async t=>{
@@ -30,6 +30,10 @@ test('5E: módulos diferidos, recuperación y paneles visitados sin perder estad
   const gate=deferred(),started=deferred();let attempts=0;
   const {c,p,raw}=await setup(390,async r=>{if(r.request().url().endsWith(filename('FinancialCharts'))){attempts++;if(attempts===1){started.resolve();await gate.promise;await r.abort('failed');return;}}await r.continue();});
   try{await p.locator('.financial-charts summary').first().click();await started.promise;await p.locator('.home-actions').getByRole('button',{name:translatorFor('es')('dashboard.anadir'),exact:true}).click();const dialog=p.getByRole('dialog',{name:'Movimiento',exact:true});await dialog.waitFor();const field=dialog.getByLabel(translatorFor('es')('transaction.concepto'),{exact:true});await field.fill('Borrador ficticio conservado');const handle=await field.elementHandle();gate.resolve();await p.locator('.deferred-feature [role=alert],.app-load-failure').waitFor();assert.equal(await handle!.evaluate(el=>el.isConnected&&(el as HTMLInputElement).value==='Borrador ficticio conservado'),true);assert.equal(await dialog.isVisible(),true);await p.keyboard.press('Escape');const failure=p.locator('.financial-charts .deferred-feature');await p.evaluate(axe);const audit=await p.evaluate(async()=>await(window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));observations.push({surface:'chart-load-error',language:'es',width:390,theme:'dark',violations:audit.violations,incomplete:audit.incomplete});assert.deepEqual(audit.violations,[]);await failure.getByRole('button',{name:translatorFor('es')('loading.retry'),exact:true}).click();await p.locator('.chart-controls').first().waitFor();assert.equal(attempts,2);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),raw);assert.deepEqual(await p.evaluate(()=>(window as any).__writes),[]);}finally{gate.resolve();await c.close();}
+ });
+
+ await t.test('módulo cacheado: cambiar mes no resuspende ni pierde el área elegida inmediatamente',async()=>{
+  const {c,p,raw,requests}=await setup(390);try{await navigateModule(p,'Presupuestos');const planning=p.getByRole('region',{name:'Planificación financiera',exact:true});await planning.waitFor();await planning.getByLabel('Mes de planificación',{exact:true}).fill('2026-12');await selectPlanningArea(p,'Multiperiodo');await planning.getByRole('region',{name:'Automatización de planificación',exact:true}).getByRole('button',{name:'Copiar planificación',exact:true}).waitFor();assert.equal(requests.filter(r=>r.endsWith(filename('PlanningView'))).length,1);assert.equal(await p.locator('.deferred-feature:visible').count(),0);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),raw);assert.deepEqual(await p.evaluate(()=>(window as any).__writes),[]);}finally{await c.close();}
  });
 
 });
