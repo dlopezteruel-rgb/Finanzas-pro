@@ -21,7 +21,7 @@ export function ConfirmDeleteDialog({ report, source, onConfirm, onCancel, confi
   const blocked = !report.exists || report.blockers.length > 0;
   return <SafeDialog title={shown.title} onCancel={close}>
     <p className="text-sm"><I18nText id="confirm_delete_dialog.se_eliminara" values={{ name: (<strong>{shown.name}</strong>) }} /></p>
-    <div className="space-y-2 text-xs" aria-label={uiText("confirm_delete_dialog.relaciones_y_alcance_de_la_eliminacion")}>
+    <div className="space-y-2 text-xs" role="group" aria-label={uiText("confirm_delete_dialog.relaciones_y_alcance_de_la_eliminacion")}>
       {shown.relations.length ? <><p>{uiText("confirm_delete_dialog.algunas_categorias_se_solapan_sus_cantidades_no_se_suman")}</p><ul className="space-y-2">{shown.relations.map(r => <li key={r.label}>
         <strong>{r.label}: {formatting.formatNumber(r.count)}</strong>{r.examples.length > 0 && <p className="break-words text-slate-400">{r.examples.join(' · ')}{r.count > r.examples.length ? uiCount("more", r.count - r.examples.length) : ''}</p>}
       </li>)}</ul></> : <p>{uiText("confirm_delete_dialog.no_hay_referencias_vinculadas_que_impidan_la_eliminacion")}</p>}

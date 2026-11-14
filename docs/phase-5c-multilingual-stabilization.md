@@ -10,7 +10,7 @@ Este documento es un registro en curso. Los apartados sin resultado final explí
 
 ## Línea base
 
-`npm ci`: 188 paquetes, sin cambios de dependencias ni lockfile. `npm test`: **515/515**, cero fallos/omisiones/cancelaciones/pendientes. Infraestructura CI: **22/22**. Lint y build correctos; aviso de chunks >500 kB presente. La batería Chromium completa inicial está en ejecución y se registrará al terminar.
+`npm ci`: 188 paquetes, sin cambios de dependencias ni lockfile. `npm test`: **515/515**, cero fallos/omisiones/cancelaciones/pendientes. Infraestructura CI: **22/22**. Lint y build correctos; aviso de chunks >500 kB presente. Chromium inicial: **655/655, 34 suites**, cero fallos/omisiones/cancelaciones/pendientes. Axe general: **128 superficies, 0 violaciones, 132 grupos incompletos locales**. [Resultados de línea base](phase-5c-baseline-results.json).
 
 Referencia remota 5B, distinta de esta nueva validación: [ejecución 43539598118](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43539598118), SHA `d12fadb7084cda7579bd74e4684acbdba68f8351`. Sus artefactos se conservan y el ZIP de navegador tiene SHA-256 `780ea2053559e4c6f1fd51d078c47d5852b4d25c1dd1814ad4ce6363a3935fb7`. Contenía 655 resultados en 34 suites, axe general 128 superficies/136 grupos incompletos y matrices 1217 observaciones/1527 grupos incompletos; cero violaciones automáticas.
 
@@ -33,13 +33,18 @@ Las matrices existentes recorren los cinco idiomas y ambos temas de la aplicaci�
 
 | ID | Gravedad | Reproducción y resultado previo | Resultado esperado / corrección | Estado y prueba |
 | --- | --- | --- | --- | --- |
-| 5C-01 | P2 | Abrir landing: no hay control de idioma; requiere entrar en app para elegirlo | Reutilizar LanguageSelector, proveedor y preferencia; cambio inmediato y cabecera adaptable | Siete regresiones unitarias previas fallan como se esperaba; implementación pendiente |
+| 5C-01 | P2 | Abrir landing: no hay control de idioma; requiere entrar en app para elegirlo | Reutilizar LanguageSelector, proveedor y preferencia; cambio inmediato y cabecera adaptable | Implementado; cinco regresiones unitarias por idioma y matriz Chromium nueva |
 | 5C-02 | P2 | Brand tiene aria-label sobre span sin rol; axe no puede establecer su soporte | Conservar texto visible y descripción, eliminar nombre ARIA redundante | Reproducido en DOM/axe y unitaria previa |
-| 5C-03 | P2 | Inicio etiqueta un div de controles sin rol; casos recientes de partida usan el mismo patrón | Dar rol group al grupo de botones ya etiquetado | Reproducido en axe; regresión Chromium preparada |
+| 5C-03 | P2 | Contenedores con nombre sin rol: Inicio, Movimientos, Deudas, recientes, reparto, liquidaciones y alcance del borrado | Dar rol group a los grupos ya etiquetados, sin cambiar contenido ni acciones | Reproducido en axe; regresiones Chromium en cinco idiomas |
 | 5C-04 | P2 | Selector de partida cerrado anuncia aria-controls a un listbox aún no montado | Referenciar la lista solo cuando existe; mantener apertura, Escape y foco | Reproducido en axe y unitaria previa |
 | 5C-05 | Pendiente manual | Contraste no determinable sobre glifos, SVG y capas/scroll | Conservar evidencia detallada, distinguir mecanismos y revisar ejemplos | No equivale a infracción ni a revisión manual aprobada |
+| 5C-06 | P2 | Abrir selector de partida en Movimiento: listbox contiene li implícitos y opciones con padre incompatible; tres reglas axe fallan | Marcar los li como presentación; las opciones conservan sus roles y teclado | Reproducción real en nueva auditoría abierta; corrección semántica localizada |
 
-No se incorporan correcciones financieras ni refactorizaciones especulativas. Los fallos de pruebas nuevas antes del cambio son reproducciones intencionadas, separados de los resultados finales.
+No se incorporan correcciones financieras ni refactorizaciones especulativas. Los siete fallos unitarios nuevos sobre la base son reproducciones intencionadas, separados de los resultados finales. La primera pasada nueva de Chromium terminó 40/42 por una etiqueta mal escrita en el propio test (faltaban mayúscula y EUR); se corrigió usando la clave canónica. La siguiente terminó 40/42 y reveló el defecto real 5C-06: aria-required-children, aria-required-parent y listitem. No se relajan esas reglas. La distribución inicial de los controles nuevos se ajusta tras observar que se apilaban innecesariamente en escritorio; una aserción exige compartir fila a partir de 768 px.
+
+La auditoría general focalizada posterior a los primeros cambios completó **9/9 resultados y 128 superficies**, cero violaciones y **36 grupos incompletos solo de contraste**. La regresión de infraestructura i18n conservada completó **10/10**. Estos resultados focalizados no sustituyen la batería final completa.
+
+Checkpoint de implementación: **528/528 unitarias**, lint/build/diff-check correctos; nueva suite **42/42** tras la corrección del listbox y de la fila de controles en escritorio. Incluye 30 combinaciones de idioma/resolución/tema de origen, dos pestañas reales con borrador y foco conservados, cinco recorridos de grupos accesibles y cinco escenarios de almacenamiento. El selector conserva IDs y ayudas del menú anterior y añade una apariencia de landing con los nombres nativos. Reutiliza exclusivamente useI18n/setLanguage: no hay nueva clave, proveedor, traducción, parser ni escritura financiera. El select nativo expone su valor y lang cambia con el proveedor; los fallos de persistencia siguen anunciándose mediante role=status.
 
 ## Axe: clasificación del legado de 5B
 

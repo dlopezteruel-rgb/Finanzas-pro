@@ -609,7 +609,7 @@ export default function App() {
       {/* Main Content Viewport */}
       <main id="app-content" tabIndex={-1} data-module={activeTab} className="app-main flex-1">
         {activeTab === 'dashboard' && (<>
-          <div className="finance-actions" aria-label={uiText("app.secciones_de_inicio")}><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>{uiText("app.resumen_financiero")}</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>{uiText("app.proximos_30_dias")}</button></div>
+          <div className="finance-actions" role="group" aria-label={uiText("app.secciones_de_inicio")}><button aria-pressed={homeTab==='overview'} onClick={()=>setHomeTab('overview')}>{uiText("app.resumen_financiero")}</button><button aria-pressed={homeTab==='treasury'} onClick={()=>setHomeTab('treasury')}>{uiText("app.proximos_30_dias")}</button></div>
           {homeTab==='treasury'?<TreasuryView data={data} navigate={(source,id)=>{if(source==='planning')changeTab('budgets');else if(source==='personal'||source==='loan')changeTab('loans');else if(source==='recurring')openLinkedOccurrence(id);else openLinkedTransaction(id);}}/>:<>
           <p className="planning-card"><I18nText id="app.cobros_pendientes_obligaciones_pendientes_separados_del_saldo_bancario" values={{ receivables: (formatCents(obligationOverview(data).filter(o=>o.direction==='receivable').reduce((n,o)=>n+o.remainingCents,0))), payables: (formatCents(obligationOverview(data).filter(o=>o.direction==='payable').reduce((n,o)=>n+o.remainingCents,0))) }} /></p>
           <DashboardView
@@ -632,7 +632,7 @@ export default function App() {
         </>)}
 
         {activeTab === 'transactions' && (<>
-          <div className="finance-actions" aria-label={uiText("app.secciones_de_movimientos")}><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>{uiText("app.movimientos_registrados")}</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>{uiText("app.movimientos_periodicos")}</button></div>
+          <div className="finance-actions" role="group" aria-label={uiText("app.secciones_de_movimientos")}><button aria-pressed={movementTab==='ledger'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('ledger');}}>{uiText("app.movimientos_registrados")}</button><button aria-pressed={movementTab==='recurring'} onClick={()=>{setFocusedTransactionId(null);setFocusedOccurrenceId(null);setMovementTab('recurring');}}>{uiText("app.movimientos_periodicos")}</button></div>
           {movementTab==='recurring'?<RecurringMovementsView key={currentMonthYear} data={data} month={currentMonthYear} focusedOccurrenceId={focusedOccurrenceId} mutate={mutate} onEdit={handleOpenEditTransaction}/>:<>
           <ChartSlot data={data} month={currentMonthYear} kind="movements" initialFilter={chartNavigation}/>
           <TransactionsView

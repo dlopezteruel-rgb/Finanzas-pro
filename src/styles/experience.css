@@ -107,7 +107,11 @@ button:disabled { cursor: not-allowed; }
 .button-secondary { color: var(--ink); background: var(--surface); border-color: var(--field-line); }
 .landing { --canvas: #F7F4EF; --surface: #fff; --ink: #172B4D; --muted: #5A6472; --brand: #A63D4D; --brand-hover: #8B3040; --line: #D7DCE2; --field-line: #7C8795; color: var(--ink); background: var(--canvas); }
 .landing-header, .landing-footer, .landing main { max-width: 1240px; margin-inline: auto; padding-inline: clamp(20px,4vw,48px); }
-.landing-header { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; }
+.landing-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; }
+.landing-header-controls { display: flex; flex: 0 1 25rem; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; max-width: 100%; margin-inline-start: auto; }
+.language-selector--landing { flex: 0 1 10rem; min-width: 0; max-width: 100%; }
+.language-selector--landing label { font-size: .875rem; }
+.landing-language-input { width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid var(--field-line); border-radius: 10px; color: var(--ink); background: var(--surface); font-size: 1rem; color-scheme: light; }
 .landing-hero { display: grid; gap: 48px; align-items: center; padding: 64px 0 80px; }
 .eyebrow { color: var(--brand); font-size: .75rem; font-weight: 700; letter-spacing: .12em; margin: 0 0 20px; }
 .landing h1 { font-size: clamp(2.5rem,4vw,3.75rem); line-height: 1.12; letter-spacing: -.045em; font-weight: 700; margin: 0 0 24px; max-width: 15ch; }
@@ -126,6 +130,7 @@ button:disabled { cursor: not-allowed; }
 @keyframes loading-breathe { from { opacity: .4; transform: scaleX(.65); } to { opacity: 1; transform: scaleX(1); } }
 @media(min-width:900px) { .landing-hero { grid-template-columns: 1fr 1.15fr; }.benefits-grid { grid-template-columns: repeat(3,1fr); }.landing-data { grid-template-columns: 1fr 1.5fr; } }
 @media(max-width:767px) {
+  .landing-header-controls { width: 100%; justify-content: space-between; }
   .finance-app .app-header-inner { grid-template-columns: 1fr auto; gap: 10px; min-height: 0; padding-block: 12px; }
   .header-period { grid-column: 1 / -1; grid-row: 2; }.header-period .period-selector { justify-content: space-between; gap: 4px; }.period-selector > button { min-width: 44px; padding: 6px; }.period-selector > select { flex: 1; width: auto; max-width: none; font-size: 1rem; }
   .brand img { width: 32px; height: 32px; }.brand-wordmark { font-size: 1.25rem; }.brand-description { display: none; }
