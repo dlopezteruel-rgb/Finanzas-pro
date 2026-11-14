@@ -84,7 +84,7 @@ test('experiencia visual: rutas, carga real, móvil y protección de datos', { t
       assert.equal(await saved(p), before); assert.equal(await p.evaluate(() => (window as any).visualWrites), 0);
       const labels = await nav.locator('.nav-button > span:not(.nav-badge)').evaluateAll(elements => elements.map(el => parseFloat(getComputedStyle(el).fontSize)));
       assert.ok(labels.every(size => size >= 12));
-      assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
+      assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true);
     } finally { await s.close(); }
   });
 
@@ -130,7 +130,7 @@ test('experiencia visual: rutas, carga real, móvil y protección de datos', { t
     try {
       await s.p.goto(`${origin}/app`); await s.p.getByLabel('Seleccionar periodo contable').waitFor();
       for (const label of ['Inicio', 'Movimientos', 'Presupuestos', 'Cuentas', 'Contactos', 'Deudas', 'Asistente']) {
-        await navigateModule(s.p, label); assert.equal(await s.p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true, label);
+        await navigateModule(s.p, label); assert.equal(await s.p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true, label);
         const labelsFit = await s.p.locator('.mobile-nav-items .nav-button > span:not(.nav-badge)').evaluateAll(elements => elements.every(el => {
           const bounds = el.getBoundingClientRect(), button = el.parentElement!.getBoundingClientRect();
           return bounds.width <= button.width - 2 && bounds.height <= parseFloat(getComputedStyle(el).lineHeight) + 1;

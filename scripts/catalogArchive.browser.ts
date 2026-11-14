@@ -64,7 +64,7 @@ test('Revisión PR #22: archivo económico y confirmación de reglas activas',{t
       const archived=JSON.parse((await raw())!);for(const field of ['transactions','budgetPlans','budgetSubitems','planningAutomation','intelligentFinance'])assert.deepEqual(archived[field],original[field]);
       const results=await p.evaluate(kind=>(globalThis as any).runArchiveProbe('economics',kind),kind);for(const result of results){assert.equal(result.rejected,true);assert.equal(result.unchanged,true);assert.match(result.error,/solo lectura/);}
       await p.getByRole('button',{name:`Reactivar ${kind} ${name}`,exact:true}).click();await archive.waitFor();const active=JSON.parse((await raw())!);for(const field of ['transactions','budgetPlans','budgetSubitems','planningAutomation','intelligentFinance'])assert.deepEqual(active[field],original[field]);
-      assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+      assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true);
     }finally{await s.close();}
   });
   await t.test('alcance obsoleto: dos mutaciones del mismo FinanceStore en cola bajo Web Locks',async()=>{

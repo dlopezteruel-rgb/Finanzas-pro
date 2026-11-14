@@ -5,7 +5,7 @@ import {assistantContexts} from '../../scripts/assistantFixture';
 import {financialAssistantContext,localFinancialAdvice,assistantServiceContext} from '../utils/financialAssistant';
 import {languages,translatorFor,type Language} from './messages';
 import {presentationFormatters} from './presentation';
-import {assistantPresentation,assistantPrompts,quickEntryPrompts} from './assistantMessages';
+import {assistantServiceReplyForDisplay,assistantPresentation,assistantPrompts,quickEntryPrompts} from './assistantMessages';
 import {naturalInputText} from './naturalMessages';
 import {readNaturalInput} from '../utils/naturalInput';
 import {classifyChatIntent,proposeChatMovement} from '../utils/chatRegistration';
@@ -23,4 +23,12 @@ for(const language of Object.keys(languages) as Language[])test(`asistente ${lan
  assert.deepEqual(quickEntryPrompts.map(p=>p.text),['Ayer cené fuera por 15,50 € con Openbank','Nómina mensual cobrada 2650 € en Santander','Compra supermercado 84,30 € con Openbank','Gasolina Repsol 55 € con Revolut','Compré libros por 42 € en efectivo']);
  for(const text of ['No registres un gasto de 15 €','¿He gastado 15 €?','Registra un gasto de 1.500 €','Registra un gasto de 5 € ayer y hoy']){const raw=readNaturalInput(text,new Date('2026-11-13T12:00:00Z'));assert.equal(raw.ok,false);if(!raw.ok){assert.equal(naturalInputText(raw.error,t).includes('{reason}'),false);assert.equal(naturalInputText(raw.error,t).length>0,true);}assert.equal(proposeChatMovement(text,data.wallets,data.budgetGroups.flatMap(g=>g.partidas)),null);}
  assert.equal(classifyChatIntent(assistantPrompts[0].text),'query');assert.equal(classifyChatIntent(assistantPrompts[4].text),'registration');assert.equal(naturalInputText('Dato personal {amount}$&',t),'Dato personal {amount}$&');assert.deepEqual(assistantServiceContext(contexts.standard),baseline.serviceContexts.standard);assert.equal(JSON.stringify({data,contexts}),before);
+});
+
+test('asistente: el eco exacto del fallback propio se presenta en vivo; una respuesta externa parecida permanece literal',()=>{
+ const {data,contexts}=assistantContexts(),context=contexts.standard,raw=localFinancialAdvice(context,'resumen')!,before=JSON.stringify({data,context}),payload=assistantServiceContext(context),shown=assistantServiceReplyForDisplay(raw,raw,context,data);
+ assert.equal(typeof shown,'function');
+ if(typeof shown==='function')for(const language of Object.keys(languages) as Language[]){const view=assistantPresentation(translatorFor(language),presentationFormatters(language),data);assert.equal(shown(view),localFinancialAdvice(context,'resumen',view));}
+ for(const external of ['Respuesta externa literal {amount}$&',raw+'\nRespuesta externa sin traducir'])assert.equal(assistantServiceReplyForDisplay(external,raw,context,data),external);
+ assert.equal(assistantServiceReplyForDisplay(raw,null,context,data),raw);assert.deepEqual(assistantServiceContext(context),payload);assert.equal(localFinancialAdvice(context,'resumen'),raw);assert.equal(JSON.stringify({data,context}),before);
 });

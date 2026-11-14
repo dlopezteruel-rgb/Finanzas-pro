@@ -63,7 +63,7 @@ test('3A: planificación, aprobación y compatibilidad en Chromium aislado', {ti
       await page.evaluate(()=>(window as any).releasePlan());await dialog(page).waitFor({state:'hidden'});const result=await saved(page);assert.equal(result.version,'2.9');assert.equal(result.planningMonths[0].approval.number,1);assert.equal(result.planningMonths[0].approval.totals.margin,20000);assert.deepEqual(result.transactions,before.transactions);assert.deepEqual(result.wallets,before.wallets);
       assert.equal(await page.evaluate(prefix=>Object.keys(localStorage).filter(k=>k.startsWith(prefix)).length,RECOVERY_PREFIX),1);
       await editor(page).getByRole('button',{name:'Ver resumen anual'}).click();assert.match((await editor(page).textContent()) ?? '',/Cobertura 1\/12/);
-      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true,'sin desbordamiento horizontal global');
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true,'sin desbordamiento horizontal global');
       await page.reload();await nav(page,'Presupuestos');await editor(page).getByLabel('Mes de planificación').fill('2028-02');assert.match((await editor(page).textContent()) ?? '',/Aprobado/);assert.equal((await saved(page)).planningMonths[0].approval.number,1);
     }finally{await s.close()}
   });

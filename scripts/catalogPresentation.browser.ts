@@ -55,7 +55,7 @@ test('Checkpoint A: presentación personal y borrador compartido', {timeout:1800
       }
       const last=annual.getByRole('checkbox').last();await last.check();assert.equal(await annual.getByRole('checkbox',{checked:true}).count(),4);await last.uncheck();
       assert.ok(await textContrast(annual.locator('.chart-series-label').first())>=4.5);
-      assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+      assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1));
       await capture('graficos');
       await p.getByRole('tab',{name:'Catálogo y detalle de partidas',exact:true}).click();
       const opener=p.getByRole('button',{name:'Ver partida Comida ficticia',exact:true});await opener.click();
@@ -69,7 +69,7 @@ test('Checkpoint A: presentación personal y borrador compartido', {timeout:1800
       await p.getByRole('button',{name:'Detalle de Contacto ficticio bea',exact:true}).click();
       assert.match(await interior.innerText(),/15,00/);assert.match(await interior.innerText(),/Cena ficticia/);
       assert.ok(await textContrast(interior)>=4.5);
-      assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(await snapshot(),before);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+      assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1));assert.deepEqual(await snapshot(),before);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
     }finally{await context.close();}
   });
 });

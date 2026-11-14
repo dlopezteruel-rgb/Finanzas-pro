@@ -4,7 +4,7 @@
   "status": "in-progress-not-a-completeness-certificate",
   "currentCounts": {
     "type-or-import": 871,
-    "review": 2994,
+    "review": 2996,
     "ui-message-candidate": 359,
     "attribute-internal": 2091,
     "translation-key": 1468,
@@ -641,29 +641,29 @@
     {
       "file": "src/components/AssistantChatView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "324ce6f9a3b0c2bf65dcaa3e10f4320bc9be612b30d28961ed8b4532f6fbbe01",
+      "sourceSha256": "93b7c7f14878a6e46d2db3cf1302a7e7ee1b8bcac68f4a4f9ab60de32ac1104c",
       "counts": {
         "type-or-import": 23,
-        "review": 25,
+        "review": 27,
         "translation-key": 25,
         "ui-message-candidate": 2,
         "attribute-internal": 43
       },
       "visibleCandidateLines": [
         76,
-        253
+        256
       ],
       "presentationCalls": [
         {
-          "line": 267,
+          "line": 270,
           "name": "formatCurrency"
         },
         {
-          "line": 267,
+          "line": 270,
           "name": "formatCurrency"
         },
         {
-          "line": 267,
+          "line": 270,
           "name": "formatCurrency"
         }
       ]
@@ -1356,7 +1356,7 @@
     {
       "file": "src/components/QuickNaturalLanguageInput.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "d2afb37f31b177d98fd690cdf928e2bcba1eb5e32dd1e2bcea8e7334c6a7e3eb",
+      "sourceSha256": "bb265f07acc3ccfed959cf20908d0ccb3ab7f282bacb2a3c044d1d1542134015",
       "counts": {
         "type-or-import": 14,
         "review": 2,

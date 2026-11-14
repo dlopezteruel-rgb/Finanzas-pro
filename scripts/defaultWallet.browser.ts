@@ -39,7 +39,7 @@ async function newMovement(page: Page) { await nav(page, 'Inicio'); await page.g
 async function choose(page: Page, name: string, id: string) {
   await nav(page, 'Cuentas'); await page.getByRole('button', { name: `Usar como predeterminada ${name}`, exact: true }).click();
   await page.waitForFunction(({ key, id }) => JSON.parse(localStorage.getItem(key)!).defaultWalletId === id, { key: DATA_KEY, id });
-  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
+  assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true);
   if ((page.viewportSize()?.width ?? 0) >= 1100) assert.ok((await page.locator('.wallet-cards').boundingBox())!.width > page.viewportSize()!.width / 2, 'las tarjetas conservan la columna principal de escritorio');
 }
 
@@ -69,7 +69,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
         assert.equal(await dialog(p).getByRole('button', { name: 'Guardar Movimiento', exact: true }).isDisabled(), !count);
         await p.keyboard.press('Escape'); assert.equal(await raw(p), before);
         await nav(p, 'Cuentas'); await p.getByRole('region', { name: 'Cartera predeterminada' }).waitFor();
-        assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
+        assert.equal(await p.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true);
         assert.match(await p.getByRole('region', { name: 'Cartera predeterminada' }).innerText(), count ? /automática/ : /Crea una cartera/);
         assert.equal(await raw(p), before);
       } finally { await s.close(); }

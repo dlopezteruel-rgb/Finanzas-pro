@@ -173,8 +173,8 @@ export const QuickNaturalLanguageInput: React.FC<QuickInputProps> = ({
           <label className="block">{uiText("quick_natural_language_input.partida")}<select aria-label={uiText("quick_natural_language_input.partida_del_registro_rapido")} value={parsed.code} onChange={e=>{setPartidaChoice({text:inputText,code:e.target.value});setSubitemChoice(null);}}><option value="" disabled>{uiText("quick_natural_language_input.selecciona_una_partida")}</option>{partidas.filter(p=>p.type===parsed.type&&!p.archived&&!p.deleted).map(p=><option key={p.code} value={p.code}>{p.name}</option>)}</select></label>
           {!parsed.code&&<p role="status">{uiText("quick_natural_language_input.selecciona_una_partida_de_tu_catalogo_no_hay_una")}</p>}
           <SubitemSelector items={subitems} type={parsed.type} code={parsed.code} value={subitemChoice?.key===`${parsed.type}:${parsed.code}`?subitemChoice.id:''} onChange={id=>setSubitemChoice({key:`${parsed.type}:${parsed.code}`,id})}/>
-          <div className="flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
-            <div className="flex items-center gap-3">
+          <div className="quick-entry-metadata flex items-center justify-between text-[11px] text-slate-400 pt-1.5 border-t border-white/[0.06]">
+            <div className="quick-entry-fields flex items-center gap-3">
               <label>{uiText("quick_natural_language_input.cartera")}<select aria-label={uiText("quick_natural_language_input.cartera_del_registro_rapido")} value={parsed.wallet} onChange={e => setWalletChoice(wallets.find(w => w.name === e.target.value)?.id ?? '')}>
                 <option value="" disabled>{uiText("quick_natural_language_input.selecciona_una_cartera")}</option>{wallets.map(w => <option key={w.id} value={w.name}>{w.name}</option>)}
               </select></label>

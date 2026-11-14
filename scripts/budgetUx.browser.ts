@@ -124,7 +124,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
         const controlled = await expense.getByRole('button', { name: 'Gastos', exact: true }).getAttribute('aria-controls');
         assert.equal(await page.evaluate(id => document.getElementById(id!)?.hidden, controlled), true);
         assert.deepEqual(await snapshot(page), before);
-        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), true);
+        assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth), true);
         if (process.env.BUDGET_UX_ARTIFACT_DIR) {
           await page.evaluate(() => window.scrollTo(0, 0));
           await page.screenshot({ path: `${process.env.BUDGET_UX_ARTIFACT_DIR}/${mobile ? 'mobile' : 'desktop'}-${theme}.png`, fullPage: true });

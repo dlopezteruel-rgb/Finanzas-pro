@@ -51,7 +51,7 @@ test('Gráficos financieros locales: interacción, contabilidad y solo lectura',
       await nav(page,'Cuentas');await open(page,'Gráficos de Cuentas');const balances=chart(page,'Comparación de saldos actuales');assert.match(await balances.getByRole('table').innerText(),/BANCO.*3\.925,00/s);assert.match(await balances.getByRole('table').innerText(),/NEGATIVA.*-50,00/s);
       assert.equal(await balances.getByRole('combobox',{name:'Tipo de gráfico: Comparación de saldos actuales'}).getByRole('option',{name:'Anillo',exact:true}).count(),0);
       assert.match(await panel(page).innerText(),/no tienen fecha de referencia/);await panel(page).getByLabel('Cartera de gráficos').selectOption('OTRA');assert.match(await chart(page,'Variación bancaria acumulada registrada (no saldo histórico)').getByRole('table').innerText(),/25,00/);
-      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);
       assert.deepEqual(await allStorage(page),before);
       if(process.env.CHART_ARTIFACT_DIR){await chart(page,'Variación bancaria acumulada registrada (no saldo histórico)').locator('svg').scrollIntoViewIfNeeded();await page.screenshot({path:`${process.env.CHART_ARTIFACT_DIR}/wallets-${mobile?'mobile':'desktop'}-${theme}.png`})}
     }finally{await s.close()}

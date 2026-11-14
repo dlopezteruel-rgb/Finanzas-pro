@@ -26,7 +26,7 @@ test('Fase 4A: auditoría de siete módulos, diálogos y accesibilidad',{timeout
       async function inspect(surface:string){
         const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {headings:[...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].filter(el=>el.getClientRects().length&&!el.closest('[inert]')).map(el=>({level:Number(el.tagName.slice(1)),text:el.textContent?.trim()})),smallButtons:[...document.querySelectorAll('button')].filter(el=>!el.disabled&&!el.closest('[inert]')&&el.getClientRects().length).map(el=>({name:el.getAttribute('aria-label')||el.getAttribute('title')||el.textContent?.trim(),width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height})).filter(b=>b.width<44||b.height<44),violations:r.violations.map((v:any)=>({id:v.id,impact:v.impact,help:v.help,nodes:v.nodes.map((n:any)=>({target:n.target,summary:n.failureSummary}))})),incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length}))};});
         observations.push({width,theme,surface,...result});
-        assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true,`${surface}: overflow`);
+        assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true,`${surface}: overflow`);
         if(!auditOnly)assert.deepEqual(result.violations,[],`${surface}: axe violations`);
         if(captures){await mkdir(captures,{recursive:true});await p.screenshot({path:path.join(captures,`${width}-${theme}-${surface}.jpg`),type:'jpeg',quality:80,animations:'disabled'});}
       }

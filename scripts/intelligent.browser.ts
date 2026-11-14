@@ -1304,7 +1304,7 @@ test(
                 assert.equal(
                   await p.evaluate(
                     () =>
-                      document.documentElement.scrollWidth <= innerWidth + 1,
+                      document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1,
                   ),
                   true,
                   name,

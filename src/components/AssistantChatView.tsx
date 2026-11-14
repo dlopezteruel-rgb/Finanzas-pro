@@ -1,4 +1,4 @@
-import {assistantPresentation,assistantPrompts,adviceForDisplay,type AssistantDisplay} from '../i18n/assistantMessages';
+import {assistantServiceReplyForDisplay,assistantPresentation,assistantPrompts,adviceForDisplay,type AssistantDisplay} from '../i18n/assistantMessages';
 import {storageOwnedText} from '../i18n/storageMessages';
 import {naturalInputText} from '../i18n/naturalMessages';
 import {useI18n, I18nText } from "../i18n";
@@ -227,6 +227,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
 
     // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
+      const fallbackReply=localFinancialAdvice(context,'resumen');
       const response = await fetch(paths.assistant, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -234,18 +235,20 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
           message: text,
           summary,
           financialContext:assistantServiceContext(context),
-          fallbackReply:localFinancialAdvice(context,'resumen'),
+          fallbackReply,
         }),
       });
 
       const data = await response.json();
       if (data && data.reply) {
+        const shown=assistantServiceReplyForDisplay(data.reply,fallbackReply,context,financeData);
         setMessages(prev => [
           ...prev,
           {
             id: `bot-${Date.now()}`,
             sender: 'assistant',
-            text: data.reply,
+            text: typeof shown==='string'?shown:'',
+            display: typeof shown==='function'?shown:undefined,
             time: new Date().toISOString(),
           },
         ]);

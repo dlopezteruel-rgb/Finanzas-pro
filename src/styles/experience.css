@@ -188,3 +188,8 @@ button:disabled { cursor: not-allowed; }
 .quick-entry-notice { background: var(--surface); color: var(--success); border: 1px solid var(--success); }
 
 .quick-entry-notice > span { min-width: 0; overflow-wrap: anywhere; }
+
+/* Translated captions and personal account names must not widen the mobile viewport. */
+.quick-entry-metadata, .quick-entry-fields { flex-wrap: wrap; gap: .5rem .75rem; min-width: 0; }
+.quick-entry-metadata > *, .quick-entry-fields { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+.quick-entry-fields label { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem .5rem; min-width: 0; max-width: 100%; }

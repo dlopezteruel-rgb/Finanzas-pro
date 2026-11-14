@@ -35,3 +35,8 @@ export type AssistantDisplay=ReturnType<typeof assistantPresentation>;
 export function adviceForDisplay(context:FinancialAssistantContext,message:string,view:AssistantDisplay,sourceData:FinanceData):string|null{
  return localFinancialAdvice(context,message,{...view,warning:value=>treasuryWarningText(value,sourceData,'',view.text,view.format.formatDate),itemName:item=>assistantItemName(item,sourceData,view.text,view.number)});
 }
+
+/** Only the exact fallback sent by this request is owned UI; all other replies stay literal. */
+export function assistantServiceReplyForDisplay(reply:string,sentFallback:string|null,context:FinancialAssistantContext,sourceData:FinanceData):string|((view:AssistantDisplay)=>string){
+ return sentFallback!==null&&reply===sentFallback?view=>adviceForDisplay(context,'resumen',view,sourceData)!:reply;
+}
