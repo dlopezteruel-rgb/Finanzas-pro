@@ -1,6 +1,8 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "feature.loading": "Loading {name}…",
+  "feature.error": "Could not load {name}. Data and open forms are preserved.",
   "language.loading": "Loading {language}…",
   "language.loadError": "Could not load {language}. The previous language is preserved.",
   "language.retry": "Retry loading",

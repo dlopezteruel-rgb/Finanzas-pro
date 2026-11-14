@@ -13,6 +13,8 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "feature.loading": "Cargando {name}…",
+  "feature.error": "No se pudo cargar {name}. Los datos y los formularios abiertos se conservan.",
   "language.loading": "Cargando {language}…",
   "language.loadError": "No se pudo cargar {language}. Se conserva el idioma anterior.",
   "language.retry": "Reintentar carga",

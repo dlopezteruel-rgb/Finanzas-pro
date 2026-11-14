@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 915,
-    "review": 3066,
+    "type-or-import": 909,
+    "review": 3085,
     "ui-message-candidate": 379,
-    "attribute-internal": 2126,
-    "translation-key": 1485,
+    "attribute-internal": 2131,
+    "translation-key": 1488,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -569,37 +569,37 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "d83ae7723d8ffe4711f3f384e7e108da3d370f7953107a0d3c5926122c4ab6ba",
+      "sourceSha256": "14ae5a8f58f64a571a4c06dcf0f1cf0796244d7cb197aa4d0212908bb3b9e5a0",
       "counts": {
-        "type-or-import": 69,
-        "review": 51,
+        "type-or-import": 61,
+        "review": 69,
         "ui-message-candidate": 23,
         "attribute-internal": 73,
         "translation-key": 34
       },
       "visibleCandidateLines": [
-        165,
-        166,
-        179,
-        181,
-        314,
-        316,
-        320,
-        348,
-        368,
-        422,
-        489,
-        495,
-        520,
-        524,
-        537,
+        168,
+        169,
+        182,
+        184,
+        317,
+        319,
+        323,
+        351,
+        371,
+        425,
+        492,
+        498,
+        523,
+        527,
         540,
-        658,
-        660,
-        665,
-        666,
-        667,
-        668
+        543,
+        661,
+        663,
+        668,
+        669,
+        670,
+        671
       ],
       "presentationCalls": []
     },
@@ -674,10 +674,10 @@
     {
       "file": "src/components/BudgetWorkspace.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "fe6edc9dba2beff671dd5db48a2d5f20978c9a6d91bcf10a61d6c0b870a2cc16",
+      "sourceSha256": "88afe038aae9cd159a856cda45b22839c720adfad7b2023590220e131b6bb842",
       "counts": {
         "type-or-import": 4,
-        "review": 8,
+        "review": 9,
         "attribute-internal": 21,
         "translation-key": 4
       },
@@ -974,6 +974,18 @@
         245,
         246
       ],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/components/DeferredFeature.tsx",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "d738ff28e143ddde735e4f07073a0c855c5a80af5a2dc3ca1ab503d47fbcc5c9",
+      "counts": {
+        "type-or-import": 2,
+        "attribute-internal": 5,
+        "translation-key": 3
+      },
+      "visibleCandidateLines": [],
       "presentationCalls": []
     },
     {

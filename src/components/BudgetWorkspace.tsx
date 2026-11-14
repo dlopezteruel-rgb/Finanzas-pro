@@ -7,7 +7,7 @@ const tabs = [
   { id: 'catalog', label: 'budget_workspace.catalogTab', accessibleLabel: 'budget_workspace.catalogo_y_detalle_de_partidas' },
 ] as const;
 
-/** Both panels stay mounted. Selection/scroll are session UI state, never finance data. */
+/** Visited panels stay mounted; catalogue code is only requested on first visit. Selection/scroll are session UI state, never finance data. */
 export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
   planning: React.ReactNode;
   catalog: React.ReactNode;
@@ -16,6 +16,7 @@ export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
 }) {
   const { t: uiText } = useI18n();
   const [selected, setSelected] = useState<BudgetTab>('planning');
+  const [catalogVisited, setCatalogVisited] = useState(false);
   const buttons = useRef<Partial<Record<BudgetTab, HTMLButtonElement | null>>>({});
   const scroll = useRef<Record<BudgetTab, number>>({ planning: 0, catalog: 0 });
   const changed = useRef(false);
@@ -24,6 +25,7 @@ export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
     navigate(() => {
       scroll.current[selected] = window.scrollY;
       changed.current = true;
+      if (next === 'catalog') setCatalogVisited(true);
       setSelected(next);
     });
   };
@@ -51,7 +53,7 @@ export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
     <div id="budget-panel-planning" role="tabpanel" aria-labelledby="budget-tab-planning" tabIndex={0} hidden={selected !== 'planning'}>{planning}</div>
     <div id="budget-panel-catalog" role="tabpanel" aria-labelledby="budget-tab-catalog" tabIndex={0} hidden={selected !== 'catalog'}>
       <h2 className="text-lg font-bold mb-3">{uiText("budget_workspace.catalogo_y_detalle_de_partidas")}</h2>
-      {catalog}
+      {catalogVisited && catalog}
     </div>
   </section>;
 }

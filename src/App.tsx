@@ -5,7 +5,6 @@ import {pluralCategory} from './i18n/messages';
 import {storageOwnedText} from './i18n/storageMessages';
 import {madridDate} from './utils/financialCalendar';
 import {applyCatalogReorder} from './utils/catalogReorder';
-import {CatalogManager} from './components/CatalogManager';
 import {classificationCatalog} from './utils/budgetCatalog';
 import { editSubitem, monthlySubitems, type SubitemEdit } from './utils/budgetSubitems';
 /**
@@ -54,15 +53,9 @@ import { TransactionsView } from './components/TransactionsView';
 import { ChartSlot } from './components/charts/ChartSlot';
 import type { EconomicFilter } from './utils/chartData';
 import { BudgetWorkspace } from './components/BudgetWorkspace';
-import { PlanningView } from './components/PlanningView';
 import { effectiveBudgetPlans, planningBudgetRows, planningCatalog } from './utils/planningBasis';
 import { applyAutomationPreview } from './utils/planningAutomation';
 import { savePlanning, planCents } from './utils/planning';
-import { BudgetsView } from './components/BudgetsView';
-import { LoansView } from './components/LoansView';
-import { WalletsView } from './components/WalletsView';
-import { ContactsView } from './components/ContactsView';
-import { AssistantChatView } from './components/AssistantChatView';
 import { TransactionModal } from './components/TransactionModal';
 import { PartidaDetailModal } from './components/PartidaDetailModal';
 import { ConfirmClearModal, ClearDataOptions } from './components/ConfirmClearModal';
@@ -77,11 +70,21 @@ import { deleteTransfer, isLegacyTransfer, legacyTransferReport, migrateLegacyTr
 import { changePartidaGroup, duplicatePartida, reorderPartida } from './utils/budgetChanges';
 import { chooseDefaultWallet } from './utils/defaultWallet';
 import { TransferModal } from './components/TransferModal';
-import { TreasuryView } from './components/TreasuryView';
 import { liquidBalanceCents } from './utils/treasury';
 import { obligationOverview } from './utils/personalObligations';
-import { DebtsWorkspace } from './components/DebtsWorkspace';
 import { RecurringMovementsView } from './components/RecurringMovementsView';
+
+import {deferredFeature} from './components/DeferredFeature';
+
+const PlanningView = deferredFeature(() => import('./components/PlanningView').then(module => ({default: module.PlanningView})), 'planning.planificacion_financiera');
+const CatalogManager = deferredFeature(() => import('./components/CatalogManager').then(module => ({default: module.CatalogManager})), 'catalog_manager.gestion_del_catalogo');
+const BudgetsView = deferredFeature(() => import('./components/BudgetsView').then(module => ({default: module.BudgetsView})), 'budget_workspace.catalogo_y_detalle_de_partidas');
+const LoansView = deferredFeature(() => import('./components/LoansView').then(module => ({default: module.LoansView})), 'nav.debts');
+const ContactsView = deferredFeature(() => import('./components/ContactsView').then(module => ({default: module.ContactsView})), 'nav.contacts');
+const AssistantChatView = deferredFeature(() => import('./components/AssistantChatView').then(module => ({default: module.AssistantChatView})), 'nav.assistant');
+const TreasuryView = deferredFeature(() => import('./components/TreasuryView').then(module => ({default: module.TreasuryView})), 'app.proximos_30_dias');
+const DebtsWorkspace = deferredFeature(() => import('./components/DebtsWorkspace').then(module => ({default: module.DebtsWorkspace})), 'nav.debts');
+const WalletsView = deferredFeature(() => import('./components/WalletsView').then(module => ({default: module.WalletsView})), 'nav.accounts');
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, catalogNames:systemCatalogNames(), transactions: INITIAL_TRANSACTIONS,

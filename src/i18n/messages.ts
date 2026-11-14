@@ -12,7 +12,7 @@ import { es } from './es';
 export { es } from './es';
 export type MessageKey = keyof typeof es;
 export type Messages = Record<MessageKey, string>;
-export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es };
+export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es: Object.freeze(es) };
 // Availability is the reviewed product contract; loading is a separate runtime state.
 const loaders: Record<Exclude<Language, 'es'>, () => Promise<Messages>> = {
   en: () => import('./en').then(module => module.en),
@@ -24,7 +24,7 @@ const pending = new Map<Language, Promise<Readonly<Messages>>>();
 const validity = new WeakMap<object, boolean>();
 function valid(dictionary: Readonly<Messages>): boolean {
   let result = validity.get(dictionary);
-  if (result === undefined) { result = validateDictionary(Object.entries(dictionary)).length === 0; validity.set(dictionary, result); }
+  if (result === undefined) { result = validateDictionary(Object.entries(dictionary)).length === 0; if (Object.isFrozen(dictionary)) validity.set(dictionary, result); }
   return result;
 }
 export const isDictionaryLoaded = (language: Language) => !!dictionaries[language];

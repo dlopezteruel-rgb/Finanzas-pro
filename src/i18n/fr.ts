@@ -1,6 +1,8 @@
 import type { Messages } from './messages';
 
 export const fr = {
+  "feature.loading": "Chargement de {name}…",
+  "feature.error": "Impossible de charger {name}. Les données et les formulaires ouverts sont conservés.",
   "language.loading": "Chargement de {language}…",
   "language.loadError": "Impossible de charger {language}. La langue précédente est conservée.",
   "language.retry": "Réessayer le chargement",
