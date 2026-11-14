@@ -64,7 +64,7 @@ export const fr = {
   "language.label": "Langue",
   "language.available": "disponible",
   "language.planned": "prochainement",
-  "language.help": "Les autres langues seront disponibles après vérification de leurs traductions.",
+  "language.help": "La langue modifie uniquement l’interface. Vos données conservent leur texte d’origine. La saisie libre de l’assistant conserve la reconnaissance existante en espagnol.",
   "language.storageError": "La préférence reste active dans cet onglet, mais n’a pas pu être enregistrée dans ce navigateur.",
   "theme.switch": "Passer au mode {mode}",
   "theme.title": "Mode {mode}",

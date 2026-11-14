@@ -64,7 +64,7 @@ export const it = {
   "language.label": "Lingua",
   "language.available": "disponibile",
   "language.planned": "prossimamente",
-  "language.help": "Le altre lingue saranno disponibili dopo la verifica delle traduzioni.",
+  "language.help": "La lingua cambia solo l’interfaccia. I tuoi dati mantengono il testo originale. La scrittura libera nell’assistente mantiene il riconoscimento esistente in spagnolo.",
   "language.storageError": "La preferenza resta attiva in questa scheda, ma non è stato possibile salvarla nel browser.",
   "theme.switch": "Passa alla modalità {mode}",
   "theme.title": "Modalità {mode}",

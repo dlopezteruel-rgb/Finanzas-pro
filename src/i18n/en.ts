@@ -64,7 +64,7 @@ export const en = {
   "language.label": "Language",
   "language.available": "available",
   "language.planned": "coming soon",
-  "language.help": "Other languages will become available once their translations have been verified.",
+  "language.help": "The language changes the interface only. Your data keeps its original text. Free text in the assistant keeps the existing Spanish recognition.",
   "language.storageError": "The preference remains active in this tab, but could not be saved in this browser.",
   "theme.switch": "Switch to {mode} mode",
   "theme.title": "{mode} mode",

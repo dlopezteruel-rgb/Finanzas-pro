@@ -64,7 +64,7 @@ export const pt = {
   "language.label": "Idioma",
   "language.available": "disponível",
   "language.planned": "brevemente",
-  "language.help": "Os outros idiomas ficarão disponíveis quando as suas traduções estiverem verificadas.",
+  "language.help": "O idioma altera apenas a interface. Os seus dados conservam o texto original. A entrada livre no assistente mantém o reconhecimento existente em espanhol.",
   "language.storageError": "A preferência mantém-se neste separador, mas não foi possível guardá-la neste navegador.",
   "theme.switch": "Mudar para o modo {mode}",
   "theme.title": "Modo {mode}",

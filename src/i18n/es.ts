@@ -62,7 +62,7 @@ export const es = {
   'options.recovery': 'Copias de recuperación', 'options.demo': 'Restablecer datos demo',
   'options.clear': 'Limpiar todo (Borrar datos)',
   'language.label': 'Idioma', 'language.available': 'disponible', 'language.planned': 'próximamente',
-  'language.help': 'Los demás idiomas estarán disponibles cuando sus traducciones estén verificadas.',
+  'language.help': "El idioma cambia solo la interfaz. Tus datos conservan su texto original. La entrada libre del asistente mantiene el reconocimiento existente en español.",
   'language.storageError': 'La preferencia se mantiene en esta pestaña, pero no se ha podido guardar en este navegador.',
   'theme.switch': 'Cambiar a modo {mode}', 'theme.title': 'Modo {mode}',
   'theme.light': 'claro', 'theme.dark': 'oscuro',

@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { activeLanguage, languages, presentationMoney, presentationDate } from './index';
-test('i18n: solo español está disponible; idiomas incompletos y desconocidos no se anuncian traducidos', () => {
-  assert.equal(activeLanguage('es'), 'es');
-  for (const language of ['en', 'it', 'fr', 'pt', 'xx']) assert.equal(activeLanguage(language), 'es');
+test('i18n: cinco idiomas revisados disponibles; los valores desconocidos recuperan español', () => {
+  for (const language of ['es', 'en', 'it', 'fr', 'pt']) assert.equal(activeLanguage(language), language);
+  for(const unknown of ['xx','es-ES','en-GB','pt-BR','__proto__','constructor',''])assert.equal(activeLanguage(unknown),'es');
   assert.equal(Object.keys(languages).length, 5);
 });
 test('i18n: presentación en cinco locales conserva EUR y los importes de origen', () => {
@@ -49,10 +49,11 @@ test('i18n: preferencias estrictas sin detección de navegador ni reescritura de
   const values=new Map<string,string>(), writes:string[]=[];
   const storage={getItem:(k:string)=>values.get(k)??null,setItem:(k:string,v:string)=>{values.set(k,v);writes.push(k);}};
   assert.equal(readLanguagePreference(storage),'es');
-  for(const value of ['en','it','fr','pt','xx','ES','__proto__','{"language":"es"}','']) {
+  for(const value of ['xx','ES','en-GB','pt-BR','__proto__','{"language":"es"}','']) {
     values.set(LANGUAGE_KEY,value); assert.equal(readLanguagePreference(storage),'es');assert.equal(writeLanguagePreference(value,storage),false);assert.equal(values.get(LANGUAGE_KEY),value);
   }
   assert.deepEqual(writes,[]); assert.equal(writeLanguagePreference('es',storage),true);assert.equal(readLanguagePreference(storage),'es');assert.deepEqual(writes,[LANGUAGE_KEY]);
+  for(const value of ['en','it','fr','pt']){assert.equal(writeLanguagePreference(value,storage),true);assert.equal(readLanguagePreference(storage),value);assert.equal(writes.at(-1),LANGUAGE_KEY);}
 });
 test('i18n: almacenamiento ausente, lectura y cuota denegadas conservan un resultado predecible',()=>{
   const blocked={getItem(){throw Error('denied');},setItem(){throw Error('quota');}};

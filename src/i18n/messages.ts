@@ -6,10 +6,10 @@ import { fr } from './fr';
 import { pt } from './pt';
 export const languages = {
   es: { locale: 'es-ES', label: 'Español', status: 'ready' },
-  en: { locale: 'en-GB', label: 'English', status: 'planned' },
-  it: { locale: 'it-IT', label: 'Italiano', status: 'planned' },
-  fr: { locale: 'fr-FR', label: 'Français', status: 'planned' },
-  pt: { locale: 'pt-PT', label: 'Português', status: 'planned' },
+  en: { locale: 'en-GB', label: 'English', status: 'ready' },
+  it: { locale: 'it-IT', label: 'Italiano', status: 'ready' },
+  fr: { locale: 'fr-FR', label: 'Français', status: 'ready' },
+  pt: { locale: 'pt-PT', label: 'Português', status: 'ready' },
 } as const;
 export type Language = keyof typeof languages;
 import { es } from './es';
