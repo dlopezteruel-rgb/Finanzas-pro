@@ -81,3 +81,9 @@ test('5D: revisión desde pestaña obsoleta no sobrescribe cambios simultáneos'
 test('5D: mutación directa no puede traducir un nombre personalizado usando procedencia obsoleta',async()=>{
  const {store,storage}=setup(fresh()),before=storage.getItem(DATA_KEY);await assert.rejects(store.update('budgetGroups',groups=>groups.map(g=>g.code==='F_EXP'?{...g,name:'Personal'}:g)),/Nombres del catálogo/);assert.equal(storage.getItem(DATA_KEY),before);
 });
+test('5D: identidades duplicadas no reciben traducción y conservan el rechazo de importación previo',()=>{
+ const d=fixture(),g=d.budgetGroups.find(g=>g.code==='F_EXP')!,p=g.partidas[0];d.budgetGroups.push(structuredClone(g));
+ assert.equal(isSystemFamily(d,g),false);assert.equal(isSystemItem(d,p),false);assert.ok(!catalogNameCandidates(d).some(t=>t.kind==='family'&&t.code===g.code||t.kind==='item'&&t.type===p.type&&t.code===p.code));
+ const before=JSON.stringify(d);assert.throws(()=>parseBackup(JSON.stringify(makeBackup(d))),/contiene identificadores duplicados/);assert.equal(JSON.stringify(d),before);
+ assert.throws(()=>reviewCatalogNames(d,[{kind:'family',code:g.code}],catalogNamesScope(d)),/selección inválida/);assert.throws(()=>validateCatalogNames({...d,catalogNames:systemCatalogNames()}),/Nombres del catálogo/);
+});

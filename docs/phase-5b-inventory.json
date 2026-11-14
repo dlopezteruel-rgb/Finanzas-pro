@@ -782,7 +782,7 @@
     {
       "file": "src/components/CatalogNameReview.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "2ebfe2a6e974f17bf5194db3971dfa2410ffa8bb784ec11ab52195ef0bccae5d",
+      "sourceSha256": "74fe4a8fdc576bff247a64b009deae485f135cd63b3f2d70a1661041e57b50be",
       "counts": {
         "type-or-import": 10,
         "review": 6,
@@ -2026,7 +2026,7 @@
     {
       "file": "src/utils/catalogNames.ts",
       "policy": "Domain implementation protected; review owned UI output for boundary adapters",
-      "sourceSha256": "fa8a8233fbf28103de81750ac3d7ab928e3096c149240d43836b864a088c25f1",
+      "sourceSha256": "f86d6ee872678dd2ca94ea2b6f827d19aca0095637f666d6fb714f9635585844",
       "counts": {
         "type-or-import": 6,
         "review": 43,
@@ -2034,11 +2034,11 @@
       },
       "visibleCandidateLines": [
         12,
-        25,
-        26,
-        29,
-        33,
-        61
+        27,
+        28,
+        31,
+        35,
+        63
       ],
       "presentationCalls": []
     },

@@ -17,7 +17,7 @@ export function CatalogNameReview({data,onEdit,onClose}:{data:FinanceData;onEdit
  const sections=[['family','catalog.names.families'],['item','catalog.names.items'],['subgroup','catalog.names.subgroups']] as const;
  const toggle=(target:CatalogNameTarget)=>setSelected(old=>{const next=new Set(old),key=nameTargetKey(target);if(next.has(key))next.delete(key);else next.add(key);return next;});
  return <SafeDialog title={t('catalog.names.reviewTitle')} onCancel={()=>{if(!form.saving)onClose();}}>
-  <form className="catalog-editor" aria-busy={form.saving} onSubmit={e=>{e.preventDefault();void form.submit(()=>onEdit({kind:'reviewNames',scope:review.scope,selected:review.candidates.filter(target=>selected.has(nameTargetKey(target)))}),onClose);}}>
+  <form className="catalog-editor catalog-name-review" aria-busy={form.saving} onSubmit={e=>{e.preventDefault();void form.submit(()=>onEdit({kind:'reviewNames',scope:review.scope,selected:review.candidates.filter(target=>selected.has(nameTargetKey(target)))}),onClose);}}>
    <p>{t('catalog.names.reviewHelp')}</p><p>{t('catalog.names.reviewRecovery')}</p><p>{t('catalog.names.reviewReversible')}</p>
    {form.error&&<p role="alert">{storageOwnedText(form.error,t)}</p>}
    {!review.candidates.length&&<p>{t('catalog.names.noCandidates')}</p>}
