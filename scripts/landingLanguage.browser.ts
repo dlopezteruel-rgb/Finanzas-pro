@@ -8,6 +8,7 @@ import {LANGUAGE_KEY,languages,translatorFor,type Language} from '../src/i18n';
 import {DATA_KEY,makeBackup,type FinanceData} from '../src/utils/backup';
 import {responsiveFixture} from './responsiveFixture';
 import {chartFixture} from './chartFixture';
+import {catalogReorderFixture} from './catalogReorderFixture';
 import {assertNoSpanishOwnedText} from './i18n/residuals';
 
 test('5C: idioma desde landing, navegación, accesibilidad y conservación financiera',{timeout:300000},async t=>{
@@ -82,6 +83,17 @@ test('5C: idioma desde landing, navegación, accesibilidad y conservación finan
       await p.getByRole('button',{name:tr('transactions.editar_movimiento_e09265',{description:'Cena ficticia'}),exact:true}).click();await p.getByRole('group',{name:tr('transaction.desglose_del_reparto'),exact:true}).waitFor();await audit(p,language,390,'light','named-shared-breakdown');await p.keyboard.press('Escape');
       await nav('nav.contacts');await p.getByRole('button',{name:tr('contacts.detalle_de',{name:'Contacto ficticio ana'}),exact:true}).click();await p.getByRole('button',{name:tr('contacts.eliminar_contacto',{name:'Contacto ficticio ana'}),exact:true}).click();await p.getByRole('group',{name:tr('confirm_delete_dialog.relaciones_y_alcance_de_la_eliminacion'),exact:true}).waitFor();await audit(p,language,390,'light','named-deletion-impact');await p.keyboard.press('Escape');
       await nav('nav.debts');await p.getByRole('group',{name:tr('debts_workspace.direccion_de_deuda'),exact:true}).waitFor();await audit(p,language,390,'light','named-debt-direction');assert.equal(await raw(p),before);assert.deepEqual(writes,[]);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+    }finally{await c.close();}
+  });
+  await t.test('reordenación: escritura confirmada antes de completar la UI no equivale a foco restaurado',async()=>{
+    const {c,page,writes,errors}=await context(1280,'light','es',true,catalogReorderFixture());try{
+      const p=await page(),tr=translatorFor('es');await p.goto(origin+'/app');await p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true}).getByRole('button',{name:tr('nav.budgets'),exact:true}).click();await p.getByRole('tab',{name:tr('budget_workspace.catalogo_y_detalle_de_partidas'),exact:true}).click();const before=JSON.parse((await raw(p))!);
+      await p.evaluate(()=>{const request=(navigator.locks.request as (...args:any[])=>Promise<unknown>).bind(navigator.locks);navigator.locks.request=((...args:any[])=>request(...args).then(result=>new Promise<unknown>(resolve=>{(window as any).__completeReorderUI=()=>resolve(result);}))) as typeof navigator.locks.request;});
+      const grip=p.getByRole('button',{name:tr('use_catalog_drag.arrastrar',{label:tr('drag.family',{name:'Viajes ficticios'})}),exact:true}),handle=await grip.elementHandle(),status=p.locator('.catalog-drag-status');await grip.focus();await p.keyboard.press('Space');await p.keyboard.press('Home');await p.keyboard.press('Enter');
+      await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)!).budgetGroups.filter((g:any)=>g.type==='GASTO')[0].code==='family-travel',DATA_KEY);await p.waitForFunction(()=>typeof(window as any).__completeReorderUI==='function');
+      assert.equal(await grip.isDisabled(),true);assert.equal(await status.innerText(),tr('use_catalog_drag.guardando_orden'));assert.equal(await handle!.evaluate(el=>el===document.activeElement),false,'The pre-completion state reproduces the premature focus assertion');
+      await p.evaluate(()=>(window as any).__completeReorderUI());await status.getByText(tr('drag.saved',{source:tr('drag.family',{name:'Viajes ficticios'})}),{exact:true}).waitFor();assert.equal(await grip.isEnabled(),true);assert.equal(await handle!.evaluate(el=>el.isConnected&&el===document.activeElement),true);
+      const saved=JSON.parse((await raw(p))!);for(const key of ['transactions','budgetPlans','planningMonths','planningAutomation','budgetSubitems','wallets','loans'])assert.deepEqual(saved[key],before[key]);const sorted=(groups:any[])=>[...groups].sort((a,b)=>a.code.localeCompare(b.code));assert.deepEqual(sorted(saved.budgetGroups),sorted(before.budgetGroups));assert.equal(writes.filter(operation=>operation===`set:${DATA_KEY}`).length,1);assert.deepEqual(errors,[]);
     }finally{await c.close();}
   });
   await t.test('preferencia inválida: fallback español sin reparación ni escrituras financieras',async()=>{
