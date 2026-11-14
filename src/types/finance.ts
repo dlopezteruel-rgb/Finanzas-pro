@@ -1,5 +1,14 @@
 export type MovementType = 'GASTO' | 'INGRESO';
 
+/** Explicit presentation choices, never translated values or new financial identities. */
+export interface CatalogNameRef { type: MovementType; code: string; }
+export interface CatalogNames {
+  version: 1;
+  families: string[];
+  items: CatalogNameRef[];
+  subgroups: CatalogNameRef[];
+}
+
 export interface BudgetPartida {
   archived?: boolean;
   deleted?: true;

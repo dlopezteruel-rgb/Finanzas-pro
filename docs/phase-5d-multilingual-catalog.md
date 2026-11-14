@@ -38,3 +38,7 @@ Los checkpoints se publican para conservar el trabajo. Esta versión inicial del
 EUR y Europe/Madrid, importes e identidades, saldos, transferencias, préstamos, compartidos, aprobaciones, arrastres, automatizaciones y referencias de subítems. No se traducen datos personales con IA ni se llama a servicios de traducción. No se fusiona, despliega, sincroniza Google AI Studio ni modifica main o sus protecciones.
 
 Los grupos axe incompletos clasificados en 5C siguen separados de las violaciones automatizadas. Se mantienen todas las reglas y las pruebas existentes. No se afirma prueba con lector de pantalla o dispositivo físico.
+
+## Checkpoint 1 — Procedencia y recuperación
+
+Implementados metadatos opcionales validados y JSON 3.5, revisión explícita con alcance, retirada de selección al personalizar y protección de carga heredada. No hay todavía integración visual en este checkpoint. Se añaden **26 pruebas**: registro 12/77/31, colisiones por tipo, ambigüedad, reversión, renombrado, duplicación, orden/archivo/traslado, datos malformados, round-trip, ausencia de escrituras de lectura, recuperación verificada, fallos de copia/verificación/escritura y conflicto entre pestañas. Resultado local: **554/554 unitarias**, cero omitidas/canceladas; lint, build y diff-check correctos. Permanece el aviso de tamaño de bundle anterior. La batería Chromium completa sigue pendiente de la integración de interfaz.

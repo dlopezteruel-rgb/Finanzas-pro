@@ -1,6 +1,7 @@
 import type {BudgetGroup, BudgetPartida, MovementType} from '../types/finance';
 import type {FinanceData} from './backup';
 import {changePartidaGroup, duplicatePartida, reorderPartida} from './budgetChanges';
+import {personalizeCatalogName,reviewCatalogNames,validateCatalogNames,type CatalogNameTarget} from './catalogNames';
 
 export type CatalogParent={type:MovementType;code:string};
 export const catalogKey=(p:CatalogParent)=>`${p.type}:${p.code}`;
@@ -41,13 +42,14 @@ export function catalogArchiveImpact(data:FinanceData,target:CatalogArchiveTarge
     scope:JSON.stringify({target:identity,group:group?{code:group.code,type:group.type,name:group.name,archived:group.archived,deleted:group.deleted}:null,items,recurring,planning})};
 }
 export type CatalogEdit=
+ | {kind:'reviewNames';selected:CatalogNameTarget[];scope:string}
  | {kind:'createFamily';type:MovementType;name:string;id:string}
  | {kind:'renameFamily';code:string;name:string}
  | {kind:'archiveFamily';code:string;archived:boolean;scope?:string}
  | {kind:'deleteFamily';code:string}
  | {kind:'reorderFamily';code:string;direction:-1|1}
  | {kind:'createPartida';groupCode:string;name:string;description:string;keywords:string[];id:string}
- | {kind:'updatePartida';parent:CatalogParent;name:string;description:string;keywords:string[]}
+ | {kind:'updatePartida';parent:CatalogParent;name:string;description:string;keywords:string[];personalizeName?:boolean}
  | {kind:'archivePartida';parent:CatalogParent;archived:boolean;scope?:string}
  | {kind:'deletePartida';parent:CatalogParent}
  | {kind:'duplicatePartida';parent:CatalogParent}
@@ -59,6 +61,7 @@ function metadata(edit:{name:string;description:string;keywords:string[]}){
   return {name:name(edit.name),description:edit.description.trim(),keywords:[...new Set(edit.keywords.map(k=>k.trim()))]};
 }
 export function editCatalog(data:FinanceData,edit:CatalogEdit):FinanceData{
+  if(edit.kind==='reviewNames')return reviewCatalogNames(data,edit.selected,edit.scope);
   if(edit.kind==='createFamily'){
     check(edit.type==='GASTO'||edit.type==='INGRESO','tipo inválido.');const code=uuidCode('family',edit.id);
     check(!data.budgetGroups.some(g=>g.code===code),'esta identidad ya existe o está retirada.');
@@ -80,7 +83,8 @@ export function editCatalog(data:FinanceData,edit:CatalogEdit):FinanceData{
     }
     if(edit.kind==='deleteFamily')check(g.partidas.every(p=>p.deleted&&!catalogDependencies(data,p).length),'la familia contiene partidas o históricos. Archívala para conservarlos.');
     const next=edit.kind==='renameFamily'?{...g,name:name(edit.name),archived:g.archived??false}:edit.kind==='archiveFamily'?{...g,archived:edit.archived}:{...g,archived:true,deleted:true as const};
-    return {...data,budgetGroups:data.budgetGroups.map(group=>group===g?next:group)};
+    const result={...data,budgetGroups:data.budgetGroups.map(group=>group===g?next:group)};
+    return edit.kind==='renameFamily'?personalizeCatalogName(result,{kind:'family',code:g.code}):result;
   }
   const {group:g,item:p}=catalogEntry(data,edit.parent);check(g&&!g.deleted&&p&&!p.deleted,'la partida ya no existe.');
   if(edit.kind==='duplicatePartida')return duplicatePartida(data,p);
@@ -88,7 +92,8 @@ export function editCatalog(data:FinanceData,edit:CatalogEdit):FinanceData{
   if(edit.kind==='reorderPartida')return reorderPartida(data,g.code,g.partidas.indexOf(p),edit.direction<0?'UP':'DOWN');
   if(edit.kind==='deletePartida'){const dependencies=catalogDependencies(data,p);check(!dependencies.length,`tiene dependencias: ${dependencies.join(', ')}. Utiliza Archivar.`);}
   const next=edit.kind==='updatePartida'?{...p,...metadata(edit),archived:p.archived??false}:edit.kind==='archivePartida'?{...p,archived:edit.archived}:{...p,archived:true,deleted:true as const};
-  return {...data,budgetGroups:data.budgetGroups.map(group=>group===g?{...g,partidas:g.partidas.map(item=>item===p?next:item)}:group)};
+  const result={...data,budgetGroups:data.budgetGroups.map(group=>group===g?{...g,partidas:g.partidas.map(item=>item===p?next:item)}:group)};
+  return edit.kind==='updatePartida'&&(edit.personalizeName||edit.name!==p.name)?personalizeCatalogName(result,{kind:'item',type:p.type,code:p.code}):result;
 }
 
 /** Read validation preserves the legacy subgroup/container distinction. */
@@ -104,6 +109,7 @@ export function validateCatalog(data:FinanceData){
 }
 /** Applied inside the lock, including changes attempted outside the catalog forms. */
 export function assertCatalogTransition(previous:FinanceData,next:FinanceData,review?:CatalogEdit){
+  validateCatalogNames(next);
   const checkArchive=(target:CatalogArchiveTarget)=>{
     const impact=catalogArchiveImpact(previous,target);
     const matches=review?.kind===target.kind&&(target.kind==='archiveFamily'?review.kind==='archiveFamily'&&review.code===target.code:review.kind==='archivePartida'&&catalogKey(review.parent)===catalogKey(target.parent));
