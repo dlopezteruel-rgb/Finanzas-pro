@@ -1,5 +1,4 @@
-import { selectPlanningArea } from './browserNavigation';
-import { navigateModule } from './browserNavigation';
+import {concurrentFinancialEdit, selectPlanningArea, navigateModule} from './browserNavigation';
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -1217,7 +1216,7 @@ test(
           const other = await context.newPage();
           await other.clock.setFixedTime(new Date(fakeTime));
           await other.goto(url);
-          await other.getByRole("button", { name: /Cambiar a modo/ }).click();
+          await concurrentFinancialEdit(other);
           await p.waitForFunction(() =>
             document.body.textContent?.includes("Otra pestaña"),
           );

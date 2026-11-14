@@ -1,4 +1,4 @@
-import { navigateModule } from './browserNavigation';
+import {concurrentFinancialEdit, navigateModule} from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -118,7 +118,7 @@ test('Eliminaciones seguras: confirmación, dependencias, concurrencia y recuper
     const { page, context, close } = await setup({ ...base(), transactions: [normal()] });
     try {
       const d = await open(page, kind); await page.evaluate(key => { const original = Storage.prototype.setItem; (window as any).deleteFail = true; Storage.prototype.setItem = function(k, v) { if (k === key && (window as any).deleteFail) throw new DOMException('Cuota', 'QuotaExceededError'); return original.call(this, k, v); }; }, DATA_KEY);
-      if (failure === 'conflict') { await page.evaluate(() => { (window as any).deleteFail = false; }); const other = await context.newPage(); await other.goto(url); const old = await raw(other); await other.getByRole('button', { name: /Cambiar a modo/ }).click(); await other.waitForFunction(({ key, old }) => localStorage.getItem(key) !== old, { key: DATA_KEY, old }); await other.close(); }
+      if (failure === 'conflict') { await page.evaluate(() => { (window as any).deleteFail = false; }); const other = await context.newPage(); await other.goto(url); const old = await raw(other); await concurrentFinancialEdit(other); await other.waitForFunction(({ key, old }) => localStorage.getItem(key) !== old, { key: DATA_KEY, old }); await other.close(); }
       const before = await raw(page); await confirmButton(page, kind).click(); await d.getByRole('alert').waitFor(); assert.match(await d.getByRole('alert').innerText(), failure === 'quota' ? /No hay espacio/ : /Otra pestaña/); assert.equal(await raw(page), before); assert.equal((await copies(page)).length, 0);
       if (failure === 'quota') { await page.evaluate(() => { (window as any).deleteFail = false; }); await confirmButton(page, kind).click(); await d.waitFor({ state: 'hidden' }); }
     } finally { await close(); }
@@ -145,7 +145,7 @@ test('Eliminaciones seguras: confirmación, dependencias, concurrencia y recuper
     try {
       const d = await reviewClear(page); await d.getByLabel('Escribe BORRAR para confirmar').fill('BORRAR');
       if (failure !== 'conflict') await page.evaluate(({ key, prefix, failure }) => { const original = Storage.prototype.setItem; Storage.prototype.setItem = function(k, v) { if (failure === 'active' ? k === key : k.startsWith(prefix)) throw new DOMException('Cuota', 'QuotaExceededError'); return original.call(this, k, v); }; }, { key: DATA_KEY, prefix: RECOVERY_PREFIX, failure });
-      else { const other = await context.newPage(); await other.goto(url); const old = await raw(other); await other.getByRole('button', { name: /Cambiar a modo/ }).click(); await other.waitForFunction(({ key, old }) => localStorage.getItem(key) !== old, { key: DATA_KEY, old }); await other.close(); }
+      else { const other = await context.newPage(); await other.goto(url); const old = await raw(other); await concurrentFinancialEdit(other); await other.waitForFunction(({ key, old }) => localStorage.getItem(key) !== old, { key: DATA_KEY, old }); await other.close(); }
       const before = await raw(page); await d.getByRole('button', { name: 'Confirmar eliminación', exact: true }).click(); await d.getByRole('alert').waitFor(); assert.match(await d.getByRole('alert').innerText(), failure === 'conflict' ? /Otra pestaña/ : /No hay espacio/); assert.equal(await raw(page), before); assert.equal(await d.getByLabel('Escribe BORRAR para confirmar').inputValue(), 'BORRAR');
       await d.getByRole('button', { name: 'Cancelar', exact: true }).click(); assert.equal(await page.getByRole('button', { name: 'Eliminar todas las cuentas', exact: true }).getAttribute('aria-pressed'), 'true');
     } finally { await close(); }

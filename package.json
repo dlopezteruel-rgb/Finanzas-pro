@@ -21,7 +21,8 @@
     "test:ui:catalog-archive": "npm run build && node --import tsx scripts/catalogArchive.browser.ts",
     "test:ui:phase4a": "npm run build && node --import tsx scripts/phase4aSafety.browser.ts && node --import tsx scripts/phase4aLoans.browser.ts && node --import tsx scripts/phase4aAudit.browser.ts",
     "measure:performance": "node --import tsx scripts/performance/measure.ts",
-    "audit:bundles": "node scripts/performance/bundles.mjs"
+    "audit:bundles": "node scripts/performance/bundles.mjs",
+    "measure:journeys": "node --import tsx scripts/performance/mobileJourneys.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

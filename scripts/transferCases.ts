@@ -1,3 +1,4 @@
+import {concurrentFinancialEdit} from './browserNavigation';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { readFile } from 'node:fs/promises';
@@ -115,7 +116,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       } else {
         const other = await context.newPage(); await other.goto(url);
         const before = await raw(other);
-        await other.getByRole('button', { name: /Cambiar a modo/ }).click();
+        await concurrentFinancialEdit(other);
         await other.waitForFunction(({ key, before }) => localStorage.getItem(key) !== before, { key: DATA_KEY, before }); await other.close();
       }
       const before = await raw(page);
@@ -253,7 +254,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       if (failure === 'storage') await page.evaluate(() => { (window as any).budgetWrites.fail = true; });
       if (failure === 'conflict') {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
-        await other.getByRole('button', { name: /Cambiar a modo/ }).click();
+        await concurrentFinancialEdit(other);
         await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);

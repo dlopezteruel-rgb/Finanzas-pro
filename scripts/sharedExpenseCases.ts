@@ -1,4 +1,4 @@
-import {chooseMovementPartida} from './browserNavigation';
+import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
 import { readFile } from 'node:fs/promises';
@@ -137,7 +137,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
       if (failure === 'storage') await page.evaluate(() => { (window as any).sharedSave.fail = true; });
       else {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
-        await other.getByRole('button', { name: /Cambiar a modo/ }).click(); await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
+        await concurrentFinancialEdit(other); await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).sharedHeld = true; await new Promise<void>(resolve => { (window as any).releaseShared = resolve; }); }); }, STORAGE_LOCK);
