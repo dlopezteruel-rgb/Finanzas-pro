@@ -1,0 +1,588 @@
+{
+  "base": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+  "applicationSourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+  "scope": "All tracked files under protected domain/schema/constants/services/i18n/workflow paths plus lockfile/server/Vite config; every byte compared directly with base. Presentation components and their localized ARIA changes are reviewed separately in Git diff. No claim about external personal storage.",
+  "filesVerified": 116,
+  "files": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "sha256": "ebb3963cdc54eb207545a6b85f9c6f657df4934be8588a7dc8963e81ae03eb24",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "package-lock.json",
+      "sha256": "510cf20ef440a068d9044d94ca1dd0e58fc6ae31a8741877af7f61a7dbfaf701",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "server.ts",
+      "sha256": "ed3b4ae2cceafd2cd51370a4ce4279dd6bc621b63cca19804eb7ae6a883406e6",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/constants/categories.ts",
+      "sha256": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/assistantMessages.test.ts",
+      "sha256": "915d7fb9bf9363b2ee3a7ed303a9204b64f3103b085fa46f8bc80bb31ee90d54",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/assistantMessages.ts",
+      "sha256": "441eff4c3a2be468a063ca37ee22725a17b8056eb13914c35e8afe4ae82fe70b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/bankingMessages.ts",
+      "sha256": "a7441741fdd1efcc2af4b77b7500e81bee2daf4215e2d2a8e53e88220460e38c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/bankingReviews.test.ts",
+      "sha256": "a19865163de15ec6454168ba7c11aab2503e8347db94398182210c4f41905987",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/bankingReviews.ts",
+      "sha256": "9ce6ababb5a1ecb32d2f9c876aace8db796ef7fced883a760daa30aca0c02a1c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/chartMessages.test.ts",
+      "sha256": "b7f72c1aa3b80ed5fe2eb604e3cf892fc1197e6393f1bf05147ed46e79046109",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/chartMessages.ts",
+      "sha256": "3bdfd77d69f42e965fb3a125b345455a973d49ad48373af25bd8aefff938b756",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/countMessages.test.ts",
+      "sha256": "0aa3f0d38aeadb80136805f23cf6244c9aed637a8bf8efc1eb4057c184e1ab2f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/countMessages.ts",
+      "sha256": "63d016f56e3066501d4e6e0c50cc4a98adcc65c32beca8f1c5e5b8a417b39703",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/dictionaries.test.ts",
+      "sha256": "fec11ba0179caff55dd7142a3552139df9f589cd5834368da36b5434c7605342",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/domainMessages.test.ts",
+      "sha256": "3cf4cbe51cba5adbd91bbb3a18dcbef798daeaf54450b307f712e3a9e7edac32",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/domainMessages.ts",
+      "sha256": "04dacc4c2719ce481821e822ef4c2d24730983538df8bb0056fcf289984f2e21",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/en.ts",
+      "sha256": "f924d07c1509bdde09ade1a2044b8c97e5aa3f48361e0e79d033368d83b3972f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1.ts",
+      "sha256": "931e802d67cae931589a08bca4a59c17d50af9f0908d37049bbbb37daca2e3e5",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1b.ts",
+      "sha256": "55c27f30f7e5c0e1ff9f2a6d4a2741b24f2392731d2c3989178aa9330c1d2660",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1c.ts",
+      "sha256": "ab0974da81ef458a0fa9e81d558d19924ec2af6e4c63b6ac2d25bc107652c7f8",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1d.ts",
+      "sha256": "678b1633a098dfb0c5da7e9b7dd424b36f5f13dfa20de543628631a09b5f025f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1e.ts",
+      "sha256": "c79e590cae497a8ae9da16509d4ee7dea023ecd83c55a07b3248f424199837e3",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1f.ts",
+      "sha256": "5ee6a3e269dc0b7fdae571e42c6ea69c405cd33dbf281870d6b0bf22da55805b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p1g.ts",
+      "sha256": "2a81e922b8d094d6649589245e9fdd46f9d5e5bdadbf13c627a56b7d29f0a844",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p2a.ts",
+      "sha256": "5b1fe2345250f761842d297c9913951a289f23d9ad3709eee4dc6f60d55ec9f2",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p2b.ts",
+      "sha256": "4712614c052ad492ac2101bcd898c62a3022adc981f20e195f2a2c1a5cd23bac",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p2c.ts",
+      "sha256": "cc8e41db3c96c21c7018f35d04ca74ce65d1614c7b52c58698e02095ad23b0e6",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p3.ts",
+      "sha256": "437055423dc517e59540ed030dd0d3d6980ee4c369b7db0d8657b280e3d4666b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.p3b.ts",
+      "sha256": "dfe63998d2ba803fe6eb63b918be90d5f4011c263fd1e1b0c2530095f9759c16",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.plurals.ts",
+      "sha256": "f6b96ae25a23f3be69ac28b05d753f4cc4bcff61989543167ae9e9d80a52f80f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/es.ts",
+      "sha256": "a02ce3fa90f508cc888853e26ad6d8475b5cefe4b10c91f70afbfebd80dff36f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/fixtures/assistant-legacy.json",
+      "sha256": "d4007fe87cf8aacecabf318fac399981d7a8039e39a398e52f87844e0df71795",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/fr.ts",
+      "sha256": "f6143b8864d7bfa9c3fecd09deab1a590b590c290182c0bed1be77a05ac0f200",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/i18n.test.ts",
+      "sha256": "e59d94ec535e277254ad1295cd42f8a897aa204a065ec97ed0e32b493661f8ed",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/index.tsx",
+      "sha256": "81de4eecb876f10b7f134d301cc15ae6b967f6c116e81e2710c16c04b933a4f0",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/inventory.test.ts",
+      "sha256": "362bdc521d7e9341fb12ccc07d10392d2f5a5bf7e5948f5c2b7deba6035d8668",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/it.ts",
+      "sha256": "fd12b6042f75c87a38e5141cd68a03f1a797be6c0b5d19b0d69df2205da3b0f7",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/labels.ts",
+      "sha256": "668c72e73d834172a730c57395bd79fc1725601625a0cf35dea360195cd5f423",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/messages.ts",
+      "sha256": "fa9ad3c7cd888bf398e1f2d1f041199bbf40e93a24420841923108c17e2cc1b0",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/naturalMessages.ts",
+      "sha256": "808df11a6ac3e40d0fd4913e9fe7fedb8edb20be1a1c92acf10988b61c585a29",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/planningMessages.test.ts",
+      "sha256": "01f10174b427a2a400324a7d31dc3a1a4fa5888fa45d5b0ed6661add7ccab999",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/planningMessages.ts",
+      "sha256": "31f091932cdd8ede97a962ed0ceae92c058a90c51faa7c6dc46f36f7db282fd5",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/preference.ts",
+      "sha256": "10777d5bc0960257dc69324f2bbabe55ea27595ec3f85acb36fed7d516cff9e5",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/presentation.test.ts",
+      "sha256": "d1f032bd00b59f3a836ea56e7555047b5ac0ecdd557303e4afbb7226690f42da",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/presentation.ts",
+      "sha256": "1e0d2abe1b63bfdd68fac626ee300b8f0023b6ac58eabbdb04e18343a4081226",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/presenters.test.ts",
+      "sha256": "5d8149b8cfa2d2051bfe3a2c4dec9557cfe02d4407ea57c641ef436ed2b17ae7",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/presenters.ts",
+      "sha256": "9ba31619e9b02e5631f21f4cac3a05483df5b3d630ae72668d7b5a429d2e52de",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/pt.ts",
+      "sha256": "9ae8d775c0616dc8885fc9aed847e683d1d40d488e06f8b96a68ee278bae1204",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/readiness.ts",
+      "sha256": "84a2e71ecc14d1c9b2468cbd4a9e74e3a72d5e6eb65a18375b128e0f3387a1be",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/residuals.test.ts",
+      "sha256": "bd6222307f3636477a372972b944d9a86919efb2aea3c7a0666824d66460eb34",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/rich.test.tsx",
+      "sha256": "cf7efabcb61356ed4725bf84c52b06c5629f07d94056fa9af3262b87b8eb5270",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/sharedMessages.test.ts",
+      "sha256": "b98d5e6849bad9ab06c148beb6134a40faf4a626f2a12a01b4d1d438cc0772a6",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/sharedMessages.ts",
+      "sha256": "3114f2f406ce9d3645fd0e0066ce840e471943cf70dc34ebcd2c13351aea41a4",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/storageMessages.test.ts",
+      "sha256": "cdeae92596bca53f6556e711b0dfcc67b50f7b690a1f9e39b5ca5a96547b1b16",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/i18n/storageMessages.ts",
+      "sha256": "e8e69ad98b851dac8a11704186dc227a41e77aff33cd447cb260a19f5b0e4234",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/types/finance.ts",
+      "sha256": "add6059cd67392852be1f1fbb45eb33c278b030f1ea3836f9ec6066a4a6b4844",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/asyncForms.test.ts",
+      "sha256": "7f02380c450688faf36b1febc64ea248876de925a4b3115ddc01f35125ce9c0a",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/backup.ts",
+      "sha256": "3b077eeb9db8c86f7c03b3f59e9a03d47c928dc40929dd996c49a018b333af53",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetCatalog.test.ts",
+      "sha256": "978e7c4b4a322131ae08346e79eb32af38be33012d133499d83f10e35ea2d805",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetCatalog.ts",
+      "sha256": "fa6576f73fb285f36ad7dca4d927fef9f894c43bed9eb7c7e526b30609001907",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetChanges.test.ts",
+      "sha256": "b9b02c332e6e0f01d0d9d34bdd60a20ae465e97dd313124c72fb223f634b1102",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetChanges.ts",
+      "sha256": "33d3daa3234e1ac1e563927f97129a7e20df530f741b28df894b882369ca181f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetSubitems.test.ts",
+      "sha256": "ba805c0c1fc120047be249552c526d10ad6c57a501eab2a90cef9343d3530912",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/budgetSubitems.ts",
+      "sha256": "8e5864f07c73446e3a855407a678f708c1d2578f1bb98e445f51676fae816391",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/catalogClassification.test.ts",
+      "sha256": "99917e2b098ec9b562ab32efc320425d8592889399d235db1c98773a7ee5b9c0",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/catalogReorder.test.ts",
+      "sha256": "cdd61d33ba4170a3b120e198cfa0b473dc1a1992d68ad5b8e661152c842420a0",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/catalogReorder.ts",
+      "sha256": "92261cd76f5b1fd4388f2d849a1b1b223aabcb4872944ac2506588635aeb64ab",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/chartData.test.ts",
+      "sha256": "1e16f657cde6249e43b1c7510b230000c83e2c1d2ad99f262d9804fef6bdaf99",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/chartData.ts",
+      "sha256": "6e1103596b704f6b4bd506426dc2914c1bf3ba2c0c3512e7df53282ff71c0e38",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/chatRegistration.ts",
+      "sha256": "60e999d591fd2bb31fa93367461269373e371e4a3c25a0f1d8500adc76a55b27",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/clearData.ts",
+      "sha256": "eee3464a8893cdec832de681e2dc9be71f24afa6dc4ad62aeb755a14244ba9f4",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/confirmation.ts",
+      "sha256": "806308ae3028d854c57ca40fdb5672738b04e3a284aca626481d626a3d03d22f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/defaultWallet.test.ts",
+      "sha256": "d04984ba5a84ca7e3f089177092956fed20ee1da5c9e0cf9819b66e0693d1a94",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/defaultWallet.ts",
+      "sha256": "766b36fde5e99b1efdd5dec240cb1f9eed26f1c5d26cc0aaf7d7ef2c7de5fe91",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/deletion.test.ts",
+      "sha256": "37da48688408993b59e00569895d08d7ed7e6343b00ff59d903fad8198da091b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/deletion.ts",
+      "sha256": "d1dfcaa250255f759e92093a7b6cc665911004e8775c66b4ab517af3e1cb956d",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/finance.test.ts",
+      "sha256": "989681e3d55e1002790580930eafba4d9a3c10672a5c4ff120d2ee54ba9e3fe2",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/finance.ts",
+      "sha256": "62a3a01dcc884b22f0dc3d2d677f1c19923d7bc7a68f7f3ef0d96713f27d34ea",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/financeStore.ts",
+      "sha256": "41273c6c31e85809b22971b0cc8e4342b94ce747b4d4a67ce2d9d3f13c05a18e",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/financialAssistant.test.ts",
+      "sha256": "f8412456309ff90fa76d54129910f88fb695dfdee30d55a4fbb7016326c03138",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/financialAssistant.ts",
+      "sha256": "e48b59d99d49f6ff35e80d5d4abd0c065820192346d2d1bad627168dcb85944f",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/financialCalendar.test.ts",
+      "sha256": "521f1d57b692e9deccad31df9a6a86f00dfc309963032c2ab0414a32b99528cf",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/financialCalendar.ts",
+      "sha256": "c04d8a870b8b82d4794013cf75c215be7bae5b431b8f11d14eb5c4792f771430",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/intelligentFinance.test.ts",
+      "sha256": "de2f7c73c3e0f76c5da763ce9cd485a38698791cba129fbd93ba4835ce447258",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/intelligentValidation.ts",
+      "sha256": "348982dbb557401336db747eab0605b42b5ed5adb1c7c4983f1243eb00ade804",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/naturalInput.ts",
+      "sha256": "2015d028975468ec88a7d22b7280ac479677b6cbc3f3ee5f7a8321b908927a14",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/parser.ts",
+      "sha256": "05c3704003e8a9959adc7ea68946650e8d5b90a2e24594dcfa1ee3b1fdd76404",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/partidaSearch.ts",
+      "sha256": "812fb49fac274e160ea90ddc2bc0a1c29ae0e9c652ca0c3a9be587d54daf1f2b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/personalObligations.ts",
+      "sha256": "9dac11964f1c1b982a3ea1eb88a6799a615f654c688255f57df6b8623dbf5d0d",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/phase1.test.ts",
+      "sha256": "ba69a366210980542a4f6251d52db1b21eb426b8e5127dbb2d5c008fb0623f46",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planning.test.ts",
+      "sha256": "ae5b774e427eef80bc270fb51e9f7e24dca458d81b391a1336e9b3c6ea7ed4ce",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planning.ts",
+      "sha256": "9ecf1c9f7b3c61fcc36f2a904c0b5d3b30bba62d46fea1d146d51c62d86859a6",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningAutomation.test.ts",
+      "sha256": "7dd178403c98a330306faaef39bf84db496b6cdd7b8f146922e4497f087cae9b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningAutomation.ts",
+      "sha256": "1384707d7c68f915e59e0895cf478bba07a36305bbaff3b3d7f925435337694c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningAutomationValidation.ts",
+      "sha256": "cd7615388bb63fe4824a339823b731e279ccbf46eece9780afdaa50b73e216a5",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningBasis.ts",
+      "sha256": "93a845c123f5a9590c4ce19226a74c7dd13b9e395b2c83504784321c008c4c64",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningCalendar.ts",
+      "sha256": "fa96d2eb452560ea1c4e8d69f5d1d99f26ec084229efa3adfb0127fe9a36bc9c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningCarry.ts",
+      "sha256": "7d1930082ef1ddb8085cc260c09f0bcdd8e83ba6007407f16b6341abda420d01",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/planningMoney.ts",
+      "sha256": "0f5a1675ef670710518dc92f1f68c39563e013d77a96355f3393429b80bdc176",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/recurringMovements.ts",
+      "sha256": "198761b2ea813e86e1c46c3875fc50e1073f0994fe5f7978160d676af64da491",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/registrationIntent.ts",
+      "sha256": "ae94b1a70457e71788ec5cf87d693ac2bf87305f4c9cf37b374e2408e67087c4",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/saveResult.ts",
+      "sha256": "539d48249f0e30400da23ae4bde69a0f68ca90f6dfe19be5a6e03421aaa7c79b",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/seedData.ts",
+      "sha256": "860713dc97cf1218c738fb2fd48fd865ef488d883243583cc3af33ebba5c1687",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/sharedDistribution.ts",
+      "sha256": "178a307d2220f14d3a648288101ec02de799d3b3a2153a7644a2663d5e728e61",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/sharedExpenses.test.ts",
+      "sha256": "9794314f17a60b7cea1e229cd6d8688014e06a5fa730881380c3692a3817132a",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/sharedExpenses.ts",
+      "sha256": "2f5b5af07e921ba44ea049efcadf1658d3f3baeb51fe9bfc766f3a6647f3c85c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/sharedUx.test.ts",
+      "sha256": "63f30eb2a9f4a5268b7153c3d076c38e917c549515cd0c7d0ca3498ce32762ee",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/stabilization.test.ts",
+      "sha256": "ca304ce47a42fedb60074a5b299eed816605cab2ed3c797daea6218d685539fe",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/storageSupport.ts",
+      "sha256": "3e8d151e67b0b95b7e37a2383d747861ca6266ef96221033188f239eefd0bb36",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/transfers.test.ts",
+      "sha256": "ffa0ca21f0261fc892e9a936047012d0e719422fa375dc95392bd518d74204b2",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/transfers.ts",
+      "sha256": "f372dea673fd6389302979cbb15dfa0b706f4fddcda9ee7d526e001f6eafdf41",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/treasury.test.ts",
+      "sha256": "74130736e7173419da9a53f932eba7fb78f9a85164b839481e6ea91547e4bf4c",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/treasury.ts",
+      "sha256": "45677fbda4b8109e4e864b47810717c0d417b3c9162e1f561e804536ac934edd",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/useAsyncForm.ts",
+      "sha256": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "src/utils/useFinanceData.ts",
+      "sha256": "41e08e518f49e19c8f2f83f4c1ad6767ce7f34eeabc0a5d5f8deadd9c49ac659",
+      "byteIdenticalToBase": true
+    },
+    {
+      "file": "vite.config.ts",
+      "sha256": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489",
+      "byteIdenticalToBase": true
+    }
+  ]
+}

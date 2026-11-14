@@ -1,0 +1,845 @@
+{
+  "schemaVersion": 1,
+  "sourceSha": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+  "scope": "Read-only reproduction in real application with synthetic fixtures: 15 general surfaces in dark theme; 6 chart/options/recovery surfaces in light/dark; 5 named-group surfaces in light theme. Landing before captures keep its own light palette. Repeated node occurrences are not unique defects. Not screen-reader testing.",
+  "mechanisms": [
+    {
+      "rule": "aria-prohibited-attr",
+      "mechanism": "noRoleSingular",
+      "countInExploration": 31,
+      "examples": [
+        {
+          "surface": "Inicio",
+          "width": 390,
+          "theme": "dark",
+          "target": [
+            ".brand"
+          ],
+          "html": "<span class=\"brand\" aria-label=\"FinanZas\"><img width=\"40\" height=\"40\" alt=\"\" src=\"/brand/finanzas-mark.svg\"><span class=\"brand-wordmark\">FinanZas<span class=\"brand-description\">Tu dinero, con claridad</span></span></span>",
+          "message": "aria-label attribute is not well supported on \"span\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "span",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "Inicio",
+          "width": 390,
+          "theme": "dark",
+          "target": [
+            ".finance-actions"
+          ],
+          "html": "<div class=\"finance-actions\" aria-label=\"Secciones de inicio\"><button aria-pressed=\"true\">Resumen financiero</button><button aria-pressed=\"false\">Próximos 30 días</button></div>",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "Movimientos",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "div[aria-label=\"Secciones de movimientos\"]"
+          ],
+          "html": "<div class=\"finance-actions\" aria-label=\"Secciones de movimientos\"><button aria-pressed=\"true\">Movimientos registrados</button><button aria-pressed=\"false\">Movimientos periódicos</button></div>",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "SharedDetail",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".border-t.pt-2.mt-2:nth-child(7)"
+          ],
+          "html": "<div class=\"border-t border-white/10 pt-2 mt-2\" aria-label=\"Registro de liquidación\"><p>Reintegro: 10,00 € · 04/10/2026</p><p>Cartera receptora: BANCO</p><p>Estado: Tramitada</p></div>",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "SharedDetail",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".border-t.pt-2.mt-2:nth-child(8)"
+          ],
+          "html": "<div class=\"border-t border-white/10 pt-2 mt-2\" aria-label=\"Registro de liquidación\"><p>Compensación sin movimiento bancario: 5,00 € · 05/10/2026</p><p>Estado: Tramitada</p></div>",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "SharedForm",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "div[aria-label=\"Desglose del reparto\"]"
+          ],
+          "html": "<div class=\"space-y-2\" aria-label=\"Desglose del reparto\">",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".space-y-2.text-xs"
+          ],
+          "html": "<div class=\"space-y-2 text-xs\" aria-label=\"Relaciones y alcance de la eliminación\">",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        },
+        {
+          "surface": "DebtDirection",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".finance-actions"
+          ],
+          "html": "<div class=\"finance-actions\" aria-label=\"Dirección de deuda\">",
+          "message": "aria-label attribute is not well supported on \"div\" elements with no valid role attribute.",
+          "checkData": {
+            "role": null,
+            "nodeName": "div",
+            "messageKey": "noRoleSingular",
+            "prohibited": [
+              "aria-label"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "rule": "aria-valid-attr-value",
+      "mechanism": "controlsWithinPopup",
+      "countInExploration": 4,
+      "examples": [
+        {
+          "surface": "Movimiento",
+          "width": 390,
+          "theme": "dark",
+          "target": [
+            ".text-left"
+          ],
+          "html": "<button type=\"button\" aria-label=\"Seleccionar partida presupuestaria\" aria-expanded=\"false\" aria-controls=\"_r_1_-options\" aria-haspopup=\"listbox\" class=\"w-full text-left bg-[#0c0f17] border border-white/10 rounded-xl px-3 py-2.5\">Selecciona una partida</button>",
+          "message": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"_r_1_-options\"",
+          "checkData": {
+            "messageKey": "controlsWithinPopup",
+            "needsReview": "aria-controls=\"_r_1_-options\""
+          }
+        },
+        {
+          "surface": "SharedForm",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-left"
+          ],
+          "html": "<button type=\"button\" aria-label=\"Seleccionar partida presupuestaria\" aria-expanded=\"false\" aria-controls=\"_r_1_-options\" aria-haspopup=\"listbox\" class=\"w-full text-left bg-[#0c0f17] border border-white/10 rounded-xl px-3 py-2.5\">Comida ficticia</button>",
+          "message": "Unable to determine if aria-controls referenced ID exists on the page while using aria-haspopup: aria-controls=\"_r_1_-options\"",
+          "checkData": {
+            "messageKey": "controlsWithinPopup",
+            "needsReview": "aria-controls=\"_r_1_-options\""
+          }
+        }
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "mechanism": "nonBmp",
+      "countInExploration": 18,
+      "examples": [
+        {
+          "surface": "Planificacion",
+          "width": 390,
+          "theme": "dark",
+          "target": [
+            "button[aria-controls=\"_r_5_-content\"] > span[aria-hidden=\"true\"]"
+          ],
+          "html": "<span aria-hidden=\"true\">▾</span>",
+          "message": "Element content contains only non-text characters",
+          "checkData": {
+            "messageKey": "nonBmp"
+          }
+        }
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "mechanism": "elmPartiallyObscuring",
+      "countInExploration": 14,
+      "examples": [
+        {
+          "surface": "Opciones",
+          "width": 390,
+          "theme": "dark",
+          "target": [
+            "#ui-language-help"
+          ],
+          "html": "<p id=\"ui-language-help\" class=\"mt-2 text-slate-300 leading-relaxed\">El idioma cambia solo la interfaz. Tus datos conservan su texto original. La entrada libre del asistente mantiene el reconocimiento existente en español.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "recovery",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-sm"
+          ],
+          "html": "<p class=\"text-sm text-slate-300\">Descarga una copia y utiliza Importar JSON para revisarla y restaurarla. Estas copias se conservan en este navegador.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".space-y-2.text-xs > p"
+          ],
+          "html": "<p>Algunas categorías se solapan; sus cantidades no se suman entre sí.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "li:nth-child(2) > strong"
+          ],
+          "html": "<strong>Obligaciones del reparto (incluidas las saldadas): 1</strong>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "bold",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-amber-300 > p:nth-child(2)"
+          ],
+          "html": "<p>Gastos compartidos: 1. Debes revisar estas relaciones antes de eliminar el elemento.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-amber-300 > p:nth-child(3)"
+          ],
+          "html": "<p>Obligaciones del reparto (incluidas las saldadas): 1. Debes revisar estas relaciones antes de eliminar el elemento.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "p:nth-child(4)"
+          ],
+          "html": "<p>Liquidaciones y compensaciones: 2. Debes revisar estas relaciones antes de eliminar el elemento.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-amber-300 > p:nth-child(5)"
+          ],
+          "html": "<p>Reintegros: 1. Debes revisar estas relaciones antes de eliminar el elemento.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "DeleteContact",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            ".text-xs:nth-child(5)"
+          ],
+          "html": "<p class=\"text-xs text-slate-400\">No se borrarán automáticamente otros elementos vinculados. Cancelar conserva los datos.</p>",
+          "message": "Element's background color could not be determined because it partially overlaps other elements",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "10.5pt (14px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscuring",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "mechanism": "imgNode",
+      "countInExploration": 64,
+      "examples": [
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(1) > text[y=\"219\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"219\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">0&nbsp;€</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(2) > text[y=\"134\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"134\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">1,5&nbsp;mil&nbsp;€</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > g:nth-child(3) > text[y=\"49\"][x=\"60\"][text-anchor=\"end\"]"
+          ],
+          "html": "<text x=\"60\" y=\"49\" text-anchor=\"end\" fill=\"currentColor\" font-size=\"16\">3&nbsp;mil&nbsp;€</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > text[x=\"89\"][y=\"245\"][text-anchor=\"middle\"]"
+          ],
+          "html": "<text x=\"89\" y=\"245\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"16\">ene 2026</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > text[x=\"203\"][y=\"245\"][text-anchor=\"middle\"]"
+          ],
+          "html": "<text x=\"203\" y=\"245\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"16\">abr 2026</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > text[x=\"317\"][y=\"245\"][text-anchor=\"middle\"]"
+          ],
+          "html": "<text x=\"317\" y=\"245\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"16\">jul 2026</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > svg[viewBox=\"0 0 480 270\"][role=\"group\"] > text[x=\"431\"][y=\"245\"][text-anchor=\"middle\"]"
+          ],
+          "html": "<text x=\"431\" y=\"245\" text-anchor=\"middle\" fill=\"currentColor\" font-size=\"16\">oct 2026</text>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tspan[dy=\"0\"]"
+          ],
+          "html": "<tspan x=\"0\" dy=\"0\">Gasto </tspan>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tspan[dy=\"18\"]"
+          ],
+          "html": "<tspan x=\"0\" dy=\"18\">filtrado</tspan>",
+          "message": "Element's background color could not be determined because element contains an image node",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "imgNode",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ]
+    },
+    {
+      "rule": "color-contrast",
+      "mechanism": "elmPartiallyObscured",
+      "countInExploration": 116,
+      "examples": [
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > .chart-table[role=\"region\"] > table > caption"
+          ],
+          "html": "<caption>Ingresos y gastos reales por periodo · tabla de datos</caption>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > .chart-table[role=\"region\"] > table > thead > tr > th[scope=\"col\"]:nth-child(3)"
+          ],
+          "html": "<th scope=\"col\">Gastos económicos</th>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "bold",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "section[aria-labelledby=\"_r_1_-title\"] > .chart-table[role=\"region\"] > table > thead > tr > th[scope=\"col\"]:nth-child(4)"
+          ],
+          "html": "<th scope=\"col\">Estado / detalle</th>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "bold",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-01-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de ene 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-02-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de feb 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-03-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de mar 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-04-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de abr 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-05-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de may 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-06-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de jun 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-07-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de jul 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-08-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de ago 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        },
+        {
+          "surface": "charts",
+          "width": 390,
+          "theme": "light",
+          "target": [
+            "tr[data-chart-row=\"2026-09-01\"] > td:nth-child(4) > button[type=\"button\"]"
+          ],
+          "html": "<button type=\"button\">Ver detalle de sep 2026</button>",
+          "message": "Element's background color could not be determined because it's partially obscured by another element",
+          "checkData": {
+            "contrastRatio": 0,
+            "fontSize": "12.0pt (16px)",
+            "fontWeight": "normal",
+            "messageKey": "elmPartiallyObscured",
+            "expectedContrastRatio": "4.5:1"
+          }
+        }
+      ]
+    }
+  ],
+  "styleReview": {
+    "scope": "Computed styles in 390px synthetic charts/options/recovery, two themes; plain ancestor background calculation only, not proof of actual compositing, clipping or screen-reader behavior",
+    "samples": [
+      {
+        "theme": "light",
+        "surface": "charts",
+        "color": "rgb(23, 43, 77)",
+        "background": "rgb(247, 244, 239)",
+        "ratio": 12.854,
+        "example": "FinanZasTu dinero, con claridad"
+      },
+      {
+        "theme": "light",
+        "surface": "charts",
+        "color": "rgb(23, 43, 77)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 14.102,
+        "example": "0 €"
+      },
+      {
+        "theme": "light",
+        "surface": "options",
+        "color": "rgb(23, 43, 77)",
+        "background": "rgb(247, 244, 239)",
+        "ratio": 12.854,
+        "example": "FinanZasTu dinero, con claridad"
+      },
+      {
+        "theme": "light",
+        "surface": "options",
+        "color": "rgb(90, 100, 114)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 5.999,
+        "example": "El idioma cambia solo la interfaz. Tus datos conservan su texto origin"
+      },
+      {
+        "theme": "light",
+        "surface": "options",
+        "color": "rgb(23, 43, 77)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 14.102,
+        "example": "0 €"
+      },
+      {
+        "theme": "light",
+        "surface": "recovery",
+        "color": "rgb(90, 100, 114)",
+        "background": "rgb(255, 255, 255)",
+        "ratio": 5.999,
+        "example": "Descarga una copia y utiliza Importar JSON para revisarla y restaurarl"
+      },
+      {
+        "theme": "dark",
+        "surface": "charts",
+        "color": "rgb(243, 241, 237)",
+        "background": "rgb(17, 29, 48)",
+        "ratio": 14.986,
+        "example": "FinanZasTu dinero, con claridad"
+      },
+      {
+        "theme": "dark",
+        "surface": "charts",
+        "color": "rgb(243, 241, 237)",
+        "background": "rgb(27, 43, 67)",
+        "ratio": 12.636,
+        "example": "0 €"
+      },
+      {
+        "theme": "dark",
+        "surface": "options",
+        "color": "rgb(243, 241, 237)",
+        "background": "rgb(17, 29, 48)",
+        "ratio": 14.986,
+        "example": "FinanZasTu dinero, con claridad"
+      },
+      {
+        "theme": "dark",
+        "surface": "options",
+        "color": "rgb(188, 199, 212)",
+        "background": "rgb(27, 43, 67)",
+        "ratio": 8.321,
+        "example": "El idioma cambia solo la interfaz. Tus datos conservan su texto origin"
+      },
+      {
+        "theme": "dark",
+        "surface": "options",
+        "color": "rgb(243, 241, 237)",
+        "background": "rgb(27, 43, 67)",
+        "ratio": 12.636,
+        "example": "0 €"
+      },
+      {
+        "theme": "dark",
+        "surface": "recovery",
+        "color": "rgb(188, 199, 212)",
+        "background": "rgb(27, 43, 67)",
+        "ratio": 8.321,
+        "example": "Descarga una copia y utiliza Importar JSON para revisarla y restaurarl"
+      }
+    ]
+  }
+}

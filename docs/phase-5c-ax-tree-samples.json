@@ -1,0 +1,351 @@
+{
+  "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+  "scope": "Automated inspection of Chromium native accessibility tree through CDP, at 390px. Not a screen-reader or physical-device/manual assistive-technology test. Five landing samples and one open/closed synthetic budget picker.",
+  "samples": [
+    {
+      "language": "es",
+      "documentLang": "es-ES",
+      "selector": {
+        "role": "combobox",
+        "name": "Idioma",
+        "value": "Español",
+        "description": "El idioma cambia solo la interfaz. Tus datos conservan su texto original. La entrada libre del asistente mantiene el reconocimiento existente en español.",
+        "properties": [
+          {
+            "name": "invalid",
+            "value": {
+              "type": "token",
+              "value": "false"
+            }
+          },
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "hasPopup",
+            "value": {
+              "type": "token",
+              "value": "menu"
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "landing-language-help",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 53,
+                  "idref": "landing-language-help"
+                }
+              ]
+            }
+          },
+          {
+            "name": "labelledby",
+            "value": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 31,
+                  "text": "Idioma"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "language": "en",
+      "documentLang": "en-GB",
+      "selector": {
+        "role": "combobox",
+        "name": "Language",
+        "value": "English",
+        "description": "The language changes the interface only. Your data keeps its original text. Free text in the assistant keeps the existing Spanish recognition.",
+        "properties": [
+          {
+            "name": "invalid",
+            "value": {
+              "type": "token",
+              "value": "false"
+            }
+          },
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "hasPopup",
+            "value": {
+              "type": "token",
+              "value": "menu"
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "landing-language-help",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 53,
+                  "idref": "landing-language-help"
+                }
+              ]
+            }
+          },
+          {
+            "name": "labelledby",
+            "value": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 31,
+                  "text": "Language"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "language": "it",
+      "documentLang": "it-IT",
+      "selector": {
+        "role": "combobox",
+        "name": "Lingua",
+        "value": "Italiano",
+        "description": "La lingua cambia solo l’interfaccia. I tuoi dati mantengono il testo originale. La scrittura libera nell’assistente mantiene il riconoscimento esistente in spagnolo.",
+        "properties": [
+          {
+            "name": "invalid",
+            "value": {
+              "type": "token",
+              "value": "false"
+            }
+          },
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "hasPopup",
+            "value": {
+              "type": "token",
+              "value": "menu"
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "landing-language-help",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 53,
+                  "idref": "landing-language-help"
+                }
+              ]
+            }
+          },
+          {
+            "name": "labelledby",
+            "value": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 31,
+                  "text": "Lingua"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "language": "fr",
+      "documentLang": "fr-FR",
+      "selector": {
+        "role": "combobox",
+        "name": "Langue",
+        "value": "Français",
+        "description": "La langue modifie uniquement l’interface. Vos données conservent leur texte d’origine. La saisie libre de l’assistant conserve la reconnaissance existante en espagnol.",
+        "properties": [
+          {
+            "name": "invalid",
+            "value": {
+              "type": "token",
+              "value": "false"
+            }
+          },
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "hasPopup",
+            "value": {
+              "type": "token",
+              "value": "menu"
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "landing-language-help",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 53,
+                  "idref": "landing-language-help"
+                }
+              ]
+            }
+          },
+          {
+            "name": "labelledby",
+            "value": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 31,
+                  "text": "Langue"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "language": "pt",
+      "documentLang": "pt-PT",
+      "selector": {
+        "role": "combobox",
+        "name": "Idioma",
+        "value": "Português",
+        "description": "O idioma altera apenas a interface. Os seus dados conservam o texto original. A entrada livre no assistente mantém o reconhecimento existente em espanhol.",
+        "properties": [
+          {
+            "name": "invalid",
+            "value": {
+              "type": "token",
+              "value": "false"
+            }
+          },
+          {
+            "name": "focusable",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": true
+            }
+          },
+          {
+            "name": "hasPopup",
+            "value": {
+              "type": "token",
+              "value": "menu"
+            }
+          },
+          {
+            "name": "expanded",
+            "value": {
+              "type": "booleanOrUndefined",
+              "value": false
+            }
+          },
+          {
+            "name": "describedby",
+            "value": {
+              "type": "idrefList",
+              "value": "landing-language-help",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 53,
+                  "idref": "landing-language-help"
+                }
+              ]
+            }
+          },
+          {
+            "name": "labelledby",
+            "value": {
+              "type": "nodeList",
+              "relatedNodes": [
+                {
+                  "backendDOMNodeId": 31,
+                  "text": "Idioma"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "popup": {
+    "documentLang": "en-GB",
+    "controlsId": "_r_1_-options",
+    "targetExists": true,
+    "listRole": "listbox",
+    "childRoles": [
+      "option",
+      "option",
+      "option",
+      "option",
+      "option",
+      "option",
+      "option",
+      "option",
+      "option",
+      "option"
+    ],
+    "note": "Axe 4.14 precheck ariaValidAttrValueEvaluate returns controlsWithinPopup for aria-controls + aria-haspopup regardless of ID existence. Actual ID and native AX ownership verified here; assistive-technology behavior remains untested.",
+    "closedControlsAbsent": true
+  }
+}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUpRight, Wallet, ChartNoAxesCombined, CalendarDays, HardDrive } from 'lucide-react';
 import { Brand } from './Brand';
+import { LanguageSelector } from './LanguageSelector';
 import { useI18n } from '../i18n';
 import { paths } from '../app/paths';
 export function LandingPage() {
@@ -8,7 +9,7 @@ export function LandingPage() {
   const preview=language==='es'?paths.preview:paths.preview.replace(/\.jpg$/,`-${language}.jpg`);
   return <div className="landing">
     <a className="skip-link" href="#landing-content">{t('common.skip')}</a>
-    <header className="landing-header"><Brand /><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={18} aria-hidden="true" /></a></header>
+    <header className="landing-header"><Brand /><div className="landing-header-controls"><LanguageSelector appearance="landing" /><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={18} aria-hidden="true" /></a></div></header>
     <main id="landing-content" tabIndex={-1}>
       <section className="landing-hero">
         <div><p className="eyebrow">{t('landing.eyebrow')}</p><h1>{t('landing.title')}</h1><p className="landing-intro">{t('landing.description')}</p>

@@ -1,0 +1,106 @@
+{
+  "scope": "Actual production application screenshots. No generated or retouched interface; synthetic data only. After captures from the passing 42-result focal suite, same application source as the full validation. Language changes retain keyboard focus, visible in the select outline.",
+  "captures": [
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-390-before.png",
+      "sha256": "800a448e0d166dc4eca88434cd523be6909f8aea812a7b035a990d4a736cf8f6",
+      "width": 390,
+      "language": "fr",
+      "state": "before",
+      "sourceCommit": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-390-after.png",
+      "sha256": "4d65d50f5c5c518cf14f8222be9f328f1b4ceceba1cbfe867ed0d9b5b9658060",
+      "width": 390,
+      "language": "fr",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-768-before.png",
+      "sha256": "4b789c0f33d0b6804196cdff3a3fb8c018a685947b775287bd3ab695796e7ab4",
+      "width": 768,
+      "language": "fr",
+      "state": "before",
+      "sourceCommit": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-768-after.png",
+      "sha256": "db37eae07b2fe9bbca0166feeaa8e03a4af9afbfc881c171ba7a64e2358d6434",
+      "width": 768,
+      "language": "fr",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-1280-before.png",
+      "sha256": "372217148d93263d51d0d26a2db88e0c2546069bf7ef6246a9c88ec7b50ca732",
+      "width": 1280,
+      "language": "fr",
+      "state": "before",
+      "sourceCommit": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-fr-1280-after.png",
+      "sha256": "d7a54e9c4bb695819e0f08e8d0250817edbc2b1c7b7007f72d6e54173744733f",
+      "width": 1280,
+      "language": "fr",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-pt-390-after.png",
+      "sha256": "718eba3036a676133f9951e8a5615f7b4f27ce13e2a4fe7293e8ab83612a565a",
+      "width": 390,
+      "language": "pt",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-pt-768-after.png",
+      "sha256": "69a41aa1f51a9cb6ecef327863368d6c97a4f4b639db60085bf22e51a04a5f05",
+      "width": 768,
+      "language": "pt",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/landing-pt-1280-after.png",
+      "sha256": "a7c2333d6ef2be1c977fa9a8c6c71f229e02a9c579b082e0b86d9f7479011c59",
+      "width": 1280,
+      "language": "pt",
+      "state": "after",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; seeded data, landing own light palette"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/contacts-768-light.png",
+      "sha256": "64d145955e331c67a956973cc6ca4962735e39bb40be122cf69ae860ff215b59",
+      "width": 768,
+      "language": "es",
+      "appTheme": "light",
+      "state": "supplemental-bgOverlap-review",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; no personal data; screenshot unchanged UI for incomplete axe investigation"
+    },
+    {
+      "file": "docs/screenshots/phase-5c/contacts-768-dark.png",
+      "sha256": "899f40d57abe80049a145798221c532c3fa09ebfcb50e998e3e993d972a0d695",
+      "width": 768,
+      "language": "es",
+      "appTheme": "dark",
+      "state": "supplemental-bgOverlap-review",
+      "sourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+      "fixture": "responsiveFixture; no personal data; screenshot unchanged UI for incomplete axe investigation"
+    }
+  ]
+}

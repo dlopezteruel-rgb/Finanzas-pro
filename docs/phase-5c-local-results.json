@@ -1,0 +1,477 @@
+{
+  "schemaVersion": 1,
+  "base": "7611ab8ed09589ec87c0544ef2c4b7affcf1302c",
+  "applicationSourceCommit": "791410fdb68be69330d46b344d9e29e60f13a5e4",
+  "testSourceCommit": "52cfe28f885be69100d601eba4ae056c9eb840e3",
+  "scope": "Actual complete local production battery; later documentation-only commits do not change application/test sources. Node result counts include parent containers, matching previous references.",
+  "environment": {
+    "node": "v24.22.1",
+    "chromium": "Chromium 156.0.8078.79 built on Debian GNU/Linux 13 (trixie)",
+    "playwrightCore": "1.64.1",
+    "axeCore": "4.14.0"
+  },
+  "npmCi": {
+    "packages": 188,
+    "lockfileChanged": false
+  },
+  "unit": {
+    "tests": 528,
+    "suites": 0,
+    "pass": 528,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "infrastructure": {
+    "tests": 22,
+    "suites": 0,
+    "pass": 22,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "lint": "passed",
+  "build": "passed-existing-chunk-warning",
+  "diffCheck": "passed-worktree-and-origin-main",
+  "browser": {
+    "results": 698,
+    "suites": 35,
+    "commandDurationMs": 2087606,
+    "perSuite": [
+      {
+        "suite": "scripts/phase1.browser.ts",
+        "status": "passed",
+        "tests": 57,
+        "suites": 0,
+        "pass": 57,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/sharedUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/deletion.browser.ts",
+        "status": "passed",
+        "tests": 23,
+        "suites": 0,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/planning.browser.ts",
+        "status": "passed",
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetUx.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/charts.browser.ts",
+        "status": "passed",
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/automation.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/responsive.browser.ts",
+        "status": "passed",
+        "tests": 16,
+        "suites": 0,
+        "pass": 16,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/intelligent.browser.ts",
+        "status": "passed",
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/visualUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/routes.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/defaultWallet.browser.ts",
+        "status": "passed",
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetSubitems.browser.ts",
+        "status": "passed",
+        "tests": 19,
+        "suites": 0,
+        "pass": 19,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogPresentation.browser.ts",
+        "status": "passed",
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/customCatalog.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogReorder.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogClassification.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogArchive.browser.ts",
+        "status": "passed",
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aSafety.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aLoans.browser.ts",
+        "status": "passed",
+        "tests": 3,
+        "suites": 0,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aAudit.browser.ts",
+        "status": "passed",
+        "tests": 9,
+        "suites": 0,
+        "pass": 9,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/i18n.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedBanking.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedPlanning.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCatalog.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCatalogDrag.browser.ts",
+        "status": "passed",
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedAutomation.browser.ts",
+        "status": "passed",
+        "tests": 41,
+        "suites": 0,
+        "pass": 41,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedObligations.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedStorage.browser.ts",
+        "status": "passed",
+        "tests": 36,
+        "suites": 0,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedShared.browser.ts",
+        "status": "passed",
+        "tests": 36,
+        "suites": 0,
+        "pass": 36,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCharts.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedAssistant.browser.ts",
+        "status": "passed",
+        "tests": 38,
+        "suites": 0,
+        "pass": 38,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedPresentation.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedCompletion.browser.ts",
+        "status": "passed",
+        "tests": 31,
+        "suites": 0,
+        "pass": 31,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/landingLanguage.browser.ts",
+        "status": "passed",
+        "tests": 43,
+        "suites": 0,
+        "pass": 43,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ]
+  },
+  "axe": {
+    "general": {
+      "surfaces": 128,
+      "violations": 0,
+      "incompleteGroups": 36,
+      "incompleteNodes": 92,
+      "rules": {
+        "color-contrast": 36
+      }
+    },
+    "matrices": {
+      "surfaces": 1217,
+      "violations": 0,
+      "incompleteGroups": 853,
+      "incompleteNodes": 5363,
+      "rules": {
+        "color-contrast": 853
+      }
+    },
+    "landing": {
+      "surfaces": 57,
+      "violations": 0,
+      "incompleteGroups": 7,
+      "incompleteNodes": 38,
+      "rules": {
+        "aria-valid-attr-value": 1,
+        "color-contrast": 6
+      }
+    },
+    "recordedTotals": {
+      "surfaces": 1402,
+      "violations": 0,
+      "incompleteGroups": 896,
+      "incompleteNodes": 5493
+    },
+    "mechanisms": {
+      "color-contrast:nonBmp": 306,
+      "color-contrast:elmPartiallyObscuring": 1505,
+      "color-contrast:bgOverlap": 72,
+      "aria-valid-attr-value:controlsWithinPopup": 1,
+      "color-contrast:elmPartiallyObscured": 2007,
+      "color-contrast:shortTextContent": 22,
+      "color-contrast:imgNode": 1580
+    },
+    "note": "Incomplete is not an automatic violation or a screen-reader certification. Additional existing strict axe assertions outside these reports remain in the preserved battery."
+  },
+  "protectedFilesByteIdentical": 116
+}

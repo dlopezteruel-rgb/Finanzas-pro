@@ -128,7 +128,7 @@ export function DebtsWorkspace({
         </div>
         <button onClick={create}>{uiText("debts_workspace.nuevo_compromiso_personal")}</button>
       </div>
-      <div className="finance-actions" aria-label={uiText("debts_workspace.direccion_de_deuda")}>
+      <div className="finance-actions" role="group" aria-label={uiText("debts_workspace.direccion_de_deuda")}>
         <button
           aria-pressed={direction === "receivable"}
           onClick={() => setDirection("receivable")}
