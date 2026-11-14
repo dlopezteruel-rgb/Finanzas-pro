@@ -13,6 +13,8 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "theme.storageError": "El tema ha cambiado en esta pestaña, pero no se ha podido guardar la preferencia visual.",
+  "feature.charts": "Gráficos",
   "feature.loading": "Cargando {name}…",
   "feature.error": "No se pudo cargar {name}. Los datos y los formularios abiertos se conservan.",
   "language.loading": "Cargando {language}…",

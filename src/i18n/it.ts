@@ -1,6 +1,8 @@
 import type { Messages } from './messages';
 
 export const it = {
+  "theme.storageError": "Il tema è cambiato in questa scheda, ma non è stato possibile salvare la preferenza visiva.",
+  "feature.charts": "Grafici",
   "feature.loading": "Caricamento di {name}…",
   "feature.error": "Impossibile caricare {name}. I dati e i moduli aperti vengono mantenuti.",
   "language.loading": "Caricamento di {language}…",

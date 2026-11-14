@@ -3,10 +3,10 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 912,
-    "review": 3087,
+    "type-or-import": 920,
+    "review": 3095,
     "ui-message-candidate": 379,
-    "attribute-internal": 2131,
+    "attribute-internal": 2132,
     "translation-key": 1488,
     "visible-text": 76,
     "visible-attribute": 11
@@ -569,37 +569,37 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "14ae5a8f58f64a571a4c06dcf0f1cf0796244d7cb197aa4d0212908bb3b9e5a0",
+      "sourceSha256": "ef849260c365469b8393c084f870c9a57cbc3602f2138f731f24363939caefea",
       "counts": {
         "type-or-import": 61,
-        "review": 69,
+        "review": 67,
         "ui-message-candidate": 23,
-        "attribute-internal": 73,
-        "translation-key": 34
+        "attribute-internal": 75,
+        "translation-key": 35
       },
       "visibleCandidateLines": [
-        168,
-        169,
-        182,
-        184,
-        317,
-        319,
-        323,
-        351,
-        371,
-        425,
-        492,
-        498,
-        523,
-        527,
-        540,
-        543,
-        661,
-        663,
-        668,
-        669,
-        670,
-        671
+        177,
+        178,
+        191,
+        193,
+        326,
+        328,
+        332,
+        360,
+        380,
+        434,
+        501,
+        507,
+        532,
+        536,
+        549,
+        552,
+        671,
+        673,
+        678,
+        679,
+        680,
+        681
       ],
       "presentationCalls": []
     },
@@ -622,6 +622,28 @@
       "sourceSha256": "4af9bc980ae2b6f5d418eaca80b6bf9fe3fb462d61504a20cb210050fdbcca2b",
       "counts": {
         "type-or-import": 1
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/app/themePreference.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "41d62fd1b73f5218bb8bbf00fe9c9e5bb6b5c89628816ffd83140e7986086b9f",
+      "counts": {
+        "type-or-import": 4,
+        "review": 3
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/app/useVisualTheme.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "1ffa19b3ecec0bb0b6845b72d1715479a36b03ce3856dffc5ce886870c354160",
+      "counts": {
+        "type-or-import": 2,
+        "review": 5
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -979,7 +1001,7 @@
     {
       "file": "src/components/DeferredFeature.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "001ddfc59d9d8177b2e61cd8f0970865515608a1ee5bdfb96b1c12d117d0ea50",
+      "sourceSha256": "a70be2e307db68a686c81fa530fa9ba8ec40dbbc7a2097d537a4882328e07f47",
       "counts": {
         "type-or-import": 2,
         "attribute-internal": 5,
@@ -1752,12 +1774,12 @@
     {
       "file": "src/components/charts/ChartSlot.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "6be5f1507749ba2ab1d87da745c8681da6a6e4bd3f5a657e1ad7784108b498fc",
+      "sourceSha256": "1ec8a4522a83d70b083f81c778f55736016cdaaa1ab78ccfca0efe934546fb8f",
       "counts": {
-        "type-or-import": 3,
-        "review": 1,
-        "translation-key": 8,
-        "attribute-internal": 2
+        "type-or-import": 4,
+        "review": 3,
+        "translation-key": 7,
+        "attribute-internal": 1
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1900,9 +1922,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "435dca9d23c7f4f57da1ad532c358b601043f4c42192615a59c99a4f1db7be2e",
+      "sourceSha256": "fbd01ed491fa47143cdf0cf94c6a1b86aad34071ae305283059229300d9a90fa",
       "counts": {
-        "type-or-import": 44
+        "type-or-import": 45
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

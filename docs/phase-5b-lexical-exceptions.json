@@ -972,6 +972,11 @@
         "key": "catalog.name.item.INGRESO:O.001.001",
         "text": "Reembolsos de compras",
         "reason": "5D: reviewed native financial wording with identical spelling for this specific stable catalogue identity."
+      },
+      {
+        "key": "feature.charts",
+        "text": "Gráficos",
+        "reason": "Native pt-PT spelling for charts; same spelling as Spanish, not untranslated prose."
       }
     ]
   }
