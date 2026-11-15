@@ -2072,4 +2072,7 @@ export const pt = {
   "native.preferencesFailed": "Não foi possível guardar as preferências do dispositivo. A seleção atual mantém-se.",
   "native.exportTitle": "Partilhar uma cópia fictícia do FinanZas Pro",
 
+  "native.deviceUnavailable": "A função do dispositivo não está disponível. A sessão e os formulários são conservados.",
+  "native.linkBlocked": "Só é possível abrir ligações HTTPS através do navegador do sistema.",
+
 } as const satisfies Messages;

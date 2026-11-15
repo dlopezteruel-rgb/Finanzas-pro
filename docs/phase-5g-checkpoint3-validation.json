@@ -1,0 +1,30 @@
+{
+  "checkpoint": 3,
+  "unit": {
+    "pass": 653,
+    "total": 653,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0
+  },
+  "lint": "passed",
+  "nativeBuild": "passed before final back-form guard refinement; final build pending",
+  "protectedFilesUnchanged": 44,
+  "nativeStorage": "disposable synchronous session; same FinanceStore and Web Locks; permanent real storage blocked",
+  "nativeImport": "blocked both button and input handler",
+  "nativeAPI": "no authorized backend,no native fetch; shared local recognition unchanged",
+  "browserSmoke": {
+    "scope": "Production native preview in Chromium,not Android/iOS",
+    "acknowledgementRequired": true,
+    "sharedAppStarted": true,
+    "financialWebViewReads": 0,
+    "financialWebViewWrites": 0,
+    "pageErrors": 0
+  },
+  "webBundleIntermediate": {
+    "initialGzip": 138072,
+    "baseline5FGzip": 137397,
+    "nativeSDKInitialModules": 0
+  },
+  "remaining": "Checkpoint4 full native-preview matrix and guards;final web suite/performance/nativeAPK/CI. Physical and simulator tests unexecuted."
+}

@@ -104,4 +104,7 @@ export const es = {
   "native.preferencesFailed": "No se han podido guardar las preferencias del dispositivo. La selección actual se mantiene.",
   "native.exportTitle": "Compartir copia ficticia de FinanZas Pro",
 
+  "native.deviceUnavailable": "La función del dispositivo no está disponible. La sesión y los formularios se conservan.",
+  "native.linkBlocked": "Solo se pueden abrir enlaces HTTPS mediante el navegador del sistema.",
+
 } as const;

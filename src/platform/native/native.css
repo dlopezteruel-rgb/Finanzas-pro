@@ -1,0 +1,12 @@
+html[data-native-shell] body { padding: env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) 0 env(safe-area-inset-left,0px); background: var(--canvas); }
+html[data-native-shell] .finance-app .app-header { top: env(safe-area-inset-top,0px); }
+html[data-native-shell] .app-main { padding-bottom: calc(100px + env(safe-area-inset-bottom,0px)); }
+html[data-native-shell] [data-overlay-level="dialog"] { padding: calc(12px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px)); }
+html[data-native-shell] [data-overlay-level="dialog"] [role="dialog"] { max-height: min(90vh,calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 24px)); }
+html[data-native-keyboard="open"] .mobile-navigation { display: none; }
+.native-gate { min-height: 100dvh; max-width: 42rem; margin-inline: auto; gap: 1rem; }
+.native-consent { display: flex; align-items: center; gap: .75rem; min-height: 44px; text-align: left; }
+.native-consent input { min-width: 24px; min-height: 24px; }
+.native-prototype-bar { display: flex; gap: .75rem; padding: .75rem; align-items: center; border-bottom: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: .8rem; }
+.native-prototype-bar button { min-width: 44px; min-height: 44px; flex-shrink: 0; }
+.native-notice { position: fixed; z-index: 1000; bottom: calc(90px + env(safe-area-inset-bottom,0px)); left: 1rem; right: 1rem; max-width: 40rem; margin-inline: auto; padding: .75rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); color: var(--ink); pointer-events: none; overflow-wrap: anywhere; }

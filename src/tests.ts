@@ -74,3 +74,4 @@ import './app/intentPreload.test';
 
 import './app/preloadIdle.test';
 import './platform/environment.test';
+import './platform/contracts.test';

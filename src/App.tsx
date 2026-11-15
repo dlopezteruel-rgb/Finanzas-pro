@@ -1,3 +1,4 @@
+import {usePlatformServices,usePlatformBack} from './platform/services';
 import {CatalogNamesProvider} from './i18n/catalogNames';
 import {systemCatalogNames} from './utils/catalogNames';
 import {legacyTransferNotice,legacySharedNotice} from './i18n/countMessages';
@@ -100,17 +101,17 @@ const DEMO_DATA: FinanceData = {
   contacts: INITIAL_CONTACTS,
 };
 
-function downloadJSON(content: string, filename: string) {
-  const url = URL.createObjectURL(new Blob([content], { type: 'application/json' }));
-  const link = document.createElement('a');
-  link.href = url; link.download = filename; link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 export default function App() {
+  const platform=usePlatformServices(),exportPending=useRef(false);
   const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t,pendingLanguage } = useI18n();
-  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
+  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,financeStorage } = useFinanceData(DEMO_DATA);
+  const downloadJSON=async(content:string,filename:string)=>{
+    if(exportPending.current)return;exportPending.current=true;
+    try{await platform.exportText(content,filename,'application/json',uiText('native.exportTitle'));}
+    catch{setDataError(uiText('native.exportFailed'));}finally{exportPending.current=false;}
+  };
   const { theme: storedTheme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
   const transactions = useMemo(() => sharedViewTransactions(storedTransactions).map(t => ({ ...t, wallet: (t.recurrence || t.obligationSettlement) ? wallets.find(w=>w.id===(t.recurrence?.walletId??t.obligationSettlement?.walletId))!.name : t.transfer ? transferWalletName(t, wallets) : sharedWalletName(t, { wallets }) })), [storedTransactions, wallets]);
@@ -168,6 +169,14 @@ export default function App() {
     if (planningState.current.dirty) {setPlanningNavigationFailure(false);setPendingPlanningNavigation(() => action);}
     else action();
   };
+  usePlatformBack(()=>{
+    const overlay=document.querySelector<HTMLElement>('[aria-modal="true"]');
+    if(overlay?.matches('.more-dialog')){document.dispatchEvent(new KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));return 'handled';}
+    const pendingForm=Array.from(document.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('form input:not([type="hidden"]):not([type="checkbox"]):not([type="radio"]),form textarea,.home-quick input')).some(field=>field.getClientRects().length>0&&!field.closest('.planning')&&field.value.trim());
+    if(overlay||document.querySelector('[aria-busy="true"]')||pendingForm){platform.notify('native.backBlocked');return 'handled';}
+    if(activeTab!=='dashboard'){guardPlanning(()=>setActiveTab('dashboard'));return 'handled';}
+    return 'root';
+  });
   // Leaving /app is a document navigation; retain the existing draft protection.
   useEffect(() => {
     const beforeLeave = (event: BeforeUnloadEvent) => {
@@ -529,11 +538,12 @@ export default function App() {
   const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
   const handleExportJSON = () => downloadJSON(JSON.stringify(makeBackup(data), null, 2), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);
-  const handleImportJSON = () => fileInputRef.current?.click();
+  const handleImportJSON = () => {if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}fileInputRef.current?.click();};
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
     if (!file) return;
+    if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}
     const request = ++importRequest.current;
     setDataError(''); setDataNotice('');
     try {
@@ -569,9 +579,9 @@ export default function App() {
     <button className="button-primary" onClick={() => {
       try {
       const raw: Record<string, string | null> = {};
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key?.startsWith('finanzas_pro_')) raw[key] = localStorage.getItem(key);
+      for (let i = 0; i < financeStorage().length; i++) {
+        const key = financeStorage().key(i);
+        if (key?.startsWith('finanzas_pro_')) raw[key] = financeStorage().getItem(key);
       }
       downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
       } catch { setDataError(t('recovery.blocked')); }
@@ -764,8 +774,8 @@ export default function App() {
       {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title={uiText("app.copias_de_recuperacion")} onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">{uiText("app.descarga_una_copia_y_utiliza_importar_json_para_revisarla")}</p>
-          {recoveryCopies(localStorage).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
-          {recoveryCopies(localStorage).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
+          {recoveryCopies(financeStorage()).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
+          {recoveryCopies(financeStorage()).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
           <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">{uiText("app.cerrar")}</button>
       </SafeDialog>}
 
