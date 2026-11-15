@@ -1,0 +1,200 @@
+{
+  "policy": "Incomplete,failed and smoke runs are separate from final acceptance. Parent failures are counted by Node and not distinct independent defects.",
+  "attempts": [
+    {
+      "log": "5f-pagination-unit.log",
+      "reason": "Inventory became stale while adding the new source; regenerated,not hidden",
+      "summaries": [
+        {
+          "tests": 599,
+          "suites": 0,
+          "pass": 598,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger.log",
+      "reason": "Initial harness used an unknown navigation key; corrected",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 0,
+          "fail": 41,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v2.log",
+      "reason": "Real cursor reset defect plus incorrect new accessible-name fixture",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 4,
+          "fail": 37,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v3.log",
+      "reason": "Cursor fixed; original new harness accessible-name punctuation still incorrect",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 39,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v4.log",
+      "reason": "Existing editor normalizes absent notes to empty string; exact expected fixture corrected, no editor change",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 39,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-intent-browser.log",
+      "reason": "Programmatic focus after click did not imply keyboard focus-visible; harness now sends real Tab; incomplete run not approved",
+      "summaries": [
+        {
+          "tests": 13,
+          "suites": 0,
+          "pass": 9,
+          "fail": 2,
+          "cancelled": 2,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-restricted-network-before.log",
+      "reason": "Reproduces restricted getter error before fix",
+      "summaries": [
+        {
+          "tests": 14,
+          "suites": 0,
+          "pass": 12,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-critical-language-before.log",
+      "reason": "Reproduces both restricted getter and foreground dictionary contention before fixes",
+      "summaries": [
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 12,
+          "fail": 3,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-safety-browser.log",
+      "reason": "All15 intent results after fixes",
+      "summaries": [
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-ledger-focused.log",
+      "reason": "All44 ledger results after compact controls and safety fixes",
+      "summaries": [
+        {
+          "tests": 44,
+          "suites": 0,
+          "pass": 44,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-safety-unit.log",
+      "reason": "All628 unit results after source fixes",
+      "summaries": [
+        {
+          "tests": 628,
+          "suites": 0,
+          "pass": 628,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    }
+  ],
+  "excludedPerformanceSmokes": [
+    "5f-intent-smoke.json (clock patch0ms deadline)",
+    "5f-interactions-smoke.json (concurrent tool sanity only)",
+    "5f-intent-native-smoke.json",
+    "5f-intent-condition-smoke.json"
+  ],
+  "finalFocused": {
+    "ledger": [
+      {
+        "tests": 44,
+        "suites": 0,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "preload": [
+      {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ]
+  }
+}

@@ -1,6 +1,9 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "ledger.page.allShort": "All",
+  "ledger.page.pagedShort": "Pages",
+
   "ledger.page.range": "Showing transactions {start}–{end} of {total}",
   "ledger.page.navigation": "Transaction list pages",
   "ledger.page.previous": "Previous",

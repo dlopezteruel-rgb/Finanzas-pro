@@ -252,7 +252,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
         </div>
       </div>
 
-      {paginated&&<MovementPagination count={filtered.length} page={pageView.page} all={showAll} onPage={changePage} onAll={setShowAll}/>}
+      {paginated&&<MovementPagination compact count={filtered.length} page={pageView.page} all={showAll} onPage={changePage} onAll={setShowAll}/>}
       {/* Transactions List */}
       <div className="movement-list bg-[#141926] border border-white/[0.06] rounded-2xl shadow-sm divide-y divide-white/[0.04]" role="list" aria-label={uiText("transactions.movimientos_filtrados")}>
         {filtered.length === 0 ? (

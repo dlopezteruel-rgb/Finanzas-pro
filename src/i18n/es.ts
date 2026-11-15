@@ -13,6 +13,9 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "ledger.page.allShort": "Todos",
+  "ledger.page.pagedShort": "Páginas",
+
   "ledger.page.range": "Mostrar {start}–{end} de {total} movimientos",
   "ledger.page.navigation": "Páginas del listado de movimientos",
   "ledger.page.previous": "Anterior",

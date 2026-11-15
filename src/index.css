@@ -80,3 +80,7 @@
 .movement-page-controls button { min-height: 44px; white-space: normal; }
 .movement-page-help { line-height: 1.5; }
 @media print { .movement-pagination { display: none; } .movement-row { break-inside: avoid; } }
+
+.movement-pagination-compact { border: 0; padding: 0; margin: .5rem 0; }
+.movement-pagination-compact .movement-page-controls { gap: .4rem; margin: 0; }
+.movement-pagination-compact .movement-page-controls button { min-width: 44px; padding: .4rem; display: inline-flex; justify-content: center; align-items: center; }

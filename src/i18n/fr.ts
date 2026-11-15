@@ -1,6 +1,9 @@
 import type { Messages } from './messages';
 
 export const fr = {
+  "ledger.page.allShort": "Tout",
+  "ledger.page.pagedShort": "Pages",
+
   "ledger.page.range": "Mouvements {start}–{end} sur {total}",
   "ledger.page.navigation": "Pages de la liste des mouvements",
   "ledger.page.previous": "Précédente",

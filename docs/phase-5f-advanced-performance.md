@@ -81,4 +81,16 @@ Capturas actuales de la aplicación de producción,5.000 datos ficticios, no maq
 | fr-FR | [PNG](phase-5f-screenshots/fr-390-light-ledger.png) | [PNG](phase-5f-screenshots/fr-390-dark-ledger.png) |
 | pt-PT | [PNG](phase-5f-screenshots/pt-390-light-ledger.png) | [PNG](phase-5f-screenshots/pt-390-dark-ledger.png) |
 
-El frontend fotografiado corresponde a14c93b6; los cambios posteriores de este checkpoint son pruebas/documentación. Los46 archivos protegidos, incluyendo configuración, lockfile y workflow, conservan sus hashes de540cfcf. No se alteran límites de CI, reglas de fallos ni axe.
+Las capturas de la tabla se regeneraron con el cierre visual. El [manifiesto de fuentes/capturas](phase-5f-capture-manifest.json) conserva sus hashes; la imagen anterior del paginador corresponde a14c93b6. Los46 archivos protegidos, incluyendo configuración, lockfile y workflow, conservan sus hashes de540cfcf. No se alteran límites de CI, reglas de fallos ni axe.
+
+## Cierre de defectos reproducidos
+
+| ID | Caso reproducido | Corrección | Regresión |
+| --- | --- | --- | --- |
+| 5F-01 | Volver de una búsqueda recuperaba la página antigua | Sincronizar cursor y filtro | Matriz44/44 |
+| 5F-02 | Paginador superior demasiado alto en390px | Controles superiores compactos, etiquetas accesibles completas,44px táctiles; ayuda completa en pie | Matriz44/44,axe0; [antes](phase-5f-screenshots/before-compact-fr-390-light-ledger.png)/[después](phase-5f-screenshots/fr-390-light-ledger.png) |
+| 5F-03 | Getter de NetworkInformation restringido lanzaba dos errores al interactuar | Adaptador captura la excepción y mantiene navegación bajo demanda | Caso throwingNetwork, sin errores/escrituras |
+| 5F-04 | Precarga competía con descarga explícita de un diccionario | Guardar también pendingLanguage desde el proveedor existente | Diccionario francés retenido:0peticiones Planning antes de liberarlo |
+| Herramienta | clock.setFixedTime de Playwright devuelve deadline idle0ms | Mediciones nuevas con idle/rAF/timers nativos, fechas financieras fijas y reloj real registrado | Sonda:49,9ms nativo frente a0ms con clock; muestras anteriores excluidas |
+
+El cierre pasa628/628 unitarias, lint/build,44/44 de listado y15/15 de precarga (dos casos nuevos). Los intentos que reproducen5F-03/04 se conservan en el [registro de intentos](phase-5f-validation-attempts.json), sin contarlos como aprobación. Las mediciones exploratorias concurrentes se usan solo para depurar las herramientas y no entran en las tablas comparativas finales.

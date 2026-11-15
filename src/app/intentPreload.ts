@@ -9,10 +9,12 @@ export function canPreload(c:PreloadConditions){
 }
 export function browserPreloadConditions(busy:boolean):PreloadConditions{
  if(typeof window==='undefined'||typeof navigator==='undefined')return {visible:false,ready:false,busy:true,idleAvailable:false,inputPending:false};
+ try{
  const n=navigator as Navigator&{connection?:{saveData?:boolean;effectiveType?:string;downlink?:number;rtt?:number};deviceMemory?:number;scheduling?:{isInputPending?:()=>boolean}};
  let inputPending=true;try{inputPending=n.scheduling?.isInputPending?.()??false;}catch{/* An unavailable capability never authorizes background work. */}
  const active=document.activeElement;
  return {saveData:n.connection?.saveData,effectiveType:n.connection?.effectiveType,downlink:n.connection?.downlink,rtt:n.connection?.rtt,visible:document.visibilityState==='visible',ready:document.readyState==='complete',busy:busy||!!document.querySelector('[aria-modal="true"]:not(.more-dialog),[aria-busy="true"]')||!!active?.matches('input,textarea,[contenteditable="true"]')||!!document.querySelector<HTMLInputElement>('.home-quick input')?.value,cores:n.hardwareConcurrency,memory:n.deviceMemory,idleAvailable:typeof window.requestIdleCallback==='function',inputPending};
+ }catch{return {visible:false,ready:false,busy:true,idleAvailable:false,inputPending:true};}
 }
 export type PreloadResource={preload:()=>Promise<void>;isLoaded:()=>boolean};
 /** At most one unconsumed feature; import evaluation only, never render/provider/store work. */

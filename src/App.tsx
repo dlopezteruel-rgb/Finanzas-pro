@@ -109,7 +109,7 @@ function downloadJSON(content: string, filename: string) {
 
 export default function App() {
   const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
-  const { t } = useI18n();
+  const { t,pendingLanguage } = useI18n();
   const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError } = useFinanceData(DEMO_DATA);
   const { theme: storedTheme, budgetGroups, transactions: storedTransactions, budgetPlans, loans, wallets, contacts } = data;
   const effectivePlans=useMemo(()=>effectiveBudgetPlans(data),[data]);
@@ -161,7 +161,7 @@ export default function App() {
   const [planningBusy, setPlanningBusy] = useState(false);
   const [planningReset, setPlanningReset] = useState(0);
   const [pendingPlanningNavigation, setPendingPlanningNavigation] = useState<(() => void) | null>(null);
-  const featureIntent=useIntentPreload(preloadResources,()=>planningState.current.dirty||planningState.current.saving||restoring||!!restoration||!!pendingPlanningNavigation);
+  const featureIntent=useIntentPreload(preloadResources,()=>planningState.current.dirty||planningState.current.saving||restoring||!!restoration||!!pendingPlanningNavigation||pendingLanguage!==null);
   const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; setPlanningBusy(saving); }, []);
   const guardPlanning = (action: () => void) => {
     if (planningState.current.saving) return;

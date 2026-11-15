@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 952,
+    "type-or-import": 953,
     "review": 3134,
     "ui-message-candidate": 379,
-    "attribute-internal": 2145,
-    "translation-key": 1498,
+    "attribute-internal": 2150,
+    "translation-key": 1508,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -569,7 +569,7 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8a129d73ae114f446bdf4b85592e548bdaab9469e473101a01b5b19b33a439ad",
+      "sourceSha256": "8b47de4b37d6a3447b2b5966c0828cada07c62e3b98d67596fe3f5561e0ece11",
       "counts": {
         "type-or-import": 62,
         "review": 67,
@@ -619,7 +619,7 @@
     {
       "file": "src/app/intentPreload.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "e1d5b205f247c065329888ed703dd4066785e83533a0545d57f4b63236dd3bc4",
+      "sourceSha256": "f12f36f6011f114ea77caf12e452b58ff178bbbba914c92a6e7d7c6a885b98f9",
       "counts": {
         "type-or-import": 16,
         "review": 22
@@ -1147,11 +1147,11 @@
     {
       "file": "src/components/MovementPagination.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "fe65d548ab8276a173deec2780eb53bc938b39b81a06c98e5142e1860e1e7682",
+      "sourceSha256": "f9cb790028d7e48d4d1f82f583938717d0ef86c231064e56284657b400a442a2",
       "counts": {
-        "type-or-import": 2,
-        "attribute-internal": 12,
-        "translation-key": 10
+        "type-or-import": 3,
+        "attribute-internal": 17,
+        "translation-key": 20
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1641,7 +1641,7 @@
     {
       "file": "src/components/TransactionsView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "e9d5ef06138403e174ba96f58ac48ae27919c7ce2e9b50e3d748b6af712824b5",
+      "sourceSha256": "7ba2f974f4a9a28c3b8f4f39ce71e0e16a56bb86cbebb7f579ce9c7cd882aeb7",
       "counts": {
         "type-or-import": 13,
         "review": 49,
