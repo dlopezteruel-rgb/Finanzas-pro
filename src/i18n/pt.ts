@@ -1,6 +1,20 @@
 import type { Messages } from './messages';
 
 export const pt = {
+  "ledger.page.allShort": "Todos",
+  "ledger.page.pagedShort": "Páginas",
+
+  "ledger.page.range": "Movimentos {start}–{end} de {total}",
+  "ledger.page.navigation": "Páginas da lista de movimentos",
+  "ledger.page.previous": "Anterior",
+  "ledger.page.label": "Página",
+  "ledger.page.number": "{page} de {pages}",
+  "ledger.page.next": "Seguinte",
+  "ledger.page.showAll": "Mostrar todos (mais lento)",
+  "ledger.page.paginate": "Voltar às páginas",
+  "ledger.page.help": "A pesquisa e os totais incluem todos os resultados. A pesquisa do navegador só encontra a página visível. Mostre todos para pesquisar e imprimir a lista completa.",
+  "ledger.page.fullHelp": "Lista completa: a pesquisa e a impressão incluem todos os resultados. Pode ser mais lenta com milhares de movimentos.",
+
   "theme.storageError": "O tema foi alterado neste separador, mas não foi possível guardar a preferência visual.",
   "feature.charts": "Gráficos",
   "feature.loading": "A carregar {name}…",

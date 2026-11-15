@@ -1,0 +1,1338 @@
+{
+  "conclusion": "success",
+  "createdAt": "2026-11-15T18:21:13Z",
+  "databaseId": 43746276687,
+  "event": "workflow_dispatch",
+  "headSha": "d11c41f752be8641002fdd279dc577ffe70e4a83",
+  "jobs": [
+    {
+      "completedAt": "2026-11-15T18:21:40Z",
+      "conclusion": "success",
+      "databaseId": 132910168736,
+      "name": "Lint, build y diff",
+      "startedAt": "2026-11-15T18:21:17Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Instalaci\u00f3n reproducible",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint, build y diff real contra la base",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Conservar logs y res\u00famenes",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910168736"
+    },
+    {
+      "completedAt": "2026-11-15T18:21:49Z",
+      "conclusion": "success",
+      "databaseId": 132910169063,
+      "name": "Unitarias",
+      "startedAt": "2026-11-15T18:21:18Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Instalaci\u00f3n reproducible",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Verificar el ejecutor de CI",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Pruebas unitarias completas",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Conservar logs y res\u00famenes",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 15,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910169063"
+    },
+    {
+      "completedAt": "2026-11-15T19:08:21Z",
+      "conclusion": "success",
+      "databaseId": 132910169115,
+      "name": "Chromium y axe",
+      "startedAt": "2026-11-15T18:21:18Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Instalaci\u00f3n reproducible",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Instalar Chromium desde la CLI de playwright-core instalada",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Resolver y verificar el ejecutable real",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Bater\u00eda completa Chromium y axe estricta",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Conservar diagn\u00f3stico del fallo",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Conservar logs, versiones y auditor\u00eda",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910169115"
+    }
+  ],
+  "startedAt": "2026-11-15T18:21:13Z",
+  "status": "completed",
+  "updatedAt": "2026-11-15T19:08:22Z",
+  "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687",
+  "artifactVerification": {
+    "allDownloadedZipDigestsMatchGitHub": true,
+    "artifacts": [
+      {
+        "id": 14176590695,
+        "name": "browser-results-43746276687-1",
+        "size_in_bytes": 453149,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14176590695",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14176590695/zip",
+        "expired": false,
+        "created_at": "2026-11-15T19:08:18Z",
+        "expires_at": "2026-11-22T19:08:16Z",
+        "updated_at": "2026-11-15T19:08:18Z",
+        "digest": "sha256:45d66a9d6a322a758a141df693d01d63dacaf4860470b1e07a8cac8f9c92adbc",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      },
+      {
+        "id": 14174815730,
+        "name": "code-43746276687-1",
+        "size_in_bytes": 2152,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174815730",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174815730/zip",
+        "expired": false,
+        "created_at": "2026-11-15T18:21:37Z",
+        "expires_at": "2026-11-22T18:21:36Z",
+        "updated_at": "2026-11-15T18:21:37Z",
+        "digest": "sha256:7047759e67423a96a6bd30d850c2cb5f454dcd99db6e288618fa9831014d6db4",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      },
+      {
+        "id": 14174511323,
+        "name": "unit-43746276687-1",
+        "size_in_bytes": 19303,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174511323",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174511323/zip",
+        "expired": false,
+        "created_at": "2026-11-15T18:21:45Z",
+        "expires_at": "2026-11-22T18:21:44Z",
+        "updated_at": "2026-11-15T18:21:45Z",
+        "digest": "sha256:c72e09b5e3eac8c92c69c738d396b8e69d82fa5ae1ea62bd6776160ff306de11",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      }
+    ]
+  },
+  "scope": "Passing CI reference for exactly the measured frontend d11. The final PR head has documentation-only closing commits and must have its own three green checks, linked in PR body and delivery.",
+  "environment": {
+    "node": "v24.22.1",
+    "playwrightCore": "1.64.1",
+    "chromium": "Google Chrome for Testing 156.0.8078.4",
+    "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+    "platform": "linux",
+    "architecture": "x64",
+    "runnerImage": "ubuntu24",
+    "runnerImageVersion": "20261111.370.1"
+  },
+  "verifiedResults": {
+    "unit": {
+      "mode": "unit",
+      "node": "v24.22.1",
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "test"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 6066
+        }
+      ],
+      "tests": [
+        {
+          "tests": 633,
+          "suites": 0,
+          "pass": 633,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "error": null
+    },
+    "tools": {
+      "mode": "tools",
+      "node": "v24.22.1",
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+            "--test",
+            "scripts/ci/browser-diagnostics.test.mjs",
+            "scripts/ci/check-diff.test.mjs",
+            "scripts/ci/run-check.test.mjs",
+            "scripts/ci/test-results.test.mjs"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 866
+        }
+      ],
+      "tests": [
+        {
+          "tests": 22,
+          "suites": 0,
+          "pass": 22,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "error": null
+    },
+    "code": {
+      "mode": "code",
+      "node": "v24.22.1",
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+            "scripts/ci/check-diff.mjs"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 57
+        },
+        {
+          "command": [
+            "npm",
+            "run",
+            "lint"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 2237
+        },
+        {
+          "command": [
+            "npm",
+            "run",
+            "build"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 1245
+        }
+      ],
+      "tests": [],
+      "error": null
+    },
+    "browser": {
+      "mode": "browser",
+      "node": "v24.22.1",
+      "passed": true,
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "test:ui"
+          ],
+          "code": 0,
+          "signal": null,
+          "durationMs": 2784418
+        }
+      ],
+      "tests": [
+        {
+          "tests": 57,
+          "suites": 0,
+          "pass": 57,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 23,
+          "suites": 0,
+          "pass": 23,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 13,
+          "suites": 0,
+          "pass": 13,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 8,
+          "suites": 0,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 16,
+          "suites": 0,
+          "pass": 16,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 25,
+          "suites": 0,
+          "pass": 25,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 5,
+          "suites": 0,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 14,
+          "suites": 0,
+          "pass": 14,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 19,
+          "suites": 0,
+          "pass": 19,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 7,
+          "suites": 0,
+          "pass": 7,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 5,
+          "suites": 0,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 11,
+          "suites": 0,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 3,
+          "suites": 0,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 9,
+          "suites": 0,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 11,
+          "suites": 0,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 41,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 36,
+          "suites": 0,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 36,
+          "suites": 0,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 38,
+          "suites": 0,
+          "pass": 38,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 8,
+          "suites": 0,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 4,
+          "suites": 0,
+          "pass": 4,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 44,
+          "suites": 0,
+          "pass": 44,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "tests": 17,
+          "suites": 0,
+          "pass": 17,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ],
+      "error": null,
+      "suites": [
+        "scripts/phase1.browser.ts",
+        "scripts/sharedUx.browser.ts",
+        "scripts/deletion.browser.ts",
+        "scripts/planning.browser.ts",
+        "scripts/budgetUx.browser.ts",
+        "scripts/charts.browser.ts",
+        "scripts/automation.browser.ts",
+        "scripts/responsive.browser.ts",
+        "scripts/intelligent.browser.ts",
+        "scripts/visualUx.browser.ts",
+        "scripts/routes.browser.ts",
+        "scripts/defaultWallet.browser.ts",
+        "scripts/budgetSubitems.browser.ts",
+        "scripts/catalogPresentation.browser.ts",
+        "scripts/customCatalog.browser.ts",
+        "scripts/catalogReorder.browser.ts",
+        "scripts/catalogClassification.browser.ts",
+        "scripts/catalogArchive.browser.ts",
+        "scripts/phase4aSafety.browser.ts",
+        "scripts/phase4aLoans.browser.ts",
+        "scripts/phase4aAudit.browser.ts",
+        "scripts/i18n.browser.ts",
+        "scripts/translatedBanking.browser.ts",
+        "scripts/translatedPlanning.browser.ts",
+        "scripts/translatedCatalog.browser.ts",
+        "scripts/translatedCatalogDrag.browser.ts",
+        "scripts/translatedAutomation.browser.ts",
+        "scripts/translatedObligations.browser.ts",
+        "scripts/translatedStorage.browser.ts",
+        "scripts/translatedShared.browser.ts",
+        "scripts/translatedCharts.browser.ts",
+        "scripts/translatedAssistant.browser.ts",
+        "scripts/translatedPresentation.browser.ts",
+        "scripts/translatedCompletion.browser.ts",
+        "scripts/landingLanguage.browser.ts",
+        "scripts/multilingualCatalog.browser.ts",
+        "scripts/catalogQuickReceipt.browser.ts",
+        "scripts/lazyLanguage.browser.ts",
+        "scripts/deferredFeatures.browser.ts",
+        "scripts/performanceVolume.browser.ts",
+        "scripts/visualTheme.browser.ts",
+        "scripts/largeLedger.browser.ts",
+        "scripts/intentPreload.browser.ts"
+      ],
+      "axe": {
+        "surfaces": 128,
+        "violations": 0,
+        "incompleteGroups": 40,
+        "manualReviewRequired": true
+      },
+      "perSuite": [
+        {
+          "suite": "scripts/phase1.browser.ts",
+          "status": "passed",
+          "tests": 57,
+          "suites": 0,
+          "pass": 57,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/sharedUx.browser.ts",
+          "status": "passed",
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/deletion.browser.ts",
+          "status": "passed",
+          "tests": 23,
+          "suites": 0,
+          "pass": 23,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/planning.browser.ts",
+          "status": "passed",
+          "tests": 13,
+          "suites": 0,
+          "pass": 13,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/budgetUx.browser.ts",
+          "status": "passed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/charts.browser.ts",
+          "status": "passed",
+          "tests": 8,
+          "suites": 0,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/automation.browser.ts",
+          "status": "passed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/responsive.browser.ts",
+          "status": "passed",
+          "tests": 16,
+          "suites": 0,
+          "pass": 16,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/intelligent.browser.ts",
+          "status": "passed",
+          "tests": 25,
+          "suites": 0,
+          "pass": 25,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/visualUx.browser.ts",
+          "status": "passed",
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/routes.browser.ts",
+          "status": "passed",
+          "tests": 5,
+          "suites": 0,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/defaultWallet.browser.ts",
+          "status": "passed",
+          "tests": 14,
+          "suites": 0,
+          "pass": 14,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/budgetSubitems.browser.ts",
+          "status": "passed",
+          "tests": 19,
+          "suites": 0,
+          "pass": 19,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/catalogPresentation.browser.ts",
+          "status": "passed",
+          "tests": 7,
+          "suites": 0,
+          "pass": 7,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/customCatalog.browser.ts",
+          "status": "passed",
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/catalogReorder.browser.ts",
+          "status": "passed",
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/catalogClassification.browser.ts",
+          "status": "passed",
+          "tests": 5,
+          "suites": 0,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/catalogArchive.browser.ts",
+          "status": "passed",
+          "tests": 11,
+          "suites": 0,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/phase4aSafety.browser.ts",
+          "status": "passed",
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/phase4aLoans.browser.ts",
+          "status": "passed",
+          "tests": 3,
+          "suites": 0,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/phase4aAudit.browser.ts",
+          "status": "passed",
+          "tests": 9,
+          "suites": 0,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/i18n.browser.ts",
+          "status": "passed",
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedBanking.browser.ts",
+          "status": "passed",
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedPlanning.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedCatalog.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedCatalogDrag.browser.ts",
+          "status": "passed",
+          "tests": 11,
+          "suites": 0,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedAutomation.browser.ts",
+          "status": "passed",
+          "tests": 41,
+          "suites": 0,
+          "pass": 41,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedObligations.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedStorage.browser.ts",
+          "status": "passed",
+          "tests": 36,
+          "suites": 0,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedShared.browser.ts",
+          "status": "passed",
+          "tests": 36,
+          "suites": 0,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedCharts.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedAssistant.browser.ts",
+          "status": "passed",
+          "tests": 38,
+          "suites": 0,
+          "pass": 38,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedPresentation.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/translatedCompletion.browser.ts",
+          "status": "passed",
+          "tests": 31,
+          "suites": 0,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/landingLanguage.browser.ts",
+          "status": "passed",
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/multilingualCatalog.browser.ts",
+          "status": "passed",
+          "tests": 43,
+          "suites": 0,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/catalogQuickReceipt.browser.ts",
+          "status": "passed",
+          "tests": 6,
+          "suites": 0,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/lazyLanguage.browser.ts",
+          "status": "passed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/deferredFeatures.browser.ts",
+          "status": "passed",
+          "tests": 8,
+          "suites": 0,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/performanceVolume.browser.ts",
+          "status": "passed",
+          "tests": 4,
+          "suites": 0,
+          "pass": 4,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/visualTheme.browser.ts",
+          "status": "passed",
+          "tests": 10,
+          "suites": 0,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/largeLedger.browser.ts",
+          "status": "passed",
+          "tests": 44,
+          "suites": 0,
+          "pass": 44,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/intentPreload.browser.ts",
+          "status": "passed",
+          "tests": 17,
+          "suites": 0,
+          "pass": 17,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    }
+  }
+}

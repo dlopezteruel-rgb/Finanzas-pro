@@ -1,0 +1,7360 @@
+{
+  "schemaVersion": 1,
+  "kind": "intent",
+  "sourceBefore": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+  "sourceAfter": "d11c41f752be8641002fdd279dc577ffe70e4a83",
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "156.0.8078.79",
+    "cpus": 3,
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "memory": 10452459520
+  },
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "cpu": 2,
+      "latency": 40,
+      "mbps": 5
+    },
+    {
+      "name": "desktop",
+      "width": 1280,
+      "cpu": 1,
+      "latency": 20,
+      "mbps": 10
+    },
+    {
+      "name": "fast-mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 5
+    }
+  ],
+  "samples": 3,
+  "method": "Matched3samples,medians and full min/max. Overlap is descriptive,not a statistical significance test. Large DOM counts versus complete dataset are explicitly distinct. Exact stored hashes required for pure UI; explicit fictitious edit compares validated normalized financial data because original exportedAt metadata is regenerated for a legitimate save. Intent compares identical500ms lead on BOTH revisions and reports total intent time as well as click time; safety-only saveData/disabled cases are not fabricated before comparisons. Approximate live heap,no forcedGC; no physical-device INP claim.",
+  "rows": [
+    {
+      "group": "mobile/planning/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2439.3404960000044,
+            "min": 2370.0749660000038,
+            "max": 2509.29212,
+            "range": 139.2171539999963
+          },
+          "after": {
+            "n": 3,
+            "median": 2679.807924000008,
+            "min": 2564.557216,
+            "max": 2707.539831000002,
+            "range": 142.98261500000172
+          },
+          "changePercent": 9.857886932731146,
+          "observedRangesOverlap": false
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 31.424268000002485,
+            "min": 31.22380300000077,
+            "max": 41.826252000000295,
+            "range": 10.602448999999524
+          },
+          "after": {
+            "n": 3,
+            "median": 34.87865800000009,
+            "min": 34.09959900000831,
+            "max": 35.67011400000774,
+            "range": 1.570514999999432
+          },
+          "changePercent": 10.992746115827833,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 627.7664089999962,
+            "min": 619.593498000002,
+            "max": 681.3070629999997,
+            "range": 61.71356499999774
+          },
+          "after": {
+            "n": 3,
+            "median": 631.3770359999999,
+            "min": 617.8042989999813,
+            "max": 1089.5505369999883,
+            "range": 471.746238000007
+          },
+          "changePercent": 0.5751545396886124,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 659.1906769999987,
+            "min": 650.8173010000028,
+            "max": 723.133315,
+            "range": 72.31601399999727
+          },
+          "after": {
+            "n": 3,
+            "median": 666.255694,
+            "min": 651.9038979999896,
+            "max": 1125.220650999996,
+            "range": 473.31675300000643
+          },
+          "changePercent": 1.0717713776163245,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 424.9217260000005,
+            "min": 384.83563900000445,
+            "max": 431.7430249999961,
+            "range": 46.907385999991675
+          },
+          "after": {
+            "n": 3,
+            "median": 466.89244399999734,
+            "min": 454.6840439999942,
+            "max": 511.0470430000005,
+            "range": 56.36299900000631
+          },
+          "changePercent": 9.877282198556447,
+          "observedRangesOverlap": false
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4935064,
+          "min": 4932500,
+          "max": 5003352,
+          "range": 70852
+        },
+        "after": {
+          "n": 3,
+          "median": 5017628,
+          "min": 4992572,
+          "max": 5125304,
+          "range": 132732
+        },
+        "changePercent": 1.6730076854119824,
+        "observedRangesOverlap": true
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6651000,
+          "min": 6646088,
+          "max": 6764500,
+          "range": 118412
+        },
+        "after": {
+          "n": 3,
+          "median": 6775220,
+          "min": 6694624,
+          "max": 6856116,
+          "range": 161492
+        },
+        "changePercent": 1.8676890693128854,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.026999999999999247,
+          "min": 0.018000000000018,
+          "max": 0.030999999999947736,
+          "range": 0.012999999999929734
+        },
+        "after": {
+          "n": 3,
+          "median": 0.031000000000003247,
+          "min": 0.012999999999985246,
+          "max": 0.03399999999997849,
+          "range": 0.020999999999993246
+        },
+        "changePercent": 14.814814814830044,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.35,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.35,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "mobile/planning/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2716.3040459999975,
+            "min": 2404.1358840000003,
+            "max": 2758.185448999997,
+            "range": 354.0495649999966
+          },
+          "after": {
+            "n": 3,
+            "median": 2682.909660999998,
+            "min": 2380.753857999982,
+            "max": 2704.9332679999998,
+            "range": 324.1794100000179
+          },
+          "changePercent": -1.229405266659152,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 632.0318149999948,
+            "min": 600.070584999994,
+            "max": 641.652263,
+            "range": 41.58167800000592
+          },
+          "after": {
+            "n": 3,
+            "median": 618.8864600000088,
+            "min": 600.8304629999911,
+            "max": 635.2818039999993,
+            "range": 34.45134100000814
+          },
+          "changePercent": -2.079856533802198,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 652.3634489999968,
+            "min": 613.6202959999991,
+            "max": 1084.041234000004,
+            "range": 470.42093800000475
+          },
+          "after": {
+            "n": 3,
+            "median": 635.4040200000018,
+            "min": 634.309107000001,
+            "max": 651.6881569999969,
+            "range": 17.379049999995914
+          },
+          "changePercent": -2.599690253338378,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1284.3952639999916,
+            "min": 1255.272558999999,
+            "max": 1684.111818999998,
+            "range": 428.83925999999883
+          },
+          "after": {
+            "n": 3,
+            "median": 1269.5909110000002,
+            "min": 1236.234482999993,
+            "max": 1270.5746170000057,
+            "range": 34.34013400001277
+          },
+          "changePercent": -1.1526321697797421,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 465.8138020000042,
+            "min": 393.9624299999996,
+            "max": 494.8880379999973,
+            "range": 100.92560799999774
+          },
+          "after": {
+            "n": 3,
+            "median": 375.9293900000048,
+            "min": 369.9679360000009,
+            "max": 545.976972000004,
+            "range": 176.0090360000031
+          },
+          "changePercent": -19.29621054895205,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4947160,
+          "min": 4939640,
+          "max": 4961180,
+          "range": 21540
+        },
+        "after": {
+          "n": 3,
+          "median": 5066120,
+          "min": 5016020,
+          "max": 5098136,
+          "range": 82116
+        },
+        "changePercent": 2.404611938971046,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 7468572,
+          "min": 7439332,
+          "max": 7523784,
+          "range": 84452
+        },
+        "after": {
+          "n": 3,
+          "median": 7646956,
+          "min": 7614840,
+          "max": 7726192,
+          "range": 111352
+        },
+        "changePercent": 2.38846194426458,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.4910000000000192,
+          "min": 0.18400000000001748,
+          "max": 1.6639999999999988,
+          "range": 1.4799999999999813
+        },
+        "after": {
+          "n": 3,
+          "median": 3.394000000000008,
+          "min": 3.288000000000013,
+          "max": 4.147000000000012,
+          "range": 0.8589999999999987
+        },
+        "changePercent": 591.2423625254328,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.65,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.65,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.4,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.4,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "mobile/catalog/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2718.0948199999984,
+            "min": 2387.5018640000053,
+            "max": 2723.5457619999997,
+            "range": 336.04389799999444
+          },
+          "after": {
+            "n": 3,
+            "median": 2741.216356000001,
+            "min": 2673.11370300001,
+            "max": 2779.2158199999976,
+            "range": 106.10211699998763
+          },
+          "changePercent": 0.8506522962286648,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 29.759565000000293,
+            "min": 26.81380999999965,
+            "max": 34.15168000000085,
+            "range": 7.337870000001203
+          },
+          "after": {
+            "n": 3,
+            "median": 30.26043799999752,
+            "min": 25.97516299999552,
+            "max": 36.97310800000196,
+            "range": 10.997945000006439
+          },
+          "changePercent": 1.683065595875553,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1009.6866979999904,
+            "min": 984.6557379999995,
+            "max": 1079.9983900000007,
+            "range": 95.34265200000118
+          },
+          "after": {
+            "n": 3,
+            "median": 1074.2654689999981,
+            "min": 1060.4895319999923,
+            "max": 1207.6230740000028,
+            "range": 147.1335420000105
+          },
+          "changePercent": 6.395921737696133,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1039.4462629999907,
+            "min": 1018.8074180000003,
+            "max": 1106.8122000000003,
+            "range": 88.00478199999998
+          },
+          "after": {
+            "n": 3,
+            "median": 1111.238577,
+            "min": 1090.7499699999898,
+            "max": 1233.5982369999983,
+            "range": 142.8482670000085
+          },
+          "changePercent": 6.906784559771898,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 792.6051940000034,
+            "min": 623.6635279999991,
+            "max": 875.2786499999929,
+            "range": 251.6151219999938
+          },
+          "after": {
+            "n": 3,
+            "median": 808.5029139999824,
+            "min": 805.3518979999935,
+            "max": 839.5559919999978,
+            "range": 34.20409400000426
+          },
+          "changePercent": 2.0057552133551813,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4940928,
+          "min": 4923556,
+          "max": 4944328,
+          "range": 20772
+        },
+        "after": {
+          "n": 3,
+          "median": 5035728,
+          "min": 5027572,
+          "max": 5056948,
+          "range": 29376
+        },
+        "changePercent": 1.918667910157768,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 8650652,
+          "min": 8601692,
+          "max": 8672272,
+          "range": 70580
+        },
+        "after": {
+          "n": 3,
+          "median": 8778420,
+          "min": 8747252,
+          "max": 8898476,
+          "range": 151224
+        },
+        "changePercent": 1.4769753771160832,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.01799999999996249,
+          "min": 0.016999999999933735,
+          "max": 0.025000000000052758,
+          "range": 0.008000000000119023
+        },
+        "after": {
+          "n": 3,
+          "median": 0.02199999999996649,
+          "min": 0.018000000000073513,
+          "max": 0.02199999999996649,
+          "range": 0.003999999999892978
+        },
+        "changePercent": 22.222222222290753,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.7,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.7,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "mobile/catalog/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2638.628018999998,
+            "min": 2410.951844000003,
+            "max": 2730.970895000006,
+            "range": 320.01905100000295
+          },
+          "after": {
+            "n": 3,
+            "median": 2746.071155999998,
+            "min": 2638.894530000005,
+            "max": 2749.1680860000197,
+            "range": 110.27355600001465
+          },
+          "changePercent": 4.071931936837372,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 622.1003899999996,
+            "min": 602.2778519999993,
+            "max": 636.5781629999983,
+            "range": 34.300310999999056
+          },
+          "after": {
+            "n": 3,
+            "median": 597.5805219999893,
+            "min": 588.1729009999981,
+            "max": 600.7145979999914,
+            "range": 12.541696999993292
+          },
+          "changePercent": -3.941464817279786,
+          "observedRangesOverlap": false
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 849.0540899999978,
+            "min": 779.5744060000034,
+            "max": 981.6103239999939,
+            "range": 202.0359179999905
+          },
+          "after": {
+            "n": 3,
+            "median": 922.4714950000052,
+            "min": 767.6235610000003,
+            "max": 1026.565512000001,
+            "range": 258.9419510000007
+          },
+          "changePercent": 8.64696441189131,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1471.1544799999974,
+            "min": 1381.8522580000026,
+            "max": 1618.1884869999922,
+            "range": 236.33622899998954
+          },
+          "after": {
+            "n": 3,
+            "median": 1523.1860929999966,
+            "min": 1365.2040829999896,
+            "max": 1614.7384129999991,
+            "range": 249.5343300000095
+          },
+          "changePercent": 3.5367878565682163,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 893.3856640000013,
+            "min": 788.3616120000006,
+            "max": 966.0327059999981,
+            "range": 177.67109399999754
+          },
+          "after": {
+            "n": 3,
+            "median": 843.5192459999816,
+            "min": 822.8755480000109,
+            "max": 850.2892200000024,
+            "range": 27.413671999991493
+          },
+          "changePercent": -5.581734743397399,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4934304,
+          "min": 4915820,
+          "max": 4950004,
+          "range": 34184
+        },
+        "after": {
+          "n": 3,
+          "median": 5040740,
+          "min": 5031008,
+          "max": 5057636,
+          "range": 26628
+        },
+        "changePercent": 2.1570620699494802,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 9465960,
+          "min": 9430872,
+          "max": 9512056,
+          "range": 81184
+        },
+        "after": {
+          "n": 3,
+          "median": 9601296,
+          "min": 9568016,
+          "max": 9941240,
+          "range": 373224
+        },
+        "changePercent": 1.429712358809883,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.6259999999999044,
+          "min": 0.12299999999998423,
+          "max": 1.7519999999999758,
+          "range": 1.6289999999999916
+        },
+        "after": {
+          "n": 3,
+          "median": 1.0689999999999866,
+          "min": 0.8970000000000367,
+          "max": 1.6979999999999773,
+          "range": 0.8009999999999406
+        },
+        "changePercent": 70.76677316296325,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.4,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.4,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "mobile/assistant/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2521.682654999997,
+            "min": 2417.1477010000017,
+            "max": 2827.8590320000003,
+            "range": 410.7113309999986
+          },
+          "after": {
+            "n": 3,
+            "median": 2468.9658159999963,
+            "min": 2460.881794999994,
+            "max": 2731.1665409999987,
+            "range": 270.2847460000048
+          },
+          "changePercent": -2.090542158247929,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 33.699105000006966,
+            "min": 26.981732000000193,
+            "max": 43.05888199999754,
+            "range": 16.077149999997346
+          },
+          "after": {
+            "n": 3,
+            "median": 30.0511869999973,
+            "min": 29.096564999999828,
+            "max": 32.149101000017254,
+            "range": 3.052536000017426
+          },
+          "changePercent": -10.824969980683207,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 497.5947960000012,
+            "min": 485.8861389999947,
+            "max": 506.7102410000007,
+            "range": 20.82410200000595
+          },
+          "after": {
+            "n": 3,
+            "median": 518.9279119999992,
+            "min": 502.42471899997327,
+            "max": 536.6669309999997,
+            "range": 34.242212000026484
+          },
+          "changePercent": 4.287246605368019,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 524.5765280000014,
+            "min": 519.5852440000017,
+            "max": 549.7691229999982,
+            "range": 30.183878999996523
+          },
+          "after": {
+            "n": 3,
+            "median": 548.9790989999965,
+            "min": 534.5738199999905,
+            "max": 565.7634959999996,
+            "range": 31.189676000009058
+          },
+          "changePercent": 4.651861015023343,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 188.89787899999646,
+            "min": 170.71495200000209,
+            "max": 235.05829000000085,
+            "range": 64.34333799999877
+          },
+          "after": {
+            "n": 3,
+            "median": 185.3155540000007,
+            "min": 168.9249820000041,
+            "max": 208.10570200000075,
+            "range": 39.180719999996654
+          },
+          "changePercent": -1.8964347397441288,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4965304,
+          "min": 4954768,
+          "max": 4979152,
+          "range": 24384
+        },
+        "after": {
+          "n": 3,
+          "median": 5071920,
+          "min": 5014568,
+          "max": 5085956,
+          "range": 71388
+        },
+        "changePercent": 2.147219988947303,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 5795156,
+          "min": 5780928,
+          "max": 5826596,
+          "range": 45668
+        },
+        "after": {
+          "n": 3,
+          "median": 5844312,
+          "min": 5826052,
+          "max": 5849220,
+          "range": 23168
+        },
+        "changePercent": 0.8482256560479131,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.028000000000028002,
+          "min": 0.024000000000024002,
+          "max": 0.03399999999997849,
+          "range": 0.00999999999995449
+        },
+        "after": {
+          "n": 3,
+          "median": 0.022999999999995246,
+          "min": 0.018999999999991246,
+          "max": 0.8829999999999671,
+          "range": 0.8639999999999759
+        },
+        "changePercent": -17.857142857241985,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "mobile/assistant/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 2730.5941539999912,
+            "min": 2453.142405999999,
+            "max": 2753.102960999997,
+            "range": 299.96055499999784
+          },
+          "after": {
+            "n": 3,
+            "median": 2675.343129999994,
+            "min": 2431.1494440000097,
+            "max": 2760.164017000003,
+            "range": 329.0145729999931
+          },
+          "changePercent": -2.023406661112979,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 614.9197179999974,
+            "min": 600.0446030000021,
+            "max": 632.1007629999949,
+            "range": 32.056159999992815
+          },
+          "after": {
+            "n": 3,
+            "median": 627.9423319999914,
+            "min": 615.0861030000015,
+            "max": 645.0486009999877,
+            "range": 29.962497999986226
+          },
+          "changePercent": 2.1177746653416176,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 468.8899670000028,
+            "min": 468.114293000006,
+            "max": 590.9105799999998,
+            "range": 122.79628699999375
+          },
+          "after": {
+            "n": 3,
+            "median": 494.69651100001647,
+            "min": 466.1609249999965,
+            "max": 506.59609900000214,
+            "range": 40.435174000005645
+          },
+          "changePercent": 5.503752653341273,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1100.215056000001,
+            "min": 1083.8096850000002,
+            "max": 1190.9551830000019,
+            "range": 107.14549800000168
+          },
+          "after": {
+            "n": 3,
+            "median": 1134.5384309999936,
+            "min": 1081.247027999998,
+            "max": 1139.7451120000042,
+            "range": 58.4980840000062
+          },
+          "changePercent": 3.119696900420588,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 210.12517600000137,
+            "min": 197.73611299999902,
+            "max": 212.70221799999126,
+            "range": 14.96610499999224
+          },
+          "after": {
+            "n": 3,
+            "median": 213.27273799999966,
+            "min": 186.4276699999973,
+            "max": 247.17171799999778,
+            "range": 60.744048000000475
+          },
+          "changePercent": 1.4979461575790745,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4947952,
+          "min": 4940784,
+          "max": 4950208,
+          "range": 9424
+        },
+        "after": {
+          "n": 3,
+          "median": 5048712,
+          "min": 5023184,
+          "max": 5060488,
+          "range": 37304
+        },
+        "changePercent": 2.036398089553011,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6430084,
+          "min": 6420704,
+          "max": 6434208,
+          "range": 13504
+        },
+        "after": {
+          "n": 3,
+          "median": 6504704,
+          "min": 6461620,
+          "max": 6508208,
+          "range": 46588
+        },
+        "changePercent": 1.1604825069159284,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.5280000000000284,
+          "min": 0.09399999999998299,
+          "max": 0.7170000000000232,
+          "range": 0.6230000000000402
+        },
+        "after": {
+          "n": 3,
+          "median": 3.695999999999977,
+          "min": 2.6000000000000467,
+          "max": 4.682999999999993,
+          "range": 2.082999999999946
+        },
+        "changePercent": 599.9999999999579,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.35,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.35,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.55,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 1.45,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/planning/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1387.2168209999945,
+            "min": 1010.8174490000092,
+            "max": 1419.549782999995,
+            "range": 408.7323339999857
+          },
+          "after": {
+            "n": 3,
+            "median": 1333.5063669999945,
+            "min": 1038.4925499999954,
+            "max": 1376.2812469999772,
+            "range": 337.78869699998177
+          },
+          "changePercent": -3.871813921725812,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 31.84096899999713,
+            "min": 28.93692400000873,
+            "max": 34.32994900000631,
+            "range": 5.393024999997579
+          },
+          "after": {
+            "n": 3,
+            "median": 33.07358500000555,
+            "min": 32.2535799999896,
+            "max": 36.40936900000088,
+            "range": 4.155789000011282
+          },
+          "changePercent": 3.8711635943256977,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 452.0084829999978,
+            "min": 439.39581099999486,
+            "max": 481.7528040000034,
+            "range": 42.356993000008515
+          },
+          "after": {
+            "n": 3,
+            "median": 478.6334930000012,
+            "min": 434.2649410000013,
+            "max": 502.0342510000046,
+            "range": 67.76931000000332
+          },
+          "changePercent": 5.890378389204593,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 480.9454070000065,
+            "min": 473.7257600000012,
+            "max": 513.5937730000005,
+            "range": 39.86801299999934
+          },
+          "after": {
+            "n": 3,
+            "median": 510.8870729999908,
+            "min": 467.3385260000068,
+            "max": 538.4436200000055,
+            "range": 71.10509399999864
+          },
+          "changePercent": 6.225585183722078,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 211.95664400000533,
+            "min": 202.7276739999943,
+            "max": 352.0435870000074,
+            "range": 149.3159130000131
+          },
+          "after": {
+            "n": 3,
+            "median": 223.11310899999808,
+            "min": 188.58195100000012,
+            "max": 261.6273140000121,
+            "range": 73.045363000012
+          },
+          "changePercent": 5.263559938226079,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4906792,
+          "min": 4872140,
+          "max": 4932388,
+          "range": 60248
+        },
+        "after": {
+          "n": 3,
+          "median": 5005404,
+          "min": 4962184,
+          "max": 5012600,
+          "range": 50416
+        },
+        "changePercent": 2.0097040999496207,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6643008,
+          "min": 6631280,
+          "max": 6652968,
+          "range": 21688
+        },
+        "after": {
+          "n": 3,
+          "median": 6724864,
+          "min": 6670752,
+          "max": 6803132,
+          "range": 132380
+        },
+        "changePercent": 1.2322128770581038,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.028000000000000247,
+          "min": 0.025999999999998247,
+          "max": 0.031000000000003247,
+          "range": 0.0050000000000050004
+        },
+        "after": {
+          "n": 3,
+          "median": 0.07799999999999474,
+          "min": 0.03299999999997749,
+          "max": 0.3019999999999967,
+          "range": 0.2690000000000192
+        },
+        "changePercent": 178.57142857140732,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.4,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.4,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.1,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.1,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/planning/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1040.548999000006,
+            "min": 964.6594329999934,
+            "max": 1391.8581260000065,
+            "range": 427.198693000013
+          },
+          "after": {
+            "n": 3,
+            "median": 1368.0770189999603,
+            "min": 1000.6335989999934,
+            "max": 1409.687116999994,
+            "range": 409.0535180000006
+          },
+          "changePercent": 31.47646293588452,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 568.8074180000112,
+            "min": 565.0272919999989,
+            "max": 572.262321999995,
+            "range": 7.235029999996186
+          },
+          "after": {
+            "n": 3,
+            "median": 566.5961220000172,
+            "min": 551.690971999953,
+            "max": 568.0724459999765,
+            "range": 16.381474000023445
+          },
+          "changePercent": -0.38876004953824145,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 453.1624889999948,
+            "min": 449.46954999999434,
+            "max": 474.1237320000073,
+            "range": 24.654182000012952
+          },
+          "after": {
+            "n": 3,
+            "median": 233.84982999999193,
+            "min": 233.09220199999982,
+            "max": 257.6816280000494,
+            "range": 24.58942600004957
+          },
+          "changePercent": -48.396031075733056,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1018.2769680000056,
+            "min": 1018.1897809999937,
+            "max": 1046.3860540000023,
+            "range": 28.19627300000866
+          },
+          "after": {
+            "n": 3,
+            "median": 801.1646479999763,
+            "min": 800.4459520000091,
+            "max": 809.3726000000024,
+            "range": 8.926647999993293
+          },
+          "changePercent": -21.321538915532862,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 265.59573600000294,
+            "min": 241.97340300001088,
+            "max": 293.00226799999655,
+            "range": 51.02886499998567
+          },
+          "after": {
+            "n": 3,
+            "median": 226.54287200002,
+            "min": 196.63174100001925,
+            "max": 236.43309400003636,
+            "range": 39.801353000017116
+          },
+          "changePercent": -14.70387461340212,
+          "observedRangesOverlap": false
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4926500,
+          "min": 4887620,
+          "max": 4976288,
+          "range": 88668
+        },
+        "after": {
+          "n": 3,
+          "median": 5017664,
+          "min": 4975132,
+          "max": 5056016,
+          "range": 80884
+        },
+        "changePercent": 1.8504820866741094,
+        "observedRangesOverlap": true
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6815640,
+          "min": 6795280,
+          "max": 6843704,
+          "range": 48424
+        },
+        "after": {
+          "n": 3,
+          "median": 6849100,
+          "min": 6829120,
+          "max": 6969344,
+          "range": 140224
+        },
+        "changePercent": 0.4909296852533291,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.8579999999999977,
+          "min": 0.8440000000000114,
+          "max": 1.1700000000000044,
+          "range": 0.32599999999999296
+        },
+        "after": {
+          "n": 3,
+          "median": 5.698000000000008,
+          "min": 4.863000000000007,
+          "max": 7.61400000000001,
+          "range": 2.751000000000003
+        },
+        "changePercent": 564.1025641025668,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 193666.717229
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 229198.248201
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 264104.270512
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 12090,
+        "min": 12090,
+        "max": 12090,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/catalog/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1394.0339339999919,
+            "min": 963.727738000016,
+            "max": 1432.2724670000025,
+            "range": 468.54472899998655
+          },
+          "after": {
+            "n": 3,
+            "median": 1358.1345609999844,
+            "min": 1348.640183999989,
+            "max": 1358.974693999975,
+            "range": 10.33450999998604
+          },
+          "changePercent": -2.575215145373045,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 36.94048399999156,
+            "min": 32.73573499999475,
+            "max": 49.47707100000116,
+            "range": 16.741336000006413
+          },
+          "after": {
+            "n": 3,
+            "median": 42.80154099999345,
+            "min": 33.54884500001208,
+            "max": 45.09243300004164,
+            "range": 11.543588000029558
+          },
+          "changePercent": 15.86621604633884,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 551.3034160000097,
+            "min": 516.0064450000064,
+            "max": 589.7377510000078,
+            "range": 73.7313060000015
+          },
+          "after": {
+            "n": 3,
+            "median": 555.9165130000038,
+            "min": 509.4145290000015,
+            "max": 556.1842759999563,
+            "range": 46.769746999954805
+          },
+          "changePercent": 0.8367619111567289,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 588.2439000000013,
+            "min": 565.4835160000075,
+            "max": 622.4734860000026,
+            "range": 56.98996999999508
+          },
+          "after": {
+            "n": 3,
+            "median": 589.4653580000158,
+            "min": 552.2160699999949,
+            "max": 601.2767089999979,
+            "range": 49.06063900000299
+          },
+          "changePercent": 0.2076448221587225,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 393.72215600000345,
+            "min": 381.98351099999854,
+            "max": 403.89293400000315,
+            "range": 21.909423000004608
+          },
+          "after": {
+            "n": 3,
+            "median": 372.7994900000049,
+            "min": 370.82914300000994,
+            "max": 430.56656700000167,
+            "range": 59.737423999991734
+          },
+          "changePercent": -5.314068736329481,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4940788,
+          "min": 4930348,
+          "max": 4942608,
+          "range": 12260
+        },
+        "after": {
+          "n": 3,
+          "median": 4991344,
+          "min": 4966660,
+          "max": 4994804,
+          "range": 28144
+        },
+        "changePercent": 1.023237588821864,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 9845528,
+          "min": 9784324,
+          "max": 9903692,
+          "range": 119368
+        },
+        "after": {
+          "n": 3,
+          "median": 9941312,
+          "min": 9876652,
+          "max": 9997160,
+          "range": 120508
+        },
+        "changePercent": 0.972868087927839,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.03799999999998249,
+          "min": 0.022999999999995246,
+          "max": 0.0800000000000245,
+          "range": 0.05700000000002925
+        },
+        "after": {
+          "n": 3,
+          "median": 0.030000000000030003,
+          "min": 0.02999999999997449,
+          "max": 0.032000000000032,
+          "range": 0.0020000000000575113
+        },
+        "changePercent": -21.05263157883204,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/catalog/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1023.4771860000037,
+            "min": 961.4746039999882,
+            "max": 1356.5588850000058,
+            "range": 395.08428100001765
+          },
+          "after": {
+            "n": 3,
+            "median": 1351.0947469999956,
+            "min": 1072.375063000014,
+            "max": 1406.5618709999835,
+            "range": 334.18680799996946
+          },
+          "changePercent": 32.01024560990953,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 561.2975119999901,
+            "min": 550.334462999992,
+            "max": 561.3427419999935,
+            "range": 11.008279000001494
+          },
+          "after": {
+            "n": 3,
+            "median": 550.2530829999887,
+            "min": 545.3862960000406,
+            "max": 550.9298699999927,
+            "range": 5.543573999952059
+          },
+          "changePercent": -1.9676604231948913,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 583.9939980000054,
+            "min": 520.5488929999992,
+            "max": 887.1246159999864,
+            "range": 366.5757229999872
+          },
+          "after": {
+            "n": 3,
+            "median": 332.74699400001555,
+            "min": 317.7749420000182,
+            "max": 333.96185399999376,
+            "range": 16.186911999975564
+          },
+          "changePercent": -43.02218941640347,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1145.3367399999988,
+            "min": 1070.8833559999912,
+            "max": 1448.4221279999765,
+            "range": 377.53877199998533
+          },
+          "after": {
+            "n": 3,
+            "median": 879.3481500000344,
+            "min": 868.0280250000069,
+            "max": 883.6768640000082,
+            "range": 15.648839000001317
+          },
+          "changePercent": -23.22361456770912,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 397.04499199999555,
+            "min": 323.8971830000228,
+            "max": 410.9494320000085,
+            "range": 87.05224899998575
+          },
+          "after": {
+            "n": 3,
+            "median": 346.36870399996405,
+            "min": 312.4528489999939,
+            "max": 421.0437260000035,
+            "range": 108.59087700000964
+          },
+          "changePercent": -12.763361589014089,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4909140,
+          "min": 4867536,
+          "max": 4925152,
+          "range": 57616
+        },
+        "after": {
+          "n": 3,
+          "median": 4959228,
+          "min": 4959172,
+          "max": 4982944,
+          "range": 23772
+        },
+        "changePercent": 1.02030090810203,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 10193348,
+          "min": 10057764,
+          "max": 11533740,
+          "range": 1475976
+        },
+        "after": {
+          "n": 3,
+          "median": 8722952,
+          "min": 8706564,
+          "max": 8770096,
+          "range": 63532
+        },
+        "changePercent": -14.425054457083188,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.3829999999999667,
+          "min": 0.34400000000001096,
+          "max": 0.8099999999999774,
+          "range": 0.46599999999996644
+        },
+        "after": {
+          "n": 3,
+          "median": 5.207000000000017,
+          "min": 4.285000000000039,
+          "max": 6.357999999999975,
+          "range": 2.0729999999999356
+        },
+        "changePercent": 1259.5300261097832,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 205622.076124
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 205622.117772
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 241189.194879
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 241189.208499
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 275703.526799
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 275704.29079
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.95,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.95,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 8174,
+        "min": 8174,
+        "max": 8174,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/assistant/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1038.104594999997,
+            "min": 970.1421110000083,
+            "max": 1370.602165999997,
+            "range": 400.46005499998864
+          },
+          "after": {
+            "n": 3,
+            "median": 1390.4305899999454,
+            "min": 989.2555109999957,
+            "max": 1406.3687300000165,
+            "range": 417.11321900002076
+          },
+          "changePercent": 33.93935415534398,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 33.675977999999304,
+            "min": 32.87887000000046,
+            "max": 35.06068999998388,
+            "range": 2.181819999983418
+          },
+          "after": {
+            "n": 3,
+            "median": 33.63517800002592,
+            "min": 33.48089400000754,
+            "max": 39.63695999997435,
+            "range": 6.156065999966813
+          },
+          "changePercent": -0.12115461048640755,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 882.3726269999897,
+            "min": 866.0845459999982,
+            "max": 898.9133220000076,
+            "range": 32.828776000009384
+          },
+          "after": {
+            "n": 3,
+            "median": 884.8113859999576,
+            "min": 401.9973459999892,
+            "max": 910.8000470000261,
+            "range": 508.8027010000369
+          },
+          "changePercent": 0.27638652031392397,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 915.2514969999902,
+            "min": 899.7605239999975,
+            "max": 933.9740119999915,
+            "range": 34.21348799999396
+          },
+          "after": {
+            "n": 3,
+            "median": 918.4465639999835,
+            "min": 435.47823999999673,
+            "max": 950.4370070000004,
+            "range": 514.9587670000037
+          },
+          "changePercent": 0.34909169888998515,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 117.50295999999798,
+            "min": 87.14323799998965,
+            "max": 141.84786200000963,
+            "range": 54.704624000019976
+          },
+          "after": {
+            "n": 3,
+            "median": 88.2464270000055,
+            "min": 87.91089800000191,
+            "max": 92.44562200002838,
+            "range": 4.534724000026472
+          },
+          "changePercent": -24.89854978971848,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4953572,
+          "min": 4882200,
+          "max": 4960272,
+          "range": 78072
+        },
+        "after": {
+          "n": 3,
+          "median": 4965684,
+          "min": 4951148,
+          "max": 4997132,
+          "range": 45984
+        },
+        "changePercent": 0.24451042601177495,
+        "observedRangesOverlap": true
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6923856,
+          "min": 5546108,
+          "max": 7117520,
+          "range": 1571412
+        },
+        "after": {
+          "n": 3,
+          "median": 7068980,
+          "min": 5587124,
+          "max": 7155712,
+          "range": 1568588
+        },
+        "changePercent": 2.0959996857242555,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.04100000000001325,
+          "min": 0.03300000000000525,
+          "max": 0.09700000000001374,
+          "range": 0.0640000000000085
+        },
+        "after": {
+          "n": 3,
+          "median": 0.03499999999997949,
+          "min": 0.023999999999996247,
+          "max": 0.03500000000000725,
+          "range": 0.011000000000011001
+        },
+        "changePercent": -14.634146341541017,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.25,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.25,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "tablet/assistant/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1059.2042800000054,
+            "min": 990.7330150000053,
+            "max": 1332.4641380000103,
+            "range": 341.731123000005
+          },
+          "after": {
+            "n": 3,
+            "median": 977.0106510000187,
+            "min": 976.0051269999822,
+            "max": 1385.710797000007,
+            "range": 409.70567000002484
+          },
+          "changePercent": -7.759941170175999,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 568.2050980000058,
+            "min": 566.9663810000056,
+            "max": 582.5715399999754,
+            "range": 15.605158999969717
+          },
+          "after": {
+            "n": 3,
+            "median": 551.3434480000287,
+            "min": 551.2764700000116,
+            "max": 564.9152259999828,
+            "range": 13.638755999971181
+          },
+          "changePercent": -2.9675288129809982,
+          "observedRangesOverlap": false
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 866.2027729999973,
+            "min": 865.7984189999988,
+            "max": 869.5139450000133,
+            "range": 3.7155260000145063
+          },
+          "after": {
+            "n": 3,
+            "median": 171.65525800001342,
+            "min": 134.44025899999542,
+            "max": 178.8494730000093,
+            "range": 44.40921400001389
+          },
+          "changePercent": -80.18301680038445,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1434.407871000003,
+            "min": 1432.7648000000045,
+            "max": 1452.0854849999887,
+            "range": 19.320684999984223
+          },
+          "after": {
+            "n": 3,
+            "median": 722.9987060000421,
+            "min": 685.716729000007,
+            "max": 743.7646989999921,
+            "range": 58.04796999998507
+          },
+          "changePercent": -49.596016543328034,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 115.86476899999252,
+            "min": 91.01699400000507,
+            "max": 136.7812419999973,
+            "range": 45.76424799999222
+          },
+          "after": {
+            "n": 3,
+            "median": 118.04753199999686,
+            "min": 108.76034100001561,
+            "max": 119.11948900000425,
+            "range": 10.359147999988636
+          },
+          "changePercent": 1.883888449304623,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4882724,
+          "min": 4878128,
+          "max": 4967120,
+          "range": 88992
+        },
+        "after": {
+          "n": 3,
+          "median": 4995704,
+          "min": 4930004,
+          "max": 5031616,
+          "range": 101612
+        },
+        "changePercent": 2.3138723384733604,
+        "observedRangesOverlap": true
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 5672148,
+          "min": 5563416,
+          "max": 5683740,
+          "range": 120324
+        },
+        "after": {
+          "n": 3,
+          "median": 7063112,
+          "min": 5633560,
+          "max": 7160668,
+          "range": 1527108
+        },
+        "changePercent": 24.5227028631834,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 1.3929999999999776,
+          "min": 1.1649999999999994,
+          "max": 1.5359999999999818,
+          "range": 0.37099999999998245
+        },
+        "after": {
+          "n": 3,
+          "median": 6.235000000000018,
+          "min": 5.586000000000007,
+          "max": 16.988000000000003,
+          "range": 11.401999999999996
+        },
+        "changePercent": 347.5951184493983,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 218774.185822
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 253946.209456
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 288304.458609
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 4968,
+        "min": 4968,
+        "max": 4968,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/planning/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 703.2694740000006,
+            "min": 682.9815440000093,
+            "max": 706.2307379999838,
+            "range": 23.249193999974523
+          },
+          "after": {
+            "n": 3,
+            "median": 735.2431549999746,
+            "min": 692.8869130000239,
+            "max": 747.3032249999815,
+            "range": 54.41631199995754
+          },
+          "changePercent": 4.546433789898009,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 33.6703629999829,
+            "min": 32.66358999998192,
+            "max": 35.86506999999983,
+            "range": 3.2014800000179093
+          },
+          "after": {
+            "n": 3,
+            "median": 33.364202000026125,
+            "min": 33.033454999967944,
+            "max": 34.40431200002786,
+            "range": 1.3708570000599138
+          },
+          "changePercent": -0.9092892760227417,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 849.5367090000072,
+            "min": 415.00967699999455,
+            "max": 865.4301989999949,
+            "range": 450.42052200000035
+          },
+          "after": {
+            "n": 3,
+            "median": 849.9554289999651,
+            "min": 849.2658670000383,
+            "max": 881.5605970000033,
+            "range": 32.29472999996506
+          },
+          "changePercent": 0.049288040825299535,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 882.2002989999892,
+            "min": 450.8747469999944,
+            "max": 899.1005619999778,
+            "range": 448.2258149999834
+          },
+          "after": {
+            "n": 3,
+            "median": 883.3196309999912,
+            "min": 882.2993220000062,
+            "max": 915.9649090000312,
+            "range": 33.66558700002497
+          },
+          "changePercent": 0.1268795761315023,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 110.51798099998268,
+            "min": 109.66586600002483,
+            "max": 142.01971100000083,
+            "range": 32.35384499997599
+          },
+          "after": {
+            "n": 3,
+            "median": 141.29206900001736,
+            "min": 108.51111399999354,
+            "max": 142.64233599998988,
+            "range": 34.13122199999634
+          },
+          "changePercent": 27.845322291980256,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4944344,
+          "min": 4926388,
+          "max": 4952112,
+          "range": 25724
+        },
+        "after": {
+          "n": 3,
+          "median": 4987596,
+          "min": 4956452,
+          "max": 5031080,
+          "range": 74628
+        },
+        "changePercent": 0.8747773213190668,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6654788,
+          "min": 6561048,
+          "max": 6767952,
+          "range": 206904
+        },
+        "after": {
+          "n": 3,
+          "median": 6781576,
+          "min": 6713068,
+          "max": 6838508,
+          "range": 125440
+        },
+        "changePercent": 1.9052147115730809,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.03300000000000525,
+          "min": 0.029000000000001247,
+          "max": 0.03500000000000725,
+          "range": 0.0060000000000060005
+        },
+        "after": {
+          "n": 3,
+          "median": 0.03399999999997849,
+          "min": 0.031000000000003247,
+          "max": 0.052999999999997494,
+          "range": 0.021999999999994246
+        },
+        "changePercent": 3.030303030221471,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.9,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.9,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 10,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 10,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.15,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.15,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/planning/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 682.4290670000191,
+            "min": 637.9591280000168,
+            "max": 693.0949609999952,
+            "range": 55.13583299997845
+          },
+          "after": {
+            "n": 3,
+            "median": 701.619325000036,
+            "min": 676.1080029999721,
+            "max": 736.5872169999639,
+            "range": 60.47921399999177
+          },
+          "changePercent": 2.8120516736454273,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 533.7662370000035,
+            "min": 532.8029610000085,
+            "max": 535.6451020000095,
+            "range": 2.842141000000993
+          },
+          "after": {
+            "n": 3,
+            "median": 533.4069240000099,
+            "min": 533.1512900000089,
+            "max": 533.4779550000094,
+            "range": 0.3266650000005029
+          },
+          "changePercent": -0.06731654703621885,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 434.02805300001637,
+            "min": 400.1877509999904,
+            "max": 847.0862370000104,
+            "range": 446.89848600002006
+          },
+          "after": {
+            "n": 3,
+            "median": 134.58991199999582,
+            "min": 133.53179999999702,
+            "max": 150.6399349999847,
+            "range": 17.10813499998767
+          },
+          "changePercent": -68.9905039386957,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 966.8310140000249,
+            "min": 933.9539879999938,
+            "max": 1382.73133900002,
+            "range": 448.7773510000261
+          },
+          "after": {
+            "n": 3,
+            "median": 667.7412020000047,
+            "min": 667.0097550000064,
+            "max": 684.0468589999946,
+            "range": 17.037103999988176
+          },
+          "changePercent": -30.93506597007163,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 110.80869500001427,
+            "min": 107.76577900000848,
+            "max": 127.48329500001273,
+            "range": 19.717516000004252
+          },
+          "after": {
+            "n": 3,
+            "median": 125.65816699998686,
+            "min": 110.15801600000123,
+            "max": 148.61898500000825,
+            "range": 38.460969000007026
+          },
+          "changePercent": 13.4009989017294,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4937904,
+          "min": 4919108,
+          "max": 4948908,
+          "range": 29800
+        },
+        "after": {
+          "n": 3,
+          "median": 5009548,
+          "min": 4968256,
+          "max": 5022592,
+          "range": 54336
+        },
+        "changePercent": 1.4508990049219264,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6837660,
+          "min": 6759412,
+          "max": 6861480,
+          "range": 102068
+        },
+        "after": {
+          "n": 3,
+          "median": 6850532,
+          "min": 6783524,
+          "max": 6884168,
+          "range": 100644
+        },
+        "changePercent": 0.18825153634430492,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.4269999999999968,
+          "min": 0.39300000000000446,
+          "max": 0.6509999999999988,
+          "range": 0.25799999999999434
+        },
+        "after": {
+          "n": 3,
+          "median": 3.454999999999986,
+          "min": 3.0680000000000014,
+          "max": 12.151999999999996,
+          "range": 9.083999999999994
+        },
+        "changePercent": 709.1334894613609,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 297755.411053
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 325619.665714
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 355221.125716
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.9,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.9,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.05,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.05,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 10,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 10,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 12090,
+        "min": 12090,
+        "max": 12090,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/catalog/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 711.8023549999925,
+            "min": 698.5622619999922,
+            "max": 712.3565079999971,
+            "range": 13.794246000004932
+          },
+          "after": {
+            "n": 3,
+            "median": 664.9418239999795,
+            "min": 664.2115249999915,
+            "max": 716.4332649999997,
+            "range": 52.22174000000814
+          },
+          "changePercent": -6.583362736979634,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 33.266268000006676,
+            "min": 32.98812199998065,
+            "max": 33.60347900001216,
+            "range": 0.6153570000315085
+          },
+          "after": {
+            "n": 3,
+            "median": 32.98252899997169,
+            "min": 31.987108000030275,
+            "max": 33.06082100002095,
+            "range": 1.0737129999906756
+          },
+          "changePercent": -0.8529330673189047,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 851.0931839999976,
+            "min": 850.6685559999896,
+            "max": 866.3226040000154,
+            "range": 15.654048000025796
+          },
+          "after": {
+            "n": 3,
+            "median": 852.0849089999683,
+            "min": 468.7152299999725,
+            "max": 867.1319730000105,
+            "range": 398.41674300003797
+          },
+          "changePercent": 0.11652366845541079,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 884.3594520000042,
+            "min": 884.2720350000018,
+            "max": 899.3107259999961,
+            "range": 15.038690999994287
+          },
+          "after": {
+            "n": 3,
+            "median": 884.0720169999986,
+            "min": 501.77605099999346,
+            "max": 900.1145019999822,
+            "range": 398.3384509999887
+          },
+          "changePercent": -0.03250205551098044,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 175.82480299999588,
+            "min": 170.2143550000037,
+            "max": 187.36408800000208,
+            "range": 17.149732999998378
+          },
+          "after": {
+            "n": 3,
+            "median": 195.77536299999338,
+            "min": 151.20211199996993,
+            "max": 207.60825099999784,
+            "range": 56.406139000027906
+          },
+          "changePercent": 11.34684052510951,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4929412,
+          "min": 4925728,
+          "max": 4958948,
+          "range": 33220
+        },
+        "after": {
+          "n": 3,
+          "median": 4958424,
+          "min": 4940900,
+          "max": 4996728,
+          "range": 55828
+        },
+        "changePercent": 0.5885488979212936,
+        "observedRangesOverlap": true
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 9859116,
+          "min": 9847860,
+          "max": 9881548,
+          "range": 33688
+        },
+        "after": {
+          "n": 3,
+          "median": 9965596,
+          "min": 9921688,
+          "max": 9989168,
+          "range": 67480
+        },
+        "changePercent": 1.0800156930905367,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.04399999999998849,
+          "min": 0.03200000000000425,
+          "max": 0.051999999999996493,
+          "range": 0.019999999999992246
+        },
+        "after": {
+          "n": 3,
+          "median": 0.05099999999999549,
+          "min": 0.03199999999997649,
+          "max": 0.061000000000005494,
+          "range": 0.029000000000029003
+        },
+        "changePercent": 15.909090909110981,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.7,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.7,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.75,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.75,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.45,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.45,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/catalog/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 692.3205019999878,
+            "min": 671.7554639999871,
+            "max": 726.8908249999804,
+            "range": 55.13536099999328
+          },
+          "after": {
+            "n": 3,
+            "median": 702.5910490000388,
+            "min": 696.223748999997,
+            "max": 723.3268159999861,
+            "range": 27.103066999989096
+          },
+          "changePercent": 1.4834960066011726,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 533.1491579999856,
+            "min": 533.0723780000117,
+            "max": 547.9228050000092,
+            "range": 14.85042699999758
+          },
+          "after": {
+            "n": 3,
+            "median": 533.8758300000336,
+            "min": 527.8603959999746,
+            "max": 533.8786549999495,
+            "range": 6.0182589999749325
+          },
+          "changePercent": 0.1362980676503297,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 850.91492499999,
+            "min": 850.142200000002,
+            "max": 855.2693199999921,
+            "range": 5.1271199999901
+          },
+          "after": {
+            "n": 3,
+            "median": 199.51300300000003,
+            "min": 184.8506500000367,
+            "max": 200.23468000005232,
+            "range": 15.384030000015628
+          },
+          "changePercent": -76.55311980806984,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1383.9873030000017,
+            "min": 1383.2913579999877,
+            "max": 1403.1921250000014,
+            "range": 19.90076700001373
+          },
+          "after": {
+            "n": 3,
+            "median": 733.3888330000336,
+            "min": 712.7110460000113,
+            "max": 734.1133350000018,
+            "range": 21.40228899999056
+          },
+          "changePercent": -47.00899123783127,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 192.1864400000195,
+            "min": 175.8443419999967,
+            "max": 194.30915999997524,
+            "range": 18.46481799997855
+          },
+          "after": {
+            "n": 3,
+            "median": 180.07852300000377,
+            "min": 167.1161720000091,
+            "max": 180.79698799998732,
+            "range": 13.680815999978222
+          },
+          "changePercent": -6.300089121799906,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4927344,
+          "min": 4925024,
+          "max": 4931136,
+          "range": 6112
+        },
+        "after": {
+          "n": 3,
+          "median": 4984540,
+          "min": 4967736,
+          "max": 5007296,
+          "range": 39560
+        },
+        "changePercent": 1.160787637315357,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 10274188,
+          "min": 10263856,
+          "max": 10337272,
+          "range": 73416
+        },
+        "after": {
+          "n": 3,
+          "median": 8772188,
+          "min": 8763116,
+          "max": 8777132,
+          "range": 14016
+        },
+        "changePercent": -14.619160171100626,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.2819999999999767,
+          "min": 0.2510000000000012,
+          "max": 0.7000000000000062,
+          "range": 0.44900000000000495
+        },
+        "after": {
+          "n": 3,
+          "median": 3.376000000000018,
+          "min": 3.337000000000007,
+          "max": 4.142000000000007,
+          "range": 0.8049999999999997
+        },
+        "changePercent": 1097.1631205674812,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 307327.270534
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 307328.596274
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 336083.268771
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 336083.336483
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 365421.866788
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 365421.88128
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.25,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.25,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.95,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.95,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.95,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.95,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 8174,
+        "min": 8174,
+        "max": 8174,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/assistant/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 722.1661119999771,
+            "min": 689.4412779999839,
+            "max": 768.6500059999817,
+            "range": 79.20872799999779
+          },
+          "after": {
+            "n": 3,
+            "median": 708.4215200000326,
+            "min": 689.9962069999892,
+            "max": 795.0459600000177,
+            "range": 105.04975300002843
+          },
+          "changePercent": -1.9032452190092475,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 33.006099999998696,
+            "min": 32.897652999992715,
+            "max": 33.33016399998451,
+            "range": 0.4325109999917913
+          },
+          "after": {
+            "n": 3,
+            "median": 33.18753300001845,
+            "min": 31.95287700003246,
+            "max": 33.296122000028845,
+            "range": 1.3432449999963865
+          },
+          "changePercent": 0.5496953594025306,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 851.0427659999987,
+            "min": 850.3644280000008,
+            "max": 866.3155590000097,
+            "range": 15.9511310000089
+          },
+          "after": {
+            "n": 3,
+            "median": 850.5381859999616,
+            "min": 833.2856049999828,
+            "max": 851.8676040000282,
+            "range": 18.58199900004547
+          },
+          "changePercent": -0.05928961741942536,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 883.9404189999914,
+            "min": 883.6945919999853,
+            "max": 899.3216590000084,
+            "range": 15.62706700002309
+          },
+          "after": {
+            "n": 3,
+            "median": 882.491062999994,
+            "min": 866.5817270000116,
+            "max": 885.0551370000467,
+            "range": 18.473410000035074
+          },
+          "changePercent": -0.16396534979552344,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 78.95006800000556,
+            "min": 75.97033300000476,
+            "max": 79.24026999998023,
+            "range": 3.269936999975471
+          },
+          "after": {
+            "n": 3,
+            "median": 81.33362099999795,
+            "min": 78.71142299997155,
+            "max": 85.12130699999398,
+            "range": 6.40988400002243
+          },
+          "changePercent": 3.019063897439862,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4923200,
+          "min": 4914320,
+          "max": 4926752,
+          "range": 12432
+        },
+        "after": {
+          "n": 3,
+          "median": 4977060,
+          "min": 4972008,
+          "max": 4979528,
+          "range": 7520
+        },
+        "changePercent": 1.0940038999025024,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 7089244,
+          "min": 7049176,
+          "max": 7122496,
+          "range": 73320
+        },
+        "after": {
+          "n": 3,
+          "median": 7161000,
+          "min": 7156532,
+          "max": 7185060,
+          "range": 28528
+        },
+        "changePercent": 1.0121812706686355,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.030000000000002247,
+          "min": 0.028000000000000247,
+          "max": 0.03200000000000425,
+          "range": 0.004000000000004
+        },
+        "after": {
+          "n": 3,
+          "median": 0.029000000000001247,
+          "min": 0.029000000000001247,
+          "max": 0.03600000000000825,
+          "range": 0.007000000000007001
+        },
+        "changePercent": -3.3333333333364172,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.45,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.45,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.85,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.85,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.8,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.8,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "desktop/assistant/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 710.063736000011,
+            "min": 633.9476799999829,
+            "max": 789.2142540000204,
+            "range": 155.2665740000375
+          },
+          "after": {
+            "n": 3,
+            "median": 688.0307669999893,
+            "min": 637.0133440000354,
+            "max": 699.1029770000023,
+            "range": 62.08963299996685
+          },
+          "changePercent": -3.1029565210778984,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 533.2801290000207,
+            "min": 532.667065000016,
+            "max": 534.0608939999947,
+            "range": 1.393828999978723
+          },
+          "after": {
+            "n": 3,
+            "median": 533.5956499999738,
+            "min": 532.6701619999949,
+            "max": 550.5095610000426,
+            "range": 17.839399000047706
+          },
+          "changePercent": 0.059166089789394444,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 851.9919280000031,
+            "min": 365.90275500001735,
+            "max": 852.7748459999857,
+            "range": 486.87209099996835
+          },
+          "after": {
+            "n": 3,
+            "median": 84.31446900003357,
+            "min": 84.22766999999294,
+            "max": 99.74947099998826,
+            "range": 15.521800999995321
+          },
+          "changePercent": -90.10384180540812,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1384.658993000019,
+            "min": 899.9636490000121,
+            "max": 1386.0549750000064,
+            "range": 486.0913259999943
+          },
+          "after": {
+            "n": 3,
+            "median": 617.9101190000074,
+            "min": 616.8978319999878,
+            "max": 650.2590320000309,
+            "range": 33.36120000004303
+          },
+          "changePercent": -55.37456354786417,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 75.26264599998831,
+            "min": 70.5515369999921,
+            "max": 78.5033059999987,
+            "range": 7.951769000006607
+          },
+          "after": {
+            "n": 3,
+            "median": 83.67605800001184,
+            "min": 77.58884899999248,
+            "max": 104.503423999995,
+            "range": 26.914575000002515
+          },
+          "changePercent": 11.178735331767149,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4919112,
+          "min": 4913652,
+          "max": 4926680,
+          "range": 13028
+        },
+        "after": {
+          "n": 3,
+          "median": 4989248,
+          "min": 4978704,
+          "max": 5016992,
+          "range": 38288
+        },
+        "changePercent": 1.425785792232419,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 5730616,
+          "min": 5635708,
+          "max": 5736032,
+          "range": 100324
+        },
+        "after": {
+          "n": 3,
+          "median": 7118768,
+          "min": 5602272,
+          "max": 7175996,
+          "range": 1573724
+        },
+        "changePercent": 24.223434269544494,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.4609999999999892,
+          "min": 0.4509999999999792,
+          "max": 0.5460000000000187,
+          "range": 0.0950000000000395
+        },
+        "after": {
+          "n": 3,
+          "median": 2.577000000000024,
+          "min": 2.498,
+          "max": 4.147999999999999,
+          "range": 1.6499999999999986
+        },
+        "changePercent": 459.00216919741524,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 317558.438761
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 347004.98453
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 376151.05483
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.75,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.75,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 8.6,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 8.6,
+            "rtt": 0,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 9.05,
+            "rtt": 0,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 9.05,
+            "rtt": 0,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 4968,
+        "min": 4968,
+        "max": 4968,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/planning/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1749.2852710000006,
+            "min": 1727.5954669999774,
+            "max": 1782.7091819999914,
+            "range": 55.113715000014054
+          },
+          "after": {
+            "n": 3,
+            "median": 1712.1093799999799,
+            "min": 1654.6073919999762,
+            "max": 1896.7025370000047,
+            "range": 242.09514500002842
+          },
+          "changePercent": -2.1252045973478486,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 32.567462000006344,
+            "min": 32.02298300000257,
+            "max": 32.78464800000074,
+            "range": 0.7616649999981746
+          },
+          "after": {
+            "n": 3,
+            "median": 31.7257320000208,
+            "min": 31.696123000001535,
+            "max": 33.66088900004979,
+            "range": 1.9647660000482574
+          },
+          "changePercent": -2.5845735230623186,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 700.5864799999981,
+            "min": 590.8128089999955,
+            "max": 736.2305059999926,
+            "range": 145.41769699999713
+          },
+          "after": {
+            "n": 3,
+            "median": 715.3902970000054,
+            "min": 685.3028550000163,
+            "max": 989.2078729999484,
+            "range": 303.90501799993217
+          },
+          "changePercent": 2.1130606174425886,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 733.3711279999989,
+            "min": 622.835791999998,
+            "max": 768.797967999999,
+            "range": 145.9621760000009
+          },
+          "after": {
+            "n": 3,
+            "median": 747.1160290000262,
+            "min": 716.9989780000178,
+            "max": 1022.8687619999982,
+            "range": 305.8697839999804
+          },
+          "changePercent": 1.8742080885446766,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 374.61109900000156,
+            "min": 347.28532200001064,
+            "max": 405.6606540000066,
+            "range": 58.37533199999598
+          },
+          "after": {
+            "n": 3,
+            "median": 414.8517939999583,
+            "min": 380.1023170000408,
+            "max": 417.260316000029,
+            "range": 37.157998999988195
+          },
+          "changePercent": 10.741992190668272,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4973496,
+          "min": 4930356,
+          "max": 4974188,
+          "range": 43832
+        },
+        "after": {
+          "n": 3,
+          "median": 5042908,
+          "min": 5020616,
+          "max": 5045904,
+          "range": 25288
+        },
+        "changePercent": 1.3956379978992643,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6665356,
+          "min": 6648868,
+          "max": 6671216,
+          "range": 22348
+        },
+        "after": {
+          "n": 3,
+          "median": 6772368,
+          "min": 6762208,
+          "max": 6807068,
+          "range": 44860
+        },
+        "changePercent": 1.605495640442911,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.024999999999997247,
+          "min": 0.022999999999995246,
+          "max": 0.030000000000030003,
+          "range": 0.007000000000034756
+        },
+        "after": {
+          "n": 3,
+          "median": 0.029000000000056758,
+          "min": 0.020000000000020002,
+          "max": 0.28800000000001047,
+          "range": 0.26799999999999047
+        },
+        "changePercent": 16.000000000239808,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.05,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.05,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.3,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/planning/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1508.913883000001,
+            "min": 1470.4007459999993,
+            "max": 1847.128211000003,
+            "range": 376.7274650000036
+          },
+          "after": {
+            "n": 3,
+            "median": 1577.7528199999942,
+            "min": 1550.3758350000135,
+            "max": 1670.7800280000083,
+            "range": 120.40419299999485
+          },
+          "changePercent": 4.562151477003351,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 622.7897959999973,
+            "min": 616.3006189999869,
+            "max": 769.172602000006,
+            "range": 152.8719830000191
+          },
+          "after": {
+            "n": 3,
+            "median": 642.3949980000034,
+            "min": 602.3430839999928,
+            "max": 651.5916740000248,
+            "range": 49.24859000003198
+          },
+          "changePercent": 3.147964550145935,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 829.9182799999835,
+            "min": 601.9563150000176,
+            "max": 980.7009010000038,
+            "range": 378.74458599998616
+          },
+          "after": {
+            "n": 3,
+            "median": 502.1573170000338,
+            "min": 472.483797999972,
+            "max": 533.5324939999846,
+            "range": 61.04869600001257
+          },
+          "changePercent": -39.493161061587436,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1599.0908819999895,
+            "min": 1218.2569340000045,
+            "max": 1603.490697000001,
+            "range": 385.23376299999654
+          },
+          "after": {
+            "n": 3,
+            "median": 1135.8755779999774,
+            "min": 1124.0754719999968,
+            "max": 1144.5523150000372,
+            "range": 20.47684300004039
+          },
+          "changePercent": -28.967415749420496,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 383.39382399999886,
+            "min": 376.1503110000049,
+            "max": 542.1716149999993,
+            "range": 166.02130399999442
+          },
+          "after": {
+            "n": 3,
+            "median": 415.3242050000117,
+            "min": 334.8227499999921,
+            "max": 417.12792399997124,
+            "range": 82.30517399997916
+          },
+          "changePercent": 8.328350380524897,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 257441,
+          "min": 257441,
+          "max": 257441,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 260286,
+          "min": 260286,
+          "max": 260286,
+          "range": 0
+        },
+        "changePercent": 1.1051075780470088,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4884260,
+          "min": 4877020,
+          "max": 4966572,
+          "range": 89552
+        },
+        "after": {
+          "n": 3,
+          "median": 5035472,
+          "min": 5028564,
+          "max": 5057256,
+          "range": 28692
+        },
+        "changePercent": 3.09590398545532,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 7422260,
+          "min": 7416164,
+          "max": 7500708,
+          "range": 84544
+        },
+        "after": {
+          "n": 3,
+          "median": 7616576,
+          "min": 7562416,
+          "max": 7658832,
+          "range": 96416
+        },
+        "changePercent": 2.618016614885493,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 1.1959999999999749,
+          "min": 0.5689999999999862,
+          "max": 1.4280000000000403,
+          "range": 0.8590000000000542
+        },
+        "after": {
+          "n": 3,
+          "median": 10.781999999999957,
+          "min": 10.55299999999998,
+          "max": 12.085000000000012,
+          "range": 1.532000000000032
+        },
+        "changePercent": 801.5050167224234,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 387257.875452
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 434666.620186
+          }
+        ],
+        [
+          {
+            "file": "/assets/PlanningView-BuRRy_Bn.js",
+            "atMs": 483363.687145
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.5,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.5,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.4,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.4,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.45,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 12090,
+        "min": 12090,
+        "max": 12090,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/catalog/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1743.0460069999972,
+            "min": 1516.3181949999998,
+            "max": 1824.444180999999,
+            "range": 308.1259859999991
+          },
+          "after": {
+            "n": 3,
+            "median": 1669.9173140000203,
+            "min": 1611.5225169999758,
+            "max": 1751.8806580000091,
+            "range": 140.35814100003336
+          },
+          "changePercent": -4.195453975758256,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 32.328971000009915,
+            "min": 31.749088999989908,
+            "max": 36.24918600000092,
+            "range": 4.50009700001101
+          },
+          "after": {
+            "n": 3,
+            "median": 32.43358500004979,
+            "min": 31.173852000036277,
+            "max": 36.198441999964416,
+            "range": 5.024589999928139
+          },
+          "changePercent": 0.3235921119785766,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 819.041459,
+            "min": 742.907257999992,
+            "max": 1212.4264290000137,
+            "range": 469.51917100002174
+          },
+          "after": {
+            "n": 3,
+            "median": 820.4563999999664,
+            "min": 763.5830979999737,
+            "max": 917.6684060000116,
+            "range": 154.0853080000379
+          },
+          "changePercent": 0.17275572370828515,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 851.37043000001,
+            "min": 779.1564439999929,
+            "max": 1244.1755180000036,
+            "range": 465.01907400001073
+          },
+          "after": {
+            "n": 3,
+            "median": 852.8899850000162,
+            "min": 794.75695000001,
+            "max": 953.866847999976,
+            "range": 159.10989799996605
+          },
+          "changePercent": 0.17848341291418865,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 831.5000120000041,
+            "min": 668.3567700000131,
+            "max": 858.0423319999827,
+            "range": 189.68556199996965
+          },
+          "after": {
+            "n": 3,
+            "median": 737.8474920000299,
+            "min": 715.046834000037,
+            "max": 849.8690479999641,
+            "range": 134.82221399992704
+          },
+          "changePercent": -11.263081016043776,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4949604,
+          "min": 4945244,
+          "max": 4961540,
+          "range": 16296
+        },
+        "after": {
+          "n": 3,
+          "median": 5029908,
+          "min": 5005780,
+          "max": 5037704,
+          "range": 31924
+        },
+        "changePercent": 1.6224328249290245,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 8666244,
+          "min": 8665372,
+          "max": 8714736,
+          "range": 49364
+        },
+        "after": {
+          "n": 3,
+          "median": 8719084,
+          "min": 8702088,
+          "max": 8763736,
+          "range": 61648
+        },
+        "changePercent": 0.6097220433673458,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.025000000000052758,
+          "min": 0.016000000000016,
+          "max": 0.038999999999900226,
+          "range": 0.022999999999884224
+        },
+        "after": {
+          "n": 3,
+          "median": 0.020000000000020002,
+          "min": 0.018999999999991246,
+          "max": 0.024000000000024002,
+          "range": 0.005000000000032756
+        },
+        "changePercent": -20.000000000088818,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.85,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.85,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.35,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.35,
+            "rtt": 50,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.15,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/catalog/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1513.032871000003,
+            "min": 1453.2820380000048,
+            "max": 1582.2856519999914,
+            "range": 129.00361399998656
+          },
+          "after": {
+            "n": 3,
+            "median": 1570.6485879999818,
+            "min": 1542.8160170000046,
+            "max": 1788.4375080000027,
+            "range": 245.62149099999806
+          },
+          "changePercent": 3.8079620148568893,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 620.7649519999977,
+            "min": 619.4086140000145,
+            "max": 640.1475109999883,
+            "range": 20.738896999973804
+          },
+          "after": {
+            "n": 3,
+            "median": 603.3345429999754,
+            "min": 600.0012080000015,
+            "max": 615.6351309999591,
+            "range": 15.633922999957576
+          },
+          "changePercent": -2.807891931376693,
+          "observedRangesOverlap": false
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 982.4376280000142,
+            "min": 833.6372890000057,
+            "max": 1010.8344020000077,
+            "range": 177.197113000002
+          },
+          "after": {
+            "n": 3,
+            "median": 791.536632000003,
+            "min": 644.6936829999904,
+            "max": 840.7631730000139,
+            "range": 196.0694900000235
+          },
+          "changePercent": -19.431360379450823,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1603.202580000012,
+            "min": 1453.0459030000202,
+            "max": 1650.981912999996,
+            "range": 197.9360099999758
+          },
+          "after": {
+            "n": 3,
+            "median": 1391.5378400000045,
+            "min": 1248.0282259999658,
+            "max": 1456.398303999973,
+            "range": 208.3700780000072
+          },
+          "changePercent": -13.202619721333399,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 787.354256999999,
+            "min": 752.6259429999918,
+            "max": 905.3651700000046,
+            "range": 152.73922700001276
+          },
+          "after": {
+            "n": 3,
+            "median": 754.8091369999456,
+            "min": 746.1089070000453,
+            "max": 813.7400380000472,
+            "range": 67.63113100000191
+          },
+          "changePercent": -4.133478635659865,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 265617,
+          "min": 265617,
+          "max": 265617,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 268460,
+          "min": 268460,
+          "max": 268460,
+          "range": 0
+        },
+        "changePercent": 1.0703381184186254,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4920784,
+          "min": 4913208,
+          "max": 4971728,
+          "range": 58520
+        },
+        "after": {
+          "n": 3,
+          "median": 5045248,
+          "min": 5032024,
+          "max": 5074708,
+          "range": 42684
+        },
+        "changePercent": 2.529353046181259,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 9452652,
+          "min": 9409176,
+          "max": 9530104,
+          "range": 120928
+        },
+        "after": {
+          "n": 3,
+          "median": 9402112,
+          "min": 9370524,
+          "max": 9466900,
+          "range": 96376
+        },
+        "changePercent": -0.5346647692097414,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.5620000000000624,
+          "min": 0.09300000000000974,
+          "max": 0.6050000000000777,
+          "range": 0.512000000000068
+        },
+        "after": {
+          "n": 3,
+          "median": 14.430999999999973,
+          "min": 11.97999999999999,
+          "max": 14.811999999999937,
+          "range": 2.8319999999999474
+        },
+        "changePercent": 2467.7935943057596,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 403641.904392
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 403642.042149
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 451363.01776
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 451363.372848
+          }
+        ],
+        [
+          {
+            "file": "/assets/CatalogManager-CA5iiqzG.js",
+            "atMs": 499689.243772
+          },
+          {
+            "file": "/assets/BudgetsView-BYFrldR9.js",
+            "atMs": 499689.329381
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 5.2,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 5.2,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 8174,
+        "min": 8174,
+        "max": 8174,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/assistant/cold",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1600.9022289999994,
+            "min": 1537.6893820000114,
+            "max": 1808.8054820000252,
+            "range": 271.11610000001383
+          },
+          "after": {
+            "n": 3,
+            "median": 1467.9111540000304,
+            "min": 1426.776113,
+            "max": 1786.4922880000086,
+            "range": 359.71617500000866
+          },
+          "changePercent": -8.307257781947222,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 35.214036000019405,
+            "min": 29.791957999987062,
+            "max": 36.629109000001336,
+            "range": 6.8371510000142734
+          },
+          "after": {
+            "n": 3,
+            "median": 30.4821219999576,
+            "min": 30.388108999992255,
+            "max": 32.58360099996207,
+            "range": 2.1954919999698177
+          },
+          "changePercent": -13.437579265436085,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 467.39208799999324,
+            "min": 453.25943299999926,
+            "max": 521.3840280000004,
+            "range": 68.12459500000114
+          },
+          "after": {
+            "n": 3,
+            "median": 501.0633739999612,
+            "min": 468.55485400004545,
+            "max": 521.3149980000453,
+            "range": 52.760143999999855
+          },
+          "changePercent": 7.204077018943555,
+          "observedRangesOverlap": true
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 502.60612400001264,
+            "min": 483.0513909999863,
+            "max": 558.0131370000017,
+            "range": 74.96174600001541
+          },
+          "after": {
+            "n": 3,
+            "median": 531.4514829999534,
+            "min": 501.1384550000075,
+            "max": 551.7971200000029,
+            "range": 50.65866499999538
+          },
+          "changePercent": 5.739157885776193,
+          "observedRangesOverlap": true
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 201.8795150000078,
+            "min": 158.24907499999972,
+            "max": 320.17205700001796,
+            "range": 161.92298200001824
+          },
+          "after": {
+            "n": 3,
+            "median": 164.1585259999847,
+            "min": 161.15307400003076,
+            "max": 182.4692020000075,
+            "range": 21.316127999976743
+          },
+          "changePercent": -18.684901734592362,
+          "observedRangesOverlap": true
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4931572,
+          "min": 4921184,
+          "max": 4964600,
+          "range": 43416
+        },
+        "after": {
+          "n": 3,
+          "median": 5045616,
+          "min": 5035464,
+          "max": 5057244,
+          "range": 21780
+        },
+        "changePercent": 2.3125283378200705,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 5672392,
+          "min": 5671840,
+          "max": 5705216,
+          "range": 33376
+        },
+        "after": {
+          "n": 3,
+          "median": 5838948,
+          "min": 5832028,
+          "max": 5844820,
+          "range": 12792
+        },
+        "changePercent": 2.9362568736434294,
+        "observedRangesOverlap": false
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.032000000000032,
+          "min": 0.030000000000030003,
+          "max": 0.7989999999999942,
+          "range": 0.7689999999999642
+        },
+        "after": {
+          "n": 3,
+          "median": 0.022999999999995246,
+          "min": 0.022000000000022002,
+          "max": 0.20599999999998397,
+          "range": 0.18399999999996197
+        },
+        "changePercent": -28.125000000086736,
+        "observedRangesOverlap": true
+      },
+      "prefetchedSamples": 0,
+      "prefetchRequests": [
+        [],
+        [],
+        []
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.9,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.55,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.55,
+            "rtt": 100,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "range": 0
+      }
+    },
+    {
+      "group": "fast-mobile/assistant/intent",
+      "metrics": {
+        "entryMs": {
+          "before": {
+            "n": 3,
+            "median": 1632.6053750000137,
+            "min": 1493.624125000002,
+            "max": 1822.199265000003,
+            "range": 328.57514000000083
+          },
+          "after": {
+            "n": 3,
+            "median": 1601.6544399999548,
+            "min": 1522.852188000048,
+            "max": 1677.9156340000336,
+            "range": 155.06344599998556
+          },
+          "changePercent": -1.8958001409286491,
+          "observedRangesOverlap": true
+        },
+        "intentLeadMs": {
+          "before": {
+            "n": 3,
+            "median": 613.3033369999903,
+            "min": 599.7887219999975,
+            "max": 630.8801310000126,
+            "range": 31.09140900001512
+          },
+          "after": {
+            "n": 3,
+            "median": 616.2288670000271,
+            "min": 610.4093420000281,
+            "max": 640.9418350000051,
+            "range": 30.532492999976967
+          },
+          "changePercent": 0.4770119162154276,
+          "observedRangesOverlap": true
+        },
+        "clickToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 487.9466769999999,
+            "min": 470.4429100000125,
+            "max": 516.7438200000033,
+            "range": 46.300909999990836
+          },
+          "after": {
+            "n": 3,
+            "median": 238.617173000006,
+            "min": 229.3929009999847,
+            "max": 265.35910400003195,
+            "range": 35.966203000047244
+          },
+          "changePercent": -51.097694840945486,
+          "observedRangesOverlap": false
+        },
+        "intentToReadyMs": {
+          "before": {
+            "n": 3,
+            "median": 1118.8268080000125,
+            "min": 1070.23163200001,
+            "max": 1130.0471569999936,
+            "range": 59.81552499998361
+          },
+          "after": {
+            "n": 3,
+            "median": 849.0265150000341,
+            "min": 845.6217680000118,
+            "max": 906.300939000037,
+            "range": 60.679171000025235
+          },
+          "changePercent": -24.114571716624024,
+          "observedRangesOverlap": false
+        },
+        "secondMs": {
+          "before": {
+            "n": 3,
+            "median": 175.4153159999987,
+            "min": 155.39648600001237,
+            "max": 213.68246300000465,
+            "range": 58.28597699999227
+          },
+          "after": {
+            "n": 3,
+            "median": 232.63269900000887,
+            "min": 222.50489099998958,
+            "max": 252.30235400004312,
+            "range": 29.79746300005354
+          },
+          "changePercent": 32.61823671087568,
+          "observedRangesOverlap": false
+        }
+      },
+      "initialGzip": {
+        "before": {
+          "n": 3,
+          "median": 245354,
+          "min": 245354,
+          "max": 245354,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 248196,
+          "min": 248196,
+          "max": 248196,
+          "range": 0
+        },
+        "changePercent": 1.15832633664012,
+        "observedRangesOverlap": false
+      },
+      "firstGzip": {
+        "before": {
+          "n": 3,
+          "median": 250323,
+          "min": 250323,
+          "max": 250323,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 253164,
+          "min": 253164,
+          "max": 253164,
+          "range": 0
+        },
+        "changePercent": 1.1349336657039106,
+        "observedRangesOverlap": false
+      },
+      "heapInitial": {
+        "before": {
+          "n": 3,
+          "median": 4910164,
+          "min": 4907632,
+          "max": 4924052,
+          "range": 16420
+        },
+        "after": {
+          "n": 3,
+          "median": 5043932,
+          "min": 5039756,
+          "max": 5045596,
+          "range": 5840
+        },
+        "changePercent": 2.7243081901134056,
+        "observedRangesOverlap": false
+      },
+      "heapFirst": {
+        "before": {
+          "n": 3,
+          "median": 6401284,
+          "min": 6398108,
+          "max": 6437472,
+          "range": 39364
+        },
+        "after": {
+          "n": 3,
+          "median": 6411072,
+          "min": 6402396,
+          "max": 6416716,
+          "range": 14320
+        },
+        "changePercent": 0.15290682306862186,
+        "observedRangesOverlap": true
+      },
+      "hintScriptMs": {
+        "before": {
+          "n": 3,
+          "median": 0.10500000000002174,
+          "min": 0.09100000000000774,
+          "max": 0.3369999999999762,
+          "range": 0.24599999999996847
+        },
+        "after": {
+          "n": 3,
+          "median": 9.440000000000005,
+          "min": 8.687000000000001,
+          "max": 11.159000000000031,
+          "range": 2.4720000000000297
+        },
+        "changePercent": 8890.476190474334,
+        "observedRangesOverlap": false
+      },
+      "prefetchedSamples": 3,
+      "prefetchRequests": [
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 421777.623842
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 469399.030439
+          }
+        ],
+        [
+          {
+            "file": "/assets/AssistantChatView-BwpE-UaN.js",
+            "atMs": 518998.413662
+          }
+        ]
+      ],
+      "nativeSignals": [
+        {
+          "sample": 0,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.85,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.85,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 1,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 100,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.65,
+            "rtt": 100,
+            "saveData": false
+          }
+        },
+        {
+          "sample": 2,
+          "conditions": {
+            "saveData": false,
+            "effectiveType": "4g",
+            "downlink": 4.35,
+            "rtt": 50,
+            "visible": true,
+            "ready": true,
+            "busy": false,
+            "cores": 3,
+            "memory": 8,
+            "idleAvailable": true,
+            "inputPending": false
+          },
+          "connection": {
+            "effectiveType": "4g",
+            "downlink": 4.35,
+            "rtt": 50,
+            "saveData": false
+          }
+        }
+      ],
+      "hintedAdditionalGzip": {
+        "n": 3,
+        "median": 4968,
+        "min": 4968,
+        "max": 4968,
+        "range": 0
+      }
+    }
+  ],
+  "policyOnly": [
+    {
+      "group": "mobile/planning/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 651.3673450000006,
+        "min": 607.5283160000108,
+        "max": 1058.1739280000038,
+        "range": 450.645611999993
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1288.8008950000003,
+        "min": 1220.8026600000012,
+        "max": 1688.9250429999956,
+        "range": 468.12238299999444
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 1.45,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.55,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.4,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "mobile/planning/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 682.412822000013,
+        "min": 602.4095860000016,
+        "max": 1004.0374900000024,
+        "range": 401.62790400000085
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1300.1508260000264,
+        "min": 1215.763175,
+        "max": 1622.064287000001,
+        "range": 406.301112000001
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "mobile/catalog/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 958.7187360000025,
+        "min": 765.321912000014,
+        "max": 1065.9971789999981,
+        "range": 300.67526699998416
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1554.1367739999987,
+        "min": 1365.4690860000264,
+        "max": 1685.445940000005,
+        "range": 319.97685399997863
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 1.7,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.55,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.55,
+          "rtt": 100,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "mobile/catalog/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 1025.511125000019,
+        "min": 891.3209940000015,
+        "max": 1050.3058579999924,
+        "range": 158.98486399999092
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1658.9930810000224,
+        "min": 1502.900944000001,
+        "max": 1665.4217999999964,
+        "range": 162.52085599999555
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "mobile/assistant/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 485.86657900000137,
+        "min": 468.07577199998195,
+        "max": 537.6645390000049,
+        "range": 69.58876700002293
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1158.092233999996,
+        "min": 1069.4262790000066,
+        "max": 1235.3679899999988,
+        "range": 165.9417109999922
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 1.5,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.4,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 1.4,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "mobile/assistant/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 471.13501100000576,
+        "min": 463.68330399999104,
+        "max": 498.09245999999985,
+        "range": 34.40915600000881
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1119.4279049999896,
+        "min": 1100.9212030000053,
+        "max": 1147.6215069999962,
+        "range": 46.700303999990865
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "tablet/planning/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 451.29352999996627,
+        "min": 451.07987800001865,
+        "max": 451.3375079999969,
+        "range": 0.257629999978235
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1001.5581050000037,
+        "min": 1001.0161549999611,
+        "max": 1016.1071419999935,
+        "range": 15.090987000032328
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 5.25,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.65,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.9,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "tablet/planning/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 450.8221959999937,
+        "min": 435.9961159999948,
+        "max": 451.0179299999727,
+        "range": 15.021813999977894
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1000.6338810000161,
+        "min": 998.6105099999695,
+        "max": 1015.8194929999881,
+        "range": 17.208983000018634
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "tablet/catalog/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 588.0192049999896,
+        "min": 551.5209209999884,
+        "max": 589.6301399999938,
+        "range": 38.109219000005396
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1134.17091299998,
+        "min": 1118.857396999956,
+        "max": 1153.8838119999855,
+        "range": 35.026415000029374
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 4.65,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.85,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.65,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "tablet/catalog/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 550.0093000000052,
+        "min": 514.967295999988,
+        "max": 867.4713300000003,
+        "range": 352.5040340000123
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1116.2556869999971,
+        "min": 1081.3714359999867,
+        "max": 1435.9744800000044,
+        "range": 354.6030440000177
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "tablet/assistant/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 866.9120600000024,
+        "min": 424.5693620000093,
+        "max": 901.2892069999943,
+        "range": 476.71984499998507
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1434.3475370000233,
+        "min": 975.4537530000089,
+        "max": 1466.556716000021,
+        "range": 491.1029630000121
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 4.35,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 5.1,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.65,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "tablet/assistant/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 866.8595090000308,
+        "min": 421.94407800000045,
+        "max": 868.1782379999931,
+        "range": 446.2341599999927
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1416.783574000001,
+        "min": 988.9515229999961,
+        "max": 1450.0845550000085,
+        "range": 461.13303200001246
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "desktop/planning/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 850.6249740000349,
+        "min": 848.6671859999769,
+        "max": 850.8387999999686,
+        "range": 2.1716139999916777
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1384.579452999984,
+        "min": 1383.51936700003,
+        "max": 1398.683919000032,
+        "range": 15.164552000002004
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 8.85,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 8.95,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 8.6,
+          "rtt": 0,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "desktop/planning/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 852.2464010000112,
+        "min": 850.2489789999672,
+        "max": 852.3543889999855,
+        "range": 2.10541000001831
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1383.3794769999804,
+        "min": 1382.6669640000327,
+        "max": 1401.1553140000324,
+        "range": 18.488349999999627
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "desktop/catalog/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 867.0269449999905,
+        "min": 850.4551799999899,
+        "max": 867.4978289999999,
+        "range": 17.042649000009988
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1396.8950549999718,
+        "min": 1384.1917300000205,
+        "max": 1401.5022759999847,
+        "range": 17.310545999964233
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 9.9,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 10,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 9.25,
+          "rtt": 0,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "desktop/catalog/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 853.0880619999953,
+        "min": 850.2454020000296,
+        "max": 867.599281999981,
+        "range": 17.35387999995146
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1386.59009100002,
+        "min": 1382.4873609999777,
+        "max": 1400.0650139999925,
+        "range": 17.577653000014834
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "desktop/assistant/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 381.0699489999679,
+        "min": 368.26680799998576,
+        "max": 869.7481980000157,
+        "range": 501.48139000002993
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 951.0397159999702,
+        "min": 900.1669569999794,
+        "max": 1403.1667069999967,
+        "range": 502.99975000001723
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 9.25,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 8.95,
+          "rtt": 0,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 9.05,
+          "rtt": 0,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "desktop/assistant/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 871.7157540000044,
+        "min": 851.602469000034,
+        "max": 917.3596620000317,
+        "range": 65.75719299999764
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1419.7175480000442,
+        "min": 1385.2708529999945,
+        "max": 1450.3952789999894,
+        "range": 65.12442599999486
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "fast-mobile/planning/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 734.0089409999782,
+        "min": 618.9129899999825,
+        "max": 949.2683029999607,
+        "range": 330.3553129999782
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1352.8594850000227,
+        "min": 1235.9228390000062,
+        "max": 1583.1754739999888,
+        "range": 347.25263499998255
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 4.85,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.75,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.7,
+          "rtt": 100,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "fast-mobile/planning/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 609.4669580000336,
+        "min": 601.4963879999705,
+        "max": 679.2571940000053,
+        "range": 77.76080600003479
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1269.5946040000417,
+        "min": 1221.6309009999968,
+        "max": 1317.269318000006,
+        "range": 95.63841700000921
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "fast-mobile/catalog/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 844.3440779999946,
+        "min": 831.4803940000129,
+        "max": 876.573841000034,
+        "range": 45.093447000021115
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1454.457967000024,
+        "min": 1451.9584419999737,
+        "max": 1477.165410000016,
+        "range": 25.206968000042252
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 4.65,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 5.15,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.6,
+          "rtt": 100,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "fast-mobile/catalog/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 762.2417039999855,
+        "min": 733.5915660000173,
+        "max": 818.9806639999733,
+        "range": 85.389097999956
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1360.3306270000176,
+        "min": 1346.0374960000045,
+        "max": 1435.4434689999907,
+        "range": 89.40597299998626
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "group": "fast-mobile/assistant/saveData",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 481.109375,
+        "min": 450.88624100002926,
+        "max": 490.574002999987,
+        "range": 39.68776199995773
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1100.3094920000294,
+        "min": 1084.7924900000216,
+        "max": 1136.394619000028,
+        "range": 51.602129000006244
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        {
+          "effectiveType": "4g",
+          "downlink": 4.35,
+          "rtt": 50,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.75,
+          "rtt": 100,
+          "saveData": true
+        },
+        {
+          "effectiveType": "4g",
+          "downlink": 4.3,
+          "rtt": 50,
+          "saveData": true
+        }
+      ]
+    },
+    {
+      "group": "fast-mobile/assistant/disabled",
+      "scope": "After-only safety measurement; no fabricated before comparison",
+      "clickToReadyMs": {
+        "n": 3,
+        "median": 466.92736999999033,
+        "min": 466.2564720000373,
+        "max": 486.6243989999639,
+        "range": 20.367926999926567
+      },
+      "intentToReadyMs": {
+        "n": 3,
+        "median": 1083.3905899999663,
+        "min": 1078.697426000028,
+        "max": 1085.6179520000005,
+        "range": 6.920525999972597
+      },
+      "prefetchRequests": 0,
+      "connections": [
+        null,
+        null,
+        null
+      ]
+    }
+  ]
+}

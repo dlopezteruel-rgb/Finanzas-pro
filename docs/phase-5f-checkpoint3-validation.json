@@ -1,0 +1,42 @@
+{
+  "scope": "Focused checkpoint3, not full browser battery",
+  "checks": {
+    "lint": true,
+    "build": true
+  },
+  "results": {
+    "unit": [
+      {
+        "tests": 628,
+        "suites": 0,
+        "pass": 628,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "intentBrowser": [
+      {
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "originalDeferred": [
+      {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ]
+  }
+}

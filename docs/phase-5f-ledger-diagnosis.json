@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "browser": "156.0.8078.79",
+  "records": 5000,
+  "cpu": 4,
+  "samplesPerVariant": 1,
+  "method": "Exploratory temporary production-mode builds with react-dom/profiling and three timing spans; not final production timing. Same complete data, filters/sort/economic projection/totals. Variants: unchanged full DOM; CSS content-visibility; diagnostic50-row bound WITHOUT pagination controls (not a deliverable).CDP delta durations may overlap; do not sum categories as exclusive CPU costs. React render duration excludes native DOM commit/layout. All money reductions and stored bytes verified. No source/config/dependency changes; temporary builds removed.",
+  "rows": [
+    {
+      "variant": "full",
+      "records": 5000,
+      "domRows": 5000,
+      "usefulMs": 25187.51204,
+      "fullDataTotals": [
+        "23.824,96 €",
+        "62.539,88 €"
+      ],
+      "rawFinancialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "costs": [
+        {
+          "label": "filter-and-sort",
+          "ms": 54.099999994039536
+        },
+        {
+          "label": "economic-projection-and-totals",
+          "ms": 8.899999991059303
+        },
+        {
+          "label": "row-elements-and-formatting",
+          "ms": 587.2000000029802
+        }
+      ],
+      "react": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 5001.999999791384,
+          "baseDuration": 2069.5999996364117
+        }
+      ],
+      "delta": {
+        "ScriptDuration": 6.908285,
+        "TaskDuration": 24.175911,
+        "LayoutDuration": 3.815926,
+        "RecalcStyleDuration": 11.271505,
+        "LayoutCount": 1,
+        "RecalcStyleCount": 5,
+        "Nodes": 213837,
+        "JSHeapUsedSize": 56979744
+      }
+    },
+    {
+      "variant": "content-visibility",
+      "records": 5000,
+      "domRows": 5000,
+      "usefulMs": 7413.578225999998,
+      "fullDataTotals": [
+        "23.824,96 €",
+        "62.539,88 €"
+      ],
+      "rawFinancialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "costs": [
+        {
+          "label": "filter-and-sort",
+          "ms": 50
+        },
+        {
+          "label": "economic-projection-and-totals",
+          "ms": 6.699999988079071
+        },
+        {
+          "label": "row-elements-and-formatting",
+          "ms": 456.5
+        }
+      ],
+      "react": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 3661.200000077486,
+          "baseDuration": 1557.2999996691942
+        }
+      ],
+      "delta": {
+        "ScriptDuration": 4.93882,
+        "TaskDuration": 6.6194500000000005,
+        "LayoutDuration": 0.344273,
+        "RecalcStyleDuration": 0.57507,
+        "LayoutCount": 3,
+        "RecalcStyleCount": 7,
+        "Nodes": 213838,
+        "JSHeapUsedSize": 61614268
+      }
+    },
+    {
+      "variant": "bounded-prototype",
+      "records": 5000,
+      "domRows": 50,
+      "usefulMs": 683.0321970000005,
+      "fullDataTotals": [
+        "23.824,96 €",
+        "62.539,88 €"
+      ],
+      "rawFinancialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "costs": [
+        {
+          "label": "filter-and-sort",
+          "ms": 51.20000000298023
+        },
+        {
+          "label": "economic-projection-and-totals",
+          "ms": 7.799999997019768
+        },
+        {
+          "label": "row-elements-and-formatting",
+          "ms": 11.700000002980232
+        }
+      ],
+      "react": [
+        {
+          "id": "ledger",
+          "phase": "mount",
+          "actualDuration": 129.70000000298023,
+          "baseDuration": 92.40000003576279
+        }
+      ],
+      "delta": {
+        "ScriptDuration": 0.181191,
+        "TaskDuration": 0.630946,
+        "LayoutDuration": 0.09126600000000001,
+        "RecalcStyleDuration": 0.18541500000000002,
+        "LayoutCount": 1,
+        "RecalcStyleCount": 5,
+        "Nodes": 2279,
+        "JSHeapUsedSize": 4199408
+      }
+    }
+  ]
+}

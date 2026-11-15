@@ -1,0 +1,66 @@
+{
+  "source": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+  "browser": "156.0.8078.79",
+  "count": 5000,
+  "cpu": 4,
+  "width": 390,
+  "samples": 1,
+  "method": "Exploratory actual production DevTools timeline, isolated fixture, CPU4x; not an acceptance timing sample. Event totals can overlap across categories. Root data and all5000 DOM rows ready before ending; no grouping exists in the current flat ledger. No API requests or financial writes.",
+  "phases": {
+    "Layout": {
+      "events": 1,
+      "totalMs": 6788.076,
+      "maxMs": 6788.076
+    },
+    "UpdateLayoutTree": {
+      "events": 4,
+      "totalMs": 11858.521,
+      "maxMs": 11855.28
+    },
+    "Paint": {
+      "events": 2,
+      "totalMs": 69.539,
+      "maxMs": 68.533
+    },
+    "PrePaint": {
+      "events": 18,
+      "totalMs": 1768.353,
+      "maxMs": 1767.233
+    },
+    "Commit": {
+      "events": 0,
+      "totalMs": 0,
+      "maxMs": 0
+    },
+    "UpdateLayer": {
+      "events": 0,
+      "totalMs": 0,
+      "maxMs": 0
+    },
+    "FunctionCall": {
+      "events": 35,
+      "totalMs": 5482.737,
+      "maxMs": 5471.307
+    },
+    "RunTask": {
+      "events": 0,
+      "totalMs": 0,
+      "maxMs": 0
+    },
+    "MinorGC": {
+      "events": 8,
+      "totalMs": 85.373,
+      "maxMs": 28.586
+    },
+    "MajorGC": {
+      "events": 2,
+      "totalMs": 119.836,
+      "maxMs": 77.321
+    },
+    "V8.GCScavenger": {
+      "events": 0,
+      "totalMs": 0,
+      "maxMs": 0
+    }
+  }
+}

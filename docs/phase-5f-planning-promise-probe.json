@@ -1,0 +1,35 @@
+{
+  "scope": "Exploratory temporary builds; full local regression runs concurrently. Not acceptance timings and no repository source mutation.",
+  "rows": [
+    {
+      "variant": "current-chain",
+      "sample": 0,
+      "ms": 1045.2056950000006
+    },
+    {
+      "variant": "current-chain",
+      "sample": 1,
+      "ms": 918.2165239999995
+    },
+    {
+      "variant": "current-chain",
+      "sample": 2,
+      "ms": 1276.7451660000006
+    },
+    {
+      "variant": "same-promise-observer",
+      "sample": 0,
+      "ms": 703.6587719999989
+    },
+    {
+      "variant": "same-promise-observer",
+      "sample": 1,
+      "ms": 657.1697800000002
+    },
+    {
+      "variant": "same-promise-observer",
+      "sample": 2,
+      "ms": 1279.3868309999998
+    }
+  ]
+}

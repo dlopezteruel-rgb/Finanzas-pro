@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Home, ArrowLeftRight, PieChart, CreditCard, Sparkles, Landmark, Users, MoreHorizontal } from 'lucide-react';
 import { Overlay } from './Overlay';
+import {preloadIntentProps,type FeatureIntent,type PreloadTarget} from '../app/intentPreload';
 import { useI18n } from '../i18n';
 
 export type NavTab = 'dashboard' | 'transactions' | 'budgets' | 'contacts' | 'loans' | 'wallets' | 'assistant';
 interface NavigationProps {
+  onFeatureIntent?:FeatureIntent;
   activeTab: NavTab; onSelectTab: (tab: NavTab) => void;
   pendingTransactionsCount: number; exceededBudgetsCount: number; pendingDebtsCount?: number;
 }
-export const Navigation: React.FC<NavigationProps> = ({ activeTab, onSelectTab, pendingTransactionsCount, exceededBudgetsCount, pendingDebtsCount = 0 }) => {
+export const Navigation: React.FC<NavigationProps> = ({ onFeatureIntent, activeTab, onSelectTab, pendingTransactionsCount, exceededBudgetsCount, pendingDebtsCount = 0 }) => {
   const { t } = useI18n();
   const [moreOpen, setMoreOpen] = useState(false);
   const tabs = [
@@ -22,8 +24,9 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onSelectTab, 
   ];
   const primary = tabs.filter(tab => ['dashboard', 'transactions', 'budgets', 'wallets'].includes(tab.id));
   const secondary = tabs.filter(tab => ['contacts', 'loans', 'assistant'].includes(tab.id));
-  const select = (tab: NavTab) => { setMoreOpen(false); onSelectTab(tab); };
-  const item = (tab: typeof tabs[number]) => <button type="button" key={tab.id} className="nav-button" aria-current={activeTab === tab.id ? 'page' : undefined} onClick={() => select(tab.id)}>
+  const preloadTarget=(tab:NavTab):PreloadTarget|undefined=>tab==='budgets'?'planning':tab==='assistant'?'assistant':undefined;
+  const select = (tab: NavTab) => { const target=preloadTarget(tab);if(target)onFeatureIntent?.(target,'use'); setMoreOpen(false); onSelectTab(tab); };
+  const item = (tab: typeof tabs[number]) => <button {...preloadIntentProps(onFeatureIntent,preloadTarget(tab.id))} type="button" key={tab.id} className="nav-button" aria-current={activeTab === tab.id ? 'page' : undefined} onClick={() => select(tab.id)}>
     <tab.icon size={20} aria-hidden="true" /><span>{tab.label}</span>{tab.badge > 0 && <span className="nav-badge">{tab.badge}</span>}
   </button>;
   return <>

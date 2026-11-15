@@ -1,6 +1,20 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "ledger.page.allShort": "All",
+  "ledger.page.pagedShort": "Pages",
+
+  "ledger.page.range": "Showing transactions {start}–{end} of {total}",
+  "ledger.page.navigation": "Transaction list pages",
+  "ledger.page.previous": "Previous",
+  "ledger.page.label": "Page",
+  "ledger.page.number": "{page} of {pages}",
+  "ledger.page.next": "Next",
+  "ledger.page.showAll": "Show all (slower)",
+  "ledger.page.paginate": "Return to pages",
+  "ledger.page.help": "Search and totals include all results. Browser search only finds the visible page. Show all to search and print the complete list.",
+  "ledger.page.fullHelp": "Complete list: search and printing include all results. This can be slower with thousands of transactions.",
+
   "theme.storageError": "The theme has changed in this tab, but the visual preference could not be saved.",
   "feature.charts": "Charts",
   "feature.loading": "Loading {name}…",

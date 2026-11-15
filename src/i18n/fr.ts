@@ -1,6 +1,20 @@
 import type { Messages } from './messages';
 
 export const fr = {
+  "ledger.page.allShort": "Tout",
+  "ledger.page.pagedShort": "Pages",
+
+  "ledger.page.range": "Mouvements {start}–{end} sur {total}",
+  "ledger.page.navigation": "Pages de la liste des mouvements",
+  "ledger.page.previous": "Précédente",
+  "ledger.page.label": "Page",
+  "ledger.page.number": "{page} sur {pages}",
+  "ledger.page.next": "Suivante",
+  "ledger.page.showAll": "Tout afficher (plus lent)",
+  "ledger.page.paginate": "Revenir aux pages",
+  "ledger.page.help": "La recherche et les totaux incluent tous les résultats. La recherche du navigateur ne trouve que la page visible. Affichez tout pour rechercher et imprimer la liste complète.",
+  "ledger.page.fullHelp": "Liste complète : la recherche et l’impression incluent tous les résultats. Cela peut être plus lent avec des milliers de mouvements.",
+
   "theme.storageError": "Le thème a changé dans cet onglet, mais la préférence visuelle n’a pas pu être enregistrée.",
   "feature.charts": "Graphiques",
   "feature.loading": "Chargement de {name}…",

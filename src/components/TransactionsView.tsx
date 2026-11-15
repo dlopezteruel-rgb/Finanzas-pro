@@ -1,4 +1,6 @@
 import { useI18n, I18nText } from "../i18n";
+import {MovementPagination,movementPage,MOVEMENT_PAGE_SIZE,MOVEMENT_PAGING_THRESHOLD} from './MovementPagination';
+import {useCompletePrint} from './useCompletePrint';
 import {visibleEconomicTotals} from './transactionTotals';
 import React, { useState, useMemo } from 'react';
 import {
@@ -47,8 +49,15 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
   const [selectedPeriod,setSelectedPeriod]=useState<'all'|'selected'>('all');
+  const filterKey=JSON.stringify([searchTerm,filterType,selectedWallet,selectedPeriod,selectedPeriod==='selected'?currentMonthYear:null]);
+  const [cursor,setCursor]=useState({key:filterKey,page:0,anchor:null as string|null});
+  const [showAll,setShowAll]=useState(false);
+  const printing=useCompletePrint();
   const focusedRowRef = React.useRef<HTMLDivElement>(null);
   const pendingFocusId = React.useRef<string | null>(null);
+  React.useEffect(()=>{
+    setCursor(value=>value.key===filterKey?value:{key:filterKey,page:0,anchor:null});
+  },[filterKey]);
 
   React.useEffect(() => {
     pendingFocusId.current = focusedTransactionId ?? null;
@@ -58,6 +67,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     setFilterType('ALL');
     setSelectedWallet('ALL');
     setSelectedPeriod('all');
+    setCursor(value=>({...value,page:0,anchor:focusedTransactionId}));
   }, [focusedTransactionId]);
 
   // Wallets set
@@ -88,16 +98,28 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     }).sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }, [transactions, filterType, selectedWallet, searchTerm,selectedPeriod,currentMonthYear]);
 
+  const paginated=filtered.length>MOVEMENT_PAGING_THRESHOLD;
+  const anchorIndex=cursor.key===filterKey&&cursor.anchor?filtered.findIndex(t=>t.id===cursor.anchor):-1;
+  const linkedIndex=pendingFocusId.current?filtered.findIndex(t=>t.id===pendingFocusId.current):-1;
+  const requestedPage=linkedIndex>=0?Math.floor(linkedIndex/MOVEMENT_PAGE_SIZE):anchorIndex>=0?Math.floor(anchorIndex/MOVEMENT_PAGE_SIZE):cursor.key===filterKey?cursor.page:0;
+  const pageView=movementPage(filtered.length,requestedPage,!paginated||showAll||printing);
+  const visible=filtered.slice(pageView.start,pageView.end);
+  const changePage=(page:number)=>{
+    setCursor({key:filterKey,page,anchor:null});
+    // Preserve the native control focus and scroll position; rows are never recycled.
+  };
+
   // A linked entry is focused in the list, not opened in the editable movement dialog.
   React.useEffect(() => {
     if (!focusedTransactionId || pendingFocusId.current !== focusedTransactionId || !filtered.some(t => t.id === focusedTransactionId)) return;
     const row = focusedRowRef.current;
     if (row) {
+      setCursor({key:filterKey,page:pageView.page,anchor:focusedTransactionId});
       pendingFocusId.current = null;
       row.focus({ preventScroll: true });
       row.scrollIntoView({ block: 'center' });
     }
-  }, [focusedTransactionId, filtered]);
+  }, [focusedTransactionId, filtered, pageView.start, pageView.end]);
 
   const {income:totalIncomes,expenses:totalExpenses}=useMemo(()=>visibleEconomicTotals(transactions,filtered),[transactions,filtered]);
 
@@ -136,7 +158,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   };
 
   return (
-    <div className="transactions-view">
+    <div className="transactions-view" data-ledger-records={transactions.length} data-ledger-results={filtered.length} data-ledger-start={pageView.start} data-ledger-end={pageView.end}>
       <h1 className="module-title">{uiText("transactions.movimientos")}</h1>
       {currentMonthYear&&<div className="finance-actions"><label>{uiText("transactions.periodo_del_listado")}<select aria-label={uiText("transactions.periodo_del_listado_b7c82b")} value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">{uiText("transactions.todos_los_periodos")}</option><option value="selected"><I18nText id="transactions.periodo_seleccionado" values={{ currentMonthYear: (currentMonthYear) }} /></option></select></label><p>{selectedPeriod==='all'?uiText("transactions.registro_de_todas_las_fechas"):uiText("transactions.solo_movimientos_de", { currentMonthYear: currentMonthYear })}</p></div>}
       {/* Search & Top Action */}
@@ -230,14 +252,18 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
         </div>
       </div>
 
+      {paginated&&<MovementPagination compact count={filtered.length} page={pageView.page} all={showAll} onPage={changePage} onAll={setShowAll}/>}
       {/* Transactions List */}
       <div className="movement-list bg-[#141926] border border-white/[0.06] rounded-2xl shadow-sm divide-y divide-white/[0.04]" role="list" aria-label={uiText("transactions.movimientos_filtrados")}>
         {filtered.length === 0 ? (
           <div className="py-12 text-center text-slate-400 text-xs">{uiText("transactions.no_se_encontraron_movimientos_con_los_filtros_aplicados")}</div>
         ) : (
-          filtered.map(t => (
+          visible.map((t,index) => (
             <div
               key={t.id}
+              data-transaction-id={t.id}
+              aria-posinset={pageView.start+index+1}
+              aria-setsize={filtered.length}
               ref={t.id === focusedTransactionId ? focusedRowRef : undefined}
               tabIndex={t.id === focusedTransactionId ? -1 : undefined}
               aria-label={t.id === focusedTransactionId ? uiText("transactions.movimiento_seleccionado", { description: t.description, date: formatDate(t.date, {day:'2-digit',month:'2-digit',year:'numeric'}), amount: formatCurrency(t.amount) }) : undefined}
@@ -296,7 +322,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
 
                 <button
                   type="button"
-                  onClick={() => onEditTransaction(t)}
+                  onClick={() => {setCursor({key:filterKey,page:pageView.page,anchor:t.id});onEditTransaction(t);}}
                   className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-white/[0.08] transition-colors cursor-pointer"
                   title={uiText("transactions.editar_movimiento")}
                   aria-label={uiText("transactions.editar_movimiento_e09265", { description: t.description })}
@@ -318,6 +344,7 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
           ))
         )}
       </div>
+      {paginated&&<div className="movement-pagination-footer"><MovementPagination announce={false} count={filtered.length} page={pageView.page} all={showAll} onPage={changePage} onAll={setShowAll}/></div>}
     </div>
   );
 };

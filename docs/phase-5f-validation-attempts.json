@@ -1,0 +1,844 @@
+{
+  "policy": "Incomplete,failed and smoke runs are separate from final acceptance. Parent failures are counted by Node and not distinct independent defects.",
+  "attempts": [
+    {
+      "log": "5f-pagination-unit.log",
+      "reason": "Inventory became stale while adding the new source; regenerated,not hidden",
+      "summaries": [
+        {
+          "tests": 599,
+          "suites": 0,
+          "pass": 598,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger.log",
+      "reason": "Initial harness used an unknown navigation key; corrected",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 0,
+          "fail": 41,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v2.log",
+      "reason": "Real cursor reset defect plus incorrect new accessible-name fixture",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 4,
+          "fail": 37,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v3.log",
+      "reason": "Cursor fixed; original new harness accessible-name punctuation still incorrect",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 39,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-large-ledger-v4.log",
+      "reason": "Existing editor normalizes absent notes to empty string; exact expected fixture corrected, no editor change",
+      "summaries": [
+        {
+          "tests": 41,
+          "suites": 0,
+          "pass": 39,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-intent-browser.log",
+      "reason": "Programmatic focus after click did not imply keyboard focus-visible; harness now sends real Tab; incomplete run not approved",
+      "summaries": [
+        {
+          "tests": 13,
+          "suites": 0,
+          "pass": 9,
+          "fail": 2,
+          "cancelled": 2,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-restricted-network-before.log",
+      "reason": "Reproduces restricted getter error before fix",
+      "summaries": [
+        {
+          "tests": 14,
+          "suites": 0,
+          "pass": 12,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-critical-language-before.log",
+      "reason": "Reproduces both restricted getter and foreground dictionary contention before fixes",
+      "summaries": [
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 12,
+          "fail": 3,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-safety-browser.log",
+      "reason": "All15 intent results after fixes",
+      "summaries": [
+        {
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-ledger-focused.log",
+      "reason": "All44 ledger results after compact controls and safety fixes",
+      "summaries": [
+        {
+          "tests": 44,
+          "suites": 0,
+          "pass": 44,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-final-safety-unit.log",
+      "reason": "All628 unit results after source fixes",
+      "summaries": [
+        {
+          "tests": 628,
+          "suites": 0,
+          "pass": 628,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-boundary-focused.log",
+      "reason": "Reproduces loss of focus on a boundary button becoming disabled",
+      "summaries": [
+        {
+          "tests": 9,
+          "suites": 0,
+          "pass": 7,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-before-interactions.log",
+      "reason": "Partial measurement excluded: global role/name lookup on15000 buttons; header query now scoped",
+      "accepted": false
+    },
+    {
+      "log": "5f-transient-input-before.log",
+      "reason": "Reproduced discarded input-pending intent before fix",
+      "summaries": [
+        {
+          "tests": 21,
+          "suites": 0,
+          "pass": 20,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    }
+  ],
+  "excludedPerformanceSmokes": [
+    "5f-intent-smoke.json (clock patch0ms deadline)",
+    "5f-interactions-smoke.json (concurrent tool sanity only)",
+    "5f-intent-native-smoke.json",
+    "5f-intent-condition-smoke.json"
+  ],
+  "finalFocused": {
+    "ledger": [
+      {
+        "tests": 44,
+        "suites": 0,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "preload": [
+      {
+        "tests": 17,
+        "suites": 0,
+        "pass": 17,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "boundaryLedger": [
+      {
+        "tests": 44,
+        "suites": 0,
+        "pass": 44,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "unit": [
+      {
+        "tests": 633,
+        "suites": 0,
+        "pass": 633,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ]
+  },
+  "remoteAttempts": [
+    {
+      "run": 43732040620,
+      "sha": "14c93b642a10e7a132a1afc5c499e0ca28285100",
+      "conclusion": "cancelled",
+      "reason": "Superseded by necessary source fixes; never full approval"
+    },
+    {
+      "run": 43735323745,
+      "sha": "d63b5e0ee1782e3a06b382286caea19e46754d82",
+      "conclusion": "failure",
+      "results": {
+        "pass": 837,
+        "total": 843,
+        "cancelled": 2
+      },
+      "reason": "Conditional preload start gate unbounded in one new case; complete logs/artifacts retained; no global CI timeout"
+    }
+  ],
+  "supersededLocal": {
+    "sha": "773bd90693fb1dd4178d38c2f99e3e024b6ab908",
+    "scope": "Intentionally interrupted for foreground loader promise timing correction; not approval",
+    "passed": false,
+    "summaries": [
+      {
+        "tests": 57,
+        "suites": 0,
+        "pass": 57,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 23,
+        "suites": 0,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 16,
+        "suites": 0,
+        "pass": 16,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 19,
+        "suites": 0,
+        "pass": 19,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 3,
+        "suites": 0,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 9,
+        "suites": 0,
+        "pass": 9,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "perSuite": [
+      {
+        "suite": "scripts/phase1.browser.ts",
+        "status": "passed",
+        "tests": 57,
+        "suites": 0,
+        "pass": 57,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/sharedUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/deletion.browser.ts",
+        "status": "passed",
+        "tests": 23,
+        "suites": 0,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/planning.browser.ts",
+        "status": "passed",
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetUx.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/charts.browser.ts",
+        "status": "passed",
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/automation.browser.ts",
+        "status": "passed",
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/responsive.browser.ts",
+        "status": "passed",
+        "tests": 16,
+        "suites": 0,
+        "pass": 16,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/intelligent.browser.ts",
+        "status": "passed",
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/visualUx.browser.ts",
+        "status": "passed",
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/routes.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/defaultWallet.browser.ts",
+        "status": "passed",
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/budgetSubitems.browser.ts",
+        "status": "passed",
+        "tests": 19,
+        "suites": 0,
+        "pass": 19,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogPresentation.browser.ts",
+        "status": "passed",
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/customCatalog.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogReorder.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogClassification.browser.ts",
+        "status": "passed",
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/catalogArchive.browser.ts",
+        "status": "passed",
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aSafety.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aLoans.browser.ts",
+        "status": "passed",
+        "tests": 3,
+        "suites": 0,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/phase4aAudit.browser.ts",
+        "status": "passed",
+        "tests": 9,
+        "suites": 0,
+        "pass": 9,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/i18n.browser.ts",
+        "status": "passed",
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedBanking.browser.ts",
+        "status": "passed",
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      },
+      {
+        "suite": "scripts/translatedPlanning.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedCatalog.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedCatalogDrag.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedAutomation.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedObligations.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedStorage.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedShared.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedCharts.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedAssistant.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedPresentation.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/translatedCompletion.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/landingLanguage.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/multilingualCatalog.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/catalogQuickReceipt.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/lazyLanguage.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/deferredFeatures.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/performanceVolume.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/visualTheme.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/largeLedger.browser.ts",
+        "status": "not_executed"
+      },
+      {
+        "suite": "scripts/intentPreload.browser.ts",
+        "status": "not_executed"
+      }
+    ]
+  },
+  "passingIntermediateReferences": [
+    {
+      "run": 43741726133,
+      "sha": "773bd90693fb1dd4178d38c2f99e3e024b6ab908",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133",
+      "conclusion": "success",
+      "browser": 845,
+      "suites": 43,
+      "unit": 633,
+      "infrastructure": 22,
+      "artifactVerification": {
+        "allDownloadedZipDigestsMatchGitHub": true,
+        "browserResults": "sha256:112a38538d54c398b87a9b026eb846726ffbcce4f9381668fc78662980096a63",
+        "unit": "sha256:5c8b5c72d767ff2deb5135fcd12d7d0de91b0b3f71a4abebb00f8c86817ab2e6",
+        "code": "sha256:2f5b383c41024c05b3c917d39f184f3ba4a710f76ebb27f99a3f51f662a6d143"
+      },
+      "scope": "Passed before final foreground-promise adjustment; not the final delivered source."
+    }
+  ]
+}

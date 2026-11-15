@@ -68,3 +68,8 @@ import '../scripts/i18n/axe-review.test.mjs';
 import './i18n/lazy.test';
 import './components/transactionTotals.test';
 import './app/themePreference.test';
+import './components/movementPage.test';
+
+import './app/intentPreload.test';
+
+import './app/preloadIdle.test';
