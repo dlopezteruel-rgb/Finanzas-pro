@@ -13,6 +13,7 @@ export async function navigateModule(page: Page, name: string) {
 /** Select the visible planning area through its public keyboard/touch control. */
 export async function selectPlanningArea(page: Page, name: 'Gastos' | 'Ingresos' | 'Multiperiodo') {
   const tabs = page.getByRole('tablist', {name: 'Áreas de planificación', exact: true});
+  await tabs.waitFor();
   const tab = tabs.getByRole('tab', {name: new RegExp(`^${name}(?: · Revisar importes)?$`)});
   if (name === 'Multiperiodo' && await tab.count() === 0) {
     const summary = page.locator('.planning-multiperiod > details > summary');

@@ -897,6 +897,27 @@
       "name": "planning-readiness-smoke",
       "kind": "instrumentation-error",
       "reason": "Waiting for visibility of a responsive hidden base-label was incorrect. Wait for the real planning container; all original label count and contrast assertions preserved. Focused visual12/12 passed."
+    },
+    {
+      "name": "npm-cache-readonly",
+      "kind": "environment-limitation",
+      "reason": "Default /home/agent/.npm cache was unwritable; fresh npmci succeeded with npm_config_cache=/workspace/work/.npm-cache, unchanged lockfile188 packages."
+    },
+    {
+      "name": "local-github-code-runner-event",
+      "kind": "instrumentation-error",
+      "reason": "CI code wrapper needs GitHub event metadata. Local call without it failed; supplied a local PR-shaped event containing actual origin/main and HEAD SHAs. Full nonempty main comparison, lint/build passed. This is a local simulation, not a GitHub execution."
+    },
+    {
+      "name": "cold-multiperiod-helper",
+      "kind": "failed",
+      "reason": "Mobile helper count before lazy tablist mount. Explicit readiness added; all19 original subitem cases retained.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "completedSummaries": 13,
+      "reportedTests": 234,
+      "reportedPass": 232,
+      "reportedFail": 2
     }
   ],
   "githubAttempts": [
@@ -931,6 +952,14 @@
       "unit": "success599+22",
       "code": "success",
       "browser": "failure: visualUx counted wallet cards before lazy screen mounted"
+    },
+    {
+      "run": 43656155672,
+      "head": "aaf2d8f7c717a0de6bb35b421bd758c2fa2b291c",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43656155672",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure232/234 in13 summaries: planning area helper counted a tablist before it mounted, taking desktop fallback on mobile"
     }
   ]
 }

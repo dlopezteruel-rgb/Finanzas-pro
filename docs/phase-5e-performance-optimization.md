@@ -265,3 +265,7 @@ La CI43653525846 pasó unitarias/código y señaló dos compilaciones de sondeo 
 ## Contenido real antes de recuentos visuales (5E-11)
 
 La CI43655068796 y la ejecución local reprodujeron el recuento prematuro de cero tarjetas al abrir Cuentas (se esperaban tres). Las comprobaciones visuales esperan ahora los contenedores reales de Cuentas y Planificación, y la matriz de presentación espera la región del planificador antes de contar sus pestañas. Se conservan todos los recuentos y umbrales AA. Resultado focalizado: visual12/12 y presentación7/7, sin omisiones/cancelaciones. Son cambios del arnés; no alteran el frontend medido/fotografiado ni amplían tiempos de espera.
+
+## Selección fría de Multiperiodo en el arnés (5E-12)
+
+La CI43656155672 detectó que selectPlanningArea consultaba count() antes de que existiera el tablist diferido. Interpretaba cero pestañas como escritorio y omitía la activación móvil, aunque el details ya estaba abierto. El helper espera ahora el tablist visible antes de distinguir las variantes; no cambia el componente, sus reglas, los casos originales ni los límites. La suite de subítems conserva sus19 resultados y la batería completa vuelve a ejecutarse.
