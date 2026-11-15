@@ -16,13 +16,14 @@ class FeatureBoundary extends React.Component<{children:React.ReactNode;fallback
  render(){return this.state.failed?this.props.fallback:this.props.children;}
 }
 /** One loader per feature; successful modules and in-flight requests are shared, never stores/providers. */
-export function deferredFeature<C extends React.ComponentType<any>>(loader:()=>Promise<{default:C}>,name:FeatureNameKey,loadingKey?:FeatureNameKey):React.ComponentType<React.ComponentProps<C>>{
+export function deferredFeature<C extends React.ComponentType<any>>(loader:()=>Promise<{default:C}>,name:FeatureNameKey,loadingKey?:FeatureNameKey):React.ComponentType<React.ComponentProps<C>>&{preload:()=>Promise<void>;isLoaded:()=>boolean}{
  let request:ReturnType<typeof loader>|undefined;
- const load=()=>request??=(loader().catch(error=>{request=undefined;throw error;}));
+ let resolved:C|undefined;
+ const load=()=>request??=(loader().then(module=>{resolved=module.default;return module;}).catch(error=>{request=undefined;throw error;}));
  // Keep React's fulfilled lazy payload across visits/month keys, not only its import Promise.
  let Cached=lazy(load);
- return function DeferredFeature(props:React.ComponentProps<C>){
-  const [attempt,setAttempt]=useState(0),[Component,setComponent]=useState(()=>Cached);
+ function DeferredFeature(props:React.ComponentProps<C>){
+  const [attempt,setAttempt]=useState(0),[Component,setComponent]=useState(()=>resolved??Cached);
   const Loaded=Component as React.ComponentType<React.ComponentProps<C>>;
   const retry=()=>{
    const target=document.activeElement?.closest<HTMLElement>('[role="tabpanel"]')??document.getElementById('app-content');
@@ -30,5 +31,6 @@ export function deferredFeature<C extends React.ComponentType<any>>(loader:()=>P
    Cached=lazy(load);setComponent(()=>Cached);setAttempt(n=>n+1);
   };
   return <FeatureBoundary key={attempt} fallback={<FeatureState name={name} failed retry={retry}/>}><Suspense fallback={<FeatureState name={name} loadingKey={loadingKey}/>}><Loaded {...props}/></Suspense></FeatureBoundary>;
- };
+ }
+ return Object.assign(DeferredFeature,{preload:()=>load().then(()=>undefined),isLoaded:()=>resolved!==undefined});
 }

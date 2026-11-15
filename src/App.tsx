@@ -75,6 +75,7 @@ import { obligationOverview } from './utils/personalObligations';
 import { RecurringMovementsView } from './components/RecurringMovementsView';
 
 import {deferredFeature} from './components/DeferredFeature';
+import {useIntentPreload} from './app/useIntentPreload';
 import {useVisualTheme} from './app/useVisualTheme';
 
 const PlanningView = deferredFeature(() => import('./components/PlanningView').then(module => ({default: module.PlanningView})), 'planning.planificacion_financiera');
@@ -86,6 +87,12 @@ const AssistantChatView = deferredFeature(() => import('./components/AssistantCh
 const TreasuryView = deferredFeature(() => import('./components/TreasuryView').then(module => ({default: module.TreasuryView})), 'app.proximos_30_dias');
 const DebtsWorkspace = deferredFeature(() => import('./components/DebtsWorkspace').then(module => ({default: module.DebtsWorkspace})), 'nav.debts');
 const WalletsView = deferredFeature(() => import('./components/WalletsView').then(module => ({default: module.WalletsView})), 'nav.accounts');
+
+const preloadResources={
+ planning:PlanningView,
+ catalog:{preload:()=>Promise.all([CatalogManager.preload(),BudgetsView.preload()]).then(()=>undefined),isLoaded:()=>CatalogManager.isLoaded()&&BudgetsView.isLoaded()},
+ assistant:AssistantChatView,
+};
 
 const DEMO_DATA: FinanceData = {
   theme: 'dark', budgetGroups: BUDGET_GROUPS, catalogNames:systemCatalogNames(), transactions: INITIAL_TRANSACTIONS,
@@ -154,6 +161,7 @@ export default function App() {
   const [planningBusy, setPlanningBusy] = useState(false);
   const [planningReset, setPlanningReset] = useState(0);
   const [pendingPlanningNavigation, setPendingPlanningNavigation] = useState<(() => void) | null>(null);
+  const featureIntent=useIntentPreload(preloadResources,()=>planningState.current.dirty||planningState.current.saving||restoring||!!restoration||!!pendingPlanningNavigation);
   const onPlanningDirty = useCallback((dirty: boolean, saving: boolean) => { planningState.current = { dirty, saving }; setPlanningBusy(saving); }, []);
   const guardPlanning = (action: () => void) => {
     if (planningState.current.saving) return;
@@ -602,6 +610,7 @@ export default function App() {
       {themePreferenceError&&<p role="status" className="planning-card">{uiText('theme.storageError')}</p>}
       {/* Revolut Navigation Bar */}
       <Navigation
+        onFeatureIntent={featureIntent}
         activeTab={activeTab}
         onSelectTab={changeTab}
         pendingTransactionsCount={pendingTransactionsCount}
@@ -663,7 +672,7 @@ export default function App() {
           </>}
         </>)}
 
-        {activeTab === 'budgets' && <BudgetWorkspace navigate={guardPlanning} locked={planningBusy} planning={
+        {activeTab === 'budgets' && <BudgetWorkspace onFeatureIntent={featureIntent} navigate={guardPlanning} locked={planningBusy} planning={
           <PlanningView key={`${currentMonthYear}:${planningReset}`} data={data} month={currentMonthYear} onMonth={changeMonth} onDirty={onPlanningDirty} onRegisterNavigationSave={registerPlanningSave}
             onSave={(edits, savings, scope, approve, deficit, subitems) => mutate(current => savePlanning(current, currentMonthYear, edits, savings, scope, approve, deficit, subitems))}
             onDetail={handleSelectPartidaToView} onAutomation={preview=>mutate(current=>applyAutomationPreview(current,preview))} />

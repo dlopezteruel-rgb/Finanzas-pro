@@ -1,4 +1,5 @@
 import { useI18n } from "../i18n";
+import {preloadIntentProps,type FeatureIntent} from '../app/intentPreload';
 import React, { useLayoutEffect, useRef, useState } from 'react';
 
 type BudgetTab = 'planning' | 'catalog';
@@ -8,7 +9,8 @@ const tabs = [
 ] as const;
 
 /** Visited panels stay mounted; catalogue code is only requested on first visit. Selection/scroll are session UI state, never finance data. */
-export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
+export function BudgetWorkspace({ planning, catalog, navigate, locked,onFeatureIntent }: {
+  onFeatureIntent?:FeatureIntent;
   planning: React.ReactNode;
   catalog: React.ReactNode;
   navigate: (action: () => void) => void;
@@ -21,6 +23,7 @@ export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
   const scroll = useRef<Record<BudgetTab, number>>({ planning: 0, catalog: 0 });
   const changed = useRef(false);
   const select = (next: BudgetTab) => {
+    if(next==='catalog')onFeatureIntent?.('catalog','use');
     if (next === selected || locked) return;
     navigate(() => {
       scroll.current[selected] = window.scrollY;
@@ -38,7 +41,7 @@ export function BudgetWorkspace({ planning, catalog, navigate, locked }: {
   return <section className="budget-workspace space-y-4 pb-20 md:pb-6" aria-label={uiText("budget_workspace.presupuestos")}>
     <h1 className="text-xl font-bold">{uiText("budget_workspace.presupuestos")}</h1>
     <div role="tablist" aria-label={uiText("budget_workspace.secciones_de_presupuestos")} className="budget-tabs">
-      {tabs.map((tab, index) => <button key={tab.id} type="button" role="tab" id={`budget-tab-${tab.id}`}
+      {tabs.map((tab, index) => <button {...preloadIntentProps(onFeatureIntent,tab.id==='catalog'?'catalog':undefined)} key={tab.id} type="button" role="tab" id={`budget-tab-${tab.id}`}
         ref={node => { buttons.current[tab.id] = node; }}
         aria-label={uiText(tab.accessibleLabel)} aria-selected={selected === tab.id} aria-controls={`budget-panel-${tab.id}`}
         tabIndex={selected === tab.id ? 0 : -1} disabled={locked} onClick={() => select(tab.id)}
