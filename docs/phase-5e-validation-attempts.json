@@ -881,6 +881,22 @@
       "name": "isolated-browser-probe",
       "kind": "failed",
       "reason": "IIFE esbuild did not receive Vite SSR=false. Exact compile-time flag preserves browser-only path; original25 cases and assertions pass. No production/SSR/financial code changes."
+    },
+    {
+      "name": "visual-ux-cold-count",
+      "kind": "failed",
+      "reason": "Original count expected three wallet cards before deferred screen arrived. Explicit wait for actual wallet/planning content preserves count and AA assertions. Focused visual12/12 and presentation7/7 passed.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "completedSummaries": 10,
+      "reportedTests": 196,
+      "reportedPass": 193,
+      "reportedFail": 3
+    },
+    {
+      "name": "planning-readiness-smoke",
+      "kind": "instrumentation-error",
+      "reason": "Waiting for visibility of a responsive hidden base-label was incorrect. Wait for the real planning container; all original label count and contrast assertions preserved. Focused visual12/12 passed."
     }
   ],
   "githubAttempts": [
@@ -907,6 +923,14 @@
       "unit": "success599+22",
       "code": "success",
       "browser": "failure: isolated esbuild IIFE needed the browser SSR=false constant; application unchanged; original25/25 passed after adapter correction"
+    },
+    {
+      "run": 43655068796,
+      "head": "11230ce5071649225a4d9f05f6ccd73192914899",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43655068796",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure: visualUx counted wallet cards before lazy screen mounted"
     }
   ]
 }

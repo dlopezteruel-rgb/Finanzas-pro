@@ -28,6 +28,7 @@ test('Checkpoint A: presentación personal y borrador compartido', {timeout:1800
       const before=await snapshot();
       await navigateModule(p,'Presupuestos');
       const planner=p.getByRole('region',{name:'Planificación financiera',exact:true});
+      await planner.waitFor();
       const tabs=planner.getByRole('tablist',{name:'Áreas de planificación',exact:true});
       assert.equal(await tabs.getByRole('tab').count(),width<768?3:2);
       assert.equal(await tabs.getByRole('tab',{name:'Gastos',exact:true}).getAttribute('aria-selected'),'true');

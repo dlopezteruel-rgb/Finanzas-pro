@@ -261,3 +261,7 @@ La segunda CI roja, [43652265177](https://github.com/dlopezteruel-rgb/Finanzas-p
 ## Entorno del sondeo aislado de navegación (5E-10)
 
 La CI43653525846 pasó unitarias/código y señaló dos compilaciones de sondeo de intelligent.browser: esbuild IIFE incluía la preparación Node/SSR con top-level await porque ese bundle aislado no recibía las constantes de entorno del navegador. Se definen exactamente import.meta.env.SSR=false e import.meta.env.BASE_URL="/", conservando NODE_ENV=production, como en Vite. El build real de producción y la preparación Node/SSR no cambian. Se mantienen las comprobaciones originales de movimiento/ocurrencia enlazada, filtros, foco y ausencia de escrituras. La suite original completa vuelve a25/25, sin omisiones/cancelaciones ni cambios de límites. Las sondas incompletas/fallidas no se presentan como prueba aprobada.
+
+## Contenido real antes de recuentos visuales (5E-11)
+
+La CI43655068796 y la ejecución local reprodujeron el recuento prematuro de cero tarjetas al abrir Cuentas (se esperaban tres). Las comprobaciones visuales esperan ahora los contenedores reales de Cuentas y Planificación, y la matriz de presentación espera la región del planificador antes de contar sus pestañas. Se conservan todos los recuentos y umbrales AA. Resultado focalizado: visual12/12 y presentación7/7, sin omisiones/cancelaciones. Son cambios del arnés; no alteran el frontend medido/fotografiado ni amplían tiempos de espera.
