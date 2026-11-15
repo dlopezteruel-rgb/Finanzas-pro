@@ -1032,7 +1032,7 @@
     {
       "file": "src/components/DeferredFeature.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8d3b39ef6ac5d324d89580050d3dca1a05b37e00d170f22084340393b8403b89",
+      "sourceSha256": "e2a6155acfeb09d0b22d93ce798bc74de6587585f71fc326a1de00a6b27a82de",
       "counts": {
         "type-or-import": 2,
         "attribute-internal": 5,

@@ -19,7 +19,9 @@ class FeatureBoundary extends React.Component<{children:React.ReactNode;fallback
 export function deferredFeature<C extends React.ComponentType<any>>(loader:()=>Promise<{default:C}>,name:FeatureNameKey,loadingKey?:FeatureNameKey):React.ComponentType<React.ComponentProps<C>>&{preload:()=>Promise<void>;isLoaded:()=>boolean}{
  let request:ReturnType<typeof loader>|undefined;
  let resolved:C|undefined;
- const load=()=>request??=(loader().then(module=>{resolved=module.default;return module;}).catch(error=>{request=undefined;throw error;}));
+ // Observe the original loader promise without adding a fulfillment microtask
+ // ahead of React.lazy: an extra link can cross Suspense reveal deadlines.
+ const load=()=>{if(!request){request=loader().catch(error=>{request=undefined;throw error;});void request.then(module=>{resolved=module.default;},()=>{});}return request;};
  // Keep React's fulfilled lazy payload across visits/month keys, not only its import Promise.
  let Cached=lazy(load);
  function DeferredFeature(props:React.ComponentProps<C>){
