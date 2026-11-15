@@ -2056,5 +2056,20 @@ export const it = {
   "catalog.names.invalidDeclaration": "La dichiarazione dei nomi del catalogo non è valida. Nessuna modifica è stata salvata.",
   "catalog.names.staleReview": "Il catalogo è cambiato. Rivedi i nomi prima di confermare.",
   "catalog.names.invalidSelection": "La selezione dei nomi non è valida. Rivedila prima di confermare.",
-  "catalog.names.backup35": "JSON 3.5: nomi del catalogo di sistema scelti esplicitamente. Le copie precedenti mantengono i loro nomi; usa la copia di recupero precedente per tornare indietro."
+  "catalog.names.backup35": "JSON 3.5: nomi del catalogo di sistema scelti esplicitamente. Le copie precedenti mantengono i loro nomi; usa la copia di recupero precedente per tornare indietro.",
+  "native.title": "Prototipo di FinanZas Pro",
+  "native.warning": "Usa solo dati fittizi. Questo prototipo non dispone di archiviazione finanziaria permanente e perde la sessione al riavvio.",
+  "native.enter": "Accedi con dati fittizi",
+  "native.acknowledge": "Comprendo che non devo inserire né importare dati finanziari reali.",
+  "native.sessionNotice": "Sessione fittizia e temporanea. I dati non vengono conservati al riavvio.",
+  "native.importBlocked": "L’importazione di file finanziari è bloccata fino alla convalida dell’archiviazione nativa. Puoi ripristinare i dati fittizi.",
+  "native.remoteUnavailable": "Il servizio remoto dell’assistente non è configurato per questo prototipo. Le consultazioni e la registrazione locali restano disponibili.",
+  "native.exportFailed": "Non è stato possibile esportare il file. La sessione e i moduli sono stati conservati.",
+  "native.back": "Indietro",
+  "native.backBlocked": "Usa i controlli del modulo o della finestra per confermare o annullare. Nessuna modifica è stata scartata.",
+  "native.rootBack": "Sei nella schermata iniziale del prototipo. La sessione non è stata chiusa.",
+  "native.packagingError": "Questo contenitore richiede la build nativa del prototipo e i suoi adattatori. L’accesso ai dati finanziari è bloccato.",
+  "native.preferencesFailed": "Non è stato possibile salvare le preferenze del dispositivo. La selezione attuale viene mantenuta.",
+  "native.exportTitle": "Condividi una copia fittizia di FinanZas Pro",
+
 } as const satisfies Messages;

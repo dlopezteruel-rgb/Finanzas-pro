@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 957,
-    "review": 3133,
+    "type-or-import": 969,
+    "review": 3145,
     "ui-message-candidate": 379,
-    "attribute-internal": 2150,
-    "translation-key": 1508,
+    "attribute-internal": 2154,
+    "translation-key": 1513,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -606,12 +606,12 @@
     {
       "file": "src/app/Root.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "a485030915e9cfd8a9082820bce115572e6c57f2f88c58c1549c06faf7f32542",
+      "sourceSha256": "9f63b258284505db728be2aaac9cdf670891fc75c26b96782df7375c0c811a02",
       "counts": {
-        "type-or-import": 6,
+        "type-or-import": 7,
         "review": 1,
-        "attribute-internal": 7,
-        "translation-key": 6
+        "attribute-internal": 9,
+        "translation-key": 8
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1965,10 +1965,33 @@
     {
       "file": "src/main.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "3ebef9c175088e27acb89bac3b03c7b6784ebf4659508e16bad51d3e94112a46",
+      "sourceSha256": "3bf4f2e324df038d36e436764499903ce3a16f8ad3b791f1f62638bf8164c4bb",
       "counts": {
         "type-or-import": 6,
-        "review": 1
+        "review": 3
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/environment.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "209efd5045c696fd266eefddfbf1e9cccd6c589560e0e2014d4174b489bbf6e0",
+      "counts": {
+        "type-or-import": 5,
+        "review": 10
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/native/bootstrap.tsx",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "13be7008ff5c7a4ec4c62ccdd68f2b7e1030c513190850d100d70eae31bf85c0",
+      "counts": {
+        "type-or-import": 5,
+        "attribute-internal": 2,
+        "translation-key": 3
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1976,9 +1999,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "35024f933a72e8de257871d2f01b6fbcb0608a8df9dfd5806df41c7326ca7133",
+      "sourceSha256": "9d183f4709cac6c3bb94382bf0d4e51e311b4426489c1f600867a61d7c2d4817",
       "counts": {
-        "type-or-import": 48
+        "type-or-import": 49
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

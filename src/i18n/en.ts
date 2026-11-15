@@ -2056,5 +2056,20 @@ export const en = {
   "catalog.names.invalidDeclaration": "The catalogue name declaration is invalid. No changes have been saved.",
   "catalog.names.staleReview": "The catalogue has changed. Review the names again before confirming.",
   "catalog.names.invalidSelection": "The name selection is invalid. Review it again before confirming.",
-  "catalog.names.backup35": "JSON 3.5: explicitly selected system catalogue names. Earlier copies retain their names; use the previous recovery copy to go back."
+  "catalog.names.backup35": "JSON 3.5: explicitly selected system catalogue names. Earlier copies retain their names; use the previous recovery copy to go back.",
+  "native.title": "FinanZas Pro prototype",
+  "native.warning": "Use fictitious data only. This prototype has no permanent financial storage and loses its session when restarted.",
+  "native.enter": "Enter with fictitious data",
+  "native.acknowledge": "I understand that I must not enter or import real financial data.",
+  "native.sessionNotice": "Disposable fictitious session. Data is not retained after restarting.",
+  "native.importBlocked": "Financial file import is blocked until native storage is validated. You can reset the fictitious data.",
+  "native.remoteUnavailable": "The remote assistant service is not configured for this prototype. Local queries and registration remain available.",
+  "native.exportFailed": "The file could not be exported. Your session and forms have been preserved.",
+  "native.back": "Back",
+  "native.backBlocked": "Use the form or dialogue controls to confirm or cancel. No changes have been discarded.",
+  "native.rootBack": "You are at the prototype home screen. The session has not been closed.",
+  "native.packagingError": "This container requires the native prototype build and its adapters. Access to financial data is blocked.",
+  "native.preferencesFailed": "Device preferences could not be saved. Your current selection has been preserved.",
+  "native.exportTitle": "Share a fictitious FinanZas Pro backup",
+
 } as const satisfies Messages;

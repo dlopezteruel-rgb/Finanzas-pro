@@ -62,3 +62,13 @@ flowchart TD
 Faltan checkpoints2–5: proyectos/sincronización,adaptadores/pruebas,experiencia móvil,batería web final,mediciones,matriz y una única PR Draft con CI del SHA final. Los947grupos axe incompletos en53conjuntos de5F siguen pendientes de revisión contextual;no son947violaciones ni se declaran resueltos. No hay lector de pantalla/dispositivos físicos probados.
 
 No fusionar,desplegar,publicar en tiendas/TestFlight,sincronizar Google AI Studio ni cambiar main/protecciones. No añadir nube,autenticación bancaria,actualizaciones remotas de JavaScript ni semántica financiera nueva.
+
+## Checkpoint 2 — Proyectos y compilación real
+
+Core/CLI/Android/iOS8.6.2 y plugins oficiales app8.1.2,browser8.0.5,filesystem8.1.5,keyboard8.0.6,preferences8.0.1,share8.0.3 fijados. Las188entradas previas del lockfile conservan versión e integridad. webDir=dist;build:native independiente,base local /,sin server.url remoto,CSP nativo y metadato verificado antes de cap sync. Los comandos web y vite.config.ts siguen intactos. Un build web cargado por error en un contenedor falla cerrado sin montar App.
+
+[Resultados del checkpoint](phase-5g-checkpoint2-validation.json):637/637unitarias,lint y builds web/nativo correctos;cap add y sync de ambas plataformas correctos. Android ha ejecutado assembleDebug de verdad:273tareas,4m35s,APK con recursos locales y SIN firma. No se genera un keystore ni se publica el binario;sin firma no es una instalación ejecutada. Java/JDK21.0.13+9 verificado por checksum,SDK/target36,min24,AGP8.13.0,Gradle8.14.3 con checksum del wrapper. La descarga del SDK se resolvió confiando en la CA del sistema del entorno,con TLS activado;ningún ajuste de confianza entra en la aplicación.
+
+Android:INTERNET es el único permiso;backup del sistema y transferencia de datos excluidos,cleartext desactivado,FileProvider solo cache/finanzas-prototype-exports y signingConfig debug nulo. iOS:SPM y UIScene generados,ATS sin excepciones de HTTP,intercambio público de Documents desactivado,manifiesto de privacidad para timestamps de archivos propios y preferencias propias incluido en recursos. No se afirma compilación iOS,WKWebView o almacenamiento persistente por generar estos archivos en Linux.
+
+El contenedor permanece deliberadamente bloqueado antes del checkpoint3;no abre el store web ni habilita datos reales. Los SDK nativos quedan detrás de la entrada nativa;la web no necesita sus APIs. El script nativo reconstruye y comprueba los recursos antes de sincronizar para evitar empaquetar accidentalmente otro dist.
