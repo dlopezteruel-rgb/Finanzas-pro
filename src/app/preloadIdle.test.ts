@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {waitForPreloadIdle} from './preloadIdle';
+function setup(){let time=0,id=0,calls=0;const queued=new Map<number,(deadline:{timeRemaining:()=>number})=>void>();const cancel=waitForPreloadIdle(()=>{calls++;},{now:()=>time,request:fn=>{queued.set(++id,fn);return id;},cancel:id=>{queued.delete(id);}});return {cancel,calls:()=>calls,size:()=>queued.size,turn:(budget:number,elapsed=16)=>{time+=elapsed;const pending=[...queued];queued.clear();for(const [,fn]of pending)fn({timeRemaining:()=>budget});}};}
+test('5F: un primer intervalo ocupado no pierde una intención vigente ni fuerza trabajo',()=>{const c=setup();c.turn(0);assert.equal(c.calls(),0);assert.equal(c.size(),1);c.turn(9);assert.equal(c.calls(),0);c.turn(20);assert.equal(c.calls(),1);assert.equal(c.size(),0);c.turn(50);assert.equal(c.calls(),1);});
+test('5F: cancelar durante la espera idle impide descargar al aparecer capacidad',()=>{const c=setup();c.turn(0);c.cancel();c.turn(50);assert.equal(c.calls(),0);assert.equal(c.size(),0);});
+test('5F: intención caducada o reloj detenido no genera trabajo tardío ni bucles ilimitados',()=>{const c=setup();c.turn(0,500);c.turn(50,500);assert.equal(c.calls(),0);assert.equal(c.size(),0);const frozen=setup();for(let i=0;i<65;i++)frozen.turn(0,0);assert.equal(frozen.calls(),0);assert.equal(frozen.size(),0);});
+test('5F: APIs idle restringidas permiten cancelar con seguridad sin ejecutar tarea',()=>{let calls=0;const cancel=waitForPreloadIdle(()=>{calls++;},{now:()=>0,request:()=>{throw Error('Synthetic restricted API');},cancel:()=>{throw Error('Synthetic restricted cancellation');}});cancel();assert.equal(calls,0);});

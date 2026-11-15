@@ -23,7 +23,9 @@ export function createIntentPreloader(resources:Record<PreloadTarget,PreloadReso
  const cancel=()=>{queued?.();queued=undefined;};
  const intent:FeatureIntent=(target,action)=>{
   cancel();if(action==='use'){if(unused===target)unused=undefined;return;}
-  if(action==='cancel'||disposed||inflight||unused||resources[target].isLoaded()||!canPreload(conditions()))return;
+  // The gesture itself can still be in the browser input queue. Only enqueue
+  // intent here; actual import must pass the complete policy in the idle turn.
+  if(action==='cancel'||disposed||inflight||unused||resources[target].isLoaded()||!canPreload({...conditions(),inputPending:false}))return;
   queued=schedule.delay(()=>{queued=schedule.idle(()=>{
    queued=undefined;if(disposed||inflight||unused||resources[target].isLoaded()||!canPreload(conditions()))return;
    inflight=true;unused=target;

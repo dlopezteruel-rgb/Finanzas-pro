@@ -71,3 +71,5 @@ import './app/themePreference.test';
 import './components/movementPage.test';
 
 import './app/intentPreload.test';
+
+import './app/preloadIdle.test';

@@ -3,8 +3,8 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 953,
-    "review": 3134,
+    "type-or-import": 957,
+    "review": 3133,
     "ui-message-candidate": 379,
     "attribute-internal": 2150,
     "translation-key": 1508,
@@ -619,7 +619,7 @@
     {
       "file": "src/app/intentPreload.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "f12f36f6011f114ea77caf12e452b58ff178bbbba914c92a6e7d7c6a885b98f9",
+      "sourceSha256": "4994becc2304cc9cbf639434c1ec4eca7e60d63836aa45189f086e262e0eba93",
       "counts": {
         "type-or-import": 16,
         "review": 22
@@ -638,6 +638,16 @@
       "presentationCalls": []
     },
     {
+      "file": "src/app/preloadIdle.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "2890e0fb6b7de94ef5b4ca5ad40640869cee3787cdbe5c6c3fdd7e3584b12da0",
+      "counts": {
+        "type-or-import": 2
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/app/themePreference.ts",
       "policy": "Review each candidate; not presumed translated",
       "sourceSha256": "41d62fd1b73f5218bb8bbf00fe9c9e5bb6b5c89628816ffd83140e7986086b9f",
@@ -651,10 +661,9 @@
     {
       "file": "src/app/useIntentPreload.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "878a16f3ed64f2df70a37fde3fef7aaf413af433233a8fe0649cd0d65cdef0ec",
+      "sourceSha256": "6fd2fc0ae2438c9771515ff3ab128301b933f6434f024027b0edaf787abf5460",
       "counts": {
-        "type-or-import": 5,
-        "review": 1
+        "type-or-import": 6
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1967,9 +1976,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "42caf00a789e9aafc2885e8e9c1ad6d528504c89d6d6abd99f91051e7160c3c8",
+      "sourceSha256": "35024f933a72e8de257871d2f01b6fbcb0608a8df9dfd5806df41c7326ca7133",
       "counts": {
-        "type-or-import": 47
+        "type-or-import": 48
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
