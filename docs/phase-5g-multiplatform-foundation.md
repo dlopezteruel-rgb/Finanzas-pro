@@ -1,0 +1,64 @@
+# Fase 5G — Base multiplataforma web, Android e iOS
+
+## Checkpoint 1: base y auditoría
+
+Base `871e6304a5dccf7ceab601755cd08bcdda81e7df`, merge de PR #30 confirmado en GitHub y origin/main, sin commits posteriores al comenzar. Rama nueva `feature/phase-5g-multiplatform-foundation`, worktree limpio y separado. Se conservan las carpetas y ramas anteriores; main no se modifica. Se revisan arquitectura y evidencias 5A–5F: cinco idiomas, JSON3.5, diccionarios/pantallas diferidos, paginación completa y precarga selectiva.
+
+Node24.22.1/npm11.9.0; Capacitor estable consultado en npm: core/CLI/Android/iOS8.6.2. Plugins oficiales compatibles con core≥8.0.0. Se fijarán versiones exactas. React19 y Vite8 producen recursos web normales; Capacitor empaqueta dist y no requiere sustituir React, Express o el producto web. Referencias oficiales: [entorno](https://capacitorjs.com/docs/getting-started/environment-setup), [cambios8](https://capacitorjs.com/docs/updating/8-0), [escenas iOS8.5](https://capacitorjs.com/docs/updating/8-5), [almacenamiento](https://capacitorjs.com/docs/guides/storage), [SystemBars](https://capacitorjs.com/docs/apis/system-bars).
+
+Validación inicial en checkout871 inmutable: npm ci188paquetes,633/633unitarias y22/22infraestructura; lint/build correctos. Chromium completo en curso, no se presupone845por la referencia anterior. El primer npm ci falló por caché /home/agent/.npm no escribible; se repite con npm_config_cache=/workspace/work/.npm-cache, sin cambiar el lockfile de base. Se conserva la advertencia node-domexception obsoleta. No se reducen pruebas, aserciones, axe ni límites.
+
+## Frontera financiera y bloqueo de producción móvil
+
+FinanceStore usa StorageAccess síncrono y ExclusiveWrite asíncrono. Lee la revisión original, rechaza cambios concurrentes bajo Web Locks, construye borradores separados, ejecuta los validadores y publica estado React solo tras confirmar la escritura. Restauraciones/esquemas/borrados preservan copia recuperable verificada antes de sustituir los datos. La clave financiera y JSON2.5–3.5 no cambian. No se modifica la semántica ni el código de FinanceStore, sus validadores o cálculos.
+
+localStorage/IndexedDB de WebView no demuestran permanencia frente a eliminación de datos, presión de almacenamiento, reinstalación o actualización. Preferences solo es adecuado aquí para dos preferencias visuales pequeñas, nunca para el documento financiero, su revisión o sus copias.
+
+**Decisión de5G:** proyectos nativos de prototipo con datos ficticios y almacenamiento financiero solo en memoria de la sesión. Aviso explícito antes de entrar y durante el uso; importar archivos financieros externos bloqueado. No se lee ni migra el perfil financiero de WebView. Se mantienen los mismos contratos síncronos y Web Locks para las operaciones ficticias; si no hay contexto seguro/Web Locks, se rechazan las escrituras. No se emula un almacén nativo asíncrono mediante escrituras pendientes sobre una caché síncrona.
+
+La persistencia financiera nativa permanente queda **bloqueada para datos reales**. Alternativa futura: repositorio asíncrono transaccional SQLite con revisión CAS, serialización de escritores, confirmación durable, recuperación, cifrado y claves en Keystore/Keychain, con adaptación explícita de todos los consumidores y pruebas de cierre forzado/espacio/corrupción/actualización. No basta con instalar un plugin: selección, clave, backups del sistema y garantías de commit deben revisarse antes de habilitarlo. No se instala SQLite ni se afirma haber validado esas garantías en esta PR.
+
+## Inventario inicial
+
+| Dependencia | Web actual | Adaptación/prototipo nativo |
+| --- | --- | --- |
+|FinanceStore/StorageAccess |localStorage síncrono,Web Locks,revisión y recuperación |Mismo core,almacén de sesión separado;sin persistencia real |
+|useFinanceData |Construye store,escucha storage/focus |Inyección de binding de plataforma;reanudar solo comprueba revisión |
+|Idioma/tema |Claves independientes en localStorage y storage event |Preferencias visuales pequeñas,adaptador asíncrono;sin datos financieros |
+|Root/rutas |Landing y /app bajo APP_BASE_PATH |Shell local que entra al App compartido,base nativa / |
+|Express |SPA y POST assistant-chat/parse-movement |No se empaqueta ni ejecuta un servidor Express en el dispositivo |
+|Asistente |Un consumidor fetch de paths.assistant;contexto calculado/local primero |Backend móvil ausente:sin fetch relativo/URL inventada;aviso y funciones locales |
+|parse-movement |Endpoint Express conservado;registro actual usa parser local |Sin consumidor cliente que requiera migrar;parser y prompts intactos |
+|JSON/CSV |Blob/enlace download,JSON con preview y restauración explícita |Exportación de sesión ficticia mediante caché privada/Share;importación real bloqueada |
+|Recuperación |Copias verificadas en el mismo contrato de almacenamiento |Copias ficticias de sesión;no se certifica recuperación tras muerte del proceso |
+|Overlay y navegación |Jerarquía/foco/Escape,guardas de planificación |Atrás nunca descarta formularios/restauraciones;reutiliza guardas/consume evento |
+|Pantalla/teclado |CSSresponsive,44px,safe-area parcial |CSS nativo específico,SystemBars/teclado/ciclo de vida oficiales |
+|Enlaces |Rutas locales/anchors |Enlaces externos HTTPS por navegador del sistema;sin deep links/restauración automática |
+|Precarga |APIs opcionales/red/idle de5F |Mismo comportamiento,cae a carga bajo demanda si faltan capacidades |
+
+## Plataformas y herramientas disponibles
+
+Linux x86_64. Hay JRE21.0.13, pero no javac, Android SDK, adb, emulador, Android Studio, Xcode ni Swift disponibles al iniciar. No existe /dev/kvm. Se intentará preparar una toolchain Android local dentro del workspace para compilar, sin instalar un IDE completo ni generar claves de distribución. La ejecución Android en emulador/dispositivo está pendiente; iOS requiere macOS/Xcode26+ y queda bloqueado en este host. Generar un proyecto iOS desde Linux no se presentará como compilación o validación WKWebView.
+
+Identificador provisional elegido: `invalid.finanzas.prototype` (espacio .invalid reservado), nombre de prototipo claramente indicado. No se registra ningún producto. Debe aprobarse el identificador definitivo antes de instalaciones que conserven datos reales, firma o beta externa. No se generan/suben certificados,keystores reales,credenciales ni distribuciones. El objetivo de compilación local será una variante de desarrollo sin firma.
+
+## Diseño compartido
+
+```mermaid
+flowchart TD
+    W[Web: Root y Express mismo origen] --> R[React e i18n compartidos]
+    N[Android/iOS: recursos locales dist] --> P[Shell y adaptadores nativos]
+    P --> R
+    R --> F[FinanceStore y dominio intactos]
+    F --> B[Binding: StorageAccess síncrono y ExclusiveWrite]
+    B --> L[Web: localStorage y Web Locks]
+    B --> M[Nativo5G: memoria ficticia y Web Locks]
+    P --> C[Preferencias pequeñas / archivos / enlaces / ciclo de vida]
+    P --> X[Backend móvil ausente: servicio remoto bloqueado]
+```
+
+## Validación y entrega pendientes
+
+Faltan checkpoints2–5: proyectos/sincronización,adaptadores/pruebas,experiencia móvil,batería web final,mediciones,matriz y una única PR Draft con CI del SHA final. Los947grupos axe incompletos en53conjuntos de5F siguen pendientes de revisión contextual;no son947violaciones ni se declaran resueltos. No hay lector de pantalla/dispositivos físicos probados.
+
+No fusionar,desplegar,publicar en tiendas/TestFlight,sincronizar Google AI Studio ni cambiar main/protecciones. No añadir nube,autenticación bancaria,actualizaciones remotas de JavaScript ni semántica financiera nueva.
