@@ -115,7 +115,7 @@ La fixture de 5.000conserva hash472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9
 
 ### Axe y revisión contextual
 
-Sin reglas desactivadas ni resultados incompletos convertidos en aprobación. La referencia CI verde [43741726133](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133), fuente773bd90, conserva22 informes/1.511 observaciones, 0 violaciones automatizadas,947 grupos incompletos/53 conjuntos equivalentes/5.770 ocurrencias de nodos. La base local nueva:17 informes/1.481 observaciones, 0 violaciones,906 grupos/49 conjuntos. No deben mezclarse los entornos.
+Sin reglas desactivadas ni resultados incompletos convertidos en aprobación. La referencia CI verde [43746276687](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687), fuente d11c41f, conserva22 informes/1.511 observaciones, 0 violaciones automatizadas,947 grupos incompletos/53 conjuntos equivalentes/5.765 ocurrencias de nodos. La base local nueva:17 informes/1.481 observaciones, 0 violaciones,906 grupos/49 conjuntos. No deben mezclarse los entornos.
 
 Los945 grupos/52 conjuntos de 5E siguen pendientes de revisión contextual. Se inspeccionan y agrupan registros, selectores, HTML/checks; no se certifica revisión con lector de pantalla. [Agrupación base](phase-5f-baseline-axe-review.json) y [referencia CI](phase-5f-reference-axe-review.json) preservan procedencia y ejemplos.
 
@@ -186,7 +186,35 @@ Usar la ruta real del Chromium instalado; CI resuelve su propia ruta. Para compa
 Commits recuperables publicados:356e8fc diagnóstico, c1bf449 listado,14c93b6 intención,084dc8c matriz, d63b5e0 controles/seguridad,081d198 foco,773bd90 cola idle, d11c41f promesa original. No se fusionan por separado. El inventario completo de archivos y los resultados de cierre acompañan a la entrega.
 
 <!-- VALIDATION_START -->
-## Cierre en curso
+## Validación completa y entrega
 
-Sobre d11c41f:npm ci,633/633 unitarias,22/22 infraestructura, lint/build/diff correctos. La batería local integral sigue ejecutándose y la CI43746276687 de esta fuente está en curso. No se presentan como aprobadas. La referencia anterior [43741726133](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133) sí tiene los tres trabajos verdes,845/845Chromium en 43 suites y633/22 unitarias/infraestructura; [resumen verificable](phase-5f-reference-ci.json), ZIP comprobados porSHA-256. Aún faltan el cierre local, la única PR Draft y los tres checks de su SHA exacto.
+[Resumen local verificable](phase-5f-final-validation.json), [inventario completo de archivos](phase-5f-changed-files.json) y [CI de la fuente medida](phase-5f-reference-ci.json). Los archivos de cierre no alteran el frontend:los38assets de producción resultaron idénticos byte a byte después de incorporar la documentación;145 archivos fuente y los46protegidos conservan sus hashes.
+
+| Comprobación local | Resultado real |
+| --- | --- |
+|npm ci | Correcto,188 paquetes,lockfile sin cambios |
+|npm test |633/633,0 fallos/omisiones/cancelaciones/pendientes |
+|Infraestructura |22/22,0 fallos/omisiones/cancelaciones/pendientes |
+|npm run lint | Correcto |
+|npm run build | Correcto,sin aviso de chunk>500kB |
+|npm run test:ui |845/845,43 suites,0 fallos/omisiones/cancelaciones/pendientes |
+|Duración del comando Chromium local |51m55,282s;no es una medición comparativa ni el presupuesto del runner GitHub |
+|Diff de rama contra origin/main y árbol local | Sin errores de formato |
+|Bundles y mediciones | Análisis completo;144 observaciones generales,144de intención y81de interacciones después;3 muestras por grupo |
+|Axe local |22 informes,1.511 observaciones,0 violaciones,906 grupos incompletos/49 conjuntos/5.513 ocurrencias de nodos |
+|PDF final |85 páginas,994 conceptos sintéticos únicos en orden y los6originales comprobados;1.000 filas antes/50después,foco/página restaurados |
+
+[Revisión local agrupada](phase-5f-local-axe-review.json):se mantienen906grupos/49 conjuntos,con pequeñas variaciones de ocurrencias frente a la base. La matriz nueva de30superficies no añade grupos locales. En CI son947grupos/53 conjuntos/5.765 ocurrencias,0 violaciones en1.511 observaciones. No se interpreta esa diferencia entre versiones de Chromium/entornos como defectos nuevos resueltos o revisiones manuales aprobadas.
+
+| CI43746276687,frontend d11c41f | Resultado | Duración del trabajo |
+| --- | --- | ---: |
+|Unitarias |633/633+22/22 infraestructura |31s |
+|Lint, build y diff | Correcto |23s |
+|Chromium y axe |845/845,43 suites,0 violaciones |47m03s |
+
+La batería del tercer trabajo duró46m24,418s. Node24.22.1,Playwright-core1.64.1,Chromium156.0.8078.4/revisión1248,runnerubuntu-24.04/imagen20261111.370.1. Permisos,workflow,límites individuales y presupuesto50minutos se conservan intactos. Los tres ZIP descargados coinciden con los digests SHA-256 publicados por GitHub y señalan d11c41f como head_sha. Las ejecuciones anteriores canceladas/rojas quedan registradas y no cuentan como aprobación.
+
+Advertencias conservadas:npm ci informa de node-domexception@1.0.0 obsoleto y npm anuncia una versión nueva disponible;no se actualizan dependencias. Los grupos axe incompletos y las limitaciones de emulación/lectores de pantalla siguen pendientes como se detalla arriba.
+
+Se publica una única PR Draft hacia main. El enlace,el SHA final exacto y los tres checks de **ese SHA** se registran en el cuerpo de la PR y en la entrega,después de comprobar su ejecución real. Esta referencia CI está fijada sobre la fuente medida para no crear un ciclo de commits documentales. No se fusiona,despliega,sincroniza Google AI Studio ni modifica main/sus protecciones.
 <!-- VALIDATION_END -->

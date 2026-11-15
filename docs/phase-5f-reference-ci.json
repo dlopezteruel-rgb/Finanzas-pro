@@ -1,16 +1,81 @@
 {
   "conclusion": "success",
-  "createdAt": "2026-11-15T17:32:58Z",
-  "databaseId": 43741726133,
+  "createdAt": "2026-11-15T18:21:13Z",
+  "databaseId": 43746276687,
   "event": "workflow_dispatch",
-  "headSha": "773bd90693fb1dd4178d38c2f99e3e024b6ab908",
+  "headSha": "d11c41f752be8641002fdd279dc577ffe70e4a83",
   "jobs": [
     {
-      "completedAt": "2026-11-15T17:33:23Z",
+      "completedAt": "2026-11-15T18:21:40Z",
       "conclusion": "success",
-      "databaseId": 132896144458,
+      "databaseId": 132910168736,
+      "name": "Lint, build y diff",
+      "startedAt": "2026-11-15T18:21:17Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Instalaci\u00f3n reproducible",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Lint, build y diff real contra la base",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Conservar logs y res\u00famenes",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910168736"
+    },
+    {
+      "completedAt": "2026-11-15T18:21:49Z",
+      "conclusion": "success",
+      "databaseId": 132910169063,
       "name": "Unitarias",
-      "startedAt": "2026-11-15T17:33:02Z",
+      "startedAt": "2026-11-15T18:21:18Z",
       "status": "completed",
       "steps": [
         {
@@ -74,79 +139,14 @@
           "status": "completed"
         }
       ],
-      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133/job/132896144458"
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910169063"
     },
     {
-      "completedAt": "2026-11-15T17:33:22Z",
+      "completedAt": "2026-11-15T19:08:21Z",
       "conclusion": "success",
-      "databaseId": 132896144683,
-      "name": "Lint, build y diff",
-      "startedAt": "2026-11-15T17:33:02Z",
-      "status": "completed",
-      "steps": [
-        {
-          "conclusion": "success",
-          "name": "Set up job",
-          "number": 1,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
-          "number": 2,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
-          "number": 3,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Instalaci\u00f3n reproducible",
-          "number": 4,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Lint, build y diff real contra la base",
-          "number": 5,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Conservar logs y res\u00famenes",
-          "number": 6,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Post Run actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
-          "number": 11,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Post Run actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
-          "number": 12,
-          "status": "completed"
-        },
-        {
-          "conclusion": "success",
-          "name": "Complete job",
-          "number": 13,
-          "status": "completed"
-        }
-      ],
-      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133/job/132896144683"
-    },
-    {
-      "completedAt": "2026-11-15T18:19:33Z",
-      "conclusion": "success",
-      "databaseId": 132896144729,
+      "databaseId": 132910169115,
       "name": "Chromium y axe",
-      "startedAt": "2026-11-15T17:33:02Z",
+      "startedAt": "2026-11-15T18:21:18Z",
       "status": "completed",
       "steps": [
         {
@@ -222,20 +222,86 @@
           "status": "completed"
         }
       ],
-      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133/job/132896144729"
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687/job/132910169115"
     }
   ],
-  "startedAt": "2026-11-15T17:32:58Z",
+  "startedAt": "2026-11-15T18:21:13Z",
   "status": "completed",
-  "updatedAt": "2026-11-15T18:19:34Z",
-  "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133",
+  "updatedAt": "2026-11-15T19:08:22Z",
+  "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43746276687",
   "artifactVerification": {
     "allDownloadedZipDigestsMatchGitHub": true,
-    "browserResults": "sha256:112a38538d54c398b87a9b026eb846726ffbcce4f9381668fc78662980096a63",
-    "unit": "sha256:5c8b5c72d767ff2deb5135fcd12d7d0de91b0b3f71a4abebb00f8c86817ab2e6",
-    "code": "sha256:2f5b383c41024c05b3c917d39f184f3ba4a710f76ebb27f99a3f51f662a6d143"
+    "artifacts": [
+      {
+        "id": 14176590695,
+        "name": "browser-results-43746276687-1",
+        "size_in_bytes": 453149,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14176590695",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14176590695/zip",
+        "expired": false,
+        "created_at": "2026-11-15T19:08:18Z",
+        "expires_at": "2026-11-22T19:08:16Z",
+        "updated_at": "2026-11-15T19:08:18Z",
+        "digest": "sha256:45d66a9d6a322a758a141df693d01d63dacaf4860470b1e07a8cac8f9c92adbc",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      },
+      {
+        "id": 14174815730,
+        "name": "code-43746276687-1",
+        "size_in_bytes": 2152,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174815730",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174815730/zip",
+        "expired": false,
+        "created_at": "2026-11-15T18:21:37Z",
+        "expires_at": "2026-11-22T18:21:36Z",
+        "updated_at": "2026-11-15T18:21:37Z",
+        "digest": "sha256:7047759e67423a96a6bd30d850c2cb5f454dcd99db6e288618fa9831014d6db4",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      },
+      {
+        "id": 14174511323,
+        "name": "unit-43746276687-1",
+        "size_in_bytes": 19303,
+        "url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174511323",
+        "archive_download_url": "https://api.github.com/repos/dlopezteruel-rgb/Finanzas-pro/actions/artifacts/14174511323/zip",
+        "expired": false,
+        "created_at": "2026-11-15T18:21:45Z",
+        "expires_at": "2026-11-22T18:21:44Z",
+        "updated_at": "2026-11-15T18:21:45Z",
+        "digest": "sha256:c72e09b5e3eac8c92c69c738d396b8e69d82fa5ae1ea62bd6776160ff306de11",
+        "workflow_run": {
+          "id": 43746276687,
+          "repository_id": 1441021971,
+          "head_repository_id": 1441021971,
+          "head_branch": "perf/phase-5f-advanced-performance",
+          "head_sha": "d11c41f752be8641002fdd279dc577ffe70e4a83"
+        }
+      }
+    ]
   },
-  "scope": "Passing intermediate reference only. Frontend final d11 and final PR head require their own CI.",
+  "scope": "Passing CI reference for exactly the measured frontend d11. The final PR head has documentation-only closing commits and must have its own three green checks, linked in PR body and delivery.",
+  "environment": {
+    "node": "v24.22.1",
+    "playwrightCore": "1.64.1",
+    "chromium": "Google Chrome for Testing 156.0.8078.4",
+    "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+    "platform": "linux",
+    "architecture": "x64",
+    "runnerImage": "ubuntu24",
+    "runnerImageVersion": "20261111.370.1"
+  },
   "verifiedResults": {
     "unit": {
       "mode": "unit",
@@ -249,7 +315,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 4696
+          "durationMs": 6066
         }
       ],
       "tests": [
@@ -281,7 +347,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 655
+          "durationMs": 866
         }
       ],
       "tests": [
@@ -309,7 +375,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 45
+          "durationMs": 57
         },
         {
           "command": [
@@ -319,7 +385,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 1718
+          "durationMs": 2237
         },
         {
           "command": [
@@ -329,7 +395,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 954
+          "durationMs": 1245
         }
       ],
       "tests": [],
@@ -348,7 +414,7 @@
           ],
           "code": 0,
           "signal": null,
-          "durationMs": 2752874
+          "durationMs": 2784418
         }
       ],
       "tests": [

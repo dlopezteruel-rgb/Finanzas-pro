@@ -5,7 +5,7 @@
     "surfaces": 1511,
     "violations": 0,
     "incompleteGroups": 947,
-    "incompleteNodes": 5770
+    "incompleteNodes": 5765
   },
   "rules": {
     "color-contrast": 946,
@@ -13,7 +13,7 @@
   },
   "mechanisms": {
     "color-contrast:nonBmp": 306,
-    "color-contrast:elmPartiallyObscuring": 1676,
+    "color-contrast:elmPartiallyObscuring": 1671,
     "color-contrast:elmPartiallyObscured": 2125,
     "color-contrast:bgOverlap": 72,
     "aria-valid-attr-value:controlsWithinPopup": 1,
@@ -6099,7 +6099,7 @@
       "surface": "blocked-contact-deletion",
       "rule": "color-contrast",
       "observationGroups": 30,
-      "nodeOccurrences": 258,
+      "nodeOccurrences": 253,
       "languages": [
         "en",
         "es",
@@ -6239,7 +6239,7 @@
         }
       ],
       "mechanisms": {
-        "color-contrast:elmPartiallyObscuring": 258
+        "color-contrast:elmPartiallyObscuring": 253
       },
       "examples": [
         {

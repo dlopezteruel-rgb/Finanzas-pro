@@ -821,5 +821,24 @@
         "status": "not_executed"
       }
     ]
-  }
+  },
+  "passingIntermediateReferences": [
+    {
+      "run": 43741726133,
+      "sha": "773bd90693fb1dd4178d38c2f99e3e024b6ab908",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133",
+      "conclusion": "success",
+      "browser": 845,
+      "suites": 43,
+      "unit": 633,
+      "infrastructure": 22,
+      "artifactVerification": {
+        "allDownloadedZipDigestsMatchGitHub": true,
+        "browserResults": "sha256:112a38538d54c398b87a9b026eb846726ffbcce4f9381668fc78662980096a63",
+        "unit": "sha256:5c8b5c72d767ff2deb5135fcd12d7d0de91b0b3f71a4abebb00f8c86817ab2e6",
+        "code": "sha256:2f5b383c41024c05b3c917d39f184f3ba4a710f76ebb27f99a3f51f662a6d143"
+      },
+      "scope": "Passed before final foreground-promise adjustment; not the final delivered source."
+    }
+  ]
 }
