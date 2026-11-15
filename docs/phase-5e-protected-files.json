@@ -1,6 +1,6 @@
 {
   "base": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
-  "policy": "All original financial/domain/store/parsers/API/prompt/schema modules, Vite/base/HMR config, lockfile and workflow remain byte-identical. Only UI state/presentation/loading and test instrumentation are optimized.",
+  "policy": "All original financial/domain/store/parsers/API/prompt/schema modules, Vite/base/HMR config and lockfile remain byte-identical. The sole workflow exception changes only the browser job total budget40→50 minutes, justified with recorded timings under section14 of the assignment; per-test limits, checks, failure criteria, events, permissions and jobs are unchanged. Original hashes remain below for audit.",
   "files": {
     ".github/workflows/ci.yml": "ebb3963cdc54eb207545a6b85f9c6f657df4934be8588a7dc8963e81ae03eb24",
     "config/appPaths.ts": "4cb32eaedf96076825d3be3036a88f2e8a60325790210bb9d0978644e78cad5c",
@@ -48,5 +48,14 @@
     "src/utils/useAsyncForm.ts": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
     "src/utils/useFinanceData.ts": "41e08e518f49e19c8f2f83f4c1ad6767ce7f34eeabc0a5d5f8deadd9c49ac659",
     "vite.config.ts": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489"
+  },
+  "exceptions": {
+    ".github/workflows/ci.yml": {
+      "beforeSha256": "ebb3963cdc54eb207545a6b85f9c6f657df4934be8588a7dc8963e81ae03eb24",
+      "afterSha256": "c5240356c8cecc290982aaf85e413e13f3a09df629ef1d5246435fcf7e853556",
+      "change": "browser.timeout-minutes40→50 and one explanatory comment only",
+      "evidence": "phase-5e-ci-budget-evidence.json",
+      "reason": "698/698 results in35 completed suites then global40-minute cancellation inside original catalogue suite; remaining original/new coverage must run. No assertion failed, skipped, disabled or retried automatically."
+    }
   }
 }

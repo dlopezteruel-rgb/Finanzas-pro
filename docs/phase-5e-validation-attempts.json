@@ -1,5 +1,5 @@
 {
-  "policy": "Only complete successful final runs qualify. Interrupted, cancelled, failed and incomplete observations are retained separately and do not count as full approval. No removed assertions, automatic retries, continue-on-error or increased regression/CI timeouts.",
+  "policy": "Only complete successful final runs qualify. Interrupted/cancelled/failed/incomplete observations are retained separately. No removed assertions, automatic retries or continue-on-error; individual regression timeouts are unchanged. Sole global CI budget40→50 exception is justified in phase-5e-ci-budget-evidence.json under assignment section14.",
   "attempts": [
     {
       "name": "interrupted-chart-review",
@@ -960,6 +960,15 @@
       "unit": "success599+22",
       "code": "success",
       "browser": "failure232/234 in13 summaries: planning area helper counted a tablist before it mounted, taking desktop fallback on mobile"
+    },
+    {
+      "run": 43657226987,
+      "head": "79832fea2447041dba572666f96dd5c67ac3bc98",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43657226987",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "cancelled at global40-minute budget:698/698 in35 completed suites; original catalogue suite in progress; no full approval",
+      "correction": "Only total browser job budget40→50 under explicit measured coverage exception; all individual limits and failure criteria unchanged."
     }
   ],
   "diagnosticTail": {

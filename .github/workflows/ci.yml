@@ -83,7 +83,8 @@ jobs:
   browser:
     name: Chromium y axe
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    # Measured 5E serial/cold-load coverage exceeds 40m; per-test limits stay unchanged.
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6, Node 24
         with:

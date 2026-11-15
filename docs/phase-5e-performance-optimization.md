@@ -10,7 +10,7 @@ La fase reduce el JS inicial de la landing española de **321.042 a 137.119 byte
 
 El estado anterior cargaba estáticamente los cinco diccionarios en messages.ts. Root ya difería App y ChartSlot ya difería FinancialCharts. App importaba las pantallas secundarias; ambos paneles de presupuestos se montaban antes de usarlos. isLanguageAvailable repetía la validación completa durante lecturas/renderizados.
 
-Entorno real: Node 24.22.1, Vite **8.3.7**, React/React DOM **19.3.1**, TypeScript 7.0.2, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79/Debian 13. npm ci instala 188 paquetes; se conserva lockfile, dependencias, workflow, APP_BASE_PATH y DISABLE_HMR. [Versiones](phase-5e-environment.json). Los resultados de GitHub se registran por separado.
+Entorno real: Node 24.22.1, Vite **8.3.7**, React/React DOM **19.3.1**, TypeScript 7.0.2, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79/Debian 13. npm ci instala 188 paquetes; se conserva lockfile, dependencias, APP_BASE_PATH y DISABLE_HMR; la única excepción de workflow es el presupuesto global justificado más abajo. [Versiones](phase-5e-environment.json). Los resultados de GitHub se registran por separado.
 
 ## Inventario real de bundles y dependencias
 
@@ -167,7 +167,7 @@ Otros72 recorridos por revisión miden mes, formularios/importe, reparto, asiste
 
 La regresión conserva las37 suites originales y sus747 resultados; añade4 suites/37 resultados: idiomas15, módulos/gráficos8, volumen4 y tema10. Se verifican Inicio/resumen, movimientos, cuentas/saldos, transferencias, préstamos/deudas, contactos/compartidos/reintegros, planificación/aprobaciones/multiperiodo/subítems, catálogo/arrastre/archivo/reglas, automatizaciones, tesorería/calendario, asistente/registro rápido y almacenamiento/importación/exportación/restauración. La matriz visual original recorre cinco idiomas,390/768/1280 y ambos temas; la auditoría general añade1920.
 
-[46 archivos protegidos](phase-5e-protected-files.json) permanecen byte a byte respecto a la base: FinanceStore, Web Locks/revisiones, escritura atómica/recuperación, cálculos, modelos, validadores, calendarios, parsers, API/prompts, identificadores/catalogNames, JSON2.5–3.5, lockfile, servidor, configuración Vite y workflow. No hay migración ni nueva representación financiera. Cambiar idioma, navegar, diferir, consultar gráficos/planificación o filtrar no escribe los datos financieros.
+El [inventario original de46 archivos protegidos](phase-5e-protected-files.json) conserva45 byte a byte respecto a la base: FinanceStore, Web Locks/revisiones, escritura atómica/recuperación, cálculos, modelos, validadores, calendarios, parsers, API/prompts, identificadores/catalogNames, JSON2.5–3.5, lockfile, servidor y configuración Vite. La única excepción es el presupuesto global del trabajo de navegador (40→50), con los hashes anterior/nuevo y su justificación medida; el resto del workflow permanece idéntico. No hay migración ni nueva representación financiera. Cambiar idioma, navegar, diferir, consultar gráficos/planificación o filtrar no escribe los datos financieros.
 
 **Tema visual:** el botón anterior reserializaba FinanceStore. Para cumplir el invariante solicitado se guarda la preferencia exclusivamente en finanzas.ui.theme (dark/light), independiente como el idioma. El campo theme de JSON antiguo permanece intacto como fallback; abrirlo no escribe ni migra preferencias. Una selección visual explícita tiene prioridad, incluso tras restaurar datos financieros, y no se exporta dentro de sus copias. Sin preferencia se respeta el tema del archivo restaurado. Cuota/acceso denegados conservan el cambio en memoria con aviso nativo; storage sincroniza sin bucles. No se modifica FinanceStore ni su campo theme.
 
@@ -208,7 +208,7 @@ Los recuentos finales local/CI se informan separados. Una ocurrencia puede regis
 
 ## Capturas de la aplicación real
 
-[Manifiesto de12 PNG](phase-5e-capture-manifest.json): antes/después de Inicio y Planificación a390/768/1280, datos ficticios idénticos y hash financiero por pareja. Proceden del build medido; no hay generación/edición de imágenes ni datos de Google AI Studio. Los cambios posteriores son de pruebas/documentación: el frontend fotografiado coincide con el código de entrega. La captura móvil de Planificación conserva un desplazamiento distinto durante el recorrido real (la carga diferida cambia la altura transitoria de la página). Estas vistas no son una comparación píxel a píxel; no se han alineado ni retocado las imágenes. Las pruebas de scroll por panel se conservan y se ejecutan por separado.
+[Manifiesto de12 PNG](phase-5e-capture-manifest.json): antes/después de Inicio y Planificación a390/768/1280, datos ficticios idénticos y hash financiero por pareja. Proceden del build medido; no hay generación/edición de imágenes ni datos de Google AI Studio. Los cambios posteriores son de pruebas, documentación y presupuesto global de CI: el frontend fotografiado coincide con el código de entrega. La captura móvil de Planificación conserva un desplazamiento distinto durante el recorrido real (la carga diferida cambia la altura transitoria de la página). Estas vistas no son una comparación píxel a píxel; no se han alineado ni retocado las imágenes. Las pruebas de scroll por panel se conservan y se ejecutan por separado.
 
 | Superficie | Antes | Después |
 | --- | --- | --- |
@@ -243,7 +243,7 @@ PERF_BASE_SOURCE=../Finanzas-pro-5e-base node --import tsx scripts/performance/h
 npm run audit:bundles
 ```
 
-Los valores PERF_SAMPLES/PERF_PROFILE permiten exploración; la comparación publicada usa3 muestras y los tres perfiles completos. Los temporales profiling se borran solo tras cerrar sus contextos, nunca el repositorio/datos originales. El límite exploratorio de5.000 se fija en120s tras observar una acción base mayor de30s; ningún timeout de regresión/CI se amplía. El gate obligatorio de rendimiento es determinista (gzip inicial≤ceil(0,8×321.042)), junto con la ausencia de idiomas/chunks anticipados; no se añaden umbrales temporales inestables.
+Los valores PERF_SAMPLES/PERF_PROFILE permiten exploración; la comparación publicada usa3 muestras y los tres perfiles completos. Los temporales profiling se borran solo tras cerrar sus contextos, nunca el repositorio/datos originales. El límite exploratorio de5.000 se fija en120s tras observar una acción base mayor de30s; no se amplían límites individuales de pruebas; la única ampliación es el presupuesto global de CI documentado más abajo. El gate obligatorio de rendimiento es determinista (gzip inicial≤ceil(0,8×321.042)), junto con la ausencia de idiomas/chunks anticipados; no se añaden umbrales temporales inestables.
 
 ## Checkpoints, CI y entrega
 
@@ -256,7 +256,7 @@ Los valores PERF_SAMPLES/PERF_PROFILE permiten exploración; la comparación pub
 - 585e996: readiness explícito y perfiles React.
 - d9ccb7d: identidad React.lazy cumplida compartida para evitar resuspensiones al cambiar mes/visitar módulos; automatizaciones15/15 y módulos8/8.
 
-Base reejecutada:585 unitarias,22 infraestructura,747 Chromium/37 suites, lint/build correctos; [resumen verificable](phase-5e-baseline-validation.json). Los intentos parciales/fallidos se documentarán separados de la ejecución final. La [CI43650839122](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122) en d66d4a4 falló en Chromium por5E-08; unitarias y código fueron verdes. La CI corregida en585e996 y la batería local están en curso: no se presentan todavía como aprobadas. No se modifican workflows, permisos, protecciones o límites para aprobar.
+Base reejecutada:585 unitarias,22 infraestructura,747 Chromium/37 suites, lint/build correctos; [resumen verificable](phase-5e-baseline-validation.json). Los intentos parciales/fallidos se documentarán separados de la ejecución final. La [CI43650839122](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122) en d66d4a4 falló en Chromium por5E-08; unitarias y código fueron verdes. La CI corregida en585e996 y la batería local están en curso: no se presentan todavía como aprobadas. No se modifican permisos, protecciones, reglas de fallo o límites individuales para aprobar; el presupuesto global de CI tiene una excepción medida, documentada abajo.
 
 ## Recomendaciones posteriores
 
@@ -288,3 +288,11 @@ La CI43656155672 detectó que selectPlanningArea consultaba count() antes de que
 ## Aserciones tras carga diferida: cierre del diagnóstico
 
 El diagnóstico posterior completó569/569 resultados en29 suites, sin fallos, omisiones o cancelaciones. No equivale por sí solo a una aprobación de npm run test:ui. Se verificó adicionalmente customCatalog6/6 esperando el catálogo real antes de afirmar la ausencia de una partida retirada. La regresión de módulo cacheado añade un MutationObserver antes del cambio de mes: exige cero inserciones transitorias de loader, incluso aunque el helper espere al tablist. Módulos8/8 pasan con esa aserción, de modo que la nueva espera no enmascara una resuspensión. Lint/diff-check pasan; la secuencia integral final se ejecuta después de publicar este checkpoint.
+
+## Presupuesto global de CI: excepción medida (5E-13)
+
+La [ejecución43657226987](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43657226987) se canceló al alcanzar40 minutos. Había completado35 suites y698/698 resultados, sin fallos, omisiones o cancelaciones de esos resúmenes; la suite original de catálogo multidioma estaba en curso (13 casos parciales no se contabilizan como suite aprobada). Unitarias599/599+infraestructura22/22 y código habían pasado. Esta ejecución cancelada no constituye aprobación integral.
+
+El punto14 del encargo permite una ampliación «verdaderamente necesaria por una mayor cobertura», justificada con duraciones medidas y manteniendo todos los criterios de fallo. El [informe de capacidad](phase-5e-ci-budget-evidence.json) conserva las duraciones originales:35 suites ahora consumen38,18 minutos antes de las restantes; catálogo/registro rápido y las cuatro suites nuevas añaden aproximadamente4,5 minutos según el diagnóstico local, además de instalación, arranque y artefactos. Las pruebas originales ahora recorren cargas asíncronas reales, esperan contenido para axe/recuentos y generan conflictos mediante operaciones financieras reales en vez del tema. No se atribuye todo el aumento a los37 resultados nuevos. La comparación histórica con5D no es una medición causal del producto entre runners diferentes.
+
+Se cambia únicamente `browser.timeout-minutes:40→50` y un comentario explicativo en `.github/workflows/ci.yml`. No se cambian límites individuales de suites/acciones, reglas axe, criterios de fallo, aserciones, eventos, permisos, trabajos o retención; no hay reintentos automáticos ni continue-on-error.50 minutos proporciona margen acotado para finalizar la cobertura obligatoria, sin convertir una prueba fallida en verde. Es la única excepción al inventario original de46 hashes:45 archivos permanecen idénticos; el workflow conserva ambos hashes y el motivo en el registro de protección. Los fuentes financieros y el frontend medido continúan intactos. La CI debe volver a completar todas las41 suites.
