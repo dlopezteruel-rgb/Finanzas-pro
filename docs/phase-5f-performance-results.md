@@ -103,7 +103,7 @@ Son144observaciones por revisión:16escenarios×3perfiles×3muestras. Los datos 
 | tablet | 12,974.73 [11,372.09–13,611.88] / 1,743.79 [1,444.72–1,871.77] | 11,750.12 [10,282.80–12,065.63] / 315.54 [300.76–331.60] | 5.000 /50 | 66,501,908.00 [66,498,112.00–68,047,016.00] / 11,296,592.00 [11,107,360.00–12,044,208.00] |
 | desktop | 5,253.05 [5,094.40–5,644.30] / 905.51 [817.16–998.49] | 4,698.89 [4,341.74–5,066.90] / 194.64 [181.49–215.20] | 5.000 /50 | 68,736,268.00 [67,009,156.00–68,755,244.00] / 11,515,268.00 [11,142,184.00–12,261,264.00] |
 
-El desplazamiento20×100px registra20intervalos rAF por muestra en el JSON. No se equipara a desplazamiento físico ni suavidad de todos los registros; en paginación se combina con cambio de página. No queda filtrado/contabilización diferida tras la primera presentación.
+El desplazamiento20×100px conserva20valores rAF por muestra en el JSON. El primero es un desfase de programación respecto a performance.now y puede ser negativo; no es un intervalo entre frames. El [análisis derivado](phase-5f-scroll-analysis.json) lo conserva aparte y analiza solo los19intervalos consecutivos restantes,57por perfil/revisión. No se equipara a desplazamiento físico ni suavidad de todos los registros; en paginación se combina con cambio de página. No queda filtrado/contabilización diferida tras la primera presentación.
 
 ## Precarga con intención equivalente
 
