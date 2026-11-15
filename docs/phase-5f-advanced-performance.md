@@ -94,3 +94,11 @@ Las capturas de la tabla se regeneraron con el cierre visual. El [manifiesto de 
 | Herramienta | clock.setFixedTime de Playwright devuelve deadline idle0ms | Mediciones nuevas con idle/rAF/timers nativos, fechas financieras fijas y reloj real registrado | Sonda:49,9ms nativo frente a0ms con clock; muestras anteriores excluidas |
 
 El cierre pasa628/628 unitarias, lint/build,44/44 de listado y15/15 de precarga (dos casos nuevos). Los intentos que reproducen5F-03/04 se conservan en el [registro de intentos](phase-5f-validation-attempts.json), sin contarlos como aprobación. Las mediciones exploratorias concurrentes se usan solo para depurar las herramientas y no entran en las tablas comparativas finales.
+
+## Foco en los extremos e impresión verificada
+
+La prueba adicional de Tab/Enter en los extremos reprodujo5F-05: un botón enfocado que pasaba a disabled al llegar a la primera página enviaba el foco al body. Antes de cambiar a la primera/última página, se enfoca el selector nativo del mismo paginador con preventScroll. Se mantienen los botones realmente deshabilitados y la navegación Tab existente. La matriz se reejecuta con esta comprobación, sin reducir las aserciones previas.
+
+El PDF ficticio de1.000 movimientos conserva85 páginas. Extracción local con pdftotext (herramienta ya instalada, no dependencia nueva):994 identificadores de conceptos sintéticos únicos de6 a999, sin omisiones ni extras; los seis registros originales de la fixture se comprueban aparte. Los eventos nativos observan1.000 filas antes y50 después, con foco y página restaurados. El PDF se conserva en los artefactos de navegador cuando CI_ARTIFACT_DIR está definido. No se certifica una impresora física ni la impresión de una WebView.
+
+Una primera ejecución del recorrido adicional de rendimiento quedó incompleta en la consulta global del control de tema tras desplazar5.000 filas. Se acota la consulta automatizada a la cabecera; buscar nombres accesibles en15.000 botones no debe contabilizarse como latencia del producto. Se repite el recorrido completo con el mismo arnés antes/después. No se amplían límites ni se acepta aquella muestra parcial. Los informes comparativos finales se regeneran para el código con la corrección de foco.

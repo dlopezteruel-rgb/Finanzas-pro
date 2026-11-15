@@ -165,6 +165,26 @@
           "todo": 0
         }
       ]
+    },
+    {
+      "log": "5f-boundary-focused.log",
+      "reason": "Reproduces loss of focus on a boundary button becoming disabled",
+      "summaries": [
+        {
+          "tests": 9,
+          "suites": 0,
+          "pass": 7,
+          "fail": 2,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      ]
+    },
+    {
+      "log": "5f-before-interactions.log",
+      "reason": "Partial measurement excluded: global role/name lookup on15000 buttons; header query now scoped",
+      "accepted": false
     }
   ],
   "excludedPerformanceSmokes": [
@@ -190,6 +210,17 @@
         "tests": 15,
         "suites": 0,
         "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    ],
+    "boundaryLedger": [
+      {
+        "tests": 44,
+        "suites": 0,
+        "pass": 44,
         "fail": 0,
         "cancelled": 0,
         "skipped": 0,

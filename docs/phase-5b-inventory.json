@@ -1147,7 +1147,7 @@
     {
       "file": "src/components/MovementPagination.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "f9cb790028d7e48d4d1f82f583938717d0ef86c231064e56284657b400a442a2",
+      "sourceSha256": "1bb55d97233a3cc29f6101430e560ced16d0befe87ae464102c4c825161ac9ce",
       "counts": {
         "type-or-import": 3,
         "attribute-internal": 17,

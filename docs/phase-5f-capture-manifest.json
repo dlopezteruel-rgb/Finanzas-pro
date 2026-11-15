@@ -1,5 +1,5 @@
 {
-  "sourceBase": "084dc8cd564adb10cedfaefb1c6063d139c37f5d",
+  "sourceBase": "d63b5e0ee1782e3a06b382286caea19e46754d82",
   "sourcePolicy": "Working tree source recorded below; all files and current captures committed together. Screenshots from real production app, synthetic5000 data only; no image editing. Earlier comparative shot frontend14c93b6. No physical-device/screen-reader claim.",
   "sourceSha256": {
     "src/App.tsx": "8b47de4b37d6a3447b2b5966c0828cada07c62e3b98d67596fe3f5561e0ece11",
@@ -28,7 +28,7 @@
     "src/components/LanguageSelector.tsx": "7eda55249d2d626ab0e54cf280d341a273eddf0c2f1a86466eaabbdd7c097062",
     "src/components/LoanModal.tsx": "017c07a4e1c9024062d740b68a6ac0446255dc1a1db9afa7855e4b0e75b19493",
     "src/components/LoansView.tsx": "2ef2880d0df0df716a158d11d9a5ee3cfd29d1c0da324e7cc096b83f3622e5f3",
-    "src/components/MovementPagination.tsx": "f9cb790028d7e48d4d1f82f583938717d0ef86c231064e56284657b400a442a2",
+    "src/components/MovementPagination.tsx": "1bb55d97233a3cc29f6101430e560ced16d0befe87ae464102c4c825161ac9ce",
     "src/components/MovementProposalModal.tsx": "d32eedabf38d79a576941b2fe77e1f9698aefd6f130d806455602505926178c2",
     "src/components/Navigation.tsx": "0326819cec3211af0d5c81e3b70ee677cbf2c604b9739b34e41f981d42bf03ba",
     "src/components/Overlay.tsx": "f866869551ba19f1566b2ed13d329cc4090fb5e359dcf8461c0f74d938b67a5e",
