@@ -71,3 +71,12 @@
 .planning .automation-table td:not(:last-child) { white-space: nowrap; overflow-wrap: normal; }
 .planning .automation-table th:first-child { min-width: 12rem; }
 .planning .automation-table:focus-visible { outline: 3px solid #38bdf8; outline-offset: -3px; }
+
+/* Presentation-only ledger paging; native controls wrap for long translations. */
+.movement-pagination { margin: .75rem 0; padding: .75rem; border: 1px solid var(--line); border-radius: 1rem; font-size: .8rem; }
+.movement-page-controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; margin: .5rem 0; }
+.movement-page-controls label { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.movement-page-controls select { max-width: 100%; min-height: 44px; border: 1px solid var(--line); border-radius: .5rem; padding: .4rem; color: inherit; background: var(--surface); }
+.movement-page-controls button { min-height: 44px; white-space: normal; }
+.movement-page-help { line-height: 1.5; }
+@media print { .movement-pagination { display: none; } .movement-row { break-inside: avoid; } }

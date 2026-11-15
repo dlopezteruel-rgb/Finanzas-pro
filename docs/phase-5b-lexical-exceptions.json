@@ -977,6 +977,21 @@
         "key": "feature.charts",
         "text": "Gráficos",
         "reason": "Native pt-PT spelling for charts; same spelling as Spanish, not untranslated prose."
+      },
+      {
+        "key": "ledger.page.previous",
+        "text": "Anterior",
+        "reason": "Reviewed native European Portuguese pagination wording; spelling shared with Spanish"
+      },
+      {
+        "key": "ledger.page.label",
+        "text": "Página",
+        "reason": "Reviewed native European Portuguese pagination wording; spelling shared with Spanish"
+      },
+      {
+        "key": "ledger.page.number",
+        "text": "{page} de {pages}",
+        "reason": "Reviewed native European Portuguese pagination wording; spelling shared with Spanish"
       }
     ]
   }

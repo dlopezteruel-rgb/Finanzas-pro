@@ -1,0 +1,70 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import express from 'express';
+import path from 'node:path';
+import {mkdir,readFile,writeFile} from 'node:fs/promises';
+import {chromium,type Page} from 'playwright-core';
+import {DATA_KEY,parseSnapshot,parseBackup} from '../src/utils/backup';
+import {economicTransactions} from '../src/utils/transfers';
+import {volumeFixture} from './performance/fixture';
+import {translatorFor,presentationFormatters,languages,type Language} from '../src/i18n';
+import {navigateModule} from './browserNavigation';
+async function harness(t:any){
+ const app=express();app.use(express.static('dist'));app.get('*',(_q,r)=>r.sendFile(path.resolve('dist/index.html')));const server=await new Promise<ReturnType<typeof app.listen>>(r=>{const s=app.listen(0,'127.0.0.1',()=>r(s));});t.after(()=>new Promise<void>(r=>server.close(()=>r())));const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
+ async function setup(count=5000,width=390,language:Language='es',theme='dark'){
+  const c=await browser.newContext({viewport:{width,height:900},hasTouch:width===390,isMobile:width===390,serviceWorkers:'block',timezoneId:'Europe/Madrid'}),raw=JSON.stringify(volumeFixture(count)),errors:string[]=[];
+  await c.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
+  await c.addInitScript(({raw,key,language,theme})=>{(window as any).__name=(fn:unknown)=>fn;if(!localStorage.getItem(key))localStorage.setItem(key,raw);if(!localStorage.getItem('finanzas.ui.language'))localStorage.setItem('finanzas.ui.language',language);localStorage.setItem('finanzas.ui.theme',theme);(window as any).__writes=[];const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(!['finanzas.ui.language','finanzas.ui.theme'].includes(k))(window as any).__writes.push(k);return set.call(this,k,v);};},{key:DATA_KEY,raw,language,theme});
+  const p=await c.newPage();p.setDefaultTimeout(15000);p.on('pageerror',e=>errors.push(e.message));await p.goto(origin+'/app');await p.locator('.home-quick').waitFor();await p.getByRole('navigation').getByRole('button',{name:new RegExp('^'+translatorFor(language)('nav.movements')+'(?:\\s*\\d+)?$')}).first().click();await p.locator('.movement-row').first().waitFor();return {c,p,raw,errors};
+ }
+ return {setup};
+}
+async function ids(p:Page){return p.locator('.movement-row').evaluateAll(rows=>rows.map(r=>r.getAttribute('data-transaction-id')));}
+async function unchanged(p:Page,raw:string){assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),raw);assert.deepEqual(await p.evaluate(()=>(window as any).__writes),[]);}
+
+test('5F: datos íntegros, páginas, búsqueda global y edición fuera de la primera página',{timeout:120000},async t=>{
+ const {setup}=await harness(t),tr=translatorFor('es');
+ for(const count of [100,201,1000,5000])await t.test(`${count}: recorre todos los límites, sin duplicados; filtros y totales completos`,async()=>{
+  const {c,p,raw,errors}=await setup(count,1280);try{
+   const parsed=parseBackup(raw),expected=[...parsed.transactions].sort((a,b)=>new Date(b.date).getTime()-new Date(a.date).getTime()),seen:(string|null)[]=[];
+   assert.equal(await p.locator('.transactions-view').getAttribute('data-ledger-records'),String(count));
+   const pager=p.locator('.movement-pagination').first(),select=pager.getByRole('combobox');
+   for(let page=0;page<Math.ceil(count/(count>200?50:count));page++){
+    if(count>200)await select.selectOption(String(page));const mounted=await ids(p);assert.equal(mounted.length,count>200?Math.min(50,count-page*50):count);seen.push(...mounted);
+    assert.deepEqual(await p.locator('.movement-row').evaluateAll(rows=>rows.map(r=>Number(r.getAttribute('aria-posinset')))),Array.from({length:mounted.length},(_,i)=>page*50+i+1));
+    assert.equal(await p.locator('.movement-row').first().getAttribute('aria-setsize'),String(count));
+   }
+   assert.deepEqual(seen,expected.map(t=>t.id));assert.equal(new Set(seen).size,count);
+   const field=p.getByRole('textbox',{name:tr('transactions.buscar_movimientos'),exact:true});await field.fill('needle');const filtered=expected.filter(t=>t.description.toLowerCase().includes('needle'));assert.equal(await p.locator('.transactions-view').getAttribute('data-ledger-results'),String(filtered.length));
+   assert.deepEqual(await ids(p),filtered.slice(0,filtered.length>200?50:filtered.length).map(t=>t.id));
+   const economic=economicTransactions(parsed.transactions).filter(t=>filtered.some(f=>f.id===t.id)),format=presentationFormatters('es');for(const type of ['INGRESO','GASTO'])assert.ok((await p.locator('.movement-stats').innerText()).includes(format.formatMoney(economic.filter(t=>t.type===type&&t.processed).reduce((n,t)=>n+t.amount,0))));
+   const remote=expected.at(-1)!;await field.fill(remote.description);assert.deepEqual(await ids(p),expected.filter(t=>t.description.toLowerCase().includes(remote.description.toLowerCase())).map(t=>t.id));assert.equal(await field.evaluate(el=>el===document.activeElement),true);
+   await field.fill('');await p.getByRole('combobox',{name:tr('transactions.periodo_del_listado_b7c82b'),exact:true}).selectOption('selected');const month=await p.getByRole('combobox',{name:tr('period_selector.seleccionar_periodo_contable'),exact:true}).inputValue();assert.equal(await p.locator('.transactions-view').getAttribute('data-ledger-results'),String(expected.filter(t=>t.date.startsWith(month)).length));await p.getByRole('button',{name:tr('period_selector.mes_anterior'),exact:true}).click();assert.equal(await p.locator('.transactions-view').getAttribute('data-ledger-start'),'0');await unchanged(p,raw);assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
+ await t.test('teclado, borrador, edición reordenada y restauración del foco en página final',async()=>{
+  const {c,p,raw}=await setup(1000,768);try{
+   const pager=p.locator('.movement-pagination').first(),select=pager.getByRole('combobox');await select.selectOption('19');await select.focus();await p.keyboard.press('Tab');assert.equal(await p.evaluate(()=>document.activeElement?.textContent),tr('ledger.page.showAll'));await p.keyboard.press('Shift+Tab');assert.equal(await select.evaluate(el=>el===document.activeElement),true);
+   const row=p.locator('.movement-row').filter({hasText:'Synthetic volume'}).last(),id=await row.getAttribute('data-transaction-id'),button=row.getByRole('button',{name:/^Editar movimiento /});await button.click();let dialog=p.getByRole('dialog',{name:'Movimiento',exact:true});await dialog.getByLabel('Concepto',{exact:true}).fill('Borrador ficticio no guardado');await p.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});assert.equal(await button.evaluate(el=>el===document.activeElement),true);assert.equal(await select.inputValue(),'19');await unchanged(p,raw);
+   await button.click();dialog=p.getByRole('dialog',{name:'Movimiento',exact:true});await dialog.getByLabel('Concepto',{exact:true}).fill('Edición ficticia fuera de página inicial');await dialog.locator('input[type=date]').fill('2027-12-30');await dialog.locator('button[type=submit]').click();await dialog.waitFor({state:'hidden'});const saved=parseSnapshot((await p.evaluate(k=>localStorage.getItem(k),DATA_KEY))!),before=parseBackup(raw);assert.equal(saved.transactions.length,before.transactions.length);assert.deepEqual(saved.transactions.filter(t=>t.id!==id),before.transactions.filter(t=>t.id!==id));const original=before.transactions.find(t=>t.id===id)!;assert.deepEqual(saved.transactions.find(t=>t.id===id),{...original,description:'Edición ficticia fuera de página inicial',date:'2027-12-30',notes:original.notes??''});assert.equal(await p.locator(`.movement-row[data-transaction-id="${id}"]`).getByRole('button',{name:/^Editar movimiento /}).evaluate(el=>el===document.activeElement),true);assert.equal(await select.inputValue(),'0');
+  }finally{await c.close();}
+ });
+ await t.test('modo completo, CSV y beforeprint incluyen todos los resultados y restauran la página',async()=>{
+  const {c,p,raw}=await setup(1000,1280);try{
+   const pager=p.locator('.movement-pagination').first(),select=pager.getByRole('combobox');await select.selectOption('7');const firstIds=await ids(p);await p.evaluate(()=>dispatchEvent(new Event('beforeprint')));assert.equal(await p.locator('.movement-row').count(),1000);await p.evaluate(()=>dispatchEvent(new Event('afterprint')));assert.deepEqual(await ids(p),firstIds);assert.equal(await select.inputValue(),'7');
+   const download=p.waitForEvent('download');await p.getByRole('button',{name:tr('transactions.descargar_csv'),exact:true}).click();const stream=await(await download).createReadStream(),chunks:Buffer[]=[];for await(const chunk of stream!)chunks.push(Buffer.from(chunk));assert.equal(Buffer.concat(chunks).toString('utf8').split('\n').length,1001);
+   await pager.getByRole('button',{name:tr('ledger.page.showAll'),exact:true}).click();assert.equal(await p.locator('.movement-row').count(),1000);await pager.getByRole('button',{name:tr('ledger.page.paginate'),exact:true}).click();assert.deepEqual(await ids(p),firstIds);await unchanged(p,raw);
+  }finally{await c.close();}
+ });
+});
+for(const language of Object.keys(languages) as Language[])test(`5F: listado paginado accesible ${language}, tres anchos y dos temas`,{timeout:120000},async t=>{
+ const {setup}=await harness(t),axe=await readFile('node_modules/axe-core/axe.min.js','utf8'),observations:any[]=[],dir=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(dir,{recursive:true});t.after(()=>writeFile(path.join(dir,`translated-large-ledger-${language}.json`),JSON.stringify({scope:'Complete 5000-record fixtures,50 DOM rows; automated axe only, incomplete needs manual contextual review',observations},null,2)+'\n'));
+ for(const width of [390,768,1280])for(const theme of ['dark','light'])await t.test(`${width}/${theme}: búsqueda remota, página, idioma, zoom y axe`,async()=>{
+  const {c,p,raw,errors}=await setup(5000,width,language,theme),tr=translatorFor(language);try{
+   assert.equal(await p.locator('html').getAttribute('lang'),languages[language].locale);assert.equal(await p.locator('.movement-row').count(),50);const select=p.locator('.movement-pagination').first().getByRole('combobox');await select.selectOption('99');assert.equal(await p.locator('.movement-row').first().getAttribute('aria-posinset'),'4951');await select.focus();await p.keyboard.press('Shift+Tab');await p.keyboard.press('Tab');assert.equal(await select.evaluate(el=>el===document.activeElement),true);
+   const search=p.getByRole('textbox',{name:tr('transactions.buscar_movimientos'),exact:true});await search.fill('Synthetic volume 4999');assert.equal(await p.locator('.movement-row').count(),1);await search.fill('');assert.equal(await select.inputValue(),'0');await p.evaluate(()=>document.documentElement.style.fontSize='125%');assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);await p.evaluate(()=>document.documentElement.style.fontSize='');await p.evaluate(axe);const result=await p.evaluate(async()=>await(window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}));observations.push({surface:'large-ledger-paged',language,width,theme,violations:result.violations,incomplete:result.incomplete});assert.deepEqual(result.violations,[]);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+   if(process.env.PERF_SCREENSHOTS&&width===390){await mkdir(process.env.PERF_SCREENSHOTS,{recursive:true});await p.screenshot({path:path.join(process.env.PERF_SCREENSHOTS,`${language}-${width}-${theme}-ledger.png`)});}
+   await unchanged(p,raw);assert.deepEqual(errors,[]);
+  }finally{await c.close();}
+ });
+});

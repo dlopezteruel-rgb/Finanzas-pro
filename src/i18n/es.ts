@@ -13,6 +13,17 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "ledger.page.range": "Mostrar {start}–{end} de {total} movimientos",
+  "ledger.page.navigation": "Páginas del listado de movimientos",
+  "ledger.page.previous": "Anterior",
+  "ledger.page.label": "Página",
+  "ledger.page.number": "{page} de {pages}",
+  "ledger.page.next": "Siguiente",
+  "ledger.page.showAll": "Mostrar todos (más lento)",
+  "ledger.page.paginate": "Volver a las páginas",
+  "ledger.page.help": "La búsqueda y los totales incluyen todos los resultados. La búsqueda del navegador solo encuentra la página visible. Mostrar todos permite buscar e imprimir el listado completo.",
+  "ledger.page.fullHelp": "Listado completo: la búsqueda y la impresión incluyen todos los resultados. Puede ser más lento con miles de movimientos.",
+
   "theme.storageError": "El tema ha cambiado en esta pestaña, pero no se ha podido guardar la preferencia visual.",
   "feature.charts": "Gráficos",
   "feature.loading": "Cargando {name}…",
