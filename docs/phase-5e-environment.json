@@ -9,5 +9,15 @@
     "axe-core": "4.14.0",
     "typescript": "7.0.2"
   },
-  "ciRunner": "recorded separately after successful GitHub execution"
+  "ciRunner": {
+    "node": "v24.22.1",
+    "playwrightCore": "1.64.1",
+    "chromium": "Google Chrome for Testing 156.0.8078.4",
+    "executable": "/home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome",
+    "platform": "linux",
+    "architecture": "x64",
+    "runnerImage": "ubuntu24",
+    "runnerImageVersion": "20261111.370.1"
+  },
+  "ciReferenceRun": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609"
 }

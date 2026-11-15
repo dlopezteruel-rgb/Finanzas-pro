@@ -4,7 +4,7 @@ Base: `c9d70bf85f20ad983d13f5652b26f7fe91c231a8` (merge PR #28), sin commits pos
 
 La fase reduce el JS inicial de la landing española de **321.042 a 137.119 bytes gzip (-57,29%)** y el de la aplicación con100 movimientos de **454.961 a 245.354 (-46,07%)**. La mediana móvil de entrada baja **3.775,11→2.752,34 ms**. Se conservan los costes: primer Catálogo **400,11→892,09 ms**, primer francés **587,89→661,01 ms** y recarga con caché **734,55→785,46 ms**. No son resultados de un teléfono físico ni garantías de rendimiento en campo.
 
-**Estado de cierre:** validación integral local y CI del checkpoint en curso. Los resultados focalizados son 599 unitarias, 22 de infraestructura, 57 originales de operaciones, 15 de presupuestos y 9 de auditoría general (128 superficies), además de las suites nuevas. No se declara todavía aprobada la batería completa de 41 suites. Esta sección se actualizará con los informes completos antes de la entrega.
+**Estado de cierre:** validación local y CI de referencia completas:599/599 unitarias,22/22 de infraestructura y784/784 resultados Chromium en41 suites, sin fallos, omisiones, cancelaciones o pendientes. npm ci/lint/build/diff-check correctos. Los17 informes axe suman1481 observaciones y0 violaciones en ambos entornos. Permanecen906 grupos/49 conjuntos locales y945 grupos/52 conjuntos de CI para revisión contextual. Los tres trabajos de [CI43661115609](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609), SHA10e68faac2071144bc8c280035582e34ffa99905, están verdes y sus ZIP se verificaron por SHA-256. El estado de la CI del SHA exacto de entrega se enlaza en el cuerpo de la PR Draft y en la entrega; esta referencia queda fijada para evitar un ciclo de nuevos commits de documentación y nuevas ejecuciones.
 
 ## Arquitectura y versiones
 
@@ -183,13 +183,19 @@ El [inventario original de46 archivos protegidos](phase-5e-protected-files.json)
 | 5E-06 | Reintento desmonta el botón enfocado | Foco en selector/panel/main persistente, probado |
 | 5E-07 | Pruebas de conflicto usaban tema como escritura financiera | Disparador cambia a cuenta ficticia de saldo cero por la UI/Store reales; conserva todas las aserciones y añade rechazo/campos |
 | 5E-08 | budgetUx cuenta paneles antes del editor diferido; axe puede observar placeholder | Espera por contenido real; misma aserción de dos paneles, mismos casos y reglas |
+| 5E-09 | React.lazy nuevo por visita/mes volvía a suspender y perdía una selección móvil inmediata | Identidad cumplida compartida y regresión de estado/cero loaders transitorios |
+| 5E-10 | Sondeo esbuild IIFE no recibía SSR=false/BASE_URL de navegador | Constantes exactas en el sondeo;25/25 casos originales conservados |
+| 5E-11 | Recuentos visuales antes del contenido diferido | Esperas por contenedores reales; mismos recuentos y umbrales de contraste |
+| 5E-12 | Helper tomaba cero pestañas aún no montadas como escritorio | Espera el tablist real antes de seleccionar Multiperiodo;19/19 subítems |
+| 5E-13 | Presupuesto global40m cancela la cobertura completa | Excepción justificada40→50; comando CI real43m16,346s y todos los casos pasan |
+| 5E-14 | Colector CLI omitía el archivo de60 observaciones del catálogo | Se incluye el archivo ya generado; mismos datos, algoritmo y reglas axe |
 | Pendientes de rendimiento | Primer Catálogo/francés más lentos y5.000 filas aún costosas | Costes publicados; optimizaciones futuras requieren nueva medición y accesibilidad |
 
 ## Accesibilidad y límites
 
-Se mantienen todas las reglas axe; los nuevos estados de carga/error y cambios de tema también se auditan. Tab/Shift+Tab/Escape, foco, labels, lang, metadata, borradores y desbordamiento tienen comprobaciones automatizadas. Se espera el módulo real antes de la auditoría general, sin considerar aprobado un estado de carga. Los informes definitivos local/CI se incorporarán al cerrar la batería.
+Se mantienen todas las reglas axe; los nuevos estados de carga/error y cambios de tema también se auditan. Tab/Shift+Tab/Escape, foco, labels, lang, metadata, borradores y desbordamiento tienen comprobaciones automatizadas. Se espera el módulo real antes de la auditoría general, sin considerar aprobado un estado de carga. Los [informes locales](phase-5e-axe-local.json) y [de CI](phase-5e-axe-ci.json) conservan todos los registros, mecanismos y referencias de los17 archivos, incluidas las60 observaciones de catálogo multidioma.
 
-Los **944 grupos incompletos/51 conjuntos equivalentes de5D** siguen pendientes de revisión contextual. No son944 defectos distintos ni una revisión manual aprobada. Se conservarán separados los nuevos resultados locales y de GitHub, con causas/ejemplos/referencias. No se han usado lectores de pantalla ni dispositivos físicos. Tampoco se certifica contraste manual de todos los estados, una sesión larga o ausencia total de fugas.
+Los **944 grupos incompletos/51 conjuntos equivalentes de5D** siguen pendientes de revisión contextual. No son944 defectos distintos ni una revisión manual aprobada. Se conservan separados los resultados locales y de GitHub, con causas/ejemplos/referencias. No se han usado lectores de pantalla ni dispositivos físicos. Tampoco se certifica contraste manual de todos los estados, una sesión larga o ausencia total de fugas.
 
 ### Clasificación contextual de registros incompletos
 
@@ -256,7 +262,7 @@ Los valores PERF_SAMPLES/PERF_PROFILE permiten exploración; la comparación pub
 - 585e996: readiness explícito y perfiles React.
 - d9ccb7d: identidad React.lazy cumplida compartida para evitar resuspensiones al cambiar mes/visitar módulos; automatizaciones15/15 y módulos8/8.
 
-Base reejecutada:585 unitarias,22 infraestructura,747 Chromium/37 suites, lint/build correctos; [resumen verificable](phase-5e-baseline-validation.json). Los intentos parciales/fallidos se documentarán separados de la ejecución final. La [CI43650839122](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122) en d66d4a4 falló en Chromium por5E-08; unitarias y código fueron verdes. La CI corregida en585e996 y la batería local están en curso: no se presentan todavía como aprobadas. No se modifican permisos, protecciones, reglas de fallo o límites individuales para aprobar; el presupuesto global de CI tiene una excepción medida, documentada abajo.
+Base reejecutada:585 unitarias,22 infraestructura,747 Chromium/37 suites, lint/build correctos; [resumen verificable](phase-5e-baseline-validation.json). Los intentos parciales/fallidos se conservan separados de la ejecución final. La [CI43650839122](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122) en d66d4a4 falló en Chromium por5E-08; unitarias y código fueron verdes. Los intentos posteriores se registran con sus fallos y cancelaciones en el inventario de validación; ninguno de ellos se presenta como aprobación integral. No se modifican permisos, protecciones, reglas de fallo o límites individuales para aprobar; el presupuesto global de CI tiene una excepción medida, documentada abajo.
 
 ## Recomendaciones posteriores
 
@@ -269,7 +275,7 @@ Sin fusión, despliegue, sincronización de Google AI Studio, cambios de main/pr
 
 ## Resuspensión en cambios de mes (5E-09)
 
-La segunda CI roja, [43652265177](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43652265177), reprodujo una pérdida de selección inmediata de Multiperiodo en móvil: la importación estaba cacheada, pero una identidad React.lazy nueva volvía a suspender al cambiar la key del mes. La corrección comparte la identidad cumplida por funcionalidad, manteniendo una identidad nueva para reintentar errores. No se duplican stores/proveedores ni se cambia el reset financiero por mes. Automatizaciones15/15 y módulos8/8 pasan con el caso nuevo; los informes después y las capturas se han regenerado para d9ccb7d. La batería completa local de784 resultados/41 suites y la CI corregida43653525846 están en ejecución.
+La segunda CI roja, [43652265177](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43652265177), reprodujo una pérdida de selección inmediata de Multiperiodo en móvil: la importación estaba cacheada, pero una identidad React.lazy nueva volvía a suspender al cambiar la key del mes. La corrección comparte la identidad cumplida por funcionalidad, manteniendo una identidad nueva para reintentar errores. No se duplican stores/proveedores ni se cambia el reset financiero por mes. Automatizaciones15/15 y módulos8/8 pasan con el caso nuevo; los informes después y las capturas se han regenerado para d9ccb7d. La CI43653525846 terminó fallando en el sondeo esbuild descrito en5E-10; la corrección funcional permanece y su validación integral se registra en el cierre.
 
 [Intentos completos, parciales y fallidos](phase-5e-validation-attempts.json): se conservan los estados rojos y las cancelaciones; no se cuentan como aprobación ni se ocultan con reintentos automáticos.
 
@@ -295,8 +301,49 @@ La [ejecución43657226987](https://github.com/dlopezteruel-rgb/Finanzas-pro/acti
 
 El punto14 del encargo permite una ampliación «verdaderamente necesaria por una mayor cobertura», justificada con duraciones medidas y manteniendo todos los criterios de fallo. El [informe de capacidad](phase-5e-ci-budget-evidence.json) conserva las duraciones originales:35 suites ahora consumen38,18 minutos antes de las restantes; catálogo/registro rápido y las cuatro suites nuevas añaden aproximadamente4,5 minutos según el diagnóstico local, además de instalación, arranque y artefactos. Las pruebas originales ahora recorren cargas asíncronas reales, esperan contenido para axe/recuentos y generan conflictos mediante operaciones financieras reales en vez del tema. No se atribuye todo el aumento a los37 resultados nuevos. La comparación histórica con5D no es una medición causal del producto entre runners diferentes.
 
-Se cambia únicamente `browser.timeout-minutes:40→50` y un comentario explicativo en `.github/workflows/ci.yml`. No se cambian límites individuales de suites/acciones, reglas axe, criterios de fallo, aserciones, eventos, permisos, trabajos o retención; no hay reintentos automáticos ni continue-on-error.50 minutos proporciona margen acotado para finalizar la cobertura obligatoria, sin convertir una prueba fallida en verde. Es la única excepción al inventario original de46 hashes:45 archivos permanecen idénticos; el workflow conserva ambos hashes y el motivo en el registro de protección. Los fuentes financieros y el frontend medido continúan intactos. La CI debe volver a completar todas las41 suites.
+Se cambia únicamente `browser.timeout-minutes:40→50` y un comentario explicativo en `.github/workflows/ci.yml`. No se cambian límites individuales de suites/acciones, reglas axe, criterios de fallo, aserciones, eventos, permisos, trabajos o retención; no hay reintentos automáticos ni continue-on-error.50 minutos proporciona margen acotado para finalizar la cobertura obligatoria, sin convertir una prueba fallida en verde. Es la única excepción al inventario original de46 hashes:45 archivos permanecen idénticos; el workflow conserva ambos hashes y el motivo en el registro de protección. Los fuentes financieros y el frontend medido continúan intactos. La nueva CI completó las41 suites:2596,346s de comando (43m16,346s) y2623s de trabajo completo, dentro de50m, con784/784 resultados y tres trabajos verdes. La cancelación anterior permanece documentada, sin presentarse como aprobación.
 
 ## Inventario íntegro de informes axe (5E-14)
 
 El selector de archivos del colector CLI heredado no incluía multilingual-catalog.json (incorporado en5D). El archivo sí se generaba y sus aserciones seguían ejecutándose: la omisión afectaba al agrupado por CLI. Se amplía únicamente ese selector, reutilizando la misma función y las mismas reglas de equivalencia. El diagnóstico conserva17 informes y1481 observaciones (incluye las60 del catálogo), cero violaciones y906 grupos incompletos; sus resultados no sustituyen a la batería final. Los informes finales local y CI se regeneran por separado con el conjunto íntegro, sin descartar registros ni modificar reglas axe.
+
+## Resultados definitivos locales y CI de referencia
+
+[Registro local](phase-5e-final-local-validation.json) y [registro remoto con artefactos verificados](phase-5e-ci-reference.json). La ejecución local comenzó sobre862c6c3; desde entonces solo cambiaron documentación, presupuesto global CI y filtro del colector de informes. El frontend permanece idéntico a d9ccb7d y los casos unitarios/Chromium no cambian. La CI de referencia usa10e68fa y la ejecución de la PR verifica de nuevo su SHA exacto final.
+
+| Comprobación | Local | GitHub Actions43661115609 |
+| --- | --- | --- |
+| npm ci |188 paquetes; correcto | Instalación reproducible correcta |
+| Unitarias |599/599 |599/599 |
+| Infraestructura |22/22 |22/22 |
+| Chromium |784/784 en41 suites |784/784 en41 suites |
+| npm run lint |0 errores |0 errores |
+| npm run build |Correcto; sin aviso de chunk>500kB |Correcto; sin aviso de chunk>500kB |
+| Git diff |Rango real origin/main...HEAD y árbol, correctos |Padre real en dispatch; main real en la ejecución de PR |
+| Resúmenes de pruebas |0 fallos/omisiones/cancelaciones/pendientes |0 fallos/omisiones/cancelaciones/pendientes |
+| Comando npm run test:ui |2917,753s (48m37,753s) |2596,346s (43m16,346s) |
+
+Las37 suites originales conservan exactamente747 resultados y sus recuentos por suite, comparados con la base realmente reejecutada. Se añaden14 unitarias y37 resultados Chromium: idiomas15, módulos8, volumen4 y tema10. Se mantiene la advertencia de dependencia obsoleta node-domexception@1.0.0 en npm ci, sin actualizar dependencias; el aviso informativo de nueva versión de npm no es un fallo. No se han instalado librerías nuevas ni alterado el lockfile.
+
+| Trabajo remoto | Estado | Duración completa |
+| --- | --- | ---: |
+| [Unitarias](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427521) |success |21s |
+| [Lint, build y diff](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427657) |success |19s |
+| [Chromium y axe](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427732) |success |2623s (43m43s) |
+
+Entorno remoto real: Node24.22.1, playwright-core1.64.1, Google Chrome for Testing156.0.8078.4 (revisión1248), Ubuntu24/x64, imagen20261111.370.1. [Versiones completas](phase-5e-environment.json). Los tres ZIP coinciden con los digests publicados por GitHub; identificadores, SHA-256, comandos, estados por suite y alcance del diff se conservan en el registro remoto. La retención del workflow continúa siendo7 días; los resúmenes y referencias aquí comprometidos permanecen en Git.
+
+| Axe, observaciones persistidas | Local | CI de referencia |
+| --- | ---: | ---: |
+| Informes completos |17 |17 |
+| Observaciones |1481 |1481 |
+| Violaciones automatizadas |0 |0 |
+| Grupos incompletos |906 |945 |
+| Conjuntos equivalentes |49 |52 |
+| Ocurrencias de nodos/checks |5512 |5764 |
+
+Se conservan aparte los antecedentes de5D:944 grupos/51 conjuntos de CI pendientes. Las diferencias de clasificación entre máquinas y estados no significan pérdida de pruebas ni resolución manual. Las19 observaciones nuevas de carga/error/tema tienen0 violaciones; en CI hay un incompleto nuevo, español/768px/oscuro, en la etiqueta Presupuestos de navegación durante planning-loading. El mecanismo elmPartiallyObscured no determina el fondo respecto a su propio botón; el valor0 de contraste del registro es indeterminado, no una medición0:1. Queda pendiente su inspección contextual, sin modificar reglas ni considerarlo contraste aprobado. Los demás mecanismos se clasifican arriba con ejemplos y referencias.
+
+Pendientes para revisión: coste adicional de primera visita a módulos/idiomas y mayor gzip total de todos los recursos;5.000 filas aún lentas; revisión contextual de grupos incompletos, incluido el nuevo estado de carga; pruebas de campo/dispositivos físicos y sesiones largas no realizadas. No se certifica un lector de pantalla ni Safari/iPhone real. La fase no incorpora virtualización, backend, autenticación, nube, migraciones o cambios de interpretación del asistente.
+
+La entrega se publica como una única PR Draft hacia main, con [inventario de archivos](phase-5e-changed-files.json) y CI del SHA exacto enlazada en su cuerpo. No se fusiona, despliega ni sincroniza Google AI Studio; main y sus protecciones permanecen intactos.

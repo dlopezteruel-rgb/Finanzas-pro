@@ -304,5 +304,19 @@
     "cancelled": 0,
     "skipped": 0,
     "todo": 0
+  },
+  "validatedOutcome": {
+    "run": 43661115609,
+    "head": "10e68faac2071144bc8c280035582e34ffa99905",
+    "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609",
+    "requiredJobsSucceeded": 3,
+    "results": 784,
+    "suites": 41,
+    "browserCommandSeconds": 2596.346,
+    "browserJobSeconds": 2623,
+    "globalBudgetSeconds": 3000,
+    "assertionFailures": 0,
+    "omissions": 0,
+    "cancellations": 0
   }
 }
