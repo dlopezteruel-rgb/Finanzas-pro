@@ -1,4 +1,4 @@
-import {chooseMovementPartida} from './browserNavigation';
+import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import { migrateSharedExpenses, sharedViewTransactions } from '../src/utils/sharedExpenses';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
@@ -80,7 +80,7 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
         } else {
           const other = await context.newPage();
           await other.goto(url);
-          await other.getByRole('button', { name: /Cambiar a modo/ }).click();
+          await concurrentFinancialEdit(other);
           await other.waitForFunction(({ key, before }) => localStorage.getItem(key) !== before, { key: DATA_KEY, before });
           before = await raw();
           await other.close();

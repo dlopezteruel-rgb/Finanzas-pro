@@ -39,7 +39,7 @@ export function groupIncompleteReports(reports){
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const [directory,output]=process.argv.slice(2);if(!directory||!output)throw new Error('Usage: node scripts/i18n/axe-review.mjs <browser-report-directory> <output.json>');
-  const names=(await readdir(directory)).filter(name=>/^(axe|translated-.+|landing-language)\.json$/.test(name)).sort();
+  const names=(await readdir(directory)).filter(name=>/^(axe|translated-.+|landing-language|multilingual-catalog)\.json$/.test(name)).sort();
   const reports=await Promise.all(names.map(async name=>({name,data:JSON.parse(await readFile(path.join(directory,name),'utf8'))})));
   const report=groupIncompleteReports(reports);await writeFile(output,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({reports:names.length,...report.totals,rules:report.rules,mechanisms:report.mechanisms}));
 }

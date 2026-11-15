@@ -1,7 +1,7 @@
 import React from 'react';
 import { languages, isLanguageAvailable, useI18n } from '../i18n';
 export function LanguageSelector({ appearance = 'menu' }: { appearance?: 'menu' | 'landing' }) {
-  const { language, setLanguage, t, preferenceError } = useI18n();
+  const { language, setLanguage, t, preferenceError, pendingLanguage, languageError, retryLanguage } = useI18n();
   const landing = appearance === 'landing', id = landing ? 'landing-language' : 'ui-language';
   return <div className={landing ? 'language-selector--landing' : 'px-3 py-2 border-t border-white/10'}>
     <label htmlFor={id} className="block mb-1 font-medium">{t('language.label')}</label>
@@ -9,6 +9,8 @@ export function LanguageSelector({ appearance = 'menu' }: { appearance?: 'menu' 
       {Object.entries(languages).map(([code, item]) => <option key={code} value={code} disabled={!isLanguageAvailable(code)}>{item.label}{!landing && ' — '}{!landing && t(isLanguageAvailable(code) ? 'language.available' : 'language.planned')}</option>)}
     </select>
     <p id={`${id}-help`} className={landing ? 'sr-only' : 'mt-2 text-slate-300 leading-relaxed'}>{t('language.help')}</p>
+    {pendingLanguage && <p role="status" className="mt-2">{t('language.loading', {language: languages[pendingLanguage].label})}</p>}
+    {languageError && <div className="mt-2"><p role="alert">{t('language.loadError', {language: languages[languageError].label})}</p><button type="button" onClick={()=>{if(retryLanguage())document.getElementById(id)?.focus();}}>{t('language.retry')}</button></div>}
     {preferenceError && <p role="status" className="mt-2">{t('language.storageError')}</p>}
   </div>;
 }

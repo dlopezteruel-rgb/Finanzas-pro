@@ -1,9 +1,5 @@
 import { languageReadiness } from './readiness';
 export { languageReadiness } from './readiness';
-import { en } from './en';
-import { it } from './it';
-import { fr } from './fr';
-import { pt } from './pt';
 export const languages = {
   es: { locale: 'es-ES', label: 'Español', status: 'ready' },
   en: { locale: 'en-GB', label: 'English', status: 'ready' },
@@ -16,11 +12,41 @@ import { es } from './es';
 export { es } from './es';
 export type MessageKey = keyof typeof es;
 export type Messages = Record<MessageKey, string>;
-export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es, en, it, fr, pt };
+export const dictionaries: Readonly<Partial<Record<Language, Readonly<Messages>>>> = { es: Object.freeze(es) };
+// Availability is the reviewed product contract; loading is a separate runtime state.
+const loaders: Record<Exclude<Language, 'es'>, () => Promise<Messages>> = {
+  en: () => import('./en').then(module => module.en),
+  it: () => import('./it').then(module => module.it),
+  fr: () => import('./fr').then(module => module.fr),
+  pt: () => import('./pt').then(module => module.pt),
+};
+const pending = new Map<Language, Promise<Readonly<Messages>>>();
+const validity = new WeakMap<object, boolean>();
+function valid(dictionary: Readonly<Messages>): boolean {
+  let result = validity.get(dictionary);
+  if (result === undefined) { result = validateDictionary(Object.entries(dictionary)).length === 0; if (Object.isFrozen(dictionary)) validity.set(dictionary, result); }
+  return result;
+}
+export const isDictionaryLoaded = (language: Language) => !!dictionaries[language];
+/** Deduplicated, validated and immutable. Failed requests are evicted so selection can retry. */
+export function loadDictionary(language: Language): Promise<Readonly<Messages>> {
+  if (!isLanguageAvailable(language)) return Promise.reject(new Error('Language is not available.'));
+  const cached = dictionaries[language];
+  if (cached) return Promise.resolve(cached);
+  const existing = pending.get(language); if (existing) return existing;
+  const request = loaders[language as Exclude<Language, 'es'>]().then(dictionary => {
+    const errors = validateDictionary(Object.entries(dictionary));
+    if (errors.length) throw new Error('Incompatible language dictionary.');
+    const immutable = Object.freeze({ ...dictionary }); validity.set(immutable, true);
+    (dictionaries as Partial<Record<Language, Readonly<Messages>>>)[language] = immutable;
+    return immutable;
+  }).finally(() => { pending.delete(language); });
+  pending.set(language, request); return request;
+}
 export function isLanguageAvailable(requested: string): requested is Language {
   if (!Object.hasOwn(languages, requested)) return false;
   const language = requested as Language, dictionary = dictionaries[language], readiness = languageReadiness[language];
-  return languages[language].status === 'ready' && readiness.uiComplete && readiness.flowsVerified && !!dictionary && validateDictionary(Object.entries(dictionary)).length === 0;
+  return languages[language].status === 'ready' && readiness.uiComplete && readiness.flowsVerified && (!dictionary || valid(dictionary));
 }
 export function activeLanguage(requested: string): Language {
   return isLanguageAvailable(requested) ? requested : 'es';
@@ -51,7 +77,11 @@ export function validateDictionary(entries: readonly (readonly [string, string])
 /** Future plural dictionaries can select typed message keys with standard Intl categories. */
 export const pluralCategory = (count: number, language: Language = 'es') => new Intl.PluralRules(languages[language].locale).select(count);
 
-export const translatorFor = (language: Language): typeof translate => (key, ...args) => translateFrom(dictionaries[language] ?? es, key, args[0]);
+export const translatorFor = (language: Language): typeof translate => (key, ...args) => {
+  const dictionary = dictionaries[language];
+  if (!dictionary) throw new Error('Load the dictionary before applying its language.');
+  return translateFrom(dictionary, key, args[0]);
+};
 
 export const pluralFamilies = {
   contactDebtors: {one:'count.contactDebtors.one',other:'count.contactDebtors.other'},
@@ -77,3 +107,7 @@ export function pluralText(language: Language, family: PluralFamily, count: numb
   const variants = pluralFamilies[family], key = pluralCategory(count, language) === 'one' ? variants.one : variants.other;
   return translatorFor(language)(key, { count: new Intl.NumberFormat(languages[language].locale).format(count) });
 }
+
+// Node/SSR needs synchronous translators for renderToStaticMarkup and the existing tests.
+// Vite replaces SSR with false in the browser: no eager foreign imports or top-level await there.
+if (import.meta.env?.SSR !== false) await Promise.all((['en', 'it', 'fr', 'pt'] as const).map(loadDictionary));

@@ -1,0 +1,349 @@
+# Fase 5E — Rendimiento, carga diferida y estabilidad móvil
+
+Base: `c9d70bf85f20ad983d13f5652b26f7fe91c231a8` (merge PR #28), sin commits posteriores al comenzar. Rama `perf/phase-5e-performance-optimization`, creada con árbol limpio desde origin/main. El checkout base se conserva separado e inmutable. Código de aplicación medido: `d9ccb7d7e0a7a6e95362217c252d9d9b58460320`.
+
+La fase reduce el JS inicial de la landing española de **321.042 a 137.119 bytes gzip (-57,29%)** y el de la aplicación con100 movimientos de **454.961 a 245.354 (-46,07%)**. La mediana móvil de entrada baja **3.775,11→2.752,34 ms**. Se conservan los costes: primer Catálogo **400,11→892,09 ms**, primer francés **587,89→661,01 ms** y recarga con caché **734,55→785,46 ms**. No son resultados de un teléfono físico ni garantías de rendimiento en campo.
+
+**Estado de cierre:** validación local y CI de referencia completas:599/599 unitarias,22/22 de infraestructura y784/784 resultados Chromium en41 suites, sin fallos, omisiones, cancelaciones o pendientes. npm ci/lint/build/diff-check correctos. Los17 informes axe suman1481 observaciones y0 violaciones en ambos entornos. Permanecen906 grupos/49 conjuntos locales y945 grupos/52 conjuntos de CI para revisión contextual. Los tres trabajos de [CI43661115609](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609), SHA10e68faac2071144bc8c280035582e34ffa99905, están verdes y sus ZIP se verificaron por SHA-256. El estado de la CI del SHA exacto de entrega se enlaza en el cuerpo de la PR Draft y en la entrega; esta referencia queda fijada para evitar un ciclo de nuevos commits de documentación y nuevas ejecuciones.
+
+## Arquitectura y versiones
+
+El estado anterior cargaba estáticamente los cinco diccionarios en messages.ts. Root ya difería App y ChartSlot ya difería FinancialCharts. App importaba las pantallas secundarias; ambos paneles de presupuestos se montaban antes de usarlos. isLanguageAvailable repetía la validación completa durante lecturas/renderizados.
+
+Entorno real: Node 24.22.1, Vite **8.3.7**, React/React DOM **19.3.1**, TypeScript 7.0.2, playwright-core 1.64.1, axe-core 4.14.0 y Chromium local 156.0.8078.79/Debian 13. npm ci instala 188 paquetes; se conserva lockfile, dependencias, APP_BASE_PATH y DISABLE_HMR; la única excepción de workflow es el presupuesto global justificado más abajo. [Versiones](phase-5e-environment.json). Los resultados de GitHub se registran por separado.
+
+## Inventario real de bundles y dependencias
+
+Las medidas proceden de Vite8/Rolldown en producción; gzip zlib nivel6 aplicado igual a ambas versiones. Puede diferir del estimador histórico de Vite. renderedLength de módulos es anterior a la minificación final y no permite asignar una cuota gzip exacta a cada librería. [Base](phase-5e-baseline-bundles.json) y [resultado completo](phase-5e-bundle-results.json).
+
+| Recurso/grafo | Antes minificado/gzip (bytes) | Después minificado/gzip (bytes) |
+| --- | ---: | ---: |
+| Grafo estático inicial completo | 1.181.075 / 321.042 | 465.583 / 137.119 |
+| App | 532.661 / 133.919 | 251.125 / 68.356 |
+| Total todos los idiomas y funciones | 1.754.515 /467.528 | 1.770.124 /491.663 |
+
+Hay **29 chunks** frente a3: el total gzip de todas las funciones/idiomas crece aproximadamente5,16% por la separación y menor compresión conjunta; solo se descargan según uso. No se oculta ese coste. El inventario detecta **cero módulos con renderedLength positivo duplicados**. React DOM y el español siguen en la entrada; los cuatro diccionarios extranjeros quedan fuera del grafo inicial. D3/gráficos permanecen bajo demanda. El SDK/backend del asistente no se añade al cliente inicial. Los chunks compartidos (incluido i18n) se suman, evitando presentar solo index como tamaño total. No se cambia el umbral Vite de500kB; desaparece el aviso por la división real, no como criterio de aceptación.
+
+## Método reproducible de navegador
+
+Builds reales de producción servidos con gzip por un servidor de pruebas idéntico en ambos casos. Contexto aislado para cargas frías; recarga dentro del mismo contexto para caché. Sin routing Playwright en estas medidas (deshabilitaría caché HTTP). CDP bloquea servicios externos y controla CPU/red. No hubo otras baterías de navegador concurrentes durante las comparaciones. Tres muestras por escenario y perfil; se publica mediana y rango completo, sin umbrales temporales de CI. Los recorridos exploratorios anteriores con concurrencia no se usan para aceptar mejoras.
+
+| Perfil | Viewport | CPU emulada | Latencia/red |
+| --- | --- | --- | --- |
+| Móvil | 390×900 | 4× | 80ms /1,6Mbps |
+| Tablet | 768×900 | 2× | 40ms /5Mbps |
+| Escritorio | 1280×900 | 1× | 20ms /10Mbps |
+
+Se registran FCP, último LCP disponible, CLS sin interacción reciente, long tasks, ScriptDuration/TaskDuration CDP, solicitudes, transferSize/encodedBodySize/decodedBodySize y heap aproximado. LCP es la última observación al tomar la muestra, no el valor final de una sesión de campo. La latencia incluye automatización y dos frames; no equivale a INP. ScriptDuration es ejecución acumulada; no se mide por separado compilación V8 ni bytes exactos ejecutados. decodedBodySize es código recibido descomprimido. El heap no incluye toda la memoria del navegador y depende de GC; no se fuerza una colección ni se certifica ausencia de fugas o una sesión prolongada.
+
+Los16 escenarios producen144 observaciones por build. Incluyen landing es/en, entrada nueva/vacía, apertura/recarga con preferencia, gráficos, planificación, catálogo, listado100/1.000/5.000, búsqueda y cambios de idioma. Se comparan hashes exactos del almacenamiento ficticio; todas esas acciones tienen cero escrituras. [Antes](phase-5e-performance-before.json), [después](phase-5e-performance-after.json) y [comparación de todos los perfiles/métricas](phase-5e-performance-comparison.json).
+
+### Entrada a la aplicación: móvil,100 registros, n=3
+
+Cada celda contiene mediana [mín–máx].
+
+| Métrica | Antes | Después | Variación mediana |
+| --- | ---: | ---: | ---: |
+| JS gzip recibido (bytes de cuerpo) | 454.961,00 [454.961,00–454.961,00] | 245.354,00 [245.354,00–245.354,00] | -46,07% |
+| JS transferido con cabeceras (bytes) | 455.561,00 [455.561,00–455.561,00] | 249.254,00 [249.254,00–249.254,00] | -45,29% |
+| JS recibido descomprimido (bytes) | 1.713.736,00 [1.713.736,00–1.713.736,00] | 846.604,00 [846.604,00–846.604,00] | -50,60% |
+| Ejecución acumulada JS/CDP (ms) | 460,34 [427,34–511,18] | 436,44 [434,59–477,33] | -5,19% |
+| FCP (ms) | 2.300,00 [2.268,00–2.400,00] | 1.360,00 [1.332,00–1.500,00] | -40,87% |
+| Último LCP observado (ms) | 3.432,00 [3.396,00–3.476,00] | 2.380,00 [2.360,00–2.428,00] | -30,65% |
+| CLS observado | 0,00 [0,00–0,00] | 0,00 [0,00–0,00] | — |
+| Heap JS aproximado (bytes) | 5.833.324,00 [5.833.308,00–5.927.188,00] | 4.949.608,00 [4.934.684,00–4.981.536,00] | -15,15% |
+| Solicitudes de recursos | 6,00 [6,00–6,00] | 17,00 [17,00–17,00] | 183,33% |
+
+### Latencias de todos los escenarios principales
+
+| Perfil/escenario | Antes, ms [mín–máx] | Después, ms [mín–máx] | Variación |
+| --- | ---: | ---: | ---: |
+| mobile/landing-es-cold | 2.635,59 [2.528,14–2.791,88] | 1.665,76 [1.565,38–1.681,53] | -36,80% |
+| mobile/landing-en-cold | 2.547,27 [2.540,28–2.557,74] | 2.217,85 [2.176,22–2.334,06] | -12,93% |
+| mobile/application-empty-cold | 3.713,91 [3.703,46–3.714,95] | 2.496,78 [2.364,14–2.746,43] | -32,77% |
+| mobile/application-cold | 3.775,11 [3.733,54–3.845,73] | 2.752,34 [2.538,28–2.769,87] | -27,09% |
+| mobile/application-warm | 734,55 [702,08–735,30] | 785,46 [744,96–816,74] | 6,93% |
+| mobile/chart-first-open | 625,69 [581,99–658,48] | 641,58 [516,84–691,11] | 2,54% |
+| mobile/planning-first-open | 682,71 [674,53–880,01] | 758,53 [627,55–1.043,20] | 11,10% |
+| mobile/catalog-first-open | 400,11 [367,48–534,80] | 892,09 [730,49–1.021,64] | 122,96% |
+| mobile/ledger-100-first-open | 899,83 [869,44–1.035,28] | 728,21 [686,04–847,56] | -19,07% |
+| mobile/ledger-100-filter | 233,60 [230,87–253,90] | 205,72 [201,93–241,21] | -11,94% |
+| mobile/language-first-fr | 587,89 [569,33–655,61] | 661,01 [615,21–691,99] | 12,44% |
+| mobile/language-cached-es | 279,86 [265,73–369,57] | 164,62 [148,30–173,30] | -41,18% |
+| mobile/ledger-1000-first-open | 7.397,59 [7.258,32–8.060,72] | 5.528,11 [5.166,94–5.988,83] | -25,27% |
+| mobile/ledger-1000-filter | 693,01 [679,63–729,84] | 705,67 [684,10–788,36] | 1,83% |
+| mobile/ledger-5000-first-open | 38.255,61 [35.698,36–38.632,33] | 27.228,37 [25.734,42–27.440,56] | -28,83% |
+| mobile/ledger-5000-filter | 3.575,98 [3.418,88–3.738,59] | 3.333,84 [2.979,20–3.685,85] | -6,77% |
+| tablet/landing-es-cold | 1.075,82 [1.033,75–1.212,68] | 694,11 [618,51–694,94] | -35,48% |
+| tablet/landing-en-cold | 1.005,46 [1.004,26–1.010,81] | 831,33 [741,26–941,18] | -17,32% |
+| tablet/application-empty-cold | 1.801,24 [1.712,02–1.855,96] | 989,78 [913,47–1.429,97] | -45,05% |
+| tablet/application-cold | 1.846,36 [1.820,35–1.939,54] | 1.410,51 [1.353,87–1.462,75] | -23,61% |
+| tablet/application-warm | 562,17 [550,28–601,04] | 532,82 [507,52–567,89] | -5,22% |
+| tablet/chart-first-open | 882,83 [867,95–901,09] | 847,92 [847,35–867,95] | -3,95% |
+| tablet/planning-first-open | 380,89 [363,65–469,68] | 464,13 [453,78–519,89] | 21,86% |
+| tablet/catalog-first-open | 243,64 [234,41–248,81] | 548,62 [518,35–548,67] | 125,18% |
+| tablet/ledger-100-first-open | 434,79 [349,62–553,13] | 313,92 [281,91–396,58] | -27,80% |
+| tablet/ledger-100-filter | 117,59 [116,87–130,61] | 101,26 [100,56–118,30] | -13,89% |
+| tablet/language-first-fr | 267,97 [266,18–284,90] | 350,09 [301,02–352,99] | 30,64% |
+| tablet/language-cached-es | 149,78 [147,15–164,62] | 83,82 [82,22–84,71] | -44,04% |
+| tablet/ledger-1000-first-open | 2.764,77 [2.684,09–3.103,48] | 2.197,99 [2.146,09–2.226,37] | -20,50% |
+| tablet/ledger-1000-filter | 385,70 [344,58–487,36] | 375,53 [319,89–441,16] | -2,64% |
+| tablet/ledger-5000-first-open | 16.703,91 [16.106,69–16.929,04] | 12.061,09 [11.657,34–12.214,64] | -27,79% |
+| tablet/ledger-5000-filter | 1.785,97 [1.657,43–2.157,86] | 1.666,80 [1.601,99–1.737,73] | -6,67% |
+| desktop/landing-es-cold | 552,03 [541,31–568,86] | 418,52 [363,80–493,78] | -24,19% |
+| desktop/landing-en-cold | 591,98 [579,81–618,71] | 453,38 [435,45–463,45] | -23,41% |
+| desktop/application-empty-cold | 838,44 [799,59–1.277,04] | 679,27 [654,26–733,11] | -18,98% |
+| desktop/application-cold | 1.020,62 [881,85–1.331,73] | 693,00 [689,97–775,19] | -32,10% |
+| desktop/application-warm | 434,38 [423,50–477,87] | 436,10 [434,24–449,48] | 0,40% |
+| desktop/chart-first-open | 849,26 [832,86–883,99] | 842,73 [831,51–897,57] | -0,77% |
+| desktop/planning-first-open | 228,76 [163,40–349,05] | 901,54 [850,06–935,28] | 294,10% |
+| desktop/catalog-first-open | 133,68 [115,98–238,03] | 524,81 [431,75–831,12] | 292,60% |
+| desktop/ledger-100-first-open | 166,53 [166,50–184,53] | 189,32 [149,86–226,14] | 13,69% |
+| desktop/ledger-100-filter | 83,85 [82,53–84,63] | 79,26 [67,24–83,26] | -5,48% |
+| desktop/language-first-fr | 165,94 [165,92–166,60] | 169,82 [166,80–198,46] | 2,34% |
+| desktop/language-cached-es | 84,71 [82,23–84,74] | 49,96 [49,07–71,87] | -41,02% |
+| desktop/ledger-1000-first-open | 1.227,37 [1.214,11–1.263,30] | 912,86 [900,96–1.031,42] | -25,62% |
+| desktop/ledger-1000-filter | 181,64 [180,95–224,52] | 189,10 [180,50–242,66] | 4,10% |
+| desktop/ledger-5000-first-open | 6.168,78 [6.111,13–6.468,98] | 5.010,39 [4.838,97–5.029,88] | -18,78% |
+| desktop/ledger-5000-filter | 903,56 [786,52–909,57] | 740,72 [728,73–814,01] | -18,02% |
+
+La entrada genera más solicitudes pequeñas (6→17 recursos en el escenario móvil App), pero menos bytes/ejecución y una entrada más rápida en estas condiciones. La primera visita a módulos y primera descarga de idioma pagan red adicional; no se atribuyen mejoras a la caché. Las pequeñas variaciones con rangos superpuestos no se consideran por sí solas regresiones confirmadas. Los costes fríos mayores quedan explícitos para revisión. No se incorpora precarga especulativa sin una medida posterior que justifique su intercambio de bytes/latencia.
+
+## Carga diferida de idiomas y contratos
+
+Se reutilizan I18nProvider/useI18n, messages.ts, es.ts, preference.ts, Intl y el registro/readiness. Español queda como referencia inmediata; en/it/fr/pt usan imports dinámicos explícitos. Una caché de promesas deduplica solicitudes y publica únicamente diccionarios completos validados e inmutables. Los fallos se retiran para permitir reintento. Se mantienen los validadores de claves, duplicados de fuente, parámetros y plurales. La disponibilidad revisada es independiente de estar cargado. Validación de objetos congelados se memoriza por identidad; objetos mutables inyectados en pruebas se vuelven a validar.
+
+**setLanguage conserva booleano**: true significa selección válida aceptada; no significa descarga terminada. Se auditaron sus consumidores (el selector no esperaba promesas). Durante la espera se conservan contenido, formato, lang y metadatos previos y se anuncia carga en ese idioma. Al terminar se aplican juntos antes de pintar; una generación de solicitud descarta respuestas/errores antiguos. En arranque extranjero se muestra un estado español coherente y no se monta App hasta disponer del diccionario. Un fallo conserva idioma/preferencia y ofrece reintento. La cuota mantiene el cambio en memoria con el aviso original; la sincronización storage nunca escribe en respuesta. finanzas.ui.language conserva su clave y formato.
+
+activeLanguage resuelve solicitudes válidas; useI18n.language representa el idioma mostrado. translatorFor exige un diccionario cargado para no mezclar idiomas silenciosamente. Los helpers t/tn/I18nText/pluralText y parámetros tipados se conservan. En Node/SSR se preparan los diccionarios para los traductores síncronos/SSR existentes; Vite elimina esa rama del navegador. No existe segundo sistema i18n.
+
+Los cinco idiomas siguen habilitados. Las nuevas frases de carga/error y tema tienen traducciones nativas; Gráficos en pt-PT comparte ortografía con español y se documenta por clave como homógrafo, sin exención general de residuales. No se traduce ningún nombre personal ni histórico. EUR, ISO y Europe/Madrid permanecen invariantes. El reconocimiento libre del asistente sigue siendo el español previo: no se amplían parser, prompts ni API.
+
+Sin conexión, los diccionarios ya cargados en memoria funcionan en ese documento. Uno ausente falla sin sustituir el contenido y puede reintentarse al recuperar red. No hay service worker ni nuevo modo offline; una navegación/recarga necesita los recursos del servidor/caché del navegador. Las pruebas no certifican disponibilidad offline permanente.
+
+## División de módulos y estado
+
+App difiere nueve pantallas secundarias: planificación, gestor/ejecución de catálogo, préstamos, contactos, asistente, tesorería, deudas y cuentas. Inicio, Movimientos y formularios bancarios críticos permanecen inmediatos. Se usa división estándar de Vite8/Rolldown, sin manualChunks heredado ni ajustes de HMR/base. Un límite local con estado accesible, error y reintento mantiene el shell. Se comparten módulos/promesas, nunca instancias de stores/proveedores.
+
+Catálogo se solicita en su primera visita y después permanece montado al alternar con Planificación: borradores, selección, foco y scroll se conservan. La protección de cambios de periodo/módulo sigue siendo la original. Navegar durante una descarga no aplica efectos al módulo abandonado. Reintentar enfoca el selector/panel/main persistente, sin dejar el foco en un botón desmontado.
+
+## Perfiles y optimizaciones localizadas
+
+Un perfil V8 del listado de1.000 registros identifica la construcción repetida de Intl.DateTimeFormat en presentationDate. Se conserva un [perfil antes](phase-5e-before-mobile-1000.cpuprofile) y [después](phase-5e-after-mobile-1000.cpuprofile), además del procedimiento reproducible. Se cachean hasta64 instancias, con locale y todas las opciones en la clave. No se cachean fechas/valores financieros. Los inputs/opciones mutables se vuelven a leer y las excepciones/Madrid/fechas antiguas se conservan.
+
+Los totales visibles sustituyen filtered.some repetido por Set de identidades y una única proyección economicTransactions. Se mantienen filtros, orden de reducción y suma IEEE: transferencias/reintegros/parte propia/pendientes conservan la semántica original. Cuatro pruebas comparan literalmente contra el algoritmo anterior, incluidas1.000/5.000 filas y cantidades0,1/0,2. No se introduce memoización masiva ni virtualización.
+
+Microbenchmark Node: para5.000, mediana de fechas296,01→22,39ms y pertenencia96,48→1,03ms; tres muestras tras calentamiento excluido. [Datos](phase-5e-hotspots.json). Son costes de helpers, no latencia React/INP.
+
+Los [perfiles React](phase-5e-react-profile.json) usan builds temporales con el renderer existente react-dom/profiling y React.Profiler en Root/listado. El frontend de producción, fuentes, configuración y dependencias no se instrumentan. Tres muestras por390/CPU4× y1280/CPU1×,1.000 registros. Los tiempos incluyen coste de profiling en ambas revisiones y se separan de las medidas normales de producción.
+
+| React/listado | Antes actualDuration (ms) | Después (ms) |
+| --- | ---: | ---: |
+| 390/mount | 1.931,50 | 683,20 |
+| 390/filter | 136,50 | 44,50 |
+| 1280/mount | 330,50 | 166,80 |
+| 1280/filter | 24,40 | 9,30 |
+
+Cada recorrido conserva los bytes financieros y las filas esperadas. No se atribuye al render React todo el coste de DOM/estilos/GC: los tiempos de interacción de producción siguen siendo mayores.
+
+## Volumen y recorridos móviles
+
+Fixtures validados por el parser real:100/1.000/5.000 movimientos, catálogo de sistema más familia/partida personal y subítem, presupuestos de2025–2027, aprobación, regla de planificación, contactos, gasto compartido/reintegros/compensación y transferencia. No se elevan límites de dominio o tamaño. La lista mantiene todos los registros y su orden, búsqueda, foco y navegación; no se pagina/trunca para maquillar tiempos.5.000 en móvil4× sigue siendo lento (27,23s de mediana al abrir;3,33s al filtrar).
+
+Otros72 recorridos por revisión miden mes, formularios/importe, reparto, asistente/propuesta, importación y restauración. [Antes](phase-5e-journeys-before.json), [después](phase-5e-journeys-after.json) y [comparación](phase-5e-journeys-comparison.json). Solo la confirmación explícita de restauración permite escribir; se verifica copia recuperable y equivalencia de todos los campos importados, preservando la revisión aleatoria original. Sin llamadas API ni errores de página.
+
+| Móvil/acción | Antes, ms [mín–máx] | Después, ms [mín–máx] |
+| --- | ---: | ---: |
+| mobile/month-previous | 232,53 [214,99–272,00] | 190,73 [182,24–204,94] |
+| mobile/movement-form-open | 235,86 [223,90–316,30] | 251,76 [234,85–383,35] |
+| mobile/movement-amount-input | 81,26 [68,12–112,05] | 90,04 [60,26–92,76] |
+| mobile/shared-expense-open | 713,70 [693,04–811,24] | 547,22 [543,56–618,01] |
+| mobile/assistant-first-open | 1.032,81 [999,95–1.033,38] | 1.278,38 [1.271,06–1.287,64] |
+| mobile/assistant-proposal | 176,15 [175,79–202,01] | 165,34 [159,11–179,62] |
+| mobile/import-validate-preview | 178,56 [174,45–178,74] | 155,19 [151,75–171,82] |
+| mobile/restore-verified-confirmation | 222,56 [185,15–241,67] | 174,64 [174,62–192,36] |
+
+## Superficies y protección financiera
+
+La regresión conserva las37 suites originales y sus747 resultados; añade4 suites/37 resultados: idiomas15, módulos/gráficos8, volumen4 y tema10. Se verifican Inicio/resumen, movimientos, cuentas/saldos, transferencias, préstamos/deudas, contactos/compartidos/reintegros, planificación/aprobaciones/multiperiodo/subítems, catálogo/arrastre/archivo/reglas, automatizaciones, tesorería/calendario, asistente/registro rápido y almacenamiento/importación/exportación/restauración. La matriz visual original recorre cinco idiomas,390/768/1280 y ambos temas; la auditoría general añade1920.
+
+El [inventario original de46 archivos protegidos](phase-5e-protected-files.json) conserva45 byte a byte respecto a la base: FinanceStore, Web Locks/revisiones, escritura atómica/recuperación, cálculos, modelos, validadores, calendarios, parsers, API/prompts, identificadores/catalogNames, JSON2.5–3.5, lockfile, servidor y configuración Vite. La única excepción es el presupuesto global del trabajo de navegador (40→50), con los hashes anterior/nuevo y su justificación medida; el resto del workflow permanece idéntico. No hay migración ni nueva representación financiera. Cambiar idioma, navegar, diferir, consultar gráficos/planificación o filtrar no escribe los datos financieros.
+
+**Tema visual:** el botón anterior reserializaba FinanceStore. Para cumplir el invariante solicitado se guarda la preferencia exclusivamente en finanzas.ui.theme (dark/light), independiente como el idioma. El campo theme de JSON antiguo permanece intacto como fallback; abrirlo no escribe ni migra preferencias. Una selección visual explícita tiene prioridad, incluso tras restaurar datos financieros, y no se exporta dentro de sus copias. Sin preferencia se respeta el tema del archivo restaurado. Cuota/acceso denegados conservan el cambio en memoria con aviso nativo; storage sincroniza sin bucles. No se modifica FinanceStore ni su campo theme.
+
+## Incidencias reproducidas y correcciones
+
+| ID | Problema/evidencia | Corrección/estado |
+| --- | --- | --- |
+| 5E-01 | Entrada incluye cuatro idiomas no utilizados y validación repetida | Imports diferidos, caché validada; mejoras reales medidas |
+| 5E-02 | Listado crea un Intl por fecha y usa pertenencia cuadrática | Caché acotada/índice; pruebas de equivalencia y perfiles |
+| 5E-03 | Fallo del chunk de gráficos desmonta formulario bancario pendiente | Límite local; input original conectado y concepto conservado, reintento real |
+| 5E-04 | Tema cambia revisión/JSON financiero | Preferencia visual aislada; prueba roja en los cinco idiomas y10 resultados verdes posteriores |
+| 5E-05 | transition-all cruza estados de contraste4,32:1/4,23:1 al cambiar tema | Aplicación atómica de colores durante dos frames; axe estricto pasa sin esperar/ignorar reglas |
+| 5E-06 | Reintento desmonta el botón enfocado | Foco en selector/panel/main persistente, probado |
+| 5E-07 | Pruebas de conflicto usaban tema como escritura financiera | Disparador cambia a cuenta ficticia de saldo cero por la UI/Store reales; conserva todas las aserciones y añade rechazo/campos |
+| 5E-08 | budgetUx cuenta paneles antes del editor diferido; axe puede observar placeholder | Espera por contenido real; misma aserción de dos paneles, mismos casos y reglas |
+| 5E-09 | React.lazy nuevo por visita/mes volvía a suspender y perdía una selección móvil inmediata | Identidad cumplida compartida y regresión de estado/cero loaders transitorios |
+| 5E-10 | Sondeo esbuild IIFE no recibía SSR=false/BASE_URL de navegador | Constantes exactas en el sondeo;25/25 casos originales conservados |
+| 5E-11 | Recuentos visuales antes del contenido diferido | Esperas por contenedores reales; mismos recuentos y umbrales de contraste |
+| 5E-12 | Helper tomaba cero pestañas aún no montadas como escritorio | Espera el tablist real antes de seleccionar Multiperiodo;19/19 subítems |
+| 5E-13 | Presupuesto global40m cancela la cobertura completa | Excepción justificada40→50; comando CI real43m16,346s y todos los casos pasan |
+| 5E-14 | Colector CLI omitía el archivo de60 observaciones del catálogo | Se incluye el archivo ya generado; mismos datos, algoritmo y reglas axe |
+| Pendientes de rendimiento | Primer Catálogo/francés más lentos y5.000 filas aún costosas | Costes publicados; optimizaciones futuras requieren nueva medición y accesibilidad |
+
+## Accesibilidad y límites
+
+Se mantienen todas las reglas axe; los nuevos estados de carga/error y cambios de tema también se auditan. Tab/Shift+Tab/Escape, foco, labels, lang, metadata, borradores y desbordamiento tienen comprobaciones automatizadas. Se espera el módulo real antes de la auditoría general, sin considerar aprobado un estado de carga. Los [informes locales](phase-5e-axe-local.json) y [de CI](phase-5e-axe-ci.json) conservan todos los registros, mecanismos y referencias de los17 archivos, incluidas las60 observaciones de catálogo multidioma.
+
+Los **944 grupos incompletos/51 conjuntos equivalentes de5D** siguen pendientes de revisión contextual. No son944 defectos distintos ni una revisión manual aprobada. Se conservan separados los resultados locales y de GitHub, con causas/ejemplos/referencias. No se han usado lectores de pantalla ni dispositivos físicos. Tampoco se certifica contraste manual de todos los estados, una sesión larga o ausencia total de fugas.
+
+### Clasificación contextual de registros incompletos
+
+Se han inspeccionado los mecanismos, selectores, HTML serializado y checks conservados por axe. Esta clasificación no cierra su revisión manual ni certifica contraste visual o uso de lector de pantalla.
+
+| Mecanismo registrado | Ejemplo real del registro | Revisión contextual pendiente |
+| --- | --- | --- |
+| `nonBmp` | Flecha ▾ decorativa, `aria-hidden="true"`, de un desplegable | Separar símbolo decorativo y texto/nombre accesible del control; conservar la observación |
+| `elmPartiallyObscuring` / `bgOverlap` | Ayuda de Cartera y acción Nuevo Contacto | Comprobar fondo efectivo, intersecciones y posición del viewport |
+| `elmPartiallyObscured` | Cabecera Después de una vista previa de copia | Revisar clipping/solapamiento y fondos de tabla/modal en su contexto |
+| `shortTextContent` | Cabecera A del histórico | Revisar el texto breve dentro del encabezado y su fondo, sin inferir falta de etiqueta |
+| `imgNode` | Texto SVG de ejes de gráficos (por ejemplo, 0 €) | Verificar contraste sobre el fondo real del SVG; el motor no lo ha determinado |
+| `controlsWithinPopup` (`aria-valid-attr-value`) | Selector de partida con listbox abierto | Revisar el ID de aria-controls, el listbox y su ciclo de foco; la prioridad del motor no convierte un incompleto en violación |
+
+Los recuentos finales local/CI se informan separados. Una ocurrencia puede registrar varios checks; ni las ocurrencias de nodos ni los grupos repetidos equivalen a defectos distintos. No se modifica ninguna regla ni se elimina un resultado incompleto para obtener una aprobación.
+
+## Capturas de la aplicación real
+
+[Manifiesto de12 PNG](phase-5e-capture-manifest.json): antes/después de Inicio y Planificación a390/768/1280, datos ficticios idénticos y hash financiero por pareja. Proceden del build medido; no hay generación/edición de imágenes ni datos de Google AI Studio. Los cambios posteriores son de pruebas, documentación y presupuesto global de CI: el frontend fotografiado coincide con el código de entrega. La captura móvil de Planificación conserva un desplazamiento distinto durante el recorrido real (la carga diferida cambia la altura transitoria de la página). Estas vistas no son una comparación píxel a píxel; no se han alineado ni retocado las imágenes. Las pruebas de scroll por panel se conservan y se ejecutan por separado.
+
+| Superficie | Antes | Después |
+| --- | --- | --- |
+| mobile/application-cold | [PNG](phase-5e-screenshots/before-mobile-application-cold.png) | [PNG](phase-5e-screenshots/after-mobile-application-cold.png) |
+| mobile/planning-first-open | [PNG](phase-5e-screenshots/before-mobile-planning-first-open.png) | [PNG](phase-5e-screenshots/after-mobile-planning-first-open.png) |
+| tablet/application-cold | [PNG](phase-5e-screenshots/before-tablet-application-cold.png) | [PNG](phase-5e-screenshots/after-tablet-application-cold.png) |
+| tablet/planning-first-open | [PNG](phase-5e-screenshots/before-tablet-planning-first-open.png) | [PNG](phase-5e-screenshots/after-tablet-planning-first-open.png) |
+| desktop/application-cold | [PNG](phase-5e-screenshots/before-desktop-application-cold.png) | [PNG](phase-5e-screenshots/after-desktop-application-cold.png) |
+| desktop/planning-first-open | [PNG](phase-5e-screenshots/before-desktop-planning-first-open.png) | [PNG](phase-5e-screenshots/after-desktop-planning-first-open.png) |
+
+## Reproducción
+
+```bash
+npm ci
+npm test
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+git diff --check
+
+# Worktree separado; no modificar ni limpiar el checkout que contiene trabajo pendiente.
+git worktree add --detach ../Finanzas-pro-5e-base c9d70bf85f20ad983d13f5652b26f7fe91c231a8
+(cd ../Finanzas-pro-5e-base && npm ci && npm run build)
+# Ejecutar antes/después secuencialmente, sin otras pruebas de navegador.
+PERF_DIST=../Finanzas-pro-5e-base/dist PERF_OUTPUT=/tmp/before.json CHROMIUM_PATH=/usr/bin/chromium npm run measure:performance
+PERF_DIST=dist PERF_OUTPUT=/tmp/after.json CHROMIUM_PATH=/usr/bin/chromium npm run measure:performance
+node scripts/performance/compare.mjs /tmp/before.json /tmp/after.json /tmp/comparison.json
+# Repetir ambos PERF_DIST con npm run measure:journeys y comparar:
+node scripts/performance/compareJourneys.mjs /tmp/journeys-before.json /tmp/journeys-after.json /tmp/journeys-comparison.json
+PERF_BASE_SOURCE=../Finanzas-pro-5e-base CHROMIUM_PATH=/usr/bin/chromium node --import tsx scripts/performance/reactProfile.ts
+PERF_BASE_SOURCE=../Finanzas-pro-5e-base node --import tsx scripts/performance/hotspots.ts
+npm run audit:bundles
+```
+
+Los valores PERF_SAMPLES/PERF_PROFILE permiten exploración; la comparación publicada usa3 muestras y los tres perfiles completos. Los temporales profiling se borran solo tras cerrar sus contextos, nunca el repositorio/datos originales. El límite exploratorio de5.000 se fija en120s tras observar una acción base mayor de30s; no se amplían límites individuales de pruebas; la única ampliación es el presupuesto global de CI documentado más abajo. El gate obligatorio de rendimiento es determinista (gzip inicial≤ceil(0,8×321.042)), junto con la ausencia de idiomas/chunks anticipados; no se añaden umbrales temporales inestables.
+
+## Checkpoints, CI y entrega
+
+- f5a6d3f: inventario y herramientas de línea base.
+- 83523f5: idiomas diferidos, carreras/reintentos,587 unitarias y15 resultados nuevos.
+- 5f81e2d: módulos diferidos,6 resultados iniciales de módulos.
+- 12c41b3: formatos/índice y volumen,596 unitarias y4 resultados de volumen.
+- 65b6a82: gráficos/formularios, tema y contraste;599 unitarias, módulos7 y tema10.
+- d66d4a4: disparadores financieros reales y recorridos móviles.
+- 585e996: readiness explícito y perfiles React.
+- d9ccb7d: identidad React.lazy cumplida compartida para evitar resuspensiones al cambiar mes/visitar módulos; automatizaciones15/15 y módulos8/8.
+
+Base reejecutada:585 unitarias,22 infraestructura,747 Chromium/37 suites, lint/build correctos; [resumen verificable](phase-5e-baseline-validation.json). Los intentos parciales/fallidos se conservan separados de la ejecución final. La [CI43650839122](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122) en d66d4a4 falló en Chromium por5E-08; unitarias y código fueron verdes. Los intentos posteriores se registran con sus fallos y cancelaciones en el inventario de validación; ninguno de ellos se presenta como aprobación integral. No se modifican permisos, protecciones, reglas de fallo o límites individuales para aprobar; el presupuesto global de CI tiene una excepción medida, documentada abajo.
+
+## Recomendaciones posteriores
+
+1. Medir precarga por intención para Catálogo/asistente/idiomas frecuentes, publicando su coste adicional y efecto en primera visita.
+2. Estudiar una lista de volumen accesible (búsqueda, teclado, lectura/impresión, foco y totales completos) antes de virtualizar/paginar;5.000 sigue siendo lento en CPU4×.
+3. Evaluar aislar el formateador legado en un módulo hoja para evitar dependencias de dominio en la landing, con equivalencia exacta y sin cambiar modelos.
+4. Ampliar muestras/dispositivos físicos y sesiones largas para INP/memoria real. Revisar manualmente grupos axe equivalentes con su contexto, sin descartarlos ni tratarlos como violaciones.
+
+Sin fusión, despliegue, sincronización de Google AI Studio, cambios de main/protecciones, nuevas dependencias o datos personales.
+
+## Resuspensión en cambios de mes (5E-09)
+
+La segunda CI roja, [43652265177](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43652265177), reprodujo una pérdida de selección inmediata de Multiperiodo en móvil: la importación estaba cacheada, pero una identidad React.lazy nueva volvía a suspender al cambiar la key del mes. La corrección comparte la identidad cumplida por funcionalidad, manteniendo una identidad nueva para reintentar errores. No se duplican stores/proveedores ni se cambia el reset financiero por mes. Automatizaciones15/15 y módulos8/8 pasan con el caso nuevo; los informes después y las capturas se han regenerado para d9ccb7d. La CI43653525846 terminó fallando en el sondeo esbuild descrito en5E-10; la corrección funcional permanece y su validación integral se registra en el cierre.
+
+[Intentos completos, parciales y fallidos](phase-5e-validation-attempts.json): se conservan los estados rojos y las cancelaciones; no se cuentan como aprobación ni se ocultan con reintentos automáticos.
+
+## Entorno del sondeo aislado de navegación (5E-10)
+
+La CI43653525846 pasó unitarias/código y señaló dos compilaciones de sondeo de intelligent.browser: esbuild IIFE incluía la preparación Node/SSR con top-level await porque ese bundle aislado no recibía las constantes de entorno del navegador. Se definen exactamente import.meta.env.SSR=false e import.meta.env.BASE_URL="/", conservando NODE_ENV=production, como en Vite. El build real de producción y la preparación Node/SSR no cambian. Se mantienen las comprobaciones originales de movimiento/ocurrencia enlazada, filtros, foco y ausencia de escrituras. La suite original completa vuelve a25/25, sin omisiones/cancelaciones ni cambios de límites. Las sondas incompletas/fallidas no se presentan como prueba aprobada.
+
+## Contenido real antes de recuentos visuales (5E-11)
+
+La CI43655068796 y la ejecución local reprodujeron el recuento prematuro de cero tarjetas al abrir Cuentas (se esperaban tres). Las comprobaciones visuales esperan ahora los contenedores reales de Cuentas y Planificación, y la matriz de presentación espera la región del planificador antes de contar sus pestañas. Se conservan todos los recuentos y umbrales AA. Resultado focalizado: visual12/12 y presentación7/7, sin omisiones/cancelaciones. Son cambios del arnés; no alteran el frontend medido/fotografiado ni amplían tiempos de espera.
+
+## Selección fría de Multiperiodo en el arnés (5E-12)
+
+La CI43656155672 detectó que selectPlanningArea consultaba count() antes de que existiera el tablist diferido. Interpretaba cero pestañas como escritorio y omitía la activación móvil, aunque el details ya estaba abierto. El helper espera ahora el tablist visible antes de distinguir las variantes; no cambia el componente, sus reglas, los casos originales ni los límites. La suite de subítems conserva sus19 resultados y la batería completa vuelve a ejecutarse.
+
+## Aserciones tras carga diferida: cierre del diagnóstico
+
+El diagnóstico posterior completó569/569 resultados en29 suites, sin fallos, omisiones o cancelaciones. No equivale por sí solo a una aprobación de npm run test:ui. Se verificó adicionalmente customCatalog6/6 esperando el catálogo real antes de afirmar la ausencia de una partida retirada. La regresión de módulo cacheado añade un MutationObserver antes del cambio de mes: exige cero inserciones transitorias de loader, incluso aunque el helper espere al tablist. Módulos8/8 pasan con esa aserción, de modo que la nueva espera no enmascara una resuspensión. Lint/diff-check pasan; la secuencia integral final se ejecuta después de publicar este checkpoint.
+
+## Presupuesto global de CI: excepción medida (5E-13)
+
+La [ejecución43657226987](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43657226987) se canceló al alcanzar40 minutos. Había completado35 suites y698/698 resultados, sin fallos, omisiones o cancelaciones de esos resúmenes; la suite original de catálogo multidioma estaba en curso (13 casos parciales no se contabilizan como suite aprobada). Unitarias599/599+infraestructura22/22 y código habían pasado. Esta ejecución cancelada no constituye aprobación integral.
+
+El punto14 del encargo permite una ampliación «verdaderamente necesaria por una mayor cobertura», justificada con duraciones medidas y manteniendo todos los criterios de fallo. El [informe de capacidad](phase-5e-ci-budget-evidence.json) conserva las duraciones originales:35 suites ahora consumen38,18 minutos antes de las restantes; catálogo/registro rápido y las cuatro suites nuevas añaden aproximadamente4,5 minutos según el diagnóstico local, además de instalación, arranque y artefactos. Las pruebas originales ahora recorren cargas asíncronas reales, esperan contenido para axe/recuentos y generan conflictos mediante operaciones financieras reales en vez del tema. No se atribuye todo el aumento a los37 resultados nuevos. La comparación histórica con5D no es una medición causal del producto entre runners diferentes.
+
+Se cambia únicamente `browser.timeout-minutes:40→50` y un comentario explicativo en `.github/workflows/ci.yml`. No se cambian límites individuales de suites/acciones, reglas axe, criterios de fallo, aserciones, eventos, permisos, trabajos o retención; no hay reintentos automáticos ni continue-on-error.50 minutos proporciona margen acotado para finalizar la cobertura obligatoria, sin convertir una prueba fallida en verde. Es la única excepción al inventario original de46 hashes:45 archivos permanecen idénticos; el workflow conserva ambos hashes y el motivo en el registro de protección. Los fuentes financieros y el frontend medido continúan intactos. La nueva CI completó las41 suites:2596,346s de comando (43m16,346s) y2623s de trabajo completo, dentro de50m, con784/784 resultados y tres trabajos verdes. La cancelación anterior permanece documentada, sin presentarse como aprobación.
+
+## Inventario íntegro de informes axe (5E-14)
+
+El selector de archivos del colector CLI heredado no incluía multilingual-catalog.json (incorporado en5D). El archivo sí se generaba y sus aserciones seguían ejecutándose: la omisión afectaba al agrupado por CLI. Se amplía únicamente ese selector, reutilizando la misma función y las mismas reglas de equivalencia. El diagnóstico conserva17 informes y1481 observaciones (incluye las60 del catálogo), cero violaciones y906 grupos incompletos; sus resultados no sustituyen a la batería final. Los informes finales local y CI se regeneran por separado con el conjunto íntegro, sin descartar registros ni modificar reglas axe.
+
+## Resultados definitivos locales y CI de referencia
+
+[Registro local](phase-5e-final-local-validation.json) y [registro remoto con artefactos verificados](phase-5e-ci-reference.json). La ejecución local comenzó sobre862c6c3; desde entonces solo cambiaron documentación, presupuesto global CI y filtro del colector de informes. El frontend permanece idéntico a d9ccb7d y los casos unitarios/Chromium no cambian. La CI de referencia usa10e68fa y la ejecución de la PR verifica de nuevo su SHA exacto final.
+
+| Comprobación | Local | GitHub Actions43661115609 |
+| --- | --- | --- |
+| npm ci |188 paquetes; correcto | Instalación reproducible correcta |
+| Unitarias |599/599 |599/599 |
+| Infraestructura |22/22 |22/22 |
+| Chromium |784/784 en41 suites |784/784 en41 suites |
+| npm run lint |0 errores |0 errores |
+| npm run build |Correcto; sin aviso de chunk>500kB |Correcto; sin aviso de chunk>500kB |
+| Git diff |Rango real origin/main...HEAD y árbol, correctos |Padre real en dispatch; main real en la ejecución de PR |
+| Resúmenes de pruebas |0 fallos/omisiones/cancelaciones/pendientes |0 fallos/omisiones/cancelaciones/pendientes |
+| Comando npm run test:ui |2917,753s (48m37,753s) |2596,346s (43m16,346s) |
+
+Las37 suites originales conservan exactamente747 resultados y sus recuentos por suite, comparados con la base realmente reejecutada. Se añaden14 unitarias y37 resultados Chromium: idiomas15, módulos8, volumen4 y tema10. Se mantiene la advertencia de dependencia obsoleta node-domexception@1.0.0 en npm ci, sin actualizar dependencias; el aviso informativo de nueva versión de npm no es un fallo. No se han instalado librerías nuevas ni alterado el lockfile.
+
+| Trabajo remoto | Estado | Duración completa |
+| --- | --- | ---: |
+| [Unitarias](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427521) |success |21s |
+| [Lint, build y diff](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427657) |success |19s |
+| [Chromium y axe](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609/job/132650427732) |success |2623s (43m43s) |
+
+Entorno remoto real: Node24.22.1, playwright-core1.64.1, Google Chrome for Testing156.0.8078.4 (revisión1248), Ubuntu24/x64, imagen20261111.370.1. [Versiones completas](phase-5e-environment.json). Los tres ZIP coinciden con los digests publicados por GitHub; identificadores, SHA-256, comandos, estados por suite y alcance del diff se conservan en el registro remoto. La retención del workflow continúa siendo7 días; los resúmenes y referencias aquí comprometidos permanecen en Git.
+
+| Axe, observaciones persistidas | Local | CI de referencia |
+| --- | ---: | ---: |
+| Informes completos |17 |17 |
+| Observaciones |1481 |1481 |
+| Violaciones automatizadas |0 |0 |
+| Grupos incompletos |906 |945 |
+| Conjuntos equivalentes |49 |52 |
+| Ocurrencias de nodos/checks |5512 |5764 |
+
+Se conservan aparte los antecedentes de5D:944 grupos/51 conjuntos de CI pendientes. Las diferencias de clasificación entre máquinas y estados no significan pérdida de pruebas ni resolución manual. Las19 observaciones nuevas de carga/error/tema tienen0 violaciones; en CI hay un incompleto nuevo, español/768px/oscuro, en la etiqueta Presupuestos de navegación durante planning-loading. El mecanismo elmPartiallyObscured no determina el fondo respecto a su propio botón; el valor0 de contraste del registro es indeterminado, no una medición0:1. Queda pendiente su inspección contextual, sin modificar reglas ni considerarlo contraste aprobado. Los demás mecanismos se clasifican arriba con ejemplos y referencias.
+
+Pendientes para revisión: coste adicional de primera visita a módulos/idiomas y mayor gzip total de todos los recursos;5.000 filas aún lentas; revisión contextual de grupos incompletos, incluido el nuevo estado de carga; pruebas de campo/dispositivos físicos y sesiones largas no realizadas. No se certifica un lector de pantalla ni Safari/iPhone real. La fase no incorpora virtualización, backend, autenticación, nube, migraciones o cambios de interpretación del asistente.
+
+La entrega se publica como una única PR Draft hacia main, con [inventario de archivos](phase-5e-changed-files.json) y CI del SHA exacto enlazada en su cuerpo. No se fusiona, despliega ni sincroniza Google AI Studio; main y sus protecciones permanecen intactos.

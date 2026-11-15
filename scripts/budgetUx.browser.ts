@@ -65,6 +65,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
     const page = await context.newPage(); page.setDefaultTimeout(7000);
     const errors: string[] = []; page.on('pageerror', error => errors.push(error.message));
     await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z')); await page.goto(url); await page.getByRole('button', { name: /^(?:\d+\s*)?Presupuestos(?:\s*\d+)?$/ }).first().click();
+    await planner(page).waitFor(); // Count/fold assertions apply after the deferred editor is ready.
     return { page, context, close: async () => { await context.close(); assert.deepEqual(errors, []); } };
   }
 

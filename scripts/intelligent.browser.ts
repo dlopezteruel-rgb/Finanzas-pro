@@ -1,5 +1,4 @@
-import { selectPlanningArea } from './browserNavigation';
-import { navigateModule } from './browserNavigation';
+import {concurrentFinancialEdit, selectPlanningArea, navigateModule} from './browserNavigation';
 import test from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
@@ -276,7 +275,8 @@ test(
         write: false,
         format: "iife",
         platform: "browser",
-        define: { "process.env.NODE_ENV": '"production"' },
+        // Match Vite's browser environment; Node/SSR preloading is not part of this IIFE.
+        define: { "process.env.NODE_ENV": '"production"', "import.meta.env.SSR": "false", "import.meta.env.BASE_URL": '"/"' },
       });
       await p.route(`${new URL(url).origin}/navigation-harness.js`, (route) =>
         route.fulfill({
@@ -1217,7 +1217,7 @@ test(
           const other = await context.newPage();
           await other.clock.setFixedTime(new Date(fakeTime));
           await other.goto(url);
-          await other.getByRole("button", { name: /Cambiar a modo/ }).click();
+          await concurrentFinancialEdit(other);
           await p.waitForFunction(() =>
             document.body.textContent?.includes("Otra pestaña"),
           );

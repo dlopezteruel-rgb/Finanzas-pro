@@ -1,0 +1,322 @@
+{
+  "baselineCompleted": 37,
+  "baselineResults": 747,
+  "baselineSuiteMinutes": 32.42495704133334,
+  "currentCompleted": 35,
+  "currentResults": 698,
+  "currentPass": 698,
+  "currentFail": 0,
+  "currentSuiteMinutes": 38.18298278511667,
+  "currentPartialCataloguePassed": 13,
+  "perSuite": [
+    {
+      "index": 24,
+      "tests": 31,
+      "beforeMs": 69321.603088,
+      "afterMs": 124447.691358,
+      "increaseMs": 55126.08826999999
+    },
+    {
+      "index": 33,
+      "tests": 31,
+      "beforeMs": 115725.271441,
+      "afterMs": 152638.968077,
+      "increaseMs": 36913.69663599999
+    },
+    {
+      "index": 1,
+      "tests": 57,
+      "beforeMs": 62849.40087,
+      "afterMs": 99705.666739,
+      "increaseMs": 36856.265868999995
+    },
+    {
+      "index": 29,
+      "tests": 36,
+      "beforeMs": 86380.121196,
+      "afterMs": 122630.469892,
+      "increaseMs": 36250.348696
+    },
+    {
+      "index": 8,
+      "tests": 16,
+      "beforeMs": 37255.936832,
+      "afterMs": 72368.296899,
+      "increaseMs": 35112.360066999994
+    },
+    {
+      "index": 28,
+      "tests": 31,
+      "beforeMs": 106132.475891,
+      "afterMs": 138710.49235,
+      "increaseMs": 32578.01645899999
+    },
+    {
+      "index": 27,
+      "tests": 41,
+      "beforeMs": 111897.00807,
+      "afterMs": 138555.233445,
+      "increaseMs": 26658.225374999995
+    },
+    {
+      "index": 30,
+      "tests": 36,
+      "beforeMs": 124542.686507,
+      "afterMs": 145915.576934,
+      "increaseMs": 21372.890427000006
+    },
+    {
+      "index": 21,
+      "tests": 9,
+      "beforeMs": 54741.591007,
+      "afterMs": 73500.236151,
+      "increaseMs": 18758.645144000002
+    },
+    {
+      "index": 5,
+      "tests": 15,
+      "beforeMs": 23130.517814,
+      "afterMs": 41022.595615,
+      "increaseMs": 17892.077801
+    },
+    {
+      "index": 13,
+      "tests": 19,
+      "beforeMs": 25449.525999,
+      "afterMs": 42156.469728,
+      "increaseMs": 16706.943728999995
+    },
+    {
+      "index": 3,
+      "tests": 23,
+      "beforeMs": 25745.793983,
+      "afterMs": 41595.766633,
+      "increaseMs": 15849.97265
+    },
+    {
+      "index": 31,
+      "tests": 31,
+      "beforeMs": 146619.611433,
+      "afterMs": 161934.608837,
+      "increaseMs": 15314.997403999994
+    },
+    {
+      "index": 34,
+      "tests": 31,
+      "beforeMs": 147023.651304,
+      "afterMs": 161961.312362,
+      "increaseMs": 14937.661057999998
+    },
+    {
+      "index": 9,
+      "tests": 25,
+      "beforeMs": 26892.495594,
+      "afterMs": 41276.199965,
+      "increaseMs": 14383.704371
+    },
+    {
+      "index": 12,
+      "tests": 14,
+      "beforeMs": 20607.536705,
+      "afterMs": 34989.953326,
+      "increaseMs": 14382.416621000004
+    },
+    {
+      "index": 4,
+      "tests": 13,
+      "beforeMs": 16735.36464,
+      "afterMs": 30843.040658,
+      "increaseMs": 14107.676018000002
+    },
+    {
+      "index": 14,
+      "tests": 7,
+      "beforeMs": 14071.053338,
+      "afterMs": 27277.082788,
+      "increaseMs": 13206.02945
+    },
+    {
+      "index": 32,
+      "tests": 38,
+      "beforeMs": 132300.280719,
+      "afterMs": 144363.921206,
+      "increaseMs": 12063.640486999997
+    },
+    {
+      "index": 25,
+      "tests": 31,
+      "beforeMs": 117831.987201,
+      "afterMs": 128569.746375,
+      "increaseMs": 10737.759174000006
+    },
+    {
+      "index": 7,
+      "tests": 15,
+      "beforeMs": 19179.808006,
+      "afterMs": 29672.103388,
+      "increaseMs": 10492.295382
+    },
+    {
+      "index": 18,
+      "tests": 11,
+      "beforeMs": 11323.092436,
+      "afterMs": 18837.386358,
+      "increaseMs": 7514.293921999999
+    },
+    {
+      "index": 16,
+      "tests": 10,
+      "beforeMs": 26930.219956,
+      "afterMs": 33248.753858,
+      "increaseMs": 6318.533901999996
+    },
+    {
+      "index": 17,
+      "tests": 5,
+      "beforeMs": 8601.319731,
+      "afterMs": 14149.257267,
+      "increaseMs": 5547.937536000001
+    },
+    {
+      "index": 10,
+      "tests": 12,
+      "beforeMs": 12009.417516,
+      "afterMs": 16143.826745,
+      "increaseMs": 4134.409229000001
+    },
+    {
+      "index": 15,
+      "tests": 6,
+      "beforeMs": 9887.12689,
+      "afterMs": 13982.257641,
+      "increaseMs": 4095.1307510000006
+    },
+    {
+      "index": 2,
+      "tests": 12,
+      "beforeMs": 19142.731335,
+      "afterMs": 22833.99724,
+      "increaseMs": 3691.265905
+    },
+    {
+      "index": 6,
+      "tests": 8,
+      "beforeMs": 13274.757908,
+      "afterMs": 16507.714735,
+      "increaseMs": 3232.956827000002
+    },
+    {
+      "index": 19,
+      "tests": 6,
+      "beforeMs": 6470.729294,
+      "afterMs": 9249.353865,
+      "increaseMs": 2778.6245709999994
+    },
+    {
+      "index": 26,
+      "tests": 11,
+      "beforeMs": 22441.129524,
+      "afterMs": 25197.994971,
+      "increaseMs": 2756.865447
+    },
+    {
+      "index": 20,
+      "tests": 3,
+      "beforeMs": 2253.548543,
+      "afterMs": 3627.65604,
+      "increaseMs": 1374.107497
+    },
+    {
+      "index": 35,
+      "tests": 43,
+      "beforeMs": 87198.439279,
+      "afterMs": 88147.964259,
+      "increaseMs": 949.524980000002
+    },
+    {
+      "index": 11,
+      "tests": 5,
+      "beforeMs": 28543.229163,
+      "afterMs": 27689.596936,
+      "increaseMs": -853.6322269999982
+    },
+    {
+      "index": 22,
+      "tests": 10,
+      "beforeMs": 18138.49816,
+      "afterMs": 16442.27601,
+      "increaseMs": -1696.2221499999978
+    },
+    {
+      "index": 23,
+      "tests": 6,
+      "beforeMs": 34184.524845,
+      "afterMs": 30785.498456,
+      "increaseMs": -3399.0263889999987
+    }
+  ],
+  "scope": "Historical CI timings support capacity planning only; different runners/runs, not causal product-performance measurements.",
+  "baselineRun": {
+    "id": 43621981501,
+    "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43621981501",
+    "head": "c4c98c152158f7e1406212e80bf084cebda9cc76"
+  },
+  "cancelledRun": {
+    "id": 43657226987,
+    "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43657226987",
+    "head": "79832fea2447041dba572666f96dd5c67ac3bc98",
+    "job": 132638347915,
+    "startedAt": "2026-11-15T00:15:03Z",
+    "completedAt": "2026-11-15T00:55:21Z",
+    "conclusion": "cancelled",
+    "reason": "Global browser job40-minute budget; operation cancelled, not a failed assertion."
+  },
+  "localDiagnostic": {
+    "results": 569,
+    "suites": 29,
+    "durationMinutes": 38.250166666666665,
+    "wholeStandardRun": false
+  },
+  "coverage": {
+    "baseline": {
+      "results": 747,
+      "suites": 37
+    },
+    "current": {
+      "results": 784,
+      "suites": 41
+    },
+    "newResults": 37,
+    "newSuites": 4,
+    "additionalExistingScenarios": "Actual zero-balance wallet commits for finance conflicts; real deferred module content before counts/axe; cold asynchronous language/module paths throughout original matrices."
+  },
+  "decision": {
+    "beforeMinutes": 40,
+    "afterMinutes": 50,
+    "scope": "Global job resource cap only; all individual suite/action timeouts and failure rules remain unchanged. No continue-on-error, removed assertions or automatic retries.",
+    "basis": "Current completed35 suites already take38.18m; remaining real-catalogue/quick/new suites measured locally add about4.5m, plus setup/process/artifact overhead.50m provides bounded headroom for the complete mandatory coverage.",
+    "authorization": "Assignment section14 explicitly permits a genuinely necessary coverage-related extension with measured justification and unchanged failure criteria."
+  },
+  "completedSummariesCounts": {
+    "tests": 698,
+    "pass": 698,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "validatedOutcome": {
+    "run": 43661115609,
+    "head": "10e68faac2071144bc8c280035582e34ffa99905",
+    "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43661115609",
+    "requiredJobsSucceeded": 3,
+    "results": 784,
+    "suites": 41,
+    "browserCommandSeconds": 2596.346,
+    "browserJobSeconds": 2623,
+    "globalBudgetSeconds": 3000,
+    "assertionFailures": 0,
+    "omissions": 0,
+    "cancellations": 0
+  }
+}

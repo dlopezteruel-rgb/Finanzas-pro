@@ -1,6 +1,13 @@
 import type { Messages } from './messages';
 
 export const fr = {
+  "theme.storageError": "Le thème a changé dans cet onglet, mais la préférence visuelle n’a pas pu être enregistrée.",
+  "feature.charts": "Graphiques",
+  "feature.loading": "Chargement de {name}…",
+  "feature.error": "Impossible de charger {name}. Les données et les formulaires ouverts sont conservés.",
+  "language.loading": "Chargement de {language}…",
+  "language.loadError": "Impossible de charger {language}. La langue précédente est conservée.",
+  "language.retry": "Réessayer le chargement",
   "common.skip": "Aller au contenu",
   "nav.label": "Navigation principale",
   "nav.home": "Accueil",

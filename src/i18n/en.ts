@@ -1,6 +1,13 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "theme.storageError": "The theme has changed in this tab, but the visual preference could not be saved.",
+  "feature.charts": "Charts",
+  "feature.loading": "Loading {name}…",
+  "feature.error": "Could not load {name}. Data and open forms are preserved.",
+  "language.loading": "Loading {language}…",
+  "language.loadError": "Could not load {language}. The previous language is preserved.",
+  "language.retry": "Retry loading",
   "common.skip": "Skip to content",
   "nav.label": "Main navigation",
   "nav.home": "Home",

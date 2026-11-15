@@ -34,7 +34,21 @@ export function presentationCents(cents:number,language:Language='es'):string{
  return exactParts(absolute/100n,String(absolute%100n).padStart(2,'0'),value<0n,language);
 }
 /** 5A Madrid default, also reused by date-only, timestamp and month presentation. */
-export const presentationDate=(date:Date,language:Language='es',options:DateOptions=dateOptions)=>new Intl.DateTimeFormat(languages[language].locale,{...options,timeZone:'Europe/Madrid'}).format(date);
+// Bounded cache of Intl instances, not formatted dates or financial values.
+// Key every option and locale; callers can reuse/mutate their own option object safely.
+const dateFormatters = new Map<string, Intl.DateTimeFormat>();
+function dateFormatter(language: Language, options: DateOptions): Intl.DateTimeFormat {
+ const effective = {...options,timeZone:'Europe/Madrid'},locale=languages[language].locale;
+ const key=JSON.stringify([locale,Object.entries(effective).sort(([a],[b])=>a.localeCompare(b))]);
+ let formatter=dateFormatters.get(key);
+ if(!formatter){
+  formatter=new Intl.DateTimeFormat(locale,effective);
+  if(dateFormatters.size>=64)dateFormatters.delete(dateFormatters.keys().next().value!);
+  dateFormatters.set(key,formatter);
+ }
+ return formatter;
+}
+export const presentationDate=(date:Date,language:Language='es',options:DateOptions=dateOptions)=>dateFormatter(language,options).format(date);
 export function presentationISODate(value:string,language:Language='es',options:DateOptions=dateOptions):string{
  // Noon preserves a calendar date even with Madrid's historical pre-1901 offset.
  const calendar=realDate(value),instant=realDate(value.slice(0,10))&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}/.test(value);
@@ -53,7 +67,7 @@ export function presentationISODate(value:string,language:Language='es',options:
 export function presentationMonth(month:string,language:Language='es',short=false):string{
  assertMonth(month);
  const date=new Date(`${month}-15T12:00:00Z`),options:DateOptions={month:short&&language!=='es'?'short':'long',year:'numeric'};
- return new Intl.DateTimeFormat(languages[language].locale,{...options,timeZone:'Europe/Madrid'}).formatToParts(date).map(part=>{
+ return dateFormatter(language,options).formatToParts(date).map(part=>{
   if(part.type==='year')return month.slice(0,4);
   if(part.type==='month'&&short&&language==='es')return part.value.slice(0,3);
   if(part.type==='literal'&&language==='es')return part.value.replace(/\bde\b/g,'').replace(/\s+/g,' ');

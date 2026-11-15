@@ -1,0 +1,6015 @@
+{
+  "schemaVersion": 1,
+  "dist": "/workspace/work/5e-baseline-dist",
+  "sourceCommit": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
+  "samples": 3,
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "cpu": 2,
+      "latency": 40,
+      "mbps": 5
+    },
+    {
+      "name": "desktop",
+      "width": 1280,
+      "cpu": 1,
+      "latency": 20,
+      "mbps": 10
+    }
+  ],
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "156.0.8078.79",
+    "platform": "linux",
+    "cpus": 3,
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "memory": 10452459520
+  },
+  "method": "Production assets served with gzip. Isolated contexts for cold loads; reload within same context for warm. CDP CPU/network controls. Interactions include Playwright dispatch and two animation frames; not real-device INP. ScriptDuration is cumulative execution, not parsing bytes. Heap is CDP approximate live heap without forced GC. LCP is last observation at snapshot, not a final Core Web Vital. Encoded resource body is measured gzip; transfer includes protocol overhead. No routing (preserves HTTP cache).",
+  "rows": [
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 2791.8824469999995,
+      "scriptDurationMs": 374.00899999999996,
+      "taskDurationMs": 838.078,
+      "heapUsedBytes": 4684888,
+      "nodes": 224,
+      "longTasks": [
+        246,
+        125
+      ],
+      "cls": 0,
+      "lcp": 2508,
+      "fcp": 2508,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 2557.743772,
+      "scriptDurationMs": 291.135,
+      "taskDurationMs": 662.999,
+      "heapUsedBytes": 4752524,
+      "nodes": 224,
+      "longTasks": [
+        155,
+        131
+      ],
+      "cls": 0,
+      "lcp": 2360,
+      "fcp": 2360,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 3703.4595919999992,
+      "scriptDurationMs": 444.598,
+      "taskDurationMs": 968.9910000000001,
+      "heapUsedBytes": 5549516,
+      "nodes": 571,
+      "longTasks": [
+        145,
+        54,
+        136
+      ],
+      "cls": 0,
+      "lcp": 3440,
+      "fcp": 2284,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 3845.729564000001,
+      "scriptDurationMs": 511.181,
+      "taskDurationMs": 971.663,
+      "heapUsedBytes": 5927188,
+      "nodes": 618,
+      "longTasks": [
+        219,
+        57,
+        128
+      ],
+      "cls": 0,
+      "lcp": 3476,
+      "fcp": 2400,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 735.2994600000002,
+      "scriptDurationMs": 269.277,
+      "taskDurationMs": 585.4110000000001,
+      "heapUsedBytes": 8393424,
+      "nodes": 1743,
+      "longTasks": [
+        51,
+        50,
+        54
+      ],
+      "cls": 0,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 581.9850820000011,
+      "scriptDurationMs": 414.28700000000003,
+      "taskDurationMs": 955.4169999999999,
+      "heapUsedBytes": 10288392,
+      "nodes": 2784,
+      "longTasks": [
+        51,
+        50,
+        54
+      ],
+      "cls": 0,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 880.0115960000003,
+      "scriptDurationMs": 901.097,
+      "taskDurationMs": 1728.495,
+      "heapUsedBytes": 14790016,
+      "nodes": 9495,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648
+      ],
+      "cls": 0,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 534.803216999997,
+      "scriptDurationMs": 907.9639999999999,
+      "taskDurationMs": 2277.926,
+      "heapUsedBytes": 16069336,
+      "nodes": 9505,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648,
+        391
+      ],
+      "cls": 0,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 869.4367779999993,
+      "scriptDurationMs": 1202.549,
+      "taskDurationMs": 3118.214,
+      "heapUsedBytes": 15082572,
+      "nodes": 13915,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648,
+        391,
+        686
+      ],
+      "cls": 0,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 253.89516500000173,
+      "scriptDurationMs": 1275.593,
+      "taskDurationMs": 3343.47,
+      "heapUsedBytes": 16937604,
+      "nodes": 13921,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648,
+        391,
+        686,
+        87
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 587.8864509999985,
+      "scriptDurationMs": 1602.636,
+      "taskDurationMs": 3868.064,
+      "heapUsedBytes": 14545436,
+      "nodes": 14052,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648,
+        391,
+        686,
+        87,
+        203,
+        155
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 279.8572260000001,
+      "scriptDurationMs": 1742.547,
+      "taskDurationMs": 4123.123,
+      "heapUsedBytes": 17078620,
+      "nodes": 14072,
+      "longTasks": [
+        51,
+        50,
+        54,
+        648,
+        391,
+        686,
+        87,
+        203,
+        155,
+        143
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 704,
+      "fcp": 308,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 8060.722931,
+      "scriptDurationMs": 3705.662,
+      "taskDurationMs": 9081.961,
+      "heapUsedBytes": 15613156,
+      "nodes": 43474,
+      "longTasks": [
+        150,
+        52,
+        188,
+        7508
+      ],
+      "cls": 0,
+      "lcp": 3404,
+      "fcp": 2264,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 693.0146700000041,
+      "scriptDurationMs": 4040.268,
+      "taskDurationMs": 9784.613,
+      "heapUsedBytes": 28954096,
+      "nodes": 43480,
+      "longTasks": [
+        150,
+        52,
+        188,
+        7508,
+        384
+      ],
+      "cls": 0.05624249465811966,
+      "lcp": 3404,
+      "fcp": 2264,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 38632.329425,
+      "scriptDurationMs": 15275.381,
+      "taskDurationMs": 39997.681,
+      "heapUsedBytes": 53671448,
+      "nodes": 214476,
+      "longTasks": [
+        166,
+        73,
+        363,
+        70,
+        37251,
+        241
+      ],
+      "cls": 0,
+      "lcp": 3812,
+      "fcp": 2396,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 3575.977589000002,
+      "scriptDurationMs": 17060.11,
+      "taskDurationMs": 43468.259000000005,
+      "heapUsedBytes": 80016148,
+      "nodes": 214476,
+      "longTasks": [
+        166,
+        73,
+        363,
+        70,
+        37251,
+        241,
+        1799,
+        154
+      ],
+      "cls": 0.05626817307692307,
+      "lcp": 3812,
+      "fcp": 2396,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 2528.1416099999915,
+      "scriptDurationMs": 287.92,
+      "taskDurationMs": 650.768,
+      "heapUsedBytes": 5023352,
+      "nodes": 224,
+      "longTasks": [
+        169,
+        115
+      ],
+      "cls": 0,
+      "lcp": 2312,
+      "fcp": 2312,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 2547.266125000009,
+      "scriptDurationMs": 274.60499999999996,
+      "taskDurationMs": 652.007,
+      "heapUsedBytes": 4988468,
+      "nodes": 224,
+      "longTasks": [
+        154,
+        119
+      ],
+      "cls": 0,
+      "lcp": 2364,
+      "fcp": 2364,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 3714.9545789999975,
+      "scriptDurationMs": 457.019,
+      "taskDurationMs": 1010.894,
+      "heapUsedBytes": 6198452,
+      "nodes": 571,
+      "longTasks": [
+        172,
+        53,
+        130
+      ],
+      "cls": 0,
+      "lcp": 3432,
+      "fcp": 2308,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 3733.543304000006,
+      "scriptDurationMs": 427.34299999999996,
+      "taskDurationMs": 919.89,
+      "heapUsedBytes": 5833308,
+      "nodes": 618,
+      "longTasks": [
+        121,
+        65,
+        153
+      ],
+      "cls": 0,
+      "lcp": 3396,
+      "fcp": 2268,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 702.0825570000015,
+      "scriptDurationMs": 193.97500000000002,
+      "taskDurationMs": 530.117,
+      "heapUsedBytes": 8140984,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 658.4760360000073,
+      "scriptDurationMs": 323.772,
+      "taskDurationMs": 941.682,
+      "heapUsedBytes": 10032496,
+      "nodes": 2784,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 682.7113429999881,
+      "scriptDurationMs": 725.623,
+      "taskDurationMs": 1588.885,
+      "heapUsedBytes": 14399124,
+      "nodes": 9495,
+      "longTasks": [
+        524
+      ],
+      "cls": 0,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 367.48397900001146,
+      "scriptDurationMs": 731.788,
+      "taskDurationMs": 1910.4270000000001,
+      "heapUsedBytes": 15601524,
+      "nodes": 9505,
+      "longTasks": [
+        524,
+        247
+      ],
+      "cls": 0,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 899.831680000003,
+      "scriptDurationMs": 1029.6860000000001,
+      "taskDurationMs": 2769.29,
+      "heapUsedBytes": 14015148,
+      "nodes": 13915,
+      "longTasks": [
+        524,
+        247,
+        649
+      ],
+      "cls": 0,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 230.8717089999991,
+      "scriptDurationMs": 1073.2379999999998,
+      "taskDurationMs": 2971.424,
+      "heapUsedBytes": 15864308,
+      "nodes": 13921,
+      "longTasks": [
+        524,
+        247,
+        649,
+        56
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 569.3338199999998,
+      "scriptDurationMs": 1374.795,
+      "taskDurationMs": 3473.777,
+      "heapUsedBytes": 14004108,
+      "nodes": 14052,
+      "longTasks": [
+        524,
+        247,
+        649,
+        56,
+        175,
+        148
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 265.7251079999987,
+      "scriptDurationMs": 1505.6799999999998,
+      "taskDurationMs": 3709.276,
+      "heapUsedBytes": 16449688,
+      "nodes": 14072,
+      "longTasks": [
+        524,
+        247,
+        649,
+        56,
+        175,
+        148,
+        133
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 664,
+      "fcp": 316,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 7397.586589000013,
+      "scriptDurationMs": 3039.544,
+      "taskDurationMs": 8491.747,
+      "heapUsedBytes": 15786060,
+      "nodes": 43478,
+      "longTasks": [
+        163,
+        50,
+        210,
+        6800
+      ],
+      "cls": 0,
+      "lcp": 3500,
+      "fcp": 2300,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 729.8361390000064,
+      "scriptDurationMs": 3405.676,
+      "taskDurationMs": 9236.131000000001,
+      "heapUsedBytes": 29111928,
+      "nodes": 43484,
+      "longTasks": [
+        163,
+        50,
+        210,
+        6800,
+        374
+      ],
+      "cls": 0.05624249465811966,
+      "lcp": 3500,
+      "fcp": 2300,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 38255.60913499999,
+      "scriptDurationMs": 15068.466,
+      "taskDurationMs": 39543.722,
+      "heapUsedBytes": 53668576,
+      "nodes": 214476,
+      "longTasks": [
+        142,
+        69,
+        370,
+        76,
+        36795,
+        503,
+        51
+      ],
+      "cls": 0,
+      "lcp": 3728,
+      "fcp": 2300,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 3738.5886549999996,
+      "scriptDurationMs": 16963.207000000002,
+      "taskDurationMs": 43319.916,
+      "heapUsedBytes": 80047376,
+      "nodes": 214476,
+      "longTasks": [
+        142,
+        69,
+        370,
+        76,
+        36795,
+        503,
+        51,
+        1913,
+        180,
+        140
+      ],
+      "cls": 0.05626817307692307,
+      "lcp": 3728,
+      "fcp": 2300,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 2635.5937949999934,
+      "scriptDurationMs": 320.149,
+      "taskDurationMs": 724.453,
+      "heapUsedBytes": 4685104,
+      "nodes": 224,
+      "longTasks": [
+        171,
+        138
+      ],
+      "cls": 0,
+      "lcp": 2400,
+      "fcp": 2400,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 2540.276688999991,
+      "scriptDurationMs": 235.475,
+      "taskDurationMs": 655.784,
+      "heapUsedBytes": 4702376,
+      "nodes": 224,
+      "longTasks": [
+        134,
+        96
+      ],
+      "cls": 0,
+      "lcp": 2388,
+      "fcp": 2388,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 3713.910589999985,
+      "scriptDurationMs": 479.176,
+      "taskDurationMs": 1013.2909999999999,
+      "heapUsedBytes": 5584904,
+      "nodes": 571,
+      "longTasks": [
+        167,
+        68,
+        127
+      ],
+      "cls": 0,
+      "lcp": 3400,
+      "fcp": 2304,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 3775.112820999988,
+      "scriptDurationMs": 460.34000000000003,
+      "taskDurationMs": 978.931,
+      "heapUsedBytes": 5833324,
+      "nodes": 618,
+      "longTasks": [
+        155,
+        59,
+        146
+      ],
+      "cls": 0,
+      "lcp": 3432,
+      "fcp": 2300,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 734.5502090000082,
+      "scriptDurationMs": 225.329,
+      "taskDurationMs": 538.2130000000001,
+      "heapUsedBytes": 8164788,
+      "nodes": 1744,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 625.6947609999916,
+      "scriptDurationMs": 385.824,
+      "taskDurationMs": 943.99,
+      "heapUsedBytes": 10055364,
+      "nodes": 2785,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 674.530448000005,
+      "scriptDurationMs": 823.003,
+      "taskDurationMs": 1597.277,
+      "heapUsedBytes": 14558636,
+      "nodes": 9496,
+      "longTasks": [
+        541
+      ],
+      "cls": 0,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 400.11132000002544,
+      "scriptDurationMs": 832.326,
+      "taskDurationMs": 1949.1009999999999,
+      "heapUsedBytes": 15779972,
+      "nodes": 9506,
+      "longTasks": [
+        541,
+        269
+      ],
+      "cls": 0,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 1035.278844000015,
+      "scriptDurationMs": 1148.442,
+      "taskDurationMs": 2935.518,
+      "heapUsedBytes": 14087856,
+      "nodes": 13916,
+      "longTasks": [
+        541,
+        269,
+        837
+      ],
+      "cls": 0,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 233.5961879999959,
+      "scriptDurationMs": 1192.898,
+      "taskDurationMs": 3145.448,
+      "heapUsedBytes": 15941992,
+      "nodes": 13922,
+      "longTasks": [
+        541,
+        269,
+        837,
+        54
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 655.6107499999925,
+      "scriptDurationMs": 1525.078,
+      "taskDurationMs": 3731.1420000000003,
+      "heapUsedBytes": 14027996,
+      "nodes": 14053,
+      "longTasks": [
+        541,
+        269,
+        837,
+        54,
+        203,
+        166
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 369.5746030000155,
+      "scriptDurationMs": 1692.671,
+      "taskDurationMs": 4063.5750000000003,
+      "heapUsedBytes": 16494788,
+      "nodes": 14073,
+      "longTasks": [
+        541,
+        269,
+        837,
+        54,
+        203,
+        166,
+        178
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 708,
+      "fcp": 348,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 7258.320426999999,
+      "scriptDurationMs": 3114.947,
+      "taskDurationMs": 8511.058,
+      "heapUsedBytes": 15784044,
+      "nodes": 43478,
+      "longTasks": [
+        230,
+        70,
+        196,
+        6774
+      ],
+      "cls": 0,
+      "lcp": 3628,
+      "fcp": 2444,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 679.6319209999929,
+      "scriptDurationMs": 3437.516,
+      "taskDurationMs": 9193.054999999998,
+      "heapUsedBytes": 29119212,
+      "nodes": 43484,
+      "longTasks": [
+        230,
+        70,
+        196,
+        6774,
+        336
+      ],
+      "cls": 0.05624249465811966,
+      "lcp": 3628,
+      "fcp": 2444,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 35698.35862099999,
+      "scriptDurationMs": 14331.376,
+      "taskDurationMs": 37068.533,
+      "heapUsedBytes": 53672384,
+      "nodes": 214476,
+      "longTasks": [
+        150,
+        65,
+        378,
+        73,
+        34511,
+        255
+      ],
+      "cls": 0,
+      "lcp": 3832,
+      "fcp": 2372,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 3418.8842769999756,
+      "scriptDurationMs": 16153.780999999999,
+      "taskDurationMs": 40501.968,
+      "heapUsedBytes": 80042684,
+      "nodes": 214476,
+      "longTasks": [
+        150,
+        65,
+        378,
+        73,
+        34511,
+        255,
+        1838,
+        146
+      ],
+      "cls": 0.05626817307692307,
+      "lcp": 3832,
+      "fcp": 2372,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 1075.8225739999907,
+      "scriptDurationMs": 162.864,
+      "taskDurationMs": 370.213,
+      "heapUsedBytes": 5226952,
+      "nodes": 224,
+      "longTasks": [
+        86,
+        77
+      ],
+      "cls": 0,
+      "lcp": 1000,
+      "fcp": 1000,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 1005.4599769999913,
+      "scriptDurationMs": 169.526,
+      "taskDurationMs": 348.714,
+      "heapUsedBytes": 5275764,
+      "nodes": 224,
+      "longTasks": [
+        83,
+        80
+      ],
+      "cls": 0,
+      "lcp": 924,
+      "fcp": 924,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 1712.0189649999957,
+      "scriptDurationMs": 196.827,
+      "taskDurationMs": 448.258,
+      "heapUsedBytes": 5481496,
+      "nodes": 571,
+      "longTasks": [
+        71,
+        57
+      ],
+      "cls": 0,
+      "lcp": 1308,
+      "fcp": 876,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 1846.3568870000017,
+      "scriptDurationMs": 230.83200000000002,
+      "taskDurationMs": 577.8149999999999,
+      "heapUsedBytes": 5709408,
+      "nodes": 618,
+      "longTasks": [
+        86,
+        67
+      ],
+      "cls": 0,
+      "lcp": 1408,
+      "fcp": 968,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 601.0434020000102,
+      "scriptDurationMs": 110.343,
+      "taskDurationMs": 294.94599999999997,
+      "heapUsedBytes": 8170092,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 867.9482460000145,
+      "scriptDurationMs": 157.655,
+      "taskDurationMs": 426.987,
+      "heapUsedBytes": 9428100,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 469.67703099999926,
+      "scriptDurationMs": 388.863,
+      "taskDurationMs": 771.704,
+      "heapUsedBytes": 13854632,
+      "nodes": 9486,
+      "longTasks": [
+        285
+      ],
+      "cls": 0,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 243.6412469999923,
+      "scriptDurationMs": 392.397,
+      "taskDurationMs": 1010.2690000000001,
+      "heapUsedBytes": 15036896,
+      "nodes": 9496,
+      "longTasks": [
+        285,
+        155
+      ],
+      "cls": 0,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 553.1290630000003,
+      "scriptDurationMs": 505.416,
+      "taskDurationMs": 1507.728,
+      "heapUsedBytes": 13675628,
+      "nodes": 13906,
+      "longTasks": [
+        285,
+        155,
+        419
+      ],
+      "cls": 0,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 130.60824299999513,
+      "scriptDurationMs": 527.591,
+      "taskDurationMs": 1614.7579999999998,
+      "heapUsedBytes": 15595988,
+      "nodes": 13912,
+      "longTasks": [
+        285,
+        155,
+        419
+      ],
+      "cls": 0.11252659143518519,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 284.89976000000024,
+      "scriptDurationMs": 673.431,
+      "taskDurationMs": 1849.0720000000001,
+      "heapUsedBytes": 13865364,
+      "nodes": 14043,
+      "longTasks": [
+        285,
+        155,
+        419,
+        87,
+        71
+      ],
+      "cls": 0.11252659143518519,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 149.78403300000355,
+      "scriptDurationMs": 737.214,
+      "taskDurationMs": 1962.928,
+      "heapUsedBytes": 16294620,
+      "nodes": 14063,
+      "longTasks": [
+        285,
+        155,
+        419,
+        87,
+        71,
+        65
+      ],
+      "cls": 0.11252659143518519,
+      "lcp": 512,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 2764.770000999997,
+      "scriptDurationMs": 1103.199,
+      "taskDurationMs": 3404.931,
+      "heapUsedBytes": 15584452,
+      "nodes": 43486,
+      "longTasks": [
+        70,
+        122,
+        2504
+      ],
+      "cls": 0,
+      "lcp": 1432,
+      "fcp": 832,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 487.35579200001666,
+      "scriptDurationMs": 1335.231,
+      "taskDurationMs": 3868.501,
+      "heapUsedBytes": 28925068,
+      "nodes": 43492,
+      "longTasks": [
+        70,
+        122,
+        2504,
+        234
+      ],
+      "cls": 0.13171845582561728,
+      "lcp": 1432,
+      "fcp": 832,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 16929.042338999978,
+      "scriptDurationMs": 6221.0380000000005,
+      "taskDurationMs": 17719.878999999997,
+      "heapUsedBytes": 53632176,
+      "nodes": 214478,
+      "longTasks": [
+        68,
+        178,
+        16517
+      ],
+      "cls": 0,
+      "lcp": 1452,
+      "fcp": 872,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 0,
+      "interactionMs": 2157.8615199999767,
+      "scriptDurationMs": 7569.778,
+      "taskDurationMs": 19881.508,
+      "heapUsedBytes": 80005152,
+      "nodes": 214484,
+      "longTasks": [
+        68,
+        178,
+        16517,
+        1359,
+        83
+      ],
+      "cls": 0.1319968219521605,
+      "lcp": 1452,
+      "fcp": 872,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 1033.7488419999718,
+      "scriptDurationMs": 153.691,
+      "taskDurationMs": 323.99699999999996,
+      "heapUsedBytes": 5823536,
+      "nodes": 224,
+      "longTasks": [
+        75,
+        77
+      ],
+      "cls": 0,
+      "lcp": 928,
+      "fcp": 928,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 1004.2649999999558,
+      "scriptDurationMs": 147.63299999999998,
+      "taskDurationMs": 369.702,
+      "heapUsedBytes": 5384184,
+      "nodes": 224,
+      "longTasks": [
+        76,
+        68
+      ],
+      "cls": 0,
+      "lcp": 916,
+      "fcp": 916,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 1855.9615079999785,
+      "scriptDurationMs": 326.868,
+      "taskDurationMs": 603.072,
+      "heapUsedBytes": 6117840,
+      "nodes": 571,
+      "longTasks": [
+        175,
+        69
+      ],
+      "cls": 0,
+      "lcp": 1448,
+      "fcp": 1008,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 1820.3512919999775,
+      "scriptDurationMs": 305.884,
+      "taskDurationMs": 610.0360000000001,
+      "heapUsedBytes": 5758696,
+      "nodes": 618,
+      "longTasks": [
+        113,
+        103,
+        56
+      ],
+      "cls": 0,
+      "lcp": 1392,
+      "fcp": 956,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 562.1740740000387,
+      "scriptDurationMs": 130.549,
+      "taskDurationMs": 299.126,
+      "heapUsedBytes": 8117416,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 901.0920789999655,
+      "scriptDurationMs": 177.21,
+      "taskDurationMs": 480.539,
+      "heapUsedBytes": 9375132,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 380.8869729999569,
+      "scriptDurationMs": 395.49,
+      "taskDurationMs": 807.49,
+      "heapUsedBytes": 13649620,
+      "nodes": 9486,
+      "longTasks": [
+        267
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 248.81230399996275,
+      "scriptDurationMs": 399.094,
+      "taskDurationMs": 1021.6719999999999,
+      "heapUsedBytes": 14813312,
+      "nodes": 9496,
+      "longTasks": [
+        267,
+        163
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 434.78622599999653,
+      "scriptDurationMs": 512.634,
+      "taskDurationMs": 1415.6470000000002,
+      "heapUsedBytes": 13287180,
+      "nodes": 13906,
+      "longTasks": [
+        267,
+        163,
+        321
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 116.86909100000048,
+      "scriptDurationMs": 532.442,
+      "taskDurationMs": 1500.515,
+      "heapUsedBytes": 15236716,
+      "nodes": 13912,
+      "longTasks": [
+        267,
+        163,
+        321
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 267.9731230000034,
+      "scriptDurationMs": 660.4649999999999,
+      "taskDurationMs": 1715.455,
+      "heapUsedBytes": 13869480,
+      "nodes": 14043,
+      "longTasks": [
+        267,
+        163,
+        321,
+        63,
+        75
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 164.61719700001413,
+      "scriptDurationMs": 736.225,
+      "taskDurationMs": 1838.963,
+      "heapUsedBytes": 16282808,
+      "nodes": 14063,
+      "longTasks": [
+        267,
+        163,
+        321,
+        63,
+        75,
+        78
+      ],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 160,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 2684.0850280000013,
+      "scriptDurationMs": 1143.826,
+      "taskDurationMs": 3214.141,
+      "heapUsedBytes": 15575140,
+      "nodes": 43486,
+      "longTasks": [
+        69,
+        82,
+        2455
+      ],
+      "cls": 0,
+      "lcp": 1316,
+      "fcp": 868,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 344.57629799999995,
+      "scriptDurationMs": 1286.496,
+      "taskDurationMs": 3540.438,
+      "heapUsedBytes": 28914600,
+      "nodes": 43492,
+      "longTasks": [
+        69,
+        82,
+        2455,
+        146
+      ],
+      "cls": 0.13171845582561728,
+      "lcp": 1316,
+      "fcp": 868,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 16703.912769999995,
+      "scriptDurationMs": 5689.07,
+      "taskDurationMs": 17376.183,
+      "heapUsedBytes": 53633776,
+      "nodes": 214470,
+      "longTasks": [
+        75,
+        163,
+        16277
+      ],
+      "cls": 0,
+      "lcp": 1436,
+      "fcp": 960,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 1,
+      "interactionMs": 1785.9732699999586,
+      "scriptDurationMs": 6676.32,
+      "taskDurationMs": 19154.426,
+      "heapUsedBytes": 80496424,
+      "nodes": 214476,
+      "longTasks": [
+        75,
+        163,
+        16277,
+        998,
+        95
+      ],
+      "cls": 0.1319968219521605,
+      "lcp": 1436,
+      "fcp": 960,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 1212.67598,
+      "scriptDurationMs": 168.101,
+      "taskDurationMs": 344.493,
+      "heapUsedBytes": 5312060,
+      "nodes": 223,
+      "longTasks": [
+        93,
+        73
+      ],
+      "cls": 0,
+      "lcp": 940,
+      "fcp": 940,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 1010.8090399999637,
+      "scriptDurationMs": 169.11100000000002,
+      "taskDurationMs": 344.39300000000003,
+      "heapUsedBytes": 5255712,
+      "nodes": 224,
+      "longTasks": [
+        87,
+        77
+      ],
+      "cls": 0,
+      "lcp": 956,
+      "fcp": 956,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 1801.2371039999998,
+      "scriptDurationMs": 233.458,
+      "taskDurationMs": 542.176,
+      "heapUsedBytes": 5482108,
+      "nodes": 571,
+      "longTasks": [
+        56,
+        92,
+        72
+      ],
+      "cls": 0,
+      "lcp": 1408,
+      "fcp": 964,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 1939.542174000002,
+      "scriptDurationMs": 458.596,
+      "taskDurationMs": 732.541,
+      "heapUsedBytes": 5712220,
+      "nodes": 618,
+      "longTasks": [
+        296,
+        72
+      ],
+      "cls": 0,
+      "lcp": 1548,
+      "fcp": 1108,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 550.2834109999822,
+      "scriptDurationMs": 117.68,
+      "taskDurationMs": 273.92,
+      "heapUsedBytes": 8233196,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 882.8296299999929,
+      "scriptDurationMs": 160.56400000000002,
+      "taskDurationMs": 472.853,
+      "heapUsedBytes": 9489936,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 363.65278599999147,
+      "scriptDurationMs": 363.832,
+      "taskDurationMs": 776.985,
+      "heapUsedBytes": 13880564,
+      "nodes": 9486,
+      "longTasks": [
+        252
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 234.4092810000293,
+      "scriptDurationMs": 368.92900000000003,
+      "taskDurationMs": 971.7529999999999,
+      "heapUsedBytes": 15060152,
+      "nodes": 9496,
+      "longTasks": [
+        252,
+        136
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 349.6180929999682,
+      "scriptDurationMs": 470.688,
+      "taskDurationMs": 1273.5320000000002,
+      "heapUsedBytes": 13656028,
+      "nodes": 13906,
+      "longTasks": [
+        252,
+        136,
+        243
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 117.59077199996682,
+      "scriptDurationMs": 488.85699999999997,
+      "taskDurationMs": 1357.8619999999999,
+      "heapUsedBytes": 15577136,
+      "nodes": 13912,
+      "longTasks": [
+        252,
+        136,
+        243
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 266.1807050000061,
+      "scriptDurationMs": 622.974,
+      "taskDurationMs": 1574.182,
+      "heapUsedBytes": 13883156,
+      "nodes": 14043,
+      "longTasks": [
+        252,
+        136,
+        243,
+        75,
+        70
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 147.1487629999756,
+      "scriptDurationMs": 692.0509999999999,
+      "taskDurationMs": 1696.433,
+      "heapUsedBytes": 16340232,
+      "nodes": 14063,
+      "longTasks": [
+        252,
+        136,
+        243,
+        75,
+        70,
+        71
+      ],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 152,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 3103.477084000013,
+      "scriptDurationMs": 1446.769,
+      "taskDurationMs": 3711.914,
+      "heapUsedBytes": 15574000,
+      "nodes": 43486,
+      "longTasks": [
+        97,
+        93,
+        2863
+      ],
+      "cls": 0,
+      "lcp": 1440,
+      "fcp": 964,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 385.7027259999886,
+      "scriptDurationMs": 1625.2169999999999,
+      "taskDurationMs": 4088.985,
+      "heapUsedBytes": 28910572,
+      "nodes": 43492,
+      "longTasks": [
+        97,
+        93,
+        2863,
+        183
+      ],
+      "cls": 0.13171845582561728,
+      "lcp": 1440,
+      "fcp": 964,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 16106.685051999986,
+      "scriptDurationMs": 6164.296,
+      "taskDurationMs": 16745.036,
+      "heapUsedBytes": 53634088,
+      "nodes": 214470,
+      "longTasks": [
+        75,
+        178,
+        15751
+      ],
+      "cls": 0,
+      "lcp": 1456,
+      "fcp": 876,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "tablet",
+      "width": 768,
+      "sample": 2,
+      "interactionMs": 1657.4339129999862,
+      "scriptDurationMs": 7053.414,
+      "taskDurationMs": 18388.234,
+      "heapUsedBytes": 80530500,
+      "nodes": 214476,
+      "longTasks": [
+        75,
+        178,
+        15751,
+        895,
+        79
+      ],
+      "cls": 0.1319968219521605,
+      "lcp": 1456,
+      "fcp": 876,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 541.3101730000344,
+      "scriptDurationMs": 62.491,
+      "taskDurationMs": 153.786,
+      "heapUsedBytes": 4766400,
+      "nodes": 224,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 492,
+      "fcp": 492,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 591.9794930000207,
+      "scriptDurationMs": 70.39099999999999,
+      "taskDurationMs": 159.849,
+      "heapUsedBytes": 5650008,
+      "nodes": 223,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 520,
+      "fcp": 520,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 1277.040028999967,
+      "scriptDurationMs": 102.56400000000001,
+      "taskDurationMs": 236.571,
+      "heapUsedBytes": 6131688,
+      "nodes": 571,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 824,
+      "fcp": 484,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 1020.6220409999951,
+      "scriptDurationMs": 264.865,
+      "taskDurationMs": 371.862,
+      "heapUsedBytes": 5709736,
+      "nodes": 618,
+      "longTasks": [
+        194
+      ],
+      "cls": 0,
+      "lcp": 632,
+      "fcp": 632,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 423.5004970000009,
+      "scriptDurationMs": 51.518,
+      "taskDurationMs": 114.09700000000001,
+      "heapUsedBytes": 8196388,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 832.8567880000337,
+      "scriptDurationMs": 69.47200000000001,
+      "taskDurationMs": 170.506,
+      "heapUsedBytes": 9468692,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 228.75721099996008,
+      "scriptDurationMs": 153.68200000000002,
+      "taskDurationMs": 292.609,
+      "heapUsedBytes": 13778144,
+      "nodes": 9486,
+      "longTasks": [
+        103
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 238.02601500001037,
+      "scriptDurationMs": 155.62300000000002,
+      "taskDurationMs": 481.493,
+      "heapUsedBytes": 15032916,
+      "nodes": 9496,
+      "longTasks": [
+        103,
+        152
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 184.53132100001676,
+      "scriptDurationMs": 200.892,
+      "taskDurationMs": 617.3100000000001,
+      "heapUsedBytes": 13512548,
+      "nodes": 13906,
+      "longTasks": [
+        103,
+        152,
+        110
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 82.53199599997606,
+      "scriptDurationMs": 210.27499999999998,
+      "taskDurationMs": 663.518,
+      "heapUsedBytes": 15446352,
+      "nodes": 13912,
+      "longTasks": [
+        103,
+        152,
+        110
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 165.91754900000524,
+      "scriptDurationMs": 271.836,
+      "taskDurationMs": 766.356,
+      "heapUsedBytes": 13848768,
+      "nodes": 14043,
+      "longTasks": [
+        103,
+        152,
+        110
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 84.70875900000101,
+      "scriptDurationMs": 301.504,
+      "taskDurationMs": 814.787,
+      "heapUsedBytes": 16306932,
+      "nodes": 14063,
+      "longTasks": [
+        103,
+        152,
+        110
+      ],
+      "cls": 0,
+      "lcp": 404,
+      "fcp": 84,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 1214.1107400000328,
+      "scriptDurationMs": 419.84700000000004,
+      "taskDurationMs": 1507.293,
+      "heapUsedBytes": 15560992,
+      "nodes": 43486,
+      "longTasks": [
+        1080
+      ],
+      "cls": 0,
+      "lcp": 784,
+      "fcp": 460,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 224.51641999999993,
+      "scriptDurationMs": 493.467,
+      "taskDurationMs": 1671.9180000000001,
+      "heapUsedBytes": 28824996,
+      "nodes": 43492,
+      "longTasks": [
+        1080,
+        76
+      ],
+      "cls": 0.00006799825032552083,
+      "lcp": 784,
+      "fcp": 460,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 6468.977633000002,
+      "scriptDurationMs": 2305.678,
+      "taskDurationMs": 6754.75,
+      "heapUsedBytes": 54795260,
+      "nodes": 214476,
+      "longTasks": [
+        87,
+        56,
+        5996
+      ],
+      "cls": 0,
+      "lcp": 840,
+      "fcp": 476,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 0,
+      "interactionMs": 786.5203120000078,
+      "scriptDurationMs": 2670.9,
+      "taskDurationMs": 7639.901,
+      "heapUsedBytes": 87376844,
+      "nodes": 214475,
+      "longTasks": [
+        87,
+        56,
+        5996,
+        368
+      ],
+      "cls": 0.00003605079650878906,
+      "lcp": 840,
+      "fcp": 476,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 552.0297830000054,
+      "scriptDurationMs": 65.913,
+      "taskDurationMs": 163.873,
+      "heapUsedBytes": 5210916,
+      "nodes": 223,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 504,
+      "fcp": 504,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 618.7089989999658,
+      "scriptDurationMs": 84.288,
+      "taskDurationMs": 184.042,
+      "heapUsedBytes": 5651848,
+      "nodes": 223,
+      "longTasks": [
+        55
+      ],
+      "cls": 0,
+      "lcp": 592,
+      "fcp": 592,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 838.4383370000287,
+      "scriptDurationMs": 100.092,
+      "taskDurationMs": 220.92899999999997,
+      "heapUsedBytes": 6115440,
+      "nodes": 571,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 488,
+      "fcp": 488,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 1331.7341840000008,
+      "scriptDurationMs": 140.42,
+      "taskDurationMs": 275.717,
+      "heapUsedBytes": 5695180,
+      "nodes": 618,
+      "longTasks": [
+        74
+      ],
+      "cls": 0,
+      "lcp": 864,
+      "fcp": 524,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 434.379905000038,
+      "scriptDurationMs": 54.132,
+      "taskDurationMs": 123.333,
+      "heapUsedBytes": 8210536,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 883.99225999997,
+      "scriptDurationMs": 73.21,
+      "taskDurationMs": 198.712,
+      "heapUsedBytes": 9483052,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 163.39982599997893,
+      "scriptDurationMs": 156.371,
+      "taskDurationMs": 325.352,
+      "heapUsedBytes": 13736140,
+      "nodes": 9486,
+      "longTasks": [
+        103
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 133.67596900003264,
+      "scriptDurationMs": 157.90599999999998,
+      "taskDurationMs": 402.106,
+      "heapUsedBytes": 14887564,
+      "nodes": 9496,
+      "longTasks": [
+        103,
+        55
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 166.5047730000224,
+      "scriptDurationMs": 198.184,
+      "taskDurationMs": 529.871,
+      "heapUsedBytes": 13354852,
+      "nodes": 13906,
+      "longTasks": [
+        103,
+        55,
+        99
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 84.63394799997332,
+      "scriptDurationMs": 206.57,
+      "taskDurationMs": 568.893,
+      "heapUsedBytes": 15311604,
+      "nodes": 13912,
+      "longTasks": [
+        103,
+        55,
+        99
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 165.93821499997284,
+      "scriptDurationMs": 267.04699999999997,
+      "taskDurationMs": 669.4440000000001,
+      "heapUsedBytes": 13899688,
+      "nodes": 14043,
+      "longTasks": [
+        103,
+        55,
+        99
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 82.22606799995992,
+      "scriptDurationMs": 297.694,
+      "taskDurationMs": 726.893,
+      "heapUsedBytes": 16341944,
+      "nodes": 14063,
+      "longTasks": [
+        103,
+        55,
+        99
+      ],
+      "cls": 0,
+      "lcp": 412,
+      "fcp": 88,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 1263.3020549999783,
+      "scriptDurationMs": 627.678,
+      "taskDurationMs": 1569.266,
+      "heapUsedBytes": 15549132,
+      "nodes": 43486,
+      "longTasks": [
+        1096
+      ],
+      "cls": 0,
+      "lcp": 788,
+      "fcp": 456,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 180.94894299999578,
+      "scriptDurationMs": 696.3580000000001,
+      "taskDurationMs": 1726.4660000000001,
+      "heapUsedBytes": 28784980,
+      "nodes": 43492,
+      "longTasks": [
+        1096,
+        71
+      ],
+      "cls": 0.00006799825032552083,
+      "lcp": 788,
+      "fcp": 456,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 6168.780113999965,
+      "scriptDurationMs": 2356.028,
+      "taskDurationMs": 6474.7029999999995,
+      "heapUsedBytes": 54814140,
+      "nodes": 214476,
+      "longTasks": [
+        111,
+        5770
+      ],
+      "cls": 0,
+      "lcp": 824,
+      "fcp": 536,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 1,
+      "interactionMs": 909.5689780000248,
+      "scriptDurationMs": 2727.305,
+      "taskDurationMs": 7438.139999999999,
+      "heapUsedBytes": 87302520,
+      "nodes": 214475,
+      "longTasks": [
+        111,
+        5770,
+        374
+      ],
+      "cls": 0.00003605079650878906,
+      "lcp": 824,
+      "fcp": 536,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 568.860446000006,
+      "scriptDurationMs": 82.78,
+      "taskDurationMs": 171.463,
+      "heapUsedBytes": 4762388,
+      "nodes": 223,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 516,
+      "fcp": 516,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 579.8104789999779,
+      "scriptDurationMs": 60.476,
+      "taskDurationMs": 143.73,
+      "heapUsedBytes": 4719868,
+      "nodes": 224,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 532,
+      "fcp": 532,
+      "jsEncoded": 321042,
+      "jsDecoded": 1181075,
+      "jsTransfer": 321342,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        }
+      ],
+      "requests": 4,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 799.5888690000284,
+      "scriptDurationMs": 108.563,
+      "taskDurationMs": 213.558,
+      "heapUsedBytes": 6107600,
+      "nodes": 571,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 464,
+      "fcp": 464,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 881.8490370000363,
+      "scriptDurationMs": 111.373,
+      "taskDurationMs": 242.09,
+      "heapUsedBytes": 6003784,
+      "nodes": 618,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 540,
+      "fcp": 540,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 477.8749709999538,
+      "scriptDurationMs": 51.57,
+      "taskDurationMs": 133.835,
+      "heapUsedBytes": 8362624,
+      "nodes": 1743,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 849.2602729999926,
+      "scriptDurationMs": 71.943,
+      "taskDurationMs": 201.401,
+      "heapUsedBytes": 9636080,
+      "nodes": 2776,
+      "longTasks": [],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 349.04628700000467,
+      "scriptDurationMs": 302.968,
+      "taskDurationMs": 513.8340000000001,
+      "heapUsedBytes": 14128040,
+      "nodes": 9486,
+      "longTasks": [
+        285
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 115.97744700004114,
+      "scriptDurationMs": 304.59799999999996,
+      "taskDurationMs": 592.975,
+      "heapUsedBytes": 15271632,
+      "nodes": 9496,
+      "longTasks": [
+        285,
+        58
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 166.52762700000312,
+      "scriptDurationMs": 344.032,
+      "taskDurationMs": 718.3530000000001,
+      "heapUsedBytes": 13825060,
+      "nodes": 13906,
+      "longTasks": [
+        285,
+        58,
+        100
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 83.854216000007,
+      "scriptDurationMs": 353.022,
+      "taskDurationMs": 756.131,
+      "heapUsedBytes": 15789520,
+      "nodes": 13912,
+      "longTasks": [
+        285,
+        58,
+        100
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 166.60303399997065,
+      "scriptDurationMs": 415.366,
+      "taskDurationMs": 857.267,
+      "heapUsedBytes": 13864384,
+      "nodes": 14043,
+      "longTasks": [
+        285,
+        58,
+        100
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 84.74079199996777,
+      "scriptDurationMs": 447.529,
+      "taskDurationMs": 915.917,
+      "heapUsedBytes": 16240068,
+      "nodes": 14063,
+      "longTasks": [
+        285,
+        58,
+        100
+      ],
+      "cls": 0,
+      "lcp": 424,
+      "fcp": 108,
+      "jsEncoded": 467528,
+      "jsDecoded": 1754515,
+      "jsTransfer": 12867,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 0,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 0,
+          "encoded": 133919,
+          "decoded": 532661
+        },
+        {
+          "file": "/assets/FinancialCharts-CrQ3frxI.js",
+          "transfer": 12867,
+          "encoded": 12567,
+          "decoded": 40779
+        }
+      ],
+      "requests": 7,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 1227.3729029999813,
+      "scriptDurationMs": 411.514,
+      "taskDurationMs": 1476.183,
+      "heapUsedBytes": 15564136,
+      "nodes": 43486,
+      "longTasks": [
+        1068
+      ],
+      "cls": 0,
+      "lcp": 820,
+      "fcp": 472,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 181.64331300003687,
+      "scriptDurationMs": 479.088,
+      "taskDurationMs": 1630.006,
+      "heapUsedBytes": 28998432,
+      "nodes": 43492,
+      "longTasks": [
+        1068,
+        70
+      ],
+      "cls": 0.00006799825032552083,
+      "lcp": 820,
+      "fcp": 472,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 6111.132678000024,
+      "scriptDurationMs": 2289.333,
+      "taskDurationMs": 6390.639,
+      "heapUsedBytes": 55246928,
+      "nodes": 214476,
+      "longTasks": [
+        81,
+        5672
+      ],
+      "cls": 0,
+      "lcp": 908,
+      "fcp": 444,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "desktop",
+      "width": 1280,
+      "sample": 2,
+      "interactionMs": 903.5614410000271,
+      "scriptDurationMs": 2674.352,
+      "taskDurationMs": 7350.3460000000005,
+      "heapUsedBytes": 87386944,
+      "nodes": 214475,
+      "longTasks": [
+        81,
+        5672,
+        389
+      ],
+      "cls": 0.00003605079650878906,
+      "lcp": 908,
+      "fcp": 444,
+      "jsEncoded": 454961,
+      "jsDecoded": 1713736,
+      "jsTransfer": 455561,
+      "jsResources": [
+        {
+          "file": "/assets/index-Y_aU12AA.js",
+          "transfer": 321342,
+          "encoded": 321042,
+          "decoded": 1181075
+        },
+        {
+          "file": "/assets/App-D8Yf3XKo.js",
+          "transfer": 134219,
+          "encoded": 133919,
+          "decoded": 532661
+        }
+      ],
+      "requests": 6,
+      "horizontalOverflow": false,
+      "financialWrites": []
+    }
+  ],
+  "errors": [],
+  "external": []
+}

@@ -1,3 +1,4 @@
+import {concurrentFinancialEdit} from './browserNavigation';
 import { sharedExpenseCases } from './sharedExpenseCases';
 import { transferCases } from './transferCases';
 import test from 'node:test';
@@ -209,11 +210,11 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
       await other.goto(url);
       await other.getByRole('button', { name: 'Opciones y datos' }).waitFor();
       const previousRevision = (await readData()).revision;
-      await page.getByRole('button', { name: /Cambiar a modo/ }).click();
+      await concurrentFinancialEdit(page);
       await page.waitForFunction(({ key, revision }) => JSON.parse(localStorage.getItem(key)!).revision !== revision, { key: DATA_KEY, revision: previousRevision });
       await other.getByRole('alert').filter({ hasText: 'Otra pestaña' }).waitFor();
       const afterEdit = await stored();
-      await other.getByRole('button', { name: /Cambiar a modo/ }).click();
+      await concurrentFinancialEdit(other,true);
       await other.getByRole('button', { name: 'Recargar datos actualizados' }).click();
       await other.getByRole('button', { name: 'Opciones y datos' }).waitFor();
       assert.deepEqual(await stored(), afterEdit);

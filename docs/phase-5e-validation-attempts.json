@@ -1,0 +1,1398 @@
+{
+  "policy": "Only complete successful final runs qualify. Interrupted/cancelled/failed/incomplete observations are retained separately. No removed assertions, automatic retries or continue-on-error; individual regression timeouts are unchanged. Sole global CI budget40→50 exception is justified in phase-5e-ci-budget-evidence.json under assignment section14.",
+  "attempts": [
+    {
+      "name": "interrupted-chart-review",
+      "kind": "interrupted",
+      "reason": "Stopped deliberately for reproduced loss of an open form on chart chunk failure and financial writes on theme toggle.",
+      "passed": false,
+      "error": "npm run test:ui failed (130).",
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "test:ui"
+          ],
+          "code": 130,
+          "signal": null,
+          "durationMs": 232918
+        }
+      ],
+      "completedSummaries": 2,
+      "reportedTests": 69,
+      "reportedPass": 69,
+      "reportedFail": 0,
+      "reportedCancelled": 0,
+      "perSuite": [
+        {
+          "suite": "scripts/phase1.browser.ts",
+          "status": "passed",
+          "tests": 57,
+          "suites": 0,
+          "pass": 57,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/sharedUx.browser.ts",
+          "status": "passed",
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/deletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/planning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/charts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/automation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/responsive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/intelligent.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/routes.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/defaultWallet.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetSubitems.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/customCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogReorder.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogClassification.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogArchive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aSafety.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aLoans.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aAudit.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/i18n.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedBanking.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPlanning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalogDrag.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAutomation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedObligations.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedStorage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedShared.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCharts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAssistant.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCompletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/landingLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/multilingualCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogQuickReceipt.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/lazyLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/deferredFeatures.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/performanceVolume.browser.ts",
+          "status": "not_executed"
+        }
+      ]
+    },
+    {
+      "name": "old-theme-conflict-trigger",
+      "kind": "failed",
+      "reason": "Legacy UI tests used theme toggles as financial revision generators. Replaced with real guarded zero-balance wallet creation; assertions preserved.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "test:ui"
+          ],
+          "code": 1,
+          "signal": null,
+          "durationMs": 182457
+        }
+      ],
+      "completedSummaries": 1,
+      "reportedTests": 57,
+      "reportedPass": 17,
+      "reportedFail": 39,
+      "reportedCancelled": 1,
+      "perSuite": [
+        {
+          "suite": "scripts/phase1.browser.ts",
+          "status": "failed",
+          "tests": 57,
+          "suites": 0,
+          "pass": 17,
+          "fail": 39,
+          "cancelled": 1,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/sharedUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/deletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/planning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/charts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/automation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/responsive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/intelligent.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/routes.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/defaultWallet.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetSubitems.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/customCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogReorder.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogClassification.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogArchive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aSafety.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aLoans.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aAudit.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/i18n.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedBanking.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPlanning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalogDrag.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAutomation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedObligations.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedStorage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedShared.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCharts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAssistant.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCompletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/landingLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/multilingualCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogQuickReceipt.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/lazyLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/deferredFeatures.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/performanceVolume.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualTheme.browser.ts",
+          "status": "not_executed"
+        }
+      ]
+    },
+    {
+      "name": "cold-planning-count",
+      "kind": "failed",
+      "reason": "Budget test counted before deferred editor ready; same2-panel assertion retained after waiting for real editor.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "test:ui"
+          ],
+          "code": 1,
+          "signal": null,
+          "durationMs": 276719
+        }
+      ],
+      "completedSummaries": 5,
+      "reportedTests": 120,
+      "reportedPass": 115,
+      "reportedFail": 5,
+      "reportedCancelled": 0,
+      "perSuite": [
+        {
+          "suite": "scripts/phase1.browser.ts",
+          "status": "passed",
+          "tests": 57,
+          "suites": 0,
+          "pass": 57,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/sharedUx.browser.ts",
+          "status": "passed",
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/deletion.browser.ts",
+          "status": "passed",
+          "tests": 23,
+          "suites": 0,
+          "pass": 23,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/planning.browser.ts",
+          "status": "passed",
+          "tests": 13,
+          "suites": 0,
+          "pass": 13,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/budgetUx.browser.ts",
+          "status": "failed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 10,
+          "fail": 5,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/charts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/automation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/responsive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/intelligent.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/routes.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/defaultWallet.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetSubitems.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/customCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogReorder.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogClassification.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogArchive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aSafety.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aLoans.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aAudit.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/i18n.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedBanking.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPlanning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalogDrag.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAutomation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedObligations.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedStorage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedShared.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCharts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAssistant.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCompletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/landingLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/multilingualCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogQuickReceipt.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/lazyLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/deferredFeatures.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/performanceVolume.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualTheme.browser.ts",
+          "status": "not_executed"
+        }
+      ]
+    },
+    {
+      "name": "repeated-lazy-suspension",
+      "kind": "failed",
+      "reason": "Real repeated React.lazy suspension on month-key changes lost immediate mobile area selection. Fixed shared fulfilled identity, automation15/15 and feature8/8.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "commands": [
+        {
+          "command": [
+            "npm",
+            "run",
+            "test:ui"
+          ],
+          "code": 1,
+          "signal": null,
+          "durationMs": 387300
+        }
+      ],
+      "completedSummaries": 7,
+      "reportedTests": 143,
+      "reportedPass": 139,
+      "reportedFail": 4,
+      "reportedCancelled": 0,
+      "perSuite": [
+        {
+          "suite": "scripts/phase1.browser.ts",
+          "status": "passed",
+          "tests": 57,
+          "suites": 0,
+          "pass": 57,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/sharedUx.browser.ts",
+          "status": "passed",
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/deletion.browser.ts",
+          "status": "passed",
+          "tests": 23,
+          "suites": 0,
+          "pass": 23,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/planning.browser.ts",
+          "status": "passed",
+          "tests": 13,
+          "suites": 0,
+          "pass": 13,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/budgetUx.browser.ts",
+          "status": "passed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/charts.browser.ts",
+          "status": "passed",
+          "tests": 8,
+          "suites": 0,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/automation.browser.ts",
+          "status": "failed",
+          "tests": 15,
+          "suites": 0,
+          "pass": 11,
+          "fail": 4,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        },
+        {
+          "suite": "scripts/responsive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/intelligent.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualUx.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/routes.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/defaultWallet.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/budgetSubitems.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/customCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogReorder.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogClassification.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogArchive.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aSafety.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aLoans.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/phase4aAudit.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/i18n.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedBanking.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPlanning.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCatalogDrag.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAutomation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedObligations.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedStorage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedShared.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCharts.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedAssistant.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedPresentation.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/translatedCompletion.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/landingLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/multilingualCatalog.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/catalogQuickReceipt.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/lazyLanguage.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/deferredFeatures.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/performanceVolume.browser.ts",
+          "status": "not_executed"
+        },
+        {
+          "suite": "scripts/visualTheme.browser.ts",
+          "status": "not_executed"
+        }
+      ]
+    },
+    {
+      "name": "initial-exploratory-volume",
+      "kind": "exploratory",
+      "reason": "5.000-record CPU4× baseline exceeded30s action window. Partial pilot excluded from causal comparison. Final exploratory window120s; no regression/CI timeout changed."
+    },
+    {
+      "name": "journey-harness-smokes",
+      "kind": "instrumentation-error",
+      "reason": "Corrected combobox role and used original parseSnapshot for internal random revision instead of parseBackup. No application/format change; incomplete smokes excluded from paired results."
+    },
+    {
+      "name": "concurrent-wallet-label-smoke",
+      "kind": "instrumentation-error",
+      "reason": "Exact accessible label is Nueva Cuenta, corrected initial casing. Final original phase1 suite57/57 passed with actual guarded finance writes."
+    },
+    {
+      "name": "isolated-browser-probe",
+      "kind": "failed",
+      "reason": "IIFE esbuild did not receive Vite SSR=false. Exact compile-time flag preserves browser-only path; original25 cases and assertions pass. No production/SSR/financial code changes."
+    },
+    {
+      "name": "visual-ux-cold-count",
+      "kind": "failed",
+      "reason": "Original count expected three wallet cards before deferred screen arrived. Explicit wait for actual wallet/planning content preserves count and AA assertions. Focused visual12/12 and presentation7/7 passed.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "completedSummaries": 10,
+      "reportedTests": 196,
+      "reportedPass": 193,
+      "reportedFail": 3
+    },
+    {
+      "name": "planning-readiness-smoke",
+      "kind": "instrumentation-error",
+      "reason": "Waiting for visibility of a responsive hidden base-label was incorrect. Wait for the real planning container; all original label count and contrast assertions preserved. Focused visual12/12 passed."
+    },
+    {
+      "name": "npm-cache-readonly",
+      "kind": "environment-limitation",
+      "reason": "Default /home/agent/.npm cache was unwritable; fresh npmci succeeded with npm_config_cache=/workspace/work/.npm-cache, unchanged lockfile188 packages."
+    },
+    {
+      "name": "local-github-code-runner-event",
+      "kind": "instrumentation-error",
+      "reason": "CI code wrapper needs GitHub event metadata. Local call without it failed; supplied a local PR-shaped event containing actual origin/main and HEAD SHAs. Full nonempty main comparison, lint/build passed. This is a local simulation, not a GitHub execution."
+    },
+    {
+      "name": "cold-multiperiod-helper",
+      "kind": "failed",
+      "reason": "Mobile helper count before lazy tablist mount. Explicit readiness added; all19 original subitem cases retained.",
+      "passed": false,
+      "error": "npm run test:ui failed (1).",
+      "completedSummaries": 13,
+      "reportedTests": 234,
+      "reportedPass": 232,
+      "reportedFail": 2
+    }
+  ],
+  "githubAttempts": [
+    {
+      "run": 43650839122,
+      "head": "d66d4a4ebb5dae34fcc0838cedc6e05447499c82",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43650839122",
+      "unit": "success",
+      "code": "success",
+      "browser": "failure: readiness count before lazy editor"
+    },
+    {
+      "run": 43652265177,
+      "head": "585e996bdc82bf76c8c30f2724ffcb4d8f2054ed",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43652265177",
+      "unit": "success",
+      "code": "success",
+      "browser": "failure: repeated lazy suspension on month change; final source corrected"
+    },
+    {
+      "run": 43653525846,
+      "head": "d9ccb7d7e0a7a6e95362217c252d9d9b58460320",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43653525846",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure: isolated esbuild IIFE needed the browser SSR=false constant; application unchanged; original25/25 passed after adapter correction"
+    },
+    {
+      "run": 43655068796,
+      "head": "11230ce5071649225a4d9f05f6ccd73192914899",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43655068796",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure: visualUx counted wallet cards before lazy screen mounted"
+    },
+    {
+      "run": 43656155672,
+      "head": "aaf2d8f7c717a0de6bb35b421bd758c2fa2b291c",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43656155672",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "failure232/234 in13 summaries: planning area helper counted a tablist before it mounted, taking desktop fallback on mobile"
+    },
+    {
+      "run": 43657226987,
+      "head": "79832fea2447041dba572666f96dd5c67ac3bc98",
+      "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43657226987",
+      "unit": "success599+22",
+      "code": "success",
+      "browser": "cancelled at global40-minute budget:698/698 in35 completed suites; original catalogue suite in progress; no full approval",
+      "correction": "Only total browser job budget40→50 under explicit measured coverage exception; all individual limits and failure criteria unchanged."
+    }
+  ],
+  "diagnosticTail": {
+    "scope": "Diagnostic tail only; continues to discover all failures, returns failure if any suite failed. Not a complete npm run test:ui approval.",
+    "complete": true,
+    "results": 569,
+    "suites": 29,
+    "allPassed": true,
+    "perSuite": [
+      {
+        "suite": "scripts/budgetSubitems.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 48586,
+        "counts": {
+          "tests": 19,
+          "pass": 19,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogPresentation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 28840,
+        "counts": {
+          "tests": 7,
+          "pass": 7,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/customCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 14589,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogReorder.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 33536,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogClassification.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 17408,
+        "counts": {
+          "tests": 5,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogArchive.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 22814,
+        "counts": {
+          "tests": 11,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aSafety.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 12330,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aLoans.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 4457,
+        "counts": {
+          "tests": 3,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aAudit.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 81090,
+        "counts": {
+          "tests": 9,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/i18n.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 20021,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedBanking.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 44599,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedPlanning.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 136010,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 127127,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCatalogDrag.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 20186,
+        "counts": {
+          "tests": 11,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedAutomation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 150650,
+        "counts": {
+          "tests": 41,
+          "pass": 41,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedObligations.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 153746,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedStorage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 138843,
+        "counts": {
+          "tests": 36,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedShared.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 158024,
+        "counts": {
+          "tests": 36,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCharts.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 182344,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedAssistant.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 168571,
+        "counts": {
+          "tests": 38,
+          "pass": 38,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedPresentation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 170111,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCompletion.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 179867,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/landingLanguage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 110960,
+        "counts": {
+          "tests": 43,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/multilingualCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 205024,
+        "counts": {
+          "tests": 43,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogQuickReceipt.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 6683,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/lazyLanguage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 13835,
+        "counts": {
+          "tests": 15,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/deferredFeatures.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 16611,
+        "counts": {
+          "tests": 8,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/performanceVolume.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 12019,
+        "counts": {
+          "tests": 4,
+          "pass": 4,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/visualTheme.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 16129,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      }
+    ],
+    "additionalFocusedCheck": {
+      "suite": "customCatalog.browser.ts",
+      "results": 6,
+      "passed": 6,
+      "reason": "Loaded real catalogue before asserting a retired item is absent."
+    }
+  },
+  "finalLocal": "phase-5e-final-local-validation.json",
+  "successfulReferenceCI": "phase-5e-ci-reference.json",
+  "finalPRHeadCI": "Linked in PR body/delivery for exact final head; no old failed/cancelled run is counted as approval."
+}

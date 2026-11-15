@@ -201,3 +201,7 @@ button:disabled { cursor: not-allowed; }
 .quick-entry-metadata, .quick-entry-fields { flex-wrap: wrap; gap: .5rem .75rem; min-width: 0; }
 .quick-entry-metadata > *, .quick-entry-fields { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
 .quick-entry-fields label { display: flex; align-items: center; flex-wrap: wrap; gap: .25rem .5rem; min-width: 0; max-width: 100%; }
+
+/* Theme swaps are atomic; ordinary hover/motion transitions resume after paint. */
+[data-theme-changing] .finance-app,
+[data-theme-changing] .finance-app * { transition-duration: 0s !important; transition-delay: 0s !important; }

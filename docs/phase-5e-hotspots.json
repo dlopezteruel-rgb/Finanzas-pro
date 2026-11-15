@@ -1,0 +1,75 @@
+{
+  "method": "Node24 same-process microbenchmark; one warmup excluded and3 samples. Not a browser/React interaction metric. Baseline date helper imported from unchanged worktree; exact previous total algorithm compared, including summation order.",
+  "node": "v24.22.1",
+  "rows": [
+    {
+      "count": 100,
+      "samples": [
+        {
+          "dateBefore": 5.956158000000073,
+          "dateAfter": 0.9282779999999775,
+          "membershipBefore": 0.36847499999998945,
+          "membershipAfter": 0.25569499999994605
+        },
+        {
+          "dateBefore": 19.456795000000056,
+          "dateAfter": 0.7215059999999767,
+          "membershipBefore": 0.2297159999999394,
+          "membershipAfter": 0.04680099999995946
+        },
+        {
+          "dateBefore": 9.092323999999962,
+          "dateAfter": 0.6197230000000218,
+          "membershipBefore": 0.26650099999994836,
+          "membershipAfter": 0.038797999999928834
+        }
+      ]
+    },
+    {
+      "count": 1000,
+      "samples": [
+        {
+          "dateBefore": 58.250451,
+          "dateAfter": 4.8220099999999775,
+          "membershipBefore": 9.91769099999999,
+          "membershipAfter": 0.1652280000000701
+        },
+        {
+          "dateBefore": 53.32178099999999,
+          "dateAfter": 3.956696999999963,
+          "membershipBefore": 8.491814999999974,
+          "membershipAfter": 0.1630560000000969
+        },
+        {
+          "dateBefore": 54.403369,
+          "dateAfter": 5.625359000000003,
+          "membershipBefore": 10.138805999999931,
+          "membershipAfter": 0.1931610000000319
+        }
+      ]
+    },
+    {
+      "count": 5000,
+      "samples": [
+        {
+          "dateBefore": 328.524453,
+          "dateAfter": 20.39139,
+          "membershipBefore": 96.48338400000011,
+          "membershipAfter": 1.9671920000000682
+        },
+        {
+          "dateBefore": 296.0059110000002,
+          "dateAfter": 22.387386000000333,
+          "membershipBefore": 99.77402900000016,
+          "membershipAfter": 0.8719409999998788
+        },
+        {
+          "dateBefore": 246.56605199999967,
+          "dateAfter": 22.41088200000013,
+          "membershipBefore": 88.22297899999967,
+          "membershipAfter": 1.032571000000189
+        }
+      ]
+    }
+  ]
+}

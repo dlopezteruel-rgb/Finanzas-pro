@@ -1,6 +1,13 @@
 import type { Messages } from './messages';
 
 export const pt = {
+  "theme.storageError": "O tema foi alterado neste separador, mas não foi possível guardar a preferência visual.",
+  "feature.charts": "Gráficos",
+  "feature.loading": "A carregar {name}…",
+  "feature.error": "Não foi possível carregar {name}. Os dados e os formulários abertos são mantidos.",
+  "language.loading": "A carregar {language}…",
+  "language.loadError": "Não foi possível carregar {language}. O idioma anterior é mantido.",
+  "language.retry": "Tentar carregar novamente",
   "common.skip": "Saltar para o conteúdo",
   "nav.label": "Navegação principal",
   "nav.home": "Início",

@@ -13,6 +13,7 @@ export async function navigateModule(page: Page, name: string) {
 /** Select the visible planning area through its public keyboard/touch control. */
 export async function selectPlanningArea(page: Page, name: 'Gastos' | 'Ingresos' | 'Multiperiodo') {
   const tabs = page.getByRole('tablist', {name: 'Áreas de planificación', exact: true});
+  await tabs.waitFor();
   const tab = tabs.getByRole('tab', {name: new RegExp(`^${name}(?: · Revisar importes)?$`)});
   if (name === 'Multiperiodo' && await tab.count() === 0) {
     const summary = page.locator('.planning-multiperiod > details > summary');
@@ -30,4 +31,20 @@ export async function chooseMovementPartida(target:Page|Locator){
   if((await trigger.innerText()).trim()!=='Selecciona una partida')return;
   await trigger.click();const options=dialog.getByRole('listbox').getByRole('option'),restaurant=options.filter({hasText:/Comer fuera/}).first();
   if(await restaurant.count())await restaurant.click();else if(await options.count())await options.first().click();else await page.keyboard.press('Escape');
+}
+
+/** A real guarded finance commit for stale-tab tests; UI theme/language must never be revision generators. */
+export async function concurrentFinancialEdit(page:Page,expectConflict=false){
+  await navigateModule(page,'Cuentas');
+  await page.getByRole('button',{name:'Nueva Cuenta',exact:true}).click();
+  const form=page.getByRole('dialog',{name:'Cartera',exact:true});
+  const name=`Cuenta de concurrencia ${crypto.randomUUID().slice(0,8)}`;
+  await form.getByLabel('Nombre de la cuenta',{exact:true}).fill(name);
+  await form.locator('button[type=submit]').click();
+  if(expectConflict){
+    const error=form.getByRole('alert');await error.waitFor();
+    if(!/Otra pestaña/.test(await error.innerText()))throw Error('A real stale financial edit must be rejected by the original revision guard.');
+    if(await form.getByLabel('Nombre de la cuenta',{exact:true}).inputValue()!==name)throw Error('The rejected edit must preserve its fields.');
+    await page.keyboard.press('Escape');await form.waitFor({state:'hidden'});
+  }else await form.waitFor({state:'hidden'});
 }

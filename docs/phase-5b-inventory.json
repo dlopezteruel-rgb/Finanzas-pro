@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 914,
-    "review": 3066,
+    "type-or-import": 920,
+    "review": 3095,
     "ui-message-candidate": 379,
-    "attribute-internal": 2121,
-    "translation-key": 1482,
+    "attribute-internal": 2132,
+    "translation-key": 1488,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -422,43 +422,43 @@
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 234,
+      "line": 228,
       "text": "+",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 235,
+      "line": 229,
       "text": "-",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 249,
+      "line": 243,
       "text": "2-digit",
       "decision": "Overinclusive AST candidate: Intl date option inside localized title expression, never displayed literally"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 249,
+      "line": 243,
       "text": "2-digit",
       "decision": "Overinclusive AST candidate: Intl date option inside localized title expression, never displayed literally"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 249,
+      "line": 243,
       "text": "numeric",
       "decision": "Overinclusive AST candidate: Intl date option inside localized title expression, never displayed literally"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 271,
+      "line": 265,
       "text": "•",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
     {
       "file": "src/components/TransactionsView.tsx",
-      "line": 273,
+      "line": 267,
       "text": "•",
       "decision": "Invariant punctuation, mathematical/currency sign, direction arrow or required-field marker"
     },
@@ -569,37 +569,37 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "d83ae7723d8ffe4711f3f384e7e108da3d370f7953107a0d3c5926122c4ab6ba",
+      "sourceSha256": "ef849260c365469b8393c084f870c9a57cbc3602f2138f731f24363939caefea",
       "counts": {
-        "type-or-import": 69,
-        "review": 51,
+        "type-or-import": 61,
+        "review": 67,
         "ui-message-candidate": 23,
-        "attribute-internal": 73,
-        "translation-key": 34
+        "attribute-internal": 75,
+        "translation-key": 35
       },
       "visibleCandidateLines": [
-        165,
-        166,
-        179,
-        181,
-        314,
-        316,
-        320,
-        348,
-        368,
-        422,
-        489,
-        495,
-        520,
-        524,
-        537,
-        540,
-        658,
-        660,
-        665,
-        666,
-        667,
-        668
+        177,
+        178,
+        191,
+        193,
+        326,
+        328,
+        332,
+        360,
+        380,
+        434,
+        501,
+        507,
+        532,
+        536,
+        549,
+        552,
+        671,
+        673,
+        678,
+        679,
+        680,
+        681
       ],
       "presentationCalls": []
     },
@@ -622,6 +622,28 @@
       "sourceSha256": "4af9bc980ae2b6f5d418eaca80b6bf9fe3fb462d61504a20cb210050fdbcca2b",
       "counts": {
         "type-or-import": 1
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/app/themePreference.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "41d62fd1b73f5218bb8bbf00fe9c9e5bb6b5c89628816ffd83140e7986086b9f",
+      "counts": {
+        "type-or-import": 4,
+        "review": 3
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/app/useVisualTheme.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "1ffa19b3ecec0bb0b6845b72d1715479a36b03ce3856dffc5ce886870c354160",
+      "counts": {
+        "type-or-import": 2,
+        "review": 5
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -674,10 +696,10 @@
     {
       "file": "src/components/BudgetWorkspace.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "fe6edc9dba2beff671dd5db48a2d5f20978c9a6d91bcf10a61d6c0b870a2cc16",
+      "sourceSha256": "88afe038aae9cd159a856cda45b22839c720adfad7b2023590220e131b6bb842",
       "counts": {
         "type-or-import": 4,
-        "review": 8,
+        "review": 9,
         "attribute-internal": 21,
         "translation-key": 4
       },
@@ -977,6 +999,19 @@
       "presentationCalls": []
     },
     {
+      "file": "src/components/DeferredFeature.tsx",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "b1cb17bf08ba72a94261d2599354fdea2548072bae4e79fee146b7ada1f28900",
+      "counts": {
+        "type-or-import": 2,
+        "attribute-internal": 5,
+        "translation-key": 3,
+        "review": 2
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/components/FinanceReview.tsx",
       "policy": "Review each candidate; not presumed translated",
       "sourceSha256": "d6aeebef7727305149ffb032f1b27eccb9789e61d2a28a35cb44575f307764ee",
@@ -1017,12 +1052,12 @@
     {
       "file": "src/components/LanguageSelector.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "50f85c7bc625710cf755453eaf821e385ee021da627f7552f2326ad4cbd9340c",
+      "sourceSha256": "7eda55249d2d626ab0e54cf280d341a273eddf0c2f1a86466eaabbdd7c097062",
       "counts": {
         "type-or-import": 4,
         "review": 4,
-        "attribute-internal": 11,
-        "translation-key": 5
+        "attribute-internal": 16,
+        "translation-key": 8
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1572,41 +1607,41 @@
     {
       "file": "src/components/TransactionsView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "24419e8afb0b8af81474e69004ec28e308be60d79b912cec950a03f96737aff4",
+      "sourceSha256": "1c5cbb3d222fc0c2624a4e24a960dac2d73bfecc0e515b80bdacec63b39b0dae",
       "counts": {
         "type-or-import": 11,
-        "review": 50,
+        "review": 48,
         "attribute-internal": 92,
         "translation-key": 38,
         "visible-text": 4,
         "visible-attribute": 3
       },
       "visibleCandidateLines": [
-        234,
-        235,
-        249,
-        271,
-        273
+        228,
+        229,
+        243,
+        265,
+        267
       ],
       "presentationCalls": [
         {
-          "line": 234,
+          "line": 228,
           "name": "formatCurrency"
         },
         {
-          "line": 235,
+          "line": 229,
           "name": "formatCurrency"
         },
         {
-          "line": 249,
+          "line": 243,
           "name": "formatCurrency"
         },
         {
-          "line": 266,
+          "line": 260,
           "name": "formatCurrency"
         },
         {
-          "line": 286,
+          "line": 280,
           "name": "formatCurrency"
         }
       ]
@@ -1739,12 +1774,12 @@
     {
       "file": "src/components/charts/ChartSlot.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "6be5f1507749ba2ab1d87da745c8681da6a6e4bd3f5a657e1ad7784108b498fc",
+      "sourceSha256": "1ec8a4522a83d70b083f81c778f55736016cdaaa1ab78ccfca0efe934546fb8f",
       "counts": {
-        "type-or-import": 3,
-        "review": 1,
-        "translation-key": 8,
-        "attribute-internal": 2
+        "type-or-import": 4,
+        "review": 3,
+        "translation-key": 7,
+        "attribute-internal": 1
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -1839,6 +1874,17 @@
       "presentationCalls": []
     },
     {
+      "file": "src/components/transactionTotals.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "c2336c56efef4bfdd066de36dd728336a4e33d8209e27a7c0c378ba15003908f",
+      "counts": {
+        "type-or-import": 2,
+        "review": 2
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/components/useCatalogDrag.tsx",
       "policy": "Review each candidate; not presumed translated",
       "sourceSha256": "85580504b8c84308e4d5a9e7cce311bb570c9ca4717236b05b2c6c9b17d92be8",
@@ -1876,9 +1922,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "7332c02e97bb1f55ea3a617e3c29e62e11e4df767b1c09370d19a8f4a9f419ff",
+      "sourceSha256": "fbd01ed491fa47143cdf0cf94c6a1b86aad34071ae305283059229300d9a90fa",
       "counts": {
-        "type-or-import": 42
+        "type-or-import": 45
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
