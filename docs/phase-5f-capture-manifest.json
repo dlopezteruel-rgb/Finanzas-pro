@@ -1,6 +1,6 @@
 {
-  "sourceBase": "773bd90693fb1dd4178d38c2f99e3e024b6ab908",
-  "sourcePolicy": "Working tree source recorded below; all files and current captures committed together. Screenshots from real production app, synthetic5000 data only; no image editing. Earlier comparative shot frontend14c93b6. No physical-device/screen-reader claim.",
+  "sourceBase": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+  "sourcePolicy": "Exact frontend SHA and SHA-256 per source file below. Real production screenshots with synthetic5000 records only; no image editing. Comparative before-compact image is14c93b6; before-{profile}-ledger images are540cfcf; all other images use d11c41f. Physical devices and screen readers were not used.",
   "sourceSha256": {
     "src/App.tsx": "8b47de4b37d6a3447b2b5966c0828cada07c62e3b98d67596fe3f5561e0ece11",
     "src/app/Root.tsx": "a485030915e9cfd8a9082820bce115572e6c57f2f88c58c1549c06faf7f32542",
@@ -149,7 +149,13 @@
     "src/utils/useFinanceData.ts": "41e08e518f49e19c8f2f83f4c1ad6767ce7f34eeabc0a5d5f8deadd9c49ac659"
   },
   "captureSha256": {
+    "docs/phase-5f-screenshots/after-desktop-ledger-5000.png": "72696b31d61b6a27ce5d3ee3045235c650778202b4b5fe01f957eab730d3b127",
+    "docs/phase-5f-screenshots/after-mobile-ledger-5000.png": "7ed6fb3999f78f21f6a32e4e29f2fb72c49d13467afcc2697f498e2f2f762a89",
+    "docs/phase-5f-screenshots/after-tablet-ledger-5000.png": "a5a283e7ffe49248fce5994c487d5b1e4161741983dca5e8d0414e75ef54cf3a",
     "docs/phase-5f-screenshots/before-compact-fr-390-light-ledger.png": "ea9ac535f50bb78dbd89c2f625633befc6f5fe767aaecddd43aa5fbb9b73b7ae",
+    "docs/phase-5f-screenshots/before-desktop-ledger-5000.png": "238ae8bea39d63e3d81935ee3d2459932ae6b7b5d050e3ce17a1b450fd1b7788",
+    "docs/phase-5f-screenshots/before-mobile-ledger-5000.png": "ac4a66cd80f8d33e03cc4cd37d2e4d3ef796e316741068e6c10b147c81ae9c23",
+    "docs/phase-5f-screenshots/before-tablet-ledger-5000.png": "a2ce85d9290e1c8b91a76251655ed61af892d5f48cc43f65ad0b6d6bf341fae5",
     "docs/phase-5f-screenshots/en-390-dark-ledger.png": "f75d2f3eb5acf0460c7824a36a3f7b850cb001f5cb5e3a62828417faff7e3fb2",
     "docs/phase-5f-screenshots/en-390-light-ledger.png": "d0abaec8522a1e64f70280d9fef90eac0665bf11d06efacce6916b682a8930cc",
     "docs/phase-5f-screenshots/es-390-dark-ledger.png": "0bc6921c6f054fb164ae3efe6188b40242470f9115e2d832e98cb34014e0f37d",
@@ -160,5 +166,6 @@
     "docs/phase-5f-screenshots/it-390-light-ledger.png": "0fe6d9482c728d686a7c8f9d3917f4c4bc3c495a6f96800f8208280649fd9f89",
     "docs/phase-5f-screenshots/pt-390-dark-ledger.png": "3da74f23361e481992eda1abbf5190293d8a243dfff1d7c9f42c3c2a155a7cea",
     "docs/phase-5f-screenshots/pt-390-light-ledger.png": "9fce45489aec334c382a4199c7709854df63540a667085725aaa56e9236ea18d"
-  }
+  },
+  "measuredFrontend": "d11c41f752be8641002fdd279dc577ffe70e4a83"
 }

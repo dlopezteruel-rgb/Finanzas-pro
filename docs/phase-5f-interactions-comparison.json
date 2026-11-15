@@ -1,0 +1,3614 @@
+{
+  "schemaVersion": 1,
+  "kind": "interactions",
+  "sourceBefore": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+  "sourceAfter": "d11c41f752be8641002fdd279dc577ffe70e4a83",
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "156.0.8078.79",
+    "cpus": 3,
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "memory": 10452459520
+  },
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    },
+    {
+      "name": "tablet",
+      "width": 768,
+      "cpu": 2,
+      "latency": 40,
+      "mbps": 5
+    },
+    {
+      "name": "desktop",
+      "width": 1280,
+      "cpu": 1,
+      "latency": 20,
+      "mbps": 10
+    }
+  ],
+  "samples": 3,
+  "method": "Matched3samples,medians and full min/max. Overlap is descriptive,not a statistical significance test. Large DOM counts versus complete dataset are explicitly distinct. Exact stored hashes required for pure UI; explicit fictitious edit compares validated normalized financial data because original exportedAt metadata is regenerated for a legitimate save. Intent compares identical500ms lead on BOTH revisions and reports total intent time as well as click time; safety-only saveData/disabled cases are not fabricated before comparisons. Approximate live heap,no forcedGC; no physical-device INP claim.",
+  "rows": [
+    {
+      "group": "mobile/open-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 28019.451104000036,
+          "min": 27766.915756000002,
+          "max": 30465.413469000003,
+          "range": 2698.4977130000007
+        },
+        "after": {
+          "n": 3,
+          "median": 697.7416809999995,
+          "min": 596.0870740000028,
+          "max": 743.8886789999997,
+          "range": 147.80160499999693
+        },
+        "changePercent": -97.50979532607478,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 68046672,
+          "min": 68045152,
+          "max": 68050764,
+          "range": 5612
+        },
+        "after": {
+          "n": 3,
+          "median": 11302472,
+          "min": 11222344,
+          "max": 11323872,
+          "range": 101528
+        },
+        "changePercent": -83.39011788849865,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 3.87371,
+          "min": 3.8162930000000004,
+          "max": 4.684385000000001,
+          "range": 0.8680920000000003
+        },
+        "after": {
+          "n": 3,
+          "median": 0.24760499999999996,
+          "min": 0.20913900000000007,
+          "max": 0.272529,
+          "range": 0.06338999999999995
+        },
+        "changePercent": -93.60806565282378,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 7.073991,
+          "min": 7.066863,
+          "max": 7.982175999999999,
+          "range": 0.9153129999999994
+        },
+        "after": {
+          "n": 3,
+          "median": 0.061002000000000015,
+          "min": 0.053925,
+          "max": 0.06642100000000001,
+          "range": 0.012496000000000007
+        },
+        "changePercent": -99.13765793595157,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 12.086017,
+          "min": 11.997124,
+          "max": 12.559655000000001,
+          "range": 0.5625310000000017
+        },
+        "after": {
+          "n": 3,
+          "median": 0.127587,
+          "min": 0.113039,
+          "max": 0.130289,
+          "range": 0.017249999999999988
+        },
+        "changePercent": -98.94434204419869,
+        "observedRangesOverlap": false
+      },
+      "initialAppReadyMs": {
+        "before": {
+          "n": 3,
+          "median": 2996.6621729999897,
+          "min": 2921.8804080000264,
+          "max": 2996.904444,
+          "range": 75.02403599997342
+        },
+        "after": {
+          "n": 3,
+          "median": 3099.5468740000015,
+          "min": 2948.3627099999976,
+          "max": 3211.459088,
+          "range": 263.09637800000246
+        },
+        "changePercent": 3.4333099649004755,
+        "observedRangesOverlap": true
+      },
+      "entryToVisibleRowMs": {
+        "before": {
+          "n": 3,
+          "median": 30551.76297099999,
+          "min": 30360.765415,
+          "max": 32785.232588,
+          "range": 2424.4671729999973
+        },
+        "after": {
+          "n": 3,
+          "median": 3764.7643430000007,
+          "min": 3531.138716999998,
+          "max": 3931.6738469999996,
+          "range": 400.5351300000016
+        },
+        "changePercent": -87.67742356939091,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "mobile/scroll-20-frames",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 843.4852510000055,
+          "min": 761.0709720000013,
+          "max": 860.2368040000438,
+          "range": 99.16583200004243
+        },
+        "after": {
+          "n": 3,
+          "median": 350.1691490000003,
+          "min": 348.24359600000025,
+          "max": 355.2678909999995,
+          "range": 7.024294999999256
+        },
+        "changePercent": -58.48544493399825,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 68082508,
+          "min": 68081060,
+          "max": 68126364,
+          "range": 45304
+        },
+        "after": {
+          "n": 3,
+          "median": 11352256,
+          "min": 11250752,
+          "max": 11368428,
+          "range": 117676
+        },
+        "changePercent": -83.32573764762014,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.010403999999999414,
+          "min": 0.010190999999999839,
+          "max": 0.012592999999999854,
+          "range": 0.0024020000000000152
+        },
+        "after": {
+          "n": 3,
+          "median": 0.008990000000000054,
+          "min": 0.005923999999999929,
+          "max": 0.014667999999999903,
+          "range": 0.008743999999999974
+        },
+        "changePercent": -13.59092656669973,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "frames": {
+        "before": [
+          {
+            "gaps": [
+              -0.008000000001629815,
+              16.608000000000175,
+              16.700000000004366,
+              16.599999999998545,
+              16.69999999999709,
+              16.599999999998545,
+              16.700000000004366,
+              16.799999999995634,
+              16.60000000000582,
+              183.29999999999563,
+              16.700000000004366,
+              16.599999999998545,
+              16.69999999999709,
+              16.700000000004366,
+              16.599999999998545,
+              200,
+              33.400000000001455,
+              16.599999999998545,
+              16.69999999999709,
+              16.700000000004366
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -14.34400000595997,
+              16.644000000000233,
+              50,
+              16.599999999998545,
+              16.700000000000728,
+              16.700000000000728,
+              166.59999999999854,
+              16.799999999999272,
+              16.600000000002183,
+              16.599999999998545,
+              16.700000000000728,
+              16.700000000000728,
+              183.29999999999927,
+              16.700000000000728,
+              16.599999999998545,
+              16.700000000000728,
+              16.700000000000728,
+              16.599999999998545,
+              166.70000000000073,
+              16.599999999998545
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -13.512000008940959,
+              16.61200000000099,
+              50,
+              16.700000000000728,
+              16.599999999998545,
+              16.700000000000728,
+              183.29999999999927,
+              16.700000000000728,
+              16.700000000000728,
+              16.599999999998545,
+              16.700000000000728,
+              16.599999999998545,
+              166.70000000000073,
+              16.700000000000728,
+              16.599999999998545,
+              16.799999999999272,
+              16.600000000002183,
+              16.599999999998545,
+              183.40000000000146,
+              16.700000000000728
+            ],
+            "distance": 2000
+          }
+        ],
+        "after": [
+          {
+            "gaps": [
+              -6.399999991059303,
+              16.600000000000364,
+              16.799999999999272,
+              16.600000000000364,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.600000000000364,
+              16.799999999999272,
+              16.600000000000364,
+              16.600000000000364
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -7.0000000059603735,
+              16.59999999999991,
+              16.699999999999818,
+              16.700000000000273,
+              16.59999999999991,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.700000000000273,
+              16.59999999999991,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.600000000000364,
+              16.800000000000182
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -0.20400000298013765,
+              0.0039999999999054126,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.59999999999991,
+              16.700000000000273,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              33.30000000000018,
+              16.699999999999818
+            ],
+            "distance": 2000
+          }
+        ]
+      }
+    },
+    {
+      "group": "mobile/theme-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 37058.482224999985,
+          "min": 34986.968050999974,
+          "max": 40633.120821,
+          "range": 5646.152770000022
+        },
+        "after": {
+          "n": 3,
+          "median": 654.4808450000019,
+          "min": 538.0825919999988,
+          "max": 824.1999370000003,
+          "range": 286.1173450000015
+        },
+        "changePercent": -98.23392431177746,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 96088564,
+          "min": 95638996,
+          "max": 96284384,
+          "range": 645388
+        },
+        "after": {
+          "n": 3,
+          "median": 13314036,
+          "min": 13213816,
+          "max": 13331732,
+          "range": 117916
+        },
+        "changePercent": -86.14399524172305,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.9735140000000007,
+          "min": 1.9105530000000002,
+          "max": 2.130701,
+          "range": 0.220148
+        },
+        "after": {
+          "n": 3,
+          "median": 0.11139199999999994,
+          "min": 0.1092820000000001,
+          "max": 0.12148200000000009,
+          "range": 0.012199999999999989
+        },
+        "changePercent": -94.35565189808636,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0022399999999995757,
+          "min": 0.0015130000000009858,
+          "max": 0.0025409999999999044,
+          "range": 0.0010279999999989187
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0028519999999999934,
+          "min": 0.0015049999999999786,
+          "max": 0.003890999999999978,
+          "range": 0.0023859999999999992
+        },
+        "changePercent": 27.321428571452397,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 32.033045,
+          "min": 30.057052,
+          "max": 35.169289,
+          "range": 5.112237
+        },
+        "after": {
+          "n": 3,
+          "median": 0.378907,
+          "min": 0.3019740000000001,
+          "max": 0.5088870000000001,
+          "range": 0.206913
+        },
+        "changePercent": -98.8171371157503,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "mobile/language-5000-fr",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 22760.584584000026,
+          "min": 21899.45109799999,
+          "max": 25779.350785999995,
+          "range": 3879.899688000005
+        },
+        "after": {
+          "n": 3,
+          "median": 945.893458999999,
+          "min": 944.9727510000012,
+          "max": 973.3485119999996,
+          "range": 28.37576099999842
+        },
+        "changePercent": -95.84416008512834,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 133685172,
+          "min": 131367976,
+          "max": 135691052,
+          "range": 4323076
+        },
+        "after": {
+          "n": 3,
+          "median": 15351216,
+          "min": 15206360,
+          "max": 15494592,
+          "range": 288232
+        },
+        "changePercent": -88.51688951711114,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 3.6495179999999996,
+          "min": 3.6492619999999993,
+          "max": 4.322405999999999,
+          "range": 0.6731439999999997
+        },
+        "after": {
+          "n": 3,
+          "median": 0.19693199999999988,
+          "min": 0.1849240000000001,
+          "max": 0.19797900000000013,
+          "range": 0.013055000000000039
+        },
+        "changePercent": -94.60389015754957,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 3.586266,
+          "min": 3.3316229999999996,
+          "max": 3.820449,
+          "range": 0.4888260000000004
+        },
+        "after": {
+          "n": 3,
+          "median": 0.07282100000000002,
+          "min": 0.06601400000000002,
+          "max": 0.08058299999999999,
+          "range": 0.01456899999999997
+        },
+        "changePercent": -97.96944788813768,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 11.290762999999998,
+          "min": 10.672922,
+          "max": 12.522946000000005,
+          "range": 1.8500240000000048
+        },
+        "after": {
+          "n": 3,
+          "median": 0.18589200000000006,
+          "min": 0.1692039999999999,
+          "max": 0.18629699999999993,
+          "range": 0.017093000000000025
+        },
+        "changePercent": -98.35359222401533,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "mobile/period-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 3582.7636589999893,
+          "min": 3190.020775000041,
+          "max": 3901.9774159999797,
+          "range": 711.9566409999388
+        },
+        "after": {
+          "n": 3,
+          "median": 260.88152499999705,
+          "min": 254.342647999998,
+          "max": 297.1099009999998,
+          "range": 42.7672530000018
+        },
+        "changePercent": -92.71842773260646,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 125270364,
+          "min": 118434816,
+          "max": 171638964,
+          "range": 53204148
+        },
+        "after": {
+          "n": 3,
+          "median": 14051132,
+          "min": 13768832,
+          "max": 14146268,
+          "range": 377436
+        },
+        "changePercent": -88.78335501603556,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2503,
+          "min": 2503,
+          "max": 2503,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -98.00239712345186,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.2760880000000014,
+          "min": 1.2420030000000004,
+          "max": 1.929003999999999,
+          "range": 0.6870009999999986
+        },
+        "after": {
+          "n": 3,
+          "median": 0.13643799999999984,
+          "min": 0.12305300000000008,
+          "max": 0.14436199999999988,
+          "range": 0.0213089999999998
+        },
+        "changePercent": -89.30810414328795,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.023172999999999888,
+          "min": 0.020602999999997706,
+          "max": 0.02952099999999902,
+          "range": 0.008918000000001314
+        },
+        "after": {
+          "n": 3,
+          "median": 0.007442000000000004,
+          "min": 0.0068290000000000295,
+          "max": 0.010940000000000005,
+          "range": 0.004110999999999976
+        },
+        "changePercent": -67.88503862253468,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.007900000000006457,
+          "min": 0.007581000000001836,
+          "max": 0.008288000000000295,
+          "range": 0.0007069999999984589
+        },
+        "after": {
+          "n": 3,
+          "median": 0.003293999999999908,
+          "min": 0.0032250000000000334,
+          "max": 0.007352999999999943,
+          "range": 0.0041279999999999095
+        },
+        "changePercent": -58.303797468389675,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "mobile/month-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 11046.978150999988,
+          "min": 10777.985886999988,
+          "max": 11068.624838000018,
+          "range": 290.6389510000299
+        },
+        "after": {
+          "n": 3,
+          "median": 565.2991119999988,
+          "min": 562.0658140000014,
+          "max": 598.6901330000001,
+          "range": 36.62431899999865
+        },
+        "changePercent": -94.88277152110754,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 161847524,
+          "min": 154751164,
+          "max": 189502868,
+          "range": 34751704
+        },
+        "after": {
+          "n": 3,
+          "median": 15189144,
+          "min": 15066624,
+          "max": 15346424,
+          "range": 279800
+        },
+        "changePercent": -90.61515207362703,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2497,
+          "min": 2497,
+          "max": 2497,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -97.99759711653985,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.202808000000001,
+          "min": 2.05598,
+          "max": 2.443557,
+          "range": 0.3875770000000003
+        },
+        "after": {
+          "n": 3,
+          "median": 0.28157699999999997,
+          "min": 0.249012,
+          "max": 0.30730999999999997,
+          "range": 0.05829799999999996
+        },
+        "changePercent": -87.21736075046033,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.722638,
+          "min": 1.688600000000001,
+          "max": 1.736066000000001,
+          "range": 0.04746600000000001
+        },
+        "after": {
+          "n": 3,
+          "median": 0.04429899999999998,
+          "min": 0.04122899999999996,
+          "max": 0.04604199999999997,
+          "range": 0.004813000000000012
+        },
+        "changePercent": -97.42842082898437,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 4.746148000000005,
+          "min": 4.7338689999999986,
+          "max": 4.799186999999996,
+          "range": 0.06531799999999777
+        },
+        "after": {
+          "n": 3,
+          "median": 0.10963599999999984,
+          "min": 0.10270100000000015,
+          "max": 0.13132699999999997,
+          "range": 0.028625999999999818
+        },
+        "changePercent": -97.6900003961107,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "mobile/search-off-page",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 2304.222922999994,
+          "min": 1995.993410999945,
+          "max": 2706.2045120000257,
+          "range": 710.2111010000808
+        },
+        "after": {
+          "n": 3,
+          "median": 115.1110860000008,
+          "min": 114.57617000000027,
+          "max": 127.60994299999948,
+          "range": 13.0337729999992
+        },
+        "changePercent": -95.00434246830027,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 214728828,
+          "min": 134337348,
+          "max": 223457292,
+          "range": 89119944
+        },
+        "after": {
+          "n": 3,
+          "median": 18238784,
+          "min": 18107168,
+          "max": 18319116,
+          "range": 211948
+        },
+        "changePercent": -91.50613163128706,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.4128499999999988,
+          "min": 1.2815650000000005,
+          "max": 1.5033669999999972,
+          "range": 0.22180199999999672
+        },
+        "after": {
+          "n": 3,
+          "median": 0.03950300000000029,
+          "min": 0.03614200000000034,
+          "max": 0.04057399999999989,
+          "range": 0.004431999999999547
+        },
+        "changePercent": -97.20402024277168,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.005039999999997491,
+          "min": 0.003899999999998016,
+          "max": 0.005685999999997193,
+          "range": 0.0017859999999991771
+        },
+        "after": {
+          "n": 3,
+          "median": 0.005627000000000049,
+          "min": 0.005078000000000027,
+          "max": 0.007917000000000007,
+          "range": 0.0028389999999999804
+        },
+        "changePercent": 11.646825396881942,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.007227999999997792,
+          "min": 0.004884000000004107,
+          "max": 0.010509999999996467,
+          "range": 0.005625999999992359
+        },
+        "after": {
+          "n": 3,
+          "median": 0.005901999999999852,
+          "min": 0.005460999999999938,
+          "max": 0.0063909999999998135,
+          "range": 0.0009299999999998754
+        },
+        "changePercent": -18.3453237409843,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "mobile/edit-dialog-open",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 309.6010080000269,
+          "min": 302.78389299998526,
+          "max": 365.5838090000034,
+          "range": 62.79991600001813
+        },
+        "after": {
+          "n": 3,
+          "median": 260.8497690000004,
+          "min": 257.36145000000397,
+          "max": 278.1719410000005,
+          "range": 20.810490999996546
+        },
+        "changePercent": -15.746472957227034,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 215040048,
+          "min": 131313904,
+          "max": 220882528,
+          "range": 89568624
+        },
+        "after": {
+          "n": 3,
+          "median": 17101640,
+          "min": 16974168,
+          "max": 17161200,
+          "range": 187032
+        },
+        "changePercent": -92.04723019779088,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.13484599999999958,
+          "min": 0.11512300000000053,
+          "max": 0.14371699999999876,
+          "range": 0.028593999999998232
+        },
+        "after": {
+          "n": 3,
+          "median": 0.11202900000000016,
+          "min": 0.11031199999999997,
+          "max": 0.116784,
+          "range": 0.006472000000000033
+        },
+        "changePercent": -16.920783708823024,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.009488000000001051,
+          "min": 0.007381999999999778,
+          "max": 0.018640000000001322,
+          "range": 0.011258000000001545
+        },
+        "after": {
+          "n": 3,
+          "median": 0.008095000000000019,
+          "min": 0.008060000000000012,
+          "max": 0.010168999999999984,
+          "range": 0.002108999999999972
+        },
+        "changePercent": -14.681703204056472,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.05330200000000218,
+          "min": 0.04116799999999898,
+          "max": 0.06014999999999304,
+          "range": 0.01898199999999406
+        },
+        "after": {
+          "n": 3,
+          "median": 0.04732800000000004,
+          "min": 0.0440910000000001,
+          "max": 0.04759200000000008,
+          "range": 0.0035009999999999764
+        },
+        "changePercent": -11.207834602832726,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "mobile/edit-save-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 1417.0395990000106,
+          "min": 1329.9071089999634,
+          "max": 1502.7028580000042,
+          "range": 172.79574900004081
+        },
+        "after": {
+          "n": 3,
+          "median": 1450.4689870000002,
+          "min": 1408.9975000000013,
+          "max": 1502.3542740000048,
+          "range": 93.3567740000035
+        },
+        "changePercent": 2.3591004812836784,
+        "observedRangesOverlap": true
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 156023048,
+          "min": 22695220,
+          "max": 233598368,
+          "range": 210903148
+        },
+        "after": {
+          "n": 3,
+          "median": 12606216,
+          "min": 12423828,
+          "max": 12644024,
+          "range": 220196
+        },
+        "changePercent": -91.9202860336378,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.9629859999999972,
+          "min": 0.9475049999999996,
+          "max": 1.035971,
+          "range": 0.08846600000000038
+        },
+        "after": {
+          "n": 3,
+          "median": 1.0349560000000002,
+          "min": 0.9556809999999998,
+          "max": 1.12059,
+          "range": 0.1649090000000002
+        },
+        "changePercent": 7.473628900108951,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.004730000000002121,
+          "min": 0.00467000000000084,
+          "max": 0.005523000000000167,
+          "range": 0.0008529999999993265
+        },
+        "after": {
+          "n": 3,
+          "median": 0.006793000000000049,
+          "min": 0.0044560000000000155,
+          "max": 0.007552999999999976,
+          "range": 0.003096999999999961
+        },
+        "changePercent": 43.61522198725164,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.023809999999997444,
+          "min": 0.023268999999999096,
+          "max": 0.025793000000007282,
+          "range": 0.0025240000000081864
+        },
+        "after": {
+          "n": 3,
+          "median": 0.03298599999999996,
+          "min": 0.023876999999999926,
+          "max": 0.037656000000000134,
+          "range": 0.013779000000000208
+        },
+        "changePercent": 38.53842923143007,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "tablet/open-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 11750.120708000031,
+          "min": 10282.803180999996,
+          "max": 12065.632305999985,
+          "range": 1782.8291249999893
+        },
+        "after": {
+          "n": 3,
+          "median": 315.53960599999846,
+          "min": 300.75995200000034,
+          "max": 331.59586699999636,
+          "range": 30.83591499999602
+        },
+        "changePercent": -97.31458413201521,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 66501908,
+          "min": 66498112,
+          "max": 68047016,
+          "range": 1548904
+        },
+        "after": {
+          "n": 3,
+          "median": 11296592,
+          "min": 11107360,
+          "max": 12044208,
+          "range": 936848
+        },
+        "changePercent": -83.0131309916702,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.7614910000000001,
+          "min": 1.6569360000000002,
+          "max": 2.294733,
+          "range": 0.6377969999999997
+        },
+        "after": {
+          "n": 3,
+          "median": 0.09717600000000004,
+          "min": 0.087092,
+          "max": 0.098167,
+          "range": 0.011075000000000002
+        },
+        "changePercent": -94.4833098778251,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.125207,
+          "min": 1.840118,
+          "max": 2.715628,
+          "range": 0.8755100000000002
+        },
+        "after": {
+          "n": 3,
+          "median": 0.023398999999999996,
+          "min": 0.021109999999999997,
+          "max": 0.025002000000000003,
+          "range": 0.0038920000000000066
+        },
+        "changePercent": -98.89897784074681,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 5.0383629999999995,
+          "min": 4.585578,
+          "max": 5.604629,
+          "range": 1.0190510000000002
+        },
+        "after": {
+          "n": 3,
+          "median": 0.05965700000000001,
+          "min": 0.055101,
+          "max": 0.06325499999999999,
+          "range": 0.008153999999999995
+        },
+        "changePercent": -98.81594478206513,
+        "observedRangesOverlap": false
+      },
+      "initialAppReadyMs": {
+        "before": {
+          "n": 3,
+          "median": 1443.0096860000049,
+          "min": 1248.896470000036,
+          "max": 1698.4945370000787,
+          "range": 449.59806700004265
+        },
+        "after": {
+          "n": 3,
+          "median": 1461.7115709999998,
+          "min": 1141.625638999998,
+          "max": 1562.8156290000043,
+          "range": 421.1899900000062
+        },
+        "changePercent": 1.2960332270420312,
+        "observedRangesOverlap": true
+      },
+      "entryToVisibleRowMs": {
+        "before": {
+          "n": 3,
+          "median": 12974.729056000011,
+          "min": 11372.089838999964,
+          "max": 13611.88465500006,
+          "range": 2239.794816000096
+        },
+        "after": {
+          "n": 3,
+          "median": 1743.7907290000003,
+          "min": 1444.7150089999996,
+          "max": 1871.7695370000001,
+          "range": 427.0545280000006
+        },
+        "changePercent": -86.56009908589495,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "tablet/scroll-20-frames",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 2567.2559410000686,
+          "min": 2178.5340139999753,
+          "max": 2619.747108999989,
+          "range": 441.2130950000137
+        },
+        "after": {
+          "n": 3,
+          "median": 346.5292780000018,
+          "min": 342.78951300000335,
+          "max": 357.7059880000015,
+          "range": 14.916474999998172
+        },
+        "changePercent": -86.50195827904045,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 66734480,
+          "min": 66729916,
+          "max": 68322712,
+          "range": 1592796
+        },
+        "after": {
+          "n": 3,
+          "median": 11528012,
+          "min": 11381404,
+          "max": 12282300,
+          "range": 900896
+        },
+        "changePercent": -82.72555356691174,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.02105699999999988,
+          "min": 0.020694999999999908,
+          "max": 0.02284200000000025,
+          "range": 0.002147000000000343
+        },
+        "after": {
+          "n": 3,
+          "median": 0.012461999999999973,
+          "min": 0.012190000000000034,
+          "max": 0.017786999999999942,
+          "range": 0.005596999999999908
+        },
+        "changePercent": -40.81778031058535,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.028577000000000297,
+          "min": 0.025817000000000867,
+          "max": 0.029285999999999923,
+          "range": 0.003468999999999056
+        },
+        "after": {
+          "n": 3,
+          "median": 0.014524000000000009,
+          "min": 0.013642999999999988,
+          "max": 0.014807999999999988,
+          "range": 0.0011649999999999994
+        },
+        "changePercent": -49.1759106974145,
+        "observedRangesOverlap": false
+      },
+      "frames": {
+        "before": [
+          {
+            "gaps": [
+              7.85999999105843,
+              16.540000000000873,
+              33.399999999999636,
+              33.30000000000109,
+              100,
+              133.29999999999927,
+              133.29999999999927,
+              150.10000000000036,
+              133.3000000000011,
+              150,
+              183.29999999999927,
+              150,
+              150,
+              133.39999999999964,
+              133.3000000000011,
+              116.59999999999854,
+              133.40000000000146,
+              150,
+              116.59999999999854,
+              116.70000000000073
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -8.372000011921045,
+              16.572000000000116,
+              50,
+              16.799999999999272,
+              99.90000000000146,
+              100.09999999999854,
+              116.60000000000036,
+              116.70000000000073,
+              83.29999999999927,
+              116.60000000000036,
+              116.70000000000073,
+              133.29999999999927,
+              133.29999999999927,
+              116.70000000000073,
+              116.70000000000073,
+              149.89999999999964,
+              116.79999999999927,
+              116.60000000000036,
+              116.70000000000073,
+              116.59999999999854
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -4.90000000298096,
+              33.30000000000109,
+              33.399999999999636,
+              33.20000000000073,
+              116.69999999999891,
+              100,
+              200,
+              116.70000000000073,
+              150,
+              133.29999999999927,
+              133.3000000000011,
+              133.39999999999964,
+              133.29999999999927,
+              133.3000000000011,
+              116.69999999999891,
+              133.39999999999964,
+              133.3000000000011,
+              133.29999999999927,
+              149.89999999999964,
+              133.40000000000146
+            ],
+            "distance": 2000
+          }
+        ],
+        "after": [
+          {
+            "gaps": [
+              4.531999997019739,
+              16.567999999999984,
+              16.799999999999955,
+              16.59999999999991,
+              16.700000000000273,
+              16.59999999999991,
+              16.699999999999818,
+              16.700000000000273,
+              16.59999999999991,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              16.600000000000364
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -11.000000005960374,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.59999999999991,
+              16.700000000000273,
+              16.59999999999991,
+              16.699999999999818,
+              16.700000000000273,
+              16.59999999999991
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -9.435999999999922,
+              16.635999999999967,
+              16.59999999999991,
+              16.700000000000045,
+              16.799999999999955,
+              16.600000000000136,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045,
+              16.700000000000045,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045
+            ],
+            "distance": 2000
+          }
+        ]
+      }
+    },
+    {
+      "group": "tablet/theme-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 16194.880688000005,
+          "min": 15882.874957999913,
+          "max": 17042.81070999999,
+          "range": 1159.9357520000776
+        },
+        "after": {
+          "n": 3,
+          "median": 345.2917440000019,
+          "min": 289.63617499999964,
+          "max": 361.3766469999973,
+          "range": 71.74047199999768
+        },
+        "changePercent": -97.86789572178908,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 96455208,
+          "min": 95731792,
+          "max": 97841148,
+          "range": 2109356
+        },
+        "after": {
+          "n": 3,
+          "median": 13326136,
+          "min": 11758744,
+          "max": 13468580,
+          "range": 1709836
+        },
+        "changePercent": -86.18411978335062,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.9292379999999998,
+          "min": 0.7972459999999999,
+          "max": 1.1114099999999998,
+          "range": 0.3141639999999999
+        },
+        "after": {
+          "n": 3,
+          "median": 0.05086200000000002,
+          "min": 0.04153200000000001,
+          "max": 0.060824000000000045,
+          "range": 0.01929200000000003
+        },
+        "changePercent": -94.526482989288,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.001711000000000018,
+          "min": 0.0016460000000000363,
+          "max": 0.0018039999999999168,
+          "range": 0.00015799999999988046
+        },
+        "after": {
+          "n": 3,
+          "median": 0.001570999999999996,
+          "min": 0.0013789999999999983,
+          "max": 0.0016710000000000058,
+          "range": 0.00029200000000000753
+        },
+        "changePercent": -8.182349503215697,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 13.271038,
+          "min": 13.088981,
+          "max": 14.053106999999997,
+          "range": 0.9641259999999967
+        },
+        "after": {
+          "n": 3,
+          "median": 0.17105099999999998,
+          "min": 0.151189,
+          "max": 0.19359900000000002,
+          "range": 0.04241000000000003
+        },
+        "changePercent": -98.71109554505081,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "tablet/language-5000-fr",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 12020.063275999972,
+          "min": 9847.948997,
+          "max": 12349.179690000019,
+          "range": 2501.2306930000195
+        },
+        "after": {
+          "n": 3,
+          "median": 412.6846930000029,
+          "min": 405.3450729999968,
+          "max": 426.3999780000013,
+          "range": 21.05490500000451
+        },
+        "changePercent": -96.56670116018445,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 133435196,
+          "min": 96541060,
+          "max": 145785152,
+          "range": 49244092
+        },
+        "after": {
+          "n": 3,
+          "median": 15566372,
+          "min": 15312100,
+          "max": 16475280,
+          "range": 1163180
+        },
+        "changePercent": -88.3341333721277,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.73758,
+          "min": 1.6574839999999997,
+          "max": 1.8351799999999998,
+          "range": 0.17769600000000008
+        },
+        "after": {
+          "n": 3,
+          "median": 0.08283499999999999,
+          "min": 0.081036,
+          "max": 0.09670999999999996,
+          "range": 0.015673999999999966
+        },
+        "changePercent": -95.23273748546829,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.6537319999999998,
+          "min": 1.4218600000000001,
+          "max": 2.79835,
+          "range": 1.37649
+        },
+        "after": {
+          "n": 3,
+          "median": 0.029776999999999998,
+          "min": 0.027619000000000005,
+          "max": 0.02989,
+          "range": 0.0022709999999999952
+        },
+        "changePercent": -98.87791985023355,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 5.843957999999997,
+          "min": 4.705941000000003,
+          "max": 5.960754999999999,
+          "range": 1.254813999999996
+        },
+        "after": {
+          "n": 3,
+          "median": 0.076853,
+          "min": 0.07373299999999999,
+          "max": 0.08710499999999999,
+          "range": 0.013371999999999995
+        },
+        "changePercent": -98.68491525777563,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "tablet/period-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 1560.0395090000238,
+          "min": 1470.268645000062,
+          "max": 1635.5669140000246,
+          "range": 165.2982689999626
+        },
+        "after": {
+          "n": 3,
+          "median": 152.32961899999646,
+          "min": 126.63287999999739,
+          "max": 170.67032099999778,
+          "range": 44.0374410000004
+        },
+        "changePercent": -90.23552813110234,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 149790300,
+          "min": 118171756,
+          "max": 154294148,
+          "range": 36122392
+        },
+        "after": {
+          "n": 3,
+          "median": 14316592,
+          "min": 13709812,
+          "max": 16711556,
+          "range": 3001744
+        },
+        "changePercent": -90.44224358987198,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2503,
+          "min": 2503,
+          "max": 2503,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -98.00239712345186,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.6093609999999998,
+          "min": 0.6034370000000004,
+          "max": 0.6411670000000003,
+          "range": 0.03772999999999982
+        },
+        "after": {
+          "n": 3,
+          "median": 0.06075900000000001,
+          "min": 0.05886100000000005,
+          "max": 0.07044400000000006,
+          "range": 0.01158300000000001
+        },
+        "changePercent": -90.02906323181168,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.009674000000000404,
+          "min": 0.008345000000000269,
+          "max": 0.011483000000000132,
+          "range": 0.003137999999999863
+        },
+        "after": {
+          "n": 3,
+          "median": 0.003269999999999995,
+          "min": 0.0028510000000000063,
+          "max": 0.005714999999999998,
+          "range": 0.0028639999999999916
+        },
+        "changePercent": -66.1980566466833,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.003591000000000122,
+          "min": 0.0034989999999979204,
+          "max": 0.0038610000000005584,
+          "range": 0.000362000000002638
+        },
+        "after": {
+          "n": 3,
+          "median": 0.002173000000000036,
+          "min": 0.0018199999999999883,
+          "max": 0.004937000000000025,
+          "range": 0.0031170000000000364
+        },
+        "changePercent": -39.487607908661595,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "tablet/month-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 4914.800593000022,
+          "min": 4596.1141569999745,
+          "max": 4968.712597999955,
+          "range": 372.5984409999801
+        },
+        "after": {
+          "n": 3,
+          "median": 292.9908589999977,
+          "min": 261.28682899999694,
+          "max": 293.35639000000083,
+          "range": 32.06956100000389
+        },
+        "changePercent": -94.03860129305562,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 151439336,
+          "min": 94677980,
+          "max": 179562528,
+          "range": 84884548
+        },
+        "after": {
+          "n": 3,
+          "median": 15429928,
+          "min": 15047372,
+          "max": 17870900,
+          "range": 2823528
+        },
+        "changePercent": -89.81114919838265,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2497,
+          "min": 2497,
+          "max": 2497,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -97.99759711653985,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.9040819999999998,
+          "min": 0.9033720000000001,
+          "max": 0.9443989999999998,
+          "range": 0.0410269999999997
+        },
+        "after": {
+          "n": 3,
+          "median": 0.13290800000000003,
+          "min": 0.12564299999999995,
+          "max": 0.143864,
+          "range": 0.018221000000000043
+        },
+        "changePercent": -85.29912109742257,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.7884580000000003,
+          "min": 0.6641120000000003,
+          "max": 0.8830889999999991,
+          "range": 0.21897699999999887
+        },
+        "after": {
+          "n": 3,
+          "median": 0.019351000000000007,
+          "min": 0.017286999999999997,
+          "max": 0.029629000000000003,
+          "range": 0.012342000000000006
+        },
+        "changePercent": -97.54571581491976,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.2146059999999963,
+          "min": 2.0914660000000005,
+          "max": 2.320622,
+          "range": 0.2291559999999997
+        },
+        "after": {
+          "n": 3,
+          "median": 0.05242399999999997,
+          "min": 0.046651,
+          "max": 0.062743,
+          "range": 0.016091999999999995
+        },
+        "changePercent": -97.63280691915402,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "tablet/search-off-page",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 1079.8590229999973,
+          "min": 975.3318420000141,
+          "max": 1483.2438649999676,
+          "range": 507.9120229999535
+        },
+        "after": {
+          "n": 3,
+          "median": 65.22451800000272,
+          "min": 64.45610099999612,
+          "max": 68.32950300000084,
+          "range": 3.8734020000047167
+        },
+        "changePercent": -93.95990433836447,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 210167016,
+          "min": 153546496,
+          "max": 237558728,
+          "range": 84012232
+        },
+        "after": {
+          "n": 3,
+          "median": 8872916,
+          "min": 8819508,
+          "max": 18281652,
+          "range": 9462144
+        },
+        "changePercent": -95.7781595947482,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.6066950000000002,
+          "min": 0.5876840000000012,
+          "max": 0.8796540000000004,
+          "range": 0.2919699999999992
+        },
+        "after": {
+          "n": 3,
+          "median": 0.014163000000000037,
+          "min": 0.014136999999999955,
+          "max": 0.01800299999999999,
+          "range": 0.003866000000000036
+        },
+        "changePercent": -97.66554858701653,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0026250000000000995,
+          "min": 0.0023409999999994824,
+          "max": 0.0030359999999998166,
+          "range": 0.0006950000000003342
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0022030000000000105,
+          "min": 0.0018489999999999895,
+          "max": 0.0023180000000000145,
+          "range": 0.00046900000000002495
+        },
+        "changePercent": -16.076190476193258,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.004438000000000386,
+          "min": 0.004430999999996743,
+          "max": 0.005184999999997331,
+          "range": 0.0007540000000005875
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0033929999999999794,
+          "min": 0.002650999999999959,
+          "max": 0.003457999999999961,
+          "range": 0.0008070000000000022
+        },
+        "changePercent": -23.54664263182325,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "tablet/edit-dialog-open",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 173.40275299997302,
+          "min": 169.99454899993725,
+          "max": 327.8294940000633,
+          "range": 157.83494500012603
+        },
+        "after": {
+          "n": 3,
+          "median": 137.4497160000028,
+          "min": 119.13724699999875,
+          "max": 147.1148499999981,
+          "range": 27.977602999999363
+        },
+        "changePercent": -20.733832870563365,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 210466276,
+          "min": 153915340,
+          "max": 237822752,
+          "range": 83907412
+        },
+        "after": {
+          "n": 3,
+          "median": 14930328,
+          "min": 8997428,
+          "max": 14973072,
+          "range": 5975644
+        },
+        "changePercent": -92.90607108950795,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.05915500000000051,
+          "min": 0.05862499999999926,
+          "max": 0.14325799999999944,
+          "range": 0.08463300000000018
+        },
+        "after": {
+          "n": 3,
+          "median": 0.05208099999999993,
+          "min": 0.04548200000000002,
+          "max": 0.060919999999999974,
+          "range": 0.015437999999999952
+        },
+        "changePercent": -11.958414335221907,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.002996000000001331,
+          "min": 0.0029249999999994003,
+          "max": 0.0032329999999998194,
+          "range": 0.00030800000000041905
+        },
+        "after": {
+          "n": 3,
+          "median": 0.002779999999999977,
+          "min": 0.002574999999999994,
+          "max": 0.002948000000000006,
+          "range": 0.0003730000000000122
+        },
+        "changePercent": -7.209612817131443,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.026668000000000802,
+          "min": 0.024909000000000958,
+          "max": 0.04259800000000524,
+          "range": 0.017689000000004285
+        },
+        "after": {
+          "n": 3,
+          "median": 0.02426000000000006,
+          "min": 0.02216000000000007,
+          "max": 0.025013000000000063,
+          "range": 0.0028529999999999944
+        },
+        "changePercent": -9.029548522576386,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "tablet/edit-save-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 798.1136260000058,
+          "min": 785.0499249999993,
+          "max": 1179.9346979999682,
+          "range": 394.88477299996885
+        },
+        "after": {
+          "n": 3,
+          "median": 717.7954150000005,
+          "min": 695.8515889999981,
+          "max": 721.401801,
+          "range": 25.55021200000192
+        },
+        "changePercent": -10.063505794600314,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 223629908,
+          "min": 172605232,
+          "max": 256166420,
+          "range": 83561188
+        },
+        "after": {
+          "n": 3,
+          "median": 23545872,
+          "min": 12389276,
+          "max": 25506908,
+          "range": 13117632
+        },
+        "changePercent": -89.47105411320922,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.5134869999999996,
+          "min": 0.5031739999999996,
+          "max": 0.7597639999999988,
+          "range": 0.2565899999999992
+        },
+        "after": {
+          "n": 3,
+          "median": 0.430744,
+          "min": 0.42439800000000005,
+          "max": 0.46905299999999994,
+          "range": 0.04465499999999989
+        },
+        "changePercent": -16.113942514610816,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0022849999999987602,
+          "min": 0.0018130000000002866,
+          "max": 0.0025239999999993046,
+          "range": 0.000710999999999018
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0022729999999999972,
+          "min": 0.00223799999999999,
+          "max": 0.00249000000000002,
+          "range": 0.00025200000000003
+        },
+        "changePercent": -0.5251641137317072,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.010033999999997434,
+          "min": 0.00835000000000008,
+          "max": 0.013233999999997081,
+          "range": 0.004883999999997002
+        },
+        "after": {
+          "n": 3,
+          "median": 0.01148400000000005,
+          "min": 0.011016000000000026,
+          "max": 0.014017999999999975,
+          "range": 0.003001999999999949
+        },
+        "changePercent": 14.450867052052887,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "desktop/open-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 4698.8924409999745,
+          "min": 4341.743397999904,
+          "max": 5066.904910000041,
+          "range": 725.161512000137
+        },
+        "after": {
+          "n": 3,
+          "median": 194.64266099999804,
+          "min": 181.48582700000406,
+          "max": 215.2005960000024,
+          "range": 33.71476899999834
+        },
+        "changePercent": -95.85769064851002,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 68736268,
+          "min": 67009156,
+          "max": 68755244,
+          "range": 1746088
+        },
+        "after": {
+          "n": 3,
+          "median": 11515268,
+          "min": 11142184,
+          "max": 12261264,
+          "range": 1119080
+        },
+        "changePercent": -83.24717309354067,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.695658,
+          "min": 0.644134,
+          "max": 0.7440169999999999,
+          "range": 0.09988299999999994
+        },
+        "after": {
+          "n": 3,
+          "median": 0.049152,
+          "min": 0.039357,
+          "max": 0.057703000000000004,
+          "range": 0.018346
+        },
+        "changePercent": -92.93445917390441,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.8922049999999999,
+          "min": 0.789339,
+          "max": 1.057539,
+          "range": 0.2682
+        },
+        "after": {
+          "n": 3,
+          "median": 0.011113000000000001,
+          "min": 0.009659999999999998,
+          "max": 0.011549000000000004,
+          "range": 0.0018890000000000053
+        },
+        "changePercent": -98.75443423876798,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.026268,
+          "min": 1.987451,
+          "max": 2.391708,
+          "range": 0.40425699999999987
+        },
+        "after": {
+          "n": 3,
+          "median": 0.025342000000000003,
+          "min": 0.024471999999999997,
+          "max": 0.031808,
+          "range": 0.007336000000000006
+        },
+        "changePercent": -98.74932634774866,
+        "observedRangesOverlap": false
+      },
+      "initialAppReadyMs": {
+        "before": {
+          "n": 3,
+          "median": 681.8838599999435,
+          "min": 645.1270760000916,
+          "max": 837.325574999908,
+          "range": 192.19849899981637
+        },
+        "after": {
+          "n": 3,
+          "median": 731.8941290000002,
+          "min": 658.723705999997,
+          "max": 807.0467180000051,
+          "range": 148.32301200000802
+        },
+        "changePercent": 7.334132970981432,
+        "observedRangesOverlap": true
+      },
+      "entryToVisibleRowMs": {
+        "before": {
+          "n": 3,
+          "median": 5253.054806000087,
+          "min": 5094.396626999951,
+          "max": 5644.298601999995,
+          "range": 549.9019750000443
+        },
+        "after": {
+          "n": 3,
+          "median": 905.5146990000067,
+          "min": 817.1597079999992,
+          "max": 998.4878400000016,
+          "range": 181.32813200000237
+        },
+        "changePercent": -82.76213113242757,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/scroll-20-frames",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 1024.3122140000341,
+          "min": 826.8084200000158,
+          "max": 1052.5814510000637,
+          "range": 225.77303100004792
+        },
+        "after": {
+          "n": 3,
+          "median": 360.36415300000226,
+          "min": 356.7201150000037,
+          "max": 362.9613590000008,
+          "range": 6.241243999997096
+        },
+        "changePercent": -64.81891477279697,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 68938960,
+          "min": 67192764,
+          "max": 68959488,
+          "range": 1766724
+        },
+        "after": {
+          "n": 3,
+          "median": 11695244,
+          "min": 11322172,
+          "max": 12482484,
+          "range": 1160312
+        },
+        "changePercent": -83.03536345776031,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0070230000000000015,
+          "min": 0.0068870000000000875,
+          "max": 0.007369999999999988,
+          "range": 0.0004829999999999002
+        },
+        "after": {
+          "n": 3,
+          "median": 0.007307000000000008,
+          "min": 0.005728000000000011,
+          "max": 0.009187,
+          "range": 0.00345899999999999
+        },
+        "changePercent": 4.043855902036258,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.009535999999999767,
+          "min": 0.009328999999999699,
+          "max": 0.009949999999999903,
+          "range": 0.0006210000000002047
+        },
+        "after": {
+          "n": 3,
+          "median": 0.006265,
+          "min": 0.005891,
+          "max": 0.007960999999999996,
+          "range": 0.0020699999999999955
+        },
+        "changePercent": -34.30159395972994,
+        "observedRangesOverlap": false
+      },
+      "frames": {
+        "before": [
+          {
+            "gaps": [
+              10.700000011920565,
+              33.30000000000018,
+              16.600000000000364,
+              16.699999999999818,
+              16.699999999999818,
+              33.30000000000018,
+              33.30000000000018,
+              16.699999999999818,
+              16.699999999999818,
+              50,
+              50,
+              49.900000000000546,
+              50.099999999999454,
+              33.30000000000018,
+              66.60000000000036,
+              50.099999999999454,
+              33.30000000000018,
+              50,
+              50,
+              50
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              -1.800000002980596,
+              33.30000000000018,
+              16.699999999999818,
+              16.700000000000728,
+              16.599999999999454,
+              50,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              50,
+              50,
+              50,
+              66.69999999999982,
+              49.900000000000546,
+              50,
+              50.099999999999454,
+              249.90000000000055,
+              50.099999999999454,
+              50,
+              49.900000000000546
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              3.5999999970199497,
+              33.399999999999636,
+              16.699999999999818,
+              16.600000000000364,
+              16.600000000000364,
+              50.099999999999454,
+              16.699999999999818,
+              16.600000000000364,
+              16.699999999999818,
+              50,
+              50,
+              66.69999999999982,
+              49.900000000000546,
+              50.099999999999454,
+              66.60000000000036,
+              50,
+              183.30000000000018,
+              50.099999999999454,
+              50,
+              49.900000000000546
+            ],
+            "distance": 2000
+          }
+        ],
+        "after": [
+          {
+            "gaps": [
+              6.33200000298018,
+              16.668000000000006,
+              16.600000000000023,
+              16.800000000000068,
+              16.59999999999991,
+              16.700000000000045,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045,
+              16.600000000000136,
+              16.799999999999955,
+              16.59999999999991,
+              16.700000000000045,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              3.600000002980323,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.700000000000045,
+              16.700000000000045,
+              16.59999999999991,
+              16.700000000000045,
+              16.700000000000045,
+              16.59999999999991,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818
+            ],
+            "distance": 2000
+          },
+          {
+            "gaps": [
+              8.298000000000002,
+              16.601999999999975,
+              16.600000000000023,
+              16.700000000000045,
+              16.700000000000045,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136,
+              16.699999999999818,
+              16.600000000000136,
+              16.700000000000045,
+              16.699999999999818,
+              16.700000000000045,
+              16.600000000000136
+            ],
+            "distance": 2000
+          }
+        ]
+      }
+    },
+    {
+      "group": "desktop/theme-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 6462.201017000014,
+          "min": 6080.0319710000185,
+          "max": 6478.934568000026,
+          "range": 398.9025970000075
+        },
+        "after": {
+          "n": 3,
+          "median": 175.8862880000015,
+          "min": 161.0115750000041,
+          "max": 194.99352299999737,
+          "range": 33.98194799999328
+        },
+        "changePercent": -97.27822939061629,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 93159840,
+          "min": 93144196,
+          "max": 96614128,
+          "range": 3469932
+        },
+        "after": {
+          "n": 3,
+          "median": 13271320,
+          "min": 11802632,
+          "max": 13645544,
+          "range": 1842912
+        },
+        "changePercent": -85.75424775310907,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.42912800000000006,
+          "min": 0.416644,
+          "max": 0.47283200000000003,
+          "range": 0.056188000000000016
+        },
+        "after": {
+          "n": 3,
+          "median": 0.024255999999999972,
+          "min": 0.019179999999999975,
+          "max": 0.029355999999999993,
+          "range": 0.010176000000000018
+        },
+        "changePercent": -94.34760724073006,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0008160000000000389,
+          "min": 0.0006950000000000012,
+          "max": 0.0013380000000000614,
+          "range": 0.0006430000000000602
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0006159999999999985,
+          "min": 0.0005670000000000015,
+          "max": 0.000896000000000001,
+          "range": 0.00032899999999999943
+        },
+        "changePercent": -24.509803921572413,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 5.1139920000000005,
+          "min": 4.6608719999999995,
+          "max": 5.138985999999999,
+          "range": 0.4781139999999997
+        },
+        "after": {
+          "n": 3,
+          "median": 0.076091,
+          "min": 0.06791900000000001,
+          "max": 0.09054100000000001,
+          "range": 0.022622000000000003
+        },
+        "changePercent": -98.51210170058928,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/language-5000-fr",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 4955.23212099995,
+          "min": 4365.709862999967,
+          "max": 4960.739460999961,
+          "range": 595.0295979999937
+        },
+        "after": {
+          "n": 3,
+          "median": 231.82375299999694,
+          "min": 231.75984700000117,
+          "max": 251.1342050000021,
+          "range": 19.37435800000094
+        },
+        "changePercent": -95.32163686101518,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 143744508,
+          "min": 136677268,
+          "max": 144469944,
+          "range": 7792676
+        },
+        "after": {
+          "n": 3,
+          "median": 16216576,
+          "min": 15492672,
+          "max": 16718488,
+          "range": 1225816
+        },
+        "changePercent": -88.71847263896858,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 5000,
+          "min": 5000,
+          "max": 5000,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -99,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.7423240000000002,
+          "min": 0.7138639999999998,
+          "max": 0.7935379999999999,
+          "range": 0.07967400000000002
+        },
+        "after": {
+          "n": 3,
+          "median": 0.043682,
+          "min": 0.038512000000000046,
+          "max": 0.044184,
+          "range": 0.005671999999999955
+        },
+        "changePercent": -94.11550751423907,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.049506,
+          "min": 0.9191739999999999,
+          "max": 1.258791,
+          "range": 0.33961700000000006
+        },
+        "after": {
+          "n": 3,
+          "median": 0.013346999999999998,
+          "min": 0.012046000000000001,
+          "max": 0.020467,
+          "range": 0.008420999999999998
+        },
+        "changePercent": -98.728258818911,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 2.1251510000000007,
+          "min": 1.8396529999999993,
+          "max": 2.12575,
+          "range": 0.2860970000000007
+        },
+        "after": {
+          "n": 3,
+          "median": 0.03637299999999999,
+          "min": 0.034498,
+          "max": 0.04152399999999998,
+          "range": 0.007025999999999977
+        },
+        "changePercent": -98.28845103242074,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/period-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 753.5063800000353,
+          "min": 640.6791909999447,
+          "max": 795.7438669999829,
+          "range": 155.06467600003816
+        },
+        "after": {
+          "n": 3,
+          "median": 77.41927099999884,
+          "min": 59.568299000005936,
+          "max": 93.5140739999988,
+          "range": 33.945774999992864
+        },
+        "changePercent": -89.72546576181675,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 181301196,
+          "min": 173802136,
+          "max": 187530568,
+          "range": 13728432
+        },
+        "after": {
+          "n": 3,
+          "median": 15051020,
+          "min": 14047388,
+          "max": 17362308,
+          "range": 3314920
+        },
+        "changePercent": -91.69833385986047,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2503,
+          "min": 2503,
+          "max": 2503,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -98.00239712345186,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.3019259999999999,
+          "min": 0.283639,
+          "max": 0.3997410000000001,
+          "range": 0.11610200000000015
+        },
+        "after": {
+          "n": 3,
+          "median": 0.02536900000000003,
+          "min": 0.022894000000000025,
+          "max": 0.03837500000000005,
+          "range": 0.015481000000000023
+        },
+        "changePercent": -91.59761001039989,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.00363800000000003,
+          "min": 0.002726999999999702,
+          "max": 0.003878999999999966,
+          "range": 0.001152000000000264
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0013770000000000032,
+          "min": 0.001352999999999993,
+          "max": 0.002228999999999995,
+          "range": 0.0008760000000000018
+        },
+        "changePercent": -62.149532710280596,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0023029999999995,
+          "min": 0.0020330000000008397,
+          "max": 0.002361999999999753,
+          "range": 0.0003289999999989135
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0009050000000000169,
+          "min": 0.0008110000000000062,
+          "max": 0.0009889999999999899,
+          "range": 0.00017799999999998373
+        },
+        "changePercent": -60.70343030828426,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/month-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 2942.259638999938,
+          "min": 2669.993745999993,
+          "max": 3226.2112860000925,
+          "range": 556.2175400000997
+        },
+        "after": {
+          "n": 3,
+          "median": 174.3515950000001,
+          "min": 153.96919299999718,
+          "max": 176.88229299999512,
+          "range": 22.91309999999794
+        },
+        "changePercent": -94.07422809703968,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 214416048,
+          "min": 69211612,
+          "max": 215848208,
+          "range": 146636596
+        },
+        "after": {
+          "n": 3,
+          "median": 16277284,
+          "min": 15209924,
+          "max": 18588184,
+          "range": 3378260
+        },
+        "changePercent": -92.40855143454561,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 2497,
+          "min": 2497,
+          "max": 2497,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 50,
+          "min": 50,
+          "max": 50,
+          "range": 0
+        },
+        "changePercent": -97.99759711653985,
+        "observedRangesOverlap": false
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.6428960000000004,
+          "min": 0.5393319999999999,
+          "max": 0.659176,
+          "range": 0.11984400000000006
+        },
+        "after": {
+          "n": 3,
+          "median": 0.06414899999999996,
+          "min": 0.05660599999999999,
+          "max": 0.06996799999999997,
+          "range": 0.013361999999999985
+        },
+        "changePercent": -90.02186978920385,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.6710710000000004,
+          "min": 0.623729,
+          "max": 0.7620950000000004,
+          "range": 0.13836600000000043
+        },
+        "after": {
+          "n": 3,
+          "median": 0.007599999999999996,
+          "min": 0.006954000000000002,
+          "max": 0.008155999999999997,
+          "range": 0.0012019999999999947
+        },
+        "changePercent": -98.86748198029717,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 1.2160689999999992,
+          "min": 1.066364,
+          "max": 1.3203460000000007,
+          "range": 0.2539820000000006
+        },
+        "after": {
+          "n": 3,
+          "median": 0.020670999999999995,
+          "min": 0.01809700000000003,
+          "max": 0.02071199999999998,
+          "range": 0.0026149999999999507
+        },
+        "changePercent": -98.30017869051836,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/search-off-page",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 491.9993930000346,
+          "min": 447.7877140000928,
+          "max": 498.7407259999309,
+          "range": 50.953011999838054
+        },
+        "after": {
+          "n": 3,
+          "median": 49.10150199999771,
+          "min": 48.513379000003624,
+          "max": 49.48435700000118,
+          "range": 0.9709779999975581
+        },
+        "changePercent": -90.02000760598617,
+        "observedRangesOverlap": false
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 272450796,
+          "min": 132248940,
+          "max": 274569524,
+          "range": 142320584
+        },
+        "after": {
+          "n": 3,
+          "median": 18196232,
+          "min": 14388468,
+          "max": 19198024,
+          "range": 4809556
+        },
+        "changePercent": -93.32127772531815,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.26075800000000005,
+          "min": 0.26058000000000003,
+          "max": 0.26488900000000015,
+          "range": 0.004309000000000118
+        },
+        "after": {
+          "n": 3,
+          "median": 0.007477000000000067,
+          "min": 0.006728000000000012,
+          "max": 0.007852999999999999,
+          "range": 0.0011249999999999871
+        },
+        "changePercent": -97.13259037114871,
+        "observedRangesOverlap": false
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0009370000000004097,
+          "min": 0.0009239999999994808,
+          "max": 0.0010500000000002174,
+          "range": 0.00012600000000073663
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0010080000000000089,
+          "min": 0.000907000000000005,
+          "max": 0.0012170000000000097,
+          "range": 0.0003100000000000047
+        },
+        "changePercent": 7.577374599740461,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0016509999999989589,
+          "min": 0.001641999999998589,
+          "max": 0.0018820000000001613,
+          "range": 0.0002400000000015723
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0013340000000000019,
+          "min": 0.0012680000000000469,
+          "max": 0.0016309999999999936,
+          "range": 0.0003629999999999467
+        },
+        "changePercent": -19.2004845547642,
+        "observedRangesOverlap": false
+      }
+    },
+    {
+      "group": "desktop/edit-dialog-open",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 138.89695799991023,
+          "min": 101.04352800000925,
+          "max": 145.54961500002537,
+          "range": 44.50608700001612
+        },
+        "after": {
+          "n": 3,
+          "median": 97.5157160000017,
+          "min": 91.76836899999762,
+          "max": 128.0374490000031,
+          "range": 36.26908000000549
+        },
+        "changePercent": -29.792763351905283,
+        "observedRangesOverlap": true
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 272752232,
+          "min": 128546776,
+          "max": 274885664,
+          "range": 146338888
+        },
+        "after": {
+          "n": 3,
+          "median": 17110896,
+          "min": 14835456,
+          "max": 18015096,
+          "range": 3179640
+        },
+        "changePercent": -93.7265789267675,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 1,
+          "min": 1,
+          "max": 1,
+          "range": 0
+        },
+        "changePercent": 0,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0261610000000001,
+          "min": 0.02567200000000014,
+          "max": 0.05053399999999986,
+          "range": 0.024861999999999718
+        },
+        "after": {
+          "n": 3,
+          "median": 0.027171999999999974,
+          "min": 0.023508000000000084,
+          "max": 0.033165,
+          "range": 0.009656999999999916
+        },
+        "changePercent": 3.864531172355297,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0011120000000000019,
+          "min": 0.0010700000000003485,
+          "max": 0.001198999999999728,
+          "range": 0.0001289999999993796
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0012770000000000004,
+          "min": 0.0012179999999999969,
+          "max": 0.0017199999999999993,
+          "range": 0.0005020000000000024
+        },
+        "changePercent": 14.838129496402717,
+        "observedRangesOverlap": false
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.010927999999999827,
+          "min": 0.010759999999999437,
+          "max": 0.011109999999998621,
+          "range": 0.0003499999999991843
+        },
+        "after": {
+          "n": 3,
+          "median": 0.010942000000000007,
+          "min": 0.010261999999999993,
+          "max": 0.015249999999999986,
+          "range": 0.0049879999999999924
+        },
+        "changePercent": 0.12811127379374776,
+        "observedRangesOverlap": true
+      }
+    },
+    {
+      "group": "desktop/edit-save-5000",
+      "durationMs": {
+        "before": {
+          "n": 3,
+          "median": 413.8073480000021,
+          "min": 406.2952509999741,
+          "max": 452.5347039999906,
+          "range": 46.23945300001651
+        },
+        "after": {
+          "n": 3,
+          "median": 400.4847410000002,
+          "min": 390.2736709999954,
+          "max": 411.9379760000011,
+          "range": 21.664305000005697
+        },
+        "changePercent": -3.21951919519849,
+        "observedRangesOverlap": true
+      },
+      "heapUsedBytes": {
+        "before": {
+          "n": 3,
+          "median": 291313260,
+          "min": 156485044,
+          "max": 293903636,
+          "range": 137418592
+        },
+        "after": {
+          "n": 3,
+          "median": 25736416,
+          "min": 23828396,
+          "max": 25973700,
+          "range": 2145304
+        },
+        "changePercent": -91.16538121196406,
+        "observedRangesOverlap": false
+      },
+      "domRows": {
+        "before": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "after": {
+          "n": 3,
+          "median": 0,
+          "min": 0,
+          "max": 0,
+          "range": 0
+        },
+        "changePercent": null,
+        "observedRangesOverlap": true
+      },
+      "cpuScriptSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.2250059999999996,
+          "min": 0.21630199999999977,
+          "max": 0.23160199999999964,
+          "range": 0.01529999999999987
+        },
+        "after": {
+          "n": 3,
+          "median": 0.19401800000000002,
+          "min": 0.18584600000000007,
+          "max": 0.225759,
+          "range": 0.03991299999999992
+        },
+        "changePercent": -13.77207718905257,
+        "observedRangesOverlap": true
+      },
+      "layoutSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.0009899999999998244,
+          "min": 0.0009759999999996438,
+          "max": 0.001260000000000261,
+          "range": 0.0002840000000006171
+        },
+        "after": {
+          "n": 3,
+          "median": 0.0010489999999999944,
+          "min": 0.0009310000000000013,
+          "max": 0.001128000000000004,
+          "range": 0.00019700000000000273
+        },
+        "changePercent": 5.959595959614192,
+        "observedRangesOverlap": true
+      },
+      "styleSeconds": {
+        "before": {
+          "n": 3,
+          "median": 0.005520999999999887,
+          "min": 0.004908999999999608,
+          "max": 0.0057349999999996015,
+          "range": 0.0008259999999999934
+        },
+        "after": {
+          "n": 3,
+          "median": 0.005608999999999975,
+          "min": 0.004805999999999977,
+          "max": 0.005715000000000026,
+          "range": 0.0009090000000000487
+        },
+        "changePercent": 1.5939141459896722,
+        "observedRangesOverlap": true
+      }
+    }
+  ],
+  "policyOnly": []
+}

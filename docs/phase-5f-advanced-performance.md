@@ -1,118 +1,192 @@
-# Fase 5F — Rendimiento avanzado
+# Fase 5F — Rendimiento avanzado y base web móvil
 
-## Estado de partida y checkpoint 1
+## Estado y alcance
 
-Base verificada: `540cfcf269024e3b0d3399b653a2d5b16b1845c5`, merge de PR #29 en origin/main. Rama nueva `perf/phase-5f-advanced-performance`; árbol inicial limpio. Los worktrees anteriores permanecen intactos. No había commits posteriores en origin/main al iniciar. Se revisaron el documento, perfiles, recorridos y herramientas de 5E.
+Base verificada: `540cfcf269024e3b0d3399b653a2d5b16b1845c5`, merge de PR #29. La referencia remota `origin/main` se volvió a obtener explícitamente y sigue en ese SHA, sin commits posteriores. Rama independiente `perf/phase-5f-advanced-performance`, creada con árbol limpio. Se conservan los worktrees anteriores y el checkout base separado. Se revisaron documentación, perfiles y herramientas de 5E.
 
-Entorno local: Node 24.22.1, Chromium 156.0.8078.79, Linux, 3 CPU AMD EPYC 9V74 y 10.452.459.520 bytes de memoria disponibles al medir. Datos exclusivamente ficticios JSON 3.5, EUR y Europe/Madrid. No son teléfonos físicos ni pruebas con lector de pantalla.
+Frontend medido: **`d11c41f752be8641002fdd279dc577ffe70e4a83`**. Los commits de cierre posteriores contienen evidencias/documentación; el manifiesto permite comprobar las fuentes. El SHA exacto de entrega y sus tres checks se enlazan en el cuerpo de la única PR Draft para evitar un ciclo de commits que cambien el SHA documentado.
 
-Validación inicial realmente ejecutada: npm ci (188 paquetes), 599/599 unitarias, 22/22 infraestructura, lint y build correctos. La ejecución completa de las 41 suites Chromium está pendiente; las referencias anteriores no se presentan como resultados de esta fase. Se conserva la advertencia de dependencia obsoleta node-domexception; no se actualizan dependencias.
+Se pagina únicamente la presentación de listados grandes y se precargan selectivamente tres destinos. No hay virtualización, dependencia nueva, funcionalidad financiera nueva, Capacitor, proyecto Android/iOS, despliegue ni sincronización de Google AI Studio. No se modifica main ni sus protecciones. Los46 archivos protegidos de dominio, FinanceStore, Web Locks, modelos, parsers, API/prompts, esquemas, configuración, workflow y lockfile mantienen sus bytes de la base: [manifiesto](phase-5f-protected-files.json), sin excepciones.
 
-## Diagnóstico medido
+## Diagnóstico y decisión
 
-[Línea base](phase-5f-baseline-core.json): 144 observaciones de producción, 3 muestras por escenario y perfil, sin errores, peticiones API ni escrituras financieras. Perfiles: 390×900/CPU4×/80ms/1,6Mbps; 768×900/CPU2×/40ms/5Mbps; 1280×900/CPU1×/20ms/10Mbps. La instrumentación registra heap, scripts, tareas largas, recursos y hashes financieros. Se conservan muestras y rangos, sin atribuir a mejoras diferencias menores que su variabilidad.
+La [línea base nueva](phase-5f-baseline-core.json) contiene144observaciones de producción. No se reutilizan como aprobación las cifras históricas. [Validación inicial real](phase-5f-baseline-validation.json): npm ci188paquetes,599/599unitarias,22/22infraestructura, lint/build y784/784resultados Chromium en 41 suites. Sin fallos, omisiones, cancelaciones o casos pendientes. Su ejecución local completa duró55m42,479s; pudo coexistir con pruebas de desarrollo y no sirve como comparación temporal. Las mediciones de rendimiento son ejecuciones separadas y secuenciales.
 
-| Móvil, mediana [mín–máx], ms | Base actual | Después |
-| --- | ---: | ---: |
-| Abrir 100 | 744,07 [708,00–814,55] | Pendiente |
-| Abrir 1.000 | 5.809,41 [5.784,47–6.333,25] | Pendiente |
-| Abrir 5.000 | 26.587,94 [26.278,53–29.507,90] | Pendiente |
-| Filtrar 5.000 | 2.801,70 [2.793,44–3.569,74] | Pendiente |
-| Primera Planificación | 695,31 [636,61–1.056,33] | Pendiente |
-| Primer Catálogo | 1.049,73 [1.019,93–1.052,22] | Pendiente |
+El listado es plano. Sus filtros/ordenación toman unos54,10ms y la proyección económica/totales8,90ms en una muestra exploratoria. No justifican cambiar identidades, sumas o redondeos. Construcción/formato de elementos587,20ms y React actualDuration5.002ms; estilos/layout dominan. [Perfil CPU](phase-5f-before-mobile-5000.cpuprofile), [timeline gzip](phase-5f-baseline-ledger-trace.json.gz), [resumen](phase-5f-baseline-ledger-trace.summary.json) y [experimento React aislado](phase-5f-ledger-diagnosis.json) conservan la evidencia. UpdateLayoutTree11.858,52ms/Layout6.788,08ms/Paint69,54ms pueden solaparse y no deben sumarse como costes exclusivos.
 
-Landing: 137.119 bytes gzip; aplicación inicial: 245.354 bytes gzip. No se modifica el presupuesto global de CI (50 minutos), reglas axe, límites individuales ni aserciones.
-
-[Perfil CPU de 5.000](phase-5f-before-mobile-5000.cpuprofile), [timeline comprimido](phase-5f-baseline-ledger-trace.json.gz) y [resumen](phase-5f-baseline-ledger-trace.summary.json): en una muestra exploratoria, UpdateLayoutTree ocupa 11.858,52ms, Layout 6.788,08ms y Paint 69,54ms. Las categorías pueden solaparse: no deben sumarse como costes exclusivos. El listado actual es plano, sin agrupaciones adicionales.
-
-[Experimento React aislado](phase-5f-ledger-diagnosis.json): builds temporales con react-dom/profiling, misma fuente, datos, filtros, orden y proyección económica. Una muestra por alternativa, **no** medianas de aceptación. Preparación/filtro/orden: 54,10ms; proyección y totales: 8,90ms. La identidad y proyección económica optimizada en 5E no es el cuello dominante. Construcción de elementos/formato: 587,20ms; React actualDuration: 5.002ms; estilos/layout dominan la espera restante.
-
-| Experimento CPU4×, 5.000 datos completos | Filas DOM | Primera presentación, ms |
+| Alternativa exploratoria,5.000datos,CPU4× | Filas DOM | Presentación,ms |
 | --- | ---: | ---: |
 | DOM completo | 5.000 | 25.187,51 |
 | content-visibility:auto | 5.000 | 7.413,58 |
-| Prototipo de límite visual de 50 | 50 | 683,03 |
+| Prototipo de50filas | 50 | 683,03 |
 
-Las tres variantes conservan literalmente los bytes financieros y los totales 23.824,96€ / 62.539,88€. El prototipo no tiene navegación y no es una implementación entregable. Se descarta content-visibility como estrategia principal porque conserva miles de nodos/fibers y no alcanza el objetivo exploratorio. No se justifica refactorizar cálculos financieros que consumen unos 63ms.
+Una muestra por alternativa, no medianas de aceptación. Las tres preservaron bytes y totales23.824,96€/62.539,88€. content-visibility conserva miles de nodos/fibers y no alcanzaba el objetivo. Se elige **paginación accesible nativa**, más sencilla que reciclar filas de altura variable y foco interactivo. No se refactorizan cálculos económicos ni se introduce procesamiento parcial.
 
-Estrategia elegida: paginación accesible de 50 filas para listados grandes, búsqueda y filtros sobre el conjunto íntegro, totales completos antes de presentar la primera página, navegación directa a páginas, modo completo explícito e impresión completa. Se evita reciclado de filas y una dependencia nueva. La búsqueda nativa del navegador solo alcanzará filas montadas en modo paginado; la búsqueda propia encontrará todos los registros. El modo completo recuperará la búsqueda nativa, con su coste original. Implementación y regresión todavía pendientes.
+## Grandes listados: datos y presentación
 
-## Pendientes y garantías
+| Conjunto | Alcance |
+| --- | --- |
+| Datos | Todos los movimientos originales y sus relaciones |
+| Resultados filtrados | Búsqueda, filtros y orden cronológico originales sobre el conjunto completo |
+| Totales/CSV | Conjunto completo correspondiente, mismo cálculo/orden de sumas/formato anterior |
+| Filas DOM | Todos hasta200 resultados; por encima,50 por página salvo modo completo/impresión |
 
-Faltan checkpoints 2–5: implementación, precarga selectiva, matrices móviles, batería completa y CI del SHA final. No se declara preparada para integración esta fase parcial. Permanecen pendientes de revisión contextual los 945 grupos axe incompletos de 5E en 52 conjuntos equivalentes; no son 945 violaciones ni se consideran resueltos.
+Todos los datos, filtros y totales están listos antes de mostrar la primera página. No queda contabilización pendiente para simular rapidez. La ordenación estable original se conserva literalmente. No se almacenan preferencias de página en los datos financieros.
 
-No se modifica FinanceStore, modelos, Web Locks, semántica financiera, importación/restauración, JSON, prompts/API, main, sus protecciones ni Google AI Studio. No se instala Capacitor, no se despliega y no se fusiona.
+Controles nativos arriba/abajo, selector directo de cualquier página, anterior/siguiente y modo completo explícito. Posición y total mediante aria-posinset/aria-setsize; rango anunciado una vez. Búsqueda global accesible encuentra registros no montados. Cambiar filtros vuelve a la primera página. Idioma/tema mantienen página; cambiar mes con periodo Todos no altera el cursor. Las identidades enlazadas desde históricos/deudas se revelan y reciben foco, sin abrir un editor. La edición mantiene anclada la identidad aunque su nueva fecha cambie la posición cronológica. Los controles conservan foco/scroll; en un extremo se enfoca el selector antes de deshabilitar el botón.
 
-## Checkpoint 2 — Presentación paginada
+**Limitaciones explícitas:** Ctrl+F nativo solo encuentra filas montadas. La búsqueda propia cubre todos los registros; Mostrar todos recupera búsqueda nativa con el coste anterior. beforeprint monta todos los resultados y afterprint restaura página/foco/scroll. La impresión y el modo completo siguen siendo costosos. Si una WebView no ofrece eventos de impresión, se usa el modo completo manual, sin garantía de impresión nativa. No se eliminan registros de exportación o impresión.
 
-Los filtros, ordenación, pertenencia económica y reducciones permanecen en su código original. Solo se selecciona la franja de presentación después de calcular el conjunto completo. Hasta 200 resultados se muestran íntegros; por encima, páginas de 50. No hay virtualización ni reciclado. El número de resultados y sus totales siempre corresponde al conjunto filtrado completo, disponible antes de la primera página. Los índices ARIA globales identifican posición y tamaño del conjunto.
+Impresión real a PDF de Chromium:1.000filas antes/50después,85páginas en el PDF local verificado. pdftotext recuperó los994conceptos sintéticos únicos6–999 en orden estable, más los seis registros originales comprobados aparte, sin omisiones/extras. No es una impresora física ni una certificación de impresión WebView. El PDF ficticio se genera en los artefactos de navegador; la prueba verifica documento PDF multipágina y restauración nativa.
 
-Hay controles nativos arriba y abajo, navegación directa a cualquier página, búsqueda global y modo completo explícito. Cambiar filtros vuelve a la primera página; cambiar idioma/tema no modifica la selección de página. La edición mantiene anclada la identidad incluso si una fecha nueva cambia su posición cronológica. Se conserva el foco nativo y el scroll al paginar. La impresión mediante beforeprint monta todos los resultados y afterprint restaura presentación/scroll; el modo completo es la alternativa explícita si una WebView no ofrece esos eventos. Imprimir o mostrar todo conserva el coste de miles de nodos. La búsqueda nativa del navegador solo encuentra la página montada; la búsqueda propia encuentra todos los registros. CSV sigue incluyendo todos los resultados y conserva su formato anterior.
+## Precarga selectiva y segura
 
-Validación focalizada del código de este checkpoint: 608/608 unitarias (9 nuevas de límites y exhaustividad), lint/build/diff correctos; 42/42 resultados nuevos Chromium. Incluye recorrido de todas las páginas de100/201/1.000/5.000, orden estable e identidades sin duplicados, búsqueda remota, totales completos, cambio de periodo, edición reordenada con retorno del foco, borrador cancelado, CSV completo y eventos de impresión/restauración. Matriz de30 superficies (5 idiomas ×3 anchos ×2 temas), teclado y texto125%: cero violaciones axe automatizadas; incompletos requieren revisión contextual. La batería anterior no se ha reducido: su prueba de volumen selecciona explícitamente el modo completo antes de conservar literalmente sus recuentos y aserciones anteriores.
+Se reutilizan petición, módulo y componente lazy cacheados de 5E. preload() solo evalúa importaciones: no monta componentes/proveedores/almacenes ni modifica FinanceStore. Una petición en vuelo se comparte con navegación; error elimina la petición cacheada y conserva carga/error/reintento explícito. No hay reintentos automáticos de descarga.
 
-Se corrigió un fallo reproducido por la nueva prueba: borrar una búsqueda recuperaba una página antigua. El cursor se sincroniza ahora con la identidad del filtro. Los primeros intentos también señalaron errores del arnés nuevo (clave de navegación inexistente, nombre accesible con puntuación incorrecta y expectativa de notas vacías distinta de la normalización preexistente); se corrigió el arnés sin cambiar el editor financiero. Estos intentos fallidos no se cuentan como aprobación. Las mediciones comparativas finales siguen pendientes mientras termina la batería de base, evitando competir por CPU.
+Solo Planificación, Catálogo (sus dos módulos asociados) y Asistente. Señal sostenida200ms: ratón/pen, foco visible por teclado o pulsación táctil. Un tap corto mantiene carga bajo demanda. Salir, blur, cancelar, usar el destino o desmontar cancela la cola. Máximo una funcionalidad en vuelo/no consumida. No hay descarga por mero tiempo transcurrido ni de todos los módulos.
 
-## Checkpoint 3 — Precarga selectiva
+Antes de iniciar import() se revalidan: documento completo/visible,4g, downlink≥2Mbps,rtt≤300ms, ahorro de datos desactivado, más de2CPU/2GB cuando existen esas señales, API idle y ausencia de input pendiente. La intención puede registrarse durante el gesto de entrada; el trabajo solo se autoriza después. Se espera un intervalo natural con≥10ms disponibles; si el primero está ocupado se espera otro, con caducidad1s/60oportunidades, sin deadline forzado. APIs desconocidas/restringidas mantienen navegación normal. Se bloquea durante borradores/guardado/restauración de planificación, navegación pendiente, diccionario solicitado por el usuario, diálogos financieros, aria-busy, campos enfocados y registro rápido pendiente. Más permite intención sobre Asistente.
 
-Se reutiliza la petición única de deferredFeature y su componente/identidad cacheados. `preload()` solo importa el módulo: no monta componentes, proveedores ni almacenes. La primera visita a una funcionalidad precargada utiliza el componente ya resuelto; las visitas y cambios de mes siguen compartiendo la identidad cumplida. Se conserva el panel de carga/error/reintento de5E y se libera la petición rechazada para una nueva acción explícita.
+Una importación ya iniciada no puede abortarse; su posible tráfico no consumido es el coste acotado de una funcionalidad. Catálogo puede descargar dos chunks. No hay duplicación de proveedores/almacenamiento, red/API del asistente ni efectos financieros.
 
-Señales:200ms de intención sostenida con ratón/pen, foco visible por teclado o pulsación táctil. Salir, perder foco, cancelar el gesto o completar un tap corto cancela la cola. La descarga solo comienza en un intervalo idle con al menos10ms disponibles. No hay precarga por simple paso del tiempo ni de todos los módulos: solo Planificación, Catálogo (sus dos módulos asociados) o Asistente. Se limita a una funcionalidad en vuelo/no consumida. Un fallo no inicia reintentos automáticos ni cambia la pantalla actual.
+## Medición comparativa
 
-El adaptador de capacidades consulta nuevamente, antes de importar: visibilidad, documento completo,4g, downlink≥2Mbps, rtt≤300ms, ahorro de datos desactivado, más de2CPU/2GB si esas señales están disponibles, API idle y ausencia de input pendiente. Con conectividad o capacidades esenciales desconocidas se mantiene la navegación bajo demanda. No se depende de hover en móvil. No se precarga durante borradores/guardados/restauraciones de planificación, diálogos financieros, regiones ocupadas, campos enfocados o registro rápido pendiente. El diálogo Más permite la intención sobre su opción Asistente.
+[Resultados completos con medianas, rangos, CPU, heap y bytes](phase-5f-performance-results.md). Node 24.22.1, Chromium 156.0.8078.79, Linux, 3 CPU AMD EPYC 9V74,10.452.459.520bytes de memoria. Builds de producción servidos con gzip, fixtures JSON 3.5 fijas, EUR/Europe/Madrid. Tres muestras por escenario, sin otros navegadores locales durante las mediciones. Los dos lados usan el mismo arnés.
 
-Validación focalizada:628/628 unitarias (20 nuevas de política, cancelación, revalidación, límite, consumo, fallo y descarte);13/13 nuevos resultados Chromium con ratón/teclado/tacto, red lenta, ahorro de datos, capacidades ausentes, navegación simultánea/cambio de idioma, borrador y fallo de descarga;8/8 regresiones originales de módulos diferidos. Sin escrituras financieras ni montajes anticipados. Un primer intento del arnés no marcaba modalidad de teclado después de hacer clic: focus programático no implica focus-visible. Se corrigió para enviar Tab real, conservando la política de producto y los límites de prueba. Ese intento incluyó una cancelación y no cuenta como aprobación.
+| Perfil | Viewport | CPU | Latencia/red |
+| --- | --- | --- | --- |
+| Móvil | 390×900 | 4× | 80ms/1,6Mbps |
+| Tablet | 768×900 | 2× | 40ms/5Mbps |
+| Escritorio | 1280×900 | 1× | 20ms/10Mbps |
+| Móvil rápido,suplementario | 390×900 | 4× | 80ms/5Mbps |
 
-La herramienta `scripts/performance/measureIntent.ts` compara ambas revisiones con la misma anticipación de500ms; publica tanto clic-a-contenido como intención-a-contenido, para no esconder la espera previa. Registra recursos, CPU, memoria aproximada, señales nativas y segunda apertura. Incluye casos sin intención, ahorro de datos y capacidades desconocidas, además de390/CPU4×/1,6Mbps y un suplemento móvil rápido de5Mbps. Las mediciones finales siguen pendientes; no se presupone que las señales del runner equivalgan a las de un teléfono real.
+| Móvil,mediana [mín–máx],ms | Antes | Después |
+| --- | ---: | ---: |
+| Abrir100 | 744,07 [708,00–814,55] | 883,10 [805,93–951,00] |
+| Abrir1.000 | 5.809,41 [5.784,47–6.333,25] | 620,35 [591,58–627,61] |
+| Abrir5.000,datos/totales listos | 26.587,94 [26.278,53–29.507,90] | 967,18 [939,74–1.047,50] |
+| Filtrar5.000 | 2.801,70 [2.793,44–3.569,74] | 528,59 [483,73–699,12] |
+| Primer Catálogo,sin precarga | 1.049,73 [1.019,93–1.052,22] | 1.094,30 [1.023,56–1.103,72] |
+| Primera Planificación,sin precarga | 695,31 [636,61–1.056,33] | 781,99 [779,33–1.080,34] |
+| Entrada aplicación | 2.761,71 [2.711,40–2.814,66] | 2.722,95 [2.691,29–2.741,74] |
 
-## Checkpoint 4 — Regresión móvil y evidencias
+La apertura de 5.000mejora96,36% y el filtro81,13% en las medianas de este laboratorio. El recorrido adicional comprueba una fila realmente dentro del viewport: clic→fila28.019,45→697,74ms y entrada→fila30.551,76→3.764,76ms, con todos los datos/totales completos. Son señales distintas, no deben mezclarse ni presentarse como tiempo de campo. Heap vivo aproximado tras abrir:68.046.672→11.302.472bytes, sin GC forzado ni equivalencia con RSS.
 
-44/44 resultados Chromium específicos del listado, sin fallos/omisiones/cancelaciones. Se amplía el checkpoint2 con un cobro histórico vinculado entre5.001 registros (enlace desde Deudas, página101, foco en la identidad correcta, sin editor ni escrituras) y cambios sucesivos de los cinco idiomas con la misma página y nodos. Se imprime realmente a PDF con Chromium: los eventos nativos observan1.000 filas antes de imprimir y50 después; se preserva el foco del selector. No se equipara este resultado a impresión nativa de una futura WebView.
+Sobre5.000, cambiar tema37.058,48→654,48ms, idioma francés22.760,58→945,89ms, periodo3.582,76→260,88ms, mes11.046,98→565,30ms y búsqueda remota2.304,22→115,11ms. Guardado explícito1.417,04→1.450,47ms con rangos solapados: **sin mejora confirmada**. No se acelera ni altera el guardado financiero.
 
-La matriz completa incluye español/inglés/italiano/francés/portugués de Portugal ×390/768/1280×claro/oscuro. En30 superficies se comprobaron búsqueda global fuera de página, límites, teclado, Tab/Shift+Tab, atributos lang/ARIA, texto125%, ausencia de desbordamiento, datos literales intactos y axe WCAG2A/AA/2.1AA sin desactivar reglas. Cero violaciones automatizadas; no certifica lector de pantalla, gestos de dispositivos físicos ni todos los estados de contraste manual. La auditoría general preexistente y sus módulos permanecen en la batería completa pendiente.
+Hay costes observados:100registros mantienen DOM completo y su mediana móvil sube139,03ms; entrada tablet1.048,13→1.374,39ms con rangos solapados y landing escritorio383,66→446,02ms. No se ocultan estas muestras ni se atribuye una causa demostrada al código. Las muestras son pocas y variables; no permiten afirmar mejora general de todos los escenarios. El tamaño inicial sigue conservando la reducción sustancial de 5E; no se aumentan timeouts para lograr una cifra favorable.
 
-Capturas actuales de la aplicación de producción,5.000 datos ficticios, no maquetas:
+| JS descargado inicial,gzip | Antes | Después | Incremento |
+| --- | ---: | ---: | ---: |
+| Landing española | 137.119 | 137.397 | 278bytes /0,20% |
+| Aplicación española | 245.354 | 248.196 | 2.842bytes /1,16% |
+
+El incremento corresponde a controles/traducciones de paginación y coordinación selectiva. No se adelantan los otros cuatro diccionarios ni todos los módulos. No reaparece el aviso de chunk>500kB; el análisis de bundles conserva el límite de entrada estática aprobado, sin elevar umbrales.
+
+### Beneficio y coste de intención
+
+Misma anticipación nominal500ms en ambas revisiones, con timers/idle nativos; se registran anticipación real, clic→contenido e intención→contenido.72observaciones antes y144después; los72casos adicionales de ahorro de datos/capacidades ausentes son comprobaciones de seguridad solo-después, sin inventar cifras de base.
+
+| Destino | Tablet,clic antes→después,ms | Escritorio,clic antes→después,ms |
+| --- | ---: | ---: |
+| Planificación | 453,2→233,8 | 434,0→134,6 |
+| Catálogo | 584,0→332,7 | 850,9→199,5 |
+| Asistente | 866,2→171,7 | 852,0→84,3 |
+
+Incluyendo anticipación, Catálogo tablet1.145,3→879,3ms y escritorio1.384,0→733,4ms. Segunda apertura, red/CPU/memoria y rangos figuran en el informe completo. En móvil1,6Mbps las9 intenciones se bloquean deliberadamente:0 precargas, sin prometer menor espera. En móvil rápido se precargan9/9; Catálogo982,4→791,5ms tiene rangos solapados y no confirma mejora. Los bytes totales tras visitar el destino no se reducen: se adelantan12.090de Planificación,8.174de Catálogo o4.968de Asistente. Antes de una señal válida,0 peticiones de esos destinos. Ahorro de datos/APIs ausentes:0 precargas en72casos, navegación normal funcional.
+
+## Regresión funcional, móvil y accesibilidad
+
+Se conservan todas las41suites originales y sus aserciones. Único ajuste de preparación en la prueba antigua de volumen: seleccionar Mostrar todos antes de sus recuentos/orden/filtros de1.000/5.000filas DOM. No se reduce ningún recuento ni aserción. Se añaden dos suites,44resultados de listado y17de intención. Unitarias:599originales+9límites de página+21política/coordinación+4idle=633. Infraestructura sin cambios:22.
+
+| Cobertura nueva | Comprobación |
+| --- | --- |
+|100/201/1.000/5.000 | Todas las páginas,orden estable,IDs sin duplicados,totales exactos |
+| Filtros/periodos | Búsqueda fuera de página,mes/periodo y conjunto completo |
+| Edición/enlaces | Registro fuera de página,reordenación por fecha,borrador cancelado,vínculo histórico entre5.001 |
+| Foco/teclado | Tab/Shift+Tab,nativos,extremos deshabilitados,retorno desde editor,ARIA global |
+| Impresión/exportación | CSV íntegro,montaje nativo de1.000/restauración de50,PDF multipágina |
+| Idiomas/temas |5idiomas×390/768/1280×claro/oscuro=30 superficies,zoom de texto125%,sin overflow |
+| Intención | Ratón,teclado,tacto,entrada transitoria,idle inicialmente ocupado,cancelación y límite |
+| Seguridad | Sin APIs/red externa/escrituras visuales,fallo y recuperación,sin reintento automático |
+| Concurrencia | Navegación/importación/idioma,borrador y diccionario con prioridad |
+
+La fixture de 5.000conserva hash472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d en acciones visuales. El recorrido de guardado explícito cambia solo un concepto ficticio y la normalización previa de notas; valida el documento completo. Se valida exportedAt ISO regenerado por el guardado anterior; solo ese metadato se excluye del hash comparativo entre ejecuciones. IDs,importes,estados,relaciones y versión3.5 permanecen iguales. La compatibilidad2.5–3.5 y los módulos financieros se conservan en las baterías originales; no se migra ningún dato personal.
+
+### Axe y revisión contextual
+
+Sin reglas desactivadas ni resultados incompletos convertidos en aprobación. La referencia CI verde [43741726133](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133), fuente773bd90, conserva22 informes/1.511observaciones, 0 violaciones automatizadas,947 grupos incompletos/53 conjuntos equivalentes/5.770ocurrencias de nodos. La base local nueva:17 informes/1.481observaciones, 0 violaciones,906 grupos/49 conjuntos. No deben mezclarse los entornos.
+
+Los945 grupos/52 conjuntos de 5E siguen pendientes de revisión contextual. Se inspeccionan y agrupan registros,selectores,HTML/checks; no se certifica revisión con lector de pantalla. [Agrupación base](phase-5f-baseline-axe-review.json) y [referencia CI](phase-5f-reference-axe-review.json) preservan procedencia y ejemplos.
+
+| Mecanismo | Clasificación/revisión pendiente |
+| --- | --- |
+|nonBmp | Símbolos decorativos:comprobar su papel frente al nombre accesible |
+|elmPartiallyObscuring/elmPartiallyObscured/bgOverlap | Fondos,clipping y solapamientos requieren contexto real |
+|shortTextContent | Contraste del texto breve,no equivale a ausencia de etiqueta |
+|imgNode | Texto SVG de gráficos:medir contraste sobre fondo efectivo |
+|controlsWithinPopup | Revisar relación aria-controls/listbox y ciclo de foco del desplegable |
+
+Dos observaciones adicionales de CI se agrupan en **un** conjunto:span Movimientos de navegación,768px,español,claro/oscuro,elmPartiallyObscured relacionado con su propio botón. El valor0es un cálculo indeterminado,no una ratio medida0:1. No es evidencia suficiente para un cambio especulativo ni un defecto independiente por cada repetición. Se mantiene pendiente; no se elimina del informe. La matriz nueva local focalizada de30 superficies no registró incompletos. No se declaran resueltos los945históricos ni los adicionales sin revisión. No se han usado lectores de pantalla,dispositivos físicos,impresoras ni Safari/iPhone real.
+
+## Incidencias reproducidas y corregidas
+
+| ID | Problema | Corrección mínima/prueba |
+| --- | --- | --- |
+|5F-01 | Limpiar búsqueda recuperaba página anterior | Cursor ligado al filtro;regresión de listado |
+|5F-02 | Paginador superior demasiado alto en390px | Controles compactos44px,ayuda completa en pie;matriz/axe |
+|5F-03 | Getter de conectividad restringido lanzaba error | Adaptador con fallback bajo demanda;throwingNetwork |
+|5F-04 | Precarga competía con diccionario solicitado | Respetar pendingLanguage existente;0 peticiones mientras está pendiente |
+|5F-05 | Botón al pasar a disabled enviaba foco a body | Enfocar selector antes del extremo;Tab/Enter primera/última |
+|5F-06 | Intención perdida durante inputPending/idle ocupado | Cola de gesto sin autorizar import,otro intervalo natural acotado;unitarias y2casos nuevos |
+|5F-07 | Cadena extra de promesas retrasaba apertura fría | Observar aparte la promesa original loader.catch;8regresiones originales del cargador |
+
+[Intentos completos y fallidos](phase-5f-validation-attempts.json). Una CI roja real43735323745 completó837/843con cancelaciones:la espera no acotada del arnés de precarga fue sustituida por waitForRequest con el límite existente8s, sin elevar120sdel padre ni50mdeCI. La traza remota no identifica una única condición causal; se reprodujeron y cubrieron input transitorio/primer idle ocupado. Los errores iniciales del arnés,fuentes de reloj simuladas y muestras incompletas se separan de la aceptación. La ejecución local de773se interrumpió al sustituir el cargador y no cuenta como aprobación.
+
+## Capturas y artefactos ficticios
+
+[Manifiesto de fuentes y PNG](phase-5f-capture-manifest.json). Las capturas proceden de builds reales y datos sintéticos,sin retoques. [Antes del paginador compacto](phase-5f-screenshots/before-compact-fr-390-light-ledger.png)/[después](phase-5f-screenshots/fr-390-light-ledger.png).
+
+| Comparación de fila realmente visible | Antes | Después |
+| --- | --- | --- |
+|390px | [PNG](phase-5f-screenshots/before-mobile-ledger-5000.png) | [PNG](phase-5f-screenshots/after-mobile-ledger-5000.png) |
+|768px | [PNG](phase-5f-screenshots/before-tablet-ledger-5000.png) | [PNG](phase-5f-screenshots/after-tablet-ledger-5000.png) |
+|1280px | [PNG](phase-5f-screenshots/before-desktop-ledger-5000.png) | [PNG](phase-5f-screenshots/after-desktop-ledger-5000.png) |
 
 | Idioma,390px | Claro | Oscuro |
 | --- | --- | --- |
-| es-ES | [PNG](phase-5f-screenshots/es-390-light-ledger.png) | [PNG](phase-5f-screenshots/es-390-dark-ledger.png) |
-| en-GB | [PNG](phase-5f-screenshots/en-390-light-ledger.png) | [PNG](phase-5f-screenshots/en-390-dark-ledger.png) |
-| it-IT | [PNG](phase-5f-screenshots/it-390-light-ledger.png) | [PNG](phase-5f-screenshots/it-390-dark-ledger.png) |
-| fr-FR | [PNG](phase-5f-screenshots/fr-390-light-ledger.png) | [PNG](phase-5f-screenshots/fr-390-dark-ledger.png) |
-| pt-PT | [PNG](phase-5f-screenshots/pt-390-light-ledger.png) | [PNG](phase-5f-screenshots/pt-390-dark-ledger.png) |
+|es-ES | [PNG](phase-5f-screenshots/es-390-light-ledger.png) | [PNG](phase-5f-screenshots/es-390-dark-ledger.png) |
+|en-GB | [PNG](phase-5f-screenshots/en-390-light-ledger.png) | [PNG](phase-5f-screenshots/en-390-dark-ledger.png) |
+|it-IT | [PNG](phase-5f-screenshots/it-390-light-ledger.png) | [PNG](phase-5f-screenshots/it-390-dark-ledger.png) |
+|fr-FR | [PNG](phase-5f-screenshots/fr-390-light-ledger.png) | [PNG](phase-5f-screenshots/fr-390-dark-ledger.png) |
+|pt-PT | [PNG](phase-5f-screenshots/pt-390-light-ledger.png) | [PNG](phase-5f-screenshots/pt-390-dark-ledger.png) |
 
-Las capturas de la tabla se regeneraron con el cierre visual. El [manifiesto de fuentes/capturas](phase-5f-capture-manifest.json) conserva sus hashes; la imagen anterior del paginador corresponde a14c93b6. Los46 archivos protegidos, incluyendo configuración, lockfile y workflow, conservan sus hashes de540cfcf. No se alteran límites de CI, reglas de fallos ni axe.
+## Base para Android/iOS y pendientes
 
-## Cierre de defectos reproducidos
+Se conservan React/TypeScript/Vite y base compartida web. Sin dependencias exclusivas de escritorio. Las capacidades de red/idle/input quedan aisladas en intentPreload/preloadIdle; si no existen en WebView no hay precarga. La aplicación funcional no depende de ellas. Impresión se aísla en useCompletePrint y dispone del modo completo manual. No se cambia almacenamiento para sincronización futura ni se eluden Web Locks/origen seguro:habrá que verificar su disponibilidad real antes de integrar un contenedor móvil.
 
-| ID | Caso reproducido | Corrección | Regresión |
-| --- | --- | --- | --- |
-| 5F-01 | Volver de una búsqueda recuperaba la página antigua | Sincronizar cursor y filtro | Matriz44/44 |
-| 5F-02 | Paginador superior demasiado alto en390px | Controles superiores compactos, etiquetas accesibles completas,44px táctiles; ayuda completa en pie | Matriz44/44,axe0; [antes](phase-5f-screenshots/before-compact-fr-390-light-ledger.png)/[después](phase-5f-screenshots/fr-390-light-ledger.png) |
-| 5F-03 | Getter de NetworkInformation restringido lanzaba dos errores al interactuar | Adaptador captura la excepción y mantiene navegación bajo demanda | Caso throwingNetwork, sin errores/escrituras |
-| 5F-04 | Precarga competía con descarga explícita de un diccionario | Guardar también pendingLanguage desde el proveedor existente | Diccionario francés retenido:0peticiones Planning antes de liberarlo |
-| Herramienta | clock.setFixedTime de Playwright devuelve deadline idle0ms | Mediciones nuevas con idle/rAF/timers nativos, fechas financieras fijas y reloj real registrado | Sonda:49,9ms nativo frente a0ms con clock; muestras anteriores excluidas |
+Pendientes:lector de pantalla y contraste contextual;945 grupos históricos/52 conjuntos y adicionales descritos;pruebas físicas Android/iOS;coste del modo completo/impresión;Ctrl+F paginado;variabilidad y algunos aumentos en escenarios pequeños/fríos;política conservadora sin beneficio de precarga en1,6Mbps/APIs ausentes. No se afirma ausencia de fugas en sesiones largas ni mejora estadística con tres muestras.
 
-El cierre pasa628/628 unitarias, lint/build,44/44 de listado y15/15 de precarga (dos casos nuevos). Los intentos que reproducen5F-03/04 se conservan en el [registro de intentos](phase-5f-validation-attempts.json), sin contarlos como aprobación. Las mediciones exploratorias concurrentes se usan solo para depurar las herramientas y no entran en las tablas comparativas finales.
+## Reproducción y checkpoints
 
-## Foco en los extremos e impresión verificada
+```bash
+npm ci
+npm test
+node scripts/ci/run-check.mjs tools
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+git diff origin/main...HEAD --check
+git diff --check
+node scripts/performance/bundles.mjs /tmp/5f-bundles.json
+```
 
-La prueba adicional de Tab/Enter en los extremos reprodujo5F-05: un botón enfocado que pasaba a disabled al llegar a la primera página enviaba el foco al body. Antes de cambiar a la primera/última página, se enfoca el selector nativo del mismo paginador con preventScroll. Se mantienen los botones realmente deshabilitados y la navegación Tab existente. La matriz se reejecuta con esta comprobación, sin reducir las aserciones previas.
+Usar la ruta real del Chromium instalado; CI resuelve su propia ruta. Para comparar,conservar checkout540y su dist separado y ejecutar **el mismo arnés actual** cambiando PERF_DIST/PERF_SOURCE_SHA/PERF_OUTPUT. measure.ts,measureIntent.ts ymeasureLedgerInteractions.ts admiten PERF_SAMPLES=3;beforeIntent usa PERF_MODES=cold,intent ydespués los cuatro modos. Registrar PERF_SCREENSHOTS;no ejecutar navegadores/builds competidores mientras se mide. Los JSON contienen configuración,fechas de ejecución,errores,peticiones,bytes y hashes;gzip -dc recupera los datos comprimidos. CI mantiene sus límites y dependencias originales.
 
-El PDF ficticio de1.000 movimientos conserva85 páginas. Extracción local con pdftotext (herramienta ya instalada, no dependencia nueva):994 identificadores de conceptos sintéticos únicos de6 a999, sin omisiones ni extras; los seis registros originales de la fixture se comprueban aparte. Los eventos nativos observan1.000 filas antes y50 después, con foco y página restaurados. El PDF se conserva en los artefactos de navegador cuando CI_ARTIFACT_DIR está definido. No se certifica una impresora física ni la impresión de una WebView.
+Commits recuperables publicados:356e8fc diagnóstico,c1bf449 listado,14c93b6 intención,084dc8c matriz,d63b5e0 controles/seguridad,081d198 foco,773bd90 cola idle,d11c41f promesa original. No se fusionan por separado. El inventario completo de archivos y los resultados de cierre acompañan a la entrega.
 
-Una primera ejecución del recorrido adicional de rendimiento quedó incompleta en la consulta global del control de tema tras desplazar5.000 filas. Se acota la consulta automatizada a la cabecera; buscar nombres accesibles en15.000 botones no debe contabilizarse como latencia del producto. Se repite el recorrido completo con el mismo arnés antes/después. No se amplían límites ni se acepta aquella muestra parcial. Los informes comparativos finales se regeneran para el código con la corrección de foco.
+<!-- VALIDATION_START -->
+## Cierre en curso
 
-## CI roja de referencia y pérdida de intención
-
-La ejecución [43735323745](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43735323745), fuente d63b5e0, pasó unitarias/código, las41 suites anteriores y44 resultados del listado. El último arnés completó9/15 resultados: una espera no acotada de inicio de precarga terminó cancelando el padre y dejó cuatro casos sin iniciar. Resultado global837/843, con cancelaciones: **no es aprobación integral**. El ZIP de resultados coincide con SHA-256 d775b58e1c7ca934e7f24ea72c40daa3e5bedb790897ea378ed4fd868fcbd4e2.
-
-Se reprodujo localmente la pérdida de una intención durante inputPending: la prueba nueva falló antes de la corrección. Ahora puede registrarse la intención durante el gesto, pero importar exige nuevamente todas las condiciones de seguridad en idle. Si el primer presupuesto idle es insuficiente, se espera otro intervalo natural, sin forzar trabajo. La intención caduca tras1s o60 oportunidades y se cancela al salir/usar/desmontar. Esto no reintenta descargas fallidas. La espera del arnés utiliza ahora waitForRequest con el límite existente de8s; no se aumenta el padre de120s ni el presupuestoCI50m. La traza remota no permite atribuir a una única condición la omisión inicial; se cubren explícitamente entrada transitoria y primer idle ocupado.
-
-Regresión focalizada del cierre:633/633 unitarias y17/17 resultados Chromium de precarga, incluyendo ambos casos nuevos. Se conservan las comprobaciones anteriores de ahorro de datos, conexión lenta, API restringida, borrador, idioma pendiente, navegación simultánea, fallo y recuperación. Los resultados de CI de la entrega deben corresponder al SHA final, no a esta ejecución roja.
-
-## Preservar la promesa original del cargador
-
-La comparación encontró una penalización repetida en la apertura fría de Planificación con enlace1,6Mbps. La descarga era prácticamente idéntica (12.087→12.088 bytes gzip;148→149ms en la muestra inspeccionada), mientras aumentaba la espera hasta mostrar contenido. Un experimento temporal aisló la cadena de promesas: encadenar el observador de caché antes de React.lazy añadía un turno de resolución; observar la promesa original por separado reducía la mediana exploratoria1.045→704ms. Los rangos se solapaban y coexistía la regresión local: no son mediciones de aceptación ni una garantía temporal.
-
-Se conserva ahora exactamente la cadena original loader.catch de5E y se observa su resultado por separado para isLoaded/preload. No se cambian la petición compartida, identidad lazy cumplida, error, reintento o proveedores. La regresión focalizada vuelve a633 unitarias,8/8 módulos originales,17/17 precarga y44/44 listado. La ejecución local integral sobre773bd90 se interrumpió deliberadamente al sustituir este código; su resumen parcial se conserva y no cuenta como aprobación. Se repiten las comparaciones y la batería completa sobre la nueva revisión antes de entregar.
+Sobre d11c41f:npm ci,633/633unitarias,22/22infraestructura,lint/build/diff correctos. La batería local integral sigue ejecutándose y la CI43746276687 de esta fuente está en curso. No se presentan como aprobadas. La referencia anterior [43741726133](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43741726133) sí tiene los tres trabajos verdes,845/845Chromium en 43 suites y633/22unitarias/infraestructura; [resumen verificable](phase-5f-reference-ci.json),ZIP comprobados porSHA-256. Aún faltan el cierre local,la única PR Draft y los tres checks de su SHA exacto.
+<!-- VALIDATION_END -->
