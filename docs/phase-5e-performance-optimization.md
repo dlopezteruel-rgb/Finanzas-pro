@@ -191,9 +191,24 @@ Se mantienen todas las reglas axe; los nuevos estados de carga/error y cambios d
 
 Los **944 grupos incompletos/51 conjuntos equivalentes de5D** siguen pendientes de revisión contextual. No son944 defectos distintos ni una revisión manual aprobada. Se conservarán separados los nuevos resultados locales y de GitHub, con causas/ejemplos/referencias. No se han usado lectores de pantalla ni dispositivos físicos. Tampoco se certifica contraste manual de todos los estados, una sesión larga o ausencia total de fugas.
 
+### Clasificación contextual de registros incompletos
+
+Se han inspeccionado los mecanismos, selectores, HTML serializado y checks conservados por axe. Esta clasificación no cierra su revisión manual ni certifica contraste visual o uso de lector de pantalla.
+
+| Mecanismo registrado | Ejemplo real del registro | Revisión contextual pendiente |
+| --- | --- | --- |
+| `nonBmp` | Flecha ▾ decorativa, `aria-hidden="true"`, de un desplegable | Separar símbolo decorativo y texto/nombre accesible del control; conservar la observación |
+| `elmPartiallyObscuring` / `bgOverlap` | Ayuda de Cartera y acción Nuevo Contacto | Comprobar fondo efectivo, intersecciones y posición del viewport |
+| `elmPartiallyObscured` | Cabecera Después de una vista previa de copia | Revisar clipping/solapamiento y fondos de tabla/modal en su contexto |
+| `shortTextContent` | Cabecera A del histórico | Revisar el texto breve dentro del encabezado y su fondo, sin inferir falta de etiqueta |
+| `imgNode` | Texto SVG de ejes de gráficos (por ejemplo, 0 €) | Verificar contraste sobre el fondo real del SVG; el motor no lo ha determinado |
+| `controlsWithinPopup` (`aria-valid-attr-value`) | Selector de partida con listbox abierto | Revisar el ID de aria-controls, el listbox y su ciclo de foco; la prioridad del motor no convierte un incompleto en violación |
+
+Los recuentos finales local/CI se informan separados. Una ocurrencia puede registrar varios checks; ni las ocurrencias de nodos ni los grupos repetidos equivalen a defectos distintos. No se modifica ninguna regla ni se elimina un resultado incompleto para obtener una aprobación.
+
 ## Capturas de la aplicación real
 
-[Manifiesto de12 PNG](phase-5e-capture-manifest.json): antes/después de Inicio y Planificación a390/768/1280, datos ficticios idénticos y hash financiero por pareja. Proceden del build medido; no hay generación/edición de imágenes ni datos de Google AI Studio. Los cambios posteriores son de pruebas/documentación: el frontend fotografiado coincide con el código de entrega.
+[Manifiesto de12 PNG](phase-5e-capture-manifest.json): antes/después de Inicio y Planificación a390/768/1280, datos ficticios idénticos y hash financiero por pareja. Proceden del build medido; no hay generación/edición de imágenes ni datos de Google AI Studio. Los cambios posteriores son de pruebas/documentación: el frontend fotografiado coincide con el código de entrega. La captura móvil de Planificación conserva un desplazamiento distinto durante el recorrido real (la carga diferida cambia la altura transitoria de la página). Estas vistas no son una comparación píxel a píxel; no se han alineado ni retocado las imágenes. Las pruebas de scroll por panel se conservan y se ejecutan por separado.
 
 | Superficie | Antes | Después |
 | --- | --- | --- |
@@ -269,3 +284,7 @@ La CI43655068796 y la ejecución local reprodujeron el recuento prematuro de cer
 ## Selección fría de Multiperiodo en el arnés (5E-12)
 
 La CI43656155672 detectó que selectPlanningArea consultaba count() antes de que existiera el tablist diferido. Interpretaba cero pestañas como escritorio y omitía la activación móvil, aunque el details ya estaba abierto. El helper espera ahora el tablist visible antes de distinguir las variantes; no cambia el componente, sus reglas, los casos originales ni los límites. La suite de subítems conserva sus19 resultados y la batería completa vuelve a ejecutarse.
+
+## Aserciones tras carga diferida: cierre del diagnóstico
+
+El diagnóstico posterior completó569/569 resultados en29 suites, sin fallos, omisiones o cancelaciones. No equivale por sí solo a una aprobación de npm run test:ui. Se verificó adicionalmente customCatalog6/6 esperando el catálogo real antes de afirmar la ausencia de una partida retirada. La regresión de módulo cacheado añade un MutationObserver antes del cambio de mes: exige cero inserciones transitorias de loader, incluso aunque el helper espere al tablist. Módulos8/8 pasan con esa aserción, de modo que la nueva espera no enmascara una resuspensión. Lint/diff-check pasan; la secuencia integral final se ejecuta después de publicar este checkpoint.

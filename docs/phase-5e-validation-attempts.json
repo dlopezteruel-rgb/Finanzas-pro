@@ -961,5 +961,426 @@
       "code": "success",
       "browser": "failure232/234 in13 summaries: planning area helper counted a tablist before it mounted, taking desktop fallback on mobile"
     }
-  ]
+  ],
+  "diagnosticTail": {
+    "scope": "Diagnostic tail only; continues to discover all failures, returns failure if any suite failed. Not a complete npm run test:ui approval.",
+    "complete": true,
+    "results": 569,
+    "suites": 29,
+    "allPassed": true,
+    "perSuite": [
+      {
+        "suite": "scripts/budgetSubitems.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 48586,
+        "counts": {
+          "tests": 19,
+          "pass": 19,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogPresentation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 28840,
+        "counts": {
+          "tests": 7,
+          "pass": 7,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/customCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 14589,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogReorder.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 33536,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogClassification.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 17408,
+        "counts": {
+          "tests": 5,
+          "pass": 5,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogArchive.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 22814,
+        "counts": {
+          "tests": 11,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aSafety.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 12330,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aLoans.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 4457,
+        "counts": {
+          "tests": 3,
+          "pass": 3,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/phase4aAudit.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 81090,
+        "counts": {
+          "tests": 9,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/i18n.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 20021,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedBanking.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 44599,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedPlanning.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 136010,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 127127,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCatalogDrag.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 20186,
+        "counts": {
+          "tests": 11,
+          "pass": 11,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedAutomation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 150650,
+        "counts": {
+          "tests": 41,
+          "pass": 41,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedObligations.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 153746,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedStorage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 138843,
+        "counts": {
+          "tests": 36,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedShared.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 158024,
+        "counts": {
+          "tests": 36,
+          "pass": 36,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCharts.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 182344,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedAssistant.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 168571,
+        "counts": {
+          "tests": 38,
+          "pass": 38,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedPresentation.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 170111,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/translatedCompletion.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 179867,
+        "counts": {
+          "tests": 31,
+          "pass": 31,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/landingLanguage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 110960,
+        "counts": {
+          "tests": 43,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/multilingualCatalog.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 205024,
+        "counts": {
+          "tests": 43,
+          "pass": 43,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/catalogQuickReceipt.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 6683,
+        "counts": {
+          "tests": 6,
+          "pass": 6,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/lazyLanguage.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 13835,
+        "counts": {
+          "tests": 15,
+          "pass": 15,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/deferredFeatures.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 16611,
+        "counts": {
+          "tests": 8,
+          "pass": 8,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/performanceVolume.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 12019,
+        "counts": {
+          "tests": 4,
+          "pass": 4,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "suite": "scripts/visualTheme.browser.ts",
+        "exit": 0,
+        "passed": true,
+        "durationMs": 16129,
+        "counts": {
+          "tests": 10,
+          "pass": 10,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      }
+    ],
+    "additionalFocusedCheck": {
+      "suite": "customCatalog.browser.ts",
+      "results": 6,
+      "passed": 6,
+      "reason": "Loaded real catalogue before asserting a retired item is absent."
+    }
+  }
 }

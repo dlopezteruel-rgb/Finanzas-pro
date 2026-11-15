@@ -100,5 +100,6 @@
       "sha256": "511e8f91be7933a2c513c6c6bb24f0fba7e873b1637783f0ef1c45a80c2cf3da",
       "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a"
     }
-  ]
+  ],
+  "comparisonLimit": "Mobile planning views preserve different browser scroll positions during the real measured journey. These are genuine viewport observations, not aligned pixel-diff baselines; no image editing. Panel scroll restoration is separately regression-tested."
 }
