@@ -1,4 +1,4 @@
-package com.getcapacitor.myapp;
+package invalid.finanzas.prototype;
 
 import static org.junit.Assert.*;
 

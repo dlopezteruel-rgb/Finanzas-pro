@@ -45,6 +45,8 @@
     "dictionary entries initially missing comma;fixed before successful lint",
     "inventory raw generator used instead of reviewed report;corrected without changing assertion",
     "SDK initial untrusted Java CA;using verified OS CA fixes network,without disabling TLS",
-    "APK verification harness expected NO_SIGNATURES;actual valid unsigned APK reports Missing META-INF/MANIFEST.MF;ZIP and signingabsence verified"
-  ]
+    "APK verification harness expected NO_SIGNATURES;actual valid unsigned APK reports Missing META-INF/MANIFEST.MF;ZIP and signingabsence verified",
+    "Generated Gradle template CRLF/trailing whitespace failed diff-check; checkpoint retained and corrected in a follow-up commit, no check suppression."
+  ],
+  "followUp": "Normalize generated text and target only :app:assembleDebug; generated instrumentation identity matches provisional package. Instrumentation not executed."
 }
