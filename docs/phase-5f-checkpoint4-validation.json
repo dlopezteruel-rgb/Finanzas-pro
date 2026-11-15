@@ -1,0 +1,20 @@
+{
+  "scope": "Focused full44-result suite,30 axe surfaces; not complete browser battery",
+  "frontendCommit": "14c93b642a10e7a132a1afc5c499e0ca28285100",
+  "results": [
+    {
+      "tests": 44,
+      "suites": 0,
+      "pass": 44,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  ],
+  "axe": {
+    "surfaces": 30,
+    "violations": 0,
+    "incomplete": "manual contextual review required"
+  }
+}

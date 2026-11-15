@@ -64,3 +64,21 @@ El adaptador de capacidades consulta nuevamente, antes de importar: visibilidad,
 Validación focalizada:628/628 unitarias (20 nuevas de política, cancelación, revalidación, límite, consumo, fallo y descarte);13/13 nuevos resultados Chromium con ratón/teclado/tacto, red lenta, ahorro de datos, capacidades ausentes, navegación simultánea/cambio de idioma, borrador y fallo de descarga;8/8 regresiones originales de módulos diferidos. Sin escrituras financieras ni montajes anticipados. Un primer intento del arnés no marcaba modalidad de teclado después de hacer clic: focus programático no implica focus-visible. Se corrigió para enviar Tab real, conservando la política de producto y los límites de prueba. Ese intento incluyó una cancelación y no cuenta como aprobación.
 
 La herramienta `scripts/performance/measureIntent.ts` compara ambas revisiones con la misma anticipación de500ms; publica tanto clic-a-contenido como intención-a-contenido, para no esconder la espera previa. Registra recursos, CPU, memoria aproximada, señales nativas y segunda apertura. Incluye casos sin intención, ahorro de datos y capacidades desconocidas, además de390/CPU4×/1,6Mbps y un suplemento móvil rápido de5Mbps. Las mediciones finales siguen pendientes; no se presupone que las señales del runner equivalgan a las de un teléfono real.
+
+## Checkpoint 4 — Regresión móvil y evidencias
+
+44/44 resultados Chromium específicos del listado, sin fallos/omisiones/cancelaciones. Se amplía el checkpoint2 con un cobro histórico vinculado entre5.001 registros (enlace desde Deudas, página101, foco en la identidad correcta, sin editor ni escrituras) y cambios sucesivos de los cinco idiomas con la misma página y nodos. Se imprime realmente a PDF con Chromium: los eventos nativos observan1.000 filas antes de imprimir y50 después; se preserva el foco del selector. No se equipara este resultado a impresión nativa de una futura WebView.
+
+La matriz completa incluye español/inglés/italiano/francés/portugués de Portugal ×390/768/1280×claro/oscuro. En30 superficies se comprobaron búsqueda global fuera de página, límites, teclado, Tab/Shift+Tab, atributos lang/ARIA, texto125%, ausencia de desbordamiento, datos literales intactos y axe WCAG2A/AA/2.1AA sin desactivar reglas. Cero violaciones automatizadas; no certifica lector de pantalla, gestos de dispositivos físicos ni todos los estados de contraste manual. La auditoría general preexistente y sus módulos permanecen en la batería completa pendiente.
+
+Capturas actuales de la aplicación de producción,5.000 datos ficticios, no maquetas:
+
+| Idioma,390px | Claro | Oscuro |
+| --- | --- | --- |
+| es-ES | [PNG](phase-5f-screenshots/es-390-light-ledger.png) | [PNG](phase-5f-screenshots/es-390-dark-ledger.png) |
+| en-GB | [PNG](phase-5f-screenshots/en-390-light-ledger.png) | [PNG](phase-5f-screenshots/en-390-dark-ledger.png) |
+| it-IT | [PNG](phase-5f-screenshots/it-390-light-ledger.png) | [PNG](phase-5f-screenshots/it-390-dark-ledger.png) |
+| fr-FR | [PNG](phase-5f-screenshots/fr-390-light-ledger.png) | [PNG](phase-5f-screenshots/fr-390-dark-ledger.png) |
+| pt-PT | [PNG](phase-5f-screenshots/pt-390-light-ledger.png) | [PNG](phase-5f-screenshots/pt-390-dark-ledger.png) |
+
+El frontend fotografiado corresponde a14c93b6; los cambios posteriores de este checkpoint son pruebas/documentación. Los46 archivos protegidos, incluyendo configuración, lockfile y workflow, conservan sus hashes de540cfcf. No se alteran límites de CI, reglas de fallos ni axe.
