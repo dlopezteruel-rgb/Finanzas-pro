@@ -20,7 +20,7 @@ export class SQLiteTestDriver implements VaultDriver {
    if(this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().length){this.db.close();throw new VaultError('VAULT_SCHEMA');}
    this.db.exec('BEGIN IMMEDIATE');try{this.db.exec(schema);this.db.exec('COMMIT');}catch(error){this.db.exec('ROLLBACK');throw error;}
   }else if(version!==1){this.db.close();throw new VaultError('VAULT_SCHEMA');}
-  this.db.exec('PRAGMA synchronous=FULL;PRAGMA journal_mode=DELETE;PRAGMA busy_timeout=5000;PRAGMA temp_store=MEMORY;');
+  this.db.exec('PRAGMA synchronous=EXTRA;PRAGMA journal_mode=DELETE;PRAGMA busy_timeout=5000;PRAGMA temp_store=MEMORY;');
  }
  private inject(point:FaultPoint){if(this.fault===point){this.fault=null;throw new VaultError(point==='afterCommit'?'VAULT_UNCERTAIN':'VAULT_FAILED');}}
  private head():VaultRecord|null{

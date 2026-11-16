@@ -62,7 +62,9 @@ final class VaultDatabase {
                 SQLiteDatabase.OPEN_READWRITE | (!existed && initialize ? SQLiteDatabase.CREATE_IF_NECESSARY : 0),
                 (corrupt, reason) -> { throw new VaultFailure("VAULT_CORRUPT"); }, null);
             Os.chmod(database.getAbsolutePath(), 0600);
-            db.execSQL("PRAGMA cipher_log_level=NONE");
+            scalar("PRAGMA cipher_log_level=NONE");
+            db.execSQL("PRAGMA synchronous=EXTRA"); scalar("PRAGMA journal_mode=DELETE"); db.execSQL("PRAGMA temp_store=MEMORY"); scalar("PRAGMA busy_timeout=5000"); db.execSQL("PRAGMA cipher_memory_security=ON");
+            if (!"3".equals(scalar("PRAGMA synchronous")) || !"delete".equals(scalar("PRAGMA journal_mode"))) throw new VaultFailure("VAULT_CORRUPT");
             cipherVersion = scalar("PRAGMA cipher_version"); sqliteVersion = scalar("SELECT sqlite_version()");
             if (!cipherVersion.startsWith("4.20.0")) throw new VaultFailure("VAULT_CORRUPT");
             if (!"ok".equals(scalar("PRAGMA quick_check"))) throw new VaultFailure("VAULT_CORRUPT");
@@ -72,7 +74,6 @@ final class VaultDatabase {
                 db.beginTransaction(); try { for (String statement : asset("schema.sql").split(";")) if (!statement.trim().isEmpty()) db.execSQL(statement); db.setTransactionSuccessful(); } finally { db.endTransaction(); }
             } else if (version != 1) throw new VaultFailure("VAULT_SCHEMA");
             statements = new JSONObject(asset("statements.json"));
-            db.execSQL("PRAGMA synchronous=FULL"); db.execSQL("PRAGMA journal_mode=DELETE"); db.execSQL("PRAGMA temp_store=MEMORY"); db.execSQL("PRAGMA busy_timeout=5000"); db.execSQL("PRAGMA cipher_memory_security=ON");
         } catch (Exception error) { close(); throw error; }
         finally { if (db == null) Arrays.fill(secret, (byte) 0); }
         } finally { held.release(); }

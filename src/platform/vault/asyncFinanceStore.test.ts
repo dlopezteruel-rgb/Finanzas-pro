@@ -136,3 +136,7 @@ for(const lostResponse of [false,true])test(`5H: confirmed commit overtaken befo
  assert.equal(store.phase,'reloadRequired');assert.deepEqual(store.data,before);await assert.rejects(store.mutate(d=>({...d,wallets:[...d.wallets,wallet]})));
  const reopened=await AsyncFinanceStore.open(driver,defaults);assert.equal(reopened.data.wallets.filter(w=>w.id===wallet.id).length,1);assert.equal(reopened.data.wallets.filter(w=>w.id==='other-connection').length,1);assert.equal(driver.commits,2);
 });
+
+test('5H: rollback-journal persistence uses EXTRA durability, including directory sync',async t=>{
+ const {driver}=await fixture(t);assert.equal(driver.db.prepare('PRAGMA synchronous').get()!.synchronous,3);assert.equal(driver.db.prepare('PRAGMA journal_mode').get()!.journal_mode,'delete');
+});

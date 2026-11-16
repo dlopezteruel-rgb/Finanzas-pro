@@ -28,8 +28,9 @@ final class VaultDatabase {
             let result = value.map { sqlite3_bind_text(statement, Int32(i + 1), $0, -1, transient) } ?? sqlite3_bind_null(statement, Int32(i + 1))
             guard result == SQLITE_OK else { try fail("VAULT_FAILED") }
         }
-        let result = sqlite3_step(statement)
-        guard result == SQLITE_DONE || result == SQLITE_ROW else { try fail(result == SQLITE_FULL ? "VAULT_QUOTA" : "VAULT_FAILED") }
+        var result = sqlite3_step(statement)
+        while result == SQLITE_ROW { result = sqlite3_step(statement) }
+        guard result == SQLITE_DONE else { try fail(result == SQLITE_FULL ? "VAULT_QUOTA" : "VAULT_FAILED") }
     }
     private func rows(_ sql: String, _ args: [String] = []) throws -> [[String?]] {
         var statement: OpaquePointer?
@@ -67,6 +68,8 @@ final class VaultDatabase {
             guard key.withUnsafeBytes({ sqlite3_key(db, $0.baseAddress, Int32($0.count)) }) == SQLITE_OK else { try fail("VAULT_KEY_INVALIDATED") }
             try FileManager.default.setAttributes([.protectionKey: FileProtectionType.complete, .posixPermissions: 0o600], ofItemAtPath: file.path)
             try exec("PRAGMA cipher_log_level=NONE")
+            for pragma in ["synchronous=EXTRA", "journal_mode=DELETE", "temp_store=MEMORY", "busy_timeout=5000", "cipher_memory_security=ON"] { try exec("PRAGMA " + pragma) }
+            guard try scalar("PRAGMA synchronous") == "3", try scalar("PRAGMA journal_mode") == "delete" else { try fail("VAULT_CORRUPT") }
             cipherVersion = try scalar("PRAGMA cipher_version"); sqliteVersion = try scalar("SELECT sqlite_version()")
             guard cipherVersion.hasPrefix("4.20.0"), try scalar("PRAGMA quick_check") == "ok", try rows("PRAGMA cipher_integrity_check").isEmpty else { try fail("VAULT_CORRUPT") }
             guard let resource = Bundle.module.url(forResource: "statements", withExtension: "json", subdirectory: "protocol"),
@@ -80,7 +83,6 @@ final class VaultDatabase {
                 do { for statement in schema.split(separator: ";") { let text = statement.trimmingCharacters(in: .whitespacesAndNewlines); if !text.isEmpty { try exec(text) } }; try exec("COMMIT") }
                 catch { try? exec("ROLLBACK"); throw error }
             } else if version != "1" { try fail("VAULT_SCHEMA") }
-            for pragma in ["synchronous=FULL", "journal_mode=DELETE", "temp_store=MEMORY", "busy_timeout=5000", "cipher_memory_security=ON"] { try exec("PRAGMA " + pragma) }
         } catch { close(); throw error }
     }
     private func point(_ value: String) throws { if fault == value { fault = ""; try fail(value == "afterCommit" ? "VAULT_UNCERTAIN" : "VAULT_FAILED") } }

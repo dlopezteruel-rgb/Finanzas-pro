@@ -40,7 +40,7 @@ class DB:
         C.memset(buffer,0,len(buffer))
         try:
             if not self.exec('PRAGMA cipher_version')[0][0].startswith('4.20.0'): raise RuntimeError('VERSION')
-            self.exec('PRAGMA cipher_log_level=NONE; PRAGMA synchronous=FULL; PRAGMA journal_mode=DELETE; PRAGMA temp_store=MEMORY; PRAGMA busy_timeout=5000; PRAGMA cipher_memory_security=ON')
+            self.exec('PRAGMA cipher_log_level=NONE; PRAGMA synchronous=EXTRA; PRAGMA journal_mode=DELETE; PRAGMA temp_store=MEMORY; PRAGMA busy_timeout=5000; PRAGMA cipher_memory_security=ON')
             self.exec('SELECT count(*) FROM sqlite_master')
             if initialize:self.exec(SCHEMA)
         except Exception:self.close();raise
@@ -114,11 +114,11 @@ class CipherIntegrity(unittest.TestCase):
         before=self.path.read_bytes()
         with self.assertRaises(RuntimeError):DB(self.path,os.urandom(32))
         self.assertEqual(before,self.path.read_bytes())
-    def test_integrity_and_full_sync(self):
+    def test_integrity_and_extra_sync(self):
         with DB(self.path,self.key) as db:
             self.assertEqual(db.exec('PRAGMA quick_check'),[('ok',)])
             self.assertEqual(db.exec('PRAGMA cipher_integrity_check'),[])
-            self.assertEqual(db.exec('PRAGMA synchronous'),[('2',)])
+            self.assertEqual(db.exec('PRAGMA synchronous'),[('3',)])
     def test_ciphertext_tamper_detected_and_preserved(self):
         raw=bytearray(self.path.read_bytes());raw[512]^=1;self.path.write_bytes(raw);before=bytes(raw)
         with self.assertRaises(RuntimeError):DB(self.path,self.key)

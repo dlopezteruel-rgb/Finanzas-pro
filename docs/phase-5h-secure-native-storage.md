@@ -27,7 +27,7 @@ Se añade un controlador nativo asíncrono que emplea el mismo FinanceStore para
 
 Después se envía un payload inmutable con operationId único, revisión esperada, snapshot propuesto y necesidad de copia recuperable. El puente calcula SHA256 sobre los bytes UTF-8 exactos del payload; no se reconstruye un JSON canónico ambiguo entre lenguajes. El SHA es identidad de petición, no sustituto del cifrado/autenticación de SQLCipher.
 
-Una operación nativa BEGIN IMMEDIATE / transacción de escritura lee revisión y recibo, verifica CAS, guarda y comprueba la copia anterior cuando corresponde, sustituye el documento y registra el recibo **en la misma transacción**. COMMIT usa synchronous=FULL. Solo tras commit y lectura de comprobación se publica el nuevo estado. El bloqueo JS serializa la UI, pero la seguridad de concurrencia está en SQLite y funciona entre conexiones/procesos.
+Una operación nativa BEGIN IMMEDIATE / transacción de escritura lee revisión y recibo, verifica CAS, guarda y comprueba la copia anterior cuando corresponde, sustituye el documento y registra el recibo **en la misma transacción**. COMMIT usa synchronous=EXTRA. Solo tras commit y lectura de comprobación se publica el nuevo estado. El bloqueo JS serializa la UI, pero la seguridad de concurrencia está en SQLite y funciona entre conexiones/procesos.
 
 No se cambia el significado económico ni el formato JSON financiero: snapshot versionado y JSON 2.5–3.5 continúan bajo los validadores originales. La versión SQL del contenedor es independiente (v1). No se normalizan movimientos, cuotas, relaciones o aprobaciones en tablas separadas.
 
@@ -190,3 +190,76 @@ La nueva prueba genera **ambos builds reales en memoria con la variable heredada
 ### Commit confirmado con una revisión posterior
 
 Se reproduce otra carrera: nuestra transacción se confirma y una segunda conexión avanza el documento antes de recibir el primer resultado. Ese caso no puede usar el mensaje de conflicto previo al commit («no se ha guardado»). El coordinador conserva el formulario, bloquea nuevas escrituras y comunica **operación confirmada, recarga y no la reenvíes**, sin publicar una vista obsoleta como guardado actual. Se comprueba tanto con respuesta directa como con respuesta perdida seguida de reconciliación; ambas operaciones permanecen una sola vez en la base. 698/698 unitarias y lint pasan. FinanceStore web sigue intacto.
+
+## Inventario de consumidores y frontera de sincronía
+
+Auditoría de producción (excluyendo tests): App es el único consumidor de useFinanceData. Las únicas instancias de FinanceStore están en ese hook (web/sesión temporal) y en AsyncFinanceStore (propuesta aislada). Los componentes financieros reciben los callbacks comunes update/mutate/restore; no se crean motores distintos para cuentas, préstamos, planificación, catálogo o asistente.
+
+| Superficie | Acceso financiero | Contrato conservado |
+| --- | --- | --- |
+| App → useFinanceData | Lectura de estado confirmado, callbacks de guardado/restauración | Promise de guardado resuelta solo al confirmar persistencia |
+| utils/financeStore.ts | Validación, revisión y transiciones del dominio | Archivo original protegido, sin modificaciones |
+| utils/backup.ts | Serialización/validación, versiones, copias y restauración | Archivo original protegido, JSON2.5–3.5 sin cambios |
+| platform/financeBinding.ts | Acceso web lazy a localStorage; sesión temporal en Map | Setter síncrono devuelve undefined; Web Locks originales |
+| platform/vault/asyncFinanceStore.ts | Propuesta sobre Map separado y confirmación mediante driver | No publica staging; CAS/recibo y verificación antes de actualizar UI |
+| platform/vault/nativeDriver.ts | Puente Capacitor tipado y selector de documento | Asíncrono explícito; no SQL o claves desde JS |
+| native/secure-vault | Android/iOS: cifrado, claves, exclusión, transacción y recibos | Cierre por ciclo de vida sin guardar formularios; release bloqueado |
+| app/themePreference, i18n/preference y native/preferences | Preferencias visuales independientes | Sin acceso a claves financieras ni migración de perfiles |
+| App, recuperación | Descarga forense web original y copias de dominio asíncronas | Native no sustituye acceso síncrono por una caché aparente |
+| scripts/native y nativeVault.browser.ts | Fixtures aislados y drivers reales de escritorio | Instrumentación fuera del servidor y de los recursos de producción |
+
+```mermaid
+flowchart TD
+  UI[React y cinco idiomas] --> Hook[useFinanceData]
+  Hook --> Web[FinanceStore web original]
+  Web --> WL[Web Locks y localStorage originales]
+  Hook --> Async[Coordinador asíncrono nativo]
+  Async --> Proposal[El mismo FinanceStore: propuesta aislada]
+  Proposal --> Validate[Validadores y reglas financieras compartidos]
+  Validate --> Bridge[Puente nativo limitado]
+  Bridge --> Tx[SQLCipher: CAS + copia + documento + recibo + COMMIT]
+  Tx --> Verify[Verificación de recibo y revisión]
+  Verify --> Confirm[Publicar estado confirmado]
+  Confirm --> UI
+  Android[Android Keystore: clave envolvente] --> DEK[Clave de base solo nativa]
+  Apple[Apple Keychain: ThisDeviceOnly] --> DEK
+  DEK --> Tx
+```
+
+El driver SQLite de escritorio y el puente HTTP loopback del navegador son implementaciones **de prueba**, no un backend del producto. Todas las tablas financieras se conservan como documento TEXT; no se añaden columnas monetarias, SQL SUM, normalizaciones ni redondeos. Se distingue esquema de contenedorSQL1 de documento financiero3.5.
+
+## Fallos y alcance de las pruebas
+
+| Punto / riesgo | Evidencia ejecutada | Alcance pendiente |
+| --- | --- | --- |
+| Antes de validar / propuesta inválida | Unitarias: ningún commit; documento anterior idéntico | Interacción con dispositivos reales |
+| Antes/dentro de transacción y copia | SQLite real: cuatro puntos de inyección y rollback de head/copia | Puentes Android/iOS en runtime |
+| Antes de COMMIT | SQLite real e interrupción de proceso SQLCipher | Corte eléctrico/almacenamiento del teléfono |
+| Después de COMMIT / respuesta perdida | Recibo, reconciliación, bloqueo y no duplicación | Puente suspendido/reanudado en ambos SO |
+| Otro escritor / revisión posterior | CAS entre conexiones/procesos; respuesta directa y perdida | Varias vistas/procesos en Android/iOS |
+| Documento, checksum, recibo o esquema corrupto | Rechazo y conservación de registros/archivos de prueba | Runtimes y recuperación supervisada móvil |
+| Archivo vacío/truncado/incompatible/excesivo/cancelado | Validación separada de preview/restauración, sin escritura | Picker/Share y permisos reales; importación de producto bloqueada |
+| Base y journal en claro / clave incorrecta / manipulación | 11 pruebas SQLCipher Linux; conservación ante fallo | Inspección de sandbox Android/iOS y claves del SO |
+| Falta de espacio | SQLite FULL real y rollback comprobado | Cuotas y fallos de sistema de archivos de cada móvil |
+| Rotación, clave invalidada, restore de SO, reinstalación | Diseño fail-closed y política documentados | Pruebas Keystore/Keychain, rekey y copia independiente antes de activar |
+
+No se presentan llamadas simuladas a un plugin como prueba de cifrado nativo. Las pruebas del coordinador emplean SQLite real y las criptográficas SQLCipher real; la protección de claves del dispositivo y la durabilidad móvil siguen bloqueadas.
+
+## Límites que deben resolverse antes de datos reales
+
+- Instalar el plugin no autoriza el uso. Hace falta evidencia nativa suficiente **y** aprobación explícita del producto; los builds release siguen rechazando operaciones de almacenamiento.
+- Android/iOS no se han ejecutado en este host. iOS tampoco se ha compilado ni ha resuelto el xcframework con Xcode. La versiónSQLite3.54.1/OpenSSL3.5.8 medida corresponde al motor Linux, no se atribuye a los binarios móviles sin ejecutarlos.
+- No hay copia portable cifrada. Un JSON en claro solo se exporta tras consentimiento; no se promete recuperación de otro teléfono mientras Share/picker/restauración no estén verificados por plataforma.
+- Los temporales verificados pueden permanecer más de24h si no hay otra exportación: la limpieza es en la siguiente acción explícita, no un temporizador garantizado. Antes de datos reales se debe validar retención, protección de archivos y permisos temporales por plataforma. No se controla la copia conservada por una app receptora.
+- Las copias recuperables crecen sin poda automática. En bases grandes aumentan espacio, memoria y coste de las comprobaciones de integridad al abrir. Debe medirse con perfiles reales ficticios de volumen en cada runtime; no se reduce la verificación para simular rendimiento.
+- No se garantiza seguridad frente a dispositivo comprometido, rollback malicioso de una base cifrada completa, borrado perfecto de memoria administrada ni corte eléctrico mediante pruebas de procesos Linux.
+- npm audit cubre dependencias npm; cero avisos no equivale a auditoría criptográfica, SCA completa de binarios Maven/SPM ni certificación de plataforma. Deben conservarse licencias/avisos de los distribuidores oficiales y revisar las políticas antes de distribuir.
+- El asistente móvil conserva backend no configurado; no se añaden dominios, CORS permisivo, claves de Gemini ni servicios remotos.
+- Los pendientes axe contextuales anteriores permanecen abiertos. No se han probado lectores de pantalla, Safari/iPhone, Android físico o tecnologías de asistencia nativas.
+
+
+### Durabilidad del journal y ejecución de PRAGMA
+
+Se refuerza la decisión inicial de sincronización: el modo final es **synchronous=EXTRA (3) + journal_mode=DELETE** en Android, iOS y los motores de prueba. [SQLite explica](https://www.sqlite.org/pragma.html#pragma_synchronous) que EXTRA añade fsync del directorio tras retirar el journal; FULL con DELETE puede revertir el último commit tras una pérdida de energía según el sistema de archivos. Los adaptadores comprueban el valor3 y el journal elegido; un ajuste inesperado bloquea la apertura. Esto no sustituye las pruebas de fallo físico pendientes en dispositivos.
+
+La API Android execSQL no debe usarse para PRAGMA que devuelven filas. El motor4.20 real confirma resultados en cipher_log_level, journal_mode y busy_timeout; se consumen mediante consultas. En iOS se drenan las filas hasta SQLITE_DONE antes de finalizar el statement. La configuración se establece antes de la transacción inicial de esquema. 699/699 unitarias, lint, 11/11 SQLCipher Linux y nueva compilación Android pasan. No hay ejecución Android/iOS ni habilitación de datos reales.

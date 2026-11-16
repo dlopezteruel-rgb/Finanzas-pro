@@ -27,3 +27,6 @@ ios/capacitor-cordova-ios-plugins/
 *.jks
 *.p12
 *.mobileprovision
+
+# Generated cache from optional desktop SQLCipher test scripts
+scripts/native/__pycache__/
