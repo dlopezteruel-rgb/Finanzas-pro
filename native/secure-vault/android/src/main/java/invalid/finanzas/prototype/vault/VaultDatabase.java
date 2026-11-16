@@ -91,6 +91,8 @@ final class VaultDatabase {
         try (Cursor c = db.rawQuery(sql("active"), new String[]{})) {
             if (!c.moveToFirst()) { if (!"0".equals(scalar("SELECT count(*) FROM operations WHERE status='committed'"))) throw new VaultFailure("VAULT_CORRUPT"); return null; }
             String snapshot = c.getString(1);
+            JSObject committed = operation(c.getString(3));
+            if (committed == null || !"committed".equals(committed.getString("status")) || !c.getString(0).equals(committed.getString("revision"))) throw new VaultFailure("VAULT_CORRUPT");
             if (!hash(snapshot).equals(c.getString(2)) || !revision(snapshot).equals(c.getString(0))) throw new VaultFailure("VAULT_CORRUPT");
             return new JSObject().put("revision", c.getString(0)).put("snapshot", snapshot).put("snapshotHash", c.getString(2)).put("operationId", c.getString(3));
         }

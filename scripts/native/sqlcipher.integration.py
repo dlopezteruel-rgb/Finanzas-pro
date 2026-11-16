@@ -99,6 +99,17 @@ class CipherIntegrity(unittest.TestCase):
     def tearDown(self):self.temp.cleanup()
     def test_encrypted_header_and_no_plaintext(self):
         raw=self.path.read_bytes();self.assertNotEqual(raw[:16],b'SQLite format 3\0');self.assertNotIn(b'FICTITIOUS_VAULT_MARKER',raw)
+    def test_uncommitted_database_and_journal_have_no_plaintext(self):
+        with DB(self.path,self.key) as db:
+            before=db.exec(SQL['active'])
+            db.exec('BEGIN IMMEDIATE')
+            try:
+                db.exec("UPDATE active SET snapshot=snapshot || 'UNCOMMITTED_PRIVATE_MARKER'")
+                for owned in self.path.parent.iterdir():
+                    if owned.is_file():
+                        raw=owned.read_bytes();self.assertNotIn(b'FICTITIOUS_VAULT_MARKER',raw);self.assertNotIn(b'UNCOMMITTED_PRIVATE_MARKER',raw)
+            finally:db.exec('ROLLBACK')
+            self.assertEqual(db.exec(SQL['active']),before)
     def test_wrong_key_preserves_ciphertext(self):
         before=self.path.read_bytes()
         with self.assertRaises(RuntimeError):DB(self.path,os.urandom(32))

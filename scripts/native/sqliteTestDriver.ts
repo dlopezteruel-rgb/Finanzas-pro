@@ -25,6 +25,8 @@ export class SQLiteTestDriver implements VaultDriver {
  private inject(point:FaultPoint){if(this.fault===point){this.fault=null;throw new VaultError(point==='afterCommit'?'VAULT_UNCERTAIN':'VAULT_FAILED');}}
  private head():VaultRecord|null{
   const r=this.db.prepare(sql.active).get();if(!r){if(Number(this.db.prepare("SELECT count(*) AS n FROM operations WHERE status='committed'").get()!.n)>0)throw new VaultError('VAULT_CORRUPT');return null;}
+  const receipt=this.db.prepare(sql.operation).get(String(r.operation_id));
+  if(!receipt||receipt.status!=='committed'||receipt.revision!==r.revision)throw new VaultError('VAULT_CORRUPT');
   const head={revision:String(r.revision),snapshot:String(r.snapshot),snapshotHash:String(r.snapshot_hash),operationId:String(r.operation_id)};
   if(hash(head.snapshot)!==head.snapshotHash||snapshotRevision(head.snapshot)!==head.revision)throw new VaultError('VAULT_CORRUPT');
   return head;

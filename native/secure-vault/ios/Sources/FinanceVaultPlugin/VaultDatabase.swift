@@ -95,7 +95,8 @@ final class VaultDatabase {
         try open(initialize: false)
         guard let row = try rows(sql("active")).first else { if try scalar("SELECT count(*) FROM operations WHERE status='committed'") != "0" { try fail("VAULT_CORRUPT") }; return nil }
         guard let revision = row[0], let snapshot = row[1], let hash = row[2], let operation = row[3],
-              Self.hash(snapshot) == hash, try self.revision(snapshot) == revision else { try fail("VAULT_CORRUPT") }
+              Self.hash(snapshot) == hash, try self.revision(snapshot) == revision,
+              let committed = try self.operation(operation), committed[1] == "committed", committed[2] == revision else { try fail("VAULT_CORRUPT") }
         return ["revision": revision, "snapshot": snapshot, "snapshotHash": hash, "operationId": operation]
     }
     private func operation(_ id: String) throws -> [String?]? { try rows(sql("operation"), [id]).first }

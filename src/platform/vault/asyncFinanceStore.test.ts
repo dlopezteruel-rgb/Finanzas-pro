@@ -7,6 +7,9 @@ import {SQLiteTestDriver,type FaultPoint} from '../../../scripts/native/sqliteTe
 import {multilingualCatalogFixture} from '../../../scripts/multilingualCatalogFixture';
 import {BUDGET_GROUPS} from '../../constants/categories';
 import {systemCatalogNames} from '../../utils/catalogNames';
+import {transferPair} from '../../utils/transfers';
+import {saveSettlement} from '../../utils/sharedExpenses';
+import {calculateWalletBalances} from '../../utils/finance';
 import {FinanceStore} from '../../utils/financeStore';
 import {makeBackup,parseBackup,parseSnapshot,StorageConflictError,serializeSnapshot,DATA_KEY} from '../../utils/backup';
 import {memoryFinanceStorage} from '../financeBinding';
@@ -106,4 +109,21 @@ for(const version of ['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4
  await driver.commit(JSON.stringify({protocol:1,operationId:crypto.randomUUID(),expectedRevision:null,nextSnapshot:snapshot,recoveryKey:null}));
  const store=await AsyncFinanceStore.open(driver,defaults),before=(await driver.read())!;
  assert.deepEqual(economic(store.data),economic(legacy));assert.equal((await driver.read())!.snapshot,snapshot);assert.deepEqual(await driver.read(),before);assert.equal(driver.commits,1);assert.equal(store.phase,'ready');
+});
+
+test('5H: active state without its matching committed receipt is rejected and retained',async t=>{
+ const {driver,store}=await fixture(t);await store.initialize();const before=(await driver.read())!;driver.db.prepare('DELETE FROM operations WHERE operation_id=?').run(before.operationId);
+ await assert.rejects(AsyncFinanceStore.open(driver,store.data),(e:any)=>e.code==='VAULT_CORRUPT');assert.equal(driver.db.prepare('SELECT snapshot FROM active').get()!.snapshot,before.snapshot);assert.equal(driver.commits,1);
+});
+
+test('5H: linked transfers, loan payment, reimbursement, approvals and catalogue stay exactly equivalent to web',async t=>{
+ const {driver,defaults,store}=await fixture(t);await store.initialize();const memory=memoryFinanceStorage();memory.setItem(DATA_KEY,(await driver.read())!.snapshot);const web=new FinanceStore(memory,defaults,async write=>write());
+ const [from,to]=defaults.wallets,code=defaults.budgetGroups.find(g=>g.type==='GASTO')!.partidas[0].code;
+ const add=(d:typeof defaults)=>({...d,loans:[...d.loans,{id:'vault-loan',name:'Préstamo ficticio',entity:'Entidad ficticia',principal:1000,interestRate:3,totalTermMonths:12,startDate:'2026-10-01',monthlyPayment:85,wallet:from.name,code}],transactions:[...d.transactions,{id:'vault-loan-payment',type:'GASTO' as const,code,loanId:'vault-loan',amount:85,date:'2026-11-09',categoryName:'Familia ficticia',subcategoryName:'Cuota ficticia',description:'Cuota ficticia',wallet:from.name,processed:true},...transferPair(d.wallets,{fromWalletId:from.id,toWalletId:to.id,amount:123.45,date:'2026-11-09',concept:'Traspaso ficticio',processed:true},'vault-transfer')]});
+ await web.mutate(add);await store.mutate(add);
+ const settle=(d:typeof defaults)=>saveSettlement(d,{expenseId:'shared',contactId:'bea',amount:1.23,date:'2026-11-10',processed:true,kind:'cash',walletId:from.id,operationId:'vault-reimbursement'});
+ await web.mutate(settle);await store.mutate(settle);
+ assert.deepEqual(economic(store.data),economic(web.data));assert.deepEqual(calculateWalletBalances(store.data.wallets,store.data.transactions),calculateWalletBalances(web.data.wallets,web.data.transactions));
+ assert.equal(store.data.transactions.filter(tx=>tx.transfer?.id==='vault-transfer').length,2);assert.equal(store.data.transactions.find(tx=>tx.loanId==='vault-loan')!.amount,85);assert.deepEqual(store.data.planningMonths,defaults.planningMonths);assert.deepEqual(store.data.budgetSubitems,defaults.budgetSubitems);assert.deepEqual(store.data.catalogNames,defaults.catalogNames);
+ const roundtrip=parseBackup(await store.exportJSON());assert.deepEqual(economic(roundtrip),economic(web.data));await store.restore(makeBackup(defaults));assert.deepEqual(economic(store.data),economic(defaults));assert.deepEqual(economic(parseBackup((await store.recoveryCopies()).at(-1)!.content)),economic(web.data));
 });

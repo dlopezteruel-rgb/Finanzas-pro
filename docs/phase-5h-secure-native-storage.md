@@ -168,3 +168,15 @@ npm run native:open:ios # macOS con Xcode26+, no ejecutar como si Linux compilar
 ```
 
 El build de diagnóstico `vite.vault-test.config.ts` tiene marcador native-prototype-test y el validador de empaquetado lo rechaza. Su endpoint loopback __vault_test existe únicamente en el script de prueba; no se añade al servidor Express de la aplicación ni se crea un servicio financiero remoto. El navegador bloquea recursos externos y usa almacenamiento ficticio aislado. No hay claves de Gemini, telemetría ni servicios nuevos.
+
+## Checkpoint 6 — Revisión de integridad y validación
+
+La revisión añade una comprobación de integridad lógica: el documento activo debe referenciar un recibo **committed con su misma revisión**. Un head cuyo recibo falta, está abortado o pertenece a otra revisión se rechaza sin borrar el documento. Se aplica a Android, iOS y driver SQLite de pruebas. La nueva prueba reproduce la pérdida del recibo y verifica conservación de bytes. No cambia el modelo financiero ni el esquema SQL.
+
+695/695 unitarias pasan tras esta revisión. La segunda prueba nueva ejecuta las mismas altas de préstamo/cuota, transferencia vinculada y reintegro en FinanceStore web y coordinador asíncrono; compara documentos, relaciones, saldos exactos, aprobación, catálogo, subítems, exportación y restauración con copia anterior. Su primera ejecución utilizó por error el parámetro de edición de una liquidación para una creación; se corrige el arnés para utilizar operationId, conservando todas las aserciones. SQLCipher real pasa ahora **11/11**: se añade inspección de base y journal durante una transacción sin commit, sin encontrar los marcadores financieros en claro. Son pruebas Linux, no de Keystore/Keychain.
+
+La compilación Android se repite correctamente con la comprobación de recibos. El APK sin firma incorpora las cuatro ABI de desarrollo; el aumento respecto al APK conservado de 5G (5.543.039 bytes) hasta aproximadamente13,38MB corresponde principalmente a libsqlcipher.so nativa, no a JavaScript web. El hash y tamaño exactos finales se registrarán con el manifiesto de evidencias. No se distribuye ni instala.
+
+La suite de catálogo de la base repetida aislada pasa **43/43 en 284,6s**, con el límite original de300s. Esto no convierte en aprobada la ejecución inicial incompleta. La batería web final está en curso, sin otro navegador local en paralelo.
+
+PR Draft única: https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32. Primera ejecución CI de checkpoint273684e: https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43922926002, con Unitarias y Lint/build/diff aprobados; Chromium pendiente al publicar esta revisión. La nueva publicación la sustituirá mediante la concurrencia normal del workflow. Una ejecución sustituida o cancelada no se presentará como aprobación final.
