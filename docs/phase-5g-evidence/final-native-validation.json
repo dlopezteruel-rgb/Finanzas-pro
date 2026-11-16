@@ -1,0 +1,26 @@
+{
+  "sourceCommit": "c6f663f00781611ecca2e3575ba6102bdcfddf91",
+  "kind": "unsigned prototype,not installed or run",
+  "apkBytes": 5543039,
+  "apkSha256": "6f8421e4176ce0b7add4e4a7aac28aa2706fec9401f2511199c7371fc2fd1da3",
+  "zipIntegrity": "passed",
+  "signature": "absent,no keys generated",
+  "nativeBuildMarker": {
+    "kind": "native-prototype",
+    "appId": "invalid.finanzas.prototype",
+    "financialPersistence": "session-only",
+    "realData": false,
+    "remoteBackend": false
+  },
+  "localResourcesBytes": 2450652,
+  "localResourcesFiles": 46,
+  "buildResult": "BUILD SUCCESSFUL in20s;185tasks,21executed164up-to-date",
+  "iOS": "cap sync sources/assets passed;SPM resolution/build/runtime BLOCKED without macOS/Xcode",
+  "androidRuntime": "BLOCKED:no emulation toolchain/KVM/device;WebView version unmeasured",
+  "webNativeSDKModules": 0,
+  "webInitial": {
+    "bytes": 468605,
+    "gzipBytes": 138072
+  },
+  "mergedApkPermissions": "package: invalid.finanzas.prototype\nuses-permission: name='android.permission.INTERNET'\npermission: invalid.finanzas.prototype.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION\nuses-permission: name='invalid.finanzas.prototype.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION'\n"
+}
