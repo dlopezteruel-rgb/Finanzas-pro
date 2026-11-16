@@ -1,0 +1,10 @@
+{
+  "active": "SELECT revision,snapshot,snapshot_hash,operation_id FROM active WHERE slot=1",
+  "operation": "SELECT fingerprint,status,revision FROM operations WHERE operation_id=?",
+  "putOperation": "INSERT INTO operations(operation_id,fingerprint,status,revision) VALUES(?,?,?,?)",
+  "putActive": "INSERT OR REPLACE INTO active(slot,revision,snapshot,snapshot_hash,operation_id) VALUES(1,?,?,?,?)",
+  "putPrevious": "INSERT OR REPLACE INTO previous(slot,snapshot) VALUES(1,?)",
+  "putRecovery": "INSERT INTO recoveries(recovery_key,snapshot) VALUES(?,?)",
+  "verifyRecovery": "SELECT snapshot FROM recoveries WHERE recovery_key=?",
+  "recoveries": "SELECT recovery_key,snapshot FROM recoveries ORDER BY recovery_key DESC"
+}

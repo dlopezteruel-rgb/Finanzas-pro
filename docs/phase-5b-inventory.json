@@ -3,8 +3,8 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1012,
-    "review": 3225,
+    "type-or-import": 1028,
+    "review": 3296,
     "translation-key": 1528,
     "ui-message-candidate": 382,
     "attribute-internal": 2169,
@@ -2066,11 +2066,33 @@
       "presentationCalls": []
     },
     {
+      "file": "src/platform/vault/asyncFinanceStore.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "1759505b1ad115a559db980874c480c48e95fd426621769cde77c7a3c0ef194d",
+      "counts": {
+        "type-or-import": 4,
+        "review": 43
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/vault/protocol.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "b6c8da3414a611914a559199f2a70fc532811236bd586c0c1fa3075c4d96788a",
+      "counts": {
+        "type-or-import": 11,
+        "review": 28
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "209a14f15af2eb72156b10332c86e249da113d7857cd50552f9795d00274d86c",
+      "sourceSha256": "dbca7119cb8a03955d873d003689e1c630c40f6ce28bd6bbc8bf63230193ef61",
       "counts": {
-        "type-or-import": 50
+        "type-or-import": 51
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
