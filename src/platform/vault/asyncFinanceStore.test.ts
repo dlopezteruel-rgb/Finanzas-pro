@@ -127,3 +127,12 @@ test('5H: linked transfers, loan payment, reimbursement, approvals and catalogue
  assert.equal(store.data.transactions.filter(tx=>tx.transfer?.id==='vault-transfer').length,2);assert.equal(store.data.transactions.find(tx=>tx.loanId==='vault-loan')!.amount,85);assert.deepEqual(store.data.planningMonths,defaults.planningMonths);assert.deepEqual(store.data.budgetSubitems,defaults.budgetSubitems);assert.deepEqual(store.data.catalogNames,defaults.catalogNames);
  const roundtrip=parseBackup(await store.exportJSON());assert.deepEqual(economic(roundtrip),economic(web.data));await store.restore(makeBackup(defaults));assert.deepEqual(economic(store.data),economic(defaults));assert.deepEqual(economic(parseBackup((await store.recoveryCopies()).at(-1)!.content)),economic(web.data));
 });
+
+for(const lostResponse of [false,true])test(`5H: confirmed commit overtaken before ${lostResponse?'lost':'direct'} response requires reload, never claims not saved`,async t=>{
+ const {dir,driver,defaults}=await fixture(t);const otherDriver=new SQLiteTestDriver(path.join(dir,'test.db'));t.after(()=>otherDriver.close());let calls=0;
+ const wrapped:VaultDriver={read:()=>driver.read(),commit:async payload=>{const receipt=await driver.commit(payload);if(++calls===2){const other=await AsyncFinanceStore.open(otherDriver,defaults);await other.mutate(d=>({...d,wallets:[...d.wallets,{...wallet,id:'other-connection',name:'Otra ficticia'}]}));if(lostResponse)throw new VaultError('VAULT_UNCERTAIN');return {...receipt,head:await otherDriver.read()};}return receipt;},resolve:(...args)=>driver.resolve(...args),recoveries:()=>driver.recoveries(),close:()=>driver.close()};
+ const store=await AsyncFinanceStore.open(wrapped,defaults);await store.initialize();const before=store.data;
+ await assert.rejects(store.mutate(d=>({...d,wallets:[...d.wallets,wallet]})),(error:any)=>error.code==='VAULT_RELOAD'&&!(error instanceof StorageConflictError));
+ assert.equal(store.phase,'reloadRequired');assert.deepEqual(store.data,before);await assert.rejects(store.mutate(d=>({...d,wallets:[...d.wallets,wallet]})));
+ const reopened=await AsyncFinanceStore.open(driver,defaults);assert.equal(reopened.data.wallets.filter(w=>w.id===wallet.id).length,1);assert.equal(reopened.data.wallets.filter(w=>w.id==='other-connection').length,1);assert.equal(driver.commits,2);
+});

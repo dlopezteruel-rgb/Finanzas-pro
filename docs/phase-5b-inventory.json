@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1046,
-    "review": 3336,
+    "review": 3340,
     "translation-key": 1548,
     "ui-message-candidate": 385,
     "attribute-internal": 2179,
@@ -2069,10 +2069,10 @@
     {
       "file": "src/platform/vault/asyncFinanceStore.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "5aee1616b96bb8028e92a9cdaccd194532833d706f2b4595fc289fbf4aa340b5",
+      "sourceSha256": "0a5d87062da529355b01444eee47d6272446869fe83bb8e8b3df7dd386dbb8ce",
       "counts": {
         "type-or-import": 4,
-        "review": 52
+        "review": 56
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

@@ -46,13 +46,13 @@ export class AsyncFinanceStore implements DurableFinanceController {
   const payload=JSON.stringify(request),fingerprint=await sha256(payload);this.pending={payload,fingerprint,request};this.state('saving');
   try{return await this.accept(await this.driver.commit(payload),true);}
   catch(error){
-   if(error instanceof VaultError&&error.code==='VAULT_NOT_COMMITTED'&&!this.pending)throw error;
+   if(error instanceof VaultError&&['VAULT_NOT_COMMITTED','VAULT_RELOAD'].includes(error.code)&&!this.pending)throw error;
    if(error instanceof StorageConflictError||driverError(error).code==='VAULT_CONFLICT'){this.pending=null;this.state('conflict','VAULT_CONFLICT');throw new StorageConflictError();}
    this.state('checking');
    try{return await this.accept(await this.driver.resolve(request.operationId,fingerprint),true);}
    catch(resolution){
     if(resolution instanceof StorageConflictError)throw resolution;
-    const known=resolution instanceof VaultError&&resolution.code==='VAULT_NOT_COMMITTED';
+    const known=resolution instanceof VaultError&&['VAULT_NOT_COMMITTED','VAULT_RELOAD'].includes(resolution.code);
     if(!known)this.state('recoveryRequired',driverError(resolution).code);
     throw known?resolution:new VaultError('VAULT_UNCERTAIN');
    }
@@ -65,8 +65,14 @@ export class AsyncFinanceStore implements DurableFinanceController {
    this.pending=null;this.state('ready');throw new VaultError('VAULT_NOT_COMMITTED');
   }
   if(receipt.status!=='committed'||receipt.revision!==snapshotRevision(pending.request.nextSnapshot))throw new VaultError('VAULT_CORRUPT');
-  if(!receipt.head||receipt.head.revision!==receipt.revision){this.state('conflict','VAULT_CONFLICT');throw new StorageConflictError();}
+  if(!receipt.head)throw new VaultError('VAULT_CORRUPT');
   await AsyncFinanceStore.verify(receipt.head);
+  if(receipt.head.revision!==receipt.revision){
+   // Our commit is known durable, even if another writer advanced the head before its response.
+   // Never tell the user it was not saved or let an old form submit it again.
+   this.pending=null;this.state('reloadRequired','VAULT_RELOAD');
+   if(publish)throw new VaultError('VAULT_RELOAD');return this.data;
+  }
   if(receipt.head.snapshot!==pending.request.nextSnapshot)throw new VaultError('VAULT_CORRUPT');
   if(!publish){this.pending=null;this.state('reloadRequired','VAULT_RELOAD');return this.data;}
   this.record=structuredClone(receipt.head);this.pending=null;this.state('ready');return this.data;
