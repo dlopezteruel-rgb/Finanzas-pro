@@ -90,3 +90,81 @@ La compilación desde fuentes requiere generar primero la amalgama (`make sqlite
 La revisión de la implementación Android comprobó que SQLCipher conserva el byte[] de contraseña para su pool de conexiones. El puente mantiene esa referencia únicamente mientras la base está abierta y la borra después de cerrar; borrarla inmediatamente después de open rompería futuras conexiones internas. No se promete borrado perfecto de copias internas de memoria. Un bloqueo de inicialización a nivel de archivo evita que dos procesos creen sobres/claves diferentes; después SQLite protege CAS y commit.
 
 El bloqueo de producto se aplica también en nativo: builds release rechazan almacenamiento e importación; debug exige consentimiento ficticio explícito. No hay API de SQL arbitrario, extracción de clave, reset o borrado de base. Las clases de fallo conservan los archivos. Las herramientas de inyección de fallos solo existen detrás de ese permiso debug. No se habilitan datos reales.
+
+## Checkpoints 4 y 5 — Archivos, recuperación e integración
+
+La frontera asíncrona se conecta explícitamente a useFinanceData. El modo web conserva FinanceStore y su Storage síncrono; el modo nativo preparado recibe un controlador duradero, sin caché síncrona fingida ni publicación antes del commit. El selector inicial conserva la sesión desechable 5G y añade un sandbox persistente **debug, ficticio y opt-in**. Ambas opciones siguen prohibiendo datos reales. La apertura prepara y valida almacenamiento antes de montar App; un error conserva base/clave y muestra el motivo, sin reset automático.
+
+Las copias recuperables se leen asíncronamente. La exportación toma el documento completo confirmado, comprueba la revisión y pide consentimiento antes de crear/compartir el archivo en claro. Cancelar con Escape o Atrás no crea ni comparte archivos. Se conserva la verificación por relectura del temporal privado. La app destinataria puede conservar una copia; el prototipo mantiene el temporal verificado para receptores asíncronos y caduca únicamente sus propios temporales de más de 24h en la siguiente exportación explícita. No se hace limpieza ni guardado financiero al reanudar.
+
+El selector nativo ACTION_OPEN_DOCUMENT/UIDocumentPicker está conectado a una frontera tipada que limita tamaño y formato y devuelve una propuesta para la **misma** preview, confirmación y restauración originales. No restaura al seleccionar ni recibir una URL. Sin embargo, `externalImport=false` impide llamar al selector desde la interfaz en ambas plataformas hasta su validación nativa y autorización de producto. El modo temporal tampoco importa perfiles. No hay contenedor cifrado portable implementado: permanece bloqueado; JSON sin cifrar requiere consentimiento y un medio de custodia adecuado. Una copia interna ligada a la clave del teléfono no recupera una clave perdida.
+
+693/693 unitarias pasan (654 originales +39 nuevas), sin omisiones/cancelaciones. Incluyen SQLite real, publicación tardía, fallos de commit, recibos, tombstones, competencia de revisiones, restauración completa, propuestas financieras inválidas, acciones rápidas y recuperación de lecturas bloqueadas. Once casos abren snapshots 2.5–3.5 conservando bytes/revisión exactos sin migración ni escritura. El corpus complejo conserva transferencias, repartos, reintegros, presupuestos aprobados, subítems y catálogo a través del motor compartido. La selección de archivos se prueba como validación/preview separada de restauración y con cancelación/archivos vacíos, truncados, incompatibles y excesivos.
+
+La nueva suite añade 35 resultados Chromium (34 casos + contenedor), aprobados en la ejecución específica disponible: interfaz de producción de diagnóstico + SQLite real de escritorio, **no Android/iOS**. Cubre guardado pendiente sin éxito anticipado, fallo/retención de formulario/reintento, respuesta perdida/reconciliación sin duplicación, exportación consentida/cancelada, los cinco idiomas, 390/768/1280 px, ambos temas, teclado, zoom y ausencia de lecturas/escrituras financieras en WebView localStorage. Axe estricto mantiene sus reglas; los registros incompletos se conservan. La validación completa del estado final sigue pendiente en este checkpoint.
+
+La primera prueba de recuperación mostró que los controles de la barra quedaban inaccesibles detrás de un formulario modal: se añade un diálogo de recuperación dentro de la jerarquía común de overlays. El formulario sigue montado, sus campos se conservan y nuevas escrituras permanecen bloqueadas. Si la confirmación llega después de que el formulario haya recibido error, se exige recarga para evitar reenviar una operación ya confirmada. Un selector de prueba que excluía el formulario por aria-hidden se corrige para comprobar explícitamente su conservación bajo el diálogo; no se rebaja la aserción. Se separan y amplían las áreas táctiles de las acciones del nuevo diálogo tras revisar su captura real.
+
+Los 29 mensajes nuevos de almacenamiento y el aviso de prototipo se traducen mediante el sistema i18n existente. Se revisa la coincidencia léxica pt-PT «Cancelar», sin traducir datos personales ni guardar etiquetas traducidas. Ningún cambio en cálculos, FinanceStore, Web Locks, esquemas financieros, API/prompts, backend móvil o los 44 archivos protegidos de 5G.
+
+## Compatibilidad y activación por plataforma
+
+| Capacidad | Web | Android | iOS |
+| --- | --- | --- | --- |
+| Lectura persistente | Regresión final pendiente; contrato original conservado | Bloqueado: sin runtime | Bloqueado: sin macOS/Xcode/runtime |
+| Escritura atómica/CAS | Contrato original; pruebas unitarias aprobadas | Infraestructura implementada/compilada; runtime bloqueado | Fuentes implementadas; compilación/runtime bloqueados |
+| Cifrado en reposo | No añadido al contrato web | SQLCipher implementado; comprobación en Android bloqueada | SQLCipher implementado; comprobación en iOS bloqueada |
+| Protección de claves | No aplicable al contrato web actual | Keystore implementado; ejecución bloqueada | Keychain implementado; ejecución bloqueada |
+| Cierre forzado/actualización | No equivale a corte eléctrico; regresiones finales pendientes | Bloqueado | Bloqueado |
+| Copia recuperable/restauración | Motor original conservado | Adaptador probado con SQLite de escritorio; runtime bloqueado | Adaptador probado con SQLite de escritorio; runtime bloqueado |
+| Exportación y Share | Regresión final pendiente | Adaptador y consentimiento probados en Chromium; Share real bloqueado | Adaptador y consentimiento probados en Chromium; Share real bloqueado |
+| Importación externa | Conservada; regresión final pendiente | Bloqueada por política, selector preparado | Bloqueada por política, selector preparado |
+| Datos corruptos/esquema futuro | Unitarias originales conservadas | Motor Linux aprobado; puente Android pendiente | Motor Linux aprobado; puente iOS pendiente |
+| Equivalencia financiera | 693 unitarias compartidas aprobadas | Pruebas del coordinador/SQLite aprobadas; ejecución Android bloqueada | Pruebas del coordinador/SQLite aprobadas; ejecución iOS bloqueada |
+| Datos reales habilitados | Comportamiento web original | **NO** | **NO** |
+
+Las columnas distinguen implementación, compilación y ejecución. Ninguna prueba nativa se marca como aprobada porque una simulación o CI web pase. No hay teléfono físico, emulador Android, macOS ni Xcode en este host. El APK unsigned no se distribuye. Capacitor8.6.2, Android SDK36/JDK21/Gradle8.14.3/AGP8.13.0 permanecen como en 5G; iOS requiere Xcode26+ con SwiftPM y el SDK oficial. Identificador provisional `invalid.finanzas.prototype` sin firma real.
+
+## Política de instalación, actualización y recuperación
+
+Instalación nueva: solo consentimiento explícito crea el sandbox; la detección de plataforma nunca importa localStorage. Actualización desde 5G: sus datos en memoria no se convierten automáticamente. Reapertura de 5H: se valida el documento y esquema1 sin migrar. Un SQL user_version desconocido bloquea; v0 únicamente inicializa tablas cuando está vacío y existe consentimiento. No se ofrece borrado/recreación ante apertura fallida. Toda evolución posterior de SQL deberá aportar copia previa, migración transaccional idempotente y revalidación; no se ha inventado una migración financiera nueva.
+
+Android conserva allowBackup=false y las exclusiones anteriores; base, sobre y copias internas viven bajo noBackupFilesDir, temporales bajo cache privada. iOS excluye su directorio protegido de backup y usa Keychain ThisDeviceOnly. Preferencias de idioma/tema permanecen separadas; exports elegidos por el usuario quedan bajo su custodia. La política no promete recuperar otro teléfono ni una reinstalación: sin copia independiente portable se pueden perder los datos. Un restore de SO sin clave compatible bloquea y conserva la base; no la borra.
+
+Antes de datos reales quedan pendientes ejecución por plataforma, rotación/rekey y fallos de Keystore/Keychain en dispositivo, cierre forzado/actualizaciones, verificación de backups/traslado, espacio y permisos reales, Share/picker, revisión de dependencias/licencias/privacidad y aprobación de identidad/producto. Una beta externa o distribución exigiría además identificador definitivo, firma, política de privacidad y decisión de cifrado/exportaciones. Nada de ello se activa en esta PR.
+
+## Evidencia y validación final en curso
+
+La batería inicial de ce1ec83 produjo 654 unitarias, 22 de infraestructura, lint y build correctos. Chromium inicial **NO aprobado**: 735/741 resultados en 36/44 suites, cinco fallos derivados del cierre del navegador por timeout global de multilingualCatalog, una cancelación; ocho suites no ejecutadas. Se conserva el informe fallido, sin ampliar su límite de 300s. Se repite esa suite aislada para separar contención del entorno de una regresión; el resultado se registrará al terminar. La batería final completa se ejecutará sin otro navegador local en paralelo.
+
+Bundles de producción medidos frente a ce1ec83: landing 138.072→138.880 bytes gzip (+808; +0,59%); grafo estático de App 249.065→250.262 (+1.197; +0,48%). El incremento corresponde a mensajes y frontera de presentación, no al motor nativo. El análisis completo identifica **cero módulos Capacitor/SQLCipher/vault/driver de pruebas en todos los chunks web**, no solo en el inicial. Las cifras finales se volverán a recoger si cambia ese grafo. No hay medición de arranque/memoria Android/iOS sin runtime, ni se extrapola Chromium a dispositivos físicos.
+
+Se conservan los 947 grupos axe incompletos de 5G, agrupados en 53 conjuntos equivalentes, pendientes de revisión contextual. Las observaciones nuevas se documentarán separadas; no se convierten en infracciones ni aprobaciones manuales. No se ha utilizado lector de pantalla ni dispositivo físico. Los screenshots son de la aplicación real con datos ficticios y se renovarán con el código final.
+
+CI: se mantienen los tres checks y el presupuesto global de 50 minutos, sin cambiar workflows/protecciones ni reglas de fallo. Se publicará una única PR Draft y se registrarán resultados/URLs del SHA final; este checkpoint no afirma CI final verde.
+
+## Comandos reproducibles
+
+```bash
+npm ci
+npm test
+node scripts/ci/run-check.mjs tools
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+PERF_REQUIRE_LAZY=1 node scripts/performance/bundles.mjs /tmp/5h-bundles.json
+git diff origin/main...HEAD --check
+
+# Prueba criptográfica real de escritorio, separada de Android/iOS:
+bash scripts/native/build-sqlcipher-test.sh
+# Usar la ruta SQLCIPHER_LIBRARY impresa por el comando anterior:
+SQLCIPHER_LIBRARY=/ruta/impresa/libsqlcipher.so npm run test:native:engine
+
+npm run native:sync:android
+npm run native:sync:ios
+npm run native:android:assemble
+npm run native:open:android
+npm run native:open:ios # macOS con Xcode26+, no ejecutar como si Linux compilara iOS
+```
+
+El build de diagnóstico `vite.vault-test.config.ts` tiene marcador native-prototype-test y el validador de empaquetado lo rechaza. Su endpoint loopback __vault_test existe únicamente en el script de prueba; no se añade al servidor Express de la aplicación ni se crea un servicio financiero remoto. El navegador bloquea recursos externos y usa almacenamiento ficticio aislado. No hay claves de Gemini, telemetría ni servicios nuevos.

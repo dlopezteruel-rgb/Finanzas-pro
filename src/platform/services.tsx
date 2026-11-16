@@ -1,11 +1,13 @@
 import React,{createContext,useContext,useEffect,useRef} from 'react';
+import type {DurableFinanceController} from './vault/protocol';
 import {paths} from '../app/paths';
 import {webFinanceBinding,type FinanceBinding} from './financeBinding';
 
 export type PlatformNotice='native.backBlocked'|'native.rootBack'|'native.preferencesFailed'|'native.importBlocked'|'native.exportFailed'|'native.deviceUnavailable'|'native.linkBlocked';
 export type BackResult='handled'|'root';
 export type PlatformServices={
- prototype:boolean;finance:FinanceBinding;canImport:boolean;assistantEndpoint:string|null;
+ prototype:boolean;finance:FinanceBinding;durable?:DurableFinanceController;
+ pickBackup?:()=>Promise<{name:string;backup:import('../utils/backup').Backup}|null>;canImport:boolean;assistantEndpoint:string|null;
  exportText:(text:string,filename:string,mime:string,title?:string)=>Promise<void>;
  registerBack:(handler:()=>BackResult)=>()=>void;
  notify:(message:PlatformNotice)=>void;

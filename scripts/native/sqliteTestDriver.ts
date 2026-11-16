@@ -17,14 +17,14 @@ export class SQLiteTestDriver implements VaultDriver {
   this.db=new DatabaseSync(filename);
   const version=Number(this.db.prepare('PRAGMA user_version').get()!.user_version);
   if(version===0){
-   if(this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().length)throw new VaultError('VAULT_SCHEMA');
+   if(this.db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all().length){this.db.close();throw new VaultError('VAULT_SCHEMA');}
    this.db.exec('BEGIN IMMEDIATE');try{this.db.exec(schema);this.db.exec('COMMIT');}catch(error){this.db.exec('ROLLBACK');throw error;}
   }else if(version!==1){this.db.close();throw new VaultError('VAULT_SCHEMA');}
   this.db.exec('PRAGMA synchronous=FULL;PRAGMA journal_mode=DELETE;PRAGMA busy_timeout=5000;PRAGMA temp_store=MEMORY;');
  }
  private inject(point:FaultPoint){if(this.fault===point){this.fault=null;throw new VaultError(point==='afterCommit'?'VAULT_UNCERTAIN':'VAULT_FAILED');}}
  private head():VaultRecord|null{
-  const r=this.db.prepare(sql.active).get();if(!r)return null;
+  const r=this.db.prepare(sql.active).get();if(!r){if(Number(this.db.prepare("SELECT count(*) AS n FROM operations WHERE status='committed'").get()!.n)>0)throw new VaultError('VAULT_CORRUPT');return null;}
   const head={revision:String(r.revision),snapshot:String(r.snapshot),snapshotHash:String(r.snapshot_hash),operationId:String(r.operation_id)};
   if(hash(head.snapshot)!==head.snapshotHash||snapshotRevision(head.snapshot)!==head.revision)throw new VaultError('VAULT_CORRUPT');
   return head;

@@ -62,7 +62,7 @@ import { PartidaDetailModal } from './components/PartidaDetailModal';
 import { ConfirmClearModal, ClearDataOptions } from './components/ConfirmClearModal';
 import { SettleDebtModal, DebtItemToSettle } from './components/SettleDebtModal';
 import { CreateContactModal } from './components/CreateContactModal';
-import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup, recoveryCopies } from './utils/backup';
+import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup } from './utils/backup';
 import { useFinanceData } from './utils/useFinanceData';
 import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
@@ -106,7 +106,7 @@ export default function App() {
   const platform=usePlatformServices(),exportPending=useRef(false);
   const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t,pendingLanguage } = useI18n();
-  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,financeStorage } = useFinanceData(DEMO_DATA);
+  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,financeStorage,readRecoveryCopies } = useFinanceData(DEMO_DATA);
   const downloadJSON=async(content:string,filename:string)=>{
     if(exportPending.current)return;exportPending.current=true;
     try{await platform.exportText(content,filename,'application/json',uiText('native.exportTitle'));}
@@ -131,6 +131,8 @@ export default function App() {
   const [dataError, setDataError] = useState('');
   const [dataNotice, setDataNotice] = useState('');
   const [showRecovery, setShowRecovery] = useState(false);
+  const [storedRecoveryCopies,setStoredRecoveryCopies]=useState<{key:string;content:string}[]|null>(null);
+  const openRecovery=async()=>{setStoredRecoveryCopies(null);setShowRecovery(true);try{setStoredRecoveryCopies(await readRecoveryCopies());}catch(error){setDataError(error instanceof Error?error.message:uiText('native.exportFailed'));}};
   const restorationGuard = useRef<ReturnType<typeof confirmOnceAsync<Backup>> | null>(null);
   const importRequest = useRef(0);
   const clearPending = useRef(false);
@@ -537,8 +539,14 @@ export default function App() {
   };
   const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
-  const handleExportJSON = () => downloadJSON(JSON.stringify(makeBackup(data), null, 2), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);
-  const handleImportJSON = () => {if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}fileInputRef.current?.click();};
+  const handleExportJSON = async () => {try{await downloadJSON(platform.durable?await platform.durable.exportJSON():JSON.stringify(makeBackup(data), null, 2), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);}catch(error){setDataError(error instanceof Error?error.message:uiText('native.exportFailed'));}};
+  const handleImportJSON = async () => {
+    if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}
+    if(!platform.pickBackup){fileInputRef.current?.click();return;}
+    const request=++importRequest.current;setDataError('');setDataNotice('');
+    try{const selected=await platform.pickBackup();if(selected&&request===importRequest.current)prepareRestoration(selected.backup,`Importar «${selected.name}»`);}
+    catch(error){if(request===importRequest.current)setDataError(`${error instanceof Error?error.message:'No se pudo leer el archivo.'} No se ha modificado ningún dato.`);}
+  };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
@@ -612,7 +620,7 @@ export default function App() {
         onOpenNewTransaction={() => handleOpenNewTransaction()}
         onExportJSON={handleExportJSON}
         onImportJSON={handleImportJSON}
-        onOpenRecovery={() => setShowRecovery(true)}
+        onOpenRecovery={()=>void openRecovery()}
         onResetDemo={() => guardPlanning(handleResetDemo)}
         onClearAllData={() => guardPlanning(handleOpenClearModal)}
       />
@@ -774,8 +782,9 @@ export default function App() {
       {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title={uiText("app.copias_de_recuperacion")} onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">{uiText("app.descarga_una_copia_y_utiliza_importar_json_para_revisarla")}</p>
-          {recoveryCopies(financeStorage()).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
-          {recoveryCopies(financeStorage()).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
+          {storedRecoveryCopies===null&&<p role="status">{uiText('loading.title')}</p>}
+          {storedRecoveryCopies?.length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
+          {(storedRecoveryCopies??[]).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
           <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">{uiText("app.cerrar")}</button>
       </SafeDialog>}
 

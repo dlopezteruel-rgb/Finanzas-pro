@@ -77,3 +77,5 @@ import './platform/environment.test';
 import './platform/contracts.test';
 
 import './platform/vault/asyncFinanceStore.test';
+
+import './platform/vault/policy.test';

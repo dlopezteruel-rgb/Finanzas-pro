@@ -24,7 +24,7 @@ export class AsyncFinanceStore implements DurableFinanceController {
  subscribe(listener:()=>void){this.listeners.add(listener);return()=>{this.listeners.delete(listener);};}
  private state(phase:VaultPhase,problem:VaultCode|null=null){this.phase=phase;this.problem=problem;for(const listener of this.listeners)try{listener();}catch{/* UI observers cannot turn a durable commit into a retry. */}}
  private serial<T>(action:()=>Promise<T>):Promise<T>{const result=this.tail.then(action);this.tail=result.catch(()=>{});return result;}
- private writable(){if(this.phase!=='ready')throw new VaultError(this.phase==='conflict'?'VAULT_CONFLICT':this.phase==='reloadRequired'?'VAULT_RELOAD':'VAULT_UNCERTAIN');}
+ private writable(){if(this.phase!=='ready'){this.state(this.phase,this.problem);throw new VaultError(this.phase==='conflict'?'VAULT_CONFLICT':this.phase==='reloadRequired'?'VAULT_RELOAD':'VAULT_UNCERTAIN');}}
  /** Explicit new-sandbox action only; open/read never seeds or migrates data. */
  initialize(){return this.serial(async()=>{this.writable();if(this.record)return this.data;const valid=parseBackup(JSON.stringify(makeBackup(this.defaults)));return this.dispatch(serializeSnapshot(valid),null);});}
  mutate(transform:FinanceMutation){return this.prepare(engine=>engine.mutate(transform));}
@@ -72,16 +72,21 @@ export class AsyncFinanceStore implements DurableFinanceController {
   this.record=structuredClone(receipt.head);this.pending=null;this.state('ready');return this.data;
  }
  reconcile(){return this.serial(async()=>{
-  if(!this.pending)throw new VaultError(this.phase==='reloadRequired'?'VAULT_RELOAD':'VAULT_INVALID');
+  if(!this.pending){
+   if(this.phase==='reloadRequired'||this.phase==='conflict')throw new VaultError(this.phase==='conflict'?'VAULT_CONFLICT':'VAULT_RELOAD');
+   if(this.phase!=='recoveryRequired')throw new VaultError('VAULT_INVALID');
+   this.state('checking');try{const head=await this.driver.read();if(head)await AsyncFinanceStore.verify(head);if((head?.revision??null)!==(this.record?.revision??null)){this.state('conflict','VAULT_CONFLICT');throw new StorageConflictError();}this.state('ready');return;}catch(error){if(!(error instanceof StorageConflictError))this.state('recoveryRequired',driverError(error).code);throw error;}
+  }
   this.state('checking');try{await this.accept(await this.driver.resolve(this.pending.request.operationId,this.pending.fingerprint),false);}
   catch(error){if(!(error instanceof StorageConflictError)&&!(error instanceof VaultError&&error.code==='VAULT_NOT_COMMITTED'))this.state('recoveryRequired',driverError(error).code);throw error;}
  });}
- async checkForConflict(){
+ checkForConflict(){return this.serial(()=>this.checkHead());}
+ private async checkHead(){
   if(this.phase==='conflict')return true;if(this.phase!=='ready')return false;
   try{const head=await this.driver.read();if(head)await AsyncFinanceStore.verify(head);if((head?.revision??null)!==(this.record?.revision??null)){this.state('conflict','VAULT_CONFLICT');return true;}return false;}
   catch(error){this.state('recoveryRequired',driverError(error).code);throw error;}
  }
- exportJSON(){return this.serial(async()=>{this.writable();if(await this.checkForConflict())throw new StorageConflictError();return JSON.stringify(makeBackup(this.data),null,2);});}
+ exportJSON(){return this.serial(async()=>{this.writable();if(await this.checkHead())throw new StorageConflictError();return JSON.stringify(makeBackup(this.data),null,2);});}
  recoveryCopies(){return this.serial(async()=>{
   this.writable();const copies=await this.driver.recoveries();
   return copies.map(copy=>({key:copy.key,content:JSON.stringify(makeBackup(parseSnapshot(copy.snapshot)))}));

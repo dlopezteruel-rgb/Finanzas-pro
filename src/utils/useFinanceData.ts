@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react';
-import { FinanceData, StorageConflictError } from './backup';
+import { recoveryCopies, FinanceData, StorageConflictError } from './backup';
 import { FinanceStore, RestorationInput, type FinanceMutation } from './financeStore';
 import { SaveResult, saveErrorMessage } from './saveResult';
 import {usePlatformServices} from '../platform/services';
 export { loadFinanceData } from './financeStore';
 
 export function useFinanceData(defaults: FinanceData) {
-  const {finance:binding}=usePlatformServices();
+  const {finance:binding,durable}=usePlatformServices();
   const [initial] = useState(() => {
     try {
-      const store = new FinanceStore(binding.getStorage(), defaults, binding.exclusive);
+      const store = durable ?? new FinanceStore(binding.getStorage(), defaults, binding.exclusive);
       return { store, data: store.data, error: '' };
     } catch (error) {
       return { store: null, data: defaults, error: `No se han podido cargar los datos: ${error instanceof Error ? error.message : 'almacenamiento no disponible'}. Los datos guardados no se han sobrescrito.` };
@@ -18,7 +18,7 @@ export function useFinanceData(defaults: FinanceData) {
   const [data, setData] = useState<FinanceData>(initial.data);
   const [saveError, setSaveError] = useState('');
   const [conflict, setConflict] = useState(false);
-  const [capabilityError, setCapabilityError] = useState(binding.supportError);
+  const [capabilityError, setCapabilityError] = useState(()=>durable?'':binding.supportError());
 
   function reportError(error: unknown) {
     if (error instanceof StorageConflictError) setConflict(true);
@@ -26,20 +26,23 @@ export function useFinanceData(defaults: FinanceData) {
   }
 
   useEffect(() => {
-    const check = () => {
-      if (initial.store?.checkForConflict()) {
+    let active=true;
+    const check = async () => {
+     try {
+      if (await initial.store?.checkForConflict() && active) {
         setConflict(true);
         setSaveError(new StorageConflictError().message);
       }
+     } catch(error) { if(active)reportError(error); }
     };
     const unsubscribe=binding.subscribe(check);
     check();
-    return unsubscribe;
+    return ()=>{active=false;unsubscribe();};
   }, [initial.store]);
 
   useEffect(() => {
     let active = true;
-    if (!binding.supportError()) {
+    if (!durable && !binding.supportError()) {
       // Probe the API in the actual document/iframe, without changing stored data.
       binding.exclusive(() => undefined).catch(error => { if (active) setCapabilityError(saveErrorMessage(error)); });
     }
@@ -60,5 +63,5 @@ export function useFinanceData(defaults: FinanceData) {
     try { setData(await initial.store.restore(next)); setSaveError(''); }
     catch (error) { reportError(error); throw error; }
   }
-  return { data, update, mutate, restore, conflict, capabilityError, loadError: initial.error, saveError,financeStorage:binding.getStorage };
+  return { data, update, mutate, restore, conflict, capabilityError, loadError: initial.error, saveError,financeStorage:binding.getStorage,readRecoveryCopies:()=>durable?durable.recoveryCopies():Promise.resolve(recoveryCopies(binding.getStorage())) };
 }

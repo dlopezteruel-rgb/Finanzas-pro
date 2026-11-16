@@ -5,6 +5,8 @@ import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {SQLiteTestDriver,type FaultPoint} from '../../../scripts/native/sqliteTestDriver';
 import {multilingualCatalogFixture} from '../../../scripts/multilingualCatalogFixture';
+import {BUDGET_GROUPS} from '../../constants/categories';
+import {systemCatalogNames} from '../../utils/catalogNames';
 import {FinanceStore} from '../../utils/financeStore';
 import {makeBackup,parseBackup,parseSnapshot,StorageConflictError,serializeSnapshot,DATA_KEY} from '../../utils/backup';
 import {memoryFinanceStorage} from '../financeBinding';
@@ -70,4 +72,38 @@ test('5H: native reads reject mismatched integrity without deleting',async t=>{
 test('5H: unknown SQL versions are refused without replacing the file or its records',async t=>{
  const {dir,driver,store}=await fixture(t);await store.initialize();const old=(await driver.read())!.snapshot;driver.db.exec('PRAGMA user_version=9');
  assert.throws(()=>new SQLiteTestDriver(path.join(dir,'test.db')),VaultError);assert.equal(driver.db.prepare('PRAGMA user_version').get()!.user_version,9);assert.equal(driver.db.prepare('SELECT snapshot FROM active').get()!.snapshot,old);
+});
+
+test('5H: invalid financial proposals never reach SQLite and preserve the draft document',async t=>{
+ const {driver,store}=await fixture(t);await store.initialize();const before=(await driver.read())!,commits=driver.commits;
+ await assert.rejects(store.mutate(d=>({...d,transactions:[{} as any]})));assert.deepEqual(await driver.read(),before);assert.equal(driver.commits,commits);assert.equal(store.phase,'ready');
+});
+test('5H: rapid independent actions serialize against successive durable revisions',async t=>{
+ const {driver,store}=await fixture(t);await store.initialize();await Promise.all(['first','second','third'].map(id=>store.mutate(d=>({...d,wallets:[...d.wallets,{...wallet,id,name:id}]}))));
+ assert.equal(driver.commits,4);assert.deepEqual(store.data.wallets.slice(-3).map(w=>w.id),['first','second','third']);assert.equal((await driver.read())!.snapshotHash,await sha256((await driver.read())!.snapshot));
+});
+test('5H: missing active record after prior commits is corruption, never a new empty profile',async t=>{
+ const {driver,store}=await fixture(t);await store.initialize();driver.db.exec('DELETE FROM active');await assert.rejects(AsyncFinanceStore.open(driver,store.data),(e:any)=>e.code==='VAULT_CORRUPT');assert.equal(driver.commits,1);
+});
+
+test('5H: an unavailable read freezes writes and can recover without inventing a pending financial operation',async t=>{
+ const {driver,defaults}=await fixture(t);let locked=false;
+ const wrapped:VaultDriver={read:()=>locked?Promise.reject(new VaultError('VAULT_LOCKED')):driver.read(),commit:p=>driver.commit(p),resolve:(...args)=>driver.resolve(...args),recoveries:()=>driver.recoveries(),close:()=>driver.close()};
+ const store=await AsyncFinanceStore.open(wrapped,defaults);await store.initialize();const before=(await driver.read())!.snapshot;
+ locked=true;await assert.rejects(store.checkForConflict());assert.equal(store.phase,'recoveryRequired');await assert.rejects(store.mutate(d=>d));locked=false;await store.reconcile();assert.equal(store.phase,'ready');assert.equal((await driver.read())!.snapshot,before);assert.equal(driver.commits,1);
+});
+
+for(const version of ['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'] as const)test(`5H: opening historical ${version} preserves exact bytes and revision without migration`,async t=>{
+ const {driver,defaults}=await fixture(t);
+ const legacy:any={version,exportedAt:'2026-11-01T00:00:00.000Z',theme:'dark',budgetGroups:structuredClone(BUDGET_GROUPS),transactions:[],budgetPlans:[],loans:[],wallets:[],contacts:[]};
+ if(version==='2.9')legacy.planningMonths=[{monthYear:'2026-11',savingsCents:0,revision:1}];
+ if(version==='3.0')legacy.planningAutomation={rules:[{id:'fictitious-rule',name:'Regla ficticia',target:'GASTO',code:'F.001.001',amountCents:100,frequency:'monthly',startMonth:'2026-11',active:true}],carryovers:[],origins:[],history:[]};
+ if(version==='3.1')legacy.intelligentFinance={recurringRules:[],occurrences:[],obligations:[]};
+ if(version==='3.2')legacy.defaultWalletId=null;
+ if(version==='3.3')legacy.budgetSubitems={items:[],months:[]};
+ if(version==='3.5')legacy.catalogNames=systemCatalogNames();
+ parseBackup(JSON.stringify(legacy));const snapshot=JSON.stringify({...legacy,revision:'historical-'+version});
+ await driver.commit(JSON.stringify({protocol:1,operationId:crypto.randomUUID(),expectedRevision:null,nextSnapshot:snapshot,recoveryKey:null}));
+ const store=await AsyncFinanceStore.open(driver,defaults),before=(await driver.read())!;
+ assert.deepEqual(economic(store.data),economic(legacy));assert.equal((await driver.read())!.snapshot,snapshot);assert.deepEqual(await driver.read(),before);assert.equal(driver.commits,1);assert.equal(store.phase,'ready');
 });

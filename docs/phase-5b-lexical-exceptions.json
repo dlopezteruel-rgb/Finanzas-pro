@@ -1002,6 +1002,11 @@
         "key": "ledger.page.pagedShort",
         "text": "Páginas",
         "reason": "Reviewed native European Portuguese short paging label; shared spelling with Spanish"
+      },
+      {
+        "key": "vault.cancel",
+        "text": "Cancelar",
+        "reason": "Reviewed pt-PT native lexical coincidence with Spanish: Cancelar is the correct action label in both languages."
       }
     ]
   }

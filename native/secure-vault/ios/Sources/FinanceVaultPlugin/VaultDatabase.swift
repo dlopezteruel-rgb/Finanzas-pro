@@ -14,7 +14,8 @@ final class VaultDatabase {
     var sqliteVersion = ""
     var exists: Bool { FileManager.default.fileExists(atPath: file.path) }
     init() throws {
-        directory = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("finance-vault-sandbox-v1", isDirectory: true)
+        guard let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first else { throw VaultFailure.code("VAULT_FAILED") }
+        directory = support.appendingPathComponent("finance-vault-sandbox-v1", isDirectory: true)
         file = directory.appendingPathComponent("vault.db")
     }
     static func hash(_ value: String) -> String { SHA256.hash(data: Data(value.utf8)).map { String(format: "%02x", $0) }.joined() }
