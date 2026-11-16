@@ -79,3 +79,5 @@ import './platform/contracts.test';
 import './platform/vault/asyncFinanceStore.test';
 
 import './platform/vault/policy.test';
+
+import '../scripts/native/build-policy.test';

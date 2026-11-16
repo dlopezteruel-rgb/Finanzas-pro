@@ -180,3 +180,9 @@ La compilación Android se repite correctamente con la comprobación de recibos.
 La suite de catálogo de la base repetida aislada pasa **43/43 en 284,6s**, con el límite original de300s. Esto no convierte en aprobada la ejecución inicial incompleta. La batería web final está en curso, sin otro navegador local en paralelo.
 
 PR Draft única: https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32. Primera ejecución CI de checkpoint273684e: https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43922926002, con Unitarias y Lint/build/diff aprobados; Chromium pendiente al publicar esta revisión. La nueva publicación la sustituirá mediante la concurrencia normal del workflow. Una ejecución sustituida o cancelada no se presentará como aprobación final.
+
+### Aislamiento del build de diagnóstico
+
+Se detecta y corrige un caso reproducible de configuración: una variable de entorno heredada `VITE_VAULT_TEST=true` podía incluir el puente loopback de pruebas en un build nativo ordinario sin cambiar su marcador. El build nativo fija ahora ese valor a false; solo la configuración explícita de diagnóstico puede sobreescribirlo y siempre usa un marcador rechazado por el empaquetador. Además, el validador examina todos los assets JavaScript y rechaza el endpoint __vault_test.
+
+La nueva prueba genera **ambos builds reales en memoria con la variable heredada activada** y comprueba módulos, endpoint y marcadores. 696/696 unitarias y lint pasan después de actualizar el inventario AST por la importación de esta prueba. No se cambia la configuración web ni ningún workflow. loggingBehavior:none y webContentsDebuggingEnabled:false siguen vigentes; el puente no registra documentos ni claves.
