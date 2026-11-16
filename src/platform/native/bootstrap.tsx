@@ -34,6 +34,7 @@ function NativePrototype({relay,preferenceFailure}:{relay:Relay;preferenceFailur
   document.addEventListener('finanzas-prototype-back',back);document.addEventListener('finanzas-prototype-resume',resume);
   return()=>{document.removeEventListener('finanzas-prototype-back',back);document.removeEventListener('finanzas-prototype-resume',resume);};
  },[relay]);
+ useEffect(()=>{if(started)document.querySelector<HTMLButtonElement>('.native-prototype-bar button')?.focus();},[started]);
  const failed=<main className="app-load-failure"><Brand/><h1>{t('native.title')}</h1><p role="alert">{t('native.packagingError')}</p><button className="button-primary" onClick={()=>location.reload()}>{t('loading.retry')}</button></main>;
  return <PlatformProvider value={services}>
   {!started?<main className="native-gate app-load-failure"><Brand/><LanguageSelector/><h1>{t('native.title')}</h1><p>{t('native.warning')}</p><label className="native-consent"><input type="checkbox" checked={acknowledged} onChange={e=>setAcknowledged(e.target.checked)}/><span>{t('native.acknowledge')}</span></label><button className="button-primary" disabled={!acknowledged} onClick={()=>setStarted(true)}>{t('native.enter')}</button></main>:<>

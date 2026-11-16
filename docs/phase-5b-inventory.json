@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1012,
-    "review": 3224,
+    "review": 3225,
     "translation-key": 1528,
     "ui-message-candidate": 382,
     "attribute-internal": 2169,
@@ -946,7 +946,7 @@
     {
       "file": "src/components/DashboardView.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "f9e339a1156529e184f22ba709d8ccb65b10f9b3f979e303772517e96b3693f8",
+      "sourceSha256": "d52d482ff365a0176be406761fba281e5eafdce592712205289d5b822c40f5fe",
       "counts": {
         "type-or-import": 10,
         "review": 15,
@@ -2008,10 +2008,10 @@
     {
       "file": "src/platform/native/bootstrap.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "8fd5590aca1253c4078494889858ac997d4d69f2e3ab62d11e97970ea3e3789e",
+      "sourceSha256": "5e6708e267086ae6f3ba8001ee161081b871c835ebabcb7d5d8322fbc0b62ea5",
       "counts": {
         "type-or-import": 12,
-        "review": 21,
+        "review": 22,
         "ui-message-candidate": 3,
         "attribute-internal": 15,
         "translation-key": 11

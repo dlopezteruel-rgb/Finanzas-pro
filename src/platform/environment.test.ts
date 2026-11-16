@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import config from '../../capacitor.config';
 import {detectPlatform} from './environment';
 
@@ -27,4 +28,10 @@ test('5G: iOS project uses scene lifecycle and pinned SPM sources, not a claimed
  assert.match(readFileSync('ios/App/CapApp-SPM/Package.swift','utf8'),/exact: "8.6.2"/);
  const privacy=readFileSync('ios/App/App/PrivacyInfo.xcprivacy','utf8');assert.match(privacy,/C617.1/);assert.match(privacy,/CA92.1/);
  assert.match(readFileSync('ios/App/App.xcodeproj/project.pbxproj','utf8'),/PrivacyInfo.xcprivacy in Resources/);
+});
+
+test('5G: financial core, schemas, server, web paths and CI retain their audited bytes',()=>{
+ const manifest=JSON.parse(readFileSync('docs/phase-5g-protected-files.json','utf8'));
+ assert.equal(Object.keys(manifest.files).length,44);
+ for(const [file,expected] of Object.entries(manifest.files))assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),expected,file);
 });
