@@ -9,3 +9,21 @@ coverage/
 
 # Isolated, synthetic CI logs and screenshots
 ci-artifacts/
+
+# Native generated output, local SDK paths and signing material
+android/.gradle/
+android/local.properties
+android/**/build/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+android/capacitor-cordova-android-plugins/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/DerivedData/
+ios/App/Pods/
+ios/capacitor-cordova-ios-plugins/
+*.keystore
+*.jks
+*.p12
+*.mobileprovision

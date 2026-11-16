@@ -1,0 +1,588 @@
+{
+  "checkpoint": 4,
+  "scope": "Production native build in Chromium only; no Android, WKWebView, physical device or durable native storage validation",
+  "unit": 654,
+  "nativeBrowserResults": 40,
+  "nativeBrowserPass": 40,
+  "nativeBrowserFail": 0,
+  "matrix": {
+    "languages": [
+      "es-ES",
+      "en-GB",
+      "it-IT",
+      "fr-FR",
+      "pt-PT"
+    ],
+    "widths": [
+      390,
+      768,
+      1280
+    ],
+    "themes": [
+      "dark",
+      "light"
+    ],
+    "surfaces": 60,
+    "violations": 0,
+    "incompleteGroups": 0,
+    "manualReviewRequired": true
+  },
+  "financialWebViewReads": 0,
+  "financialWebViewWrites": 0,
+  "schema": "3.5 unchanged",
+  "nativeRealPersistence": "blocked",
+  "platformSourceSha256": {
+    "src/platform/environment.ts": "209efd5045c696fd266eefddfbf1e9cccd6c589560e0e2014d4174b489bbf6e0",
+    "src/platform/financeBinding.ts": "1bb20bfb3f1d630ce0844176981adc06635e137e30482ad1243a9853bbcc2d36",
+    "src/platform/linkPolicy.ts": "69897386cee2ba5b8dff7e5d06d75412a6cdbdef476f23c3c6cf0d6aea70fb50",
+    "src/platform/environment.test.ts": "c0a22d68b4af8d53131898d422eddde79adc5bb7779306d7a56461a54a1e1dcc",
+    "src/platform/services.tsx": "3218f79671330772f8ccf370a60738dbb9809512c2ef8b59c22fd9ea49ec87ab",
+    "src/platform/contracts.test.ts": "6f0e35b4dfa9eac931deab0566802ce4afea68274399f6cb016416a6338b71ea",
+    "src/platform/native/preferences.ts": "23f6f9a0fd690b4c184f8558eadcd7fbc51e5e58dcd55df30dc747feac5ecd2c",
+    "src/platform/native/runtime.ts": "a152c00e383711cef1d34c5dea9bf2ddff4b00873e42130e436af5f033f583d6",
+    "src/platform/native/bootstrap.tsx": "5e6708e267086ae6f3ba8001ee161081b871c835ebabcb7d5d8322fbc0b62ea5",
+    "src/platform/native/fileExport.ts": "2f7d92e3a5ad90dd86285293ae29338298f912b6c9cbf687231b3917cd3f2b4b"
+  },
+  "observations": [
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "en",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "pt",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "es",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "fr",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 390,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 390,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 768,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 768,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 1280,
+      "theme": "dark",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-consent-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    },
+    {
+      "surface": "native-prototype-browser-preview",
+      "platform": "Chromium adapter preview,not Android/iOS",
+      "language": "it",
+      "width": 1280,
+      "theme": "light",
+      "violations": [],
+      "incomplete": []
+    }
+  ]
+}

@@ -51,6 +51,7 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
   onAddTransaction,
   availablePartidas,
 }) => {
+  const platform=usePlatformServices();
   const format=useI18n();const {t:uiText,formatMoney:formatCurrency,formatDate}=format;
   const view=assistantPresentation(uiText,format,financeData);
   const context=useMemo(()=>{try{return financialAssistantContext(financeData,summary.monthYear)}catch{return null}},[financeData,summary.monthYear]);
@@ -225,10 +226,11 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
     const localReply=localFinancialAdvice(context,text);
     if(localReply){const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,text,v,financeData)!);setIsLoading(false);return;}
 
+    if(!platform.assistantEndpoint){const snapshot=context;appendReply(v=>adviceForDisplay(snapshot,'resumen',v,financeData)!);setIsLoading(false);return;}
     // Numerical questions above stay local. Other advice uses the existing endpoint.
     try {
       const fallbackReply=localFinancialAdvice(context,'resumen');
-      const response = await fetch(paths.assistant, {
+      const response = await fetch(platform.assistantEndpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -266,9 +268,10 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
     <section className="assistant-layout" aria-label={uiText("assistant_chat.asistente_financiero")}>
       <aside className="planning-card assistant-context">
         <h1 className="module-title">{uiText("assistant_chat.asistente")}</h1>
+        {!platform.assistantEndpoint&&<p role="status">{uiText('native.remoteUnavailable')}</p>}
         <h2><I18nText id="assistant_chat.tu_contexto_del_mes" values={{ monthYear: (format.formatMonth(summary.monthYear)) }} /></h2>
         <dl><div><dt>{uiText("assistant_chat.ingresos_reales")}</dt><dd>{formatCurrency(summary.ingresosReales)}</dd></div><div><dt>{uiText("assistant_chat.gastos_ejecutados")}</dt><dd>{formatCurrency(summary.gastosEjecutados)}</dd></div><div><dt>{uiText("assistant_chat.balance_real")}</dt><dd>{formatCurrency(summary.balanceReal)}</dd></div></dl>
-        <p>{uiText("assistant_chat.las_consultas_numericas_se_calculan_localmente_otras_consultas_usan")}</p>
+        {platform.assistantEndpoint&&<p>{uiText("assistant_chat.las_consultas_numericas_se_calculan_localmente_otras_consultas_usan")}</p>}
       </aside>
       <div className="assistant-chat bg-[#141926] border border-white/[0.06] rounded-2xl flex flex-col shadow-sm overflow-hidden">
       {proposal && <MovementProposalModal subitems={financeData.budgetSubitems?.items} proposal={proposal} wallets={wallets} partidas={availablePartidas} onConfirm={confirmProposal} onCancel={cancelProposal} busy={confirming} saveError={storageOwnedText(proposalError,uiText)} />}
@@ -355,3 +358,4 @@ export const AssistantChatView: React.FC<AssistantChatProps> = ({
     </section>
   );
 };
+import {usePlatformServices} from '../platform/services';

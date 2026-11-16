@@ -221,7 +221,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({
             </span>
             <span className="text-[10px] text-slate-400 block"><I18nText id="dashboard.cuota_mes" values={{ formatCurrency: (formatCurrency(loans.reduce((s, l) => s + l.monthlyPayment, 0))) }} /></span>
           </div>
-          <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-white/[0.04]">
+          <div className="flex flex-wrap gap-x-2 items-center justify-between text-[10px] text-slate-400 pt-1 border-t border-white/[0.04]">
             <span>{uiText("dashboard.estado_amortizacion")}</span>
             <span className="text-emerald-400 font-medium">{uiText("dashboard.tramitaciones_al_dia")}</span>
           </div>

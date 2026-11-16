@@ -1,3 +1,4 @@
+import {usePlatformServices} from '../platform/services';
 import { useI18n, I18nText } from "../i18n";
 import {MovementPagination,movementPage,MOVEMENT_PAGE_SIZE,MOVEMENT_PAGING_THRESHOLD} from './MovementPagination';
 import {useCompletePrint} from './useCompletePrint';
@@ -45,6 +46,8 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
   onOpenNewTransaction,
 }) => {
   const { t: uiText, tn: uiCount , formatMoney: formatCurrency , formatDate } = useI18n();
+  const platform=usePlatformServices(),exportPending=React.useRef(false);
+  const [exportError,setExportError]=useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'ALL' | 'GASTO' | 'INGRESO' | 'PENDING'>('ALL');
   const [selectedWallet, setSelectedWallet] = useState<string>('ALL');
@@ -134,7 +137,8 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
     return <Zap className="w-4 h-4 text-cyan-400" />;
   };
 
-  const handleExportCSV = () => {
+  const handleExportCSV = async() => {
+    if(exportPending.current)return;exportPending.current=true;setExportError(false);
     const headers = ['Fecha', 'Tipo', 'Código', 'Grupo', 'Partida', 'Descripción', 'Cartera', 'Tramitado', 'Importe (€)'];
     const rows = filtered.map(t => [
       t.date,
@@ -147,18 +151,15 @@ export const TransactionsView: React.FC<TransactionsViewProps> = ({
       t.processed ? 'SÍ' : 'NO',
       t.amount.toFixed(2).replace('.', ','),
     ]);
-    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + [headers.join(';'), ...rows.map(e => e.join(';'))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `movimientos_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    const csvContent = '\uFEFF' + [headers.join(';'), ...rows.map(e => e.join(';'))].join('\n');
+    try{await platform.exportText(csvContent,`movimientos_${new Date().toISOString().split('T')[0]}.csv`,'text/csv',uiText('native.exportTitle'));}
+    catch{setExportError(true);}finally{exportPending.current=false;}
+
   };
 
   return (
     <div className="transactions-view" data-ledger-records={transactions.length} data-ledger-results={filtered.length} data-ledger-start={pageView.start} data-ledger-end={pageView.end}>
+      {exportError&&<p role="alert">{uiText('native.exportFailed')}</p>}
       <h1 className="module-title">{uiText("transactions.movimientos")}</h1>
       {currentMonthYear&&<div className="finance-actions"><label>{uiText("transactions.periodo_del_listado")}<select aria-label={uiText("transactions.periodo_del_listado_b7c82b")} value={selectedPeriod} onChange={e=>setSelectedPeriod(e.target.value as 'all'|'selected')}><option value="all">{uiText("transactions.todos_los_periodos")}</option><option value="selected"><I18nText id="transactions.periodo_seleccionado" values={{ currentMonthYear: (currentMonthYear) }} /></option></select></label><p>{selectedPeriod==='all'?uiText("transactions.registro_de_todas_las_fechas"):uiText("transactions.solo_movimientos_de", { currentMonthYear: currentMonthYear })}</p></div>}
       {/* Search & Top Action */}

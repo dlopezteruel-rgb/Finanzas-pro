@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">FinanZas Pro Prototipo</string>
+    <string name="title_activity_main">FinanZas Pro Prototipo</string>
+    <string name="package_name">invalid.finanzas.prototype</string>
+    <string name="custom_url_scheme">invalid.finanzas.prototype</string>
+</resources>

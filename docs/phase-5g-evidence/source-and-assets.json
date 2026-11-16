@@ -1,0 +1,373 @@
+{
+  "sourceCommit": "c6f663f00781611ecca2e3575ba6102bdcfddf91",
+  "source": {
+    "capacitor.config.ts": "b69c93e380041a477a7039e85be2e8cf416f9f040169f954f964eddd3c455e06",
+    "package-lock.json": "f5e40ca5cea4cc59dd85851aacc784417a3a342e6e8137c033161565246dc326",
+    "package.json": "46e849dab56382872fc032c89f160ed77b2523d5d1ec6bac99c3cdc3a4250f3a",
+    "src/App.tsx": "6a43e5e884ad35785b43d8a8a76fda013e76bdd16f372f1221fee4d6f48223d6",
+    "src/app/Root.tsx": "9f63b258284505db728be2aaac9cdf670891fc75c26b96782df7375c0c811a02",
+    "src/app/intentPreload.test.ts": "9efd932b7eb7360bfb08acf6f9e827293297a37b2a018853016e0c6048600193",
+    "src/app/intentPreload.ts": "4994becc2304cc9cbf639434c1ec4eca7e60d63836aa45189f086e262e0eba93",
+    "src/app/paths.test.ts": "98ee3497d87561ea813033896262c118c4238a1ffbdae71f44baea9600369f7e",
+    "src/app/paths.ts": "4af9bc980ae2b6f5d418eaca80b6bf9fe3fb462d61504a20cb210050fdbcca2b",
+    "src/app/preloadIdle.test.ts": "7c3782ce83331ff7af428421531b03770ae0339d462dafb636a97ef9a0d73816",
+    "src/app/preloadIdle.ts": "2890e0fb6b7de94ef5b4ca5ad40640869cee3787cdbe5c6c3fdd7e3584b12da0",
+    "src/app/themePreference.test.ts": "466acc60963e94999fc0fec490df6bb693e131b4a0937fad6dd182bbba474ce8",
+    "src/app/themePreference.ts": "41d62fd1b73f5218bb8bbf00fe9c9e5bb6b5c89628816ffd83140e7986086b9f",
+    "src/app/useIntentPreload.ts": "6fd2fc0ae2438c9771515ff3ab128301b933f6434f024027b0edaf787abf5460",
+    "src/app/useVisualTheme.ts": "1ffa19b3ecec0bb0b6845b72d1715479a36b03ce3856dffc5ce886870c354160",
+    "src/components/AssistantChatView.tsx": "880f5873d3e34c5aeee7b8c3901dbd69029158cc86cdd74081a4ebb168280135",
+    "src/components/Brand.tsx": "062854492e8a93f109258c94322873547901ecf4b86a6f9a056d814da4007aaf",
+    "src/components/BudgetWorkspace.tsx": "c082759387792b009e7c580232b0c2909def3ee9b6c649e77e3b980ae821a026",
+    "src/components/BudgetsView.tsx": "d63e068ad191aafd0072cee5eafd976ec6169648afd584e79f8c40f26ed747ee",
+    "src/components/CatalogManager.tsx": "2a9aab7dac3ce64e65a2ed714efe0d130252999c44ed53aef39ea54fe6b6ddd1",
+    "src/components/CatalogNameReview.tsx": "74fe4a8fdc576bff247a64b009deae485f135cd63b3f2d70a1661041e57b50be",
+    "src/components/ConfirmClearModal.tsx": "d696291d0309cc21ea559360867cec68a670fc781c2a08bbb4ad5f567d6ac954",
+    "src/components/ConfirmDeleteDialog.tsx": "7b12565b69eec4cfd9700c46398d3d15942f34a84df7a0256503a5358d0a50ae",
+    "src/components/ContactsView.tsx": "a5819f51e4994bf6499d5dc2a08c1fc83b58aee5bc18632f91dc6153691656e6",
+    "src/components/CreateContactModal.tsx": "4be4a78f36c6d8fc2382965676d18498ee2a9aa0d7eba1f48be9df1b09d78b6f",
+    "src/components/DashboardView.tsx": "d52d482ff365a0176be406761fba281e5eafdce592712205289d5b822c40f5fe",
+    "src/components/DebtsWorkspace.tsx": "95d7d5d131fc944586e78f69cbdb56f71c087171fd1b90cf1d25ff55f1167930",
+    "src/components/DeferredFeature.tsx": "e2a6155acfeb09d0b22d93ce798bc74de6587585f71fc326a1de00a6b27a82de",
+    "src/components/FinanceReview.tsx": "d6aeebef7727305149ffb032f1b27eccb9789e61d2a28a35cb44575f307764ee",
+    "src/components/Header.tsx": "875c5ac8d58fff0e0d64676f5fdc654627ad90e231cbfff57a8ee910a296dc2b",
+    "src/components/LandingPage.tsx": "6e7e422b272a1ef59360775af5bb6582931e86208a2592849f5fcbe396b28696",
+    "src/components/LanguageSelector.tsx": "7eda55249d2d626ab0e54cf280d341a273eddf0c2f1a86466eaabbdd7c097062",
+    "src/components/LoanModal.tsx": "017c07a4e1c9024062d740b68a6ac0446255dc1a1db9afa7855e4b0e75b19493",
+    "src/components/LoansView.tsx": "2ef2880d0df0df716a158d11d9a5ee3cfd29d1c0da324e7cc096b83f3622e5f3",
+    "src/components/MovementPagination.tsx": "1bb55d97233a3cc29f6101430e560ced16d0befe87ae464102c4c825161ac9ce",
+    "src/components/MovementProposalModal.tsx": "d32eedabf38d79a576941b2fe77e1f9698aefd6f130d806455602505926178c2",
+    "src/components/Navigation.tsx": "0326819cec3211af0d5c81e3b70ee677cbf2c604b9739b34e41f981d42bf03ba",
+    "src/components/Overlay.tsx": "f866869551ba19f1566b2ed13d329cc4090fb5e359dcf8461c0f74d938b67a5e",
+    "src/components/PartidaDetailModal.tsx": "4fbe506ba85eb3a7c9a6d544d1b06068dadc54690d1678defa86b7c711c6dc04",
+    "src/components/PartidaSelector.tsx": "4b589e2e1720c8d6a998d6230a99120e7ed90014e82aca541ebf2a926bf5e4f0",
+    "src/components/PeriodSelector.tsx": "94b2471d8987c30ac1639d5a4ecfe8a8b7d36f94f36ffe59ddf7ec2516297cd5",
+    "src/components/PlanningAutomationPanel.tsx": "2265a115322666e41dc2c9c526314d325dd3a723f3ce1c6cbc408e81198ae574",
+    "src/components/PlanningLiveSummary.tsx": "33bfa6c50a3373d96b07ba6a8d6c88ee8cd56ae30648539da2742f3a3ecb4044",
+    "src/components/PlanningSection.tsx": "e4585d041550890bf501348b74e69116413d8f3c5fba5c7a512bbe30fadfb289",
+    "src/components/PlanningSubitems.tsx": "07bd08f145a6840fcc29983b73fcbc965261c2ca3a67960af00057f74f96b5e9",
+    "src/components/PlanningView.tsx": "c3546d7645f5ccc19da75ecb31a206768e22b60d1ccb5995add92846d59c623f",
+    "src/components/QuickNaturalLanguageInput.tsx": "b1bbaa432d70057d558f9df78ee7e105c493e51eaf1e5002bc4c460f562129e0",
+    "src/components/RecurringMovementsView.tsx": "ab15b3f6a3e1fa21cbc8692a550f04fa7ed57d251b04ac6b3d310d56c3060d4b",
+    "src/components/RestorationModal.tsx": "5cbab4bc2b1251eb10eb5a5a21eceb62f35562a458db61d3579af4aa39f8c5b3",
+    "src/components/SafeDialog.tsx": "8feecb30082e5eb862a548d9972136fbcfafff8fe18be1f564de956d38affdab",
+    "src/components/SettleDebtModal.tsx": "4e178ac0ae3feb60722b15e9afe032eb098856fe81709d71e97b28e64d675d39",
+    "src/components/SharedExpenseDetail.tsx": "65ed03a7998f9563778251ee4304e4b135a3153dbacf400e638419f3a042f61a",
+    "src/components/SubitemManager.tsx": "dddab17bec950dd24760c5bdbddaac4ba1480190f532eaa5e5c6c668246dff03",
+    "src/components/SubitemSelector.tsx": "630d9a4673a1341f423c6c80a4bac56f29ce9624cfb3db290bff283a404c0d2e",
+    "src/components/TransactionModal.tsx": "276d6bb30774c912d8aa661bc9cf95b84305664eab5f164168fb196c0ac444dc",
+    "src/components/TransactionsView.tsx": "c28322aeafee743f0fe902ca9771f181f4d183648e820723f6d5f3515c1cab2c",
+    "src/components/TransferModal.tsx": "5b8afeb1092edf178bec7f36644f60632c91658af13ff65bb5c3b5c85d5b08a8",
+    "src/components/TreasuryView.tsx": "0633dfd10ea646299b4084cb02fb75c38f684430a13a269cb36481ff5d47fa44",
+    "src/components/WalletModal.tsx": "e9539f0ff668375ff8390bfcb6359234e3c69b253818ccb37ad0d9c73b638407",
+    "src/components/WalletsView.tsx": "df0e82c7f02e7f073e4bac6c3258947af2b0c03e683e4effa3d0336dc3789a4f",
+    "src/components/charts/ChartSlot.tsx": "1ec8a4522a83d70b083f81c778f55736016cdaaa1ab78ccfca0efe934546fb8f",
+    "src/components/charts/FinancialCharts.tsx": "ba0a2ba51d09a0524b0c29eeb9293cb6e13693a8ca7e5ab9ed563d1256b19da0",
+    "src/components/charts/InteractiveChart.tsx": "71f3212245c81d5df0e1d758b5b015295672be6ffa8abc89bf584ee1c102a205",
+    "src/components/landingLanguage.test.tsx": "9004501c9c53a5d807bd0c1df4d9de743e3e8938f4b3f40f8ebbc82726a710b1",
+    "src/components/movementPage.test.ts": "6fe5d6d9b1efdfc6be204b474955c9b3911aa23ba42ad62f0361f00157ecf278",
+    "src/components/planningPreview.test.ts": "c8bfd60557afcba0bb38c7b89ab248df7e28616021a680c95013e18722a0d323",
+    "src/components/planningPreview.ts": "dee732b51b932778f47821c1a0a3682fc0d5edb0abd81904b624434856c48913",
+    "src/components/transactionTotals.test.ts": "c97bdd7768b8ba5792181bb69cc13304f96611869f5884478f149b5de115df05",
+    "src/components/transactionTotals.ts": "c2336c56efef4bfdd066de36dd728336a4e33d8209e27a7c0c378ba15003908f",
+    "src/components/useCatalogDrag.tsx": "85580504b8c84308e4d5a9e7cce311bb570c9ca4717236b05b2c6c9b17d92be8",
+    "src/components/useCompletePrint.ts": "935522cebbe69ce8e958c524c5c828bf87a3f905699b792642811f74001da405",
+    "src/constants/categories.ts": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
+    "src/i18n/assistantMessages.test.ts": "915d7fb9bf9363b2ee3a7ed303a9204b64f3103b085fa46f8bc80bb31ee90d54",
+    "src/i18n/assistantMessages.ts": "441eff4c3a2be468a063ca37ee22725a17b8056eb13914c35e8afe4ae82fe70b",
+    "src/i18n/bankingMessages.ts": "a7441741fdd1efcc2af4b77b7500e81bee2daf4215e2d2a8e53e88220460e38c",
+    "src/i18n/bankingReviews.test.ts": "a19865163de15ec6454168ba7c11aab2503e8347db94398182210c4f41905987",
+    "src/i18n/bankingReviews.ts": "9ce6ababb5a1ecb32d2f9c876aace8db796ef7fced883a760daa30aca0c02a1c",
+    "src/i18n/catalogKeys.ts": "ab7c53a194a74d1d60eca18a2fb912fb1f94baad712572d42b38c8a996b4d696",
+    "src/i18n/catalogNames.test.tsx": "7d4ea54a4e45442a9b43aabedabad5326aaa2ef1d0116d2eaa12a9ff69dd76f6",
+    "src/i18n/catalogNames.tsx": "66efbf9c9dac09558cd656958cbd8b1703692a22e6bfdd91b88ce502c90478ea",
+    "src/i18n/chartMessages.test.ts": "a509cd3208a9b617bc6a9c33e8a0c65f710baa98289e525f934f6b533c816c9b",
+    "src/i18n/chartMessages.ts": "de16e3c24588bbeff7620c29d6dd3ee8b9c56d15ffee732ad3356590e8a60734",
+    "src/i18n/countMessages.test.ts": "0aa3f0d38aeadb80136805f23cf6244c9aed637a8bf8efc1eb4057c184e1ab2f",
+    "src/i18n/countMessages.ts": "63d016f56e3066501d4e6e0c50cc4a98adcc65c32beca8f1c5e5b8a417b39703",
+    "src/i18n/dictionaries.test.ts": "fec11ba0179caff55dd7142a3552139df9f589cd5834368da36b5434c7605342",
+    "src/i18n/domainMessages.test.ts": "3cf4cbe51cba5adbd91bbb3a18dcbef798daeaf54450b307f712e3a9e7edac32",
+    "src/i18n/domainMessages.ts": "04dacc4c2719ce481821e822ef4c2d24730983538df8bb0056fcf289984f2e21",
+    "src/i18n/en.ts": "e58b90914960bb327b2a93d57392fa8f42516549ad58e8851c0c02c84aa6bd8e",
+    "src/i18n/es.catalog.ts": "3be2aed3563e5325581d73f49ea5fc6f952fcfb50c3a2ceff0e2befa7e5ce9cd",
+    "src/i18n/es.p1.ts": "931e802d67cae931589a08bca4a59c17d50af9f0908d37049bbbb37daca2e3e5",
+    "src/i18n/es.p1b.ts": "55c27f30f7e5c0e1ff9f2a6d4a2741b24f2392731d2c3989178aa9330c1d2660",
+    "src/i18n/es.p1c.ts": "ab0974da81ef458a0fa9e81d558d19924ec2af6e4c63b6ac2d25bc107652c7f8",
+    "src/i18n/es.p1d.ts": "678b1633a098dfb0c5da7e9b7dd424b36f5f13dfa20de543628631a09b5f025f",
+    "src/i18n/es.p1e.ts": "c79e590cae497a8ae9da16509d4ee7dea023ecd83c55a07b3248f424199837e3",
+    "src/i18n/es.p1f.ts": "5ee6a3e269dc0b7fdae571e42c6ea69c405cd33dbf281870d6b0bf22da55805b",
+    "src/i18n/es.p1g.ts": "cc2a4025c78ac4bee020eb80506e6339707940b5ebbe1052741f24b45f27ec95",
+    "src/i18n/es.p2a.ts": "5b1fe2345250f761842d297c9913951a289f23d9ad3709eee4dc6f60d55ec9f2",
+    "src/i18n/es.p2b.ts": "4712614c052ad492ac2101bcd898c62a3022adc981f20e195f2a2c1a5cd23bac",
+    "src/i18n/es.p2c.ts": "cc8e41db3c96c21c7018f35d04ca74ce65d1614c7b52c58698e02095ad23b0e6",
+    "src/i18n/es.p3.ts": "437055423dc517e59540ed030dd0d3d6980ee4c369b7db0d8657b280e3d4666b",
+    "src/i18n/es.p3b.ts": "dfe63998d2ba803fe6eb63b918be90d5f4011c263fd1e1b0c2530095f9759c16",
+    "src/i18n/es.plurals.ts": "f6b96ae25a23f3be69ac28b05d753f4cc4bcff61989543167ae9e9d80a52f80f",
+    "src/i18n/es.ts": "6911ab38bc8d3079b71de7baf47ce50f57c2472faaacd57adb8766a6ce9df56b",
+    "src/i18n/fixtures/assistant-legacy.json": "d4007fe87cf8aacecabf318fac399981d7a8039e39a398e52f87844e0df71795",
+    "src/i18n/fr.ts": "effcd4fc69eec0a7298429678380ac585f63cd86c8f710d7b1b1969e6a4908e6",
+    "src/i18n/i18n.test.ts": "e59d94ec535e277254ad1295cd42f8a897aa204a065ec97ed0e32b493661f8ed",
+    "src/i18n/index.tsx": "5d5c3d9faa8d0257edbce02dbabe79e8a92bdcaf204dda416e072e7b72ab4d76",
+    "src/i18n/inventory.test.ts": "362bdc521d7e9341fb12ccc07d10392d2f5a5bf7e5948f5c2b7deba6035d8668",
+    "src/i18n/it.ts": "696870ee35dcde40623378dd0a76d32ece2fb60cad1b693136ef477d2453a5e2",
+    "src/i18n/labels.ts": "bf0292a2f3dd8de515b0977b84837b2af6e9b00d4a7a3f43882063abb1b2557f",
+    "src/i18n/lazy.test.ts": "13bd3019e3ed7d49e0f7de7214e248811c5cf0d9d73ffe7e15a18bd041689fb4",
+    "src/i18n/messages.ts": "5f07d09156c8b2cb56c234cd8d9311d0fe9bbce06eb08ff680313a312b925850",
+    "src/i18n/naturalMessages.ts": "808df11a6ac3e40d0fd4913e9fe7fedb8edb20be1a1c92acf10988b61c585a29",
+    "src/i18n/planningMessages.test.ts": "01f10174b427a2a400324a7d31dc3a1a4fa5888fa45d5b0ed6661add7ccab999",
+    "src/i18n/planningMessages.ts": "31f091932cdd8ede97a962ed0ceae92c058a90c51faa7c6dc46f36f7db282fd5",
+    "src/i18n/preference.ts": "10777d5bc0960257dc69324f2bbabe55ea27595ec3f85acb36fed7d516cff9e5",
+    "src/i18n/presentation.test.ts": "d1f032bd00b59f3a836ea56e7555047b5ac0ecdd557303e4afbb7226690f42da",
+    "src/i18n/presentation.ts": "8cbf9ff4054a7c5c9210ad6aabfa8f43ca95d99490b07e236c44fa5f4c8f3497",
+    "src/i18n/presenters.test.ts": "5d8149b8cfa2d2051bfe3a2c4dec9557cfe02d4407ea57c641ef436ed2b17ae7",
+    "src/i18n/presenters.ts": "9ba31619e9b02e5631f21f4cac3a05483df5b3d630ae72668d7b5a429d2e52de",
+    "src/i18n/pt.ts": "f9a85aa5c8623b2781e993094c86a0cbc538b992e29f1554fd6a5c09c8b9ed25",
+    "src/i18n/readiness.ts": "84a2e71ecc14d1c9b2468cbd4a9e74e3a72d5e6eb65a18375b128e0f3387a1be",
+    "src/i18n/residuals.test.ts": "bd6222307f3636477a372972b944d9a86919efb2aea3c7a0666824d66460eb34",
+    "src/i18n/rich.test.tsx": "cf7efabcb61356ed4725bf84c52b06c5629f07d94056fa9af3262b87b8eb5270",
+    "src/i18n/sharedMessages.test.ts": "b98d5e6849bad9ab06c148beb6134a40faf4a626f2a12a01b4d1d438cc0772a6",
+    "src/i18n/sharedMessages.ts": "3114f2f406ce9d3645fd0e0066ce840e471943cf70dc34ebcd2c13351aea41a4",
+    "src/i18n/storageMessages.test.ts": "cdeae92596bca53f6556e711b0dfcc67b50f7b690a1f9e39b5ca5a96547b1b16",
+    "src/i18n/storageMessages.ts": "1d039b2f1bf26b7aabeb5f05ce4a40dd41dd3ad8fd115e94385eab2199efd2e5",
+    "src/index.css": "99deeda349bc1628b57e05923f4d2ffc8712e7afb989389fa89c5f0fc504cd8b",
+    "src/main.tsx": "3bf4f2e324df038d36e436764499903ce3a16f8ad3b791f1f62638bf8164c4bb",
+    "src/platform/contracts.test.ts": "6f0e35b4dfa9eac931deab0566802ce4afea68274399f6cb016416a6338b71ea",
+    "src/platform/environment.test.ts": "c0a22d68b4af8d53131898d422eddde79adc5bb7779306d7a56461a54a1e1dcc",
+    "src/platform/environment.ts": "209efd5045c696fd266eefddfbf1e9cccd6c589560e0e2014d4174b489bbf6e0",
+    "src/platform/financeBinding.ts": "1bb20bfb3f1d630ce0844176981adc06635e137e30482ad1243a9853bbcc2d36",
+    "src/platform/linkPolicy.ts": "69897386cee2ba5b8dff7e5d06d75412a6cdbdef476f23c3c6cf0d6aea70fb50",
+    "src/platform/native/bootstrap.tsx": "5e6708e267086ae6f3ba8001ee161081b871c835ebabcb7d5d8322fbc0b62ea5",
+    "src/platform/native/fileExport.ts": "2f7d92e3a5ad90dd86285293ae29338298f912b6c9cbf687231b3917cd3f2b4b",
+    "src/platform/native/native.css": "7c4491ed277f01b6ae3c6e87b56bfd071443ae8d773ae745a3cb2e4f7aeb19d3",
+    "src/platform/native/preferences.ts": "23f6f9a0fd690b4c184f8558eadcd7fbc51e5e58dcd55df30dc747feac5ecd2c",
+    "src/platform/native/runtime.ts": "a152c00e383711cef1d34c5dea9bf2ddff4b00873e42130e436af5f033f583d6",
+    "src/platform/services.tsx": "3218f79671330772f8ccf370a60738dbb9809512c2ef8b59c22fd9ea49ec87ab",
+    "src/responsive.css": "a08fd3eb514160e4722aa395cdcd3378d8bfb9dcc867e9b966f23296831e0647",
+    "src/styles/experience.css": "8e7de420d60b7b52507ad2b7e4050bc4db1d85999668367a2df52041ceedb59c",
+    "src/styles/tokens.css": "9675d0633cfff16ac6109b7a6e953c8db52eb89f61927fc70317d908e6acf591",
+    "src/tests.ts": "209a14f15af2eb72156b10332c86e249da113d7857cd50552f9795d00274d86c",
+    "src/types/finance.ts": "7cd4904a98956836f592376b33a57f03c0d0b2e17bed94865fc9a1ab6f1443f8",
+    "src/utils/asyncForms.test.ts": "7f02380c450688faf36b1febc64ea248876de925a4b3115ddc01f35125ce9c0a",
+    "src/utils/backup.ts": "ce4df2e20046344ba501bc3955a68de87b3945a8ba9d4e14a454d754b53aa12d",
+    "src/utils/budgetCatalog.test.ts": "978e7c4b4a322131ae08346e79eb32af38be33012d133499d83f10e35ea2d805",
+    "src/utils/budgetCatalog.ts": "846b7f635ae43cbf6005e924af38b60e4559e72645ec4e75756da728af9d73d2",
+    "src/utils/budgetChanges.test.ts": "b9b02c332e6e0f01d0d9d34bdd60a20ae465e97dd313124c72fb223f634b1102",
+    "src/utils/budgetChanges.ts": "33d3daa3234e1ac1e563927f97129a7e20df530f741b28df894b882369ca181f",
+    "src/utils/budgetSubitems.test.ts": "ba805c0c1fc120047be249552c526d10ad6c57a501eab2a90cef9343d3530912",
+    "src/utils/budgetSubitems.ts": "8e5864f07c73446e3a855407a678f708c1d2578f1bb98e445f51676fae816391",
+    "src/utils/catalogClassification.test.ts": "99917e2b098ec9b562ab32efc320425d8592889399d235db1c98773a7ee5b9c0",
+    "src/utils/catalogNames.test.ts": "3a7ab202b51eb1adbc4d29af316556bbddfe5a9f45aade9f1733b0a812efeaae",
+    "src/utils/catalogNames.ts": "f86d6ee872678dd2ca94ea2b6f827d19aca0095637f666d6fb714f9635585844",
+    "src/utils/catalogReorder.test.ts": "cdd61d33ba4170a3b120e198cfa0b473dc1a1992d68ad5b8e661152c842420a0",
+    "src/utils/catalogReorder.ts": "92261cd76f5b1fd4388f2d849a1b1b223aabcb4872944ac2506588635aeb64ab",
+    "src/utils/chartData.test.ts": "1e16f657cde6249e43b1c7510b230000c83e2c1d2ad99f262d9804fef6bdaf99",
+    "src/utils/chartData.ts": "6e1103596b704f6b4bd506426dc2914c1bf3ba2c0c3512e7df53282ff71c0e38",
+    "src/utils/chatRegistration.ts": "60e999d591fd2bb31fa93367461269373e371e4a3c25a0f1d8500adc76a55b27",
+    "src/utils/clearData.ts": "eee3464a8893cdec832de681e2dc9be71f24afa6dc4ad62aeb755a14244ba9f4",
+    "src/utils/confirmation.ts": "806308ae3028d854c57ca40fdb5672738b04e3a284aca626481d626a3d03d22f",
+    "src/utils/defaultWallet.test.ts": "d04984ba5a84ca7e3f089177092956fed20ee1da5c9e0cf9819b66e0693d1a94",
+    "src/utils/defaultWallet.ts": "766b36fde5e99b1efdd5dec240cb1f9eed26f1c5d26cc0aaf7d7ef2c7de5fe91",
+    "src/utils/deletion.test.ts": "37da48688408993b59e00569895d08d7ed7e6343b00ff59d903fad8198da091b",
+    "src/utils/deletion.ts": "d1dfcaa250255f759e92093a7b6cc665911004e8775c66b4ab517af3e1cb956d",
+    "src/utils/finance.test.ts": "989681e3d55e1002790580930eafba4d9a3c10672a5c4ff120d2ee54ba9e3fe2",
+    "src/utils/finance.ts": "62a3a01dcc884b22f0dc3d2d677f1c19923d7bc7a68f7f3ef0d96713f27d34ea",
+    "src/utils/financeStore.ts": "1792422daa1f2d747d8a6ff74cd8685414fc4007abfa7a1b44c00e932fcf86d0",
+    "src/utils/financialAssistant.test.ts": "f8412456309ff90fa76d54129910f88fb695dfdee30d55a4fbb7016326c03138",
+    "src/utils/financialAssistant.ts": "e48b59d99d49f6ff35e80d5d4abd0c065820192346d2d1bad627168dcb85944f",
+    "src/utils/financialCalendar.test.ts": "521f1d57b692e9deccad31df9a6a86f00dfc309963032c2ab0414a32b99528cf",
+    "src/utils/financialCalendar.ts": "c04d8a870b8b82d4794013cf75c215be7bae5b431b8f11d14eb5c4792f771430",
+    "src/utils/intelligentFinance.test.ts": "de2f7c73c3e0f76c5da763ce9cd485a38698791cba129fbd93ba4835ce447258",
+    "src/utils/intelligentValidation.ts": "348982dbb557401336db747eab0605b42b5ed5adb1c7c4983f1243eb00ade804",
+    "src/utils/naturalInput.ts": "2015d028975468ec88a7d22b7280ac479677b6cbc3f3ee5f7a8321b908927a14",
+    "src/utils/parser.ts": "05c3704003e8a9959adc7ea68946650e8d5b90a2e24594dcfa1ee3b1fdd76404",
+    "src/utils/partidaSearch.ts": "812fb49fac274e160ea90ddc2bc0a1c29ae0e9c652ca0c3a9be587d54daf1f2b",
+    "src/utils/personalObligations.ts": "9dac11964f1c1b982a3ea1eb88a6799a615f654c688255f57df6b8623dbf5d0d",
+    "src/utils/phase1.test.ts": "ba69a366210980542a4f6251d52db1b21eb426b8e5127dbb2d5c008fb0623f46",
+    "src/utils/planning.test.ts": "ae5b774e427eef80bc270fb51e9f7e24dca458d81b391a1336e9b3c6ea7ed4ce",
+    "src/utils/planning.ts": "9ecf1c9f7b3c61fcc36f2a904c0b5d3b30bba62d46fea1d146d51c62d86859a6",
+    "src/utils/planningAutomation.test.ts": "7dd178403c98a330306faaef39bf84db496b6cdd7b8f146922e4497f087cae9b",
+    "src/utils/planningAutomation.ts": "1384707d7c68f915e59e0895cf478bba07a36305bbaff3b3d7f925435337694c",
+    "src/utils/planningAutomationValidation.ts": "cd7615388bb63fe4824a339823b731e279ccbf46eece9780afdaa50b73e216a5",
+    "src/utils/planningBasis.ts": "93a845c123f5a9590c4ce19226a74c7dd13b9e395b2c83504784321c008c4c64",
+    "src/utils/planningCalendar.ts": "fa96d2eb452560ea1c4e8d69f5d1d99f26ec084229efa3adfb0127fe9a36bc9c",
+    "src/utils/planningCarry.ts": "7d1930082ef1ddb8085cc260c09f0bcdd8e83ba6007407f16b6341abda420d01",
+    "src/utils/planningMoney.ts": "0f5a1675ef670710518dc92f1f68c39563e013d77a96355f3393429b80bdc176",
+    "src/utils/recurringMovements.ts": "198761b2ea813e86e1c46c3875fc50e1073f0994fe5f7978160d676af64da491",
+    "src/utils/registrationIntent.ts": "ae94b1a70457e71788ec5cf87d693ac2bf87305f4c9cf37b374e2408e67087c4",
+    "src/utils/saveResult.ts": "539d48249f0e30400da23ae4bde69a0f68ca90f6dfe19be5a6e03421aaa7c79b",
+    "src/utils/seedData.ts": "860713dc97cf1218c738fb2fd48fd865ef488d883243583cc3af33ebba5c1687",
+    "src/utils/sharedDistribution.ts": "178a307d2220f14d3a648288101ec02de799d3b3a2153a7644a2663d5e728e61",
+    "src/utils/sharedExpenses.test.ts": "9794314f17a60b7cea1e229cd6d8688014e06a5fa730881380c3692a3817132a",
+    "src/utils/sharedExpenses.ts": "2f5b5af07e921ba44ea049efcadf1658d3f3baeb51fe9bfc766f3a6647f3c85c",
+    "src/utils/sharedUx.test.ts": "63f30eb2a9f4a5268b7153c3d076c38e917c549515cd0c7d0ca3498ce32762ee",
+    "src/utils/stabilization.test.ts": "ca304ce47a42fedb60074a5b299eed816605cab2ed3c797daea6218d685539fe",
+    "src/utils/storageSupport.ts": "3e8d151e67b0b95b7e37a2383d747861ca6266ef96221033188f239eefd0bb36",
+    "src/utils/transfers.test.ts": "ffa0ca21f0261fc892e9a936047012d0e719422fa375dc95392bd518d74204b2",
+    "src/utils/transfers.ts": "f372dea673fd6389302979cbb15dfa0b706f4fddcda9ee7d526e001f6eafdf41",
+    "src/utils/treasury.test.ts": "74130736e7173419da9a53f932eba7fb78f9a85164b839481e6ea91547e4bf4c",
+    "src/utils/treasury.ts": "45677fbda4b8109e4e864b47810717c0d417b3c9162e1f561e804536ac934edd",
+    "src/utils/useAsyncForm.ts": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
+    "src/utils/useFinanceData.ts": "e182d11e046958b3fe52ecd59922ff10f92d8c07856bb20856ab64c5c970a813",
+    "tsconfig.json": "2314bf0ed93817d9c5c5495330425f83df6404eecc81cc5803fd2612163e5f77",
+    "vite.config.ts": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489",
+    "vite.native.config.ts": "f5532f7ba0788da4a38ba5727dcc74f895f50a34189ba32be3ca570df373c2dd"
+  },
+  "webAssets": {
+    "assets/App-CKXGdC7Z.js": {
+      "bytes": 251053,
+      "sha256": "c125d9fd6566b22d63c60ee97199d564e89dd86a0b096822ecbbcc1e43c929f1"
+    },
+    "assets/AssistantChatView-C_qO_1Ft.js": {
+      "bytes": 14409,
+      "sha256": "303733bf83d3fac3f95e6e9de2c42a5fb6b06aead8993d34cf60029705ab89e0"
+    },
+    "assets/BudgetsView-BpZ8RDgG.js": {
+      "bytes": 18125,
+      "sha256": "78c37b9232a634b9dfb5e691a2438b1ab841ba1d969d240ceb822e8746145bee"
+    },
+    "assets/CatalogManager-5eOcpDvg.js": {
+      "bytes": 11771,
+      "sha256": "2c0990326eca79aac0d592d7df3ef9e900ad7f6ffd9966075ef20dcc99a22762"
+    },
+    "assets/ContactsView-BE7fS5Cb.js": {
+      "bytes": 18213,
+      "sha256": "3f4764f9860841f332f84ecaced9096f3e60bc2e9b956a0cb449196cc4fb8c56"
+    },
+    "assets/DebtsWorkspace-DBPT5a_1.js": {
+      "bytes": 11623,
+      "sha256": "289bc1d986119acc4af83cc970e1182a1788b7ebf82b178d159db2cb3267a092"
+    },
+    "assets/FinancialCharts-BhEUeT1N.js": {
+      "bytes": 40852,
+      "sha256": "8f56c9dd4cbdd1ff14836f864537a28efaa5a5e8e6f6502e447effbdd737c934"
+    },
+    "assets/LoansView-Dq-nlyP9.js": {
+      "bytes": 16982,
+      "sha256": "7f35859aca44f6ee45772bdcae74f1ae927d4332112321523060340d7c4c1a9b"
+    },
+    "assets/Overlay-BBE600QM.js": {
+      "bytes": 3609,
+      "sha256": "26af9a7a695c48f1292df4a114ce023ba4bb3eb46e50a4707a4884cee4c08e84"
+    },
+    "assets/PlanningView-BQgTNkmp.js": {
+      "bytes": 47237,
+      "sha256": "e0e34db04b6c4dff0dafff2f4b8cbe47d15c6003901182da8d13f3a94b4d8bd9"
+    },
+    "assets/SafeDialog-BD4iPuVK.js": {
+      "bytes": 497,
+      "sha256": "9cfca5557445622a8a7a9961a96934df58f1d603aee2209fbdfa2408db3ba843"
+    },
+    "assets/TreasuryView-D8PksS62.js": {
+      "bytes": 4811,
+      "sha256": "f633c18df17cb01a048ffa919a5f039b6fb975f1981ca7742a1114eaa2ad8e8a"
+    },
+    "assets/WalletsView-s6-8bw0Q.js": {
+      "bytes": 18945,
+      "sha256": "1cef7cd4f6279ac2962d390a3f11b2aadd6d2be4debcc20fb197b2ec98722d8d"
+    },
+    "assets/arrow-down-left-Dx9EDJOF.js": {
+      "bytes": 157,
+      "sha256": "40b533edd404802fc909c20f64af532280f44ac596a2cc671f6a065bb75fb33f"
+    },
+    "assets/budgetCatalog-BNr9Q0VJ.js": {
+      "bytes": 13488,
+      "sha256": "0da52f8fbb635bfbf99b8892dc6801895392d2fa07f704821ef3f22cf6bb7a03"
+    },
+    "assets/chevron-down-ZGV8FoM0.js": {
+      "bytes": 117,
+      "sha256": "48e63ee577e28ee41de3b183c034ce224e2b074cf26033b28f86fde698bff3e4"
+    },
+    "assets/deletion-BP9oXlmj.js": {
+      "bytes": 6360,
+      "sha256": "fe432a2d31f281fb37fbfdc8aefc07d0cdfce9850bb1e5d243922009ade429b5"
+    },
+    "assets/en-CYaiuNGb.js": {
+      "bytes": 174151,
+      "sha256": "1cf8e39c14d18d0f8ae761a10c02287ed66148a9a7bff6db6cf6ab0ab4d13222"
+    },
+    "assets/fr-Dhl2IOlN.js": {
+      "bytes": 190481,
+      "sha256": "60e7deabc828586dca1330102df62068d744ebaab246c89d620e7dbec2d4fa30"
+    },
+    "assets/i18n-dCPYtD4R.js": {
+      "bytes": 247418,
+      "sha256": "950159d0f1f6bfe66d55d6abbb835d2d28fa6ee0c023720e50099e0102906e16"
+    },
+    "assets/index-DklKeRgQ.css": {
+      "bytes": 96305,
+      "sha256": "92feea9b97790bafcebe9df8696d6d5607da684f8f94bf79cca129f716d67a02"
+    },
+    "assets/index-JBTKUaAh.js": {
+      "bytes": 221187,
+      "sha256": "969fe8536073a74f1758ebb193e95937443be235c85b8c1a60bb27edcce78495"
+    },
+    "assets/intelligentValidation-CUL7pM0x.js": {
+      "bytes": 7224,
+      "sha256": "63f84472e855dbda8a35a36d1ec2bd2777f66e10584347869b850137cfa3c106"
+    },
+    "assets/it-vyl_7zxF.js": {
+      "bytes": 182241,
+      "sha256": "21045e136388ff9eed441e8975c8ce8af172de47715520834f086a4ff6f571c6"
+    },
+    "assets/personalObligations-B4yzpyy8.js": {
+      "bytes": 4248,
+      "sha256": "b7f4a458f71fcfc9108acae9ed18f827ad086b34defe517a10cf7d0fa9cc98f8"
+    },
+    "assets/planning-B-uMfJ_0.js": {
+      "bytes": 6917,
+      "sha256": "fe604e57d1da969a641ec5e0a1eac2eeec85a4ca840dd7e9202df74a05857851"
+    },
+    "assets/planningAutomation-nQ3XKW7S.js": {
+      "bytes": 12347,
+      "sha256": "1016277c903fede44fe8786abc4e0f028113aec0676c7ea8f7879e5544333a17"
+    },
+    "assets/planningAutomationValidation-BmlTAAM4.js": {
+      "bytes": 4317,
+      "sha256": "6b321b22a12de99f85a7dace67e33e0abf0066d52e0cead0455a20c15bcafa0b"
+    },
+    "assets/pt-Cyxhn7YB.js": {
+      "bytes": 183180,
+      "sha256": "6f63c08ef0d984bcc4bd743a69a520db155768d8b37ef89c22b2fcc7693adeb8"
+    },
+    "assets/storageMessages-DsEbgXxA.js": {
+      "bytes": 78835,
+      "sha256": "55494ff1e107fe7bbb97d83441542b589798500f28e46759f222616380b2d4a2"
+    },
+    "assets/useAsyncForm-C3MFN2YN.js": {
+      "bytes": 960,
+      "sha256": "1aad176e38dc2384eaf3c757ec9cfa50b07d18722ec05f46794d301d3e6f1bbf"
+    },
+    "brand/finanzas-mark.svg": {
+      "bytes": 243,
+      "sha256": "cb4c5b01ad737765ab149e021bde2cf7eda9c93856a488f9c5459f09a0d20e34"
+    },
+    "chart-licenses.txt": {
+      "bytes": 1559,
+      "sha256": "cf08df69b7313bbd95738ecef858db898832c4edd14cdef595392000fec0df80"
+    },
+    "index.html": {
+      "bytes": 1270,
+      "sha256": "3fe15b3296a9252f5f9329e9bd406a2c344b494275518d61c55443ed3bc28389"
+    },
+    "preview/inicio-demo-en.jpg": {
+      "bytes": 106787,
+      "sha256": "2e3096316889778309eb3344f847333dd5747f53f8bf5c9fe066f0e9361c4417"
+    },
+    "preview/inicio-demo-fr.jpg": {
+      "bytes": 107175,
+      "sha256": "6ae3032022054d55ddd6aa9902eeb3148c9be33c962dafefdd11980b2f78a713"
+    },
+    "preview/inicio-demo-it.jpg": {
+      "bytes": 107312,
+      "sha256": "029059c84d0d54049cd41c92a6902c7385f55c9f4709e3342d0548b88dd48cc6"
+    },
+    "preview/inicio-demo-pt.jpg": {
+      "bytes": 108527,
+      "sha256": "e5adba24dc1f3c15129c995b9137148b25ebccafc37b363863a5ed47f715a5ec"
+    },
+    "preview/inicio-demo.jpg": {
+      "bytes": 98621,
+      "sha256": "d7eb97eefde25be7fd27ce9dad1d04889ced6567dc260564d689c4ccc6e326cd"
+    }
+  }
+}

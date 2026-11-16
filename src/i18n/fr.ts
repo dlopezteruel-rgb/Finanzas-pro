@@ -2056,5 +2056,23 @@ export const fr = {
   "catalog.names.invalidDeclaration": "La déclaration des noms du catalogue est invalide. Aucune modification n’a été enregistrée.",
   "catalog.names.staleReview": "Le catalogue a changé. Vérifiez à nouveau les noms avant de confirmer.",
   "catalog.names.invalidSelection": "La sélection des noms est invalide. Vérifiez-la avant de confirmer.",
-  "catalog.names.backup35": "JSON 3.5 : noms du catalogue système sélectionnés explicitement. Les copies antérieures conservent leurs noms ; utilisez la copie de récupération précédente pour revenir en arrière."
+  "catalog.names.backup35": "JSON 3.5 : noms du catalogue système sélectionnés explicitement. Les copies antérieures conservent leurs noms ; utilisez la copie de récupération précédente pour revenir en arrière.",
+  "native.title": "Prototype de FinanZas Pro",
+  "native.warning": "Utilisez uniquement des données fictives. Ce prototype ne dispose pas de stockage financier permanent et perd sa session au redémarrage.",
+  "native.enter": "Ouvrir avec des données fictives",
+  "native.acknowledge": "Je comprends que je ne dois ni saisir ni importer de données financières réelles.",
+  "native.sessionNotice": "Session fictive et temporaire. Les données ne sont pas conservées au redémarrage.",
+  "native.importBlocked": "L’importation de fichiers financiers est bloquée jusqu’à la validation du stockage natif. Vous pouvez réinitialiser les données fictives.",
+  "native.remoteUnavailable": "Le service distant de l’assistant n’est pas configuré pour ce prototype. Les consultations et la saisie locales restent disponibles.",
+  "native.exportFailed": "Le fichier n’a pas pu être exporté. Votre session et vos formulaires ont été conservés.",
+  "native.back": "Retour",
+  "native.backBlocked": "Utilisez les commandes du formulaire ou de la boîte de dialogue pour confirmer ou annuler. Aucune modification n’a été abandonnée.",
+  "native.rootBack": "Vous êtes sur l’accueil du prototype. La session n’a pas été fermée.",
+  "native.packagingError": "Ce conteneur nécessite la compilation native du prototype et ses adaptateurs. L’accès aux données financières est bloqué.",
+  "native.preferencesFailed": "Les préférences de l’appareil n’ont pas pu être enregistrées. Votre sélection actuelle est conservée.",
+  "native.exportTitle": "Partager une sauvegarde fictive de FinanZas Pro",
+
+  "native.deviceUnavailable": "La fonction de l’appareil est indisponible. Votre session et vos formulaires sont conservés.",
+  "native.linkBlocked": "Seuls les liens HTTPS peuvent être ouverts dans le navigateur du système.",
+
 } as const satisfies Messages;

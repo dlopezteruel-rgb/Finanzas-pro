@@ -2056,5 +2056,23 @@ export const pt = {
   "catalog.names.invalidDeclaration": "A declaração de nomes do catálogo não é válida. Não foi guardada qualquer alteração.",
   "catalog.names.staleReview": "O catálogo foi alterado. Reveja os nomes antes de confirmar.",
   "catalog.names.invalidSelection": "A seleção de nomes não é válida. Reveja-a antes de confirmar.",
-  "catalog.names.backup35": "JSON 3.5: nomes do catálogo do sistema escolhidos expressamente. As cópias anteriores mantêm os seus nomes; utilize a cópia de recuperação anterior para voltar atrás."
+  "catalog.names.backup35": "JSON 3.5: nomes do catálogo do sistema escolhidos expressamente. As cópias anteriores mantêm os seus nomes; utilize a cópia de recuperação anterior para voltar atrás.",
+  "native.title": "Protótipo do FinanZas Pro",
+  "native.warning": "Utilize apenas dados fictícios. Este protótipo não dispõe de armazenamento financeiro permanente e perde a sessão ao reiniciar.",
+  "native.enter": "Entrar com dados fictícios",
+  "native.acknowledge": "Compreendo que não devo introduzir nem importar dados financeiros reais.",
+  "native.sessionNotice": "Sessão fictícia e temporária. Os dados não são conservados ao reiniciar.",
+  "native.importBlocked": "A importação de ficheiros financeiros está bloqueada até à validação do armazenamento nativo. Pode repor os dados fictícios.",
+  "native.remoteUnavailable": "O serviço remoto do assistente não está configurado para este protótipo. As consultas e o registo locais continuam disponíveis.",
+  "native.exportFailed": "Não foi possível exportar o ficheiro. A sessão e os formulários foram conservados.",
+  "native.back": "Voltar",
+  "native.backBlocked": "Utilize os controlos do formulário ou da janela para confirmar ou cancelar. Nenhuma alteração foi descartada.",
+  "native.rootBack": "Está no início do protótipo. A sessão não foi encerrada.",
+  "native.packagingError": "Este contentor requer a compilação nativa do protótipo e os respetivos adaptadores. O acesso aos dados financeiros está bloqueado.",
+  "native.preferencesFailed": "Não foi possível guardar as preferências do dispositivo. A seleção atual mantém-se.",
+  "native.exportTitle": "Partilhar uma cópia fictícia do FinanZas Pro",
+
+  "native.deviceUnavailable": "A função do dispositivo não está disponível. A sessão e os formulários são conservados.",
+  "native.linkBlocked": "Só é possível abrir ligações HTTPS através do navegador do sistema.",
+
 } as const satisfies Messages;

@@ -1,0 +1,52 @@
+{
+  "base": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
+  "checkpoint": 2,
+  "unit": {
+    "tests": 637,
+    "pass": 637,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "lint": "passed",
+  "webBuild": "passed",
+  "nativeBuild": "passed",
+  "capacitorAddAndSync": {
+    "android": "passed",
+    "ios": "passed static generation;SPM/Xcode build not executed"
+  },
+  "android": {
+    "assembleDebug": "passed,273tasks,4m35s",
+    "variant": "unsigned debug prototype,entry locked until adapters",
+    "apkBytes": 5516304,
+    "apkSha256": "2b279042295fc229d83b65609fbaac0f380ab7e3ce928f99f778a5b339a88935",
+    "appId": "invalid.finanzas.prototype",
+    "localAssets": true,
+    "unsigned": true,
+    "signatureProbe": "apksigner verify intentionally rejects unsigned APK:Missing META-INF/MANIFEST.MF",
+    "runtimeExecuted": false,
+    "realFinancialPersistence": false
+  },
+  "ios": {
+    "sourceConfigured": true,
+    "SPM": "8.6.2 pinned",
+    "sceneLifecycle": true,
+    "compiled": false,
+    "blocker": "Linux,no macOS/Xcode26+,no simulator/device"
+  },
+  "warnings": [
+    "node-domexception deprecated",
+    "sdkmanager deprecated by Android CLI",
+    "Gradle flatDir metadata warning from generated Capacitor templates"
+  ],
+  "failedAttempts": [
+    "npm default home cache not writable;workspacecache used",
+    "dictionary entries initially missing comma;fixed before successful lint",
+    "inventory raw generator used instead of reviewed report;corrected without changing assertion",
+    "SDK initial untrusted Java CA;using verified OS CA fixes network,without disabling TLS",
+    "APK verification harness expected NO_SIGNATURES;actual valid unsigned APK reports Missing META-INF/MANIFEST.MF;ZIP and signingabsence verified",
+    "Generated Gradle template CRLF/trailing whitespace failed diff-check; checkpoint retained and corrected in a follow-up commit, no check suppression."
+  ],
+  "followUp": "Normalize generated text and target only :app:assembleDebug; generated instrumentation identity matches provisional package. Instrumentation not executed."
+}

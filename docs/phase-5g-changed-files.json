@@ -1,0 +1,655 @@
+{
+  "base": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
+  "source": "c6f663f00781611ecca2e3575ba6102bdcfddf91",
+  "count": 162,
+  "files": [
+    {
+      "status": "M",
+      "path": ".gitignore"
+    },
+    {
+      "status": "A",
+      "path": "android/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "android/app/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "android/app/build.gradle"
+    },
+    {
+      "status": "A",
+      "path": "android/app/capacitor.build.gradle"
+    },
+    {
+      "status": "A",
+      "path": "android/app/proguard-rules.pro"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/AndroidManifest.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/java/invalid/finanzas/prototype/MainActivity.java"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-land-hdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-land-mdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-land-xhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-land-xxhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-land-xxxhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-port-hdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-port-mdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-port-xhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-port-xxhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-port-xxxhdpi/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable/ic_launcher_background.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/drawable/splash.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/layout/activity_main.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/values/ic_launcher_background.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/values/strings.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/values/styles.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/xml/backup_rules.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/xml/data_extraction_rules.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/main/res/xml/file_paths.xml"
+    },
+    {
+      "status": "A",
+      "path": "android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java"
+    },
+    {
+      "status": "A",
+      "path": "android/build.gradle"
+    },
+    {
+      "status": "A",
+      "path": "android/capacitor.settings.gradle"
+    },
+    {
+      "status": "A",
+      "path": "android/gradle.properties"
+    },
+    {
+      "status": "A",
+      "path": "android/gradle/wrapper/gradle-wrapper.jar"
+    },
+    {
+      "status": "A",
+      "path": "android/gradle/wrapper/gradle-wrapper.properties"
+    },
+    {
+      "status": "A",
+      "path": "android/gradlew"
+    },
+    {
+      "status": "A",
+      "path": "android/gradlew.bat"
+    },
+    {
+      "status": "A",
+      "path": "android/settings.gradle"
+    },
+    {
+      "status": "A",
+      "path": "android/variables.gradle"
+    },
+    {
+      "status": "A",
+      "path": "capacitor.config.ts"
+    },
+    {
+      "status": "M",
+      "path": "docs/phase-5b-inventory.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-changed-files.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-checkpoint2-validation.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-checkpoint3-validation.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-bundles.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-desktop-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-desktop-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-mobile-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-mobile-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-tablet-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core-tablet-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-core.json.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/after-journeys.json.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/baseline-axe-review.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-desktop-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-desktop-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-mobile-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-mobile-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-tablet-1000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core-tablet-5000.cpuprofile.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-core.json.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/before-journeys.json.gz"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/capture-manifest.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/checkpoint4-browser.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/core-comparison.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/final-local-axe-review.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/final-local-validation.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/final-native-validation.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/fr-tablet-text125-after.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/fr-tablet-text125-before.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/journeys-comparison.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-en-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-en-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-es-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-es-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-fr-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-fr-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-it-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-it-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-pt-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/native-preview-pt-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/performance.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/reference-ci-axe-review.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/reference-ci.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/source-and-assets.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-desktop-application-cold.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-desktop-planning-first-open.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-mobile-application-cold.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-mobile-planning-first-open.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-tablet-application-cold.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-evidence/web-after-tablet-planning-first-open.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-multiplatform-foundation.md"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5g-protected-files.json"
+    },
+    {
+      "status": "A",
+      "path": "ios/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App.xcodeproj/project.pbxproj"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/AppDelegate.swift"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/Contents.json"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/Splash.imageset/Contents.json"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-1.png"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-2.png"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732.png"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Base.lproj/LaunchScreen.storyboard"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Base.lproj/Main.storyboard"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/Info.plist"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/PrivacyInfo.xcprivacy"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/App/SceneDelegate.swift"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/CapApp-SPM/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/CapApp-SPM/Package.swift"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/CapApp-SPM/README.md"
+    },
+    {
+      "status": "A",
+      "path": "ios/App/CapApp-SPM/Sources/CapApp-SPM/CapApp-SPM.swift"
+    },
+    {
+      "status": "A",
+      "path": "ios/debug.xcconfig"
+    },
+    {
+      "status": "M",
+      "path": "package-lock.json"
+    },
+    {
+      "status": "M",
+      "path": "package.json"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/android-build.mjs"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/validate-build.mjs"
+    },
+    {
+      "status": "A",
+      "path": "scripts/nativeFoundation.browser.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/App.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/app/Root.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/components/AssistantChatView.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/components/DashboardView.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/components/TransactionsView.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/en.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/es.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/fr.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/it.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/pt.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/main.tsx"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/contracts.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/environment.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/environment.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/financeBinding.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/linkPolicy.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/native/bootstrap.tsx"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/native/fileExport.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/native/native.css"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/native/preferences.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/native/runtime.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/services.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/tests.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/utils/useFinanceData.ts"
+    },
+    {
+      "status": "M",
+      "path": "tsconfig.json"
+    },
+    {
+      "status": "A",
+      "path": "vite.native.config.ts"
+    }
+  ]
+}

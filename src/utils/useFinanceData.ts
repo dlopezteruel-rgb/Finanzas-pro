@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
-import { DATA_KEY, FinanceData, StorageConflictError } from './backup';
-import { browserExclusiveWrite, FinanceStore, RestorationInput, type FinanceMutation } from './financeStore';
+import { FinanceData, StorageConflictError } from './backup';
+import { FinanceStore, RestorationInput, type FinanceMutation } from './financeStore';
 import { SaveResult, saveErrorMessage } from './saveResult';
-import { browserStorageSupportError } from './storageSupport';
+import {usePlatformServices} from '../platform/services';
 export { loadFinanceData } from './financeStore';
 
 export function useFinanceData(defaults: FinanceData) {
+  const {finance:binding}=usePlatformServices();
   const [initial] = useState(() => {
     try {
-      const store = new FinanceStore(localStorage, defaults, browserExclusiveWrite);
+      const store = new FinanceStore(binding.getStorage(), defaults, binding.exclusive);
       return { store, data: store.data, error: '' };
     } catch (error) {
       return { store: null, data: defaults, error: `No se han podido cargar los datos: ${error instanceof Error ? error.message : 'almacenamiento no disponible'}. Los datos guardados no se han sobrescrito.` };
@@ -17,7 +18,7 @@ export function useFinanceData(defaults: FinanceData) {
   const [data, setData] = useState<FinanceData>(initial.data);
   const [saveError, setSaveError] = useState('');
   const [conflict, setConflict] = useState(false);
-  const [capabilityError, setCapabilityError] = useState(browserStorageSupportError);
+  const [capabilityError, setCapabilityError] = useState(binding.supportError);
 
   function reportError(error: unknown) {
     if (error instanceof StorageConflictError) setConflict(true);
@@ -31,20 +32,16 @@ export function useFinanceData(defaults: FinanceData) {
         setSaveError(new StorageConflictError().message);
       }
     };
-    const changed = (event: StorageEvent) => {
-      if (event.storageArea === localStorage && (event.key === DATA_KEY || event.key === null)) check();
-    };
-    window.addEventListener('storage', changed);
-    window.addEventListener('focus', check);
+    const unsubscribe=binding.subscribe(check);
     check();
-    return () => { window.removeEventListener('storage', changed); window.removeEventListener('focus', check); };
+    return unsubscribe;
   }, [initial.store]);
 
   useEffect(() => {
     let active = true;
-    if (!browserStorageSupportError()) {
+    if (!binding.supportError()) {
       // Probe the API in the actual document/iframe, without changing stored data.
-      browserExclusiveWrite(() => undefined).catch(error => { if (active) setCapabilityError(saveErrorMessage(error)); });
+      binding.exclusive(() => undefined).catch(error => { if (active) setCapabilityError(saveErrorMessage(error)); });
     }
     return () => { active = false; };
   }, []);
@@ -63,5 +60,5 @@ export function useFinanceData(defaults: FinanceData) {
     try { setData(await initial.store.restore(next)); setSaveError(''); }
     catch (error) { reportError(error); throw error; }
   }
-  return { data, update, mutate, restore, conflict, capabilityError, loadError: initial.error, saveError };
+  return { data, update, mutate, restore, conflict, capabilityError, loadError: initial.error, saveError,financeStorage:binding.getStorage };
 }
