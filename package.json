@@ -40,6 +40,7 @@
     "@capacitor/keyboard": "8.0.6",
     "@capacitor/preferences": "8.0.1",
     "@capacitor/share": "8.0.3",
+    "@finanzas/native-vault": "file:native/secure-vault",
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",

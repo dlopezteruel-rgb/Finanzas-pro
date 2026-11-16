@@ -1,0 +1,23 @@
+buildscript {
+    repositories { google(); mavenCentral() }
+    dependencies { classpath 'com.android.tools.build:gradle:8.13.0' }
+}
+apply plugin: 'com.android.library'
+android {
+    namespace 'invalid.finanzas.prototype.vault'
+    compileSdk 36
+    defaultConfig { minSdk 24 }
+    buildFeatures { buildConfig true }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+    sourceSets { main.assets.srcDirs = ['../protocol'] }
+}
+repositories { google(); mavenCentral() }
+dependencies {
+    implementation project(':capacitor-android')
+    implementation('net.zetetic:sqlcipher-android:4.20.0') { version { strictly '4.20.0' } }
+    implementation 'androidx.sqlite:sqlite:2.6.2'
+    implementation 'androidx.activity:activity:1.11.0'
+}

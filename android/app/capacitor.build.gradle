@@ -15,6 +15,7 @@ dependencies {
     implementation project(':capacitor-keyboard')
     implementation project(':capacitor-preferences')
     implementation project(':capacitor-share')
+    implementation project(':finanzas-native-vault')
 
 }
 
