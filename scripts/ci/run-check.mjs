@@ -25,7 +25,7 @@ export async function runCheck(mode){
     else if(mode==='browser'){
       summary.suites=[...manifest.scripts['test:ui'].matchAll(/node --import tsx (scripts\/[^\s&]+\.browser\.ts)/g)].map(m=>m[1]);expected=summary.suites.length;
       if(expected<21)throw new Error('The complete browser battery must contain at least the 21 integrated suites.');
-      commands=[['npm',['run','test:ui']]];
+      commands=[[process.execPath,['scripts/ci/browser-battery.mjs']]];
     }else throw new Error(`Unknown mode: ${mode}`);
     const env={...process.env,CI:'true',FORCE_COLOR:'0',GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
     if(mode==='browser'){
@@ -50,6 +50,15 @@ export async function runCheck(mode){
     const complete=result&&result.tests>0&&result.tests===result.pass&&['fail','cancelled','skipped','todo'].every(key=>result[key]===0);
     return {suite,status:!result?'not_executed':complete?'passed':'failed',...(result??{})};
   });
+  if(mode==='browser'){
+    try{
+      const scheduled=JSON.parse(await readFile(path.join(dir,'schedule.json'),'utf8'));
+      if(scheduled.perSuite.length!==summary.suites.length||scheduled.perSuite.some((s,i)=>s.suite!==summary.suites[i]))throw Error('Scheduled suite identities do not match the full manifest.');
+      summary.executionPlan=scheduled.plan;
+      summary.perSuite=scheduled.perSuite.map(s=>({suite:s.suite,status:s.status,...(s.tests??{}),code:s.code,signal:s.signal,durationMs:s.durationMs,error:s.error}));
+      if(summary.passed&&(!scheduled.passed||scheduled.perSuite.some(s=>s.status!=='passed')))throw Error('Scheduler did not confirm every suite.');
+    }catch(error){summary.passed=false;summary.error=summary.error??error.message;}
+  }
   await writeFile(path.join(dir,'summary.json'),JSON.stringify(summary,null,2)+'\n');
   const totals=summary.tests.reduce((n,t)=>n+(t.tests??0),0),passed=summary.tests.reduce((n,t)=>n+(t.pass??0),0);
   const commands=summary.commands.map(c=>`| ${c.command.join(' ')} | ${c.code===0&&!c.signal?'PASS':'FAIL'} | ${(c.durationMs/1000).toFixed(2)} s |`).join('\n');

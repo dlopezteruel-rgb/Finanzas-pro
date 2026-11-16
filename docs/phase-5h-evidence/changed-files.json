@@ -1,0 +1,345 @@
+{
+  "baseCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "branch": "feature/phase-5h-secure-native-storage",
+  "runtimeSourceCommit": "4ba232966c7246c06a8af02c7a01a1bc0576a2b7",
+  "method": "Complete indexed diff against origin/main at closeout, including this manifest. Final delivery SHA is recorded in Draft PR #32.",
+  "files": [
+    {
+      "status": "M",
+      "path": ".gitignore"
+    },
+    {
+      "status": "M",
+      "path": "android/app/capacitor.build.gradle"
+    },
+    {
+      "status": "M",
+      "path": "android/capacitor.settings.gradle"
+    },
+    {
+      "status": "M",
+      "path": "docs/phase-5b-inventory.json"
+    },
+    {
+      "status": "M",
+      "path": "docs/phase-5b-lexical-exceptions.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/baseline-browser-summary.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/baseline-bundles.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/baseline-catalog-isolated.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/baseline-web-crash.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/capture-benchmark.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/captures.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/changed-files.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/final-bundles.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-axe-review.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-browser-summary.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-code-summary.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-diff.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-tools-summary.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-unit-summary.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/local-web-crash.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/native-adapter-axe-review.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/native-build-and-engine.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/npm-audit.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/prior-ci-timeout.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/runtime-source-fingerprints.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/scheduling-additional.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/scheduling-focused.json"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/vault-adapter-en-dark.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/vault-adapter-fr-light.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-evidence/vault-uncertain-commit.png"
+    },
+    {
+      "status": "A",
+      "path": "docs/phase-5h-secure-native-storage.md"
+    },
+    {
+      "status": "M",
+      "path": "ios/App/CapApp-SPM/Package.swift"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/.gitignore"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/Package.swift"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/README.md"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/SQLCipher-LICENSE.md"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/build.gradle"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/src/main/AndroidManifest.xml"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/FinanceVaultPlugin.java"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultDatabase.java"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultFailure.java"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultKeys.java"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/index.d.ts"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/index.js"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/ios/Sources/FinanceVaultPlugin/FinanceVaultPlugin.swift"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/ios/Sources/FinanceVaultPlugin/VaultDatabase.swift"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/ios/Sources/FinanceVaultPlugin/VaultKeys.swift"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/package.json"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/protocol/schema.sql"
+    },
+    {
+      "status": "A",
+      "path": "native/secure-vault/protocol/statements.json"
+    },
+    {
+      "status": "M",
+      "path": "package-lock.json"
+    },
+    {
+      "status": "M",
+      "path": "package.json"
+    },
+    {
+      "status": "A",
+      "path": "scripts/ci/browser-battery.mjs"
+    },
+    {
+      "status": "A",
+      "path": "scripts/ci/browser-battery.test.mjs"
+    },
+    {
+      "status": "M",
+      "path": "scripts/ci/run-check.mjs"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/build-policy.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/build-sqlcipher-test.sh"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/sqlcipher.integration.py"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/sqliteTestDriver.ts"
+    },
+    {
+      "status": "M",
+      "path": "scripts/native/validate-build.mjs"
+    },
+    {
+      "status": "A",
+      "path": "scripts/native/webCrashRecovery.ts"
+    },
+    {
+      "status": "A",
+      "path": "scripts/nativeVault.browser.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/App.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/en.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/es.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/fr.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/it.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/pt.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/i18n/storageMessages.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/platform/native/bootstrap.tsx"
+    },
+    {
+      "status": "M",
+      "path": "src/platform/native/native.css"
+    },
+    {
+      "status": "M",
+      "path": "src/platform/services.tsx"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/asyncFinanceStore.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/asyncFinanceStore.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/documents.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/nativeDriver.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/policy.test.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/policy.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/protocol.ts"
+    },
+    {
+      "status": "A",
+      "path": "src/platform/vault/testBridge.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/tests.ts"
+    },
+    {
+      "status": "M",
+      "path": "src/utils/useFinanceData.ts"
+    },
+    {
+      "status": "M",
+      "path": "vite.native.config.ts"
+    },
+    {
+      "status": "A",
+      "path": "vite.vault-test.config.ts"
+    }
+  ],
+  "count": 84
+}

@@ -1,0 +1,12 @@
+{
+  "tests": 43.0,
+  "pass": 43.0,
+  "fail": 0.0,
+  "cancelled": 0.0,
+  "skipped": 0.0,
+  "todo": 0.0,
+  "durationMs": 284616.197099,
+  "scope": "Isolated unchanged baseline suite; does not turn the earlier incomplete full run into a pass.",
+  "suite": "scripts/multilingualCatalog.browser.ts",
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81"
+}

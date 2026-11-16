@@ -1,0 +1,129 @@
+{
+  "scope": "Additional focused scheduling validation: 5/45 suites; not a complete battery.",
+  "durationMs": 72485,
+  "passed": true,
+  "plan": [
+    {
+      "concurrency": 2,
+      "suites": [
+        "scripts/i18n.browser.ts",
+        "scripts/translatedBanking.browser.ts",
+        "scripts/catalogQuickReceipt.browser.ts",
+        "scripts/lazyLanguage.browser.ts",
+        "scripts/deferredFeatures.browser.ts"
+      ]
+    }
+  ],
+  "perSuite": [
+    {
+      "suite": "scripts/i18n.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/i18n.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 26597,
+      "tests": {
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/translatedBanking.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/translatedBanking.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 72477,
+      "tests": {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/catalogQuickReceipt.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/catalogQuickReceipt.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 8582,
+      "tests": {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/lazyLanguage.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/lazyLanguage.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 15150,
+      "tests": {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/deferredFeatures.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/deferredFeatures.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 16306,
+      "tests": {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    }
+  ]
+}

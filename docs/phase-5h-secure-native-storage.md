@@ -1,5 +1,28 @@
 # Fase 5H — Persistencia financiera nativa segura
 
+## Estado de entrega y límites
+
+**Infraestructura de prototipo revisable; aceptación completa bloqueada.** Android/iOS continúan sin autorización para datos reales. Además se ha reproducido una incidencia **P0 preexistente en la web**: un SIGKILL inmediato después de confirmar una cuenta puede perder esa escritura de localStorage. El cierre normal y la interrupción antes de escribir sí pasan. El resultado es 2/3 tanto en ce1ec83 como en esta rama; no se presenta como aprobado ni se oculta detrás de la CI habitual.
+
+PR Draft única: [#32](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32). El [registro de entrega de la PR](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32) incluye el SHA final exacto, la URL de la ejecución final y los tres checks comprobados después de publicar. Los [checks asociados a la revisión actual](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32/checks) son la fuente de estado remoto; las cifras siguientes son las ejecuciones **locales** reales. No se deduce aprobación de un check todavía en curso.
+
+| Verificación local | Resultado real |
+| --- | --- |
+| npm ci | Correcto, 306 paquetes; lockfile conservado salvo plugin local |
+| npm test | **699/699**: 654 anteriores +45 nuevas; 0 fallos, canceladas, omitidas o todo |
+| Infraestructura CI | **28/28**: 22 anteriores +6 del planificador; sin omisiones |
+| Lint / build / diff | Aprobados; comparación real contra ce1ec83 |
+| npm run test:ui | **920/920 en 45 suites**: 885 anteriores +35 nuevas; 0 fallos/cancelaciones/omisiones/todo; 3.579,24s |
+| Axe combinado | **0 violaciones**, 1.662 observaciones; 937 grupos incompletos /51 conjuntos, pendientes contextuales |
+| Axe nuevo | 91 observaciones, 0 violaciones, 31 grupos incompletos /2 conjuntos; revisión contextual pendiente |
+| SQLCipher4.20 real, Linux | **11/11**; SQLite3.54.1/OpenSSL3.5.8; no equivale a protección de claves móvil |
+| Sonda de reinicio Web, fuera de batería habitual | Base **2/3** y rama **2/3**; SIGKILL tras confirmar **fallido**, con salida1 y estado anterior íntegro |
+| Android | APK debug unsigned compilado; runtime **bloqueado**, sin instalar/distribuir |
+| iOS | Fuentes y recursos SPM sincronizados; compilación/runtime **bloqueados** por falta de macOS/Xcode |
+| npm audit | 0 vulnerabilidades npm; no certifica bibliotecas/cripto nativas |
+
+[Informes de pruebas](phase-5h-evidence/local-browser-summary.json), [unitarias](phase-5h-evidence/local-unit-summary.json), [infraestructura](phase-5h-evidence/local-tools-summary.json), [código/diff](phase-5h-evidence/local-code-summary.json), [agrupación axe](phase-5h-evidence/local-axe-review.json), [motor y APK](phase-5h-evidence/native-build-and-engine.json), [fuentes de runtime](phase-5h-evidence/runtime-source-fingerprints.json). Los apartados de checkpoints que siguen conservan sus resultados históricos; sus cifras intermedias no sustituyen esta tabla.
+
 ## Checkpoint 1: base y decisión arquitectónica previa
 
 Base verificada: `ce1ec8398fed0eb6a39f0c362567b8a6613eaf81`, merge de PR #31 confirmado en GitHub. No hay commits posteriores en origin/main al empezar. Rama nueva `feature/phase-5h-secure-native-storage`, árbol inicialmente limpio, worktree independiente. Se conservan todos los entornos anteriores. La referencia 5G se vuelve a ejecutar: su árbol 4796e3f es idéntico al merge ce1ec83; no se heredan aprobaciones por sus cifras anteriores. Los resultados nuevos se documentarán al terminar.
@@ -111,17 +134,21 @@ Los 29 mensajes nuevos de almacenamiento y el aviso de prototipo se traducen med
 
 | Capacidad | Web | Android | iOS |
 | --- | --- | --- | --- |
-| Lectura persistente | Regresión final pendiente; contrato original conservado | Bloqueado: sin runtime | Bloqueado: sin macOS/Xcode/runtime |
-| Escritura atómica/CAS | Contrato original; pruebas unitarias aprobadas | Infraestructura implementada/compilada; runtime bloqueado | Fuentes implementadas; compilación/runtime bloqueados |
-| Cifrado en reposo | No añadido al contrato web | SQLCipher implementado; comprobación en Android bloqueada | SQLCipher implementado; comprobación en iOS bloqueada |
-| Protección de claves | No aplicable al contrato web actual | Keystore implementado; ejecución bloqueada | Keychain implementado; ejecución bloqueada |
-| Cierre forzado/actualización | No equivale a corte eléctrico; regresiones finales pendientes | Bloqueado | Bloqueado |
-| Copia recuperable/restauración | Motor original conservado | Adaptador probado con SQLite de escritorio; runtime bloqueado | Adaptador probado con SQLite de escritorio; runtime bloqueado |
-| Exportación y Share | Regresión final pendiente | Adaptador y consentimiento probados en Chromium; Share real bloqueado | Adaptador y consentimiento probados en Chromium; Share real bloqueado |
-| Importación externa | Conservada; regresión final pendiente | Bloqueada por política, selector preparado | Bloqueada por política, selector preparado |
-| Datos corruptos/esquema futuro | Unitarias originales conservadas | Motor Linux aprobado; puente Android pendiente | Motor Linux aprobado; puente iOS pendiente |
-| Equivalencia financiera | 693 unitarias compartidas aprobadas | Pruebas del coordinador/SQLite aprobadas; ejecución Android bloqueada | Pruebas del coordinador/SQLite aprobadas; ejecución iOS bloqueada |
-| Datos reales habilitados | Comportamiento web original | **NO** | **NO** |
+| Lectura persistente | **Aprobado**: recarga y reinicio normal comprobados | **Bloqueado**: sin runtime | **Bloqueado**: sin Xcode/runtime |
+| Escritura atómica lógica | **Aprobado**: contrato original bajo Web Locks; no equivale a fsync | **Bloqueado** en runtime; protocolo SQLite/SQLCipher de escritorio aprobado | **Bloqueado** en runtime; protocolo de escritorio aprobado |
+| Control de revisiones | **Aprobado** en pruebas originales y multiventana | **Bloqueado** en runtime; CAS de conexiones/procesos de escritorio aprobado | **Bloqueado** en runtime |
+| Cifrado en reposo | **No ejecutado**: no se añade cifrado al contrato web | **Bloqueado** en Android; SQLCipher implementado/compilado | **Bloqueado** en iOS; fuentes SQLCipher preparadas |
+| Protección de claves | No aplicable al contrato original | **Bloqueado**: Keystore sin ejecutar | **Bloqueado**: Keychain sin ejecutar |
+| Cierre normal y reapertura | **Aprobado** en Chromium real con perfil ficticio persistente | **Bloqueado** | **Bloqueado** |
+| Cierre forzado tras confirmar | **Fallido, P0 preexistente**: se recupera el documento anterior, falta la cuenta nueva | **Bloqueado**: no se extrapola Linux a Android | **Bloqueado** |
+| Interrupción antes de escribir | **Aprobado** en la sonda Chromium; estado anterior íntegro | **Bloqueado** en runtime; fallos SQL probados en escritorio | **Bloqueado** en runtime |
+| Copia recuperable | **Aprobado** en batería original | **Bloqueado** en runtime; coordinador/escritorio aprobado | **Bloqueado** en runtime |
+| Exportación | **Aprobado** en batería original y nueva | **Bloqueado** Share real; adaptador/consentimiento probado en Chromium | **Bloqueado** Share real |
+| Restauración | **Aprobado** en batería original | **Bloqueado** externo; restauración del coordinador probada en escritorio | **Bloqueado** externo/runtime |
+| Corrupción / esquema desconocido | **Aprobado** en validadores/regresiones originales | **Bloqueado** en runtime; rechazo sin borrado probado en escritorio | **Bloqueado** en runtime |
+| Versiones y migraciones | **Aprobado**: compatibilidad original; sin cambios nuevos de esquema financiero | **Bloqueado** en runtime; v1/2.5–3.5 comprobados en driver real de escritorio | **Bloqueado** en runtime |
+| Datos financieros equivalentes | **Aprobado** en motor compartido | **Bloqueado** en runtime; documentos y saldos comparados con web en SQLite real | **Bloqueado** en runtime |
+| Datos reales habilitados | Contrato web original conservado, con P0 documentado | **NO** | **NO** |
 
 Las columnas distinguen implementación, compilación y ejecución. Ninguna prueba nativa se marca como aprobada porque una simulación o CI web pase. No hay teléfono físico, emulador Android, macOS ni Xcode en este host. El APK unsigned no se distribuye. Capacitor8.6.2, Android SDK36/JDK21/Gradle8.14.3/AGP8.13.0 permanecen como en 5G; iOS requiere Xcode26+ con SwiftPM y el SDK oficial. Identificador provisional `invalid.finanzas.prototype` sin firma real.
 
@@ -263,3 +290,72 @@ No se presentan llamadas simuladas a un plugin como prueba de cifrado nativo. La
 Se refuerza la decisión inicial de sincronización: el modo final es **synchronous=EXTRA (3) + journal_mode=DELETE** en Android, iOS y los motores de prueba. [SQLite explica](https://www.sqlite.org/pragma.html#pragma_synchronous) que EXTRA añade fsync del directorio tras retirar el journal; FULL con DELETE puede revertir el último commit tras una pérdida de energía según el sistema de archivos. Los adaptadores comprueban el valor3 y el journal elegido; un ajuste inesperado bloquea la apertura. Esto no sustituye las pruebas de fallo físico pendientes en dispositivos.
 
 La API Android execSQL no debe usarse para PRAGMA que devuelven filas. El motor4.20 real confirma resultados en cipher_log_level, journal_mode y busy_timeout; se consumen mediante consultas. En iOS se drenan las filas hasta SQLITE_DONE antes de finalizar el statement. La configuración se establece antes de la transacción inicial de esquema. 699/699 unitarias, lint, 11/11 SQLCipher Linux y nueva compilación Android pasan. No hay ejecución Android/iOS ni habilitación de datos reales.
+
+
+## Incidencia crítica preexistente de la web — 5H-WEB-001
+
+| Campo | Evidencia |
+| --- | --- |
+| Gravedad / estado | **P0, abierto**, pérdida de una escritura que la interfaz ya había confirmado, bajo cierre abrupto de todos los procesos del navegador |
+| Alcance | Reproducido con Chromium de este host y datos ficticios; afecta también a ce1ec83, no es una regresión introducida por 5H |
+| Reproducción | Establecer un perfil ficticio en disco mediante cierre normal y verificarlo; abrir la app web, crear una cuenta, esperar cierre del formulario y leer el snapshot confirmado; SIGKILL del grupo de procesos **propio**; reabrir el mismo perfil/origen |
+| Actual | Falta la cuenta nueva y el hash del documento coincide exactamente con el snapshot anterior íntegro |
+| Esperado para durabilidad fuerte | El snapshot que se confirmó debe sobrevivir al cierre probado |
+| Controles | Cierre normal tras guardar aprobado; SIGKILL antes de ejecutar el callback del Web Lock aprobado, sin operación nueva |
+| Resultados | **2/3 base y 2/3 rama**, 1 fallo en cada ejecución; el script devuelve1, no reintenta para ocultarlo ni lo convierte en un éxito esperado |
+| Prueba / informes | [webCrashRecovery.ts](../scripts/native/webCrashRecovery.ts), [base](phase-5h-evidence/baseline-web-crash.json), [rama](phase-5h-evidence/local-web-crash.json) |
+| Acción necesaria | Decidir una persistencia web con confirmación duradera y recuperación compatibles, conservando datos/identidades/JSON y Web Locks; requiere una revisión específica del contrato web original |
+
+La sonda establece primero un checkpoint **realmente recuperable** cerrando normalmente el navegador, y comprueba sus bytes antes del fallo. Así se distingue pérdida del cambio nuevo de una preparación que nunca llegó a disco. Los perfiles son privados, temporales y ficticios; se eliminan únicamente sus propios archivos al terminar. No se mata ningún navegador ajeno. Se guardan hashes y conteos, no documentos personales.
+
+Este experimento adicional se mantiene separado de npm run test:ui y de los tres checks habituales; su fallo está publicado aquí y la aceptación completa sigue bloqueada. **Una CI verde de la batería habitual no resuelve ni aprueba 5H-WEB-001.** No se altera el contrato ni el almacenamiento web solicitado en3.1/17 para hacer desaparecer el resultado. Cambiarlo con seguridad exige diseñar compatibilidad, confirmación de durabilidad, concurrencia, copias y recuperación; no basta con retrasar artificialmente el mensaje de éxito.
+
+```bash
+# Builds web de producción, datos ficticios y perfiles nuevos; devuelve1 si hay un fallo.
+CHROMIUM_PATH=/usr/bin/chromium node --import tsx scripts/native/webCrashRecovery.ts /ruta/base-ce1ec83/dist /tmp/base-crash.json
+CHROMIUM_PATH=/usr/bin/chromium node --import tsx scripts/native/webCrashRecovery.ts dist /tmp/5h-crash.json
+```
+
+No se ha validado Safari, Firefox, teléfonos físicos ni cortes eléctricos. La prueba no atribuye su resultado a todas las versiones de todos los navegadores. La persistencia nativa se valida de forma independiente y permanece bloqueada para datos reales.
+
+## Rendimiento, permisos y evidencia final
+
+| Métrica reproducible | Base ce1ec83 | Rama |
+| --- | --- | --- |
+| JavaScript inicial landing gzip | 138.072 bytes | 138.880 bytes (+808;0,59%) |
+| Grafo estático App gzip | 249.065 bytes | 250.262 bytes (+1.197;0,48%) |
+| Módulos nativos/SQLite en todos los chunks web | 0 | 0 |
+| APK debug unsigned, cuatro ABI | 5.543.039 bytes | 13.407.342 bytes |
+| Inicio/memoria Android/iOS | Sin runtime medido | **Bloqueado**, no se inventa una cifra |
+
+El APK final local tiene SHA256 `e0de9d12990b7f8168b013051df89181f0ae5d971b597cea35d36d5dd6b97940`. Sus fuentes de runtime corresponden al checkpoint4ba2329, con los mismos bytes de aplicación que el cierre de evidencias; el [manifiesto](phase-5h-evidence/runtime-source-fingerprints.json) permite compararlos. El binario no se sube ni distribuye. apksigner confirma ausencia de firma: esto es esperado para el prototipo, no una firma de distribución validada.
+
+La diferencia de APK se debe sobre todo a las cuatro bibliotecas ABI de SQLCipher. Los [informes de bundles](phase-5h-evidence/final-bundles.json) confirman que no entra ese motor en la web. El manifiesto Android **fusionado**, además del de fuentes, conserva exactamente INTERNET y el permiso interno signature DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION que ya existía en5G; no se añaden permisos generales de almacenamiento. iOS conserva sus declaraciones previas de privacidad y no añade iCloud/analítica. La revisión bajo Xcode/runtime sigue pendiente.
+
+Advertencias observadas: npm mantiene la deprecación transitiva node-domexception1.0.0; Gradle informa de repositorios flatDir y APIs que no serán compatibles con Gradle9. Se conservan las versiones comprobadas de5G y no se realizan actualizaciones automáticas. Cero vulnerabilidades npm no es aprobación de seguridad de Maven/SPM, del firmware o del dispositivo.
+
+### Capturas reales con datos ficticios
+
+Son capturas de la aplicación de diagnóstico en **Chromium**, no Android ni iOS. [Hashes y alcance](phase-5h-evidence/captures.json).
+
+- [Resultado incierto: formulario conservado y acciones separadas](phase-5h-evidence/vault-uncertain-commit.png).
+- [Francés, móvil y tema claro](phase-5h-evidence/vault-adapter-fr-light.png).
+- [Inglés, móvil y tema oscuro](phase-5h-evidence/vault-adapter-en-dark.png).
+
+### Accesibilidad y pendientes
+
+El informe combinado local registra 28 informes/1.662 observaciones, **cero violaciones**, 937 grupos incompletos/51 conjuntos equivalentes. Las91 observaciones nuevas añaden31 grupos/2 conjuntos, todos color-contrast:elmPartiallyObscuring en diálogos superpuestos. No son31 defectos independientes ni revisiones manuales aprobadas. Se conservan [ejemplos y referencias](phase-5h-evidence/native-adapter-axe-review.json).
+
+Los **947 grupos/53 conjuntos de referencia de5G** siguen identificados y abiertos en [su informe de CI](phase-5g-evidence/reference-ci-axe-review.json). Las diferencias por navegador/entorno no se presentan como resoluciones. No se han utilizado lectores de pantalla ni dispositivos físicos.
+
+### CI y criterio de revisión
+
+El workflow mantiene sus tres trabajos y el límite global de50min, sin cambiar reglas, aserciones ni permisos. Los checkpoints publicados durante el trabajo generan ejecuciones separadas: 43922926002,43924760454,43926972745 y43928495946 quedaron sustituidas por correcciones; no son aprobaciones completas. La ejecución[43933525220](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43933525220), código4ba2329, **se canceló por alcanzar el límite de50min**, no por falta de créditos: unitarias y código aprobados, Chromium con42/45 suites completas y828/828 resultados, suite43 interrumpida y dos sin ejecutar. No se declara aprobada.
+
+Se conserva npm run test:ui secuencial y cada una de sus45 órdenes. Solo el ejecutor de CI incorpora [browser-battery.mjs](../scripts/ci/browser-battery.mjs): extrae el manifiesto original, construye producción una vez y permite hasta dos suites **previamente revisadas como aisladas** en paralelo. La compilación, routes (que reconstruye dist), matrices largas, volumen y cualquier suite nueva desconocida son barreras exclusivas. No hay reintentos ni cambios en timeouts, axe, assertions o datos. Cada suite conserva su log y salida; los resúmenes se emiten en orden de manifiesto. Una salida no cero, señal, omisión o cancelación falla el trabajo; no se lanzan etapas posteriores y se espera el cierre de las que ya estaban en marcha. schedule.json registra identidades y estados, incluso si el job es interrumpido. run-check exige coincidencia con el manifiesto completo antes de aprobar.
+
+Se añaden seis pruebas de infraestructura: conservación exacta de comandos/barreras, rechazo de comandos ocultos/duplicados/rutas inválidas, concurrencia máxima y orden de resultados, y fallos reales por código7, omisión y señal. Las22 originales permanecen. Una [microcomparación de160 capturas](phase-5h-evidence/capture-benchmark.json) midió medianas de17–35ms con Playwright y16–32ms con CDP directo (diferencias de1–3,3ms), insuficientes para explicar el límite; no se modifica la captura de diagnósticos. La [primera ejecución real focalizada](phase-5h-evidence/scheduling-focused.json) del planificador aprueba357/357 resultados en22 suites,649,45s. La [segunda ejecución focalizada](phase-5h-evidence/scheduling-additional.json) aprueba45/45 resultados en5 suites,72,48s. En conjunto402/402 en27 suites, sin omisiones. Estas ejecuciones focalizadas no sustituyen la batería completa local ni la CI final.
+
+El estado, SHA, URL, duraciones y recuentos **definitivos** se comprueban y registran en el [registro de entrega de PR32](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32) después de publicar ese cierre; no se inventa anticipadamente el resultado de un commit cuyo CI aún no existe. Una aprobación de esos tres checks no resuelve la sonda5H-WEB-001 ni habilita datos reales móviles.
+
+La infraestructura puede revisarse, pero **no se declara aceptación completa ni autorización de datos reales**: faltan ejecución y seguridad Android/iOS, copias portables verificadas, validaciones de ciclo de vida/actualización y una decisión sobre el P0 web. No se fusiona, despliega, distribuye beta ni sincroniza Google AI Studio. Main y sus protecciones permanecen intactos.

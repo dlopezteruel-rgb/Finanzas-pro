@@ -1,0 +1,40 @@
+{
+  "scope": "Prior CI timeout, not an approval. Subsequent final SHA results are recorded on Draft PR #32.",
+  "runUrl": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/43933525220",
+  "sourceCommit": "4ba232966c7246c06a8af02c7a01a1bc0576a2b7",
+  "reason": "50-minute Chromium job limit",
+  "jobs": [
+    {
+      "id": 133532113424,
+      "name": "Chromium y axe",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 133532114354,
+      "name": "Unitarias",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 133532114653,
+      "name": "Lint, build y diff",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "completeBrowserSuites": 42,
+  "totalBrowserSuites": 45,
+  "completeBrowserResults": 828,
+  "passedBrowserResults": 828,
+  "incompleteSuite": "scripts/intentPreload.browser.ts",
+  "notExecuted": [
+    "scripts/nativeFoundation.browser.ts",
+    "scripts/nativeVault.browser.ts"
+  ],
+  "artifact": {
+    "id": 14263950299,
+    "sha256": "5dcad6fe4e561b794efc2ade0448067a87ac048d799f733f156aa619414dd41c"
+  },
+  "remedy": "Bounded parallel scheduling only for reviewed isolated suites; existing per-suite limits, assertions and global 50-minute budget retained."
+}

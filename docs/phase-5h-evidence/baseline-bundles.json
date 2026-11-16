@@ -1,0 +1,196 @@
+{
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "method": "Production Vite8/Rolldown outputs; actual minified/gzip bytes by chunk. Module renderedLength is pre-final-minification and cannot assign an exact compressed share. Initial means the static entry graph, not dynamic imports.",
+  "node": "v24.22.1",
+  "landingInitial": {
+    "bytes": 468605,
+    "gzipBytes": 138072
+  },
+  "applicationStaticGraph": {
+    "bytes": 858460,
+    "gzipBytes": 249065
+  },
+  "nativeModulesAcrossAllWebChunks": [],
+  "chunks": [
+    {
+      "file": "assets/index-JBTKUaAh.js",
+      "initial": true,
+      "bytes": 221187,
+      "gzipBytes": 68848
+    },
+    {
+      "file": "assets/App-CKXGdC7Z.js",
+      "initial": false,
+      "bytes": 251053,
+      "gzipBytes": 68302
+    },
+    {
+      "file": "assets/AssistantChatView-C_qO_1Ft.js",
+      "initial": false,
+      "bytes": 14409,
+      "gzipBytes": 5009
+    },
+    {
+      "file": "assets/BudgetsView-BpZ8RDgG.js",
+      "initial": false,
+      "bytes": 18125,
+      "gzipBytes": 4790
+    },
+    {
+      "file": "assets/CatalogManager-5eOcpDvg.js",
+      "initial": false,
+      "bytes": 11771,
+      "gzipBytes": 3256
+    },
+    {
+      "file": "assets/ContactsView-BE7fS5Cb.js",
+      "initial": false,
+      "bytes": 18213,
+      "gzipBytes": 4603
+    },
+    {
+      "file": "assets/DebtsWorkspace-DBPT5a_1.js",
+      "initial": false,
+      "bytes": 11623,
+      "gzipBytes": 3065
+    },
+    {
+      "file": "assets/FinancialCharts-BhEUeT1N.js",
+      "initial": false,
+      "bytes": 40852,
+      "gzipBytes": 12574
+    },
+    {
+      "file": "assets/LoansView-Dq-nlyP9.js",
+      "initial": false,
+      "bytes": 16982,
+      "gzipBytes": 4370
+    },
+    {
+      "file": "assets/Overlay-BBE600QM.js",
+      "initial": false,
+      "bytes": 3609,
+      "gzipBytes": 1538
+    },
+    {
+      "file": "assets/PlanningView-BQgTNkmp.js",
+      "initial": false,
+      "bytes": 47237,
+      "gzipBytes": 12046
+    },
+    {
+      "file": "assets/SafeDialog-BD4iPuVK.js",
+      "initial": false,
+      "bytes": 497,
+      "gzipBytes": 343
+    },
+    {
+      "file": "assets/TreasuryView-D8PksS62.js",
+      "initial": false,
+      "bytes": 4811,
+      "gzipBytes": 1536
+    },
+    {
+      "file": "assets/WalletsView-s6-8bw0Q.js",
+      "initial": false,
+      "bytes": 18945,
+      "gzipBytes": 5227
+    },
+    {
+      "file": "assets/arrow-down-left-Dx9EDJOF.js",
+      "initial": false,
+      "bytes": 157,
+      "gzipBytes": 151
+    },
+    {
+      "file": "assets/budgetCatalog-BNr9Q0VJ.js",
+      "initial": false,
+      "bytes": 13488,
+      "gzipBytes": 4289
+    },
+    {
+      "file": "assets/chevron-down-ZGV8FoM0.js",
+      "initial": false,
+      "bytes": 117,
+      "gzipBytes": 131
+    },
+    {
+      "file": "assets/deletion-BP9oXlmj.js",
+      "initial": false,
+      "bytes": 6360,
+      "gzipBytes": 2282
+    },
+    {
+      "file": "assets/en-CYaiuNGb.js",
+      "initial": false,
+      "bytes": 174151,
+      "gzipBytes": 46246
+    },
+    {
+      "file": "assets/fr-Dhl2IOlN.js",
+      "initial": false,
+      "bytes": 190481,
+      "gzipBytes": 49902
+    },
+    {
+      "file": "assets/i18n-dCPYtD4R.js",
+      "initial": true,
+      "bytes": 247418,
+      "gzipBytes": 69224
+    },
+    {
+      "file": "assets/intelligentValidation-CUL7pM0x.js",
+      "initial": false,
+      "bytes": 7224,
+      "gzipBytes": 2628
+    },
+    {
+      "file": "assets/it-vyl_7zxF.js",
+      "initial": false,
+      "bytes": 182241,
+      "gzipBytes": 48338
+    },
+    {
+      "file": "assets/personalObligations-B4yzpyy8.js",
+      "initial": false,
+      "bytes": 4248,
+      "gzipBytes": 1699
+    },
+    {
+      "file": "assets/planning-B-uMfJ_0.js",
+      "initial": false,
+      "bytes": 6917,
+      "gzipBytes": 2560
+    },
+    {
+      "file": "assets/planningAutomation-nQ3XKW7S.js",
+      "initial": false,
+      "bytes": 12347,
+      "gzipBytes": 4397
+    },
+    {
+      "file": "assets/planningAutomationValidation-BmlTAAM4.js",
+      "initial": false,
+      "bytes": 4317,
+      "gzipBytes": 1821
+    },
+    {
+      "file": "assets/pt-Cyxhn7YB.js",
+      "initial": false,
+      "bytes": 183180,
+      "gzipBytes": 48295
+    },
+    {
+      "file": "assets/storageMessages-DsEbgXxA.js",
+      "initial": false,
+      "bytes": 78835,
+      "gzipBytes": 20576
+    },
+    {
+      "file": "assets/useAsyncForm-C3MFN2YN.js",
+      "initial": false,
+      "bytes": 960,
+      "gzipBytes": 558
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "mode": "tools",
+  "node": "v24.22.1",
+  "passed": true,
+  "commands": [
+    {
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--test",
+        "scripts/ci/browser-battery.test.mjs",
+        "scripts/ci/browser-diagnostics.test.mjs",
+        "scripts/ci/check-diff.test.mjs",
+        "scripts/ci/run-check.test.mjs",
+        "scripts/ci/test-results.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 2876
+    }
+  ],
+  "tests": [
+    {
+      "tests": 28,
+      "suites": 0,
+      "pass": 28,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  ],
+  "error": null
+}

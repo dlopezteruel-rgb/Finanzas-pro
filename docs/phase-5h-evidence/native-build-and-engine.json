@@ -1,0 +1,69 @@
+{
+  "sourceCommit": "4ba232966c7246c06a8af02c7a01a1bc0576a2b7",
+  "scope": "Compilation and packaged resources only; unsigned development APK retained locally, not distributed. Android/iOS native execution blocked.",
+  "capacitor": "8.6.2",
+  "plugin": "@finanzas/native-vault 0.1.0",
+  "sqlcipherDependency": "4.20.0",
+  "sqliteVersionAndroid": "not executed",
+  "sqliteVersionIOS": "not executed",
+  "apk": {
+    "bytes": 13407342,
+    "sha256": "e0de9d12990b7f8168b013051df89181f0ae5d971b597cea35d36d5dd6b97940",
+    "unsigned": true,
+    "testBridgePackaged": false,
+    "libraries": [
+      {
+        "file": "lib/arm64-v8a/libsqlcipher.so",
+        "bytes": 2110992,
+        "packagedBytes": 2110992
+      },
+      {
+        "file": "lib/armeabi-v7a/libsqlcipher.so",
+        "bytes": 1057676,
+        "packagedBytes": 1057676
+      },
+      {
+        "file": "lib/x86/libsqlcipher.so",
+        "bytes": 2260832,
+        "packagedBytes": 2260832
+      },
+      {
+        "file": "lib/x86_64/libsqlcipher.so",
+        "bytes": 2249352,
+        "packagedBytes": 2249352
+      }
+    ]
+  },
+  "android": {
+    "compiled": true,
+    "runtime": "blocked: no emulator/device/KVM",
+    "jdk": "21.0.13+9",
+    "sdk": 36,
+    "buildTools": "36.0.0",
+    "gradle": "8.14.3",
+    "agp": "8.13.0",
+    "mergedPermissions": [
+      "android.permission.INTERNET",
+      "invalid.finanzas.prototype.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "permissionsAddedFrom5G": []
+  },
+  "ios": {
+    "sourcesSynced": true,
+    "compiled": false,
+    "runtime": "blocked: Linux host, no macOS/Xcode"
+  },
+  "desktopEngine": {
+    "sqlcipher": "4.20.0",
+    "sqlite": "3.54.1",
+    "openssl": "OpenSSL 3.5.8 25 Aug 2026",
+    "platform": "Linux x86_64",
+    "sourceCommit": "355d4db92d3404e71faa8088d071a71d767807f4",
+    "sourceArchiveSha256": "fc5394c916beeabb1f43e2ac97d0827f36e8917f6675a00cca54537c32cb36a2",
+    "tests": 11,
+    "passed": 11,
+    "synchronous": 3,
+    "journalMode": "delete",
+    "doesNotValidate": "Android Keystore, iOS Keychain or mobile lifecycle"
+  }
+}
