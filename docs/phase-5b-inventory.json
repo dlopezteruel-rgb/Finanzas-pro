@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1073,
-    "review": 3423,
+    "review": 3424,
     "translation-key": 1539,
     "ui-message-candidate": 398,
     "attribute-internal": 2189,
@@ -569,7 +569,7 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "648cdae5fb918d0d99a2450a55b63e3b8fe557aa086ceedcddca4a31c06d513a",
+      "sourceSha256": "9321830f7a747dbb89a96b4df5c6e3a42a54850a52189c4446c8f07089d880a1",
       "counts": {
         "type-or-import": 63,
         "review": 95,
@@ -1990,7 +1990,7 @@
     {
       "file": "src/platform/financeBinding.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "ba12b867bfafb79db31d22f9ee52a2fb337e273377b6cd77e6c7193c5a1a5c4f",
+      "sourceSha256": "ff586a4ed6584d67af95e70c3bf4d872ad9b04defd71eff4f10f5ce7978f7026",
       "counts": {
         "type-or-import": 8,
         "review": 9
@@ -2082,11 +2082,11 @@
     {
       "file": "src/platform/web/forensic.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "71168f1071105da7c84dc962a4f1f8923724b687d057f5b34c9dbb520b36dedc",
+      "sourceSha256": "e64622a20540296b94f3dbede12cf837e54973368470a117113c84cc03f70f07",
       "counts": {
         "type-or-import": 4,
         "ui-message-candidate": 2,
-        "review": 12
+        "review": 13
       },
       "visibleCandidateLines": [
         10,

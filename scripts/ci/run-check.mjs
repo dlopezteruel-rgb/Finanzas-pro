@@ -27,7 +27,7 @@ export async function runCheck(mode){
     else if(mode==='browser'){
       summary.suites=[...manifest.scripts['test:ui'].matchAll(/node --import tsx (scripts\/[^\s&]+\.browser\.ts)/g)].map(m=>m[1]);expected=summary.suites.length;
       if(!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
-      if(expected<45)throw new Error('The complete browser battery must contain at least the 21 integrated suites.');
+      if(expected<45)throw new Error('The complete browser battery must retain the44 integrated suites and mandatory WEB-001 gate.');
       commands=[['npm',['run','test:ui']]];
     }else throw new Error(`Unknown mode: ${mode}`);
     const env={...process.env,CI:'true',FORCE_COLOR:'0',GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
@@ -45,6 +45,9 @@ export async function runCheck(mode){
       const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
       summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
       summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
+      const engine=JSON.parse(await readFile(path.join(dir,'web-storage-engine.json'),'utf8')),ui=JSON.parse(await readFile(path.join(dir,'web-storage-ui.json'),'utf8'));
+      if(summary.tests.reduce((n,r)=>n+r.tests,0)<953||engine.results?.length<29||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      summary.webStorage={engineCases:engine.results.length,uiSurfaces:ui.observations.length,violations:0,incompleteGroups:ui.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
       summary.axe={surfaces:axe.observations.length,violations:0,incompleteGroups:axe.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};

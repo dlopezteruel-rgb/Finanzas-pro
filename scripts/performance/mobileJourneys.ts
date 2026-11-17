@@ -10,7 +10,9 @@ import {translatorFor} from '../../src/i18n';
 import {volumeFixture} from './fixture';
 import {navigateModule} from '../browserNavigation';
 import {observePersistence} from './persistenceProbe';
-if(process.env.PERF_BACKEND==='indexeddb')await import('../webStorageBrowserPrelude.mjs');
+const persistenceBackend=process.env.PERF_BACKEND??'indexeddb';
+if(!['legacy','indexeddb'].includes(persistenceBackend))throw Error('Unknown explicit persistence backend.');
+if(persistenceBackend==='indexeddb')await import('../webStorageBrowserPrelude.mjs');
 
 const dist=path.resolve(process.env.PERF_DIST??'dist'),output=process.env.PERF_OUTPUT??'ci-artifacts/mobile-journeys.json',samples=Number(process.env.PERF_SAMPLES??3),tr=translatorFor('es');
 const profiles=[{name:'mobile',width:390,cpu:4,latency:80,mbps:1.6},{name:'tablet',width:768,cpu:2,latency:40,mbps:5},{name:'desktop',width:1280,cpu:1,latency:20,mbps:10}].filter(p=>!process.env.PERF_PROFILE||p.name===process.env.PERF_PROFILE);
@@ -46,5 +48,5 @@ try{
    const copies=await page.evaluate(async prefix=>window.__fixtureStorage?(await window.__fixtureStorage.entries()).filter(([k])=>k.startsWith(prefix)).map(([,v])=>v):Object.keys(localStorage).filter(k=>k.startsWith(prefix)).map(k=>localStorage.getItem(k)!),RECOVERY_PREFIX);assert.ok(copies.some(c=>JSON.stringify(parseBackup(c).transactions)===JSON.stringify(backup.transactions)),'Previous records remain recoverable');
   }finally{await context.close();}
  }
-}finally{await mkdir(path.dirname(output),{recursive:true});await writeFile(output,JSON.stringify({schemaVersion:1,backend:process.env.PERF_BACKEND??'legacy',sourceCommit:process.env.PERF_SOURCE_SHA??null,dist,samples,profiles,browser:browser.version(),method:'Production gzip, same CDP CPU/network profiles.3 samples per profile. Latency includes dispatch and2frames. No temporal gates. Financial mutation is allowed only at explicit verified restoration confirmation; every other step requires zero writes. Fixed wall clock2026-11-14T12Z does not freeze performance clock. No service/API calls permitted.',rows,errors,unexpectedAPI},null,2)+'\n');await browser.close();await new Promise<void>(r=>server.close(()=>r()));}
+}finally{await mkdir(path.dirname(output),{recursive:true});await writeFile(output,JSON.stringify({schemaVersion:1,backend:persistenceBackend,sourceCommit:process.env.PERF_SOURCE_SHA??null,dist,samples,profiles,browser:browser.version(),method:'Production gzip, same CDP CPU/network profiles.3 samples per profile. Latency includes dispatch and2frames. No temporal gates. Financial mutation is allowed only at explicit verified restoration confirmation; every other step requires zero writes. Fixed wall clock2026-11-14T12Z does not freeze performance clock. No service/API calls permitted.',rows,errors,unexpectedAPI},null,2)+'\n');await browser.close();await new Promise<void>(r=>server.close(()=>r()));}
 assert.deepEqual(errors,[]);assert.deepEqual(unexpectedAPI,[]);

@@ -18,8 +18,9 @@ export function memoryFinanceStorage():SyncFinanceStorage{
 }
 function browserStorage():SyncFinanceStorage{
  // Access stays lazy: landing/platform detection must never read financial storage.
- const raw=window.localStorage;
- return {getItem:key=>raw.getItem(key),setItem:(key,value)=>{raw.setItem(key,value);return undefined;},key:index=>raw.key(index),get length(){return raw.length;}};
+ // A denied legacy source must not prevent opening an independently readable
+ // confirmed database in consultation mode. Every access remains permission-checked.
+ return {getItem:key=>window.localStorage.getItem(key),setItem:(key,value)=>{window.localStorage.setItem(key,value);return undefined;},key:index=>window.localStorage.key(index),get length(){return window.localStorage.length;}};
 }
 function focusSubscription(check:()=>void){window.addEventListener('focus',check);return()=>window.removeEventListener('focus',check);}
 export const webFinanceBinding:FinanceBinding={

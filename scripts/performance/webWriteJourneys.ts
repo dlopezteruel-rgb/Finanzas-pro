@@ -12,7 +12,7 @@ import {volumeFixture} from './fixture';
 import {observePersistence} from './persistenceProbe';
 import {navigateModule,chooseMovementPartida} from '../browserNavigation';
 import {readCommittedWebSnapshot} from '../webStorageFixture';
-const backend=process.env.PERF_BACKEND??'legacy',dist=path.resolve(process.env.PERF_DIST??'dist'),output=process.env.PERF_OUTPUT??'ci-artifacts/web-write-journeys.json',samples=Number(process.env.PERF_SAMPLES??3);
+const backend=process.env.PERF_BACKEND??'indexeddb',dist=path.resolve(process.env.PERF_DIST??'dist'),output=process.env.PERF_OUTPUT??'ci-artifacts/web-write-journeys.json',samples=Number(process.env.PERF_SAMPLES??3);
 assert.ok(['legacy','indexeddb'].includes(backend));
 const profiles=[{name:'mobile',width:390,cpu:4,latency:80,mbps:1.6},{name:'tablet',width:768,cpu:2,latency:40,mbps:5},{name:'desktop',width:1280,cpu:1,latency:20,mbps:10}].filter(p=>!process.env.PERF_PROFILE||p.name===process.env.PERF_PROFILE);
 const app=express(),compressed=new Map<string,Buffer>();app.get(/\.(?:js|css)$/,async(req,res,next)=>{try{const file=path.resolve(dist,'.'+req.path);if(!file.startsWith(dist+path.sep))return res.sendStatus(403);let bytes=compressed.get(file);if(!bytes){bytes=gzipSync(await readFile(file));compressed.set(file,bytes);}res.set({'Content-Type':file.endsWith('.js')?'text/javascript':'text/css','Content-Encoding':'gzip','Cache-Control':'public,max-age=3600'}).send(bytes);}catch{next();}});app.use(express.static(dist));app.get('*',(_q,r)=>r.sendFile(path.join(dist,'index.html')));

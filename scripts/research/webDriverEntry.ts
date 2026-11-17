@@ -9,3 +9,4 @@ export {intelligentFixture} from '../intelligentFixture';
 export {multilingualCatalogFixture} from '../multilingualCatalogFixture';
 export {DATA_KEY,RECOVERY_PREFIX,StorageConflictError,makeBackup,parseBackup,parseSnapshot,serializeSnapshot} from '../../src/utils/backup';
 export {FinanceStore,browserExclusiveWrite} from '../../src/utils/financeStore';
+export {webFinanceBinding} from '../../src/platform/financeBinding';

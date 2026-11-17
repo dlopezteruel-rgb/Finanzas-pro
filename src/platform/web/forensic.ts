@@ -34,7 +34,10 @@ export function hasForensicData(report:Forensic):boolean{
 export async function exportWebForensic(storage:()=>SyncFinanceStorage,driver?:WebDriver):Promise<string>{
  const report:Forensic={kind:'finanzas-web-forensic',schema:1,complete:true,errors:[],legacy:{},database:{}};
  try{report.legacy=legacyInventory(storage());}catch{report.complete=false;report.errors.push('LEGACY_UNREADABLE');}
- try{report.database=driver?await driver.forensic():await rawDatabase();}catch{report.complete=false;report.errors.push('DATABASE_UNREADABLE');}
+ try{
+  if(driver){try{report.database=await driver.forensic();}catch{report.complete=false;report.errors.push('SESSION_UNREADABLE');report.database=await rawDatabase();}}
+  else report.database=await rawDatabase();
+ }catch{report.complete=false;report.errors.push('DATABASE_UNREADABLE');}
  if(!hasForensicData(report))throw new WebStorageError(report.errors.includes('LEGACY_UNREADABLE')?'WEB_READ_BLOCKED':'WEB_FORENSIC_EMPTY');
  // Retain the old forensic file's flat raw keys alongside the explicitly versioned
  // new-store records. This is never labelled as a financial backup.
