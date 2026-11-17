@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1112,
-    "review": 3566,
+    "review": 3567,
     "translation-key": 1556,
     "ui-message-candidate": 399,
     "attribute-internal": 2198,
@@ -3055,17 +3055,17 @@
     {
       "file": "src/utils/useFinanceData.ts",
       "policy": "Domain implementation protected; review owned UI output for boundary adapters",
-      "sourceSha256": "6448694665927c6e27643f4b8ecb8b08109a048c8256bc0295d089e91a236391",
+      "sourceSha256": "7cbe5bb7604dc244ce7947b65a510700902e9db45828560979d8098728a5d901",
       "counts": {
         "type-or-import": 10,
-        "review": 17,
+        "review": 18,
         "ui-message-candidate": 4
       },
       "visibleCandidateLines": [
         34,
         35,
         41,
-        55
+        56
       ],
       "presentationCalls": []
     }

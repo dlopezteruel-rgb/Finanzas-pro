@@ -23,7 +23,7 @@ export function useFinanceData(defaults:FinanceData){
  const [store,setStore]=useState<Store|null>(initial.store),[data,setData]=useState(initial.data),[loadError,setLoadError]=useState(initial.error);
  const [loading,setLoading]=useState(initial.opening),[loadingPhase,setLoadingPhase]=useState<'loading'|'migrating'>('loading');
  const [saveError,setSaveError]=useState(''),[conflict,setConflict]=useState(false),[capabilityError,setCapabilityError]=useState(()=>initial.kind==='prototype'?binding.supportError():'');
- const [persistencePhase,setPersistencePhase]=useState<WebPhase|VaultPhase>('ready'),[persistenceRevision,setPersistenceRevision]=useState(0);
+ const [persistencePhase,setPersistencePhase]=useState<WebPhase|VaultPhase>(()=>initial.store&&'phase' in initial.store?initial.store.phase:'ready'),[persistenceRevision,setPersistenceRevision]=useState(0);
  const controller=store&&'subscribe' in store?store:undefined;
  function reportError(error:unknown){if(!mounted.current)return;if(error instanceof StorageConflictError)setConflict(true);setSaveError(saveErrorMessage(error));}
  useEffect(()=>{
@@ -39,7 +39,8 @@ export function useFinanceData(defaults:FinanceData){
  useEffect(()=>{
   if(!controller)return;
   const sync=()=>{setPersistencePhase(controller.phase);setPersistenceRevision(n=>n+1);setCapabilityError(controller.phase==='readonly'?controller.problem??'':'');};
-  sync();return controller.subscribe(sync);
+  // Initial phase is captured at controller hand-off; subscribing must not repeat hydration.
+  return controller.subscribe(sync);
  },[controller]);
  useEffect(()=>{
   if(!store)return;let active=true;

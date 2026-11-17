@@ -1,0 +1,391 @@
+{
+  "backend": "indexeddb",
+  "sourceCommit": "b1e7316b26b0f18555da3828ef52733ed2f963b5",
+  "browser": "156.0.8078.79",
+  "node": "v24.22.1",
+  "environment": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cores": 3,
+    "memoryBytes": 10452459520
+  },
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    }
+  ],
+  "samples": 3,
+  "rows": [
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 2988.601028,
+      "trace": [
+        {
+          "kind": "capability-probe",
+          "start": 3244,
+          "end": 3247,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3393,
+          "end": 3403,
+          "status": "complete",
+          "characters": 259654
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3465,
+          "end": 3470,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 58.42781300000024
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 652.481777,
+      "submitToConfirmationMs": 609,
+      "preparationAndDispatchMs": 416,
+      "storageBarrierMs": 14,
+      "postBarrierToUiMs": 179,
+      "verificationReadMs": 6,
+      "remainingVerificationAndRenderMs": 173,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 5250,
+          "end": 5264,
+          "status": "complete",
+          "characters": 259848
+        },
+        {
+          "kind": "verification-read",
+          "start": 5264,
+          "end": 5270,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 780.163783,
+      "submitToConfirmationMs": 713,
+      "preparationAndDispatchMs": 430,
+      "storageBarrierMs": 41,
+      "postBarrierToUiMs": 242,
+      "verificationReadMs": 38,
+      "remainingVerificationAndRenderMs": 204,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 7046,
+          "end": 7087,
+          "status": "complete",
+          "characters": 260151
+        },
+        {
+          "kind": "verification-read",
+          "start": 7087,
+          "end": 7125,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 663.489051999999,
+      "submitToConfirmationMs": 608,
+      "preparationAndDispatchMs": 398,
+      "storageBarrierMs": 12,
+      "postBarrierToUiMs": 198,
+      "verificationReadMs": 9,
+      "remainingVerificationAndRenderMs": 189,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 8360,
+          "end": 8372,
+          "status": "complete",
+          "characters": 261029
+        },
+        {
+          "kind": "verification-read",
+          "start": 8372,
+          "end": 8381,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 2989.973120999999,
+      "trace": [
+        {
+          "kind": "capability-probe",
+          "start": 3273,
+          "end": 3277,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3425,
+          "end": 3439,
+          "status": "complete",
+          "characters": 259654
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3508,
+          "end": 3516,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 62.42199900000014
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 710.0891080000001,
+      "submitToConfirmationMs": 685,
+      "preparationAndDispatchMs": 380,
+      "storageBarrierMs": 21,
+      "postBarrierToUiMs": 284,
+      "verificationReadMs": 11,
+      "remainingVerificationAndRenderMs": 272,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 5159,
+          "end": 5180,
+          "status": "complete",
+          "characters": 259848
+        },
+        {
+          "kind": "verification-read",
+          "start": 5181,
+          "end": 5192,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 752.9700869999997,
+      "submitToConfirmationMs": 706,
+      "preparationAndDispatchMs": 445,
+      "storageBarrierMs": 52,
+      "postBarrierToUiMs": 209,
+      "verificationReadMs": 8,
+      "remainingVerificationAndRenderMs": 201,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 6857,
+          "end": 6909,
+          "status": "complete",
+          "characters": 260151
+        },
+        {
+          "kind": "verification-read",
+          "start": 6909,
+          "end": 6917,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 746.6309950000013,
+      "submitToConfirmationMs": 719,
+      "preparationAndDispatchMs": 417,
+      "storageBarrierMs": 14,
+      "postBarrierToUiMs": 288,
+      "verificationReadMs": 6,
+      "remainingVerificationAndRenderMs": 282,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 8074,
+          "end": 8088,
+          "status": "complete",
+          "characters": 261029
+        },
+        {
+          "kind": "verification-read",
+          "start": 8088,
+          "end": 8094,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 2988.770206000001,
+      "trace": [
+        {
+          "kind": "capability-probe",
+          "start": 3343,
+          "end": 3343,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3498,
+          "end": 3506,
+          "status": "complete",
+          "characters": 259654
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3563,
+          "end": 3569,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 119.86015400000178
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 697.5875229999983,
+      "submitToConfirmationMs": 653,
+      "preparationAndDispatchMs": 443,
+      "storageBarrierMs": 21,
+      "postBarrierToUiMs": 189,
+      "verificationReadMs": 10,
+      "remainingVerificationAndRenderMs": 179,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 5320,
+          "end": 5341,
+          "status": "complete",
+          "characters": 259848
+        },
+        {
+          "kind": "verification-read",
+          "start": 5341,
+          "end": 5351,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 696.3969040000011,
+      "submitToConfirmationMs": 632,
+      "preparationAndDispatchMs": 377,
+      "storageBarrierMs": 37,
+      "postBarrierToUiMs": 218,
+      "verificationReadMs": 20,
+      "remainingVerificationAndRenderMs": 198,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 6787,
+          "end": 6824,
+          "status": "complete",
+          "characters": 260151
+        },
+        {
+          "kind": "verification-read",
+          "start": 6824,
+          "end": 6844,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 650.7230170000003,
+      "submitToConfirmationMs": 594,
+      "preparationAndDispatchMs": 416,
+      "storageBarrierMs": 16,
+      "postBarrierToUiMs": 162,
+      "verificationReadMs": 4,
+      "remainingVerificationAndRenderMs": 158,
+      "barrierKind": "financial-commit",
+      "trace": [
+        {
+          "kind": "financial-commit",
+          "start": 8057,
+          "end": 8073,
+          "status": "complete",
+          "characters": 261029
+        },
+        {
+          "kind": "verification-read",
+          "start": 8073,
+          "end": 8077,
+          "status": "complete",
+          "characters": 0
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "method": "Real production gzip UI, 1000-record complete document. Passive request/transaction timestamps. Explicit IndexedDB authoritative read for corrected build. Legacy barrier is synchronous API return, NOT a durable commit. Preparation/dispatch and residual verification/render include transport, not pure CPU work. verificationReadMs is the first actual readonly transaction after the financial commit; residual includes final hash/domain checks and React, not isolated paint. CPU/network emulated; no physical device."
+}
