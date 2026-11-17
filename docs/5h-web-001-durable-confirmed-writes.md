@@ -1,209 +1,206 @@
-# 5H-WEB-001 — Escrituras web confirmadas y recuperables
+# 5H-WEB-001 — Durabilidad de escrituras web confirmadas
 
-**Estado actual:** infraestructura implementada en [PR Draft33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33). La regresión completa y CI del SHA final siguen pendientes; los resultados por checkpoint se conservan como historial verificable, sin presentarlos como aprobación global.
+Corrección web independiente en [PR Draft33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33), rama `fix/5h-web-001-durable-confirmed-writes`. Base verificada: `ce1ec8398fed0eb6a39f0c362567b8a6613eaf81`, PR31 fusionada. Origin/main continúa en ese SHA. PR32 sigue abierta/Draft, sin modificar, en `ceb08c7fa3d05ea8c448855bf46fdec03e8af947`. Los diez worktrees actuales se conservan; no se utiliza5H como base.
 
-## Checkpoint 1: reproducción y decisión previa a implementar
+El código de aplicación y las últimas mediciones locales corresponden a `6221e76da770418a3090663be707105672a8d89f`. La entrega añade documentación y evidencia sin modificar ese código financiero ni móvil. Este informe distingue las pasadas locales por SHA de la CI: **la aprobación del SHA exacto de entrega debe comprobarse en [los checks de PR33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33/checks)**, cuya ejecución y SHA se registran en la descripción de entrega. Un resultado parcial o cancelado no cuenta como aprobación.
 
-Estado: investigación completada; **la corrección aún no está implementada ni se declara resuelta** en este checkpoint. Rama `fix/5h-web-001-durable-confirmed-writes`, base `ce1ec8398fed0eb6a39f0c362567b8a6613eaf81`. PR31 fusionada; PR32 abierta/Draft, SHA `ceb08c7fa3d05ea8c448855bf46fdec03e8af947`, sin cambios. Se conservan los ocho worktrees anteriores. No hay commits posteriores en origin/main al iniciar.
+## Problema y diagnóstico reproducible
 
-Se revisan FinanceStore, backup, useFinanceData, financeBinding, storageSupport, App y las garantías documentadas en fases1,2A/2B,3A/3B,4A y5A–5G. Los parsers, cálculos, reglas financieras y proyectos nativos no necesitan cambios para esta corrección. La frontera síncrona se conserva para el motor de propuesta y el prototipo móvil5G; nunca devolverá una Promise desde setItem.
+La interfaz cerraba el formulario tras `localStorage.setItem`. El documento nuevo era visible, pero al terminar inmediatamente todos los procesos Chromium propios podía reaparecer el documento anterior íntegro. Es preexistente en main y5H; no procede de SQLCipher ni de un cálculo financiero incorrecto.
 
-### Reproducción real de la base
+Antes de implementar se compila la base real y se copia **solo el arnés** `scripts/native/webCrashRecovery.ts` de PR32, sin almacenamiento móvil. SHA256 original `b03faa31180540b664250b816f60de31f154c737c81562d986166fbb77c8a224`. La [adaptación completa e instrumentación](web-001-evidence/reference-harness-complete-diff.json) conserva la igualdad de snapshot completo, sin espera artificial entre confirmación y SIGKILL. Se añaden backend explícito, tiempos, revisiones e identidades; la instrumentación de referencia está [archivada](web-001-evidence/reference-harness-instrumentation.patch.json).
 
-npm ci correcto; **654/654 unitarias**, **22/22 infraestructura**, lint/build correctos. Chromium **156.0.8078.79**, Node24.22.1, Linux. Perfiles persistentes privados, sintéticos, orígenes loopback y procesos Chromium propios. La prueba original de PR32 se copia sin dependencias móviles; sus imports ya existen en main. SHA256 original `b03faa31180540b664250b816f60de31f154c737c81562d986166fbb77c8a224`.
-
-| Escenario | Base, prueba original |
-| --- | --- |
-| Cierre normal tras confirmar | Aprobado: documento nuevo íntegro |
-| SIGKILL inmediatamente tras confirmar | **Fallido**: documento anterior íntegro, cuenta nueva ausente |
-| SIGKILL antes del callback Web Lock | Aprobado: documento anterior íntegro |
-
-[Resultado original 2/3](web-001-evidence/baseline-crash.json). El fallo devuelve1. Se añade después únicamente instrumentación de tiempos, revisiones e IDs: [instrumentación inicial](web-001-evidence/reference-harness-instrumentation.patch.json) y [adaptación completa frente a PR32](web-001-evidence/reference-harness-complete-diff.json). No se cambia la igualdad exacta del snapshot ni se introduce espera antes de SIGKILL. La repetición instrumentada se conserva separada. La preparación cierra normalmente y verifica el checkpoint antes de inyectar el fallo; no se confunde una fixture nunca consolidada con pérdida del cambio nuevo.
-
-### Contrato anterior y causa demostrada
-
-Dentro de Web Locks, FinanceStore valida una propuesta separada, ejecuta setItem(DATA_KEY, snapshot), actualiza su revisión y this.data y resuelve la mutación. useFinanceData publica React y devuelve `{ok:true}`; los formularios entonces pueden cerrarse. La restauración escribe una copia, la relee y después sustituye la clave activa. Ninguna de esas etapas proporciona un evento de consolidación física de localStorage; getItem solo verifica el valor visible para la API.
-
-La observación demuestra que el valor nuevo era visible y confirmado en la interfaz pero no recuperable tras el SIGKILL probado. El dominio no calcula mal ni deja un documento parcial: reaparece exactamente el anterior. No se atribuye sin una traza del navegador a un syscall concreto ni se generaliza a todos los navegadores. El defecto es usar el éxito síncrono de esa API como frontera de confirmación recuperable.
-
-### Investigación anterior a la solución
-
-Se ejecuta [webDurabilityEngines.ts](../scripts/research/webDurabilityEngines.ts), independiente de React/FinanceStore y sin escribir datos del usuario. Misma propiedad comprobada: el documento completo confirmado debe sobrevivir al SIGKILL inmediato del grupo de procesos propio. Tres perfiles nuevos por alternativa, sin reintentos.
-
-| API | Resultado real | Señal observada |
+| Escenario | Base real | Corrección,6221e76 |
 | --- | --- | --- |
-| localStorage.setItem | **0/3** tras SIGKILL | Valor visible, sin evento de commit duradero |
-| IndexedDB readwrite strict | **3/3** | durability='strict', complete posterior a request.success |
-| IndexedDB readwrite relaxed | **3/3** | durability='relaxed'; este resultado limitado no eleva su contrato |
-| navigator.storage.persist | Denegado en las nueve observaciones | persisted=false y persistGranted=false; strict sobrevive también sin ese permiso |
+| Cierre normal después de confirmar | Aprobado | Aprobado |
+| SIGKILL inmediato después de confirmar | **Fallido: reaparece el documento anterior** | **20/20 perfiles independientes aprobados** |
+| SIGKILL antes del callback de escritura | Aprobado: documento anterior | Aprobado: documento anterior |
+| Durante transacción financiera/restauración | No usado para atribuir la causa original | Estado anterior íntegro y copias previas preservadas |
+| Después de commit, antes de respuesta | No usado para atribuir la causa original | Estado nuevo íntegro; un recibo, sin duplicación |
+| Migración prepare/activate, durante/después | No aplicable a la base | Reanudación íntegra e idempotente |
 
-[Resultados de motores](web-001-evidence/engine-research.json). En strict, request.success tarda0,4–1,1ms y complete2–5,2ms en esta pequeña muestra. No son tiempos financieros ni una comparación estadística general. No se acepta relaxed solo porque estas tres muestras pasen.
+[Base2/3](web-001-evidence/baseline-crash.json), [pasada completa00b4acf](web-001-evidence/checkpoint-00b4acf-web-durability.json), [20repeticiones6221e76 y controles](web-001-evidence/delivery-web-durability.json), [8controles de frontera](web-001-evidence/delivery-web-crash-controls.json). La base se reproduce también con la instrumentación y el mismo criterio del arnés adaptado; las evidencias históricas se conservan, sin ejecutarlas como un test esperado verde.
 
-[Fuentes oficiales, URLs y hashes consultados](web-001-evidence/research-sources.json): [IndexedDB](https://w3c.github.io/IndexedDB/#durability-hint), [Web Storage](https://html.spec.whatwg.org/multipage/webstorage.html), [Storage](https://storage.spec.whatwg.org/) y datos MDN de compatibilidad. IndexedDB define strict como indicación de priorizar consolidación antes de complete, con mayor confianza y coste potencial; sigue siendo un **hint**, no una certificación ante cortes eléctricos. persist reduce riesgo de eliminación por presión de espacio; no confirma transacciones ni sustituye backups. OPFS/flush requeriría otro protocolo de atomicidad y workers, con superficie mayor: no se elige sin necesidad. No hay backend ni nube.
+La detección real de confirmación precede a SIGKILL sin temporizador añadido. En las20repeticiones6221e76, detección→solicitud de kill: mediana4,80ms, rango3,69–8,66ms. Se comparan bytes/hash, revisión, carteras, IDs y relaciones completas; no basta encontrar el nombre. No hay reintentos que oculten fallos. Los grupos terminados y perfiles son exclusivamente los creados por la prueba, con datos ficticios y origen loopback.
 
-## Decisión arquitectónica
+## Investigación y decisión anterior a implementar
 
-Se selecciona **IndexedDB nativo del navegador, transacciones readwrite con durability:'strict'**, sin dependencias nuevas. Se comprueba el atributo efectivo; ausencia, rechazo o degradación a default/relaxed bloquea escrituras, manteniendo lectura/exportación cuando sea segura. Se espera complete, nunca únicamente request.success. abort/cuota/errores no publican estado.
+La [investigación aislada](web-001-evidence/engine-research.json) reproduce SIGKILL con tres perfiles por alternativa: localStorage0/3, IndexedDB strict3/3 y relaxed3/3. `persisted` y `persist()` resultan denegados en las nueve observaciones. Esa muestra no demuestra equivalencia entre relaxed y strict ni una ventaja estadística de strict: se elige por su contrato más fuerte y el comportamiento comprobado.
 
-React → controlador web asíncrono → Web Lock original → propuesta mediante el mismo FinanceStore sobre Map síncrono aislado → CAS y escritura IndexedDB → complete estricto → verificación/recibo → estado confirmado. FinanceStore, sus validadores y redondeos permanecen como motor compartido; el staging nunca es persistencia ni caché con éxito anticipado. No se importa código SQLCipher ni el controlador móvil de PR32.
+[Fuentes oficiales, URLs y hashes](web-001-evidence/research-sources.json): IndexedDB, HTML/Web Storage, Storage y compatibilidad MDN. La decisión y los datos se publican antes de implementar en60b1f47. No se atribuye sin una traza interna de Chromium a un syscall concreto: lo demostrado es que el retorno síncrono de localStorage no es una frontera suficiente de confirmación recuperable en el escenario reproducido.
 
-### Documento, revisiones y atomicidad
+| Alternativa | Evaluación |
+| --- | --- |
+| localStorage | Sin evento de commit duradero; releer no demuestra consolidación. Se descarta como fuente de nuevas confirmaciones financieras. |
+| IndexedDB readwrite strict | Transacción atómica, complete/abort, revisión CAS y documento/copia/recibo conjuntos. Elegido, sin dependencia adicional. |
+| IndexedDB default/relaxed | No aceptado silenciosamente aunque las tres muestras relaxed sobrevivan. |
+| `navigator.storage.persist` | Reduce riesgo de expulsión por cuota; no confirma commits ni sustituye backup. No se solicita automáticamente. |
+| OPFS/flush | Exige otro protocolo de atomicidad y workers. No se añade sin una necesidad demostrada. |
+| Backend/nube | Fuera del alcance; no se incorpora. |
 
-La clave lógica continúa siendo `finanzas_pro_data_v1`; las copias conservan `finanzas_pro_recovery_`. Documento financiero JSON2.5–3.5 y esquema del contenedor IndexedDB son independientes. Se guarda el snapshot completo, sin normalizar movimientos ni recalcular contabilidad en el driver.
+**Strict es una indicación de durabilidad al navegador**, no una garantía universal ante cortes eléctricos, hardware, sistema operativo, eliminación del origen o pérdida del perfil. El resultado probado es Chromium156.0.8078.79 en este Linux. No certifica Firefox, WebKit, Safari, móviles físicos ni otros fallos.
 
-La transacción abarca documento activo, revisión/hash, copias requeridas y recibo de operación. Compara dentro de ella el snapshot/revisión esperado. Las copias se añaden sin sobrescribir identidades anteriores. Los hashes identifican bytes y detectan incoherencia; no son cifrado ni autentican un navegador comprometido. El lock se adquiere antes de la transacción y se conserva hasta terminar; no se toma después desde callbacks IDB.
+## Contratos anterior y nuevo
 
-UUID y fingerprint de petición inmutable permiten reconciliar respuesta perdida sin volver a ejecutar la transformación económica. Si no hay recibo, una resolución transaccional registra cancelación antes de permitir reintentar. Si no puede reconciliarse, se bloquean nuevas escrituras y se conserva el formulario. Un recibo confirmado sustituido por otra revisión exige recarga, nunca informa de que la operación no se guardó.
+Antes: Web Lock → FinanceStore valida → setItem → cambia revisión/this.data → resuelve mutate → React → `{ok:true}` y cierre de formulario. La restauración creaba y releía una copia antes de otra escritura separada. La API no ofrecía una confirmación física adicional.
 
-### Migración y transición de clientes antiguos
+Ahora:
 
-Inventariar y archivar **todos** los bytes financieros `finanzas_pro_`, incluido documento activo, claves heredadas y copias; preferencias `finanzas.ui.*` independientes. Validar con los parsers originales. Si ya hay un documento válido, conservarlo exactamente, incluida su revisión o ausencia de ella. Las claves por colección se leen mediante loadFinanceData original; consolidarlas exige crear un documento, conservando además cada valor fuente bruto. Datos inválidos no se sobrescriben.
+```mermaid
+flowchart LR
+  UI[React y formularios] --> Controller[Controlador web asíncrono]
+  Controller --> Lock[Web Lock original]
+  Lock --> Proposal[FinanceStore original sobre staging síncrono aislado]
+  Proposal --> Tx[IndexedDB strict: CAS + documento + copias + recibo]
+  Tx --> Complete[complete y comprobación de head/recibo]
+  Complete --> Confirmed[Estado confirmado y respuesta al formulario]
+```
 
-Bajo el Web Lock original: releer fuente, transacción strict de preparación con documento/copias/archivo fuente, confirmar; instalar una **señal de propiedad** en DATA_KEY; transacción strict de activación; verificar y solo entonces publicar la nueva fuente autoritativa. No se llama removeItem/clear. El valor original de DATA_KEY queda preservado byte a byte en el archivo fuente transaccional; el cambio de su valor a señal, explícito y documentado, es necesario para que una pestaña5G que ya conoce la revisión antigua rechace escribir. Las demás claves originales/copia no se eliminan. No se mantiene un espejo financiero editable en localStorage.
+FinanceStore, backup, validadores, cálculos, parsers y redondeos permanecen intactos. El staging Map cumple `SyncFinanceStorage.setItem(): undefined`: no devuelve una Promise ni aparenta que la propuesta ya es duradera. Solo el controlador publica después de confirmación. `useFinanceData` y App adaptan explícitamente carga, guardado, copias y errores asíncronos. El prototipo móvil5G conserva su sesión desechable original.
 
-La señal no es un JSON financiero ni se etiqueta3.5: el parser antiguo la rechaza y muestra recuperación, evitando tratarla como una cartera vigente. Si falla instalarla o activar, no se comunica migración ni guardado; el destino preparado y el origen se conservan. Reanudar reconoce etapas y UUID, sin duplicar ni importar de nuevo una fuente alterada. Nunca se elimina/recrea una base por fallo de apertura o versión desconocida.
+DB `finanzas-pro-web-v1`, esquema de contenedor1, tablas `finance`, `metadata`, `operations`. La clave lógica sigue siendo `finanzas_pro_data_v1`, las copias `finanzas_pro_recovery_`. Se conserva el documento financiero completo y su revisión; no se normaliza el dominio ni se cambia JSON3.5 por cambiar de motor.
 
-La señal de localStorage **no tiene por sí misma durabilidad fuerte**. Al reabrir la versión nueva, si reaparece exactamente la fuente archivada, se repone la señal bajo lock y se conserva IndexedDB como autoridad; jamás se importa sobre un documento nuevo confirmado. Cualquier diferencia inesperada de claves/revisión del origen bloquea escrituras y permite exportar ambas ramas para revisión; no se fusiona ni elige silenciosamente.
+| Comportamiento | Antes | Después |
+| --- | --- | --- |
+| Confirmar guardado | Retorno de setItem | complete strict y comprobación de recibo |
+| Documento y copia previa | Escrituras separadas | Una transacción con revisión y recibo |
+| Respuesta incierta | Sin recibo transaccional | Reconciliación, bloqueo y recarga explícita |
+| Navegador insuficiente | Dependencia de localStorage | Consulta/exportación segura; sin fallback de escritura |
+| Datos antiguos | Fuente financiera localStorage | Archivo íntegro y activación controlada, sin borrar claves |
+| Conflicto antiguo | Revisión localStorage | Web Lock, CAS y detección de divergencias entre fuentes |
+| Recuperación forense | Claves locales | Ambas fuentes, con errores parciales identificados |
 
-**Límite de reversión:** una versión antigua que nunca aprendió a consultar IndexedDB no puede recibir retroactivamente ese contrato. La señal bloquea los clientes5G comprobados mientras está presente; si se pierde y se sirve código anterior antes de abrir el nuevo, este podría mostrar la fuente antigua. La nueva versión debe detectar sus escrituras divergentes y bloquear, sin sobrescribir su documento confirmado. No se promete downgrade transparente ni convivencia universal. Se probará y documentará ese límite; no se resolverá con temporizadores, broadcasts o una supuesta confirmación física de setItem. Un rollback operativo exige una decisión y restauración explícitas, no servir binarios antiguos sobre datos migrados.
+### Escritura, revisiones y respuesta incierta
 
-### Consulta, errores y recuperación
+1. Adquirir `finanzas-pro-data-write`, el Web Lock original, antes de validar la propuesta.
+2. Verificar el origen antiguo y la revisión confirmada; preparar una propuesta aislada con el motor original.
+3. Dentro de una transacción strict, comparar otra vez el snapshot/revisión esperado y escribir documento, head, copias requeridas y recibo atómicamente.
+4. Esperar complete, comprobar head/recibo/hash y solo entonces publicar o cerrar el formulario. request.success no confirma.
 
-Carga/migración asíncronas explícitas. Capacidad insuficiente permite consulta/exportación del último documento validado, con guardado rechazado y formulario conservado. Bloqueo de apertura y versionchange cierran/rechazan la conexión de manera segura; no se ocultan aborts ni cuota. Broadcast/foco/storage solo notifican: la autoridad y CAS están en las transacciones y Web Locks.
+UUID y fingerprint inmutables identifican cada petición. La respuesta perdida se reconcilia consultando el recibo; nunca se vuelve a ejecutar ciegamente la transformación. Una resolución sin recibo registra cancelación transaccional antes de permitir un nuevo intento explícito. Si no puede determinarse el resultado, se bloquean escrituras y se conserva el formulario. Un commit conocido adelantado por otro escritor exige recarga explícita, sin afirmar falsamente que no se guardó.
 
-Copias anteriores disponibles desde la UI mediante lectura asíncrona. Importación conserva validación, preview, confirmación y copia previa con sustitución en la misma transacción. Exportación usa un documento confirmado íntegro. Recuperación forense obtiene registros brutos y metadatos de ambas fuentes; identifica errores parciales y nunca presenta una descarga vacía como correcta. No se exporta nada automáticamente.
+Los aborts/cuota conocidos no publican cambios ni copias parciales. Un error de lectura **después de complete de escritura** es incierto, no prueba de aborto: las regresiones reproducidas de ese límite están [antes](web-001-evidence/postcommit-response-before-fix.json) y [después](web-001-evidence/postcommit-response-fixed-engine.json). No hay timeout que simule el resultado de una transacción concedida. Los10s solo cancelan apertura/espera de Web Lock no adquirido. El orden lock→transacción evita adquisición inversa y interbloqueo.
 
-### Navegadores y alcance
+## Migración, clientes antiguos y reversión
 
-Solo Chromium disponible en este host. Los datos MDN indican soporte de durability desde Chrome83, Firefox126 y Safari15, pero eso no aprueba sus runtimes ni sus garantías físicas. Firefox/WebKit no ejecutados. Se requiere Web Locks y el valor strict efectivo; no habrá fallback financiero a localStorage. No se invoca persist automáticamente ni se añade un control nuevo: solicitarlo de forma explícita informada queda como propuesta posterior, separada de guardado y backup.
+Se inventarían todos los bytes financieros `finanzas_pro_` —principal, revisión, claves de colecciones heredadas y copias— excluyendo únicamente metadatos reservados. Preferencias `finanzas.ui.*` permanecen independientes. Se validan datos con los parsers originales. Documento JSON2.5–3.5 válido, IDs, céntimos, nombres, relaciones y fotografías se conservan exactamente; las colecciones heredadas se consolidan mediante el lector original y se archivan además sus bytes fuente.
 
-### Integración futura con PR32
+Bajo el mismo Web Lock: releer fuente → transacción strict de preparación/archivo/documento/copias → instalar señal de propiedad en DATA_KEY → transacción strict de activación → verificar. La fuente activa nueva solo se publica tras activación. No se llama removeItem/clear ni se eliminan claves/copias. El valor original de DATA_KEY queda preservado byte a byte en el archivo fuente; su sustitución documentada por una señal no financiera impide que el FinanceStore5G ya abierto escriba sobre la revisión antigua. El parser antiguo rechaza la señal, no la muestra como un documento financiero vigente.
 
-Las dos ramas mantienen el mismo motor financiero y contratos asíncronos conceptualmente compatibles: datos confirmados, mutate/restore con Promise real, copias y errores. La sesión móvil5G conserva su adaptador síncrono existente. No se toca SQLCipher, Keystore, Keychain, proyectos/IDs nativos ni el estado de PR32. Integrar ambas después requerirá actualizar PR32 sobre el main corregido y revalidar, con autorización posterior.
+Si hay interrupción, se reanuda la etapa preparada con el mismo UUID. Si reaparece exactamente la fuente archivada por perderse el cercado localStorage, la versión nueva puede reponer la señal bajo lock; nunca importa esa fuente sobre el último documento confirmado. Si difiere cualquier byte financiero, se preservan ambos lados y se bloquea, sin fusión ni selección automática. La preparación no constituye autoridad sobre un escritor antiguo: la consulta compara el hash inmutable archivado incluso si el cambio ocurrió antes de abrir la vista. Se etiqueta como copia previa (`WEB_LEGACY_VIEW`) y bloquea exportar una vista desactualizada detectada.
 
-## Plan obligatorio de validación
+**Límite real:** no se puede enseñar retroactivamente IndexedDB a un binario anterior. Mientras existe la señal, los clientes5G probados rechazan las escrituras; si se pierde y se sirve código anterior antes de abrir la versión nueva, puede mostrar el snapshot viejo. No se garantiza downgrade transparente ni coexistencia universal. La versión nueva detecta divergencia y conserva su estado confirmado. Un rollback operativo requiere detener clientes, preservar/exportar ambas fuentes, revisar revisiones y restaurar explícitamente; nunca volver a servir un binario antiguo suponiendo que ve el último documento ni copiar automáticamente hacia localStorage.
 
-Antes/después con el mismo criterio de igualdad íntegra, perfiles independientes, **al menos20 SIGKILL posteriores a confirmación**, sin espera ni reintento. Añadir controles antes/durante/después de commit, migración/restauración interrumpidas, cuota, corrupción, respuestas perdidas, CAS entre pestañas, clientes antiguos, JSON2.5–3.5 y nombres/IDs/relaciones. Mantener las654 unitarias,22 de infraestructura y885 resultados/44 suites de main. Adaptar lecturas y fallos de las fixtures al motor real sin reducir sus aserciones; no falsificar localStorage con una caché de prueba.
+Ambos almacenes y Web Locks comparten origen, no ruta. APP_BASE_PATH dentro del mismo origen conserva autoridad; las rutas existentes se prueban mediante su suite. No se migra automáticamente desde otro dominio, protocolo o puerto. Un origen inválido, apertura fallida o esquema desconocido no se borra ni recrea.
 
-La sonda corregida formará una puerta explícita obligatoria de CI; la reproducción fallida de base es evidencia histórica, nunca un caso esperado verde. Conservar los tres checks, reglas axe y el presupuesto50min. Si es necesario ajustar ejecución de suites aisladas, medirlo y mantener todas las órdenes/límites; no se ampliarán para ocultar fallos.
+## Copias, restauración, exportación y recuperación
 
-Medir build de producción: carga inicial/documento, movimiento/cuenta/transferencia, restauración/migración,1000/5000 movimientos, filtro/periodo/idioma; separar preparación, commit y render. Comparar muestras/medianas/rangos, sin extrapolar este Linux/Chromium a dispositivos físicos o fallos eléctricos.
+Las copias anteriores se archivan y permanecen accesibles. En consulta sin autoridad activa nueva se listan/descargan desde el origen antiguo legible; si solo está disponible una preparación, se conserva su copia archivada como recuperación. No se presenta un inventario vacío por haber creado una DB vacía. Las treinta combinaciones de idioma/ancho/tema descargan la copia antigua con igualdad exacta.
 
-## Resultados finales y aceptación
+Importar conserva selección, validación, preview y confirmación explícita. La copia recuperable previa y la sustitución son parte de la misma transacción, con revisión CAS y verificación; cancelar o abortar conserva el documento anterior. No hay restauración automática ni eliminación de copias anteriores. Se exporta el documento confirmado completo, no las filas visibles.
 
-La infraestructura está implementada y publicada en la PR Draft33. Los apartados posteriores contienen resultados intermedios reales. Todavía faltan batería completa, repetición del SHA final y CI final; los parciales no se presentan como aprobación global. No se fusiona, despliega ni sincroniza Google AI Studio.
+La recuperación forense lee registros brutos de ambas fuentes, incluidos metadatos/recibos, sin upgrade ni reinicialización. Una conexión cerrada por versionchange puede leerse mediante una vía bruta independiente; los errores parciales se identifican. Permisos denegados no producen una descarga vacía ficticiamente correcta. Si localStorage está denegado pero hay un documento activo confirmado legible en IndexedDB, siguen disponibles consulta/exportación y recuperación parcial, con escrituras bloqueadas.
 
-## Checkpoint 2: contrato implementado y verificación parcial
+Los hashes detectan incoherencia e identifican bytes, no cifran ni autentican frente a código malicioso del origen. La web conserva su modelo de privacidad actual; no se añade backend, cuenta, nube, datos reales de prueba ni secretos.
 
-Se implementan controlador web asíncrono y driver IndexedDB independientes del código móvil. La propuesta usa FinanceStore y un Map realmente síncrono; la confirmación espera complete estricto, comprobación de documento/copia dentro de la transacción y lectura posterior del head/recibo. Cada copia tiene identidad y hash, sin sobrescribir anteriores. Un aborto conocido permite un nuevo intento explícito; una respuesta incierta requiere reconciliación y no repite la transformación. Un commit adelantado por otro escritor exige recarga y nunca dice que no se guardó.
+## Concurrencia y pruebas financieras
 
-La sesión móvil5G sigue en memoria. FinanceStore, backup, storageSupport, los44 archivos protegidos de5G y el workflow permanecen byte a byte intactos. La frontera de presentación useFinanceData se adapta explícitamente. La UI añade estados de carga/migración/guardado/recuperación, copias asíncronas y exportación forense;24 textos se traducen a los cinco idiomas. La recuperación no se oculta detrás del formulario pendiente. Una descarga parcial se identifica y una señal sin datos no se ofrece como copia recuperable.
+Web Locks sigue siendo coordinación de origen, complementada por CAS **dentro de IndexedDB**. BroadcastChannel, storage y foco notifican, nunca sustituyen la exclusión. Dos pestañas reales demuestran un solo escritor confirmado y rechazo de revisión obsoleta. Dos conexiones que evitan deliberadamente el controlador prueban CAS del driver. Se comprueban foco, origen antiguo divergente, migración concurrente, operaciones vinculadas y restauración con copia atómica.
 
-Se añaden27 pruebas del controlador (incluidos11 formatos2.5–3.5) con fallos controlados y equivalencia con el motor original. La primera ejecución detectó cuatro errores del arnés: una simulación usaba parseBackup sobre un snapshot con revisión, dos esperados recreaban fotografías con otra hora y una fixture3.5 declaraba nombres iniciales incompatibles. Se corrigen las fixtures, conservando las comparaciones exactas de fotografías y dominio;Las26 pruebas iniciales pasan y se añade otra que rechaza la exportación de una consulta antigua cuando detecta cambios;27/27 pasan. Las pruebas de motor en Chromium real añaden11 resultados (10 casos y contenedor): migración/copias/bytes, strict degradado, cuota inyectada y reintento, restauración abortada, respuesta perdida, lectura de comprobación alterada, recibo ausente, divergencia antigua y esquema desconocido con exportación forense.11/11 pasan. La cuota está inyectada en la API real, no se ha llenado el disco del usuario.
+La propuesta reutiliza el mismo FinanceStore: se comparan documentos normalizados y referencias con la implementación web original. Once casos cubren JSON2.5,2.6,2.7,2.8,2.9,3.0,3.1,3.2,3.3,3.4 y3.5, conservando bytes/revisión sin migraciones económicas. Los [44archivos protegidos](web-001-evidence/protected-financial-source.json) se comparan directamente con main; proyectos nativos, configuraciones nativas y package-lock sin cambios. No se modifican redondeos, orden de sumas, IDs, transferencias, reintegros, préstamos, aprobaciones, fotografías, catálogo ni asistentes/API.
 
-El [primer piloto de producción](web-001-evidence/first-pilot.json) pasa3/3 con la nueva fuente. Es exploratorio, del árbol de trabajo identificado por huellas; no equivale a20 repeticiones ni a CI final. El arnés conserva igualdad completa de bytes y cambia únicamente su lector a IndexedDB confirmado, sin caché ni espera de consolidación. Los perfiles sintéticos se acotarán por caso antes de la batería20x para no acumular almacenamiento temporal.
+## Validación local, UI y accesibilidad
 
-Apertura IndexedDB bloqueada y espera de Web Lock tienen cancelación de10s, distinta de una confirmación financiera. La cancelación de Web Locks solo retira una petición que aún no fue concedida; una vez adquirido, el lock se mantiene hasta terminar la transacción, sin deadline que invente un aborto o éxito. Una apertura tardía se cierra y no inicia migración. Estas cotas evitan carga indefinida y no se usan para demorar SIGKILL o simular durabilidad.
+| Pasada | Fuente | Resultado real |
+| --- | --- | --- |
+| Instalación base/final con lockfile sin cambios | ce1ec839 / checkpoint previo00b4acf | npm ci correcto; una deprecación node-domexception; sin actualización de dependencias |
+| Unitarias originales | ce1ec839 | 654/654 |
+| Unitarias tras endurecimiento | 6221e76 | **684/684**, cero fallos/omisiones/cancelaciones |
+| Infraestructura | 6221e76 | **44/44**, incluidos los22originales |
+| Batería local completa congelada | 00b4acf | **955/955 en45suites**, incluidos885originales; no se atribuye al SHA final |
+| Puerta reforzada después de corregir consulta | 6221e76 | **72/72**:34motor+36UI+2puertas reales |
+| SIGKILL del casoP0 | 6221e76 | **20/20**, más2controles;20perfiles distintos |
+| Fronteras prepare/activate/escritura/restore | 6221e76 | **8/8** cierres reales en señales request.success/complete |
+| Lint/build/diff/bundles y mediciones finales | 6221e76 | Aprobados, sin avisos de build/lint |
+| Batería de entrega | SHA exacto de PR33 | CI debe completar **957/957 en45suites**, incluidos885originales y72de la puerta, antes de recomendar integrar |
 
-Pendientes: ampliar interrupciones de migración/restauración, concurrencia real entre pestañas y pruebas de20x; adaptar las lecturas/fallos de las fixtures885 al nuevo motor manteniendo todas las aserciones; cinco idiomas/axe, rendimiento, batería completa y CI obligatoria. **No se declara aún resuelto el P0 ni preparada para integración.**
+[Órdenes/estados/times locales](web-001-evidence/delivery-local-commands.json), [batería955](web-001-evidence/checkpoint-00b4acf-summary.json), [puerta72](web-001-evidence/delivery-gate-summary.json), [motor](web-001-evidence/delivery-web-storage-engine.json), [UI](web-001-evidence/delivery-web-storage-ui.json). No se suman pasadas parciales para fingir una batería final. Los avisos de actualización de npm son informativos, no pruebas adicionales.
 
-## Repetibilidad real intermedia — fuente01e6492
+Los fallos intermedios también se conservan: fixture de firma Web Locks, evidencia patch con espacios, corrupción dirigida al motor antiguo y predicados async Playwright resueltos prematuramente. Se adaptan lecturas/fallos a transacciones reales sin caché de snapshots ni rebajar aserciones/timeouts. El helper espera el booleano real dentro del límite existente; una regla CI detecta callbacks async inseguros incluso multilínea. La CIc151597 queda [registrada como fallida](web-001-evidence/ci-c151597-failure.json), no aprobación. Las dos regresiones nuevas de consulta tienen prueba [antes](web-001-evidence/readonly-copy-before-fix.json) y [antes de detectar origen divergente](web-001-evidence/readonly-prepared-source-before-fix.json), y casos correctos en la puerta final.
 
-Con el controlador publicado en01e6492, se recompila además una base main limpia en un worktree independiente. El mismo arnés declara explícitamente el lector: legacy para la base, IndexedDB autoritativo sin fallback para la corrección. Main repite2/3. La corrección pasa**20/20 SIGKILL posteriores a confirmación en20 perfiles independientes**, más cierre normal y SIGKILL antes de iniciar: **22/22**. Se compara el documento completo y sus hashes/revisiones/IDs; no hay duplicados. No se añade sleep, reintento ni bucle que espere consolidación. Se elimina únicamente el perfil propio al terminar cada caso para acotar espacio temporal.
+UI real con cinco idiomas,390/768/1280px y ambos temas: capacidad strict denegada, errores, formulario conservado, Tab/Shift+Tab/Escape/foco, exportación y copia íntegra; respuesta perdida/reconciliación/recarga en cinco idiomas. Las44suites originales conservan los recorridos financieros, landing, módulos, paginación, precarga y prototipo5G. No se modifican prompts, parser natural ni traducciones de datos del usuario.
 
-[Base equivalente](web-001-evidence/matched-baseline.json), [22 observaciones completas](web-001-evidence/corrected-20.json), [resumen y tiempos reales](web-001-evidence/corrected-20-summary.json), [fuente final del checkpoint2](web-001-evidence/checkpoint2-final-source.json). Son resultados de Chromium156.0.8078.79 en Linux, no garantías universales. Quedan por ejecutar las interrupciones ampliadas, clientes simultáneos, regresión885, matrices UI/axe, rendimiento y CI obligatoria antes de cerrar la incidencia.
+Axe no cambia reglas. La pasada local completa registra **28informes,1611superficies, cero violaciones,944grupos incompletos en52conjuntos equivalentes y5552ocurrencias de nodos**: [agrupación con procedencia](web-001-evidence/checkpoint-00b4acf-axe-review.json). La nueva matriz aporta40superficies, cero violaciones y36grupos incompletos. Los **947grupos/53conjuntos de referencia5G** siguen pendientes contextuales; las diferencias entre pasadas no resuelven esos pendientes ni equivalen a pruebas manuales. No se usan lectores de pantalla ni dispositivos físicos.
 
-## Adaptación de regresión y puerta P0 (checkpoint de trabajo)
+Capturas reales del build endurecido, con datos ficticios: [390px](web-001-evidence/delivery-readonly-390.png), [768px](web-001-evidence/delivery-readonly-768.png), [1280px](web-001-evidence/delivery-readonly-1280.png). Documentan el estado de consulta segura, no un rediseño.
 
-Las fixtures existentes leían DATA_KEY y simulaban fallos de Storage.prototype. Se conservan sus aserciones, operaciones y límites, adaptando únicamente la lectura a transacciones readonly reales y los fallos al IDBObjectStore real. La utilidad exclusiva de pruebas no ofrece una caché financiera ni altera la aplicación: devuelve el request nativo y puede inyectar fallo o discrepancia de lectura dentro de la transacción. Registra por separado copia inicial de migración, señal de cercado y peticiones económicas posteriores. Las preferencias continúan probándose sobre localStorage. El arnés SIGKILL y los casos independientes del motor no utilizan esta utilidad.
+## Rendimiento y coste observado
 
-La primera pasada encontró incompatibilidades de presentación de errores y espera de conflictos: se conserva la envoltura histórica traducible, la semántica de espera bajo Web Locks y el formato forense compatible, sin cambiar datos ni reglas económicas. Planificación pasa13/13 y fase1 pasa57/57 después de estas correcciones. Un diagnóstico de cobertura detectó un literal de prefijo aislado; se mantiene el reconocimiento de la frase completa y su traducción. Última unitaria681/681. Las ejecuciones anteriores fallidas se conservan en los logs de trabajo; estos resultados parciales no sustituyen la batería final.
-
-Se añade test:durability y una suite obligatoria al final de test:ui: motor IndexedDB real más veinte perfiles independientes y dos controles. El ejecutor de CI exige su presencia y comprueba el reporte, backend, SHA, número de perfiles, hashes, revisiones, IDs y ausencia de duplicados; un reporte ausente o fallido rechaza el check Chromium/axe. No se modifica el workflow ni su presupuesto50min. La prueba histórica fallida de main continúa siendo evidencia, nunca un test esperado verde.
-
-## Checkpoint 3: interrupciones y coordinación reales
-
-El driver real pasa25/25 resultados: los10 casos iniciales, colección heredada, origen inválido preservado,11 formatos2.5–3.5, dos pestañas reales y contenedor. Los dos controladores usan Web Locks; solo uno confirma. Dos conexiones que deliberadamente evitan el controlador demuestran también CAS dentro de IndexedDB: un commit y un rechazo por revisión. Una instancia antigua de FinanceStore creada antes de migrar rechaza su mutación tras instalar el cercado. La prueba nueva se corrigió para comprobar la clase original de StorageConflictError (su nombre estándar es Error), sin cambiar la clase financiera.
-
-Ocho controles con SIGKILL real pasan8/8: durante prepare/activate de migración, después de sus commits y antes de entregar respuesta, durante escritura/restauración y después de commit antes de respuesta. Las señales proceden de request.success y del evento nativo complete. Para detener una transacción en curso, la inyección exclusiva del arnés mantiene solicitudes pendientes hasta la terminación; **no es una espera de consolidación ni un mecanismo de producción**. La llamada no resuelve antes del kill. Tras reiniciar se valida documento íntegro, identidades, recibos y todas las copias: estado anterior durante transacción; estado nuevo tras commit; migración preparada conserva su UUID al reanudarse. Evidencia intermedia en boundary-controls-intermediate.json, con fuente del driver81bd52f; la pasada final repetirá el arnés publicado.
-
-El primer CI real de PR33 inicia los tres checks: unitarias aprobadas; diff rechazado por un espacio de contexto dentro del archivo de evidencia .patch y Chromium rechazado por la fixture antigua de firma Web Locks. Se corrigen ambas causas: el diff original se conserva íntegro como cadena JSON (sin alterar su contenido), y la fixture usa el último argumento callback. No se relaja diff-check ni se ocultan ejecuciones fallidas. Los contextos persistentes de las pruebas de zoom reciben también el lector real, igual que los contextos normales. Presupuesto y aserciones sin cambios.
-
-## Checkpoint 4: presentación y fixtures de corrupción
-
-La matriz de capacidad insuficiente usa el build real, treinta combinaciones (5idiomas×3anchos×2temas):31/31 resultados, cero violaciones axe automatizadas. Comprueba formulario conservado tras rechazo, Tab/Shift+Tab, Escape/foco, ausencia de desbordamiento, exportación íntegra y ausencia de registros financieros nuevos. Las observaciones incompletas se conservan aparte y no son una aprobación manual.
-
-La denegación de lectura forense sin contenido recuperable conserva el mensaje histórico traducido de permisos; no crea descargas vacías. Se añade una prueba específica:682/682 unitarias. La fixture de rutas que corrompía localStorage después del arranque se adapta para corromper deliberadamente el registro autoritativo real en una transacción estricta; mantiene todas las comprobaciones de corrupción preservada y salida de recuperación. Escribir en la fuente antigua corresponde ahora a un conflicto preservado, no a una sustitución financiera legítima.
-
-Una ejecución diagnóstica local concurrente con la suite de rutas (que reconstruye dist) produjo404 por recursos sustituidos. Es un error del procedimiento de validación: se conservan sus logs y se repite en secuencia; no se cambia ninguna aserción ni timeout. La suite visual posterior pasa12/12. Los checkpoints y la PR siguen pendientes de regresión completa/CI final y mediciones.
-
-## Exactitud de las esperas de regresión
-
-Durante la adaptación apareció un problema del arnés: Playwright1.64 evalúa la verdad del retorno de waitForFunction antes de esperar su Promise; una condición async podía finalizar devolviendo false. Las aserciones económicas posteriores detectaron el problema (archivo/duplicación de subítems), no se eliminan ni se relajan. Se añade waitForStoredCondition: evalúa reiteradamente la condición asíncrona real hasta verdad, conserva el timeout original y elimina su token de cancelación al terminar. Solo conserva un token, nunca un snapshot ni un valor financiero. El polling se usa para condiciones de prueba, no como prueba de consolidación física; el arnés SIGKILL sigue independiente y sin demora. Subítems pasa19/19 tras la corrección. Se añade una prueba específica de condición falsa, resultado verdadero, timeout y limpieza.
-
-## Rendimiento medido, sin ocultar el coste de seguridad
-
-Builds de producción antesce1ec839/después6e8ae31, Chromium156, Linux, móvil390×900, CPU4×, red1,6Mbit/s y80ms; tres muestras independientes por escenario, mismo host y herramientas. Datos completos de100/1000/5000 movimientos y paginación50filas. Los reportes performance-/writes-/journeys-before/after.json incluyen configuración, heap, red, hashes y trazas; performance-summary.json contiene medianas y rangos. No son teléfonos físicos ni INP de campo.
+Producción antesce1ec839 / después6221e76, Chromium156.0.8078.79, Node24.22.1, Linux. Móvil emulado390×900, CPU4×, red1,6Mbit/s y80ms; **tres muestras por escenario**, mismo host sin otra batería/perfilador local simultáneo. Cuota real del contenedor2vCPU y8GiB; los192procesadores que informa os.cpus pertenecen al host. No es teléfono físico, INP de campo ni una certificación de memoria. [Procedencia](web-001-evidence/delivery-measurement-provenance.json), [medianas/rangos](web-001-evidence/delivery-performance-summary.json); se conservan todas las muestras y mediciones anteriores.
 
 | Métrica (ms) | Antes mediana [mín–máx] | Después mediana [mín–máx] |
 | --- | --- | --- |
-| Landing es fría | 1515 [1503–1669] | 1561 [1540–1652] |
-| Aplicación100 fría | 2821 [2688–2848] | 2882 [2824–2981] |
-| Aplicación100 recarga caliente | 800 [777–1242] | 1281 [1193–1441] |
-| Carga inicial/migración1000 | 2757 [2731–2825] | 2994 [2839–2997] |
-| Lectura confirmada1000 (incluye puente Playwright) | 20 [19–23] | 66 [58–77] |
-| Guardar cuenta1000 | 342 [333–409] | 740 [619–919] |
-| Guardar movimiento1000 | 523 [411–528] | 816 [747–890] |
-| Guardar transferencia1000 | 436 [381–564] | 814 [693–860] |
-| Restauración verificada100 | 221 [216–221] | 450 [380–464] |
-| Abrir1000 completo /50filas | 561 [559–672] | 601 [537–667] |
-| Abrir5000 completo /50filas | 1073 [866–1181] | 967 [848–1041] |
-| Filtrar5000 completo | 531 [489–563] | 602 [547–614] |
-| Cambiar periodo | 196 [192–260] | 230 [219–284] |
-| Cambiar idioma frío | 710 [658–737] | 683 [667–742] |
+| Landing fría | 1569 [1532–1571] | 1665 [1549–1697] |
+| Aplicación100 fría | 2750 [2737–2753] | 3031 [2838–3147] |
+| Aplicación100 recarga caliente | 750 [743–788] | 931 [880–1218] |
+| Carga inicial/migración1000 | 2773 [2741–2816] | 3123 [3070–3131] |
+| Lectura confirmada1000, incluido puente de prueba | 22 [20–23] | 63 [61–65] |
+| Guardar cuenta1000 | 347 [339–373] | 797 [626–905] |
+| Guardar movimiento1000 | 421 [399–561] | 783 [742–793] |
+| Transferencia1000 | 437 [333–476] | 743 [742–778] |
+| Restauración verificada100 | 215 [205–234] | 400 [390–454] |
+| Abrir1000 completos,50filas | 590 [586–735] | 603 [594–745] |
+| Abrir5000 completos,50filas | 1142 [1041–1215] | 1020 [953–1227] |
+| Filtrar5000 completos | 641 [491–668] | 689 [543–767] |
+| Cambio de periodo | 217 [203–223] | 216 [214–222] |
+| Cambio de idioma frío | 701 [652–806] | 711 [654–750] |
 
-Las diferencias pequeñas y los rangos solapados no confirman una mejora. **Hay coste real:** recarga caliente+481ms, cuenta+398ms, movimiento+292ms y transferencia+378ms en las medianas de esta máquina. No se presenta como rendimiento idéntico. El staging vuelve a validar usando el motor original, calcula hashes, coordina revisiones y lee comprobaciones; se prioriza aislar el dominio sin refactorizarlo. Las barreras estrictas medianas son12/33/17ms (cuenta/movimiento/transferencia); antes se medían2/3/3ms de retorno de API, que **no era commit duradero**. La preparación/dispatch mediana pasa192/247/224 a491/509/553ms; posbarrera/UI122/199/170 a187/197/175ms. Son etapas con coste de transporte, no un perfil exclusivo de CPU. No hay guardados por render ni reducción de datos.
+Hay un coste real observado: cuenta+451ms, movimiento+362ms, transferencia+306ms y restauración+185ms en estas medianas; aplicación fría+281ms y recarga caliente+181ms. No se presentan como rendimiento idéntico. Las diferencias pequeñas/rangos solapados de listados, filtros, periodo e idioma no demuestran una mejora estadística. La variación entre las pasadas anteriores se conserva, sin atribuir reducciones al endurecimiento de consulta que no cambia el camino de guardado normal.
 
-El grafo inicial web pasa138072 a139971bytes gzip (+1899;1,38%). Tras abrir módulos se observan249065→262786bytes JS gzip en el recorrido español (+13721;5,51%); el motor se carga al entrar en la aplicación, no por visitar landing. No hay dependencia de base de datos nueva ni SQLite en web. Los bundles anteriores/posteriores están documentados. El incremento se justifica por validación, CAS, recuperación y confirmación de esteP0; optimizar después la carga caliente y staging requerirá nuevas mediciones y equivalencia, sin rebajar el contrato de guardado. Se conservan paginación y precarga.
+Separación de etapas, medianasms:
 
-Las capturas web001-readonly-390/768/1280.png proceden de la aplicación real, datos ficticios y matriz ejecutada. Documentan el nuevo estado de consulta segura, no un rediseño. La pasada final regenerará evidencias correspondientes al código probado.
+| Guardado | Preparación/dispatch antes→después | Barrera API/commit antes→después | Posbarrera/UI antes→después |
+| --- | --- | --- | --- |
+| Cuenta |196→536|3→14|123→188|
+| Movimiento |194→441|3→52|202→227|
+| Transferencia |248→480|10→15|146→218|
 
-## Recuperación degradada y respuesta perdida: regresiones verificadas
+La barrera antigua es retorno de API, **no commit duradero**. Las etapas incluyen transporte Playwright; sus medianas no se suman como si fueran una única muestra. El staging y los hashes/revisiones añaden trabajo real, preservando el motor original. Las trazas distinguen preparación, complete y respuesta/render; las interacciones visuales requieren cero escrituras financieras.
 
-Se reproducen y corrigen tres casos de la nueva frontera antes de entregar:
+JavaScript inicial gzip138072→**139970bytes** (+1898;1,37%). El recorrido español completo medido pasa249065→262986bytes (+13921;5,59%). El driver se carga al entrar en App, no por visitar landing. No se incorpora librería de DB, SQLite ni módulo nativo al bundle web. Se mantienen diccionarios/módulos diferidos, precarga y paginación accesible50filas; los1000/5000datos y totales siguen completos. [Bundles](web-001-evidence/delivery-bundles-after.json), [muestras generales](web-001-evidence/delivery-performance-after.json), [guardados](web-001-evidence/delivery-writes-after.json), [recorridos/restauración](web-001-evidence/delivery-journeys-after.json). Perfiles CPU1000/5000 se conservan en delivery-performance-after-*.cpuprofile.gz para DevTools tras descomprimir.
 
-- Tras versionchange, la conexión de sesión se cierra de forma segura, pero la exportación forense no podía leerla. Se abre una lectura bruta independiente, sin upgrade ni recreación, identificando SESSION_UNREADABLE y reporte parcial. El registro original sigue intacto.
-- Si localStorage es denegado pero existe un documento confirmado legible en IndexedDB, la obtención anticipada de Storage impedía consultarlo. El acceso al origen antiguo se mantiene perezoso y se comprueba en cada operación: permite consulta/exportación confirmada, bloquea todas las escrituras y conserva el diagnóstico de origen inaccesible. No se sustituye por una caché.
-- Una respuesta perdida después de commit mantiene el formulario y bloquea nuevos envíos; al reconciliar, el cambio de acción hacia recarga perdía el foco. La acción de recarga recupera foco cuando se monta. La recarga sigue exigiendo una acción explícita del usuario.
+## Navegadores, errores y limitaciones
 
-El motor real pasa30/30 resultados, incluyendo cuota de migración, cercado denegado y reanudación con mismo UUID. La UI de producción compilada en directorio aislado pasa36/36: matriz30 y respuesta de commit perdida en cinco idiomas más contenedor. La pérdida se inyecta después del evento nativo complete, rechazando las lecturas de respuesta; el documento/recibo existen realmente. Tras restablecer lectura y reconciliar no hay segundo put financiero, el formulario permanece, el foco continúa dentro del diálogo y la recarga recupera exactamente el snapshot con un solo recibo. Cero violaciones axe en40 superficies de estos casos; incompletos conservados sin aprobación manual. Unitarias682/682, infraestructura37/37 y lint aprobados en este checkpoint. La batería885 y la repetición final20 siguen ejecutándose/pendientes; no se declaran aprobadas por estos parciales.
+| Entorno | Estado verificable |
+| --- | --- |
+| Chromium156.0.8078.79 Linux | SIGKILL, strict/CAS, migración, UI y pruebas locales ejecutados |
+| Chromium instalado por Playwright1.64.1 en GitHub | Versión/resultado exactos en los logs y artefactos de la ejecución del SHA entregado |
+| Firefox / WebKit / Safari | No ejecutados; no se extrapola aprobación |
+| Sin Web Locks o sin strict efectivo | Escrituras bloqueadas, lectura/exportación cuando la fuente validada sea segura |
+| Sin acceso a ninguna fuente | Error/recuperación explícitos; sin borrado, reinicialización ni copia vacía |
+| Fallo eléctrico/hardware/OS/evicción | No certificado por esta prueba; backup independiente sigue siendo necesario |
 
-CI exigirá al menos953 resultados (885 anteriores+68 nuevos),29 casos concretos de motor,40 superficies UI sin violaciones, veinte perfiles críticos y ocho controles reales; reportes ausentes o parciales fallan. No se modifican workflow, límites ni aserciones anteriores. Los comandos de medición usan IndexedDB por defecto para la aplicación actual; PERF_BACKEND=legacy solo se declara explícitamente al medir la base.
+Se comprueba `tx.durability==='strict'`: default/relaxed/ausencia no tienen fallback financiero a localStorage. Los casos incompatibles están inyectados sobre la API real Chromium, no se presentan como ejecución en un navegador no disponible. La cuota está inyectada; no se llena el disco de un usuario. Los recibos/copias no se purgan automáticamente: el crecimiento de almacenamiento puede requerir gestión explícita futura, nunca eliminación silenciosa.
 
+## CI obligatoria y evidencia de entrega
 
-## Evidencia, recursos y CI verificable
+Se conservan los tres checks: **Unitarias**, **Lint, build y diff**, **Chromium y axe**, con workflow y50min sin cambios. `npm run test:ui` utiliza el manifiesto único de45suites. Solo12matrices aisladas pueden ejecutarse de dos en dos; recompilaciones que sustituyen dist, landing/catálogo integral, volumen, prototipo y SIGKILL quedan en serie. Logs por proceso se escriben durante la ejecución; resultados se publican completos en orden del manifiesto. Seis pruebas comprueban conservación de44suites, máximo de trabajadores, orden de informes y rechazo de fallo/señal. FINANZAS_UI_WORKERS=1 permite ejecución en serie con recursos limitados.
 
-[PR Draft33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33), [checks del HEAD vigente](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33/checks). El reporte ci-checkpoints.json identifica las ejecuciones intermedias, sus SHAs y resultados por trabajo; canceladas/parciales no equivalen a éxito. Cada ejecución final genera browser/summary.json, battery logs, web-durability.json, web-crash-controls.json, web-storage-engine.json y web-storage-ui.json en los artefactos. La URL/SHA final se registrará en la descripción de la PR al terminar, sin confundirla con resultados anteriores.
+La puerta45 exige reportes frescos con SHA correcto, al menos20perfiles críticos independientes,22observaciones íntegras y8controles de frontera;34resultados del motor/36UI y40superficies sin violaciones. Un reporte ausente, viejo, duplicado, fallido, incompleto o con snapshot perdido falla el check. No hay continue-on-error, reintento automático ni baselinefallida esperada verde. CI instala npm ci/Chromium de la dependencia fijada, mantiene secretos vacíos y compara el diff real con main.
 
-El contenedor de medición tiene cuota de CPU200000/100000 (2vCPU) y8GiB de memoria, aunque os.cpus() muestra los192procesadores lógicos del host. Es una limitación del contenedor, no hardware móvil. Los cuatro perfiles CPU de1000/5000 antes/después se conservan comprimidos como cpuprofile.gz; deben descomprimirse para abrirlos en DevTools. Los44 archivos protegidos se comparan también directamente con main en protected-financial-source.json; proyectos/adaptadores nativos y lockfile sin cambios. Los hashes comprueban integridad, no cifran la web ni autentican frente a código malicioso del mismo origen.
+La [CI00b4acf44088142789](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44088142789) termina **cancelada por50min**, con41suites/784resultados completados y las otras4no completadas; unitarias/código sí pasan. [Registro exacto](web-001-evidence/ci-00b4acf-budget.json). Esto motivó la programación acotada, no ampliar límites. Las ejecuciones canceladas por publicar nuevos checkpoints y los fallos anteriores permanecen en GitHub y en el [historial](web-001-evidence/checkpoint-history.md); no son éxitos.
 
-La nueva matriz añade36 grupos incompletos de color-contrast en40 superficies (resultado intermedio); son observaciones pendientes de revisión contextual, no violaciones ni pruebas manuales. Se conservan además los947grupos/53conjuntos equivalentes documentados en5G. El agregado final de la batería se documentará separadamente sin sumar silenciosamente pasadas repetidas. No se han utilizado lectores de pantalla ni dispositivos físicos.
+Cada CI genera `browser/summary.json`, logs por suite, versión de navegador, reportes engine/UI, `web-durability.json` y `web-crash-controls.json`. La [PR33 y sus checks](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33/checks) identifican **el SHA final, URL real, duración y estado de cada uno de los tres trabajos**. La entrega solo se recomienda cuando todos sean verdes para ese mismo SHA; la descripción de PR recoge los resultados posteriores a este documento sin atribuir al HEAD una pasada de otro commit.
 
+## Integración futura con PR32 y pendientes
 
-## Corrección del límite de respuesta posterior al commit
+No se incorpora ni modifica SQLCipher, Keystore, Keychain, proyectos/IDs nativos, backend móvil, firma o distribución. PR32 no se actualiza ni rebasa en este trabajo. Ambas fronteras mantienen el motor común y el concepto de datos confirmados, mutate/restore asíncronos reales, copias y reconciliación; su integración autorizada posterior deberá armonizar el contrato de binding, resolver conflictos explícitamente y revalidar web/nativo. El prototipo móvil no se habilita para datos reales porque la CI web sea verde.
 
-La inyección real descubre dos fallos en el adaptador provisional32d61ba: un aborto de la lectura posterior al commit y una cuota simulada al abrir esa lectura se propagaban como WebTransactionAborted. La operación ya existía; no era correcto comunicar WEB_NOT_COMMITTED. La protección CAS seguía impidiendo una segunda escritura obsoleta, pero la explicación del resultado era incorrecta. Esta incidencia pertenece al adaptador en desarrollo, no al P0 original ni a SQLCipher.
+Pendientes: runtime Firefox/WebKit/Safari, pruebas físicas/pérdida de energía, revisión contextual de axe, política operativa de rollback con clientes antiguos y optimización medida del coste de staging/lectura caliente. `persist()` informado y gestión explícita de crecimiento de copias quedan separados de la confirmación transaccional. No se afirma recuperación absoluta ni se distribuye una beta.
 
-Se separa explícitamente la lectura de respuesta: después de complete de escritura, un fallo de inspección es WEB_UNCERTAIN, nunca prueba de aborto económico. La reconciliación consulta el recibo; mientras no pueda leerlo conserva formulario y bloquea nuevas escrituras. Al recuperar lectura identifica el commit y exige recarga sin segundo put ni transformación. Los casos nativos controlados reproducen el error antes y pasan después:32/32 resultados del motor,682/682 unitarias y lint. Evidencias postcommit-response-before-fix.json y postcommit-response-fixed-engine.json. La puerta final eleva el mínimo a955 resultados (885+70),31 casos de motor,40 superficies UI,20 perfiles críticos y8controles; los mínimos953/29 anteriores eran del checkpoint previo.
+## Reproducción segura
 
-La matriz de landing se adapta por último al nombre de la operación observada: exige exactamente un idb:finance:put:DATA_KEY tras reordenar, en lugar de contar un set de localStorage que ya no es la persistencia financiera. Conserva las aserciones de foco antes/después de completar la UI y compara todas las colecciones. Pasa43/43; no se elimina ni relaja la comprobación de una sola escritura.
-
-
-La CIc151597 termina roja correctamente en deudas:182/184 resultados tras nueve suites; las demás no ejecutadas se muestran como tales. La causa es un callback async multilínea que escapó al cambio inicial de las esperas. Se adapta al mismo helper sin modificar la aserción de tramitación vinculada ni sus límites. La repetición específica pasa25/25. Un nuevo test de infraestructura rechaza el patrón explícito inseguro incluso con saltos de línea (salvo el helper que implementa el polling correcto). Infraestructura38/38; lint aprobado. La CI fallida y sus cifras se conservan en ci-c151597-failure.json, sin presentarla como éxito.
-
-## Reproducción y comprobación por el revisor
-
-Desde esta rama, con Node24.22.1 y Chromium instalado, usando exclusivamente perfiles/fixtures sintéticos:
+Node24.22.1, npm ci y Chromium de playwright-core1.64.1. Usar datos ficticios y perfiles propios; no tocar un perfil personal ni ejecutar limpiezas globales.
 
 ```bash
 npm ci
@@ -217,9 +214,9 @@ git diff origin/main...HEAD --check
 git diff --check
 ```
 
-`test:durability` utiliza el build existente de dist; incluye motor real, matriz UI,20 perfiles críticos y8controles. `test:ui` recompila y conserva las44 suites anteriores, además de esa puerta obligatoria. Un fallo no se reintenta automáticamente. CI usa Chromium de la dependencia Playwright instalada y resuelve su ruta; no presupone /usr/bin/chromium en GitHub.
+`test:durability` usa dist existente e incluye motor,UI,20perfilesP0 y8controles. `test:ui` recompila y mantiene las44suites originales más esa puerta. Para informes CI completos usar `CI_ARTIFACT_DIR=/ruta/aislada CHROMIUM_PATH=/ruta/chromium node scripts/ci/run-check.mjs browser`; prepara los directorios antes de escribir los informes axe. En GitHub no se presupone /usr/bin/chromium: se resuelve su ejecutable real.
 
-Para reproducir la **evidencia histórica fallida**, compilar maince1ec839 en un worktree limpio independiente y llamar desde esta rama al mismo arnés, con su dist como argumento. El retorno1 en ese caso es el fallo documentado; nunca se incorpora como un test esperado verde:
+Reproducción histórica fallida: compilar ce1ec839 en otro worktree limpio y pasar su dist al mismo arnés. El retorno1 es la evidenciaP0, no un resultado correcto:
 
 ```bash
 DURABILITY_BACKEND=legacy DURABILITY_REPETITIONS=1 \
@@ -228,7 +225,7 @@ DURABILITY_BACKEND=legacy DURABILITY_REPETITIONS=1 \
   node --import tsx scripts/native/webCrashRecovery.ts /ruta/base/dist /ruta/baseline.json
 ```
 
-Para medir la versión actual, usar PERF_BACKEND=indexeddb (predeterminado); legacy se utiliza solo con un build anterior. Los resultados distinguen barrera, preparación y render, y no consideran setItem un commit duradero:
+Mediciones comparables, build de producción previo; `PERF_BACKEND=legacy` se utiliza solo con la base:
 
 ```bash
 PERF_BACKEND=indexeddb PERF_PROFILE=mobile PERF_SAMPLES=3 npm run measure:performance
@@ -238,37 +235,6 @@ PERF_BACKEND=indexeddb PERF_PROFILE=mobile PERF_SAMPLES=3 \
 npm run audit:bundles
 ```
 
-No utilizar perfiles personales con el arnés. Sus únicos directorios de navegador se crean mediante mkdtemp y solo se termina el grupo de procesos obtenido de su propio spawn detached. Las solicitudes repetidas que mantienen una transacción en curso son inyección de fallo exclusiva de los controles; no son una técnica de durabilidad del producto. No se añade beforeunload, espera de varios segundos, doble escritura ni bucle de lectura para fingir consolidación.
+**Sin fusión, despliegue, Google AI Studio, tiendas, cambios de main/protecciones ni activación de datos móviles reales.**
 
-## Límite de CI observado y ejecución acotada
-
-La ejecución [44088142789](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44088142789) del SHA00b4acf alcanza50min y GitHub cancela Chromium/axe; unitarias y lint/build/diff sí aprueban. Solo41/45 suites completadas: **no es aprobación de la batería**. Los tiempos registrados suman48,72min en esas41 suites. No se amplía el presupuesto ni se oculta la cancelación. Se prepara ejecución de como máximo dos matrices multidioma independientes en paralelo; recompilaciones que sustituyen dist, volumen y pruebas de terminación real permanecen en serie. La lista y orden de resultados, aserciones, límites y reglas axe se mantienen; la nueva ejecución debe demostrar el resultado antes de considerarse válida.
-
-## Cambios de comportamiento y límites operativos
-
-| Situación | Contrato anterior | Nueva frontera web |
-| --- | --- | --- |
-| Guardado | Retorno síncrono de setItem y publicación | complete de transacción strict y comprobación de head/recibo antes de publicar |
-| Cuota/aborto conocido | Error de almacenamiento | Sin propuesta ni copia parcial publicada; formulario conservado; nuevo intento explícito |
-| Respuesta perdida | Sin recibo transaccional | Reconciliación por UUID/fingerprint; nunca repetir la transformación a ciegas |
-| Restauración | Copia y sustitución en llamadas separadas | Copia, documento, revisión y recibo en una transacción |
-| Capacidad insuficiente | Guardado dependiente de localStorage | Consulta/exportación segura y escrituras bloqueadas; sin fallback financiero |
-| Migración | No aplicable | Archivo fuente íntegro, preparación y activación recuperables; sin borrar claves |
-| Código antiguo | Fuente localStorage | Cercado y detección de divergencias; rollback transparente no garantizado |
-| Recuperación forense | Claves locales | Lectura bruta de ambas fuentes con indicación explícita de errores parciales |
-
-IndexedDB, localStorage y Web Locks comparten el origen, no una ruta. Cambiar APP_BASE_PATH dentro del mismo origen conserva esa autoridad; la suite de rutas reconstruye y comprueba las bases existentes. No se importa automáticamente información de otro dominio, protocolo o puerto. El navegador puede eliminar datos del origen y el usuario puede borrarlos: el nuevo commit no sustituye una copia independiente. No se promete resistencia universal ante fallo eléctrico, hardware, sistema operativo ni eliminación del perfil.
-
-Antes de una reversión operativa hay que detener clientes, preservar/exportar las dos fuentes cuando exista divergencia, revisar sus revisiones y utilizar una restauración explícita aprobada. Nunca servir una versión antigua suponiendo que verá el último IndexedDB, borrar el destino, ni copiar automáticamente su snapshot de vuelta sobre localStorage.
-
-## Validación completa del checkpoint00b4acf y endurecimiento de consulta
-
-La batería local congelada en00b4acf termina **955/955 resultados,45 suites, cero fallos/omisiones/cancelaciones**. Incluye los885 originales,32 de motor,36 de UI y dos puertas reales. Las20 terminaciones después de confirmación pasan20/20, con dos controles; los8controles nativos de transacción/migración/restauración pasan8/8. Se conservan reportes checkpoint-00b4acf-*.json. Esto no convierte en verde su CI cancelada por presupuesto, ni sustituye la validación posterior del código final.
-
-La revisión añade dos regresiones reales de la frontera nueva, reproducidas antes de corregirlas: sin autoridad activa en IndexedDB no se listaban las copias antiguas; y una migración preparada podía mostrar/exportar una vista antigua sin detectar un escritor5G posterior. Se conservan readonly-copy-before-fix.json y readonly-prepared-source-before-fix.json. La consulta distingue preparación de activación, mantiene el inventario de copias del origen legible y compara la fuente con el hash inmutable archivado, tanto antes como después de crear la vista. La etiqueta existente y traducida WEB_LEGACY_VIEW identifica una copia previa, no un estado vigente confirmado. No hay reparación de cercado, mutación o fusión dentro de una comprobación de consulta.
-
-Las nuevas pruebas unitarias pasan684/684 y el motor real34/34. La matriz se refuerza para descargar byte a byte una copia antigua en cada una de30combinaciones. La puerta exige ahora al menos957 resultados:885 originales+34motor+36UI+2puertas,33casos de motor observados,40superficiesUI sin violaciones,20perfiles críticos y8controles. Los mínimos anteriores se mantienen como historial, no como la configuración final.
-
-La matriz reforzada termina36/36, incluidas las30descargas de copia antigua con igualdad exacta y sin escrituras financieras;40superficies axe, cero violaciones y36grupos incompletos pendientes. Lint/build/diff y38pruebas del ejecutor pasan. La ejecución20+8 se repetirá sobre el commit publicado de este endurecimiento y después en la puerta final de CI.
-
-El ejecutor conserva un manifiesto único de45suites: igualdad automática con las44de main y la nueva puerta. Solo12matrices de traducción aisladas pueden solaparse, de dos en dos; landing, catálogo integral, recompilaciones, volumen, prototipo y SIGKILL continúan en serie. Cada proceso usa origen/almacenamiento aislados y su log propio escrito durante la ejecución; los bloques y resúmenes se publican en orden del manifiesto. Un fallo, señal, omisión o resumen ausente sigue rechazando el check. Se añaden seis pruebas del ejecutor (44/44infraestructura en total); no se cambian el workflow, los50min, los límites individuales ni axe. FINANZAS_UI_WORKERS=1 permite reproducir toda la batería en serie. Falta demostrar su duración real y la batería completa de entrega.
+Archivos principales: `src/platform/web/{protocol,indexedDb,legacy,controller,openFinance,forensic}.ts`, `src/platform/financeBinding.ts`, `src/utils/useFinanceData.ts`, `src/App.tsx`, mensajes i18n de almacenamiento, fixtures asíncronas de las suites existentes y las nuevas puertas de durabilidad/CI. El [inventario completo de cambios](web-001-evidence/delivery-changed-files.json) permite revisar código, pruebas, documentación y evidencia por ruta.
