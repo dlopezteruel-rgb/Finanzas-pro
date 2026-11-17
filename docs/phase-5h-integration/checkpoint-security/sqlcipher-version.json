@@ -1,0 +1,32 @@
+{
+  "cipher_version": [
+    [
+      "4.20.0 community"
+    ]
+  ],
+  "cipher_provider": [
+    [
+      "openssl"
+    ]
+  ],
+  "cipher_provider_version": [
+    [
+      "OpenSSL 3.5.7 9 Jun 2026"
+    ]
+  ],
+  "journal_mode": [
+    [
+      "delete"
+    ]
+  ],
+  "synchronous": [
+    [
+      "3"
+    ]
+  ],
+  "sqlite_version": [
+    [
+      "3.54.1"
+    ]
+  ]
+}

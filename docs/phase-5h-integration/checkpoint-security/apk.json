@@ -1,0 +1,15 @@
+{
+  "path": "android/app/build/outputs/apk/debug/app-debug-unsigned.apk",
+  "bytes": 13388764,
+  "sha256": "daaa89c8d3a0c571a584a470491116f7062ced447568e8e2b58f405f7ca9e308",
+  "cipherLibraries": [
+    "lib/arm64-v8a/libsqlcipher.so",
+    "lib/armeabi-v7a/libsqlcipher.so",
+    "lib/x86/libsqlcipher.so",
+    "lib/x86_64/libsqlcipher.so"
+  ],
+  "signedJars": [],
+  "serverExpressPackaged": false,
+  "runtimeExecuted": false,
+  "distributed": false
+}
