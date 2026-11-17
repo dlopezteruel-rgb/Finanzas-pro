@@ -1,0 +1,136 @@
+{
+  "main": "31a8e8d5fb5c51f1befe08d464620b55c854bc63",
+  "originalPR32": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+  "PR33": "merged",
+  "PR32": "open-draft",
+  "worktrees": [
+    {
+      "path": "/workspace/work/Finanzas-pro-rebuild",
+      "head": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
+      "status": [
+        "?? docs/phase-5e-performance-optimization.md",
+        "?? scripts/performance/"
+      ]
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5d-baseline",
+      "head": "0a155a81ac31a96f28d515f64502507c91773f30",
+      "status": [
+        "?? node_modules"
+      ]
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5e",
+      "head": "ddcf3a97a0a2a9078706c0b76b8403142036a63e",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5f",
+      "head": "b2eb33277c8f15a92fb6b5ad76b595a652a7c49e",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5f-base",
+      "head": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5g",
+      "head": "4796e3f7585bc258acef73d440a6bd147bb6010f",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5g-base",
+      "head": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5h",
+      "head": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-web-durable",
+      "head": "168c03a9a5fe00ada839739f0c11aec1f6e7a0b4",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-web001-baseline",
+      "head": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+      "status": [
+        "?? node_modules"
+      ]
+    }
+  ],
+  "backupRef": "recovery/phase-5h-before-web-integration-20261117",
+  "bundle": "/workspace/work/5h-before-web-integration.bundle",
+  "bundlePrerequisite": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "gitConflicts": [
+    {
+      "file": "docs/phase-5b-inventory.json",
+      "decision": "Regenerate from combined source after explicit review; no legacy inventory selected wholesale."
+    },
+    {
+      "file": "package.json",
+      "decision": "Union46 browser suites, preserve durability and native SQLCipher commands/plugin. No dependency upgrades."
+    },
+    {
+      "file": "scripts/ci/browser-battery.mjs",
+      "decision": "Single union manifest; preserve both scheduling test APIs with one bounded planner. Keep builds/routes/audit/SIGKILL as exclusive barriers; ephemeral isolated suites may overlap2 using reviewed branch32 andmain sets."
+    },
+    {
+      "file": "scripts/ci/browser-battery.test.mjs",
+      "decision": "Preserve all12 scheduling cases from both branches in separate files and adapt exact suite count46; add union/barrier checks."
+    },
+    {
+      "file": "scripts/ci/run-check.mjs",
+      "decision": "Mandatory durability20+2+8, original45plusnativeVault, native axe report91; genuine failed exit for missing/omitted/cancelled results.50min workflow unchanged."
+    },
+    {
+      "file": "scripts/native/webCrashRecovery.ts",
+      "decision": "Retain main critical oracle unchanged; legacy reproduction preserved in recovery ref/evidence. No waits or criterion changes."
+    },
+    {
+      "file": "src/App.tsx",
+      "decision": "Preserve web loading/migration/recovery/export and all native picker/export protections. Web recovery UI only for web; native owner keeps its vault dialogs."
+    },
+    {
+      "file": "src/i18n/en.ts",
+      "decision": "Union allwebStore andvault translated keys; canonical keys/parameters preserved; no duplicate meanings."
+    },
+    {
+      "file": "src/i18n/es.ts",
+      "decision": "Union allwebStore andvault translated keys; canonical keys/parameters preserved; no duplicate meanings."
+    },
+    {
+      "file": "src/i18n/fr.ts",
+      "decision": "Union allwebStore andvault translated keys; canonical keys/parameters preserved; no duplicate meanings."
+    },
+    {
+      "file": "src/i18n/it.ts",
+      "decision": "Union allwebStore andvault translated keys; canonical keys/parameters preserved; no duplicate meanings."
+    },
+    {
+      "file": "src/i18n/pt.ts",
+      "decision": "Union allwebStore andvault translated keys; canonical keys/parameters preserved; no duplicate meanings."
+    },
+    {
+      "file": "src/tests.ts",
+      "decision": "Union imports: all native and web unit tests, no duplicate registrations."
+    },
+    {
+      "file": "src/utils/useFinanceData.ts",
+      "decision": "Select native controller supplied after consent, or async web open, or explicit memory prototype. Discriminant separates capabilities, owned resource cleanup and errors; never fallback to financial localStorage."
+    }
+  ],
+  "semanticReview": [
+    "FinanceBinding.open vs PlatformServices.durable",
+    "Native controller owned by bootstrap; web controller owned by hook",
+    "Native UI must never use WEB status/error/forensic paths",
+    "All five languages must retain web andvault dictionaries",
+    "Native plugin SDK must stay outside initialweb graph",
+    "FinanceStore andbackup identical toboth parents",
+    "CI manifest46, no summing oldresults; native Linux engine separate runtime proof"
+  ],
+  "scope": "Decision recorded BEFORE real merge/conflict resolution. No originalworktree data deleted; byte-identical own generated dependencies deduplicated."
+}
