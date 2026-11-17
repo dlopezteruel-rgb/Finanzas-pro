@@ -36,5 +36,7 @@ export async function exportWebForensic(storage:()=>SyncFinanceStorage,driver?:W
  try{report.legacy=legacyInventory(storage());}catch{report.complete=false;report.errors.push('LEGACY_UNREADABLE');}
  try{report.database=driver?await driver.forensic():await rawDatabase();}catch{report.complete=false;report.errors.push('DATABASE_UNREADABLE');}
  if(!hasForensicData(report))throw new WebStorageError('WEB_FORENSIC_EMPTY');
- return JSON.stringify(report,null,2);
+ // Retain the old forensic file's flat raw keys alongside the explicitly versioned
+ // new-store records. This is never labelled as a financial backup.
+ return JSON.stringify({...report.legacy,...report},null,2);
 }

@@ -21,7 +21,7 @@ export const exclusiveWebOperation:AsyncExclusive=async work=>{
 export async function openWebFinance(defaults:FinanceData,storage:SyncFinanceStorage,progress:(state:'loading'|'migrating')=>void=()=>{}):Promise<WebFinanceController>{
  progress('loading');let driver:IndexedFinanceDriver|undefined;
  const support=browserStorageSupportError();
- const legacyData=(source:import('./protocol').LegacySource)=>{try{return sourceData(source,defaults);}catch{throw new WebStorageError('WEB_CORRUPT');}};
+ const legacyData=(source:import('./protocol').LegacySource)=>{try{return sourceData(source,defaults);}catch(error){const detail=error instanceof SyntaxError?'El archivo no contiene un JSON válido.':error instanceof Error?error.message:'WEB_CORRUPT';throw Error(`No se han podido cargar los datos: ${detail}. Los datos guardados no se han sobrescrito.`);}};
  try{
   if(support){
    try{driver=await IndexedFinanceDriver.open(false);const state=await driver.inspect();await validateHead(state.head);if(state.head.snapshot!==null){const {parseSnapshot}=await import('../../utils/backup');return new ReadOnlyWebController(parseSnapshot(state.head.snapshot),support,storage,driver,state.head);}}catch{/* No unsupported writes; preserve the readable legacy copy below. */}

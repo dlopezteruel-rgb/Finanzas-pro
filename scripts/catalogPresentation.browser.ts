@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -24,7 +25,7 @@ test('Checkpoint A: presentación personal y borrador compartido', {timeout:1800
       const p=await context.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
       const capture=async(name:string)=>{const dir=process.env.CATALOG_PRESENTATION_ARTIFACT_DIR;if(dir){await mkdir(dir,{recursive:true});await p.evaluate(()=>window.scrollTo(0,0));await p.screenshot({path:path.join(dir,`${width}-${theme}-${name}.jpg`),type:'jpeg',quality:85,fullPage:true,animations:'disabled'});}};
       await p.clock.setFixedTime(new Date('2026-10-31T12:00:00Z'));await p.goto(origin+'/app');
-      const snapshot=()=>p.evaluate(()=>Object.fromEntries(Object.entries(localStorage)));
+      const snapshot=()=>p.evaluate(async ()=>Object.fromEntries((await window.__fixtureStorage.entries())));
       const before=await snapshot();
       await navigateModule(p,'Presupuestos');
       const planner=p.getByRole('region',{name:'Planificación financiera',exact:true});

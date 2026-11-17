@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -29,9 +30,10 @@ test('experiencia visual: rutas, carga real, móvil y protección de datos', { t
       const storage = localStorage; if (storage.getItem(key) === null) storage.setItem(key, raw);
       (window as any).visualReads = 0; (window as any).visualWrites = 0;
       const get = Storage.prototype.getItem, set = Storage.prototype.setItem;
-      (window as any).visualRaw = () => get.call(storage, key);
+      (window as any).visualRaw = () => {try{localStorage;return window.__fixtureStorage.getItem(key);}catch{return get.call(storage,key);}};
       Storage.prototype.getItem = function(k) { if (k === key) (window as any).visualReads++; return get.call(this, k); };
-      Storage.prototype.setItem = function(k, v) { (window as any).visualWrites++; return set.call(this, k, v); };
+      Storage.prototype.setItem = function(k, v) { if(!window.__fixtureIo.isGuardWrite(k,v))(window as any).visualWrites++; return set.call(this, k, v); };
+      const financial=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){(window as any).visualWrites++;return financial.call(this,k,v);};
       if (blockedStorage) Object.defineProperty(window, 'localStorage', { get() { throw new DOMException('Almacenamiento ficticio no disponible', 'SecurityError'); } });
     }, { key: DATA_KEY, raw, blockedStorage });
     const p = await c.newPage(); p.on('pageerror', e => errors.push(e.message)); p.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });

@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import assert from 'node:assert/strict';
 import { execFileSync } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -38,8 +39,8 @@ try {
       await context.addInitScript(({ key, value }) => {
         (window as any).__name = (fn: unknown) => fn;
         localStorage.setItem(key, value); (window as any).surfaceWrites = 0;
-        const set = Storage.prototype.setItem;
-        Storage.prototype.setItem = function(k, v) { (window as any).surfaceWrites++; return set.call(this, k, v); };
+        const set = window.__fixtureIo.setItem;
+        window.__fixtureIo.setItem = function(k, v) { (window as any).surfaceWrites++; return set.call(this, k, v); };
       }, { key: DATA_KEY, value: JSON.stringify({ ...makeBackup(visualFixture(theme)), exportedAt: VISUAL_TIME }) });
       const page = await context.newPage(); page.setDefaultTimeout(10000);
       page.on('pageerror', error => errors.push(error.message)); page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });

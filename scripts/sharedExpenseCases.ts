@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
@@ -14,7 +15,7 @@ const base = (): FinanceData => ({ theme: 'dark', transactions: [], budgetPlans:
   wallets: [{ id: 'bank', name: 'OPENBANK', type: 'BANK', color: '#fff', initialBalance: 1000 }, { id: 'rev', name: 'REVOLUT', type: 'NEOBANK', color: '#fff', initialBalance: 100 }],
   contacts: [{ id: 'a', name: 'Ana', createdAt: '2026-01-01' }, { id: 'b', name: 'Bea', createdAt: '2026-01-01' }] });
 const fixture = (amount = 60): FinanceData => ({ ...base(), transactions: [{ id: 'dinner', amount, date: '2026-10-08', type: 'GASTO', code: 'V.001.002', categoryName: 'Alimentación', subcategoryName: 'Comer fuera', description: 'Cena ficticia', wallet: 'OPENBANK', processed: true, splitInfo: splitExactly(amount, base().contacts, 'bank') }] });
-const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
+const raw = (page: Page) => page.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY);
 const data = async (page: Page) => JSON.parse((await raw(page))!) as FinanceData;
 const original = (d: FinanceData) => d.transactions.find(t => t.splitInfo)!;
 const navigate = (page: Page, name: string) => page.getByRole('button', { name: new RegExp('^' + name + '(?:\\s*\\d+)?$') }).first().click();
@@ -108,7 +109,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     try {
       let saved = await data(page); assert.equal(summary(saved).gastosEjecutados, 0); assert.equal(calculateWalletBalances(saved.wallets, saved.transactions).OPENBANK, 1000);
       await navigate(page, 'Movimientos'); await page.getByRole('button', { name: 'NO', exact: true }).click();
-      await page.waitForFunction(key => JSON.parse(localStorage.getItem(key)!).transactions[0].processed, DATA_KEY);
+      await page.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions[0].processed, DATA_KEY);
       let d = await collect(page); await d.getByLabel('Liquidación tramitada').uncheck(); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
       saved = await data(page); assert.equal(pending(saved), 40); assert.equal(calculateWalletBalances(saved.wallets, saved.transactions).REVOLUT, 100); assert.equal(summary(saved).gastosEjecutados, 20);
       d = await editReceipt(page); await d.getByLabel('Liquidación tramitada').check(); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
@@ -130,14 +131,14 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
       const fields = () => d.locator('input,select').evaluateAll(els => els.map(e => ({ value: (e as HTMLInputElement).value, checked: (e as HTMLInputElement).checked })));
       const draft = await fields();
       await page.evaluate(key => {
-        const original = Storage.prototype.setItem;
+        const original = window.__fixtureIo.setItem;
         (window as any).sharedSave = { fail: false, attempts: 0 };
-        Storage.prototype.setItem = function(k, v) { if (k === key) { (window as any).sharedSave.attempts++; if ((window as any).sharedSave.fail) throw new DOMException('Cuota', 'QuotaExceededError'); } return original.call(this, k, v); };
+        window.__fixtureIo.setItem = function(k, v) { if (k === key) { (window as any).sharedSave.attempts++; if ((window as any).sharedSave.fail) throw new DOMException('Cuota', 'QuotaExceededError'); } return original.call(this, k, v); };
       }, DATA_KEY);
       if (failure === 'storage') await page.evaluate(() => { (window as any).sharedSave.fail = true; });
       else {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
-        await concurrentFinancialEdit(other); await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
+        await concurrentFinancialEdit(other); await other.waitForFunction(async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).sharedHeld = true; await new Promise<void>(resolve => { (window as any).releaseShared = resolve; }); }); }, STORAGE_LOCK);
@@ -170,7 +171,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
       const migrated = await data(page); assertSharedIntegrity(migrated);
       assert.equal(migrated.transactions.filter(t => t.id === 'legacy-cash').length, 1); assert.equal(migrated.transactions.find(t => t.id === 'ambiguous')!.splitInfo!.accountingVersion, undefined);
       assert.equal(summary(migrated).gastosEjecutados, 80); assert.equal(remainingDebt(migrated.transactions.find(t => t.id === 'dinner')!, 'a'), 0);
-      assert.deepEqual(await page.evaluate(prefix => Object.entries(localStorage).filter(([k]) => k.startsWith(prefix)).map(([, value]) => JSON.parse(value).transactions), RECOVERY_PREFIX), [initial.transactions]);
+      assert.deepEqual(await page.evaluate(async prefix => (await window.__fixtureStorage.entries()).filter(([k]) => k.startsWith(prefix)).map(([, value]) => JSON.parse(value).transactions), RECOVERY_PREFIX), [initial.transactions]);
       await page.getByRole('button', { name: 'Opciones y datos' }).click(); const downloading = page.waitForEvent('download'); await navigate(page, 'Exportar JSON');
       const exported = parseBackup(await readFile((await (await downloading).path())!, 'utf8')); assert.equal(exported.version, '2.7');
       const upload = (file: unknown) => page.locator('input[type=file]').setInputFiles({ name: 'compartidos.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(file)) });

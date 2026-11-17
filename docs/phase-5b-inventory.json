@@ -4,9 +4,9 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1072,
-    "review": 3417,
+    "review": 3421,
     "translation-key": 1539,
-    "ui-message-candidate": 397,
+    "ui-message-candidate": 398,
     "attribute-internal": 2189,
     "visible-text": 76,
     "visible-attribute": 11
@@ -569,10 +569,10 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "c2d981bf5a214b48a69dcc188b0a24ad6f8be2c7e9726bffe2aa7443ce02b0a0",
+      "sourceSha256": "648cdae5fb918d0d99a2450a55b63e3b8fe557aa086ceedcddca4a31c06d513a",
       "counts": {
         "type-or-import": 63,
-        "review": 94,
+        "review": 95,
         "translation-key": 50,
         "ui-message-candidate": 27,
         "attribute-internal": 95
@@ -2071,10 +2071,10 @@
     {
       "file": "src/platform/web/controller.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "ce62654e9346c5ce909b5cde6dab2f23857cac9f0b7f4ef70afe59439be5dbfe",
+      "sourceSha256": "96738a5c9648eee5e06d5bb27efcb4fa4682e85fabdfec74d1328edbd18b976b",
       "counts": {
         "type-or-import": 6,
-        "review": 51
+        "review": 52
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2082,7 +2082,7 @@
     {
       "file": "src/platform/web/forensic.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "50643b55d7d4b2608772509a03bcb9a841d59c66a3982e84ef1279b3c1c60811",
+      "sourceSha256": "c06fcb7f535cc52bd5237be56ef5a6d98dc635f089375a6ac835b27ab1500d5d",
       "counts": {
         "type-or-import": 4,
         "ui-message-candidate": 2,
@@ -2125,10 +2125,10 @@
     {
       "file": "src/platform/web/openFinance.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "9333f9908ddda268ab6051f329377e492040427256f2a1492f3494f47e016ee8",
+      "sourceSha256": "71cacdc04d0f997a5e40021acac8f8e0826c84820e281c2991d6db3c73e9759a",
       "counts": {
         "type-or-import": 11,
-        "review": 22
+        "review": 24
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2974,15 +2974,16 @@
     {
       "file": "src/utils/useFinanceData.ts",
       "policy": "Domain implementation protected; review owned UI output for boundary adapters",
-      "sourceSha256": "626f473b85a0399a5862146b0405378b0d7e9fcdb676b0dd2c521147d06cacdf",
+      "sourceSha256": "578a1fb82f0c28ebaeaadd3ff24415cae89662bcef89aec623b52eee60fcb5f8",
       "counts": {
         "type-or-import": 8,
         "review": 10,
-        "ui-message-candidate": 5
+        "ui-message-candidate": 6
       },
       "visibleCandidateLines": [
         15,
         28,
+        29,
         34,
         47
       ],

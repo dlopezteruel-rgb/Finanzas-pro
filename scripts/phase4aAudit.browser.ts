@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -22,7 +23,7 @@ test('Fase 4A: auditoría de siete módulos, diálogos y accesibilidad',{timeout
       await c.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():(external.push(r.request().url()),r.abort()));
       await c.addInitScript(({key,value})=>{(window as any).__name=(fn:unknown)=>fn;if(localStorage.getItem(key)===null)localStorage.setItem(key,value);},{key:DATA_KEY,value:JSON.stringify(makeBackup({...responsiveFixture(),theme}))});
       const p=await c.newPage();p.setDefaultTimeout(8000);p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});await p.clock.setFixedTime(new Date('2026-10-31T12:00:00Z'));await p.goto(origin+'/app');await p.getByLabel('Seleccionar periodo contable').waitFor();await p.addScriptTag({content:axe});
-      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
+      const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
       async function inspect(surface:string){
         // Audit real deferred content, never a transient loading placeholder.
         const ready:Record<string,string>={Presupuestos:'.planning',Catalogo:'.catalog-view',Cuentas:'.wallets-view',Contactos:'.contacts-view',Deudas:'.loans-view',Asistente:'.assistant-layout'};
@@ -54,7 +55,7 @@ test('Fase 4A: auditoría de siete módulos, diálogos y accesibilidad',{timeout
       }
       // Resize without reloading while a local field remains pending.
       await navigateModule(p,'Inicio');await p.getByRole('button',{name:'Añadir',exact:true}).click();const movement=p.getByRole('dialog',{name:'Movimiento',exact:true});await movement.getByLabel('Concepto',{exact:true}).fill('Borrador ficticio conservado');await p.setViewportSize({width:width===390?1920:390,height:900});assert.equal(await movement.getByLabel('Concepto',{exact:true}).inputValue(),'Borrador ficticio conservado');await p.keyboard.press('Escape');
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
     }finally{await c.close();}
   });
 });

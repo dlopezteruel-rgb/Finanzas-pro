@@ -4,6 +4,8 @@ import {appendFile,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
+import {validateDurabilityReport} from './durability-report.mjs';
+import {execFileSync} from 'node:child_process';
 export async function executeLogged(command,args,{logPath,cwd=process.cwd(),env=process.env,output=process.stdout}={}){
   await mkdir(path.dirname(logPath),{recursive:true});const log=createWriteStream(logPath),start=Date.now();
   return new Promise((resolve,reject)=>{
@@ -24,7 +26,8 @@ export async function runCheck(mode){
     else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']]];
     else if(mode==='browser'){
       summary.suites=[...manifest.scripts['test:ui'].matchAll(/node --import tsx (scripts\/[^\s&]+\.browser\.ts)/g)].map(m=>m[1]);expected=summary.suites.length;
-      if(expected<21)throw new Error('The complete browser battery must contain at least the 21 integrated suites.');
+      if(!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
+      if(expected<45)throw new Error('The complete browser battery must contain at least the 21 integrated suites.');
       commands=[['npm',['run','test:ui']]];
     }else throw new Error(`Unknown mode: ${mode}`);
     const env={...process.env,CI:'true',FORCE_COLOR:'0',GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
@@ -39,6 +42,8 @@ export async function runCheck(mode){
       if(expected)summary.tests=requireCompleteTests(result.stdout,expected);
     }
     if(mode==='browser'){
+      const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+      summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
       summary.axe={surfaces:axe.observations.length,violations:0,incompleteGroups:axe.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};

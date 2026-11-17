@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -30,8 +31,8 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       const nav=p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true});await nav.getByRole('button',{name:tr('nav.accounts'),exact:true}).click();
       assert.equal(await p.evaluate(()=>document.documentElement.lang),languages[language].locale);
       assert.equal(await p.title(),tr('document.title'));assert.equal(await p.locator('meta[name=description]').getAttribute('content'),tr('document.description'));
-      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
-      await p.evaluate(key=>{(window as any).__financialWrites=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
+      const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
+      await p.evaluate(key=>{(window as any).__financialWrites=0;const original=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
       const opener=p.getByRole('button',{name:tr('wallets.nueva_cuenta'),exact:true});const openerHandle=await opener.elementHandle();await opener.click();
       const input=p.getByLabel(tr('form.walletName'),{exact:true});await input.fill('Guardar — NO TRADUCIR');await input.focus();const handle=await input.elementHandle();
       await p.addScriptTag({content:axe});
@@ -44,11 +45,11 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       assert.equal(await p.getByLabel(nextText('form.walletName'),{exact:true}).inputValue(),'Guardar — NO TRADUCIR');
       assert.equal(await handle!.evaluate(el=>el.isConnected),true,'the same input DOM node must survive a locale change');
       assert.equal(await handle!.evaluate(el=>el===document.activeElement),true,'locale changes must not reinitialise overlay focus');
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
       await inspect('account-draft-after-locale-change',next);
       assert.equal(await handle!.evaluate(el=>el===document.activeElement),true);
       await p.keyboard.press('Escape');await p.getByRole('dialog',{name:nextText('wallet.cartera'),exact:true}).waitFor({state:'hidden'});
-      assert.equal(await openerHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      assert.equal(await openerHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
       assert.equal(await p.evaluate(()=>(window as any).__financialWrites),0);
       await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:language});
       await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[language].locale);
@@ -57,7 +58,7 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       await p.getByLabel(tr('wallet.patrimonio_saldo_base_inicial'),{exact:true}).fill('1234.56');
       await p.getByRole('button',{name:tr('wallet.crear_cuenta'),exact:true}).click();
       await p.getByRole('dialog',{name:tr('wallet.cartera'),exact:true}).waitFor({state:'hidden'});
-      const after=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),saved=JSON.parse(after!);
+      const after=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),saved=JSON.parse(after!);
       const created=saved.wallets.filter((w:any)=>!backup.wallets.some(original=>original.id===w.id));
       assert.equal(created.length,1);assert.equal(created[0].name,'NO TRADUCIR DATOS');assert.equal(created[0].initialBalance,1234.56);
       assert.equal(JSON.stringify(saved.transactions),JSON.stringify(backup.transactions));
@@ -68,10 +69,10 @@ test('5B P1: idioma en formularios con build de prueba aislado, sin habilitar id
       assert.equal(await period.getAttribute('title'),format.formatMonth(periodValue));assert.equal(await period.locator('option:checked').textContent(),format.formatMonth(periodValue,true));
       await p.getByRole('button',{name:tr('period_selector.elegir_mes_y_ano'),exact:true}).click();const calendar=p.getByRole('dialog',{name:tr('period_selector.elegir_mes_y_ano'),exact:true});
       await calendar.getByLabel(tr('period_selector.ano'),{exact:true}).fill('1');await calendar.getByLabel(tr('period_selector.mes'),{exact:true}).selectOption('01');assert.equal(await calendar.getByRole('option',{name:format.monthName(1),exact:true}).getAttribute('value'),'01');
-      await calendar.getByRole('button',{name:tr('period_selector.consultar_periodo'),exact:true}).click();await calendar.waitFor({state:'hidden'});assert.equal(await period.inputValue(),'0001-01');assert.equal(await period.locator('option:checked').textContent(),format.formatMonth('0001-01',true));assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
+      await calendar.getByRole('button',{name:tr('period_selector.consultar_periodo'),exact:true}).click();await calendar.waitFor({state:'hidden'});assert.equal(await period.inputValue(),'0001-01');assert.equal(await period.locator('option:checked').textContent(),format.formatMonth('0001-01',true));assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
       await other.evaluate(({key,value})=>localStorage.setItem(key,value),{key:LANGUAGE_KEY,value:next});
       await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[next].locale);
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);await p.getByText(presentationFormatters(next).formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),after);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);await p.getByText(presentationFormatters(next).formatMoney(1234.56),{exact:true}).filter({visible:true}).first().waitFor();
       assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
     }finally{await c.close();}
   });

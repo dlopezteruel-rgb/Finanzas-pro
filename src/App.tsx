@@ -571,7 +571,7 @@ export default function App() {
         setDataNotice('Datos sustituidos. La copia anterior está disponible en «Copias de recuperación».');
       }
     } catch(error) {
-      if(error instanceof Error&&error.message.startsWith('WEB_'))setDataError(error.message);else setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
+      if(error instanceof Error&&error.message.startsWith('WEB_')&&error.message!=='WEB_NOT_COMMITTED')setDataError(error.message);else setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
     } finally { setRestoring(false); }
   };
 

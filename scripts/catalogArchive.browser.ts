@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -53,7 +54,7 @@ test('Revisión PR #22: archivo económico y confirmación de reglas activas',{t
   }
   for(const width of [390,1280])for(const kind of ['partida','familia'])for(const monthly of [false,true])await t.test(`${width}px ${kind} desglose=${monthly}: revisar, cancelar, confirmar, proteger importes y reactivar`,async()=>{
     const s=await setup(width,monthly),{p}=s;try{
-      const name=kind==='familia'?'Gastos ficticios':'Ocio ficticio',raw=()=>p.evaluate(k=>localStorage.getItem(k),DATA_KEY),original=JSON.parse((await raw())!);
+      const name=kind==='familia'?'Gastos ficticios':'Ocio ficticio',raw=()=>p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),original=JSON.parse((await raw())!);
       const archive=p.getByRole('button',{name:`Archivar ${kind} ${name}`,exact:true}),dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});
       const before=await raw();await archive.click();await dialog.waitFor();assert.equal(await raw(),before);
       const text=await dialog.innerText();assert.match(text,/Periódico afectado/);assert.match(text,/Automatización afectada/);assert.match(text,/sin borrarlas, desactivarlas ni reasignarlas/);assert.match(text,/solo lectura/);assert.doesNotMatch(text,/inactivo|inactiva|retirado|Ahorro independiente/);
@@ -72,9 +73,9 @@ test('Revisión PR #22: archivo económico y confirmación de reglas activas',{t
   });
   await t.test('otra pestaña cambia una regla durante la revisión: la confirmación conserva estado y muestra conflicto',async()=>{
     const s=await setup(390),{p,c}=s;try{
-      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);await p.getByRole('button',{name:'Archivar familia Gastos ficticios',exact:true}).click();const dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});await dialog.waitFor();
-      const other=await c.newPage();await other.goto(origin+'/app');await other.addScriptTag({content:probe});await other.evaluate(()=>(globalThis as any).runArchiveProbe('queued','partida'));const updated=await other.evaluate(k=>localStorage.getItem(k),DATA_KEY);assert.notEqual(updated,before);
-      await dialog.getByRole('button',{name:'Confirmar archivo',exact:true}).click();await dialog.getByRole('alert').waitFor();assert.match(await dialog.getByRole('alert').innerText(),/pestaña|actualizad|recarg/i);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),updated);assert.equal(await dialog.isVisible(),true);await dialog.getByRole('button',{name:'Cancelar',exact:true}).click();
+      const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);await p.getByRole('button',{name:'Archivar familia Gastos ficticios',exact:true}).click();const dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});await dialog.waitFor();
+      const other=await c.newPage();await other.goto(origin+'/app');await other.addScriptTag({content:probe});await other.evaluate(()=>(globalThis as any).runArchiveProbe('queued','partida'));const updated=await other.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);assert.notEqual(updated,before);
+      await dialog.getByRole('button',{name:'Confirmar archivo',exact:true}).click();await dialog.getByRole('alert').waitFor();assert.match(await dialog.getByRole('alert').innerText(),/pestaña|actualizad|recarg/i);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),updated);assert.equal(await dialog.isVisible(),true);await dialog.getByRole('button',{name:'Cancelar',exact:true}).click();
     }finally{await s.close();}
   });
 });

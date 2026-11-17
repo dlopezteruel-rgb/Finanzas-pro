@@ -26,7 +26,7 @@ export function useFinanceData(defaults:FinanceData){
   binding.open(defaults,phase=>{if(active)setLoadingPhase(phase);}).then(value=>{
    opened=value;if(!active){value.close();return;}
    setStore(value);setData(value.data);setPersistencePhase(value.phase);setCapabilityError(value.phase==='readonly'?value.problem:'');
-  }).catch(error=>{if(active)setLoadError(saveErrorMessage(error));}).finally(()=>{if(active)setLoading(false);});
+  }).catch(error=>{if(active){const detail=saveErrorMessage(error);setLoadError(/^No se han podido cargar los datos: /.test(detail)?detail:`No se han podido cargar los datos: ${detail}. Los datos guardados no se han sobrescrito.`);}}).finally(()=>{if(active)setLoading(false);});
   return()=>{active=false;opened?.close();};
  },[binding]);
  useEffect(()=>{

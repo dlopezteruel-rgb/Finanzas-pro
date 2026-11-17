@@ -80,7 +80,7 @@ test('WEB-001: absent operation receipt is cancelled transactionally, never blin
 });
 test('WEB-001: two stale controllers cannot overwrite a confirmed snapshot',async()=>{
  const f=await fixture(),other=new WebController(f.driver,f.storage,f.migration,f.driver.head,intelligentFixture(),same);
- const results=await Promise.allSettled([f.controller.mutate(addWallet('a')),other.mutate(addWallet('b'))]);assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.equal(f.driver.commits,1);assert.equal(other.phase,'conflict');assert.equal(other.data.wallets.length,1);assert.equal(await other.checkForConflict(),true);
+ const results=await Promise.allSettled([f.controller.mutate(addWallet('a')),other.mutate(addWallet('b'))]);assert.equal(results.filter(r=>r.status==='fulfilled').length,1);assert.equal(f.driver.commits,1);const loser=results[0].status==='rejected'?f.controller:other;assert.equal(loser.phase,'conflict');assert.equal(loser.data.wallets.length,1);assert.equal(await loser.checkForConflict(),true);assert.ok(results.some(r=>r.status==='rejected'&&r.reason instanceof StorageConflictError));
 });
 test('WEB-001: a committed reply overtaken by another writer never claims the first operation was not saved',async()=>{
  const f=await fixture();f.driver.afterCommit=()=>{const data=parseBackup(JSON.stringify(makeBackup(addWallet('second')(parseSnapshot(f.driver.head.snapshot!)))));const snapshot=serializeSnapshot(data);f.driver.head={snapshot,hash:'different-known-head',operationId:'second'};};

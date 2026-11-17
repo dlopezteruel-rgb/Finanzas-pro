@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {chooseMovementPartida} from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -31,14 +32,14 @@ function fixture(count = 3, advanced = false): FinanceData {
   }
   parseBackup(JSON.stringify(makeBackup(data))); return data;
 }
-const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
+const raw = (page: Page) => page.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY);
 const saved = async (page: Page) => JSON.parse((await raw(page))!);
 const finances = (data: any) => { const { defaultWalletId, version, revision, exportedAt, ...rest } = data; return rest; };
 const dialog = (page: Page, name = 'Movimiento') => page.getByRole('dialog', { name, exact: true });
 async function newMovement(page: Page) { await nav(page, 'Inicio'); await page.getByRole('button', { name: 'Añadir', exact: true }).click(); await dialog(page).waitFor(); await chooseMovementPartida(page); }
 async function choose(page: Page, name: string, id: string) {
   await nav(page, 'Cuentas'); await page.getByRole('button', { name: `Usar como predeterminada ${name}`, exact: true }).click();
-  await page.waitForFunction(({ key, id }) => JSON.parse(localStorage.getItem(key)!).defaultWalletId === id, { key: DATA_KEY, id });
+  await page.waitForFunction(async ({ key, id }) => JSON.parse((await window.__fixtureStorage.getItem(key))!).defaultWalletId === id, { key: DATA_KEY, id });
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), true);
   if ((page.viewportSize()?.width ?? 0) >= 1100) assert.ok((await page.locator('.wallet-cards').boundingBox())!.width > page.viewportSize()!.width / 2, 'las tarjetas conservan la columna principal de escritorio');
 }
@@ -99,7 +100,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
       try {
         const before = await saved(p); await choose(p, 'EFECTIVO FICTICIO', 'cash'); const data = await saved(p);
         assert.equal(data.version, '3.2'); assert.deepEqual(finances(data), finances(before));
-        assert.equal(await p.evaluate(prefix => Object.keys(localStorage).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 1);
+        assert.equal(await p.evaluate(async prefix => (await window.__fixtureStorage.keys()).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 1);
         if (process.env.DEFAULT_WALLET_ARTIFACT_DIR) { await mkdir(process.env.DEFAULT_WALLET_ARTIFACT_DIR, { recursive: true }); await p.screenshot({ path: `${process.env.DEFAULT_WALLET_ARTIFACT_DIR}/${width}-carteras.jpg`, type: 'jpeg', quality: 80, animations: 'disabled' }); }
         await nav(p, 'Inicio'); await p.getByPlaceholder(/^Registrar:/).fill('Gasté 8'); assert.equal(await p.getByLabel('Cartera del registro rápido').inputValue(), 'EFECTIVO FICTICIO'); await p.getByRole('button', { name: 'Borrar texto', exact: true }).click();
         await nav(p, 'Asistente'); await p.getByRole('textbox', { name: 'Mensaje para el asistente' }).fill('Registra un gasto de 9'); await p.getByRole('button', { name: 'Enviar', exact: true }).click();
@@ -112,7 +113,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
         assert.equal((await saved(p)).transactions.find((tx: any) => tx.id === 'original').wallet, 'BANCO FICTICIO');
         await p.getByRole('button', { name: 'Opciones y datos', exact: true }).click(); const download = p.waitForEvent('download'); await p.getByRole('button', { name: 'Exportar JSON', exact: true }).click();
         const exported = parseBackup(await readFile((await (await download).path())!, 'utf8')); assert.equal(exported.defaultWalletId, 'cash'); assert.equal(exported.version, '3.2');
-        await nav(p, 'Cuentas'); await p.getByRole('button', { name: 'Quitar cartera predeterminada', exact: true }).click(); await p.waitForFunction(key => JSON.parse(localStorage.getItem(key)!).defaultWalletId === null, DATA_KEY);
+        await nav(p, 'Cuentas'); await p.getByRole('button', { name: 'Quitar cartera predeterminada', exact: true }).click(); await p.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).defaultWalletId === null, DATA_KEY);
         await newMovement(p); assert.equal(await dialog(p).getByLabel('Cartera u Origen').inputValue(), ''); await p.keyboard.press('Escape');
         await choose(p, 'AHORRO FICTICIO', 'saving');
         for (const backup of [exported, makeBackup(initial)]) {
@@ -131,7 +132,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
           await nav(p, 'Cuentas'); await p.getByRole('button', { name: `Editar cuenta y patrimonio ${name}`, exact: true }).click();
           await dialog(p, 'Cartera').getByRole('button', { name: 'Eliminar esta cuenta bancaria', exact: true }).click();
           await p.getByRole('button', { name: 'Confirmar eliminación', exact: true }).click();
-          await p.waitForFunction(({ key, name }) => !JSON.parse(localStorage.getItem(key)!).wallets.some((w: any) => w.name === name), { key: DATA_KEY, name });
+          await p.waitForFunction(async ({ key, name }) => !JSON.parse((await window.__fixtureStorage.getItem(key))!).wallets.some((w: any) => w.name === name), { key: DATA_KEY, name });
           await p.getByRole('button', { name: 'Confirmar eliminación', exact: true }).waitFor({ state: 'hidden' });
           assert.equal((await saved(p)).defaultWalletId, null); await newMovement(p);
           assert.equal(await dialog(p).getByLabel('Cartera u Origen').inputValue(), name === 'EFECTIVO FICTICIO' ? '' : 'BANCO FICTICIO'); await p.keyboard.press('Escape');
@@ -166,7 +167,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
     try {
       const other = await s.c.newPage(); await other.clock.setFixedTime(new Date('2026-11-11T10:00:00Z')); await other.goto(url); await nav(other, 'Cuentas');
       await nav(p, 'Cuentas'); const before = await raw(p);
-      await p.evaluate(({ prefix, key }) => { const set = Storage.prototype.setItem; (window as any).failDefault = true; (window as any).preferenceWrites = 0; Storage.prototype.setItem = function(k, v) { if ((window as any).failDefault && k.startsWith(prefix)) throw new DOMException('Cuota ficticia', 'QuotaExceededError'); if (k === key) (window as any).preferenceWrites++; return set.call(this, k, v); }; }, { prefix: RECOVERY_PREFIX, key: DATA_KEY });
+      await p.evaluate(({ prefix, key }) => { const set = window.__fixtureIo.setItem; (window as any).failDefault = true; (window as any).preferenceWrites = 0; window.__fixtureIo.setItem = function(k, v) { if ((window as any).failDefault && k.startsWith(prefix)) throw new DOMException('Cuota ficticia', 'QuotaExceededError'); if (k === key) (window as any).preferenceWrites++; return set.call(this, k, v); }; }, { prefix: RECOVERY_PREFIX, key: DATA_KEY });
       const pick = p.getByRole('button', { name: 'Usar como predeterminada AHORRO FICTICIO', exact: true }); await pick.click(); await p.getByRole('alert').first().waitFor(); assert.equal(await raw(p), before);
       await p.evaluate(() => { (window as any).failDefault = false; });
       await p.evaluate(lock => { (window as any).heldPreference = navigator.locks.request(lock, () => new Promise<void>(resolve => { (window as any).releasePreference = resolve; })); }, STORAGE_LOCK);
@@ -174,7 +175,7 @@ test('cartera predeterminada: contratos completos en Chromium aislado', { timeou
       await pick.evaluate(button => { (button as HTMLButtonElement).click(); (button as HTMLButtonElement).click(); });
       assert.equal(await pick.isDisabled(), true); assert.equal(await raw(p), before);
       await p.evaluate(() => (window as any).releasePreference());
-      await p.waitForFunction(key => JSON.parse(localStorage.getItem(key)!).defaultWalletId === 'saving', DATA_KEY);
+      await p.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).defaultWalletId === 'saving', DATA_KEY);
       assert.equal(await p.evaluate(() => (window as any).preferenceWrites), 1);
       const after = await raw(p); await other.getByRole('button', { name: 'Usar como predeterminada EFECTIVO FICTICIO', exact: true }).click(); await other.getByRole('alert').first().waitFor(); assert.equal(await raw(other), after);
       await other.reload(); await nav(other, 'Cuentas'); assert.match(await other.getByRole('region', { name: 'Cartera predeterminada' }).innerText(), /AHORRO FICTICIO/);

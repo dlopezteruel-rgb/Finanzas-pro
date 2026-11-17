@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit} from './browserNavigation';
 import assert from 'node:assert/strict';
 import type { TestContext } from 'node:test';
@@ -9,10 +10,10 @@ import { STORAGE_LOCK } from '../src/utils/financeStore';
 import { assertTransferIntegrity, transferPair } from '../src/utils/transfers';
 
 const navigate = (page: Page, name: string) => page.getByRole('button', { name: new RegExp('^' + name + '(?:\\s*\\d+)?$') }).first().click();
-const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
+const raw = (page: Page) => page.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY);
 const data = async (page: Page) => JSON.parse((await raw(page))!) as Backup;
 const dialog = (page: Page) => page.getByRole('dialog', { name: 'Traspaso', exact: true });
-const readCopies = (page: Page) => page.evaluate(prefix => Object.entries(localStorage).filter(([key]) => key.startsWith(prefix)).map(([, value]) => JSON.parse(value)), RECOVERY_PREFIX);
+const readCopies = (page: Page) => page.evaluate(async prefix => (await window.__fixtureStorage.entries()).filter(([key]) => key.startsWith(prefix)).map(([, value]) => JSON.parse(value)), RECOVERY_PREFIX);
 
 export async function transferCases(t: TestContext, browser: Browser, url: string, fixture: Backup) {
   const input = { fromWalletId: fixture.wallets.find(w => w.name === 'OPENBANK')!.id, toWalletId: fixture.wallets.find(w => w.name === 'REVOLUT')!.id, amount: 500, date: '2026-10-08', concept: 'Ahorro fase 2A', processed: true };
@@ -106,9 +107,9 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       const draft = await fields();
       if (failure === 'storage') {
         await page.evaluate(key => {
-          const original = Storage.prototype.setItem;
+          const original = window.__fixtureIo.setItem;
           (window as any).transferControl = { fail: true, writes: 0 };
-          Storage.prototype.setItem = function(k, v) {
+          window.__fixtureIo.setItem = function(k, v) {
             if (k === key) { (window as any).transferControl.writes++; if ((window as any).transferControl.fail) throw new DOMException('Cuota', 'QuotaExceededError'); }
             return original.call(this, k, v);
           };
@@ -117,7 +118,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
         const other = await context.newPage(); await other.goto(url);
         const before = await raw(other);
         await concurrentFinancialEdit(other);
-        await other.waitForFunction(({ key, before }) => localStorage.getItem(key) !== before, { key: DATA_KEY, before }); await other.close();
+        await other.waitForFunction(async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before }); await other.close();
       }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).transferLockHeld = true; await new Promise<void>(resolve => { (window as any).releaseTransferLock = resolve; }); }); }, STORAGE_LOCK);
@@ -169,7 +170,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       await dialog(page).waitFor({ state: 'hidden' });
       assert.ok((await data(page)).transactions.every(t => !t.processed));
       await page.getByRole('button', { name: 'NO', exact: true }).first().click();
-      await page.waitForFunction(key => JSON.parse(localStorage.getItem(key)!).transactions.every((t: any) => t.processed), DATA_KEY);
+      await page.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions.every((t: any) => t.processed), DATA_KEY);
       await navigate(page, 'Cuentas');
       await page.getByRole('heading', { name: 'OPENBANK', exact: true }).click();
       const walletDialog = page.getByRole('dialog', { name: 'Cartera', exact: true });
@@ -240,9 +241,9 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       await page.getByRole('button', { name: 'Mover de paquete Salud: Seguros médicos', exact: true }).click();
       await d.getByLabel('Paquete de destino').selectOption('V_EXP');
       await page.evaluate(key => {
-        const original = Storage.prototype.setItem;
+        const original = window.__fixtureIo.setItem;
         (window as any).budgetWrites = { fail: false, attempts: 0, saved: [] };
-        Storage.prototype.setItem = function(k, value) {
+        window.__fixtureIo.setItem = function(k, value) {
           if (k === key) {
             (window as any).budgetWrites.attempts++;
             if ((window as any).budgetWrites.fail) throw new DOMException('Cuota', 'QuotaExceededError');
@@ -255,7 +256,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       if (failure === 'conflict') {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
         await concurrentFinancialEdit(other);
-        await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close();
+        await other.waitForFunction(async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
       if (failure === 'validation') {

@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, selectPlanningArea, navigateModule} from './browserNavigation';
 import test from "node:test";
 import assert from "node:assert/strict";
@@ -32,11 +33,11 @@ import { savePlanning, planningScope } from "../src/utils/planning";
 
 const nav = navigateModule;
 const saved = (p: Page) =>
-  p.evaluate((k) => JSON.parse(localStorage.getItem(k)!), DATA_KEY);
+  p.evaluate(async (k) => JSON.parse((await window.__fixtureStorage.getItem(k))!), DATA_KEY);
 const snapshot = (p: Page) =>
-  p.evaluate(() =>
+  p.evaluate(async () =>
     Object.fromEntries(
-      Object.entries(localStorage).filter(([k]) =>
+      (await window.__fixtureStorage.entries()).filter(([k]) =>
         k.startsWith("finanzas_pro_"),
       ),
     ),
@@ -469,10 +470,10 @@ test(
             .getByRole("button", { name: "Mes siguiente", exact: true })
             .click();
           await p.evaluate((key) => {
-            const set = Storage.prototype.setItem;
+            const set = window.__fixtureIo.setItem;
             (window as any).restorePlanningStorage = () =>
-              (Storage.prototype.setItem = set);
-            Storage.prototype.setItem = function (k, v) {
+              (window.__fixtureIo.setItem = set);
+            window.__fixtureIo.setItem = function (k, v) {
               if (k === key)
                 throw new DOMException("Ficticio", "QuotaExceededError");
               return set.call(this, k, v);
@@ -822,8 +823,8 @@ test(
           await nav(p, "Movimientos");
           await p.getByRole("button", { name: "NO", exact: true }).click();
           await p.waitForFunction(
-            (k) =>
-              JSON.parse(localStorage.getItem(k)!).transactions[0].processed,
+            async (k) =>
+              JSON.parse((await window.__fixtureStorage.getItem(k))!).transactions[0].processed,
             DATA_KEY,
           );
           bank = await saved(p);
@@ -1090,10 +1091,10 @@ test(
           const before = await snapshot(p);
           await newRule(p);
           await p.evaluate((prefix) => {
-            const set = Storage.prototype.setItem;
+            const set = window.__fixtureIo.setItem;
             (window as any).restoreSet = () =>
-              (Storage.prototype.setItem = set);
-            Storage.prototype.setItem = function (k, v) {
+              (window.__fixtureIo.setItem = set);
+            window.__fixtureIo.setItem = function (k, v) {
               if (k.startsWith(prefix))
                 throw new DOMException("Ficticio", "QuotaExceededError");
               return set.call(this, k, v);
@@ -1199,10 +1200,10 @@ test(
             .click();
           const before = await snapshot(p);
           await p.evaluate((key) => {
-            const set = Storage.prototype.setItem;
+            const set = window.__fixtureIo.setItem;
             (window as any).restoreSet = () =>
-              (Storage.prototype.setItem = set);
-            Storage.prototype.setItem = function (k, v) {
+              (window.__fixtureIo.setItem = set);
+            window.__fixtureIo.setItem = function (k, v) {
               if (k === key)
                 throw new DOMException("Ficticio", "QuotaExceededError");
               return set.call(this, k, v);

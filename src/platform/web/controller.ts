@@ -25,8 +25,9 @@ export class WebController implements WebFinanceController {
  mutate(transform:FinanceMutation){return this.prepare(engine=>engine.mutate(transform));}
  restore(next:RestorationInput){return this.prepare(engine=>engine.restore(next));}
  private prepare(work:(engine:FinanceStore)=>Promise<FinanceData>){return this.serial(async()=>{
-  this.writable();
+  if(this.phase!=='conflict')this.writable();
   try{return await this.guarded(async()=>{
+   this.writable();
    const observed=await this.driver.inspect();await validateHead(observed.head);
    if(observed.head.snapshot!==this.current.snapshot)throw new StorageConflictError();
    // The original engine validates the detached proposal while the original Web Lock

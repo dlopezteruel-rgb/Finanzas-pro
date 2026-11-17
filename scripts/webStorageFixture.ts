@@ -35,3 +35,10 @@ export async function readCommittedWebSnapshot(page:Page):Promise<string|null>{
   });}finally{db.close();}
  },{database:WEB_DATABASE,records:WEB_RECORDS,meta:WEB_META,key:DATA_KEY});
 }
+
+declare global {
+ interface Window {
+  __fixtureIo:{setItem:(this:IDBObjectStore,key:string,value:any)=>IDBRequest;getItem:(this:IDBObjectStore,key:string)=>any;active:boolean;migrationRequests:number;financialRequests:number;guardSignals:number;isGuardWrite:(key:string,value:string)=>boolean;requests:{store:string;method:string;key:string;stage:string}[];mutated?:((event:{store:string;method:string;key:string})=>void)};
+  __fixtureStorage:{getItem(key:string):Promise<string|null>;entries():Promise<[string,string][]>;keys():Promise<string[]>;key(index:number):Promise<string|null>};
+ }
+}
