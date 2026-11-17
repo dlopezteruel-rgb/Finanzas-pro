@@ -1,0 +1,39 @@
+{
+  "scope": "Checkpoint2 validation of the working tree; final P0/20x, full Chromium and CI remain pending. Fingerprints identify the actual sources, not only the previous Git commit.",
+  "recordedAt": "2026-11-17T10:54:26.305621+00:00",
+  "base": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "sources": {
+    "src/App.tsx": "c2d981bf5a214b48a69dcc188b0a24ad6f8be2c7e9726bffe2aa7443ce02b0a0",
+    "src/i18n/en.ts": "714ae14bb01131f4a1193d77f681ce356e71b44e23597704b5301b1aecc3575b",
+    "src/i18n/es.ts": "9910e7caae0c3e688bdf10f516192bae3092d983bdebedfcc1c579bae8e02d1a",
+    "src/i18n/fr.ts": "9e2f162bf50ea1ecb0d9f24239578aaf2a3629b1bcb488521cc7e8d627c6d147",
+    "src/i18n/it.ts": "d16e18c445f854ea910ec5056d82bf278c8cf0abf0163aad0891f243022007a6",
+    "src/i18n/pt.ts": "743a050afdf293b1d6f7b7828520380a60a85bf54288e822f2836a25b8b5c18c",
+    "src/i18n/storageMessages.ts": "e011aa8217f80e514583035a65f36ed1e03ce406d4abaefe89521c9a147f6fe6",
+    "src/platform/financeBinding.ts": "ba12b867bfafb79db31d22f9ee52a2fb337e273377b6cd77e6c7193c5a1a5c4f",
+    "src/platform/web/controller.ts": "ce62654e9346c5ce909b5cde6dab2f23857cac9f0b7f4ef70afe59439be5dbfe",
+    "src/platform/web/forensic.ts": "50643b55d7d4b2608772509a03bcb9a841d59c66a3982e84ef1279b3c1c60811",
+    "src/platform/web/indexedDb.ts": "dd853c74f6bfc40f60316e7ffdf857bfb35c4179a9930bcafb75a13c70e181a0",
+    "src/platform/web/legacy.ts": "a94e24a8778c2efbd4e67e395dddca652f548963f60ac0a719db7b5a1c166bf5",
+    "src/platform/web/openFinance.ts": "9333f9908ddda268ab6051f329377e492040427256f2a1492f3494f47e016ee8",
+    "src/platform/web/protocol.ts": "a9c4f9a7d8140ff7cf8514d753d427e5acc35086b466462e2993d9901a3971ea",
+    "src/tests.ts": "a4806fa35e5823f5b41e7249d9144918a8e9d7cc0c638186f2b07556e9d97124",
+    "src/utils/useFinanceData.ts": "626f473b85a0399a5862146b0405378b0d7e9fcdb676b0dd2c521147d06cacdf"
+  },
+  "unit": {
+    "tests": 681,
+    "pass": 681,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "engine": {
+    "tests": 11,
+    "pass": 11,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  }
+}

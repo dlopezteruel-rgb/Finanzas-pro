@@ -1,0 +1,123 @@
+{
+  "runStartedAt": "2026-11-17T10:30:35.383Z",
+  "finishedAt": "2026-11-17T10:30:47.576Z",
+  "sourceCommit": "60b1f47f97b113083e3b4991f03c2c45624f86bb",
+  "scope": "Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.",
+  "productionDist": "/workspace/work/Finanzas-pro-web-durable/dist",
+  "browser": {
+    "version": "156.0.8078.79",
+    "executable": "/usr/bin/chromium"
+  },
+  "results": [
+    {
+      "scenario": "graceful-after-confirmed-save",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8706cb4d630f9617dc19918dd3bc90b2522666b1bb4276fdf71d9440bd7d185c",
+        "confirmedSnapshotHash": "30a2aa25477822d7c66be21bf50b0a3707cd5bc53a629331f6c44306c3c7c27d",
+        "observedSnapshotHash": "30a2aa25477822d7c66be21bf50b0a3707cd5bc53a629331f6c44306c3c7c27d",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "eb190e14-55df-4c10-994a-35d3d048e00d",
+        "confirmedRevision": "a2baccf8-e609-477e-a267-6f0e127faa8b",
+        "recoveredRevision": "a2baccf8-e609-477e-a267-6f0e127faa8b",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794911437942"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794911437942"
+        ],
+        "confirmationToKillMs": 4.222550999999839,
+        "submitToConfirmationMs": 93.76870199999985
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8706cb4d630f9617dc19918dd3bc90b2522666b1bb4276fdf71d9440bd7d185c",
+        "confirmedSnapshotHash": "f6667314af4ea6728a11cf3e20770c7e009c2125535894c3393d8696c9f4f791",
+        "observedSnapshotHash": "f6667314af4ea6728a11cf3e20770c7e009c2125535894c3393d8696c9f4f791",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "eb190e14-55df-4c10-994a-35d3d048e00d",
+        "confirmedRevision": "0a4284e9-0ccd-4f8c-96d9-c8ae7f61fa90",
+        "recoveredRevision": "0a4284e9-0ccd-4f8c-96d9-c8ae7f61fa90",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794911442524"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794911442524"
+        ],
+        "confirmationToKillMs": 4.162720999999692,
+        "submitToConfirmationMs": 103.27664500000083
+      }
+    },
+    {
+      "scenario": "before-write-lock-callback",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8706cb4d630f9617dc19918dd3bc90b2522666b1bb4276fdf71d9440bd7d185c",
+        "confirmedSnapshotHash": "8706cb4d630f9617dc19918dd3bc90b2522666b1bb4276fdf71d9440bd7d185c",
+        "observedSnapshotHash": "8706cb4d630f9617dc19918dd3bc90b2522666b1bb4276fdf71d9440bd7d185c",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0,
+        "priorRevision": "eb190e14-55df-4c10-994a-35d3d048e00d",
+        "confirmedRevision": "eb190e14-55df-4c10-994a-35d3d048e00d",
+        "recoveredRevision": "eb190e14-55df-4c10-994a-35d3d048e00d",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "confirmationToKillMs": 4.877908999998908,
+        "submitToConfirmationMs": 99.05407000000014
+      }
+    }
+  ],
+  "sourceTreeDirty": true,
+  "sourceNote": "Exploratory working-tree build after diagnosis 60b1f47, not an implementation of that commit. Not final acceptance evidence.",
+  "runtimeSourceFingerprints": {
+    "src/App.tsx": "1101dc06bf0fd869f40c03b47c757cc5fb5b832564d3f6cf11908cce8b66615f",
+    "src/i18n/en.ts": "e29af4671726b0c9755e2cf55d85a29a87ee04f0cdc7f789aabfe4d2a44169c8",
+    "src/i18n/es.ts": "29e9d3cc1bedc40251a698d641c13aa028ad58ea50a87efbaf4fe9bc467d17ab",
+    "src/i18n/fr.ts": "0e24a742bd18c6ca83068b65f0415c3a5eb1e5fb8bef3a3d10fb1aadfd65f1c4",
+    "src/i18n/it.ts": "eea8c17dcc97216a18027a695d2415f4ac6ab0f087ff50f8f2c7de503d8a135e",
+    "src/i18n/pt.ts": "4443551cc28125029df787eb341473b0418d4fe2361767097d7d624b565b4682",
+    "src/i18n/storageMessages.ts": "37678d7c8ab7e122271b84798095b8971aec2c4728bb409a830d75fa7a296629",
+    "src/platform/financeBinding.ts": "ba12b867bfafb79db31d22f9ee52a2fb337e273377b6cd77e6c7193c5a1a5c4f",
+    "src/platform/web/controller.ts": "b150e7c34e34fa0057494451f0f9521e97eff0b8d6c0ce0ef444358f3f29bc72",
+    "src/platform/web/forensic.ts": "7ff88ab9a259fef437172c3f0903d870eab4381831dde134f4557b742a0a5fbe",
+    "src/platform/web/indexedDb.ts": "2e52098b05fc5932b76c09cbc962e253824f24b9a52333b4c0bf28acdb32f4ee",
+    "src/platform/web/legacy.ts": "fd8fe8c629a6392c49214ec56ee22f2d7e9cb297827baa7f3b543c488a28d59f",
+    "src/platform/web/openFinance.ts": "31915260b94496a9243a8d2d244cc60537190617bfc54dae2a690160364fa59b",
+    "src/platform/web/protocol.ts": "34da58fdc5cce2e397169e8a01f76a9e0a646873c865e4479a9a4ee124bc244f",
+    "src/utils/useFinanceData.ts": "626f473b85a0399a5862146b0405378b0d7e9fcdb676b0dd2c521147d06cacdf"
+  }
+}

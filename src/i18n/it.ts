@@ -1,6 +1,30 @@
 import type { Messages } from './messages';
 
 export const it = {
+  "webStore.forensicPartial": "Il download contiene solo i dati accessibili. Non è una copia completa e non conferma il recupero di tutti i dati.",
+  "webStore.loading": "Caricamento dei dati confermati",
+  "webStore.migrating": "Preparazione dell’archiviazione sicura",
+  "webStore.loadingSafe": "I dati precedenti vengono conservati. Attendi il completamento della verifica.",
+  "webStore.saving": "Salvataggio. Il modulo si chiuderà solo dopo la conferma della transazione.",
+  "webStore.checking": "Verifica del risultato del salvataggio. Non inviare di nuovo l’operazione.",
+  "webStore.recoveryRequired": "Impossibile confermare il risultato. Le nuove scritture sono bloccate. Conserva il modulo e verifica il salvataggio prima di continuare.",
+  "webStore.reloadRequired": "L’operazione è confermata. Ricarica i dati prima di continuare e non inviarla di nuovo.",
+  "webStore.ready": "Salvataggio confermato.",
+  "webStore.readonly": "Solo consultazione ed esportazione. Il salvataggio è bloccato.",
+  "webStore.conflict": "Un’altra scheda ha modificato i dati. Ricarica prima di continuare.",
+  "webStore.review": "Verifica lo stato del salvataggio",
+  "webStore.reconcile": "Verifica salvataggio",
+  "webStore.strictUnavailable": "Questo browser non consente di confermare il salvataggio con le garanzie richieste. Puoi consultare ed esportare, ma non salvare. Usa un browser aggiornato e compatibile.",
+  "webStore.openBlocked": "Un’altra scheda blocca l’archivio. Chiudi le versioni precedenti e riapri l’applicazione. I tuoi dati non sono stati sostituiti.",
+  "webStore.unavailable": "Impossibile accedere all’archivio. Nessun dato è stato eliminato. Puoi scaricare i dati recuperabili.",
+  "webStore.legacyView": "Impossibile verificare l’archivio attuale. Viene mostrata una copia precedente solo per consultazione ed esportazione; potrebbe non essere aggiornata. Il salvataggio è bloccato.",
+  "webStore.legacyDiverged": "Una versione precedente ha modificato i dati locali. Il salvataggio è bloccato per conservare entrambe le versioni. Scarica i dati per recuperarli; non sono stati uniti automaticamente.",
+  "webStore.corrupt": "I dati salvati non superano i controlli di integrità. Il salvataggio è bloccato. Nessun dato è stato eliminato o ricreato; scarica una copia per recuperarli.",
+  "webStore.schema": "Questa versione non riconosce l’archivio esistente. Aggiorna l’applicazione o scarica i dati per recuperarli. Nessun dato è stato sostituito.",
+  "webStore.notCommitted": "Il salvataggio è stato annullato senza applicare modifiche. I dati precedenti sono conservati e il modulo rimane disponibile.",
+  "webStore.uncertain": "Non è possibile confermare se l’operazione è stata salvata. Non inviarla di nuovo. Verifica lo stato del salvataggio prima di continuare.",
+  "webStore.forensicEmpty": "Impossibile ottenere dati recuperabili. Non è stata scaricata una copia vuota e non è stato eliminato nulla.",
+
   "ledger.page.allShort": "Tutti",
   "ledger.page.pagedShort": "Pagine",
 

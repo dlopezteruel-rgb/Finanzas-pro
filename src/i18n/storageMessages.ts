@@ -7,6 +7,20 @@ import type {DeletionReport,DeletionTarget} from '../utils/deletion';
 
 /** Owned diagnostics and dependency labels only. Never apply to personal fields or saved history. */
 const keys={
+  "WEB_FORENSIC_PARTIAL": "webStore.forensicPartial",
+  "WEB_STRICT_UNAVAILABLE": "webStore.strictUnavailable",
+  "WEB_OPEN_BLOCKED": "webStore.openBlocked",
+  "WEB_UNAVAILABLE": "webStore.unavailable",
+  "WEB_LEGACY_VIEW": "webStore.legacyView",
+  "WEB_LEGACY_DIVERGED": "webStore.legacyDiverged",
+  "WEB_CORRUPT": "webStore.corrupt",
+  "WEB_SCHEMA": "webStore.schema",
+  "WEB_NOT_COMMITTED": "webStore.notCommitted",
+  "WEB_UNCERTAIN": "webStore.uncertain",
+  "WEB_RELOAD": "webStore.reloadRequired",
+  "WEB_MIGRATING": "webStore.migrating",
+  "WEB_FORENSIC_EMPTY": "webStore.forensicEmpty",
+
   "versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4 y 3.5; no se ha modificado ningún dato.": "storage_message.version_no_compatible_se_admiten_los_formatos_2_5_2_6_2",
   "JSON 3.5: nombres de catálogo de sistema elegidos explícitamente. Las copias anteriores conservan sus nombres; utiliza la copia recuperable previa para volver atrás.": "catalog.names.backup35",
   "No se ha guardado el movimiento.": "assistant.saveFailed",

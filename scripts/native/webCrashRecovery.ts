@@ -14,6 +14,7 @@ import {chromium,type Browser} from 'playwright-core';
 import {DATA_KEY,parseSnapshot,serializeSnapshot} from '../../src/utils/backup';
 import {multilingualCatalogFixture} from '../multilingualCatalogFixture';
 import {navigateModule} from '../browserNavigation';
+import {readFinancialSnapshot} from '../webStorageFixture';
 
 const runStartedAt=new Date().toISOString();
 const [dist,report]=process.argv.slice(2);if(!dist||!report)throw Error('Production dist and report path are required.');
@@ -56,14 +57,14 @@ try{
   await closeGracefully();page=await launch(profile);await page.goto(origin+'/__fixture');assert.equal(await page.evaluate(key=>localStorage.getItem(key),DATA_KEY),synthetic,'Graceful fixture checkpoint must survive before injecting a financial crash.');stage='fixture-and-form';
   await page.goto(origin+'/app');await page.locator('.home-quick').waitFor();await navigateModule(page,'Cuentas');await page.getByRole('button',{name:'Nueva Cuenta',exact:true}).click();
   const form=page.getByRole('dialog',{name:'Cartera',exact:true}),name='Cuenta ficticia de cierre '+scenario;await form.getByLabel('Nombre de la cuenta',{exact:true}).fill(name);
-  const prior=await page.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+  const prior=await readFinancialSnapshot(page);
   if(scenario==='before-write-lock-callback')await page.evaluate(()=>{Object.defineProperty(navigator.locks,'request',{configurable:true,value:()=>{(window as any).__heldFinanceWrite=true;return new Promise(()=>{});}});});
   const submittedAt=performance.now();await form.locator('button[type=submit]').click();
   if(scenario!=='before-write-lock-callback')await form.waitFor({state:'hidden'});else{await page.waitForFunction(()=>(window as any).__heldFinanceWrite===true);assert.equal(await form.isVisible(),true);}
-  const confirmationDetectedAt=performance.now();const confirmed=await page.evaluate(key=>localStorage.getItem(key),DATA_KEY);assert.ok(confirmed);
+  const confirmationDetectedAt=performance.now();const confirmed=await readFinancialSnapshot(page);assert.ok(confirmed);
   if(scenario==='before-write-lock-callback')assert.equal(confirmed,prior);else assert.notEqual(confirmed,prior);
   const killRequestedAt=performance.now();stage='kill-and-reopen';if(scenario==='graceful-after-confirmed-save')await closeGracefully();else await killOwnedProcess();browser=undefined;
-  const reopened=await launch(profile);await reopened.goto(origin+'/app');await reopened.locator('.home-quick').waitFor();const restored=await reopened.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+  const reopened=await launch(profile);await reopened.goto(origin+'/app');await reopened.locator('.home-quick').waitFor();const restored=await readFinancialSnapshot(reopened);
   const digest=(raw:string|null)=>raw===null?null:createHash('sha256').update(raw).digest('hex');
   observation={priorSnapshotHash:digest(prior),confirmedSnapshotHash:digest(confirmed)!,observedSnapshotHash:digest(restored),priorSnapshotRetained:restored===prior,newWalletCount:restored?parseSnapshot(restored).wallets.filter(w=>w.name===name.toUpperCase()).length:0,priorRevision:prior?JSON.parse(prior).revision??null:null,confirmedRevision:JSON.parse(confirmed).revision??null,recoveredRevision:restored?JSON.parse(restored).revision??null:null,confirmedWalletIds:parseSnapshot(confirmed).wallets.map(w=>w.id),recoveredWalletIds:restored?parseSnapshot(restored).wallets.map(w=>w.id):[],confirmationToKillMs:killRequestedAt-confirmationDetectedAt,submitToConfirmationMs:confirmationDetectedAt-submittedAt};
   stage='verify-confirmed-snapshot';assert.equal(restored,confirmed,'Confirmed financial snapshot/revision did not survive the tested browser process kill.');

@@ -73,7 +73,7 @@ Copias anteriores disponibles desde la UI mediante lectura asíncrona. Importaci
 
 ### Navegadores y alcance
 
-Solo Chromium disponible en este host. Los datos MDN indican soporte de durability desde Chrome83, Firefox126 y Safari15, pero eso no aprueba sus runtimes ni sus garantías físicas. Firefox/WebKit no ejecutados. Se requiere Web Locks y el valor strict efectivo; no habrá fallback financiero a localStorage. Persistencia del origen se ofrecerá como acción explícita informada, separada de guardado y backup.
+Solo Chromium disponible en este host. Los datos MDN indican soporte de durability desde Chrome83, Firefox126 y Safari15, pero eso no aprueba sus runtimes ni sus garantías físicas. Firefox/WebKit no ejecutados. Se requiere Web Locks y el valor strict efectivo; no habrá fallback financiero a localStorage. No se invoca persist automáticamente ni se añade un control nuevo: solicitarlo de forma explícita informada queda como propuesta posterior, separada de guardado y backup.
 
 ### Integración futura con PR32
 
@@ -90,3 +90,17 @@ Medir build de producción: carga inicial/documento, movimiento/cuenta/transfere
 ## Resultados finales y aceptación
 
 **Pendiente de implementación y ejecución.** Este checkpoint no aprueba aún migración, solución financiera,20 repeticiones, regresión final, CI ni PR. Los checkpoints siguientes añadirán resultados reales, tabla antes/después, compatibilidad, incidencias, límites y enlaces. No se fusiona, despliega ni sincroniza Google AI Studio.
+
+## Checkpoint 2: contrato implementado y verificación parcial
+
+Se implementan controlador web asíncrono y driver IndexedDB independientes del código móvil. La propuesta usa FinanceStore y un Map realmente síncrono; la confirmación espera complete estricto, comprobación de documento/copia dentro de la transacción y lectura posterior del head/recibo. Cada copia tiene identidad y hash, sin sobrescribir anteriores. Un aborto conocido permite un nuevo intento explícito; una respuesta incierta requiere reconciliación y no repite la transformación. Un commit adelantado por otro escritor exige recarga y nunca dice que no se guardó.
+
+La sesión móvil5G sigue en memoria. FinanceStore, backup, storageSupport, los44 archivos protegidos de5G y el workflow permanecen byte a byte intactos. La frontera de presentación useFinanceData se adapta explícitamente. La UI añade estados de carga/migración/guardado/recuperación, copias asíncronas y exportación forense;24 textos se traducen a los cinco idiomas. La recuperación no se oculta detrás del formulario pendiente. Una descarga parcial se identifica y una señal sin datos no se ofrece como copia recuperable.
+
+Se añaden27 pruebas del controlador (incluidos11 formatos2.5–3.5) con fallos controlados y equivalencia con el motor original. La primera ejecución detectó cuatro errores del arnés: una simulación usaba parseBackup sobre un snapshot con revisión, dos esperados recreaban fotografías con otra hora y una fixture3.5 declaraba nombres iniciales incompatibles. Se corrigen las fixtures, conservando las comparaciones exactas de fotografías y dominio;Las26 pruebas iniciales pasan y se añade otra que rechaza la exportación de una consulta antigua cuando detecta cambios;27/27 pasan. Las pruebas de motor en Chromium real añaden11 resultados (10 casos y contenedor): migración/copias/bytes, strict degradado, cuota inyectada y reintento, restauración abortada, respuesta perdida, lectura de comprobación alterada, recibo ausente, divergencia antigua y esquema desconocido con exportación forense.11/11 pasan. La cuota está inyectada en la API real, no se ha llenado el disco del usuario.
+
+El [primer piloto de producción](web-001-evidence/first-pilot.json) pasa3/3 con la nueva fuente. Es exploratorio, del árbol de trabajo identificado por huellas; no equivale a20 repeticiones ni a CI final. El arnés conserva igualdad completa de bytes y cambia únicamente su lector a IndexedDB confirmado, sin caché ni espera de consolidación. Los perfiles sintéticos se acotarán por caso antes de la batería20x para no acumular almacenamiento temporal.
+
+Apertura IndexedDB bloqueada y espera de Web Lock tienen cancelación de10s, distinta de una confirmación financiera. La cancelación de Web Locks solo retira una petición que aún no fue concedida; una vez adquirido, el lock se mantiene hasta terminar la transacción, sin deadline que invente un aborto o éxito. Una apertura tardía se cierra y no inicia migración. Estas cotas evitan carga indefinida y no se usan para demorar SIGKILL o simular durabilidad.
+
+Pendientes: ampliar interrupciones de migración/restauración, concurrencia real entre pestañas y pruebas de20x; adaptar las lecturas/fallos de las fixtures885 al nuevo motor manteniendo todas las aserciones; cinco idiomas/axe, rendimiento, batería completa y CI obligatoria. **No se declara aún resuelto el P0 ni preparada para integración.**
