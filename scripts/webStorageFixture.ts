@@ -23,3 +23,15 @@ export async function readFinancialRecords(page:Page):Promise<Record<string,stri
  },{database:WEB_DATABASE,records:WEB_RECORDS,meta:WEB_META,key:DATA_KEY});
 }
 export async function readFinancialSnapshot(page:Page):Promise<string|null>{return (await readFinancialRecords(page))[DATA_KEY]??null;}
+
+/** Critical crash oracle: no legacy fallback can make an absent IDB commit look valid. */
+export async function readCommittedWebSnapshot(page:Page):Promise<string|null>{
+ return page.evaluate(async({database,records,meta,key})=>{
+  (window as any).__name??=(fn:unknown)=>fn;
+  const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open(database);r.onupgradeneeded=()=>r.transaction!.abort();r.onerror=()=>reject(r.error);r.onblocked=()=>reject(Error('Critical database read blocked.'));r.onsuccess=()=>resolve(r.result);});
+  try{return await new Promise<string|null>((resolve,reject)=>{
+   const tx=db.transaction([records,meta],'readonly'),active=tx.objectStore(records).get(key),migration=tx.objectStore(meta).get('migration');
+   tx.onabort=()=>reject(tx.error);tx.oncomplete=()=>migration.result?.status==='active'?resolve(active.result??null):reject(Error('Authoritative strict storage is not active.'));
+  });}finally{db.close();}
+ },{database:WEB_DATABASE,records:WEB_RECORDS,meta:WEB_META,key:DATA_KEY});
+}

@@ -1,0 +1,19 @@
+{
+  "sourceCommit": "01e6492c1619d6acfde979228862318432caef06",
+  "browser": {
+    "version": "156.0.8078.79",
+    "executable": "/usr/bin/chromium"
+  },
+  "backend": "indexeddb",
+  "p0Repetitions": 20,
+  "p0Passed": 20,
+  "controlsPassed": 2,
+  "total": 22,
+  "independentProfiles": 20,
+  "confirmationToKillMs": {
+    "median": 4.61796150000373,
+    "min": 3.5704490000061924,
+    "max": 9.505279999997583
+  },
+  "method": "No sleep, retry or read-loop after confirmation. One actual committed-source read; then immediate owned-process SIGKILL. Full byte/hash/revision/ID equality, no duplicate wallet IDs."
+}

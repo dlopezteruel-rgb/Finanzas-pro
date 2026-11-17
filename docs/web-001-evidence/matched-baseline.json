@@ -1,0 +1,115 @@
+{
+  "backend": "legacy",
+  "repetitions": 1,
+  "runStartedAt": "2026-11-17T10:55:55.217Z",
+  "finishedAt": "2026-11-17T10:56:07.245Z",
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "scope": "Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.",
+  "productionDist": "/workspace/work/Finanzas-pro-web001-baseline/dist",
+  "browser": {
+    "version": "156.0.8078.79",
+    "executable": "/usr/bin/chromium"
+  },
+  "results": [
+    {
+      "scenario": "graceful-after-confirmed-save",
+      "repetition": 0,
+      "profileId": "profile-AgULIW",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "confirmedSnapshotHash": "d7cdcbeb090a0ae69d87b97c157c04599da5d0c917c83c9c399e4d871ecc53fc",
+        "observedSnapshotHash": "d7cdcbeb090a0ae69d87b97c157c04599da5d0c917c83c9c399e4d871ecc53fc",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "confirmedRevision": "aa4a37dc-ed89-4d75-bfa0-d9f044af63e5",
+        "recoveredRevision": "aa4a37dc-ed89-4d75-bfa0-d9f044af63e5",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794912957981"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794912957981"
+        ],
+        "confirmationToKillMs": 2.758049000000028,
+        "submitToConfirmationMs": 100.50178899999992
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 0,
+      "profileId": "profile-hULV6d",
+      "passed": false,
+      "confirmedRevisionPreserved": false,
+      "stage": "verify-confirmed-snapshot",
+      "observation": {
+        "priorSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "confirmedSnapshotHash": "ed5f5400bb2f2fe44e4a2bba02f710d4a986a05f44f22b477e0b5ee0f5e1bb05",
+        "observedSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0,
+        "priorRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "confirmedRevision": "b98e608b-a1f4-4e87-b64d-05377981d94c",
+        "recoveredRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794912962032"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "confirmationToKillMs": 3.5857639999994717,
+        "submitToConfirmationMs": 94.79974300000049
+      },
+      "error": "AssertionError"
+    },
+    {
+      "scenario": "before-write-lock-callback",
+      "repetition": 0,
+      "profileId": "profile-mcSqNi",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "confirmedSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "observedSnapshotHash": "fd04ed82652ddcbb2f96510ac861020107d97933e02962b9fb87baca1e790787",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0,
+        "priorRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "confirmedRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "recoveredRevision": "d949c018-82ef-4309-a46d-4c88c288629e",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "confirmationToKillMs": 2.917417000000569,
+        "submitToConfirmationMs": 81.91560500000014
+      }
+    }
+  ],
+  "harnessSha256": "5108002fba02e73bbf1681f46d56ec6bff519b4556466a13b193f0f012589038",
+  "harnessNote": "Enhanced working-tree harness after01e6492. Production sourceCommit refers to the immutable application code; harness identity is recorded separately."
+}
