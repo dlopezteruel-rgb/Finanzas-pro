@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, selectPlanningArea, navigateModule} from './browserNavigation';
 import test from "node:test";
@@ -822,7 +823,7 @@ test(
           assert.ok(bank.transactions[0].obligationSettlement);
           await nav(p, "Movimientos");
           await p.getByRole("button", { name: "NO", exact: true }).click();
-          await p.waitForFunction(
+          await waitForStoredCondition(p,
             async (k) =>
               JSON.parse((await window.__fixtureStorage.getItem(k))!).transactions[0].processed,
             DATA_KEY,
