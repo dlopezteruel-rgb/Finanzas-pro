@@ -1,0 +1,26 @@
+[
+  {
+    "name": "idb-spec",
+    "url": "https://w3c.github.io/IndexedDB/",
+    "bytes": 1465614,
+    "sha256": "51784cdc9cbd153681d3cd6701a69a9209e07e55b11a1e6a0ec9caac85609ff8"
+  },
+  {
+    "name": "webstorage-spec",
+    "url": "https://html.spec.whatwg.org/multipage/webstorage.html",
+    "bytes": 70486,
+    "sha256": "e2fc8746aec2cd3a4aa1d8c92b5e2aea86930a5b48756c25d18e5a512ae53d84"
+  },
+  {
+    "name": "storage-spec",
+    "url": "https://storage.spec.whatwg.org/",
+    "bytes": 203660,
+    "sha256": "b14c51f73043496227a34452bf35d50fcadb5d8f166f3fa3955fffbd71c512c5"
+  },
+  {
+    "name": "idb-compat",
+    "url": "https://raw.githubusercontent.com/mdn/browser-compat-data/main/api/IDBTransaction.json",
+    "bytes": 17351,
+    "sha256": "bcef947da71c92d68ae7ca44d6177c63951ecc34d8343ef0fbece2a0dc2fb473"
+  }
+]

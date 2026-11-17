@@ -1,0 +1,168 @@
+{
+  "scope": "Pre-implementation engine research. Fictitious isolated profiles, immediate owned-process SIGKILL after the actual API completion. Not the financial UI or a power-loss certification.",
+  "browser": "156.0.8078.79",
+  "results": [
+    {
+      "engine": "localStorage",
+      "repetition": 0,
+      "passed": false,
+      "commit": {
+        "requestMs": 0,
+        "completeMs": 0,
+        "durability": null
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909846723,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "eba3b439d43c3ec9c2a1eaaecaeb1fa6ce7b80e325fa8900dbf9231c4b328454",
+      "recoveredHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc"
+    },
+    {
+      "engine": "localStorage",
+      "repetition": 1,
+      "passed": false,
+      "commit": {
+        "requestMs": 0,
+        "completeMs": 0,
+        "durability": null
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909848996,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "265270d599611cf4480fb76695ca1807608c118d057c7c72ce2051f44cebf54f",
+      "recoveredHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc"
+    },
+    {
+      "engine": "localStorage",
+      "repetition": 2,
+      "passed": false,
+      "commit": {
+        "requestMs": 0,
+        "completeMs": 0,
+        "durability": null
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909850972,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "2eca3096c54af2a728af7ad22d8a4e198140a1cf55e71e123acb3554c5a88a34",
+      "recoveredHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc"
+    },
+    {
+      "engine": "strict",
+      "repetition": 0,
+      "passed": true,
+      "commit": {
+        "requestMs": 0.6999999992549419,
+        "completeMs": 2.7999999970197678,
+        "durability": "strict"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909852971,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "d89b7c320b08a5d60b17c8d446b7b030a0bf11fd3cdc2f6a398874dbab54d3c1",
+      "recoveredHash": "d89b7c320b08a5d60b17c8d446b7b030a0bf11fd3cdc2f6a398874dbab54d3c1"
+    },
+    {
+      "engine": "strict",
+      "repetition": 1,
+      "passed": true,
+      "commit": {
+        "requestMs": 1.1000000014901161,
+        "completeMs": 5.199999999254942,
+        "durability": "strict"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909854915,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "32614ffd1ee528215dd736c55eee151de78b167da4351e4ae84749389fe4e229",
+      "recoveredHash": "32614ffd1ee528215dd736c55eee151de78b167da4351e4ae84749389fe4e229"
+    },
+    {
+      "engine": "strict",
+      "repetition": 2,
+      "passed": true,
+      "commit": {
+        "requestMs": 0.4000000022351742,
+        "completeMs": 2,
+        "durability": "strict"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909856993,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "7f489bc0b0dab7edc9b619940455009f63a1c40fb70c2ed109d5d7e6b082fede",
+      "recoveredHash": "7f489bc0b0dab7edc9b619940455009f63a1c40fb70c2ed109d5d7e6b082fede"
+    },
+    {
+      "engine": "relaxed",
+      "repetition": 0,
+      "passed": true,
+      "commit": {
+        "requestMs": 1,
+        "completeMs": 2.5,
+        "durability": "relaxed"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909859097,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "3aff8959ceada26283dc56dbfac272325401bd1d1111466f39279b37e8beb379",
+      "recoveredHash": "3aff8959ceada26283dc56dbfac272325401bd1d1111466f39279b37e8beb379"
+    },
+    {
+      "engine": "relaxed",
+      "repetition": 1,
+      "passed": true,
+      "commit": {
+        "requestMs": 0.8000000007450581,
+        "completeMs": 3.5,
+        "durability": "relaxed"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909861170,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "57ae4d831e7072ace59681062de477c8c18305f9960756acb5a7e6607cc565ec",
+      "recoveredHash": "57ae4d831e7072ace59681062de477c8c18305f9960756acb5a7e6607cc565ec"
+    },
+    {
+      "engine": "relaxed",
+      "repetition": 2,
+      "passed": true,
+      "commit": {
+        "requestMs": 1.7000000029802322,
+        "completeMs": 2.100000001490116,
+        "durability": "relaxed"
+      },
+      "storage": {
+        "persisted": false,
+        "persistGranted": false
+      },
+      "killAt": 1794909863219,
+      "priorHash": "b1091888ef5f602b8c6dd61ad348f5fa1300d19b23bed91ef821058ede0f3bcc",
+      "confirmedHash": "671f1a5ec98e8ea7f44df12d0a488848aacfd3635258de0c71b41931c4c771f1",
+      "recoveredHash": "671f1a5ec98e8ea7f44df12d0a488848aacfd3635258de0c71b41931c4c771f1"
+    }
+  ]
+}
