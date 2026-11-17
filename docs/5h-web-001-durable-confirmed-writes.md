@@ -1,5 +1,7 @@
 # 5H-WEB-001 — Escrituras web confirmadas y recuperables
 
+**Estado actual:** infraestructura implementada en [PR Draft33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33). La regresión completa y CI del SHA final siguen pendientes; los resultados por checkpoint se conservan como historial verificable, sin presentarlos como aprobación global.
+
 ## Checkpoint 1: reproducción y decisión previa a implementar
 
 Estado: investigación completada; **la corrección aún no está implementada ni se declara resuelta** en este checkpoint. Rama `fix/5h-web-001-durable-confirmed-writes`, base `ce1ec8398fed0eb6a39f0c362567b8a6613eaf81`. PR31 fusionada; PR32 abierta/Draft, SHA `ceb08c7fa3d05ea8c448855bf46fdec03e8af947`, sin cambios. Se conservan los ocho worktrees anteriores. No hay commits posteriores en origin/main al iniciar.
@@ -16,7 +18,7 @@ npm ci correcto; **654/654 unitarias**, **22/22 infraestructura**, lint/build co
 | SIGKILL inmediatamente tras confirmar | **Fallido**: documento anterior íntegro, cuenta nueva ausente |
 | SIGKILL antes del callback Web Lock | Aprobado: documento anterior íntegro |
 
-[Resultado original 2/3](web-001-evidence/baseline-crash.json). El fallo devuelve1. Se añade después únicamente instrumentación de tiempos, revisiones e IDs: [diff completo frente a PR32](web-001-evidence/reference-harness-instrumentation.patch). No se cambia la igualdad exacta del snapshot ni se introduce espera antes de SIGKILL. La repetición instrumentada se conserva separada. La preparación cierra normalmente y verifica el checkpoint antes de inyectar el fallo; no se confunde una fixture nunca consolidada con pérdida del cambio nuevo.
+[Resultado original 2/3](web-001-evidence/baseline-crash.json). El fallo devuelve1. Se añade después únicamente instrumentación de tiempos, revisiones e IDs: [instrumentación inicial](web-001-evidence/reference-harness-instrumentation.patch.json) y [adaptación completa frente a PR32](web-001-evidence/reference-harness-complete-diff.json). No se cambia la igualdad exacta del snapshot ni se introduce espera antes de SIGKILL. La repetición instrumentada se conserva separada. La preparación cierra normalmente y verifica el checkpoint antes de inyectar el fallo; no se confunde una fixture nunca consolidada con pérdida del cambio nuevo.
 
 ### Contrato anterior y causa demostrada
 
@@ -43,7 +45,7 @@ Se ejecuta [webDurabilityEngines.ts](../scripts/research/webDurabilityEngines.ts
 
 Se selecciona **IndexedDB nativo del navegador, transacciones readwrite con durability:'strict'**, sin dependencias nuevas. Se comprueba el atributo efectivo; ausencia, rechazo o degradación a default/relaxed bloquea escrituras, manteniendo lectura/exportación cuando sea segura. Se espera complete, nunca únicamente request.success. abort/cuota/errores no publican estado.
 
-React → controlador web asíncrono → propuesta mediante el mismo FinanceStore sobre Map síncrono aislado → Web Lock original → CAS y escritura IndexedDB → complete estricto → verificación/recibo → estado confirmado. FinanceStore, sus validadores y redondeos permanecen como motor compartido; el staging nunca es persistencia ni caché con éxito anticipado. No se importa código SQLCipher ni el controlador móvil de PR32.
+React → controlador web asíncrono → Web Lock original → propuesta mediante el mismo FinanceStore sobre Map síncrono aislado → CAS y escritura IndexedDB → complete estricto → verificación/recibo → estado confirmado. FinanceStore, sus validadores y redondeos permanecen como motor compartido; el staging nunca es persistencia ni caché con éxito anticipado. No se importa código SQLCipher ni el controlador móvil de PR32.
 
 ### Documento, revisiones y atomicidad
 
@@ -89,7 +91,7 @@ Medir build de producción: carga inicial/documento, movimiento/cuenta/transfere
 
 ## Resultados finales y aceptación
 
-**Pendiente de implementación y ejecución.** Este checkpoint no aprueba aún migración, solución financiera,20 repeticiones, regresión final, CI ni PR. Los checkpoints siguientes añadirán resultados reales, tabla antes/después, compatibilidad, incidencias, límites y enlaces. No se fusiona, despliega ni sincroniza Google AI Studio.
+La infraestructura está implementada y publicada en la PR Draft33. Los apartados posteriores contienen resultados intermedios reales. Todavía faltan batería completa, repetición del SHA final y CI final; los parciales no se presentan como aprobación global. No se fusiona, despliega ni sincroniza Google AI Studio.
 
 ## Checkpoint 2: contrato implementado y verificación parcial
 
@@ -177,3 +179,19 @@ Se reproducen y corrigen tres casos de la nueva frontera antes de entregar:
 El motor real pasa30/30 resultados, incluyendo cuota de migración, cercado denegado y reanudación con mismo UUID. La UI de producción compilada en directorio aislado pasa36/36: matriz30 y respuesta de commit perdida en cinco idiomas más contenedor. La pérdida se inyecta después del evento nativo complete, rechazando las lecturas de respuesta; el documento/recibo existen realmente. Tras restablecer lectura y reconciliar no hay segundo put financiero, el formulario permanece, el foco continúa dentro del diálogo y la recarga recupera exactamente el snapshot con un solo recibo. Cero violaciones axe en40 superficies de estos casos; incompletos conservados sin aprobación manual. Unitarias682/682, infraestructura37/37 y lint aprobados en este checkpoint. La batería885 y la repetición final20 siguen ejecutándose/pendientes; no se declaran aprobadas por estos parciales.
 
 CI exigirá al menos953 resultados (885 anteriores+68 nuevos),29 casos concretos de motor,40 superficies UI sin violaciones, veinte perfiles críticos y ocho controles reales; reportes ausentes o parciales fallan. No se modifican workflow, límites ni aserciones anteriores. Los comandos de medición usan IndexedDB por defecto para la aplicación actual; PERF_BACKEND=legacy solo se declara explícitamente al medir la base.
+
+
+## Evidencia, recursos y CI verificable
+
+[PR Draft33](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33), [checks del HEAD vigente](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/33/checks). El reporte ci-checkpoints.json identifica las ejecuciones intermedias, sus SHAs y resultados por trabajo; canceladas/parciales no equivalen a éxito. Cada ejecución final genera browser/summary.json, battery logs, web-durability.json, web-crash-controls.json, web-storage-engine.json y web-storage-ui.json en los artefactos. La URL/SHA final se registrará en la descripción de la PR al terminar, sin confundirla con resultados anteriores.
+
+El contenedor de medición tiene cuota de CPU200000/100000 (2vCPU) y8GiB de memoria, aunque os.cpus() muestra los192procesadores lógicos del host. Es una limitación del contenedor, no hardware móvil. Los cuatro perfiles CPU de1000/5000 antes/después se conservan comprimidos como cpuprofile.gz; deben descomprimirse para abrirlos en DevTools. Los44 archivos protegidos se comparan también directamente con main en protected-financial-source.json; proyectos/adaptadores nativos y lockfile sin cambios. Los hashes comprueban integridad, no cifran la web ni autentican frente a código malicioso del mismo origen.
+
+La nueva matriz añade36 grupos incompletos de color-contrast en40 superficies (resultado intermedio); son observaciones pendientes de revisión contextual, no violaciones ni pruebas manuales. Se conservan además los947grupos/53conjuntos equivalentes documentados en5G. El agregado final de la batería se documentará separadamente sin sumar silenciosamente pasadas repetidas. No se han utilizado lectores de pantalla ni dispositivos físicos.
+
+
+## Corrección del límite de respuesta posterior al commit
+
+La inyección real descubre dos fallos en el adaptador provisional32d61ba: un aborto de la lectura posterior al commit y una cuota simulada al abrir esa lectura se propagaban como WebTransactionAborted. La operación ya existía; no era correcto comunicar WEB_NOT_COMMITTED. La protección CAS seguía impidiendo una segunda escritura obsoleta, pero la explicación del resultado era incorrecta. Esta incidencia pertenece al adaptador en desarrollo, no al P0 original ni a SQLCipher.
+
+Se separa explícitamente la lectura de respuesta: después de complete de escritura, un fallo de inspección es WEB_UNCERTAIN, nunca prueba de aborto económico. La reconciliación consulta el recibo; mientras no pueda leerlo conserva formulario y bloquea nuevas escrituras. Al recuperar lectura identifica el commit y exige recarga sin segundo put ni transformación. Los casos nativos controlados reproducen el error antes y pasan después:32/32 resultados del motor,682/682 unitarias y lint. Evidencias postcommit-response-before-fix.json y postcommit-response-fixed-engine.json. La puerta final eleva el mínimo a955 resultados (885+70),31 casos de motor,40 superficies UI,20 perfiles críticos y8controles; los mínimos953/29 anteriores eran del checkpoint previo.

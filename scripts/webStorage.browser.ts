@@ -17,7 +17,7 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
  const server=await new Promise<ReturnType<typeof app.listen>>(resolve=>{const s=app.listen(0,'127.0.0.1',()=>resolve(s));});t.after(()=>new Promise<void>(r=>server.close(()=>r())));
  const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
  const results:{scenario:string;passed:boolean;details:unknown}[]=[];
- const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate','legacy-collections','invalid-source-preserved','migration-quota-keeps-source','migration-guard-denied-resumes','versionchange-forensic','legacy-denied-readable-database',...['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'].map(v=>'json-'+v)];
+ const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate','legacy-collections','invalid-source-preserved','migration-quota-keeps-source','migration-guard-denied-resumes','versionchange-forensic','legacy-denied-readable-database','postcommit-read-abort','postcommit-read-quota',...['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'].map(v=>'json-'+v)];
  for(const scenario of scenarios)await t.test(scenario,async()=>{
   const context=await browser.newContext();t.after(()=>context.close());
   await context.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
@@ -112,6 +112,18 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
     await new Promise<void>((resolve,reject)=>{const tx=db.transaction(m.WEB_OPERATIONS,'readwrite',{durability:'strict'});tx.objectStore(m.WEB_OPERATIONS).delete(saved.head.operationId);tx.oncomplete=()=>resolve();tx.onabort=()=>reject(tx.error);});db.close();
     let error='';try{await m.openWebFinance(data,storage);}catch(e){error=errorText(e);}
     const report=JSON.parse(await m.exportWebForensic(()=>storage));return {passed:error==='WEB_CORRUPT'&&report.database.finance.some((r:any)=>r.key===m.DATA_KEY&&r.value===saved.head.snapshot),error};
+   }
+   if(scenario.startsWith('postcommit-read-')){
+    const transaction=IDBDatabase.prototype.transaction,put=IDBObjectStore.prototype.put,financial=new WeakSet<IDBTransaction>();let fail=false,writes=0;
+    IDBDatabase.prototype.transaction=function(...args:any[]){
+     if(this.name===m.WEB_DATABASE&&args[1]==='readonly'&&fail&&scenario==='postcommit-read-quota')throw new DOMException('Synthetic response quota','QuotaExceededError');
+     const tx=(transaction as any).apply(this,args);
+     if(this.name===m.WEB_DATABASE){tx.addEventListener('complete',()=>{if(financial.has(tx))fail=true;});if(args[1]==='readonly'&&fail&&scenario==='postcommit-read-abort'){const r=tx.objectStore(m.WEB_RECORDS).get(m.DATA_KEY);r.addEventListener('success',()=>tx.abort());}}return tx;
+    };
+    IDBObjectStore.prototype.put=function(value,key){if(this.transaction.db.name===m.WEB_DATABASE&&this.name===m.WEB_RECORDS&&key===m.DATA_KEY){financial.add(this.transaction);writes++;}return put.call(this,value,key);};
+    let error='';try{await controller.mutate(add());}catch(e){error=errorText(e);}const uncertain=controller.phase==='recoveryRequired',kept=JSON.stringify(controller.data.wallets)===JSON.stringify(data.wallets);
+    fail=false;IDBDatabase.prototype.transaction=transaction;IDBObjectStore.prototype.put=put;const committed=await inspect();let reload='';try{await controller.reconcile();}catch(e){reload=errorText(e);}const state=await inspect();controller.close();
+    return {passed:uncertain&&kept&&error==='WEB_UNCERTAIN'&&reload==='WEB_RELOAD'&&writes===1&&state.head.snapshot===committed.head.snapshot&&m.parseSnapshot(state.head.snapshot).wallets.filter((w:any)=>w.id==='new').length===1,error,uncertain,kept,reload,writes,committedHash:committed.head.hash};
    }
    if(scenario==='legacy-denied-readable-database'){
     controller.close();Object.defineProperty(window,'localStorage',{configurable:true,get(){throw new DOMException('Synthetic denied legacy source','SecurityError');}});

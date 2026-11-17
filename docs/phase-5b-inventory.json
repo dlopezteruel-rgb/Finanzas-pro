@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1073,
-    "review": 3424,
+    "review": 3425,
     "translation-key": 1539,
     "ui-message-candidate": 398,
     "attribute-internal": 2189,
@@ -2097,10 +2097,10 @@
     {
       "file": "src/platform/web/indexedDb.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "dd853c74f6bfc40f60316e7ffdf857bfb35c4179a9930bcafb75a13c70e181a0",
+      "sourceSha256": "fd9c6cf3f07680a9af63b860d3c1996114aba4fc750dc453a8c85f0f50675c91",
       "counts": {
         "type-or-import": 2,
-        "review": 61,
+        "review": 62,
         "ui-message-candidate": 6
       },
       "visibleCandidateLines": [

@@ -111,6 +111,12 @@ export class IndexedFinanceDriver implements WebDriver {
    lookup.onsuccess=()=>{operation=lookup.result;loaded=true;apply();};this.readState(tx,state=>{inspection=state;apply();},abort);
   });
  }
+ /** Once a write transaction completed, failure of its response read is uncertain,
+  * never evidence that the financial write aborted. Keep that boundary explicit. */
+ private async readCommittedReceipt(receipt:Receipt):Promise<Receipt>{
+  try{return {...receipt,head:(await this.inspect()).head};}
+  catch{throw new WebStorageError('WEB_UNCERTAIN');}
+ }
  async commit(input:WriteRequest){
   const request=structuredClone(input);
   if(!/^[0-9a-f-]{36}$/.test(request.id)||await requestFingerprint(request)!==request.fingerprint)throw new WebStorageError('WEB_CORRUPT');
@@ -118,11 +124,11 @@ export class IndexedFinanceDriver implements WebDriver {
   for(const copy of request.copies){if(typeof copy.content!=='string'||!copy.key.startsWith(RECOVERY_PREFIX))throw new WebStorageError('WEB_CORRUPT');validateBackup(JSON.parse(copy.content));}
   const hashes=new Map(await Promise.all(request.copies.map(async copy=>[copy.key,await digest(copy.content)] as const)));
   const receipt=await this.operate(request.id,request.fingerprint,request,hashes);
-  return {...receipt,head:(await this.inspect()).head};
+  return this.readCommittedReceipt(receipt);
  }
  async resolve(id:string,fingerprint:string){
   if(!/^[0-9a-f-]{36}$/.test(id)||!/^[0-9a-f]{64}$/.test(fingerprint))throw new WebStorageError('WEB_CORRUPT');
-  const receipt=await this.operate(id,fingerprint,null);return {...receipt,head:(await this.inspect()).head};
+  const receipt=await this.operate(id,fingerprint,null);return this.readCommittedReceipt(receipt);
  }
  async copies():Promise<{key:string;content:string}[]>{
   const copies=await this.transaction<{key:string;content:string;hash:string}[]>([WEB_RECORDS,WEB_META],false,(tx,result,abort)=>{
