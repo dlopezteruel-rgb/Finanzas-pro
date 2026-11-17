@@ -17,7 +17,7 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
  const server=await new Promise<ReturnType<typeof app.listen>>(resolve=>{const s=app.listen(0,'127.0.0.1',()=>resolve(s));});t.after(()=>new Promise<void>(r=>server.close(()=>r())));
  const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
  const results:{scenario:string;passed:boolean;details:unknown}[]=[];
- const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate','legacy-collections','invalid-source-preserved','migration-quota-keeps-source','migration-guard-denied-resumes','versionchange-forensic','legacy-denied-readable-database','postcommit-read-abort','postcommit-read-quota',...['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'].map(v=>'json-'+v)];
+ const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate','legacy-collections','invalid-source-preserved','migration-quota-keeps-source','migration-guard-denied-resumes','versionchange-forensic','legacy-denied-readable-database','postcommit-read-abort','postcommit-read-quota','prepared-old-client-drift-after','prepared-old-client-drift-before',...['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'].map(v=>'json-'+v)];
  for(const scenario of scenarios)await t.test(scenario,async()=>{
   const context=await browser.newContext();t.after(()=>context.close());
   await context.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
@@ -27,7 +27,7 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
    const url='/driver/entry.js',m=await import(/* @vite-ignore */url),data=m.intelligentFixture(),raw=m.serializeSnapshot(data);
    localStorage.setItem(m.DATA_KEY,raw);localStorage.setItem('finanzas.ui.language','fr');localStorage.setItem('finanzas.ui.theme','light');
    const copyKey=m.RECOVERY_PREFIX+'historical',copy=JSON.stringify(m.makeBackup(data));
-   if(scenario==='migration-preserves-bytes-and-copies')localStorage.setItem(copyKey,copy);
+   if(['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly'].includes(scenario))localStorage.setItem(copyKey,copy);
    const storage={getItem:(key:string)=>localStorage.getItem(key),setItem:(key:string,value:string)=>{localStorage.setItem(key,value);return undefined;},key:(i:number)=>localStorage.key(i),get length(){return localStorage.length;}};
    const add=(id='new')=>(d:any)=>({...d,wallets:[...d.wallets,{id,name:'CUENTA '+id,type:'BANK',initialBalance:123.45,color:'#fff'}]});
    const inspect=async()=>{const driver=await m.IndexedFinanceDriver.open();try{return await driver.inspect();}finally{driver.close();}};
@@ -36,8 +36,8 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
     const transaction=IDBDatabase.prototype.transaction;
     IDBDatabase.prototype.transaction=function(...args:any[]){const tx=(transaction as any).apply(this,args);if(args[1]==='readwrite')Object.defineProperty(tx,'durability',{value:'default'});return tx;};
     const c=await m.openWebFinance(data,storage);let failed=false;try{await c.mutate(add());}catch{failed=true;}
-    const state=await inspect();c.close();IDBDatabase.prototype.transaction=transaction;
-    return {passed:failed&&c.phase==='readonly'&&c.problem==='WEB_STRICT_UNAVAILABLE'&&state.head.snapshot===null&&localStorage.getItem(m.DATA_KEY)===raw,phase:c.phase,problem:c.problem,snapshotUnchanged:localStorage.getItem(m.DATA_KEY)===raw};
+    const state=await inspect(),copies=await c.recoveryCopies();c.close();IDBDatabase.prototype.transaction=transaction;
+    return {passed:copies.some((entry:any)=>entry.key===copyKey&&entry.content===copy)&&failed&&c.phase==='readonly'&&c.problem==='WEB_STRICT_UNAVAILABLE'&&state.head.snapshot===null&&localStorage.getItem(m.DATA_KEY)===raw,phase:c.phase,problem:c.problem,snapshotUnchanged:localStorage.getItem(m.DATA_KEY)===raw};
    }
    if(scenario==='invalid-source-preserved'){
     const invalid='not valid JSON; FICTITIOUS FORENSIC';localStorage.setItem(m.DATA_KEY,invalid);let failed=false;try{await m.openWebFinance(data,storage);}catch{failed=true;}
@@ -66,6 +66,14 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
     const set=storage.setItem;storage.setItem=(key,value)=>{if(key===m.DATA_KEY)throw new DOMException('Synthetic denied guard','SecurityError');return set(key,value);};
     const c=await m.openWebFinance(data,storage),prepared=await inspect(),before=localStorage.getItem(m.DATA_KEY);c.close();storage.setItem=set;
     const reopened=await m.openWebFinance(data,storage),state=await inspect();reopened.close();return {passed:c.phase==='readonly'&&before===raw&&prepared.migration.status==='prepared'&&prepared.head.snapshot===raw&&state.migration.id===prepared.migration.id&&state.migration.status==='active'&&state.head.snapshot===raw,idPreserved:state.migration.id===prepared.migration.id};
+   }
+   if(scenario.startsWith('prepared-old-client-drift-')){
+    const old=new m.FinanceStore(storage,data,m.browserExclusiveWrite),inspectOriginal=m.IndexedFinanceDriver.prototype.inspect;let guardFailed=false,advanced=false;
+    const denied={getItem:storage.getItem,key:storage.key,get length(){return storage.length;},setItem:()=>{guardFailed=true;throw new DOMException('Synthetic denied migration guard','SecurityError');}};
+    if(scenario.endsWith('-before'))m.IndexedFinanceDriver.prototype.inspect=async function(){const state=await inspectOriginal.call(this);if(guardFailed&&!advanced&&state.migration?.status==='prepared'){advanced=true;await old.mutate(add('old-tab'));}return state;};
+    const c=await m.openWebFinance(data,denied);m.IndexedFinanceDriver.prototype.inspect=inspectOriginal;if(!advanced)await old.mutate(add('old-tab'));
+    const changed=localStorage.getItem(m.DATA_KEY),detected=await c.checkForConflict();let exportBlocked=false;try{await c.exportJSON();}catch{exportBlocked=true;}const state=await inspect();c.close();
+    return {passed:detected&&exportBlocked&&changed!==raw&&state.migration.status==='prepared'&&state.head.snapshot===raw&&c.problem==='WEB_LEGACY_VIEW',detected,exportBlocked,legacyChanged:changed!==raw,preparedSnapshotPreserved:state.head.snapshot===raw,phase:c.phase};
    }
    const controller=await m.openWebFinance(data,storage);
    if(scenario==='migration-preserves-bytes-and-copies'){

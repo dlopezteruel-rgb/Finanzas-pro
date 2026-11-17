@@ -127,3 +127,20 @@ test('WEB-001: a readonly legacy view detects drift and refuses to export stale 
 });
 
 test('WEB-001: forensic access denial is explicit, preserves the profile and never exports an empty recovery',async()=>{const {exportWebForensic}=await import('./forensic');await assert.rejects(exportWebForensic(()=>{throw new DOMException('Synthetic denied storage','SecurityError');}),/WEB_READ_BLOCKED/);});
+
+test('WEB-001: legacy recovery copies remain available in readonly mode when the database has no authoritative document',async()=>{
+ const f=await fixture();f.storage.setItem(DATA_KEY,f.raw);f.driver.head={snapshot:null,hash:null,operationId:null};f.driver.inspect=async()=>({migration:null,head:f.driver.head});
+ const key=RECOVERY_PREFIX+'original',content=JSON.stringify(makeBackup(intelligentFixture()));f.storage.setItem(key,content);
+ const c=new ReadOnlyWebController(intelligentFixture(),'WEB_STRICT_UNAVAILABLE',f.storage,f.driver);
+ assert.deepEqual(await c.recoveryCopies(),[{key,content}]);assert.equal(f.storage.getItem(key),content);assert.equal(f.storage.getItem(DATA_KEY),f.raw);assert.equal(f.driver.commits,0);assert.equal(f.driver.savedCopies.size,0);
+ await assert.rejects(c.mutate(addWallet()),/WEB_STRICT_UNAVAILABLE/);assert.equal(f.driver.commits,0);
+});
+
+test('WEB-001: a prepared readonly snapshot detects old-client writes before and after view creation',async()=>{
+ for(const before of [true,false]){
+  const f=await fixture();f.migration.status='prepared';f.storage.setItem(DATA_KEY,f.raw);
+  const changed=serializeSnapshot(addWallet('old-client')(intelligentFixture()));if(before)f.storage.setItem(DATA_KEY,changed);
+  const c=new ReadOnlyWebController(intelligentFixture(),'WEB_LEGACY_VIEW',f.storage,f.driver,f.driver.head);if(!before)f.storage.setItem(DATA_KEY,changed);
+  assert.equal(await c.checkForConflict(),true);await assert.rejects(c.exportJSON(),StorageConflictError);assert.equal(f.storage.getItem(DATA_KEY),changed);assert.equal(f.driver.head.snapshot,f.raw);assert.equal(f.driver.commits,0);
+ }
+});

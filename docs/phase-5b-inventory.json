@@ -4,7 +4,7 @@
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
     "type-or-import": 1073,
-    "review": 3425,
+    "review": 3436,
     "translation-key": 1539,
     "ui-message-candidate": 398,
     "attribute-internal": 2189,
@@ -2071,10 +2071,10 @@
     {
       "file": "src/platform/web/controller.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "96738a5c9648eee5e06d5bb27efcb4fa4682e85fabdfec74d1328edbd18b976b",
+      "sourceSha256": "6867ed586c065f43e917e798fea96001044505a2530a83ea65d806ea91a5b421",
       "counts": {
         "type-or-import": 6,
-        "review": 52
+        "review": 55
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2125,10 +2125,10 @@
     {
       "file": "src/platform/web/openFinance.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "71cacdc04d0f997a5e40021acac8f8e0826c84820e281c2991d6db3c73e9759a",
+      "sourceSha256": "e86de9d8066053e9af90da7afa399eb22f014589ac50b1901179d891b5943a8b",
       "counts": {
         "type-or-import": 11,
-        "review": 24
+        "review": 32
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

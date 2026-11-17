@@ -24,12 +24,12 @@ export async function openWebFinance(defaults:FinanceData,storage:SyncFinanceSto
  const legacyData=(source:import('./protocol').LegacySource)=>{try{return sourceData(source,defaults);}catch(error){const detail=error instanceof SyntaxError?'El archivo no contiene un JSON válido.':error instanceof Error?error.message:'WEB_CORRUPT';throw Error(`No se han podido cargar los datos: ${detail}. Los datos guardados no se han sobrescrito.`);}};
  try{
   if(support){
-   try{driver=await IndexedFinanceDriver.open(false);const state=await driver.inspect();await validateHead(state.head);if(state.head.snapshot!==null){const {parseSnapshot}=await import('../../utils/backup');return new ReadOnlyWebController(parseSnapshot(state.head.snapshot),support,storage,driver,state.head);}}catch{/* No unsupported writes; preserve the readable legacy copy below. */}
+   try{driver=await IndexedFinanceDriver.open(false);const state=await driver.inspect();await validateHead(state.head);if(state.head.snapshot!==null){const {parseSnapshot}=await import('../../utils/backup');return new ReadOnlyWebController(parseSnapshot(state.head.snapshot),state.migration?.status==='prepared'?'WEB_LEGACY_VIEW':support,storage,driver,state.head);}}catch{/* No unsupported writes; preserve the readable legacy copy below. */}
    return new ReadOnlyWebController(legacyData(legacyInventory(storage)),support,storage,driver);
   }
   return await exclusiveWebOperation(async()=>{
    driver=await IndexedFinanceDriver.open();
-   try{driver.requireStrict();}catch(error){const state=await driver.inspect();await validateHead(state.head);const {parseSnapshot}=await import('../../utils/backup');return new ReadOnlyWebController(state.head.snapshot===null?legacyData(legacyInventory(storage)):parseSnapshot(state.head.snapshot),(error as Error).message,storage,driver,state.head.snapshot!==null?state.head:undefined);}
+   try{driver.requireStrict();}catch(error){const state=await driver.inspect();await validateHead(state.head);const {parseSnapshot}=await import('../../utils/backup');return new ReadOnlyWebController(state.head.snapshot===null?legacyData(legacyInventory(storage)):parseSnapshot(state.head.snapshot),state.migration?.status==='prepared'?'WEB_LEGACY_VIEW':(error as Error).message,storage,driver,state.migration?state.head:undefined);}
    let state=await driver.inspect();await validateHead(state.head);
    if(!state.migration){
     const source=legacyInventory(storage);if(isGuard(source[DATA_KEY]??null))throw new WebStorageError('WEB_CORRUPT');
@@ -52,8 +52,8 @@ export async function openWebFinance(defaults:FinanceData,storage:SyncFinanceSto
    // A corrupt new head is never replaced by, or silently hidden behind, an old profile.
    const state=await driver.inspect();await validateHead(state.head);
    const {parseSnapshot}=await import('../../utils/backup');
-   if(state.head.snapshot!==null)return new ReadOnlyWebController(parseSnapshot(state.head.snapshot),reason,storage,driver,state.head);
-   if(state.migration)return new ReadOnlyWebController(legacyData(state.migration.source),reason,storage,driver);
+   if(state.head.snapshot!==null)return new ReadOnlyWebController(parseSnapshot(state.head.snapshot),state.migration?.status==='prepared'?'WEB_LEGACY_VIEW':reason,storage,driver,state.head);
+   if(state.migration)return new ReadOnlyWebController(legacyData(state.migration.source),state.migration.status==='prepared'?'WEB_LEGACY_VIEW':reason,storage,driver,state.head);
   }
   const source=legacyInventory(storage);if(isGuard(source[DATA_KEY]??null))throw error;
   return new ReadOnlyWebController(legacyData(source),support||'WEB_LEGACY_VIEW',storage,driver);

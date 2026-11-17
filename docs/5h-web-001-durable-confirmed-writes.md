@@ -200,3 +200,73 @@ La matriz de landing se adapta por último al nombre de la operación observada:
 
 
 La CIc151597 termina roja correctamente en deudas:182/184 resultados tras nueve suites; las demás no ejecutadas se muestran como tales. La causa es un callback async multilínea que escapó al cambio inicial de las esperas. Se adapta al mismo helper sin modificar la aserción de tramitación vinculada ni sus límites. La repetición específica pasa25/25. Un nuevo test de infraestructura rechaza el patrón explícito inseguro incluso con saltos de línea (salvo el helper que implementa el polling correcto). Infraestructura38/38; lint aprobado. La CI fallida y sus cifras se conservan en ci-c151597-failure.json, sin presentarla como éxito.
+
+## Reproducción y comprobación por el revisor
+
+Desde esta rama, con Node24.22.1 y Chromium instalado, usando exclusivamente perfiles/fixtures sintéticos:
+
+```bash
+npm ci
+npm test
+node --test scripts/ci/*.test.mjs
+npm run lint
+npm run build
+CHROMIUM_PATH=/usr/bin/chromium npm run test:durability
+CHROMIUM_PATH=/usr/bin/chromium npm run test:ui
+git diff origin/main...HEAD --check
+git diff --check
+```
+
+`test:durability` utiliza el build existente de dist; incluye motor real, matriz UI,20 perfiles críticos y8controles. `test:ui` recompila y conserva las44 suites anteriores, además de esa puerta obligatoria. Un fallo no se reintenta automáticamente. CI usa Chromium de la dependencia Playwright instalada y resuelve su ruta; no presupone /usr/bin/chromium en GitHub.
+
+Para reproducir la **evidencia histórica fallida**, compilar maince1ec839 en un worktree limpio independiente y llamar desde esta rama al mismo arnés, con su dist como argumento. El retorno1 en ese caso es el fallo documentado; nunca se incorpora como un test esperado verde:
+
+```bash
+DURABILITY_BACKEND=legacy DURABILITY_REPETITIONS=1 \
+  DURABILITY_SOURCE_SHA=ce1ec8398fed0eb6a39f0c362567b8a6613eaf81 \
+  CHROMIUM_PATH=/usr/bin/chromium \
+  node --import tsx scripts/native/webCrashRecovery.ts /ruta/base/dist /ruta/baseline.json
+```
+
+Para medir la versión actual, usar PERF_BACKEND=indexeddb (predeterminado); legacy se utiliza solo con un build anterior. Los resultados distinguen barrera, preparación y render, y no consideran setItem un commit duradero:
+
+```bash
+PERF_BACKEND=indexeddb PERF_PROFILE=mobile PERF_SAMPLES=3 npm run measure:performance
+PERF_BACKEND=indexeddb PERF_PROFILE=mobile PERF_SAMPLES=3 npm run measure:journeys
+PERF_BACKEND=indexeddb PERF_PROFILE=mobile PERF_SAMPLES=3 \
+  node --import tsx scripts/performance/webWriteJourneys.ts
+npm run audit:bundles
+```
+
+No utilizar perfiles personales con el arnés. Sus únicos directorios de navegador se crean mediante mkdtemp y solo se termina el grupo de procesos obtenido de su propio spawn detached. Las solicitudes repetidas que mantienen una transacción en curso son inyección de fallo exclusiva de los controles; no son una técnica de durabilidad del producto. No se añade beforeunload, espera de varios segundos, doble escritura ni bucle de lectura para fingir consolidación.
+
+## Límite de CI observado y ejecución acotada
+
+La ejecución [44088142789](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44088142789) del SHA00b4acf alcanza50min y GitHub cancela Chromium/axe; unitarias y lint/build/diff sí aprueban. Solo41/45 suites completadas: **no es aprobación de la batería**. Los tiempos registrados suman48,72min en esas41 suites. No se amplía el presupuesto ni se oculta la cancelación. Se prepara ejecución de como máximo dos matrices multidioma independientes en paralelo; recompilaciones que sustituyen dist, volumen y pruebas de terminación real permanecen en serie. La lista y orden de resultados, aserciones, límites y reglas axe se mantienen; la nueva ejecución debe demostrar el resultado antes de considerarse válida.
+
+## Cambios de comportamiento y límites operativos
+
+| Situación | Contrato anterior | Nueva frontera web |
+| --- | --- | --- |
+| Guardado | Retorno síncrono de setItem y publicación | complete de transacción strict y comprobación de head/recibo antes de publicar |
+| Cuota/aborto conocido | Error de almacenamiento | Sin propuesta ni copia parcial publicada; formulario conservado; nuevo intento explícito |
+| Respuesta perdida | Sin recibo transaccional | Reconciliación por UUID/fingerprint; nunca repetir la transformación a ciegas |
+| Restauración | Copia y sustitución en llamadas separadas | Copia, documento, revisión y recibo en una transacción |
+| Capacidad insuficiente | Guardado dependiente de localStorage | Consulta/exportación segura y escrituras bloqueadas; sin fallback financiero |
+| Migración | No aplicable | Archivo fuente íntegro, preparación y activación recuperables; sin borrar claves |
+| Código antiguo | Fuente localStorage | Cercado y detección de divergencias; rollback transparente no garantizado |
+| Recuperación forense | Claves locales | Lectura bruta de ambas fuentes con indicación explícita de errores parciales |
+
+IndexedDB, localStorage y Web Locks comparten el origen, no una ruta. Cambiar APP_BASE_PATH dentro del mismo origen conserva esa autoridad; la suite de rutas reconstruye y comprueba las bases existentes. No se importa automáticamente información de otro dominio, protocolo o puerto. El navegador puede eliminar datos del origen y el usuario puede borrarlos: el nuevo commit no sustituye una copia independiente. No se promete resistencia universal ante fallo eléctrico, hardware, sistema operativo ni eliminación del perfil.
+
+Antes de una reversión operativa hay que detener clientes, preservar/exportar las dos fuentes cuando exista divergencia, revisar sus revisiones y utilizar una restauración explícita aprobada. Nunca servir una versión antigua suponiendo que verá el último IndexedDB, borrar el destino, ni copiar automáticamente su snapshot de vuelta sobre localStorage.
+
+## Validación completa del checkpoint00b4acf y endurecimiento de consulta
+
+La batería local congelada en00b4acf termina **955/955 resultados,45 suites, cero fallos/omisiones/cancelaciones**. Incluye los885 originales,32 de motor,36 de UI y dos puertas reales. Las20 terminaciones después de confirmación pasan20/20, con dos controles; los8controles nativos de transacción/migración/restauración pasan8/8. Se conservan reportes checkpoint-00b4acf-*.json. Esto no convierte en verde su CI cancelada por presupuesto, ni sustituye la validación posterior del código final.
+
+La revisión añade dos regresiones reales de la frontera nueva, reproducidas antes de corregirlas: sin autoridad activa en IndexedDB no se listaban las copias antiguas; y una migración preparada podía mostrar/exportar una vista antigua sin detectar un escritor5G posterior. Se conservan readonly-copy-before-fix.json y readonly-prepared-source-before-fix.json. La consulta distingue preparación de activación, mantiene el inventario de copias del origen legible y compara la fuente con el hash inmutable archivado, tanto antes como después de crear la vista. La etiqueta existente y traducida WEB_LEGACY_VIEW identifica una copia previa, no un estado vigente confirmado. No hay reparación de cercado, mutación o fusión dentro de una comprobación de consulta.
+
+Las nuevas pruebas unitarias pasan684/684 y el motor real34/34. La matriz se refuerza para descargar byte a byte una copia antigua en cada una de30combinaciones. La puerta exige ahora al menos957 resultados:885 originales+34motor+36UI+2puertas,33casos de motor observados,40superficiesUI sin violaciones,20perfiles críticos y8controles. Los mínimos anteriores se mantienen como historial, no como la configuración final.
+
+La matriz reforzada termina36/36, incluidas las30descargas de copia antigua con igualdad exacta y sin escrituras financieras;40superficies axe, cero violaciones y36grupos incompletos pendientes. Lint/build/diff y38pruebas del ejecutor pasan. La ejecución20+8 se repetirá sobre el commit publicado de este endurecimiento y después en la puerta final de CI.

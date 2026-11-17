@@ -1,7 +1,7 @@
 import {FinanceStore,type FinanceMutation,type RestorationInput} from '../../utils/financeStore';
 import {DATA_KEY,RECOVERY_PREFIX,StorageConflictError,makeBackup,parseSnapshot,type FinanceData} from '../../utils/backup';
 import {memoryFinanceStorage,type SyncFinanceStorage} from '../financeBinding';
-import {legacyInventory,sourceCopies,verifyLegacy} from './legacy';
+import {legacyInventory,sourceCopies,sourceHash,verifyLegacy} from './legacy';
 import {exportWebForensic} from './forensic';
 import {WebStorageError,WebTransactionAborted,digest,requestFingerprint,validateHead,type AsyncExclusive,type Forensic,type Head,type Migration,type Receipt,type WebDriver,type WebFinanceController,type WebPhase,type WriteRequest} from './protocol';
 
@@ -105,10 +105,28 @@ export class ReadOnlyWebController implements WebFinanceController {
  private blocked():never{throw new Error(this.problem);}
  async mutate(_transform:FinanceMutation):Promise<FinanceData>{return this.blocked();}
  async restore(_next:RestorationInput):Promise<FinanceData>{return this.blocked();}
- async checkForConflict(){if(this.driver&&this.originalHead){const {head}=await this.driver.inspect();await validateHead(head);return head.snapshot!==this.originalHead.snapshot;}if(this.legacyAtOpen===undefined)throw new WebStorageError('WEB_UNAVAILABLE');return this.source.getItem(DATA_KEY)!==this.legacyAtOpen;}
+ async checkForConflict(){
+  let databaseReadable=false;
+  if(this.driver&&this.originalHead){
+   const {head,migration}=await this.driver.inspect();await validateHead(head);if(head.snapshot!==this.originalHead.snapshot)return true;databaseReadable=true;
+   if(migration?.status==='prepared'){
+    // A tentative migration is not authority over a still-writing legacy client.
+    // Compare the immutable original source, never capture a newer legacy baseline.
+    const current=legacyInventory(this.source);
+    if(current[DATA_KEY]===migration.guard){if(migration.source[DATA_KEY]===undefined)delete current[DATA_KEY];else current[DATA_KEY]=migration.source[DATA_KEY];}
+    return await sourceHash(current)!==migration.sourceHash;
+   }
+  }
+  if(this.legacyAtOpen===undefined){if(databaseReadable)return false;throw new WebStorageError('WEB_UNAVAILABLE');}
+  return this.source.getItem(DATA_KEY)!==this.legacyAtOpen;
+ }
  subscribe(_listener:()=>void){return()=>{};}
  async reconcile():Promise<void>{return this.blocked();}
- async recoveryCopies(){return this.driver?this.driver.copies():sourceCopies(legacyInventory(this.source));}
+ async recoveryCopies(){
+  let prepared=false;
+  if(this.driver){const state=await this.driver.inspect();if(state.migration?.status==='active')return this.driver.copies();prepared=state.migration?.status==='prepared';}
+  try{return sourceCopies(legacyInventory(this.source));}catch(error){if(this.driver&&prepared)return this.driver.copies();throw error;}
+ }
  async exportJSON(){if(await this.checkForConflict())throw new StorageConflictError();return JSON.stringify(makeBackup(this.data),null,2);}
  async forensic(){return exportWebForensic(()=>this.source,this.driver);}
  close(){this.driver?.close();}

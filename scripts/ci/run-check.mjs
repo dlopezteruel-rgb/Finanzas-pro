@@ -46,7 +46,7 @@ export async function runCheck(mode){
       summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
       summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
       const engine=JSON.parse(await readFile(path.join(dir,'web-storage-engine.json'),'utf8')),ui=JSON.parse(await readFile(path.join(dir,'web-storage-ui.json'),'utf8'));
-      if(summary.tests.reduce((n,r)=>n+r.tests,0)<955||engine.results?.length<31||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      if(summary.tests.reduce((n,r)=>n+r.tests,0)<957||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
       summary.webStorage={engineCases:engine.results.length,uiSurfaces:ui.observations.length,violations:0,incompleteGroups:ui.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
