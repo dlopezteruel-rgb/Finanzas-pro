@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1046,
-    "review": 3340,
-    "translation-key": 1548,
-    "ui-message-candidate": 385,
-    "attribute-internal": 2179,
+    "type-or-import": 1112,
+    "review": 3566,
+    "translation-key": 1556,
+    "ui-message-candidate": 399,
+    "attribute-internal": 2198,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -569,38 +569,41 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "614bfb45e42eb77aae7450e86bdbb0920c97ec8f6383adb68424548c7b1da657",
+      "sourceSha256": "4c4346b8e3ced391d562ceec93c8e224d2573c236784816ed38dc13ccfd471ca",
       "counts": {
         "type-or-import": 63,
-        "review": 81,
-        "translation-key": 42,
-        "ui-message-candidate": 25,
-        "attribute-internal": 76
+        "review": 99,
+        "translation-key": 50,
+        "ui-message-candidate": 29,
+        "attribute-internal": 95
       },
       "visibleCandidateLines": [
-        196,
-        197,
-        210,
+        137,
+        198,
+        199,
         212,
-        345,
+        214,
         347,
-        351,
-        379,
-        399,
-        453,
-        520,
-        526,
-        548,
-        558,
-        562,
-        575,
-        578,
-        698,
-        700,
-        705,
-        706,
-        707,
-        708
+        349,
+        353,
+        381,
+        401,
+        455,
+        522,
+        528,
+        544,
+        550,
+        560,
+        564,
+        577,
+        580,
+        584,
+        695,
+        697,
+        702,
+        703,
+        704,
+        705
       ],
       "presentationCalls": []
     },
@@ -1988,10 +1991,21 @@
     {
       "file": "src/platform/financeBinding.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "1bb20bfb3f1d630ce0844176981adc06635e137e30482ad1243a9853bbcc2d36",
+      "sourceSha256": "ff586a4ed6584d67af95e70c3bf4d872ad9b04defd71eff4f10f5ce7978f7026",
       "counts": {
-        "type-or-import": 5,
-        "review": 6
+        "type-or-import": 8,
+        "review": 9
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/financeSession.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "f5b850b33f135cce2c972287c09de659945773f026735449d5fc24db0bd5decf",
+      "counts": {
+        "type-or-import": 2,
+        "review": 5
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2009,7 +2023,7 @@
     {
       "file": "src/platform/native/bootstrap.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "29ed6ed6592e39d353352cbd37c0e388bc2a1b7640a57113a6ca833e981ab18e",
+      "sourceSha256": "28c2bd0d6143e37dc4da1488651ad232867c59e8181404deaef2ac4ff109cc35",
       "counts": {
         "type-or-import": 18,
         "review": 34,
@@ -2018,8 +2032,8 @@
         "translation-key": 28
       },
       "visibleCandidateLines": [
-        52,
-        54
+        55,
+        57
       ],
       "presentationCalls": []
     },
@@ -2136,11 +2150,87 @@
       "presentationCalls": []
     },
     {
+      "file": "src/platform/web/controller.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "6867ed586c065f43e917e798fea96001044505a2530a83ea65d806ea91a5b421",
+      "counts": {
+        "type-or-import": 6,
+        "review": 55
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/forensic.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "e64622a20540296b94f3dbede12cf837e54973368470a117113c84cc03f70f07",
+      "counts": {
+        "type-or-import": 4,
+        "ui-message-candidate": 2,
+        "review": 13
+      },
+      "visibleCandidateLines": [
+        10,
+        13
+      ],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/indexedDb.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "fd9c6cf3f07680a9af63b860d3c1996114aba4fc750dc453a8c85f0f50675c91",
+      "counts": {
+        "type-or-import": 2,
+        "review": 62,
+        "ui-message-candidate": 6
+      },
+      "visibleCandidateLines": [
+        14,
+        16,
+        17,
+        24
+      ],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/legacy.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "a94e24a8778c2efbd4e67e395dddca652f548963f60ac0a719db7b5a1c166bf5",
+      "counts": {
+        "type-or-import": 4,
+        "review": 6
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/openFinance.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "e86de9d8066053e9af90da7afa399eb22f014589ac50b1901179d891b5943a8b",
+      "counts": {
+        "type-or-import": 11,
+        "review": 32
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/protocol.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "37c9f048da056c35023172ca5ab403a4c41a292fefa1fe2ac2cee77cd8e6545f",
+      "counts": {
+        "type-or-import": 27,
+        "review": 17
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "c7f6f9224870a08c5a0f5159ecd522a1b3c41db43d9a7278a33714752f884767",
+      "sourceSha256": "1bd0dee76f1126f7e0b01ebf27f84139fd090676ac541f4991b83dcbe5f05a00",
       "counts": {
-        "type-or-import": 53
+        "type-or-import": 55
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2965,14 +3055,17 @@
     {
       "file": "src/utils/useFinanceData.ts",
       "policy": "Domain implementation protected; review owned UI output for boundary adapters",
-      "sourceSha256": "dbffeefb81d0a44aa923109c2d97a976598840b3196a6194029579b09502a61b",
+      "sourceSha256": "6448694665927c6e27643f4b8ecb8b08109a048c8256bc0295d089e91a236391",
       "counts": {
-        "type-or-import": 5,
-        "review": 2,
-        "ui-message-candidate": 2
+        "type-or-import": 10,
+        "review": 17,
+        "ui-message-candidate": 4
       },
       "visibleCandidateLines": [
-        15
+        34,
+        35,
+        41,
+        55
       ],
       "presentationCalls": []
     }
@@ -2995,7 +3088,7 @@
     },
     {
       "file": "src/i18n/storageMessages.ts",
-      "knownStaticMessages": 154,
+      "knownStaticMessages": 168,
       "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
     },
     {

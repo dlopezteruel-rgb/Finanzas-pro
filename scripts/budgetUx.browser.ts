@@ -1,3 +1,5 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
+import './webStorageBrowserPrelude.mjs';
 import { selectPlanningArea } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -29,8 +31,8 @@ const tab = (page: Page, name: 'Planificación financiera' | 'Catálogo y detall
 const section = (page: Page, name: string) => planner(page).getByRole('region', { name, exact: true });
 const input = (page: Page, name: string) => planner(page).getByRole('textbox', { name, exact: true });
 const guard = (page: Page) => page.getByRole('dialog', { name: 'Cambios de planificación sin guardar', exact: true });
-const snapshot = (page: Page) => page.evaluate(() => Object.fromEntries(Object.entries(localStorage)));
-const data = (page: Page) => page.evaluate(key => JSON.parse(localStorage.getItem(key)!), DATA_KEY);
+const snapshot = (page: Page) => page.evaluate(async () => Object.fromEntries((await window.__fixtureStorage.entries())));
+const data = (page: Page) => page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!), DATA_KEY);
 async function fill(page: Page) {
   await selectPlanningArea(page,'Ingresos');
   await input(page, 'Previsto INGRESO Salario de prueba').fill('3000,00');
@@ -197,8 +199,8 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
         (window as any).held = navigator.locks.request(lock, async () => { entered(); await new Promise<void>(r => (window as any).releaseUx = r); }); await ready;
       }, STORAGE_LOCK);
       await page.evaluate(key => {
-        const original = Storage.prototype.setItem; (window as any).failUx = true;
-        Storage.prototype.setItem = function(k, v) { if (k === key && (window as any).failUx) throw new DOMException('Cuota ficticia', 'QuotaExceededError'); return original.call(this, k, v); };
+        const original = window.__fixtureIo.setItem; (window as any).failUx = true;
+        window.__fixtureIo.setItem = function(k, v) { if (k === key && (window as any).failUx) throw new DOMException('Cuota ficticia', 'QuotaExceededError'); return original.call(this, k, v); };
       }, DATA_KEY);
       if (mode === 'draft') await planner(page).getByRole('button', { name: 'Guardar borrador', exact: true }).click();
       else {
@@ -292,11 +294,11 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       await tab(page, 'Catálogo y detalle de partidas').click(); const before = await data(page);
       await page.evaluate(key => {
         (window as any).catalogIo = { fail: true, attempts: 0, waiting: true };
-        const set = Storage.prototype.setItem, request = navigator.locks.request.bind(navigator.locks);
-        Storage.prototype.setItem = function(k, value) { if (k === key) { (window as any).catalogIo.attempts++; if ((window as any).catalogIo.fail) throw new DOMException('Cuota simulada', 'QuotaExceededError'); } return set.call(this, k, value); };
+        const set = window.__fixtureIo.setItem, request = navigator.locks.request.bind(navigator.locks);
+        window.__fixtureIo.setItem = function(k, value) { if (k === key) { (window as any).catalogIo.attempts++; if ((window as any).catalogIo.fail) throw new DOMException('Cuota simulada', 'QuotaExceededError'); } return set.call(this, k, value); };
         navigator.locks.request = ((...args: any[]) => (request as any)(args[0], async () => {
           if ((window as any).catalogIo.waiting) await new Promise<void>(resolve => { (window as any).releaseCatalog = resolve; });
-          return args[1]();
+          return args.at(-1)();
         })) as typeof navigator.locks.request;
       }, DATA_KEY);
       const duplicate = page.getByRole('button', { name: 'Duplicar partida Gasto diario', exact: true });
@@ -308,7 +310,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       assert.ok(await textContrast(page.getByRole('alert').filter({ hasText: /No hay espacio/ }).first()) >= 4.5);
       assert.deepEqual(await data(page), before); assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 1);
       await page.evaluate(() => { (window as any).catalogIo.fail = false; (window as any).catalogIo.waiting = false; });
-      await duplicate.click(); await page.waitForFunction(k => JSON.parse(localStorage.getItem(k)!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
+      await duplicate.click(); await waitForStoredCondition(page,async k => JSON.parse((await window.__fixtureStorage.getItem(k))!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
       const after = await data(page);
       assert.equal(after.budgetGroups.find((g: any) => g.code === 'G').partidas.length, 2);
       for (const key of ['transactions', 'budgetPlans', 'planningMonths', 'wallets', 'contacts', 'loans', 'intelligentFinance']) assert.deepEqual(after[key], before[key], key);

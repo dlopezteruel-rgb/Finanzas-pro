@@ -14,7 +14,11 @@ import {chromium,type Browser} from 'playwright-core';
 import {DATA_KEY,parseSnapshot,serializeSnapshot} from '../../src/utils/backup';
 import {multilingualCatalogFixture} from '../multilingualCatalogFixture';
 import {navigateModule} from '../browserNavigation';
+import {readCommittedWebSnapshot} from '../webStorageFixture';
 
+const runStartedAt=new Date().toISOString(),backend=process.env.DURABILITY_BACKEND??'indexeddb',repetitions=Number(process.env.DURABILITY_REPETITIONS??'1');
+if(!['legacy','indexeddb'].includes(backend)||!Number.isSafeInteger(repetitions)||repetitions<1||repetitions>100)throw Error('Explicit backend and 1..100 repetitions required.');
+const readSnapshot=(page:import('playwright-core').Page)=>backend==='legacy'?page.evaluate(key=>localStorage.getItem(key),DATA_KEY):readCommittedWebSnapshot(page);
 const [dist,report]=process.argv.slice(2);if(!dist||!report)throw Error('Production dist and report path are required.');
 const synthetic=serializeSnapshot(multilingualCatalogFixture()),directory=await mkdtemp(path.join(tmpdir(),'finanzas-fictitious-web-crash-'));
 const app=express();app.get('/__fixture',(_q,r)=>r.type('html').send('<!doctype html><title>Fictitious crash fixture</title>'));app.use(express.static(path.resolve(dist)));app.get('*',(_q,r)=>r.sendFile(path.resolve(dist,'index.html')));
@@ -45,35 +49,36 @@ async function launch(profile:string){
  await context.addInitScript(()=>{(window as any).__name=(fn:unknown)=>fn;});
  const page=await context.newPage();page.setDefaultTimeout(8000);return page;
 }
-const results:{scenario:string;passed:boolean;confirmedRevisionPreserved:boolean;error?:string;stage?:string;observation?:{priorSnapshotHash:string|null;confirmedSnapshotHash:string;observedSnapshotHash:string|null;priorSnapshotRetained:boolean;newWalletCount:number}}[]=[];
+const results:{scenario:string;repetition:number;profileId:string;passed:boolean;confirmedRevisionPreserved:boolean;error?:string;stage?:string;observation?:{priorSnapshotHash:string|null;confirmedSnapshotHash:string;observedSnapshotHash:string|null;priorSnapshotRetained:boolean;newWalletCount:number;priorRevision:string|null;confirmedRevision:string|null;recoveredRevision:string|null;confirmedWalletIds:string[];recoveredWalletIds:string[];confirmationToKillMs:number;submitToConfirmationMs:number}}[]=[];
 try{
- for(const scenario of ['graceful-after-confirmed-save','after-confirmed-save','before-write-lock-callback']){
-  let stage='launch';let observation:typeof results[number]['observation'];
+ const cases=[{scenario:'graceful-after-confirmed-save',repetition:0},...Array.from({length:repetitions},(_,repetition)=>({scenario:'after-confirmed-save',repetition})),{scenario:'before-write-lock-callback',repetition:0}];
+ for(const {scenario,repetition} of cases){
+  let profile:string|undefined;let stage='launch';let observation:typeof results[number]['observation'];
   try {
-  const profile=await mkdtemp(path.join(directory,'profile-'));let page=await launch(profile);stage='establish-durable-fixture';
+  profile=await mkdtemp(path.join(directory,'profile-'));let page=await launch(profile);stage='establish-durable-fixture';
   await page.goto(origin+'/__fixture');await page.evaluate(({key,value})=>{localStorage.setItem(key,value);localStorage.setItem('finanzas.ui.language','es');}, {key:DATA_KEY,value:synthetic});
   await closeGracefully();page=await launch(profile);await page.goto(origin+'/__fixture');assert.equal(await page.evaluate(key=>localStorage.getItem(key),DATA_KEY),synthetic,'Graceful fixture checkpoint must survive before injecting a financial crash.');stage='fixture-and-form';
   await page.goto(origin+'/app');await page.locator('.home-quick').waitFor();await navigateModule(page,'Cuentas');await page.getByRole('button',{name:'Nueva Cuenta',exact:true}).click();
   const form=page.getByRole('dialog',{name:'Cartera',exact:true}),name='Cuenta ficticia de cierre '+scenario;await form.getByLabel('Nombre de la cuenta',{exact:true}).fill(name);
-  const prior=await page.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+  const prior=await readSnapshot(page);
   if(scenario==='before-write-lock-callback')await page.evaluate(()=>{Object.defineProperty(navigator.locks,'request',{configurable:true,value:()=>{(window as any).__heldFinanceWrite=true;return new Promise(()=>{});}});});
-  await form.locator('button[type=submit]').click();
+  const submittedAt=performance.now();await form.locator('button[type=submit]').click();
   if(scenario!=='before-write-lock-callback')await form.waitFor({state:'hidden'});else{await page.waitForFunction(()=>(window as any).__heldFinanceWrite===true);assert.equal(await form.isVisible(),true);}
-  const confirmed=await page.evaluate(key=>localStorage.getItem(key),DATA_KEY);assert.ok(confirmed);
+  const confirmationDetectedAt=performance.now();const confirmed=await readSnapshot(page);assert.ok(confirmed);
   if(scenario==='before-write-lock-callback')assert.equal(confirmed,prior);else assert.notEqual(confirmed,prior);
-  stage='kill-and-reopen';if(scenario==='graceful-after-confirmed-save')await closeGracefully();else await killOwnedProcess();browser=undefined;
-  const reopened=await launch(profile);await reopened.goto(origin+'/app');await reopened.locator('.home-quick').waitFor();const restored=await reopened.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+  const killRequestedAt=performance.now();stage='kill-and-reopen';if(scenario==='graceful-after-confirmed-save')await closeGracefully();else await killOwnedProcess();browser=undefined;
+  const reopened=await launch(profile);await reopened.goto(origin+'/app');await reopened.locator('.home-quick').waitFor();const restored=await readSnapshot(reopened);
   const digest=(raw:string|null)=>raw===null?null:createHash('sha256').update(raw).digest('hex');
-  observation={priorSnapshotHash:digest(prior),confirmedSnapshotHash:digest(confirmed)!,observedSnapshotHash:digest(restored),priorSnapshotRetained:restored===prior,newWalletCount:restored?parseSnapshot(restored).wallets.filter(w=>w.name===name.toUpperCase()).length:0};
+  observation={priorSnapshotHash:digest(prior),confirmedSnapshotHash:digest(confirmed)!,observedSnapshotHash:digest(restored),priorSnapshotRetained:restored===prior,newWalletCount:restored?parseSnapshot(restored).wallets.filter(w=>w.name===name.toUpperCase()).length:0,priorRevision:prior?JSON.parse(prior).revision??null:null,confirmedRevision:JSON.parse(confirmed).revision??null,recoveredRevision:restored?JSON.parse(restored).revision??null:null,confirmedWalletIds:parseSnapshot(confirmed).wallets.map(w=>w.id),recoveredWalletIds:restored?parseSnapshot(restored).wallets.map(w=>w.id):[],confirmationToKillMs:killRequestedAt-confirmationDetectedAt,submitToConfirmationMs:confirmationDetectedAt-submittedAt};
   stage='verify-confirmed-snapshot';assert.equal(restored,confirmed,'Confirmed financial snapshot/revision did not survive the tested browser process kill.');
   const data=parseSnapshot(restored!);assert.equal(data.wallets.filter(w=>w.name===name.toUpperCase()).length,scenario!=='before-write-lock-callback'?1:0);
-  results.push({scenario,passed:true,confirmedRevisionPreserved:true,observation});
+  results.push({scenario,repetition,profileId:path.basename(profile??'not-created'),passed:true,confirmedRevisionPreserved:true,observation});
   } catch(error) {
-   results.push({scenario,passed:false,confirmedRevisionPreserved:false,stage,observation,error:error instanceof Error?error.name:'UnknownError'});
+   results.push({scenario,repetition,profileId:path.basename(profile??'not-created'),passed:false,confirmedRevisionPreserved:false,stage,observation,error:error instanceof Error?error.name:'UnknownError'});
    console.error('Web crash scenario failed:',scenario,'stage:',stage,'type:',error instanceof Error?error.name:'UnknownError');
-  } finally {await killOwnedProcess();browser=undefined;}
+  } finally {await killOwnedProcess();browser=undefined;if(profile)await rm(profile,{recursive:true,force:true});}
  }
- await writeFile(report,JSON.stringify({scope:'Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.',productionDist:path.resolve(dist),browser:{version:browserVersion,executable:process.env.CHROMIUM_PATH??'/usr/bin/chromium'},results},null,2)+'\n');console.log('Web crash recovery: '+results.filter(r=>r.passed).length+'/'+results.length+' scenarios passed.');if(results.some(r=>!r.passed))process.exitCode=1;
+ await writeFile(report,JSON.stringify({backend,repetitions,runStartedAt,finishedAt:new Date().toISOString(),sourceCommit:process.env.DURABILITY_SOURCE_SHA??null,scope:'Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.',productionDist:path.resolve(dist),browser:{version:browserVersion,executable:process.env.CHROMIUM_PATH??'/usr/bin/chromium'},results},null,2)+'\n');console.log('Web crash recovery: '+results.filter(r=>r.passed).length+'/'+results.length+' scenarios passed.');if(results.some(r=>!r.passed))process.exitCode=1;
 }finally{
  await killOwnedProcess();await browser?.close().catch(()=>{});await new Promise<void>(resolve=>server.close(()=>resolve()));await rm(directory,{recursive:true,force:true});
 }

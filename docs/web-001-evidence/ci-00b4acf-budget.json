@@ -1,0 +1,13 @@
+{
+  "sourceSha": "00b4acf0e25c0dbefcbab264c952e35163a92cf9",
+  "url": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44088142789",
+  "conclusion": "cancelled",
+  "cause": "Chromium job reached its50minute budget. Other2checks passed. No full-battery approval.",
+  "completedSuites": 41,
+  "proposedRemedy": "At most2independent translation suites at once; all root builds, volume measurements and real SIGKILL tests remain serial; unchanged50minute budget and assertions.",
+  "completedResults": 784,
+  "failedCompletedResults": 0,
+  "remainingSuitesNotCompleted": 4,
+  "browserJobStartedAt": "2026-11-17T12:58:31Z",
+  "browserJobCompletedAt": "2026-11-17T13:48:50Z"
+}

@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -32,19 +33,19 @@ test('5B planificación: cinco idiomas previstos, 390/768/1280 px y dos temas; n
    const p=await c.newPage();p.setDefaultTimeout(8000);p.on('pageerror',e=>errors.push(e.message));await p.goto(origin+'/app');const tr=translatorFor(language);
    await p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true}).getByRole('button',{name:tr('nav.budgets'),exact:true}).click();
    const editor=p.getByRole('region',{name:tr('planning.planificacion_financiera'),exact:true});await editor.getByLabel(tr('planning.mes_de_planificacion_358662'),{exact:true}).fill('2028-02');
-   const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
-   await p.evaluate(key=>{(window as any).__financialWrites=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
+   const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
+   await p.evaluate(key=>{(window as any).__financialWrites=0;const original=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
    await editor.getByRole('tab',{name:tr('planning.ingresos'),exact:true}).click();
    const incomeName=tr('planning.previsto',{type:tr('planning.incomeType'),name:'SUELDO NO TRADUCIR'});
    const income=editor.getByRole('textbox',{name:incomeName,exact:true});await income.fill('3.000');
    await editor.getByText(tr('planning_message.usa_un_importe_no_negativo_con_hasta_dos_decimales_15'),{exact:true}).waitFor();
-   assert.equal(await income.inputValue(),'3.000');assert.equal(await editor.getByRole('button',{name:tr('planning.guardar_borrador'),exact:true}).isDisabled(),true);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+   assert.equal(await income.inputValue(),'3.000');assert.equal(await editor.getByRole('button',{name:tr('planning.guardar_borrador'),exact:true}).isDisabled(),true);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
    await income.fill('3000.01');
    await editor.getByRole('tab',{name:tr('planning.gastos'),exact:true}).click();
    const expense=editor.getByRole('textbox',{name:tr('planning.previsto',{type:tr('planning.expenseType'),name:'GASTO NO TRADUCIR'}),exact:true});
    await expense.fill('1000');await editor.getByRole('textbox',{name:tr('planning.ahorro_objetivo_a54274'),exact:true}).fill('2500');
    await editor.getByText(tr('planning.advertencia_deficit_de_asignacion_o_ahorro_objetivo_superior_a'),{exact:true}).waitFor();
-   assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),0);
+   assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),0);
    await p.addScriptTag({content:axe});
    async function inspect(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return{violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length,review:v.nodes.map((n:any)=>({target:n.target,html:n.html,checks:[...n.any,...n.all,...n.none].map((c:any)=>({id:c.id,message:c.message,data:c.data,relatedNodes:c.relatedNodes}))}))}))};});observations.push({language,width,theme,surface,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,language,backup);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true);}
    const labelClearance=await editor.getByRole('textbox',{name:tr('planning.ahorro_objetivo_a54274'),exact:true}).evaluate(el=>{
@@ -60,13 +61,13 @@ test('5B planificación: cinco idiomas previstos, 390/768/1280 px y dos temas; n
    await dialog.getByRole('checkbox',{name:tr('planning.acepto_aprobar_conscientemente_esta_prevision_con_deficit').trim(),exact:true}).check();assert.equal(await confirm.isEnabled(),true);
    await inspect('explicit-deficit-approval');
    for(let step=0;step<4;step++){await p.keyboard.press(step%2?'Shift+Tab':'Tab');assert.equal(await dialog.evaluate(el=>el.contains(document.activeElement)),true);}
-   await p.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});assert.equal(await handle!.evaluate(el=>el===document.activeElement),true);assert.equal(await expense.inputValue(),'1000');assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+   await p.keyboard.press('Escape');await dialog.waitFor({state:'hidden'});assert.equal(await handle!.evaluate(el=>el===document.activeElement),true);assert.equal(await expense.inputValue(),'1000');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
    await opener.click();await dialog.getByRole('checkbox').check();await dialog.getByRole('button',{name:tr('planning.confirmar_aprobacion'),exact:true}).click();await dialog.waitFor({state:'hidden'});
-   const saved=JSON.parse((await p.evaluate(k=>localStorage.getItem(k),DATA_KEY))!);const approval=saved.planningMonths.find((m:any)=>m.monthYear==='2028-02').approval;
+   const saved=JSON.parse((await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY))!);const approval=saved.planningMonths.find((m:any)=>m.monthYear==='2028-02').approval;
    assert.equal(approval.totals.income,300001);assert.equal(approval.totals.expenses,100000);assert.equal(approval.totals.savings,250000);assert.equal(approval.number,1);
    assert.deepEqual(saved.transactions,backup.transactions);assert.deepEqual(saved.wallets,backup.wallets);assert.deepEqual(saved.budgetGroups,backup.budgetGroups);assert.equal(await p.evaluate(()=>(window as any).__financialWrites),1);
    await p.reload();await p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true}).getByRole('button',{name:tr('nav.budgets'),exact:true}).click();await editor.getByLabel(tr('planning.mes_de_planificacion_358662'),{exact:true}).fill('2028-02');await editor.getByText(tr('planning.approvedNotice'),{exact:true}).waitFor({state:'hidden'});
-   assert.ok((await editor.locator('[role=status]').allTextContents()).some(value=>value===tr('planning.approvedStatus')));assert.equal(JSON.parse((await p.evaluate(k=>localStorage.getItem(k),DATA_KEY))!).planningMonths.find((m:any)=>m.monthYear==='2028-02').approval.number,1);
+   assert.ok((await editor.locator('[role=status]').allTextContents()).some(value=>value===tr('planning.approvedStatus')));assert.equal(JSON.parse((await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY))!).planningMonths.find((m:any)=>m.monthYear==='2028-02').approval.number,1);
    assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
   }finally{await c.close();}
  });

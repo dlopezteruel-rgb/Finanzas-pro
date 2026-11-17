@@ -1,28 +1,35 @@
 import {readFile,mkdir,writeFile,rename} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {executeLogged} from './run-check.mjs';
+import {executeLogged} from './logged-command.mjs';
 import {requireCompleteTests} from './test-results.mjs';
 
 // Reviewed, isolated fixtures on ephemeral ports. routes rebuilds dist and MUST be a barrier.
-// Long axe/translation/volume matrices remain serial; unknown future suites default to serial.
-const isolated=new Set(['sharedUx','deletion','planning','budgetUx','charts','automation','responsive','intelligent','visualUx','defaultWallet','budgetSubitems','catalogPresentation','customCatalog','catalogReorder','catalogClassification','catalogArchive','phase4aSafety','phase4aLoans','i18n','translatedBanking','catalogQuickReceipt','lazyLanguage','deferredFeatures','nativeFoundation','nativeVault'].map(n=>`scripts/${n}.browser.ts`));
+// Main's12 isolated translation matrices and branch32's reviewed fixtures share one plan.
+// Root rebuilds, volume and durability remain exclusive; unknown suites default serial.
+const isolated=new Set(['sharedUx','deletion','planning','budgetUx','charts','automation','responsive','intelligent','visualUx','defaultWallet','budgetSubitems','catalogPresentation','customCatalog','catalogReorder','catalogClassification','catalogArchive','phase4aSafety','phase4aLoans','i18n','translatedBanking','catalogQuickReceipt','lazyLanguage','deferredFeatures'].map(n=>`scripts/${n}.browser.ts`));
+export const browserSuites=JSON.parse(await readFile(new URL('./browser-suites.json',import.meta.url),'utf8'));
+if(browserSuites.length!==46||new Set(browserSuites).size!==46||browserSuites.some(s=>!/^scripts\/[A-Za-z0-9_-]+\.browser\.ts$/.test(s)))throw Error('Incomplete or duplicate integrated battery manifest');
+export const isolatedMatrices=new Set(browserSuites.slice(22,34));
+for(const suite of isolatedMatrices)isolated.add(suite);
 export function readBattery(command){
+ if(command==='npm run build && node scripts/ci/browser-battery.mjs')return [...browserSuites];
  const parts=command.split('&&').map(s=>s.trim());
  if(parts.shift()!=='npm run build')throw Error('The original production build must precede the complete battery.');
  const suites=parts.map(p=>{const match=/^node --import tsx (scripts\/[A-Za-z0-9_-]+\.browser\.ts)$/.exec(p);if(!match)throw Error('Unsupported browser command: '+p);return match[1];});
  if(suites.length<21||new Set(suites).size!==suites.length)throw Error('The complete battery must contain distinct integrated suites.');
  return suites;
 }
-export function batteryPlan(suites){
+export function batteryPlan(suites=browserSuites,workers=2){
+ if(![1,2].includes(workers))throw Error('Browser workers must be1or2.');
  const groups=[];let pending=[];
- const flush=()=>{if(pending.length){groups.push({concurrency:2,suites:pending});pending=[];}};
+ const flush=()=>{if(pending.length){groups.push({concurrency:workers,suites:pending});pending=[];}};
  for(const suite of suites){if(isolated.has(suite))pending.push(suite);else{flush();groups.push({concurrency:1,suites:[suite]});}}
  flush();return groups;
 }
 /** Output is emitted in manifest order, even when siblings finish out of order. No retries. */
-export async function executePlan(suites,execute,{output=process.stdout,progress=process.stderr,checkpoint=async()=>{}}={}){
- const results=suites.map(suite=>({suite,status:'not_executed'})),plan=batteryPlan(suites);let nextOutput=0,failed=false;
+export async function executePlan(suites,execute,{output=process.stdout,progress=process.stderr,checkpoint=async()=>{},workers=2}={}){
+ const results=suites.map(suite=>({suite,status:'not_executed'})),plan=batteryPlan(suites,workers);let nextOutput=0,failed=false;
  const flush=()=>{while(nextOutput<results.length&&results[nextOutput].status!=='not_executed'&&results[nextOutput].status!=='running'){output.write(results[nextOutput].stdout??'');nextOutput++;}};
  const update=()=>checkpoint({plan,passed:!failed&&results.every(r=>r.status==='passed'),perSuite:results.map(({stdout,...r})=>r)});
  // Serialize checkpoint writes so parallel completion cannot overwrite a newer record.
@@ -46,14 +53,13 @@ export async function executePlan(suites,execute,{output=process.stdout,progress
  }
  await record();return {passed:!failed&&results.every(r=>r.status==='passed'),plan,perSuite:results.map(({stdout,...r})=>r)};
 }
-export async function runBattery(){
+export async function runBattery(options){
+ if(options?.execute){const result=await executePlan(options.suites??browserSuites,async suite=>{const r=await options.execute(suite);return {...r,stdout:r.text??r.stdout??''};},{output:options.output,progress:{write(){}},workers:options.workers??2});if(!result.passed)throw Error('Browser battery failed');return result;}
  const manifest=JSON.parse(await readFile('package.json','utf8')),suites=readBattery(manifest.scripts['test:ui']);
  const dir=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(path.join(dir,'suites'),{recursive:true});
  const env={...process.env,GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
- const build=await executeLogged('npm',['run','build'],{env,logPath:path.join(dir,'build.log')});
- if(build.code!==0||build.signal)throw Error('Production build failed.');
  const report=await executePlan(suites,suite=>executeLogged(process.execPath,['--import','tsx',suite],{env,logPath:path.join(dir,'suites',path.basename(suite)+'.log'),output:{write:()=>{}}}),{
-  checkpoint:async report=>{const temporary=path.join(dir,'schedule.tmp');await writeFile(temporary,JSON.stringify(report,null,2)+'\n');await rename(temporary,path.join(dir,'schedule.json'));},
+  workers:Number(process.env.FINANZAS_UI_WORKERS??2),checkpoint:async report=>{const temporary=path.join(dir,'schedule.tmp');await writeFile(temporary,JSON.stringify(report,null,2)+'\n');await rename(temporary,path.join(dir,'schedule.json'));},
  });
  if(!report.passed)throw Error('Browser battery failed; inspect per-suite logs and schedule.json.');
  return report;

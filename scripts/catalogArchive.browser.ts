@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -11,30 +12,32 @@ import {navigateModule} from './browserNavigation';
 // Test-only bundle exercises the actual domain/FinanceStore in Chromium. No production hook.
 const probe=buildSync({stdin:{resolveDir:process.cwd(),contents:`
   import {demoParent} from './scripts/budgetSubitemFixture';
-  import {FinanceStore,browserExclusiveWrite} from './src/utils/financeStore';
+  import {WebController} from './src/platform/web/controller';
+  import {IndexedFinanceDriver} from './src/platform/web/indexedDb';
+  import {exclusiveWebOperation} from './src/platform/web/openFinance';
   import {DATA_KEY,parseSnapshot} from './src/utils/backup';
   import {catalogArchiveImpact,catalogEntry,editCatalog} from './src/utils/budgetCatalog';
   globalThis.runArchiveProbe=async(mode,kind='partida')=>{
-    const initial=parseSnapshot(localStorage.getItem(DATA_KEY)),parent=demoParent;
+    const driver=await IndexedFinanceDriver.open(),state=await driver.inspect(),initial=parseSnapshot(state.head.snapshot),parent=demoParent;
     const target=kind==='familia'?{kind:'archiveFamily',code:catalogEntry(initial,parent).group.code}:{kind:'archivePartida',parent};
     let release;const gate=new Promise(r=>release=r);
-    const store=new FinanceStore(localStorage,initial,mode==='queued'?async write=>{await gate;return browserExclusiveWrite(write)}:browserExclusiveWrite);
-    const raw=()=>localStorage.getItem(DATA_KEY);
-    const attempt=async action=>{const before=raw();try{await action();return {rejected:false,unchanged:raw()===before}}catch(e){return {rejected:true,error:e.message,unchanged:raw()===before}}};
+    const store=new WebController(driver,localStorage,state.migration,state.head,initial,mode==='queued'?async write=>{await gate;return exclusiveWebOperation(write)}:exclusiveWebOperation);
+    const raw=async()=>(await driver.inspect()).head.snapshot;
+    const attempt=async action=>{const before=await raw();try{await action();return {rejected:false,unchanged:(await raw())===before}}catch(e){return {rejected:true,error:e.message,unchanged:(await raw())===before}}};
     if(mode==='queued'){
       const scope=catalogArchiveImpact(store.data,target).scope;
       const first=store.mutate(d=>({...d,planningAutomation:{...d.planningAutomation,rules:d.planningAutomation.rules.map(r=>r.id==='active'?{...r,amountCents:r.amountCents+1}:r)}}));
       const second=store.mutate({catalog:{...target,archived:true,scope}}).then(()=>null,e=>e.message);
-      release();await first;const afterFirst=raw(),error=await second;
-      return {error,unchanged:raw()===afterFirst,archived:!!catalogEntry(store.data,parent)[kind==='familia'?'group':'item'].archived};
+      release();await first;const afterFirst=await raw(),error=await second;
+      const unchanged=(await raw())===afterFirst,archived=!!catalogEntry(store.data,parent)[kind==='familia'?'group':'item'].archived;store.close();return {error,unchanged,archived};
     }
     const change=d=>({...d,budgetPlans:d.budgetPlans.map(p=>p.code===parent.code?{...p,plannedAmount:p.plannedAmount+1}:p),budgetSubitems:d.budgetSubitems?{...d.budgetSubitems,months:d.budgetSubitems.months.map(m=>({...m,lines:m.lines.map((l,i)=>({...l,amountCents:l.amountCents+(i===0?100:0)}))}))}:undefined});
-    const results=[await attempt(()=>store.mutate(change)),await attempt(()=>store.update('budgetPlans',p=>p.filter(p=>p.code!==parent.code))),await attempt(()=>store.mutate(d=>change(editCatalog(d,{...target,archived:false}))))];
+    const results=[await attempt(()=>store.mutate(change)),await attempt(()=>store.mutate(d=>({...d,budgetPlans:d.budgetPlans.filter(p=>p.code!==parent.code)}))),await attempt(()=>store.mutate(d=>change(editCatalog(d,{...target,archived:false}))))];
     if(store.data.budgetSubitems?.months.length){
-      results.push(await attempt(()=>store.update('budgetSubitems',s=>({...s,months:s.months.map(m=>({...m,lines:m.lines.map((l,i)=>({...l,amountCents:l.amountCents+(i===0?100:-100)}))}))}))));
-      results.push(await attempt(()=>store.update('budgetSubitems',s=>({...s,months:[]}))));
+      results.push(await attempt(()=>store.mutate(d=>({...d,budgetSubitems:{...d.budgetSubitems,months:d.budgetSubitems.months.map(m=>({...m,lines:m.lines.map((l,i)=>({...l,amountCents:l.amountCents+(i===0?100:-100)}))}))}}))));
+      results.push(await attempt(()=>store.mutate(d=>({...d,budgetSubitems:{...d.budgetSubitems,months:[]}}))));
     }
-    return results;
+    store.close();return results;
   };
 `},bundle:true,write:false,platform:'browser',format:'iife',target:'es2022'}).outputFiles[0].text;
 
@@ -53,7 +56,7 @@ test('Revisión PR #22: archivo económico y confirmación de reglas activas',{t
   }
   for(const width of [390,1280])for(const kind of ['partida','familia'])for(const monthly of [false,true])await t.test(`${width}px ${kind} desglose=${monthly}: revisar, cancelar, confirmar, proteger importes y reactivar`,async()=>{
     const s=await setup(width,monthly),{p}=s;try{
-      const name=kind==='familia'?'Gastos ficticios':'Ocio ficticio',raw=()=>p.evaluate(k=>localStorage.getItem(k),DATA_KEY),original=JSON.parse((await raw())!);
+      const name=kind==='familia'?'Gastos ficticios':'Ocio ficticio',raw=()=>p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),original=JSON.parse((await raw())!);
       const archive=p.getByRole('button',{name:`Archivar ${kind} ${name}`,exact:true}),dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});
       const before=await raw();await archive.click();await dialog.waitFor();assert.equal(await raw(),before);
       const text=await dialog.innerText();assert.match(text,/Periódico afectado/);assert.match(text,/Automatización afectada/);assert.match(text,/sin borrarlas, desactivarlas ni reasignarlas/);assert.match(text,/solo lectura/);assert.doesNotMatch(text,/inactivo|inactiva|retirado|Ahorro independiente/);
@@ -72,9 +75,9 @@ test('Revisión PR #22: archivo económico y confirmación de reglas activas',{t
   });
   await t.test('otra pestaña cambia una regla durante la revisión: la confirmación conserva estado y muestra conflicto',async()=>{
     const s=await setup(390),{p,c}=s;try{
-      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);await p.getByRole('button',{name:'Archivar familia Gastos ficticios',exact:true}).click();const dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});await dialog.waitFor();
-      const other=await c.newPage();await other.goto(origin+'/app');await other.addScriptTag({content:probe});await other.evaluate(()=>(globalThis as any).runArchiveProbe('queued','partida'));const updated=await other.evaluate(k=>localStorage.getItem(k),DATA_KEY);assert.notEqual(updated,before);
-      await dialog.getByRole('button',{name:'Confirmar archivo',exact:true}).click();await dialog.getByRole('alert').waitFor();assert.match(await dialog.getByRole('alert').innerText(),/pestaña|actualizad|recarg/i);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),updated);assert.equal(await dialog.isVisible(),true);await dialog.getByRole('button',{name:'Cancelar',exact:true}).click();
+      const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);await p.getByRole('button',{name:'Archivar familia Gastos ficticios',exact:true}).click();const dialog=p.getByRole('dialog',{name:'Confirmar archivo con reglas activas',exact:true});await dialog.waitFor();
+      const other=await c.newPage();await other.goto(origin+'/app');await other.addScriptTag({content:probe});await other.evaluate(()=>(globalThis as any).runArchiveProbe('queued','partida'));const updated=await other.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);assert.notEqual(updated,before);
+      await dialog.getByRole('button',{name:'Confirmar archivo',exact:true}).click();await dialog.getByRole('alert').waitFor();assert.match(await dialog.getByRole('alert').innerText(),/pestaña|actualizad|recarg/i);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),updated);assert.equal(await dialog.isVisible(),true);await dialog.getByRole('button',{name:'Cancelar',exact:true}).click();
     }finally{await s.close();}
   });
 });

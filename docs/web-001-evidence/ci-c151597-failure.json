@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "c1515973156925a5fb6362ae478265bceef32e3c",
+  "run": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44085852812",
+  "browserJobId": 134048128488,
+  "jobs": {
+    "Unitarias": "success",
+    "Lint, build y diff": "success",
+    "Chromium y axe": "failure"
+  },
+  "browserCompletedSummaries": 9,
+  "browserResults": {
+    "pass": 182,
+    "tests": 184,
+    "fail": 2,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "failedCase": "deuda independiente, cobro parcial y principal sin ingreso econ\u00f3mico",
+  "cause": "Explicit multiline async callback was still passed to Playwright waitForFunction; Promise truthiness allowed inspection before persistence completed.",
+  "fix": "Use the same awaited-predicate helper, retain every economic assertion and timeout, and forbid this explicit async pattern statically.",
+  "targetedLocalAfterFix": {
+    "tests": 25,
+    "pass": 25,
+    "fail": 0
+  },
+  "scope": "Actual failed CI retained; not final delivery approval."
+}

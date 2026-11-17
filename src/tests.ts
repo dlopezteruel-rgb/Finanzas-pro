@@ -81,3 +81,6 @@ import './platform/vault/asyncFinanceStore.test';
 import './platform/vault/policy.test';
 
 import '../scripts/native/build-policy.test';
+import './platform/web/controller.test';
+
+import './platform/financeSession.test';

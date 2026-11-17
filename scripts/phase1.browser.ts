@@ -1,3 +1,5 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit} from './browserNavigation';
 import { sharedExpenseCases } from './sharedExpenseCases';
 import { transferCases } from './transferCases';
@@ -52,7 +54,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     sessionStorage.setItem('phase1-seeded', 'yes');
   }, fixture);
   await page.goto(url);
-  const stored = () => page.evaluate(() => Object.fromEntries(Object.entries(localStorage).filter(([key]) => key.startsWith('finanzas_pro_'))));
+  const stored = () => page.evaluate(async () => Object.fromEntries((await window.__fixtureStorage.entries()).filter(([key]) => key.startsWith('finanzas_pro_'))));
   const readData = async () => JSON.parse((await stored())[DATA_KEY]);
   const menu = () => page.getByRole('button', { name: 'Opciones y datos' }).click();
   const importFile = (backup: unknown) => page.locator('input[type=file]').setInputFiles({ name: 'copia.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(backup)) });
@@ -145,9 +147,9 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
   await t.test('si no se puede guardar la copia, la interfaz conserva el estado', async () => {
     const before = await stored();
     await page.evaluate(prefix => {
-      const original = Storage.prototype.setItem;
-      (window as any).restoreStorageForTest = () => { Storage.prototype.setItem = original; };
-      Storage.prototype.setItem = function(key, value) {
+      const original = window.__fixtureIo.setItem;
+      (window as any).restoreStorageForTest = () => { window.__fixtureIo.setItem = original; };
+      window.__fixtureIo.setItem = function(key, value) {
         if (key.startsWith(prefix)) throw new DOMException('Sin espacio', 'QuotaExceededError');
         return original.call(this, key, value);
       };
@@ -180,7 +182,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     assert.deepEqual(await stored(), before);
     await page.getByLabel('Nombre de la cuenta').fill('PRUEBA RECARGA');
     await page.getByRole('button', { name: 'Crear Cuenta', exact: true }).click();
-    await page.waitForFunction(key => JSON.parse(localStorage.getItem(key)!).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'), DATA_KEY);
+    await waitForStoredCondition(page,async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'), DATA_KEY);
     await page.reload();
     await page.getByRole('button', { name: 'Opciones y datos' }).waitFor();
     assert.ok((await readData()).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'));
@@ -199,7 +201,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
       assert.ok(downloadPath);
       const raw = JSON.parse(await readFile(downloadPath, 'utf8'));
       assert.deepEqual(JSON.parse(raw.finanzas_pro_wallets_v2), duplicateWallets);
-      assert.equal(await legacy.evaluate(key => localStorage.getItem(key), DATA_KEY), null);
+      assert.equal(await legacy.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY), null);
     } finally { await context.close(); }
   });
   await t.test('dos pestañas detectan cambios y rechazan una edición o restauración obsoleta', async () => {
@@ -211,7 +213,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
       await other.getByRole('button', { name: 'Opciones y datos' }).waitFor();
       const previousRevision = (await readData()).revision;
       await concurrentFinancialEdit(page);
-      await page.waitForFunction(({ key, revision }) => JSON.parse(localStorage.getItem(key)!).revision !== revision, { key: DATA_KEY, revision: previousRevision });
+      await waitForStoredCondition(page,async ({ key, revision }) => JSON.parse((await window.__fixtureStorage.getItem(key))!).revision !== revision, { key: DATA_KEY, revision: previousRevision });
       await other.getByRole('alert').filter({ hasText: 'Otra pestaña' }).waitFor();
       const afterEdit = await stored();
       await concurrentFinancialEdit(other,true);
@@ -236,9 +238,9 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
     assert.deepEqual(await stored(), before);
     await page.evaluate(prefix => {
-      const original = Storage.prototype.setItem;
-      (window as any).restoreStorageForTest = () => { Storage.prototype.setItem = original; };
-      Storage.prototype.setItem = function(key, value) {
+      const original = window.__fixtureIo.setItem;
+      (window as any).restoreStorageForTest = () => { window.__fixtureIo.setItem = original; };
+      window.__fixtureIo.setItem = function(key, value) {
         if (key.startsWith(prefix)) throw new DOMException('Sin espacio', 'QuotaExceededError');
         return original.call(this, key, value);
       };

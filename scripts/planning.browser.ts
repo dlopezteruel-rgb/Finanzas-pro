@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import { selectPlanningArea } from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -15,7 +16,7 @@ const fixture = (theme: 'light' | 'dark' = 'dark'): FinanceData => ({ theme, tra
   ] });
 const nav=(page:Page,name:string)=>page.getByRole('button',{name:new RegExp('^'+name+'(?:\\s*\\d+)?$')}).first().click();
 const editor=(page:Page)=>page.getByRole('region',{name:'Planificación financiera'});
-const raw=(page:Page)=>page.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+const raw=(page:Page)=>page.evaluate(async key=>(await window.__fixtureStorage.getItem(key)),DATA_KEY);
 const saved=async(page:Page)=>JSON.parse((await raw(page))!);
 const dialog=(page:Page)=>page.getByRole('dialog',{name:'Revisar y aprobar previsión',exact:true});
 async function fill(page:Page, savings='600') {
@@ -61,7 +62,7 @@ test('3A: planificación, aprobación y compatibilidad en Chromium aislado', {ti
       await dialog(page).getByRole('button',{name:'Confirmar aprobación',exact:true}).evaluate(el=>{(el as HTMLButtonElement).click();(el as HTMLButtonElement).click()});
       assert.equal(await dialog(page).getByRole('button',{name:'Cancelar',exact:true}).isDisabled(),true);await page.keyboard.press('Escape');assert.equal(await dialog(page).count(),1);assert.deepEqual(await saved(page),before);
       await page.evaluate(()=>(window as any).releasePlan());await dialog(page).waitFor({state:'hidden'});const result=await saved(page);assert.equal(result.version,'2.9');assert.equal(result.planningMonths[0].approval.number,1);assert.equal(result.planningMonths[0].approval.totals.margin,20000);assert.deepEqual(result.transactions,before.transactions);assert.deepEqual(result.wallets,before.wallets);
-      assert.equal(await page.evaluate(prefix=>Object.keys(localStorage).filter(k=>k.startsWith(prefix)).length,RECOVERY_PREFIX),1);
+      assert.equal(await page.evaluate(async prefix=>(await window.__fixtureStorage.keys()).filter(k=>k.startsWith(prefix)).length,RECOVERY_PREFIX),1);
       await editor(page).getByRole('button',{name:'Ver resumen anual'}).click();assert.match((await editor(page).textContent()) ?? '',/Cobertura 1\/12/);
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true,'sin desbordamiento horizontal global');
       await page.reload();await nav(page,'Presupuestos');await editor(page).getByLabel('Mes de planificación').fill('2028-02');assert.match((await editor(page).textContent()) ?? '',/Aprobado/);assert.equal((await saved(page)).planningMonths[0].approval.number,1);
@@ -83,16 +84,16 @@ test('3A: planificación, aprobación y compatibilidad en Chromium aislado', {ti
       const original=await raw(target.page);const importFile=()=>target.page.locator('input[type=file]').setInputFiles({name:'ficticio-2.9.json',mimeType:'application/json',buffer:Buffer.from(content)});
       await importFile();let preview=target.page.getByRole('dialog');await preview.waitFor();assert.match(await preview.innerText(),/Formato 2.9/);assert.match(await preview.innerText(),/Objetivos y aprobaciones mensuales/);await preview.getByRole('button',{name:'Cancelar',exact:true}).click();assert.equal(await raw(target.page),original);
       await importFile();preview=target.page.getByRole('dialog');await preview.getByRole('button',{name:'Confirmar sustitución',exact:true}).click();await preview.waitFor({state:'hidden'});assert.deepEqual((await saved(target.page)).planningMonths,approved.planningMonths);assert.deepEqual((await saved(target.page)).budgetPlans,approved.budgetPlans);
-      const prior=await source.page.evaluate(prefix=>Object.entries(localStorage).find(([k])=>k.startsWith(prefix))![1],RECOVERY_PREFIX);assert.equal(JSON.parse(prior).version,'2.5');await source.page.locator('input[type=file]').setInputFiles({name:'copia-anterior-ficticia.json',mimeType:'application/json',buffer:Buffer.from(prior)});preview=source.page.getByRole('dialog');await preview.getByRole('button',{name:'Confirmar sustitución',exact:true}).click();await preview.waitFor({state:'hidden'});assert.equal((await saved(source.page)).planningMonths,undefined);assert.equal((await saved(source.page)).budgetPlans.length,0);assert.deepEqual((await saved(source.page)).wallets,approved.wallets);
+      const prior=await source.page.evaluate(async prefix=>(await window.__fixtureStorage.entries()).find(([k])=>k.startsWith(prefix))![1],RECOVERY_PREFIX);assert.equal(JSON.parse(prior).version,'2.5');await source.page.locator('input[type=file]').setInputFiles({name:'copia-anterior-ficticia.json',mimeType:'application/json',buffer:Buffer.from(prior)});preview=source.page.getByRole('dialog');await preview.getByRole('button',{name:'Confirmar sustitución',exact:true}).click();await preview.waitFor({state:'hidden'});assert.equal((await saved(source.page)).planningMonths,undefined);assert.equal((await saved(source.page)).budgetPlans.length,0);assert.deepEqual((await saved(source.page)).wallets,approved.wallets);
     }finally{await source.close();await target.close()}
   });
   for(const failure of ['quota','recovery','verification','locks'] as const)await t.test(`aprobación con ${failure}: conserva modal/importes/datos y permite reintentar`,async()=>{
     const s=await setup();try{const {page}=s;await fill(page);const before=await raw(page);await review(page);
       await page.evaluate(({key,prefix,failure})=>{
-        const original=Storage.prototype.setItem, get=Storage.prototype.getItem, request=navigator.locks.request.bind(navigator.locks);
+        const original=window.__fixtureIo.setItem, get=window.__fixtureIo.getItem, request=navigator.locks.request.bind(navigator.locks);
         (window as any).failPlan=true;
-        Storage.prototype.setItem=function(k,v){if((window as any).failPlan && ((failure==='quota'&&k===key)||(failure==='recovery'&&k.startsWith(prefix))))throw new DOMException('Cuota simulada','QuotaExceededError');return original.call(this,k,v)};
-        Storage.prototype.getItem=function(k){if((window as any).failPlan&&failure==='verification'&&k.startsWith(prefix))return '{}';return get.call(this,k)};
+        window.__fixtureIo.setItem=function(k,v){if((window as any).failPlan && ((failure==='quota'&&k===key)||(failure==='recovery'&&k.startsWith(prefix))))throw new DOMException('Cuota simulada','QuotaExceededError');return original.call(this,k,v)};
+        window.__fixtureIo.getItem=function(k){if((window as any).failPlan&&failure==='verification'&&k.startsWith(prefix))return '{}';return get.call(this,k)};
         navigator.locks.request=((...args:any[])=>{if((window as any).failPlan&&failure==='locks')return Promise.reject(new Error('Web Locks denegado'));return (request as any)(...args)}) as typeof navigator.locks.request;
       },{key:DATA_KEY,prefix:RECOVERY_PREFIX,failure});
       await dialog(page).getByRole('button',{name:'Confirmar aprobación',exact:true}).click();await dialog(page).getByRole('alert').waitFor();assert.equal(await raw(page),before);assert.equal(await dialog(page).getByRole('button',{name:'Confirmar aprobación',exact:true}).isEnabled(),true);

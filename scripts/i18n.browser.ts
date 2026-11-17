@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {assertNoSpanishOwnedText} from './i18n/residuals';
 import {languages,translatorFor,type Language} from '../src/i18n';
 import test from 'node:test';
@@ -25,8 +26,8 @@ test('5A: idioma visual aislado de finanzas',{timeout:120000},async t=>{
       },{key:DATA_KEY,value:JSON.stringify(makeBackup({...responsiveFixture(),theme}))});
       const p=await c.newPage();await p.goto(origin+'/app');const menu=p.getByRole('button',{name:'Opciones y datos',exact:true});await menu.waitFor();
       await p.waitForFunction(()=>(window as any).__firstTheme!==undefined);assert.equal(await p.evaluate(()=>(window as any).__firstTheme),theme);
-      const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
-      await p.evaluate(key=>{(window as any).__financialWrites=[];const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites.push(v);return set.call(this,k,v);};},DATA_KEY);
+      const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
+      await p.evaluate(key=>{(window as any).__financialWrites=[];const set=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){if(k===key)(window as any).__financialWrites.push(v);return set.call(this,k,v);};},DATA_KEY);
       await menu.focus();await p.keyboard.press('Enter');await p.getByLabel('Idioma',{exact:true}).waitFor();
       assert.equal(await p.getByRole('button',{name:'Exportar JSON',exact:true}).evaluate(e=>e===document.activeElement),true);
       for(let i=0;i<5;i++)await p.keyboard.press('Tab');
@@ -35,30 +36,30 @@ test('5A: idioma visual aislado de finanzas',{timeout:120000},async t=>{
       for(const lang of ['es','en','it','fr','pt'])assert.equal(await select.locator(`option[value=${lang}]`).isDisabled(),false);
       assert.match(await select.innerText(),/Español — disponible/);assert.match(await select.innerText(),/Português — disponible/);
       await p.addScriptTag({content:axe});const selectHandle=await select.elementHandle();
-      for(const lang of Object.keys(languages) as Language[]){const tr=translatorFor(lang);await p.locator('#ui-language').selectOption(lang);await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[lang].locale);await p.getByLabel(tr('language.label'),{exact:true}).waitFor();assert.equal(await selectHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.title(),tr('document.title'));assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),lang);assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);assert.deepEqual(await p.evaluate(()=>(window as any).__financialWrites),[]);const localizedViolations=await p.evaluate(async()=> (await(window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}})).violations);assert.deepEqual(localizedViolations,[]);await assertNoSpanishOwnedText(p,lang,JSON.parse(before!));}
-      await p.locator('#ui-language').selectOption('es');assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'es');
+      for(const lang of Object.keys(languages) as Language[]){const tr=translatorFor(lang);await p.locator('#ui-language').selectOption(lang);await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[lang].locale);await p.getByLabel(tr('language.label'),{exact:true}).waitFor();assert.equal(await selectHandle!.evaluate(el=>el===document.activeElement),true);assert.equal(await p.title(),tr('document.title'));assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),lang);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);assert.deepEqual(await p.evaluate(()=>(window as any).__financialWrites),[]);const localizedViolations=await p.evaluate(async()=> (await(window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}})).violations);assert.deepEqual(localizedViolations,[]);await assertNoSpanishOwnedText(p,lang,JSON.parse(before!));}
+      await p.locator('#ui-language').selectOption('es');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'es');
       assert.equal(await p.evaluate(()=>document.documentElement.lang),'es-ES');
       const violations=await p.evaluate(async()=> (await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}})).violations);assert.deepEqual(violations,[]);
       assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true);
       await p.keyboard.press('Escape');await select.waitFor({state:'hidden'});assert.equal(await menu.evaluate(e=>e===document.activeElement),true);
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);assert.deepEqual(await p.evaluate(()=>(window as any).__financialWrites),[]);
-      await p.getByRole('button',{name:/Cambiar a modo/}).click();assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'es');
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);assert.deepEqual(await p.evaluate(()=>(window as any).__financialWrites),[]);
+      await p.getByRole('button',{name:/Cambiar a modo/}).click();assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'es');
       await p.reload();await menu.click();assert.equal(await select.inputValue(),'es');assert.equal(await p.evaluate(()=>document.documentElement.lang),'es-ES');
     }finally{await c.close();}
   });
   await t.test('lectura corrupta, cambios entre pestañas y cuota denegada no escriben datos ni rompen la vista',async()=>{
     const c=await browser.newContext();try{
       await c.addInitScript(({key,language,value})=>{if(!sessionStorage.getItem('seed')){localStorage.setItem(key,value);localStorage.setItem(language,'{"unknown":true}');sessionStorage.setItem('seed','1');}},{key:DATA_KEY,language:LANGUAGE_KEY,value:JSON.stringify(makeBackup(responsiveFixture()))});
-      const p=await c.newPage();await p.goto(origin+'/app');await p.getByRole('button',{name:'Opciones y datos'}).click();const before=await p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
-      assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'{"unknown":true}');
+      const p=await c.newPage();await p.goto(origin+'/app');await p.getByRole('button',{name:'Opciones y datos'}).click();const before=await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
+      assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'{"unknown":true}');
       await p.evaluate(key=>{(window as any).__languageEvents=0;addEventListener('storage',event=>{if(event.key===key)(window as any).__languageEvents++;});},LANGUAGE_KEY);
       const other=await c.newPage();await other.goto(origin+'/app');await other.evaluate(k=>localStorage.setItem(k,'xx'),LANGUAGE_KEY);
       await p.waitForFunction(()=>(window as any).__languageEvents===1);
-      assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'xx');
-      await other.evaluate(k=>localStorage.setItem(k,'en'),LANGUAGE_KEY);await p.waitForFunction(()=>(window as any).__languageEvents===2);await p.getByLabel('Language',{exact:true}).waitFor();assert.equal(await p.getByLabel('Language',{exact:true}).inputValue(),'en');assert.equal(await p.evaluate(()=>document.documentElement.lang),'en-GB');assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'xx');
+      await other.evaluate(k=>localStorage.setItem(k,'en'),LANGUAGE_KEY);await p.waitForFunction(()=>(window as any).__languageEvents===2);await p.getByLabel('Language',{exact:true}).waitFor();assert.equal(await p.getByLabel('Language',{exact:true}).inputValue(),'en');assert.equal(await p.evaluate(()=>document.documentElement.lang),'en-GB');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
       await p.evaluate(key=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)throw new DOMException('quota','QuotaExceededError');return set.call(this,k,v);};},LANGUAGE_KEY);
-      await p.getByLabel('Language',{exact:true}).selectOption('es');await p.getByRole('status').filter({hasText:'no se ha podido guardar'}).waitFor();assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'en');assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before);
+      await p.getByLabel('Language',{exact:true}).selectOption('es');await p.getByRole('status').filter({hasText:'no se ha podido guardar'}).waitFor();assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'en');assert.equal(await p.getByLabel('Idioma',{exact:true}).inputValue(),'es');
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before);
     }finally{await c.close();}
   });
   await t.test('lectura de preferencia denegada mantiene español sin tocar almacenamiento financiero',async()=>{
@@ -74,8 +75,8 @@ test('5A: idioma visual aislado de finanzas',{timeout:120000},async t=>{
       const p=await c.newPage();await p.goto(origin+'/app');await p.getByRole('button',{name:'Opciones y datos'}).waitFor();
       await p.locator('input[type=file]').setInputFiles({name:'ficticio.json',mimeType:'application/json',buffer:Buffer.from(raw)});
       await p.getByRole('button',{name:'Confirmar sustitución',exact:true}).click();await p.getByRole('dialog').waitFor({state:'hidden'});
-      const saved=await p.evaluate(k=>JSON.parse(localStorage.getItem(k)!),DATA_KEY);assert.deepEqual(saved.transactions,backup.transactions);assert.deepEqual(saved.wallets,backup.wallets);assert.deepEqual(saved.budgetGroups,backup.budgetGroups);
-      assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'es');assert.equal(JSON.stringify(saved).includes(LANGUAGE_KEY),false);
+      const saved=await p.evaluate(async k=>JSON.parse((await window.__fixtureStorage.getItem(k))!),DATA_KEY);assert.deepEqual(saved.transactions,backup.transactions);assert.deepEqual(saved.wallets,backup.wallets);assert.deepEqual(saved.budgetGroups,backup.budgetGroups);
+      assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'es');assert.equal(JSON.stringify(saved).includes(LANGUAGE_KEY),false);
       await p.getByRole('button',{name:'Opciones y datos'}).click();const pending=p.waitForEvent('download');await p.getByRole('button',{name:'Exportar JSON',exact:true}).click();const download=await pending;const exported=JSON.parse(await readFile((await download.path())!,'utf8'));assert.deepEqual(exported.transactions,backup.transactions);assert.equal(JSON.stringify(exported).includes(LANGUAGE_KEY),false);
     }finally{await c.close();}
   });

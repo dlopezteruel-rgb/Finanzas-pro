@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "32d61ba91abf9989bccb2028b76cbc07b7f016f9",
+  "driverSha256": "dd853c74f6bfc40f60316e7ffdf857bfb35c4179a9930bcafb75a13c70e181a0",
+  "scope": "Real Chromium IndexedDB commits, then injected abort or quota of response read. These failed assertions reproduce a defect in the provisional new adapter, separate from the original localStorage P0.",
+  "failures": [
+    {
+      "passed": false,
+      "error": "WEB_NOT_COMMITTED",
+      "uncertain": false,
+      "kept": true,
+      "reload": "WEB_UNCERTAIN",
+      "writes": 1,
+      "committedHash": "ec6e054af4304c56fc77ac2ff7efa471aaa8b8ff9391bb2b3bf61d940f733fc0"
+    },
+    {
+      "passed": false,
+      "error": "WEB_NOT_COMMITTED",
+      "uncertain": false,
+      "kept": true,
+      "reload": "WEB_UNCERTAIN",
+      "writes": 1,
+      "committedHash": "e9f147f094dc973517ac7461fd2da5f48fdb3cc60d2b30eb29df447943c503c6"
+    }
+  ]
+}

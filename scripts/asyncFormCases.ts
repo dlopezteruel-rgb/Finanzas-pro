@@ -1,3 +1,5 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import { migrateSharedExpenses, sharedViewTransactions } from '../src/utils/sharedExpenses';
 import assert from 'node:assert/strict';
@@ -63,13 +65,13 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
         await scenario.fill(dialog); await chooseMovementPartida(dialog);
         const fields = () => dialog.locator('input, select, textarea').evaluateAll(elements => elements.map(e => ({ value: (e as HTMLInputElement).value, checked: (e as HTMLInputElement).checked })));
         const draft = await fields();
-        const raw = () => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
+        const raw = () => page.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY);
         let before = await raw();
         if (failure === 'storage') {
           await page.evaluate(key => {
-            const original = Storage.prototype.setItem;
+            const original = window.__fixtureIo.setItem;
             (window as any).saveControl = { fail: true, writes: 0 };
-            Storage.prototype.setItem = function(k, value) {
+            window.__fixtureIo.setItem = function(k, value) {
               if (k === key) {
                 (window as any).saveControl.writes++;
                 if ((window as any).saveControl.fail) throw new DOMException('Cuota simulada', 'QuotaExceededError');
@@ -81,7 +83,7 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
           const other = await context.newPage();
           await other.goto(url);
           await concurrentFinancialEdit(other);
-          await other.waitForFunction(({ key, before }) => localStorage.getItem(key) !== before, { key: DATA_KEY, before });
+          await waitForStoredCondition(other,async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before });
           before = await raw();
           await other.close();
         }
@@ -133,9 +135,9 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       const text = 'Compra supermercado 23,45 € con Openbank';
       await input.fill(text);
       await page.evaluate(key => {
-        const original = Storage.prototype.setItem;
+        const original = window.__fixtureIo.setItem;
         (window as any).failQuickSave = true;
-        Storage.prototype.setItem = function(k, v) {
+        window.__fixtureIo.setItem = function(k, v) {
           if (k === key && (window as any).failQuickSave) throw new DOMException('Cuota simulada', 'QuotaExceededError');
           return original.call(this, k, v);
         };
@@ -143,11 +145,11 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       await page.getByRole('button', { name: 'Registrar', exact: true }).click();
       await page.getByRole('alert').filter({ hasText: 'No hay espacio' }).first().waitFor();
       assert.equal(await input.inputValue(), text);
-      assert.deepEqual(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), DATA_KEY), fixture);
+      assert.deepEqual(await page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!), DATA_KEY), fixture);
       await page.evaluate(() => { (window as any).failQuickSave = false; });
       await page.getByRole('button', { name: 'Registrar', exact: true }).click();
       await page.waitForFunction(() => (document.querySelector('input[placeholder^="Registrar:"]') as HTMLInputElement).value === '');
-      assert.equal(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!).transactions.length, DATA_KEY), fixture.transactions.length + 1);
+      assert.equal(await page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions.length, DATA_KEY), fixture.transactions.length + 1);
     } finally { await context.close(); }
   });
 
@@ -164,9 +166,9 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       await dialog.getByRole('button', { name: /Nuevo Contacto/ }).click();
       await dialog.getByPlaceholder('Nombre del nuevo contacto...').fill('Contacto dentro del gasto');
       await page.evaluate(key => {
-        const original = Storage.prototype.setItem;
+        const original = window.__fixtureIo.setItem;
         (window as any).failContactSave = true;
-        Storage.prototype.setItem = function(k, v) {
+        window.__fixtureIo.setItem = function(k, v) {
           if (k === key && (window as any).failContactSave) throw new DOMException('Cuota simulada', 'QuotaExceededError');
           return original.call(this, k, v);
         };
@@ -180,8 +182,8 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       await dialog.getByPlaceholder('Nombre del nuevo contacto...').waitFor({ state: 'hidden' });
       assert.equal(await dialog.locator('input[type=number]').first().inputValue(), '19.75');
       assert.equal(await dialog.getByPlaceholder('ej. Cena restaurante, Compra Zara, Supermercado...').inputValue(), 'Movimiento revisado');
-      assert.equal(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!).transactions.length, DATA_KEY), fixture.transactions.length);
-      assert.equal(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!).contacts.length, DATA_KEY), fixture.contacts.length + 1);
+      assert.equal(await page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions.length, DATA_KEY), fixture.transactions.length);
+      assert.equal(await page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).contacts.length, DATA_KEY), fixture.contacts.length + 1);
     } finally { await context.close(); }
   });
 
@@ -215,7 +217,7 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
       await dialog.getByRole('alert').waitFor();
       assert.match(await dialog.getByRole('alert').innerText(), /Web Locks/);
       assert.equal(await dialog.getByLabel('Nombre de la cuenta').inputValue(), 'CARTERA REVISADA');
-      assert.deepEqual(await page.evaluate(key => JSON.parse(localStorage.getItem(key)!), DATA_KEY), fixture);
+      assert.deepEqual(await page.evaluate(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!), DATA_KEY), fixture);
     } finally { await context.close(); }
   });
 }

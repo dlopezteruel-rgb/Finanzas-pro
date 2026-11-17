@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
@@ -8,7 +9,7 @@ import { chartFixture } from './chartFixture';
 import { planningScope, savePlanning } from '../src/utils/planning';
 
 const nav=(page:Page,name:string)=>page.getByRole('button',{name:new RegExp('^(?:\\d+\\s*)?'+name+'(?:\\s*\\d+)?$')}).first().click();
-const allStorage=(page:Page)=>page.evaluate(()=>Object.fromEntries(Object.entries(localStorage)));
+const allStorage=(page:Page)=>page.evaluate(async ()=>Object.fromEntries((await window.__fixtureStorage.entries())));
 const panel=(page:Page)=>page.locator('details.financial-charts:visible');
 const chart=(page:Page,name:string)=>panel(page).getByRole('region',{name,exact:true});
 async function open(page:Page,name:string) { await page.getByText(name,{exact:true}).click(); await panel(page).getByRole('combobox').first().waitFor(); }

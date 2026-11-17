@@ -28,6 +28,8 @@ function NativePrototype({relay,preferenceFailure}:{relay:Relay;preferenceFailur
  const [notice,setNotice]=useState<PlatformNotice|undefined>(preferenceFailure?'native.preferencesFailed':undefined);
  const [durable,setDurable]=useState<DurableFinanceController>(),[preparing,setPreparing]=useState(false),[vaultProblem,setVaultProblem]=useState(''),[,refreshVault]=useState(0);
  const [recoveryDialog,setRecoveryDialog]=useState(false);
+ const mounted=useRef(true);useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;};},[]);
+ useEffect(()=>()=>{void durable?.close().catch(()=>{});},[durable]);
  const opening=useRef(false),[exportConsent,setExportConsent]=useState(false),exportDecision=useRef<((value:boolean)=>void)|null>(null);
  useEffect(()=>durable?.subscribe(()=>{refreshVault(n=>n+1);setRecoveryDialog(['recoveryRequired','reloadRequired','conflict'].includes(durable.phase));}),[durable]);
  useEffect(()=>()=>{exportDecision.current?.(false);},[]);
@@ -40,10 +42,11 @@ function NativePrototype({relay,preferenceFailure}:{relay:Relay;preferenceFailur
   if(!acknowledged||opening.current)return;opening.current=true;setPreparing(true);setVaultProblem('');
   try{
    const driver=import.meta.env.VITE_VAULT_TEST==='true'?await (await import('../vault/testBridge')).openBrowserTestVault():await (await import('../vault/nativeDriver')).openNativeSandbox(true);
-   const controller=await AsyncFinanceStore.open(driver,emptySandbox(BUDGET_GROUPS));
+   if(!mounted.current){await driver.close();return;}
+   let controller:AsyncFinanceStore;try{controller=await AsyncFinanceStore.open(driver,emptySandbox(BUDGET_GROUPS));}catch(error){await driver.close();throw error;}
    try{await controller.initialize();}catch(error){await controller.close();throw error;}
-   setDurable(controller);setStarted(true);
-  }catch(error){setVaultProblem(driverError(error).code);}finally{opening.current=false;setPreparing(false);}
+   if(!mounted.current){await controller.close();return;}setDurable(controller);setStarted(true);
+  }catch(error){if(mounted.current)setVaultProblem(driverError(error).code);}finally{opening.current=false;if(mounted.current)setPreparing(false);}
  }
  const [theme,setTheme]=useState(()=>readThemePreference()??'dark');
  const navigation=useMemo(backRegistry,[]);

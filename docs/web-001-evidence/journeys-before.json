@@ -1,0 +1,462 @@
+{
+  "schemaVersion": 1,
+  "backend": "legacy",
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "dist": "/workspace/work/Finanzas-pro-web001-baseline/dist",
+  "samples": 3,
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    }
+  ],
+  "browser": "156.0.8078.79",
+  "method": "Production gzip, same CDP CPU/network profiles.3 samples per profile. Latency includes dispatch and2frames. No temporal gates. Financial mutation is allowed only at explicit verified restoration confirmation; every other step requires zero writes. Fixed wall clock2026-11-14T12Z does not freeze performance clock. No service/API calls permitted.",
+  "rows": [
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 260.0322130000004,
+      "heapUsedBytes": 6184340,
+      "scriptDurationMs": 639.826,
+      "longTasks": [
+        50
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 266.8397279999999,
+      "heapUsedBytes": 8420688,
+      "scriptDurationMs": 733.571,
+      "longTasks": [
+        137
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 102.95261500000015,
+      "heapUsedBytes": 9764028,
+      "scriptDurationMs": 757.635,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 776.7022710000001,
+      "heapUsedBytes": 9716604,
+      "scriptDurationMs": 1094.7469999999998,
+      "longTasks": [
+        472
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 1307.0893240000005,
+      "heapUsedBytes": 12019868,
+      "scriptDurationMs": 1353.593,
+      "longTasks": [
+        365,
+        377,
+        87
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 190.7411090000005,
+      "heapUsedBytes": 13426456,
+      "scriptDurationMs": 1400.585,
+      "longTasks": [
+        115
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 220.26784699999916,
+      "heapUsedBytes": 11490200,
+      "scriptDurationMs": 1457.886,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 215.93926100000135,
+      "heapUsedBytes": 13513348,
+      "scriptDurationMs": 1561.6509999999998,
+      "longTasks": [
+        87
+      ],
+      "writes": [
+        "finanzas_pro_recovery_2026-11-14T12:00:00.000Z_f3baf077-68cb-4479-800f-5f4f0f2b53f7",
+        "finanzas_pro_data_v1"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 8874,
+          "end": 8874,
+          "status": "returned",
+          "characters": 48163
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "54eb4d0ca6e74ee099d69efa3be06f921170a11039a381c1935c15907c87ffa3",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    },
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 191.46554000000106,
+      "heapUsedBytes": 6202304,
+      "scriptDurationMs": 450.425,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 262.88468900000044,
+      "heapUsedBytes": 8419592,
+      "scriptDurationMs": 554.837,
+      "longTasks": [
+        152
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 80.77208300000166,
+      "heapUsedBytes": 9759272,
+      "scriptDurationMs": 572.416,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 690.8764069999997,
+      "heapUsedBytes": 9824784,
+      "scriptDurationMs": 792.252,
+      "longTasks": [
+        394
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 1335.1599260000003,
+      "heapUsedBytes": 12065820,
+      "scriptDurationMs": 1077.0040000000001,
+      "longTasks": [
+        385,
+        380,
+        123
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 223.07248499999878,
+      "heapUsedBytes": 13468776,
+      "scriptDurationMs": 1120.819,
+      "longTasks": [
+        113
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 235.12336399999913,
+      "heapUsedBytes": 11587800,
+      "scriptDurationMs": 1193.1009999999999,
+      "longTasks": [
+        52,
+        63
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 220.77626299999974,
+      "heapUsedBytes": 13621952,
+      "scriptDurationMs": 1306.21,
+      "longTasks": [
+        86
+      ],
+      "writes": [
+        "finanzas_pro_recovery_2026-11-14T12:00:00.000Z_8b00233d-34d8-42ab-95ef-261366acce81",
+        "finanzas_pro_data_v1"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 7899,
+          "end": 7904,
+          "status": "returned",
+          "characters": 48163
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "4ff7501f49b01624de25d638ac7d94050c1d724ecb68a89efa1ae8425f406928",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    },
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 195.79876200000217,
+      "heapUsedBytes": 6196404,
+      "scriptDurationMs": 487.204,
+      "longTasks": [
+        55
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 270.53892899999846,
+      "heapUsedBytes": 8423868,
+      "scriptDurationMs": 613.808,
+      "longTasks": [
+        165
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 82.19498099999691,
+      "heapUsedBytes": 9763964,
+      "scriptDurationMs": 636.2900000000001,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 661.8593059999985,
+      "heapUsedBytes": 9742900,
+      "scriptDurationMs": 872.838,
+      "longTasks": [
+        412
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 1340.7364799999996,
+      "heapUsedBytes": 12011816,
+      "scriptDurationMs": 1163.4679999999998,
+      "longTasks": [
+        384,
+        379,
+        134
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 187.18577799999912,
+      "heapUsedBytes": 13414248,
+      "scriptDurationMs": 1218.027,
+      "longTasks": [
+        118
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 268.70698099999936,
+      "heapUsedBytes": 11503876,
+      "scriptDurationMs": 1279.519,
+      "longTasks": [
+        54,
+        66,
+        66
+      ],
+      "writes": [],
+      "persistenceTrace": [],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 221.25461700000233,
+      "heapUsedBytes": 13543480,
+      "scriptDurationMs": 1391.842,
+      "longTasks": [
+        96
+      ],
+      "writes": [
+        "finanzas_pro_recovery_2026-11-14T12:00:00.000Z_f6cfe35f-424c-4420-9cd8-40d98c50bef5",
+        "finanzas_pro_data_v1"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 8374,
+          "end": 8375,
+          "status": "returned",
+          "characters": 48163
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "1335ee854e31fb64d4b06564725eefcc8e6e6fdc0225b148f4796be55972cb8d",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    }
+  ],
+  "errors": [],
+  "unexpectedAPI": []
+}

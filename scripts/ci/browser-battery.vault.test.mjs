@@ -4,9 +4,9 @@ const complete=(name,extra={})=>({code:0,signal:null,durationMs:1,stdout:`# case
 const silent={write:()=>{}};
 test('battery retains every original command exactly once; build, routes and matrices remain barriers',async()=>{
  const p=JSON.parse(await readFile('package.json','utf8')),suites=readBattery(p.scripts['test:ui']),groups=batteryPlan(suites);
- assert.equal(suites.length,45);assert.deepEqual(groups.flatMap(g=>g.suites),suites);assert.ok(groups.every(g=>g.concurrency<=2));
+ assert.equal(suites.length,46);assert.deepEqual(groups.flatMap(g=>g.suites),suites);assert.ok(groups.every(g=>g.concurrency<=2));
  for(const suite of ['phase1','routes','phase4aAudit','multilingualCatalog','largeLedger'])assert.equal(groups.find(g=>g.suites.includes(`scripts/${suite}.browser.ts`)).concurrency,1);
- assert.deepEqual(groups.at(-1).suites,['scripts/nativeFoundation.browser.ts','scripts/nativeVault.browser.ts']);
+ assert.deepEqual(groups.at(-3).suites,['scripts/nativeFoundation.browser.ts']);assert.deepEqual(groups.at(-2).suites,['scripts/nativeVault.browser.ts']);assert.deepEqual(groups.at(-1).suites,['scripts/webDurability.browser.ts']);
 });
 test('battery refuses hidden commands, duplicates and traversal instead of silently dropping work',()=>{
  const original='npm run build && '+Array.from({length:21},(_,i)=>`node --import tsx scripts/fixture${i}.browser.ts`).join(' && ');assert.equal(readBattery(original).length,21);

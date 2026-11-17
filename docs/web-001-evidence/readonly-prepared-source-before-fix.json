@@ -1,0 +1,18 @@
+{
+  "sourceSha": "00b4acf0e25c0dbefcbab264c952e35163a92cf9",
+  "scope": "Actual IndexedDB driver and original FinanceStore, isolated fictitious browser context; denied migration guard leaves prepared state, then old client writes. Not mobile storage.",
+  "observation": {
+    "passed": false,
+    "detected": false,
+    "exportBlocked": false,
+    "legacyChanged": true,
+    "preparedSnapshotPreserved": true,
+    "phase": "readonly"
+  },
+  "expected": {
+    "detected": true,
+    "exportBlocked": true,
+    "preparedSnapshotPreserved": true
+  },
+  "status": "reproduced-new-adapter-regression-before-fix"
+}

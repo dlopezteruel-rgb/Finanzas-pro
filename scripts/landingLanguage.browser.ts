@@ -1,3 +1,5 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
+import './webStorageBrowserPrelude.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import express from 'express';
@@ -24,15 +26,15 @@ test('5C: idioma desde landing, navegación, accesibilidad y conservación finan
     await c.addInitScript(({key,pref,value,language,seed})=>{
       (window as any).__name=(fn:unknown)=>fn;
       if(seed&&localStorage.getItem(key)===null){localStorage.setItem(key,value);localStorage.setItem(pref,language);}
-      const set=Storage.prototype.setItem,remove=Storage.prototype.removeItem,clear=Storage.prototype.clear;
-      Storage.prototype.setItem=function(k,v){if(this===localStorage&&k!==pref)void(window as any).__recordFinancialMutation(`set:${k}`);return set.call(this,k,v);};
+      window.__fixtureIo.mutated=event=>{void(window as any).__recordFinancialMutation(`idb:${event.store}:${event.method}:${event.key}`);};const set=Storage.prototype.setItem,remove=Storage.prototype.removeItem,clear=Storage.prototype.clear;
+      Storage.prototype.setItem=function(k,v){if(this===localStorage&&k!==pref&&!window.__fixtureIo.isGuardWrite(k,v))void(window as any).__recordFinancialMutation(`set:${k}`);return set.call(this,k,v);};
       Storage.prototype.removeItem=function(k){if(this===localStorage&&k!==pref)void(window as any).__recordFinancialMutation(`remove:${k}`);return remove.call(this,k);};
       Storage.prototype.clear=function(){if(this===localStorage)void(window as any).__recordFinancialMutation('clear');return clear.call(this);};
     },{key:DATA_KEY,pref:LANGUAGE_KEY,value:JSON.stringify(makeBackup({...fixture??responsiveFixture(),theme})),language,seed});
     const page=async()=>{const p=await c.newPage();p.setDefaultTimeout(8000);p.on('pageerror',e=>errors.push(e.message));await p.clock.setFixedTime(new Date('2026-10-31T12:00:00Z'));return p;};
     return {c,page,writes,errors,external};
   }
-  const raw=(p:Page)=>p.evaluate(k=>localStorage.getItem(k),DATA_KEY);
+  const raw=(p:Page)=>p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY);
   async function changed(p:Page,language:Language){await p.waitForFunction(locale=>document.documentElement.lang===locale,languages[language].locale);assert.equal(await p.locator('#landing-language').inputValue(),language);}
   async function audit(p:Page,language:Language,width:number,theme:string,surface:string){
     await p.addScriptTag({content:axe});const result=await p.evaluate(async()=>{const r=await(window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete};});
@@ -57,7 +59,7 @@ test('5C: idioma desde landing, navegación, accesibilidad y conservación finan
       if(theme==='light'&&['fr','pt'].includes(language))await p.screenshot({path:path.join(dir,`landing-${language}-${width}.png`),fullPage:true,animations:'disabled'});
       await p.locator('.landing-header .button-primary').click();await p.getByRole('group',{name:tr('app.secciones_de_inicio'),exact:true}).waitFor();await p.getByRole('button',{name:tr('options.title'),exact:true}).click();assert.equal(await p.locator('#ui-language').inputValue(),language);assert.equal(await p.locator('html').getAttribute('data-theme'),theme);assert.equal(await raw(p),before);
       const next:Language=language==='fr'?'pt':'fr';await p.locator('#ui-language').selectOption(next);await p.getByLabel(translatorFor(next)('language.label'),{exact:true}).waitFor();assert.equal(await raw(p),before);
-      await p.goBack();await changed(p,next);assert.equal(await raw(p),before);await p.reload();await changed(p,next);assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),next);assert.equal(await raw(p),before);assert.deepEqual(writes,[]);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+      await p.goBack();await changed(p,next);assert.equal(await raw(p),before);await p.reload();await changed(p,next);assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),next);assert.equal(await raw(p),before);assert.deepEqual(writes,[]);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
     }finally{await c.close();}
   });
   await t.test('dos pestañas reales: landing/app, borrador pendiente, foco y cambios repetidos',async()=>{
@@ -90,17 +92,17 @@ test('5C: idioma desde landing, navegación, accesibilidad y conservación finan
       const p=await page(),tr=translatorFor('es');await p.goto(origin+'/app');await p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true}).getByRole('button',{name:tr('nav.budgets'),exact:true}).click();await p.getByRole('tab',{name:tr('budget_workspace.catalogo_y_detalle_de_partidas'),exact:true}).click();const before=JSON.parse((await raw(p))!);
       await p.evaluate(()=>{const request=(navigator.locks.request as (...args:any[])=>Promise<unknown>).bind(navigator.locks);navigator.locks.request=((...args:any[])=>request(...args).then(result=>new Promise<unknown>(resolve=>{(window as any).__completeReorderUI=()=>resolve(result);}))) as typeof navigator.locks.request;});
       const grip=p.getByRole('button',{name:tr('use_catalog_drag.arrastrar',{label:tr('drag.family',{name:'Viajes ficticios'})}),exact:true}),handle=await grip.elementHandle(),status=p.locator('.catalog-drag-status');await grip.focus();await p.keyboard.press('Space');await p.keyboard.press('Home');await p.keyboard.press('Enter');
-      await p.waitForFunction(k=>JSON.parse(localStorage.getItem(k)!).budgetGroups.filter((g:any)=>g.type==='GASTO')[0].code==='family-travel',DATA_KEY);await p.waitForFunction(()=>typeof(window as any).__completeReorderUI==='function');
+      await waitForStoredCondition(p,async k=>JSON.parse((await window.__fixtureStorage.getItem(k))!).budgetGroups.filter((g:any)=>g.type==='GASTO')[0].code==='family-travel',DATA_KEY);await p.waitForFunction(()=>typeof(window as any).__completeReorderUI==='function');
       assert.equal(await grip.isDisabled(),true);assert.equal(await status.innerText(),tr('use_catalog_drag.guardando_orden'));assert.equal(await handle!.evaluate(el=>el===document.activeElement),false,'The pre-completion state reproduces the premature focus assertion');
       await p.evaluate(()=>(window as any).__completeReorderUI());await status.getByText(tr('drag.saved',{source:tr('drag.family',{name:'Viajes ficticios'})}),{exact:true}).waitFor();assert.equal(await grip.isEnabled(),true);assert.equal(await handle!.evaluate(el=>el.isConnected&&el===document.activeElement),true);
-      const saved=JSON.parse((await raw(p))!);for(const key of ['transactions','budgetPlans','planningMonths','planningAutomation','budgetSubitems','wallets','loans'])assert.deepEqual(saved[key],before[key]);const sorted=(groups:any[])=>[...groups].sort((a,b)=>a.code.localeCompare(b.code));assert.deepEqual(sorted(saved.budgetGroups),sorted(before.budgetGroups));assert.equal(writes.filter(operation=>operation===`set:${DATA_KEY}`).length,1);assert.deepEqual(errors,[]);
+      const saved=JSON.parse((await raw(p))!);for(const key of ['transactions','budgetPlans','planningMonths','planningAutomation','budgetSubitems','wallets','loans'])assert.deepEqual(saved[key],before[key]);const sorted=(groups:any[])=>[...groups].sort((a,b)=>a.code.localeCompare(b.code));assert.deepEqual(sorted(saved.budgetGroups),sorted(before.budgetGroups));assert.equal(writes.filter(operation=>operation===`idb:finance:put:${DATA_KEY}`).length,1);assert.deepEqual(errors,[]);
     }finally{await c.close();}
   });
   await t.test('preferencia inválida: fallback español sin reparación ni escrituras financieras',async()=>{
-    const {c,page,writes}=await context(390,'light','{"invalid":true}');try{const p=await page();await p.goto(origin+'/');await changed(p,'es');assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'{"invalid":true}');assert.deepEqual(writes,[]);}finally{await c.close();}
+    const {c,page,writes}=await context(390,'light','{"invalid":true}');try{const p=await page();await p.goto(origin+'/');await changed(p,'es');assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'{"invalid":true}');assert.deepEqual(writes,[]);}finally{await c.close();}
   });
   await t.test('cuota denegada: cambio en memoria, aviso nativo y preferencia original conservada',async()=>{
-    const {c,page,writes}=await context();try{await c.addInitScript(key=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)throw new DOMException('quota','QuotaExceededError');return set.call(this,k,v);};},LANGUAGE_KEY);const p=await page();await p.goto(origin+'/');await p.locator('#landing-language').selectOption('fr');await changed(p,'fr');await p.getByRole('status').getByText(translatorFor('fr')('language.storageError'),{exact:true}).waitFor();assert.equal(await p.evaluate(k=>localStorage.getItem(k),LANGUAGE_KEY),'es');await audit(p,'fr',390,'light','landing-storage-error');assert.deepEqual(writes,[]);}finally{await c.close();}
+    const {c,page,writes}=await context();try{await c.addInitScript(key=>{const set=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)throw new DOMException('quota','QuotaExceededError');return set.call(this,k,v);};},LANGUAGE_KEY);const p=await page();await p.goto(origin+'/');await p.locator('#landing-language').selectOption('fr');await changed(p,'fr');await p.getByRole('status').getByText(translatorFor('fr')('language.storageError'),{exact:true}).waitFor();assert.equal(await p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),LANGUAGE_KEY),'es');await audit(p,'fr',390,'light','landing-storage-error');assert.deepEqual(writes,[]);}finally{await c.close();}
   });
   await t.test('lectura denegada: español seguro y selección de idioma independiente',async()=>{
     const {c,page,writes}=await context(390,'light','pt');try{await c.addInitScript(key=>{const get=Storage.prototype.getItem;Storage.prototype.getItem=function(k){if(k===key)throw new DOMException('denied','SecurityError');return get.call(this,k);};},LANGUAGE_KEY);const p=await page();await p.goto(origin+'/');await changed(p,'es');await p.locator('#landing-language').selectOption('it');await changed(p,'it');assert.deepEqual(writes,[]);}finally{await c.close();}
@@ -109,6 +111,6 @@ test('5C: idioma desde landing, navegación, accesibilidad y conservación finan
     const c=await browser.newContext({viewport:{width:390,height:900},serviceWorkers:'block'});try{await c.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());await c.addInitScript(()=>{(window as any).__name=(fn:unknown)=>fn;Object.defineProperty(window,'localStorage',{get(){throw new DOMException('denied','SecurityError');}});});const p=await c.newPage();p.setDefaultTimeout(8000);await p.goto(origin+'/');await changed(p,'es');await p.locator('#landing-language').selectOption('pt');await changed(p,'pt');await p.getByRole('status').getByText(translatorFor('pt')('language.storageError'),{exact:true}).waitFor();await p.reload();await changed(p,'es');}finally{await c.close();}
   });
   await t.test('visita nueva: elegir idioma no crea almacenamiento financiero',async()=>{
-    const {c,page,writes}=await context(390,'light','es',false);try{const p=await page();await p.goto(origin+'/');await changed(p,'es');for(const language of Object.keys(languages) as Language[]){await p.locator('#landing-language').selectOption(language);await changed(p,language);assert.equal(await raw(p),null);}assert.deepEqual(await p.evaluate(()=>Object.keys(localStorage)),[LANGUAGE_KEY]);assert.deepEqual(writes,[]);}finally{await c.close();}
+    const {c,page,writes}=await context(390,'light','es',false);try{const p=await page();await p.goto(origin+'/');await changed(p,'es');for(const language of Object.keys(languages) as Language[]){await p.locator('#landing-language').selectOption(language);await changed(p,language);assert.equal(await raw(p),null);}assert.deepEqual(await p.evaluate(async ()=>(await window.__fixtureStorage.keys())),[LANGUAGE_KEY]);assert.deepEqual(writes,[]);}finally{await c.close();}
   });
 });

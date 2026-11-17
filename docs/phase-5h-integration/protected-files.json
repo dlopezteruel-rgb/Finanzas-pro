@@ -1,0 +1,164 @@
+[
+  {
+    "file": "src/platform/web/controller.test.ts",
+    "reference": "origin/main",
+    "sha256": "97610733f95690d50d30424bb01f3d573bea1265cc7252c4d318f74242ed3681",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/controller.ts",
+    "reference": "origin/main",
+    "sha256": "6867ed586c065f43e917e798fea96001044505a2530a83ea65d806ea91a5b421",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/forensic.ts",
+    "reference": "origin/main",
+    "sha256": "e64622a20540296b94f3dbede12cf837e54973368470a117113c84cc03f70f07",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/indexedDb.ts",
+    "reference": "origin/main",
+    "sha256": "fd9c6cf3f07680a9af63b860d3c1996114aba4fc750dc453a8c85f0f50675c91",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/legacy.ts",
+    "reference": "origin/main",
+    "sha256": "a94e24a8778c2efbd4e67e395dddca652f548963f60ac0a719db7b5a1c166bf5",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/openFinance.ts",
+    "reference": "origin/main",
+    "sha256": "e86de9d8066053e9af90da7afa399eb22f014589ac50b1901179d891b5943a8b",
+    "unchanged": true
+  },
+  {
+    "file": "src/platform/web/protocol.ts",
+    "reference": "origin/main",
+    "sha256": "37c9f048da056c35023172ca5ab403a4c41a292fefa1fe2ac2cee77cd8e6545f",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/.gitignore",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "cebebbfd5b9031c401631b592799f0230ec6bea1e9727db032facf5b610b2e4d",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/Package.swift",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "a14ce3d786869b51c388c3f14e16c6d132ce6a64df64685bd21a2d80983b7fa2",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/README.md",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "c139f20d7ef8202c0fcb2a6fdc8f17b5ad36ca0a1ea8dc421c455ee08d192f93",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/SQLCipher-LICENSE.md",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "2a2826f6acf46fa650730cf42cbb22a642be33a7ef119c9c4f4bf6daf3bef48e",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/build.gradle",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "085bb22cfe804fa3b1cdfdd853bc6a125028b5388af229cfb5413ed5155f88ec",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/src/main/AndroidManifest.xml",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "343d5be1ac17cdd45d1a2f2ddc616c509290e655869125a9422a96d88aa66066",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/FinanceVaultPlugin.java",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "579b5aa98002c5eaf73f72fa8e7022e8b67ad52b956c2ed717f5077d869e93f0",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultDatabase.java",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "2588099b5684b0211a64f76f13fd970bb3774d36d866bea324c66b9138f71eb9",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultFailure.java",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "4b4c0be30c4c5eca09943a92287bd044f58a22ccd6179e0afbee6295fe4b106c",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/android/src/main/java/invalid/finanzas/prototype/vault/VaultKeys.java",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "af3dcbc20836c0dfaac6ee7c7cc49a080be0dbccb55acfcb4065149ce589e782",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/index.d.ts",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "3e31b9cbbd635c427d6ebe97376dd8fc648899f50a86965e490cb6da7d496064",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/index.js",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "b794a99d94e3bba4b47ef61477e9d863c9b8c9a42c93d0bb9f131e8118bb7613",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/ios/Sources/FinanceVaultPlugin/FinanceVaultPlugin.swift",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "f0b8f398c0d4c48ddcfd361bee1a32637667299779613818ea8fc0892fd9e0fa",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/ios/Sources/FinanceVaultPlugin/VaultDatabase.swift",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "361c59b4e627f0ae30875be3ecd321da458d7f32edb49968994f46c6d04ac067",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/ios/Sources/FinanceVaultPlugin/VaultKeys.swift",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "63fd08f53c5c004ad12bbb3ab091c7e9f78f1be2e6c3d024699d2c667dc8b3e4",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/package.json",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "ed4c5df677a421a5809088efd973b62804de7788ee70b8ae4aafec8bdb2864c3",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/protocol/schema.sql",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "4deb02601ef3a9b04a338050db34cec66016fba3bd662da334c702c9c71fbe28",
+    "unchanged": true
+  },
+  {
+    "file": "native/secure-vault/protocol/statements.json",
+    "reference": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+    "sha256": "bc4b0a3def07d1f8ae8763cdb5bdc267d80c0bc6ab85a4ca1950f5ce86e4b9e7",
+    "unchanged": true
+  },
+  {
+    "file": "src/utils/financeStore.ts",
+    "reference": "origin/main",
+    "sha256": "1792422daa1f2d747d8a6ff74cd8685414fc4007abfa7a1b44c00e932fcf86d0",
+    "unchanged": true
+  },
+  {
+    "file": "src/utils/backup.ts",
+    "reference": "origin/main",
+    "sha256": "ce4df2e20046344ba501bc3955a68de87b3945a8ba9d4e14a454d754b53aa12d",
+    "unchanged": true
+  }
+]

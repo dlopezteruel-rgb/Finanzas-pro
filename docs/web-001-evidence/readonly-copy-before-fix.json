@@ -1,0 +1,15 @@
+{
+  "source": "00b4acf0e25c0dbefcbab264c952e35163a92cf9",
+  "scope": "A new TDD regression, preserved outside the active final-checkpoint battery until that same-SHA run finishes. Not an assertion removed from final delivery.",
+  "case": "unsupported-strict-is-readonly with an existing legacy recovery copy",
+  "observations": [
+    {
+      "passed": false,
+      "phase": "readonly",
+      "problem": "WEB_STRICT_UNAVAILABLE",
+      "snapshotUnchanged": true
+    }
+  ],
+  "cause": "ReadOnlyWebController uses driver.copies() even when no authoritative IDB head exists; the old copies remain in localStorage but are not listed.",
+  "plannedFix": "Use the driver only if originalHead exists; otherwise read the preserved legacy copies. Reapply pending test and validate engine/UI on fresh build before final delivery."
+}

@@ -1,5 +1,7 @@
 # Fase 5H — Persistencia financiera nativa segura
 
+> El informe de entrega original y sus checkpoints describen la PR32 anterior. La actualización sobre main31a8e8d se documenta al final en «Integración de PR #33 — Persistencia web duradera», con evidencias separadas; no se atribuyen las pruebas históricas al código integrado.
+
 ## Estado de entrega y límites
 
 **Infraestructura de prototipo revisable; aceptación completa bloqueada.** Android/iOS continúan sin autorización para datos reales. Además se ha reproducido una incidencia **P0 preexistente en la web**: un SIGKILL inmediato después de confirmar una cuenta puede perder esa escritura de localStorage. El cierre normal y la interrupción antes de escribir sí pasan. El resultado es 2/3 tanto en ce1ec83 como en esta rama; no se presenta como aprobado ni se oculta detrás de la CI habitual.
@@ -359,3 +361,33 @@ Se añaden seis pruebas de infraestructura: conservación exacta de comandos/bar
 El estado, SHA, URL, duraciones y recuentos **definitivos** se comprueban y registran en el [registro de entrega de PR32](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32) después de publicar ese cierre; no se inventa anticipadamente el resultado de un commit cuyo CI aún no existe. Una aprobación de esos tres checks no resuelve la sonda5H-WEB-001 ni habilita datos reales móviles.
 
 La infraestructura puede revisarse, pero **no se declara aceptación completa ni autorización de datos reales**: faltan ejecución y seguridad Android/iOS, copias portables verificadas, validaciones de ciclo de vida/actualización y una decisión sobre el P0 web. No se fusiona, despliega, distribuye beta ni sincroniza Google AI Studio. Main y sus protecciones permanecen intactos.
+
+## Integración de PR #33 — Persistencia web duradera
+
+### Checkpoints 1–3: auditoría, merge y contrato compartido
+
+Main verificado31a8e8d5fb5c51f1befe08d464620b55c854bc63, PR33 fusionada. PR32 originalceb08c7fa3d05ea8c448855bf46fdec03e8af947. Se conservan los diez worktrees, incluidos sus archivos pendientes ajenos. Respaldo local recovery/phase-5h-before-web-integration-20261117 y bundle verificado con prerrequisitoce1ec839; no hay reset, force-push ni PR alternativa. Se integra main mediante merge auditable en la rama existente.
+
+Antes de resolver se registraron14conflictos por archivo y las incompatibilidades semánticas: [inventario](phase-5h-integration/initial-audit.json), [decisión previa](phase-5h-integration/decisions.md). Las resoluciones unen ambos contratos; no eligen globalmente un padre.
+
+| Superficie | Rama web/main | PR32 original | Integración |
+| --- | --- | --- | --- |
+| Persistencia | IndexedDB strict, Web Locks, CAS, recibos | SQLCipher4.20, CAS, recibos | Ambos drivers conservados byte a byte |
+| Propuestas económicas | FinanceStore original | FinanceStore original | Mismo motor; sin cambios en cálculos ni JSON |
+| Inicio | FinanceBinding.open asíncrono | Bootstrap abre vault tras consentimiento | Selección tipada web/native/prototype, sin fallback financiero localStorage |
+| Recursos | Hook posee conexión web | Bootstrap posee vault | Cierre por propietario; transacciones concedidas no se simulan canceladas |
+| Publicación | Tras complete estricto/verificación | Tras commit EXTRA/verificación | UI solo recibe datos confirmados; no éxito por staging |
+| Recuperación | Forense IndexedDB+origen antiguo | Copias/recibos del vault | Capacidades discriminadas; forense web no existe en nativo |
+| UI | Carga/migración, errores, recarga | Preparación/clave, sandbox, consentimiento de exportación | Estados separados sin diálogos web duplicados en nativo |
+| Traducciones | webStore en5idiomas | vault en5idiomas | Unión de claves, sin duplicados de significado |
+| Regresión navegador |45suites/957resultados anteriores |45suites/920anteriores |46suites únicas,995resultados mínimos previstos; no suma ciega |
+
+FinanceSession decide usando servicios del entry real, no user-agent. Un shell nativo no puede seleccionar FinanceBinding.open ni el navegador recibir un controlador vault. Web se abre en effect, con loading/migration antes de la UI financiera. Nativo se entrega ya abierto y verificado por bootstrap después de consentimiento; no lee ni migra WebView localStorage. Memoria se admite solo en el prototipo explícito. Idioma/tema/render no crean sesiones nuevas. Los callbacks del hook dejan de publicar al desmontarse; el controlador nativo se cierra serialmente por bootstrap y el web cierra su propia conexión sin fingir rollback.
+
+Se conservan Web Locks, CAS, estricta comprobación de durabilidad, complete/recibo/hash, copias atómicas, migración archivada, señal de autoridad y detección de divergencia. Se conservan SQLCipher4.20, DELETE/EXTRA, Keystore, WhenUnlockedThisDeviceOnly, no iCloud y las políticas de no borrar claves/bases. [Huellas de código protegido](phase-5h-integration/protected-files.json). No cambian FinanceStore, backup, identificadores, redondeos ni lectura JSON2.5–3.5; el documento sigue3.5.
+
+Resultados previos al commit de merge: instalación npm ci306paquetes correcta;733/733unitarias y50/50infraestructura; lint/build correctos.38/38casos de UI de vault con SQLite real de escritorio:35anteriores+3nuevos (idioma/tema sin reinicialización, copia vía vault con consentimiento y fallo de clave sin IndexedDB/defaults). Las91superficies axe nativas simuladas conservan cero violaciones. Estos resultados no certifican Android/iOS. SQLCipher realLinux11/11,4.20.0community,SQLite3.54.1,OpenSSL3.5.7,DELETE yEXTRA. Los logs y versiones de este checkpoint se guardan separadamente en phase-5h-integration/checkpoint-merge-*. Todavía faltan SIGKILL integrado, batería completa, mediciones, compilaciones y CI del SHA final.
+
+El primer ensayo del planificador detectó el cambio de barrera de nativeFoundation; se corrigió manteniendo ambas compilaciones nativas exclusivas, sin cambiar aserciones financieras ni límites. Los12casos de planificación de ambos padres están registrados en archivos separados y usan un único ejecutor. El manifiesto conserva44suites comunes, nativeVault y webDurability. Solo fixtures independientes ya identificadas pueden solaparse con máximo2; rutas, auditoría general, volumen y SIGKILL son barreras. La UI se compila una sola vez antes de la batería. Se mantiene el workflow de50min y los tres checks; resultados faltantes/omitidos/cancelados o informes P0 ausentes rechazan la CI.
+
+Los bloqueos de datos reales, importación externa, copia portable cifrada, backend remoto, beta y tiendas continúan activos. Compilación no autoriza runtime ni distribución. Los apartados siguientes añadirán solo evidencias realmente ejecutadas sobre el código integrado.
