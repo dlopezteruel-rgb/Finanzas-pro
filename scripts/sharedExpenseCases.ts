@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import assert from 'node:assert/strict';
@@ -109,7 +110,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
     try {
       let saved = await data(page); assert.equal(summary(saved).gastosEjecutados, 0); assert.equal(calculateWalletBalances(saved.wallets, saved.transactions).OPENBANK, 1000);
       await navigate(page, 'Movimientos'); await page.getByRole('button', { name: 'NO', exact: true }).click();
-      await page.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions[0].processed, DATA_KEY);
+      await waitForStoredCondition(page,async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions[0].processed, DATA_KEY);
       let d = await collect(page); await d.getByLabel('Liquidación tramitada').uncheck(); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
       saved = await data(page); assert.equal(pending(saved), 40); assert.equal(calculateWalletBalances(saved.wallets, saved.transactions).REVOLUT, 100); assert.equal(summary(saved).gastosEjecutados, 20);
       d = await editReceipt(page); await d.getByLabel('Liquidación tramitada').check(); await d.locator('button[type=submit]').click(); await d.waitFor({ state: 'hidden' });
@@ -138,7 +139,7 @@ export async function sharedExpenseCases(t: TestContext, browser: Browser, url: 
       if (failure === 'storage') await page.evaluate(() => { (window as any).sharedSave.fail = true; });
       else {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
-        await concurrentFinancialEdit(other); await other.waitForFunction(async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
+        await concurrentFinancialEdit(other); await waitForStoredCondition(other,async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).sharedHeld = true; await new Promise<void>(resolve => { (window as any).releaseShared = resolve; }); }); }, STORAGE_LOCK);

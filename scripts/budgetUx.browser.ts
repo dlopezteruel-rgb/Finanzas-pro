@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import { selectPlanningArea } from './browserNavigation';
 import test from 'node:test';
@@ -309,7 +310,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
       assert.ok(await textContrast(page.getByRole('alert').filter({ hasText: /No hay espacio/ }).first()) >= 4.5);
       assert.deepEqual(await data(page), before); assert.equal(await page.evaluate(() => (window as any).catalogIo.attempts), 1);
       await page.evaluate(() => { (window as any).catalogIo.fail = false; (window as any).catalogIo.waiting = false; });
-      await duplicate.click(); await page.waitForFunction(async k => JSON.parse((await window.__fixtureStorage.getItem(k))!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
+      await duplicate.click(); await waitForStoredCondition(page,async k => JSON.parse((await window.__fixtureStorage.getItem(k))!).budgetGroups.flatMap((g: any) => g.partidas).length === 5, DATA_KEY);
       const after = await data(page);
       assert.equal(after.budgetGroups.find((g: any) => g.code === 'G').partidas.length, 2);
       for (const key of ['transactions', 'budgetPlans', 'planningMonths', 'wallets', 'contacts', 'loans', 'intelligentFinance']) assert.deepEqual(after[key], before[key], key);

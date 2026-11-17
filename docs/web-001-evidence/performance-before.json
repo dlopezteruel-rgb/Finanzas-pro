@@ -1,0 +1,5959 @@
+{
+  "schemaVersion": 1,
+  "backend": "legacy",
+  "dist": "/workspace/work/Finanzas-pro-web001-baseline/dist",
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "samples": 3,
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    }
+  ],
+  "environment": {
+    "node": "v24.22.1",
+    "browser": "156.0.8078.79",
+    "platform": "linux",
+    "cpus": 3,
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "memory": 10452459520
+  },
+  "method": "Production assets served with gzip. Isolated contexts for cold loads; reload within same context for warm. CDP CPU/network controls. Interactions include Playwright dispatch and two animation frames; not real-device INP. When paging is present, ledger readiness requires the COMPLETE filtered count and50 mounted rows; baseline requires all DOM rows. First presentation includes all data/totals, not all DOM. No deferred data processing. ScriptDuration is cumulative execution, not parsing bytes. Heap is CDP approximate live heap without forced GC. LCP is last observation at snapshot, not a final Core Web Vital. Encoded resource body is measured gzip; transfer includes protocol overhead. No routing (preserves HTTP cache).",
+  "rows": [
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 1668.6828269999999,
+      "scriptDurationMs": 220.292,
+      "taskDurationMs": 650.2529999999999,
+      "heapUsedBytes": 4041532,
+      "nodes": 225,
+      "longTasks": [
+        148,
+        66
+      ],
+      "cls": 0,
+      "lcp": 1504,
+      "fcp": 1504,
+      "jsEncoded": 138072,
+      "jsDecoded": 468605,
+      "jsTransfer": 138672,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        }
+      ],
+      "requests": 5,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 2197.5556930000002,
+      "scriptDurationMs": 182.008,
+      "taskDurationMs": 561.501,
+      "heapUsedBytes": 4557136,
+      "nodes": 229,
+      "longTasks": [
+        116
+      ],
+      "cls": 0,
+      "lcp": 1736,
+      "fcp": 1256,
+      "jsEncoded": 184318,
+      "jsDecoded": 642756,
+      "jsTransfer": 185218,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/en-CYaiuNGb.js",
+          "transfer": 46546,
+          "encoded": 46246,
+          "decoded": 174151
+        }
+      ],
+      "requests": 6,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 2857.393163999999,
+      "scriptDurationMs": 479.889,
+      "taskDurationMs": 1044.937,
+      "heapUsedBytes": 5544976,
+      "nodes": 586,
+      "longTasks": [
+        150,
+        73,
+        154,
+        157
+      ],
+      "cls": 0,
+      "lcp": 2520,
+      "fcp": 1488,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 2687.5155589999995,
+      "scriptDurationMs": 410.983,
+      "taskDurationMs": 878.804,
+      "heapUsedBytes": 5035808,
+      "nodes": 633,
+      "longTasks": [
+        106,
+        62,
+        127,
+        113
+      ],
+      "cls": 0,
+      "lcp": 2312,
+      "fcp": 1296,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 776.7718580000001,
+      "scriptDurationMs": 211.427,
+      "taskDurationMs": 511.815,
+      "heapUsedBytes": 8621832,
+      "nodes": 1774,
+      "longTasks": [
+        65
+      ],
+      "cls": 0,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 529.6069110000008,
+      "scriptDurationMs": 315.99399999999997,
+      "taskDurationMs": 806.744,
+      "heapUsedBytes": 10327852,
+      "nodes": 2815,
+      "longTasks": [
+        65
+      ],
+      "cls": 0,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 261639,
+      "jsDecoded": 899312,
+      "jsTransfer": 12874,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        }
+      ],
+      "requests": 19,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 1030.8926269999993,
+      "scriptDurationMs": 610.077,
+      "taskDurationMs": 1400.487,
+      "heapUsedBytes": 9556208,
+      "nodes": 4887,
+      "longTasks": [
+        65,
+        136
+      ],
+      "cls": 0,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 273685,
+      "jsDecoded": 946549,
+      "jsTransfer": 25220,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        }
+      ],
+      "requests": 20,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 912.9986639999988,
+      "scriptDurationMs": 877.0980000000001,
+      "taskDurationMs": 2206.504,
+      "heapUsedBytes": 12859776,
+      "nodes": 9550,
+      "longTasks": [
+        65,
+        136,
+        82
+      ],
+      "cls": 0,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 830.6308730000001,
+      "scriptDurationMs": 1049.267,
+      "taskDurationMs": 2980.032,
+      "heapUsedBytes": 15289192,
+      "nodes": 13963,
+      "longTasks": [
+        65,
+        136,
+        82,
+        595
+      ],
+      "cls": 0,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 100,
+      "dataRecords": "100",
+      "filteredRecords": "100",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 294.15032600000086,
+      "scriptDurationMs": 1112.289,
+      "taskDurationMs": 3251.477,
+      "heapUsedBytes": 17347756,
+      "nodes": 13969,
+      "longTasks": [
+        65,
+        136,
+        82,
+        595,
+        64
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 736.8598639999982,
+      "scriptDurationMs": 1200.696,
+      "taskDurationMs": 3666.681,
+      "heapUsedBytes": 15360588,
+      "nodes": 14103,
+      "longTasks": [
+        65,
+        136,
+        82,
+        595,
+        64,
+        51,
+        117
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 192.67917099999977,
+      "scriptDurationMs": 1218.6619999999998,
+      "taskDurationMs": 3812.784,
+      "heapUsedBytes": 15781844,
+      "nodes": 14123,
+      "longTasks": [
+        65,
+        136,
+        82,
+        595,
+        64,
+        51,
+        117
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 692,
+      "fcp": 356,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 558.8995219999997,
+      "scriptDurationMs": 651.3670000000001,
+      "taskDurationMs": 1846.598,
+      "heapUsedBytes": 7715236,
+      "nodes": 3208,
+      "longTasks": [
+        107,
+        69,
+        196,
+        140,
+        52,
+        328
+      ],
+      "cls": 0,
+      "lcp": 2516,
+      "fcp": 1380,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "1000",
+      "filteredRecords": "1000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 676.8951369999995,
+      "scriptDurationMs": 821.1370000000001,
+      "taskDurationMs": 2482.281,
+      "heapUsedBytes": 10217020,
+      "nodes": 6995,
+      "longTasks": [
+        107,
+        69,
+        196,
+        140,
+        52,
+        328,
+        458,
+        74
+      ],
+      "cls": 0.07752624742798353,
+      "lcp": 2516,
+      "fcp": 1380,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 99,
+      "dataRecords": "1000",
+      "filteredRecords": "99",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 1180.6190800000004,
+      "scriptDurationMs": 1231.4750000000001,
+      "taskDurationMs": 2745.054,
+      "heapUsedBytes": 13373716,
+      "nodes": 4183,
+      "longTasks": [
+        106,
+        106,
+        517,
+        77,
+        176,
+        77,
+        647
+      ],
+      "cls": 0,
+      "lcp": 2872,
+      "fcp": 1320,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "5000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 0,
+      "interactionMs": 563.5489020000023,
+      "scriptDurationMs": 1369.1709999999998,
+      "taskDurationMs": 3412.2599999999998,
+      "heapUsedBytes": 15163708,
+      "nodes": 5916,
+      "longTasks": [
+        106,
+        106,
+        517,
+        77,
+        176,
+        77,
+        647,
+        242
+      ],
+      "cls": 0.027021805555555556,
+      "lcp": 2872,
+      "fcp": 1320,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "499",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1515.0782870000003,
+      "scriptDurationMs": 176.955,
+      "taskDurationMs": 527.0780000000001,
+      "heapUsedBytes": 4052808,
+      "nodes": 225,
+      "longTasks": [
+        99,
+        71
+      ],
+      "cls": 0,
+      "lcp": 1388,
+      "fcp": 1388,
+      "jsEncoded": 138072,
+      "jsDecoded": 468605,
+      "jsTransfer": 138672,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        }
+      ],
+      "requests": 5,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 2247.084963000001,
+      "scriptDurationMs": 177.19199999999998,
+      "taskDurationMs": 611.22,
+      "heapUsedBytes": 4348864,
+      "nodes": 229,
+      "longTasks": [
+        100
+      ],
+      "cls": 0,
+      "lcp": 1776,
+      "fcp": 1332,
+      "jsEncoded": 184318,
+      "jsDecoded": 642756,
+      "jsTransfer": 185218,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/en-CYaiuNGb.js",
+          "transfer": 46546,
+          "encoded": 46246,
+          "decoded": 174151
+        }
+      ],
+      "requests": 6,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 2745.4873739999966,
+      "scriptDurationMs": 399.942,
+      "taskDurationMs": 998.293,
+      "heapUsedBytes": 5550948,
+      "nodes": 586,
+      "longTasks": [
+        111,
+        70,
+        121,
+        175
+      ],
+      "cls": 0,
+      "lcp": 2412,
+      "fcp": 1364,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 2847.891758000005,
+      "scriptDurationMs": 499.839,
+      "taskDurationMs": 1184.942,
+      "heapUsedBytes": 5058060,
+      "nodes": 633,
+      "longTasks": [
+        132,
+        89,
+        148,
+        188,
+        63
+      ],
+      "cls": 0,
+      "lcp": 2568,
+      "fcp": 1408,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1242.2911410000015,
+      "scriptDurationMs": 244.718,
+      "taskDurationMs": 1036.26,
+      "heapUsedBytes": 8790412,
+      "nodes": 1250,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102
+      ],
+      "cls": 0,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1171.9882460000008,
+      "scriptDurationMs": 569.612,
+      "taskDurationMs": 1826.785,
+      "heapUsedBytes": 8095104,
+      "nodes": 2291,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71
+      ],
+      "cls": 0,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 261639,
+      "jsDecoded": 899312,
+      "jsTransfer": 12874,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        }
+      ],
+      "requests": 19,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1486.3268949999983,
+      "scriptDurationMs": 1227.3639999999998,
+      "taskDurationMs": 3068.645,
+      "heapUsedBytes": 9581388,
+      "nodes": 4363,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345
+      ],
+      "cls": 0,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 273685,
+      "jsDecoded": 946549,
+      "jsTransfer": 25220,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        }
+      ],
+      "requests": 20,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1384.6441619999969,
+      "scriptDurationMs": 1767.1779999999999,
+      "taskDurationMs": 4383.507,
+      "heapUsedBytes": 13146412,
+      "nodes": 9026,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345,
+        157,
+        181
+      ],
+      "cls": 0,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 744.1783159999977,
+      "scriptDurationMs": 1932.8410000000001,
+      "taskDurationMs": 5069.776,
+      "heapUsedBytes": 14973852,
+      "nodes": 13439,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345,
+        157,
+        181,
+        526
+      ],
+      "cls": 0,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 100,
+      "dataRecords": "100",
+      "filteredRecords": "100",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 195.1005890000015,
+      "scriptDurationMs": 1978.132,
+      "taskDurationMs": 5236.543000000001,
+      "heapUsedBytes": 17035756,
+      "nodes": 13445,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345,
+        157,
+        181,
+        526
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 658.311996000004,
+      "scriptDurationMs": 2032.53,
+      "taskDurationMs": 5564.924,
+      "heapUsedBytes": 15247676,
+      "nodes": 13579,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345,
+        157,
+        181,
+        526,
+        97
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 211.36330699999962,
+      "scriptDurationMs": 2047.364,
+      "taskDurationMs": 5684.488,
+      "heapUsedBytes": 15691452,
+      "nodes": 13599,
+      "longTasks": [
+        79,
+        92,
+        59,
+        148,
+        102,
+        72,
+        71,
+        114,
+        345,
+        157,
+        181,
+        526,
+        97
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 1100,
+      "fcp": 500,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 671.667601000001,
+      "scriptDurationMs": 747.773,
+      "taskDurationMs": 2073.116,
+      "heapUsedBytes": 7697988,
+      "nodes": 3208,
+      "longTasks": [
+        105,
+        98,
+        93,
+        229,
+        135,
+        424
+      ],
+      "cls": 0,
+      "lcp": 2500,
+      "fcp": 1320,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "1000",
+      "filteredRecords": "1000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 1225.9694940000045,
+      "scriptDurationMs": 1332.087,
+      "taskDurationMs": 3228.814,
+      "heapUsedBytes": 10209480,
+      "nodes": 6995,
+      "longTasks": [
+        105,
+        98,
+        93,
+        229,
+        135,
+        424,
+        859,
+        83
+      ],
+      "cls": 0.07752624742798353,
+      "lcp": 2500,
+      "fcp": 1320,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 99,
+      "dataRecords": "1000",
+      "filteredRecords": "99",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 865.6397900000011,
+      "scriptDurationMs": 1041.885,
+      "taskDurationMs": 2601.997,
+      "heapUsedBytes": 12158408,
+      "nodes": 4183,
+      "longTasks": [
+        111,
+        135,
+        106,
+        379,
+        71,
+        266,
+        54,
+        473
+      ],
+      "cls": 0,
+      "lcp": 2904,
+      "fcp": 1420,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "5000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 1,
+      "interactionMs": 530.5980129999953,
+      "scriptDurationMs": 1182.3220000000001,
+      "taskDurationMs": 3187.059,
+      "heapUsedBytes": 13440760,
+      "nodes": 5916,
+      "longTasks": [
+        111,
+        135,
+        106,
+        379,
+        71,
+        266,
+        54,
+        473,
+        225
+      ],
+      "cls": 0.027021805555555556,
+      "lcp": 2904,
+      "fcp": 1420,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "499",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-es-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 1502.6034849999996,
+      "scriptDurationMs": 155.398,
+      "taskDurationMs": 514.141,
+      "heapUsedBytes": 4044928,
+      "nodes": 225,
+      "longTasks": [
+        96,
+        58
+      ],
+      "cls": 0,
+      "lcp": 1376,
+      "fcp": 1376,
+      "jsEncoded": 138072,
+      "jsDecoded": 468605,
+      "jsTransfer": 138672,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        }
+      ],
+      "requests": 5,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "landing-en-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 2374.7228909999976,
+      "scriptDurationMs": 199.97799999999998,
+      "taskDurationMs": 719.401,
+      "heapUsedBytes": 4348876,
+      "nodes": 229,
+      "longTasks": [
+        62,
+        115
+      ],
+      "cls": 0,
+      "lcp": 1844,
+      "fcp": 1428,
+      "jsEncoded": 184318,
+      "jsDecoded": 642756,
+      "jsTransfer": 185218,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/en-CYaiuNGb.js",
+          "transfer": 46546,
+          "encoded": 46246,
+          "decoded": 174151
+        }
+      ],
+      "requests": 6,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": null,
+      "scenario": "application-empty-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 2769.4362980000005,
+      "scriptDurationMs": 414.842,
+      "taskDurationMs": 949.357,
+      "heapUsedBytes": 5536368,
+      "nodes": 586,
+      "longTasks": [
+        111,
+        79,
+        139,
+        113
+      ],
+      "cls": 0,
+      "lcp": 2388,
+      "fcp": 1404,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-cold",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 2820.8301589999974,
+      "scriptDurationMs": 495.467,
+      "taskDurationMs": 1094.2730000000001,
+      "heapUsedBytes": 5093760,
+      "nodes": 633,
+      "longTasks": [
+        122,
+        95,
+        162,
+        137,
+        50
+      ],
+      "cls": 0,
+      "lcp": 2448,
+      "fcp": 1388,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "application-warm",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 800.3697359999933,
+      "scriptDurationMs": 232.637,
+      "taskDurationMs": 626.104,
+      "heapUsedBytes": 8688200,
+      "nodes": 1773,
+      "longTasks": [
+        70,
+        51,
+        61
+      ],
+      "cls": 0,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 0,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "chart-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 650.9224410000024,
+      "scriptDurationMs": 387.87,
+      "taskDurationMs": 1065.433,
+      "heapUsedBytes": 10638392,
+      "nodes": 2814,
+      "longTasks": [
+        70,
+        51,
+        61
+      ],
+      "cls": 0,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 261639,
+      "jsDecoded": 899312,
+      "jsTransfer": 12874,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        }
+      ],
+      "requests": 19,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "planning-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 1040.6083689999941,
+      "scriptDurationMs": 696.333,
+      "taskDurationMs": 1657.5610000000001,
+      "heapUsedBytes": 9649780,
+      "nodes": 4886,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146
+      ],
+      "cls": 0,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 273685,
+      "jsDecoded": 946549,
+      "jsTransfer": 25220,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        }
+      ],
+      "requests": 20,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "catalog-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 835.673965000009,
+      "scriptDurationMs": 934.849,
+      "taskDurationMs": 2380.207,
+      "heapUsedBytes": 13032320,
+      "nodes": 9549,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146,
+        78
+      ],
+      "cls": 0,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 0,
+      "dataRecords": null,
+      "filteredRecords": null,
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 816.0230639999936,
+      "scriptDurationMs": 1101.201,
+      "taskDurationMs": 3155.4669999999996,
+      "heapUsedBytes": 15252412,
+      "nodes": 13962,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146,
+        78,
+        621
+      ],
+      "cls": 0,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 100,
+      "dataRecords": "100",
+      "filteredRecords": "100",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "ledger-100-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 301.3724450000009,
+      "scriptDurationMs": 1162.04,
+      "taskDurationMs": 3433,
+      "heapUsedBytes": 17316220,
+      "nodes": 13968,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146,
+        78,
+        621,
+        69
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 281862,
+      "jsDecoded": 976562,
+      "jsTransfer": 34297,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        }
+      ],
+      "requests": 23,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-first-fr",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 709.6992560000072,
+      "scriptDurationMs": 1237.133,
+      "taskDurationMs": 3792.7149999999997,
+      "heapUsedBytes": 15337840,
+      "nodes": 14102,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146,
+        78,
+        621,
+        69,
+        131
+      ],
+      "cls": 0.13934304388255775,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "scenario": "language-cached-es",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 195.7127690000052,
+      "scriptDurationMs": 1249.523,
+      "taskDurationMs": 3956.747,
+      "heapUsedBytes": 15759328,
+      "nodes": 14122,
+      "longTasks": [
+        70,
+        51,
+        61,
+        57,
+        146,
+        78,
+        621,
+        69,
+        131,
+        102
+      ],
+      "cls": 0.23164305456631842,
+      "lcp": 728,
+      "fcp": 364,
+      "jsEncoded": 331764,
+      "jsDecoded": 1167043,
+      "jsTransfer": 84499,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 0,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 0,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 0,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 0,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 0,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 0,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 0,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 0,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 0,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 0,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 0,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 0,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 0,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 0,
+          "encoded": 558,
+          "decoded": 960
+        },
+        {
+          "file": "/assets/FinancialCharts-BhEUeT1N.js",
+          "transfer": 12874,
+          "encoded": 12574,
+          "decoded": 40852
+        },
+        {
+          "file": "/assets/PlanningView-BQgTNkmp.js",
+          "transfer": 12346,
+          "encoded": 12046,
+          "decoded": 47237
+        },
+        {
+          "file": "/assets/CatalogManager-5eOcpDvg.js",
+          "transfer": 3556,
+          "encoded": 3256,
+          "decoded": 11771
+        },
+        {
+          "file": "/assets/BudgetsView-BpZ8RDgG.js",
+          "transfer": 5090,
+          "encoded": 4790,
+          "decoded": 18125
+        },
+        {
+          "file": "/assets/chevron-down-ZGV8FoM0.js",
+          "transfer": 431,
+          "encoded": 131,
+          "decoded": 117
+        },
+        {
+          "file": "/assets/fr-Dhl2IOlN.js",
+          "transfer": 50202,
+          "encoded": 49902,
+          "decoded": 190481
+        }
+      ],
+      "requests": 24,
+      "domRows": 9,
+      "dataRecords": "100",
+      "filteredRecords": "9",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 561.3737319999927,
+      "scriptDurationMs": 672.533,
+      "taskDurationMs": 1895.857,
+      "heapUsedBytes": 7676692,
+      "nodes": 3208,
+      "longTasks": [
+        123,
+        85,
+        193,
+        112,
+        327
+      ],
+      "cls": 0,
+      "lcp": 2440,
+      "fcp": 1392,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "1000",
+      "filteredRecords": "1000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "d8f81e07b8cee09387bf5cceb15790f349163b9f09799949efdbc3c69baf6725",
+      "scenario": "ledger-1000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 559.5499879999988,
+      "scriptDurationMs": 867.6669999999999,
+      "taskDurationMs": 2467.222,
+      "heapUsedBytes": 10153280,
+      "nodes": 6995,
+      "longTasks": [
+        123,
+        85,
+        193,
+        112,
+        327,
+        371,
+        55
+      ],
+      "cls": 0,
+      "lcp": 2440,
+      "fcp": 1392,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 99,
+      "dataRecords": "1000",
+      "filteredRecords": "99",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-first-open",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 1072.950542999999,
+      "scriptDurationMs": 1256.018,
+      "taskDurationMs": 2688.387,
+      "heapUsedBytes": 11761680,
+      "nodes": 4183,
+      "longTasks": [
+        124,
+        100,
+        585,
+        74,
+        156,
+        557
+      ],
+      "cls": 0,
+      "lcp": 2992,
+      "fcp": 1408,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "5000",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    },
+    {
+      "financialHash": "472fd3fd66a61f595649d9ce21e1ab8fbe03cbb20cb926c9bd1894d9f8c3e17d",
+      "scenario": "ledger-5000-filter",
+      "profile": "mobile",
+      "width": 390,
+      "sample": 2,
+      "interactionMs": 488.6092709999939,
+      "scriptDurationMs": 1362.617,
+      "taskDurationMs": 3296.9680000000003,
+      "heapUsedBytes": 13338796,
+      "nodes": 5916,
+      "longTasks": [
+        124,
+        100,
+        585,
+        74,
+        156,
+        557,
+        210
+      ],
+      "cls": 0.027021805555555556,
+      "lcp": 2992,
+      "fcp": 1408,
+      "jsEncoded": 249065,
+      "jsDecoded": 858460,
+      "jsTransfer": 253265,
+      "jsResources": [
+        {
+          "file": "/assets/index-JBTKUaAh.js",
+          "transfer": 69148,
+          "encoded": 68848,
+          "decoded": 221187
+        },
+        {
+          "file": "/assets/i18n-dCPYtD4R.js",
+          "transfer": 69524,
+          "encoded": 69224,
+          "decoded": 247418
+        },
+        {
+          "file": "/assets/App-CKXGdC7Z.js",
+          "transfer": 68602,
+          "encoded": 68302,
+          "decoded": 251053
+        },
+        {
+          "file": "/assets/budgetCatalog-BNr9Q0VJ.js",
+          "transfer": 4589,
+          "encoded": 4289,
+          "decoded": 13488
+        },
+        {
+          "file": "/assets/storageMessages-DsEbgXxA.js",
+          "transfer": 20876,
+          "encoded": 20576,
+          "decoded": 78835
+        },
+        {
+          "file": "/assets/intelligentValidation-CUL7pM0x.js",
+          "transfer": 2928,
+          "encoded": 2628,
+          "decoded": 7224
+        },
+        {
+          "file": "/assets/planningAutomation-nQ3XKW7S.js",
+          "transfer": 4697,
+          "encoded": 4397,
+          "decoded": 12347
+        },
+        {
+          "file": "/assets/planning-B-uMfJ_0.js",
+          "transfer": 2860,
+          "encoded": 2560,
+          "decoded": 6917
+        },
+        {
+          "file": "/assets/planningAutomationValidation-BmlTAAM4.js",
+          "transfer": 2121,
+          "encoded": 1821,
+          "decoded": 4317
+        },
+        {
+          "file": "/assets/deletion-BP9oXlmj.js",
+          "transfer": 2582,
+          "encoded": 2282,
+          "decoded": 6360
+        },
+        {
+          "file": "/assets/personalObligations-B4yzpyy8.js",
+          "transfer": 1999,
+          "encoded": 1699,
+          "decoded": 4248
+        },
+        {
+          "file": "/assets/SafeDialog-BD4iPuVK.js",
+          "transfer": 643,
+          "encoded": 343,
+          "decoded": 497
+        },
+        {
+          "file": "/assets/Overlay-BBE600QM.js",
+          "transfer": 1838,
+          "encoded": 1538,
+          "decoded": 3609
+        },
+        {
+          "file": "/assets/useAsyncForm-C3MFN2YN.js",
+          "transfer": 858,
+          "encoded": 558,
+          "decoded": 960
+        }
+      ],
+      "requests": 18,
+      "domRows": 50,
+      "dataRecords": "5000",
+      "filteredRecords": "499",
+      "horizontalOverflow": false,
+      "financialWrites": [],
+      "persistenceTrace": [],
+      "migrationRequests": 0,
+      "guardSignals": 0
+    }
+  ],
+  "errors": [],
+  "external": []
+}

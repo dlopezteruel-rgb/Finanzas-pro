@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit} from './browserNavigation';
 import { sharedExpenseCases } from './sharedExpenseCases';
@@ -181,7 +182,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
     assert.deepEqual(await stored(), before);
     await page.getByLabel('Nombre de la cuenta').fill('PRUEBA RECARGA');
     await page.getByRole('button', { name: 'Crear Cuenta', exact: true }).click();
-    await page.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'), DATA_KEY);
+    await waitForStoredCondition(page,async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'), DATA_KEY);
     await page.reload();
     await page.getByRole('button', { name: 'Opciones y datos' }).waitFor();
     assert.ok((await readData()).wallets.some((w: any) => w.name === 'PRUEBA RECARGA'));
@@ -212,7 +213,7 @@ test('Fase 1: recorridos completos en Chromium', { timeout: 180000 }, async t =>
       await other.getByRole('button', { name: 'Opciones y datos' }).waitFor();
       const previousRevision = (await readData()).revision;
       await concurrentFinancialEdit(page);
-      await page.waitForFunction(async ({ key, revision }) => JSON.parse((await window.__fixtureStorage.getItem(key))!).revision !== revision, { key: DATA_KEY, revision: previousRevision });
+      await waitForStoredCondition(page,async ({ key, revision }) => JSON.parse((await window.__fixtureStorage.getItem(key))!).revision !== revision, { key: DATA_KEY, revision: previousRevision });
       await other.getByRole('alert').filter({ hasText: 'Otra pestaña' }).waitFor();
       const afterEdit = await stored();
       await concurrentFinancialEdit(other,true);

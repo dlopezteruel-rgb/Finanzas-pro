@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import test from 'node:test';
@@ -244,7 +245,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       if (method === 'weighted') await top.getByLabel('Peso de Ana', { exact: true }).fill('2'); else { await top.getByLabel('Importe de Tú', { exact: true }).fill('15'); await top.getByLabel('Importe de Ana', { exact: true }).fill('25'); }
       const fields = () => top.locator('input,select').evaluateAll(els => els.map(e => ({ value: (e as HTMLInputElement).value, checked: (e as HTMLInputElement).checked }))), draft = await fields();
       await page.evaluate(key => { const original = window.__fixtureIo.setItem; (window as any).uxSave = { fail: false, attempts: 0 }; window.__fixtureIo.setItem = function(k, v) { if (k === key) { (window as any).uxSave.attempts++; if ((window as any).uxSave.fail) throw new DOMException('Cuota', 'QuotaExceededError'); } return original.call(this, k, v); }; }, DATA_KEY);
-      if (failure === 'quota') await page.evaluate(() => { (window as any).uxSave.fail = true; }); else { const other = await context.newPage(); await other.goto(url); const previous = await raw(other); await concurrentFinancialEdit(other); await other.waitForFunction(async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close(); }
+      if (failure === 'quota') await page.evaluate(() => { (window as any).uxSave.fail = true; }); else { const other = await context.newPage(); await other.goto(url); const previous = await raw(other); await concurrentFinancialEdit(other); await waitForStoredCondition(other,async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close(); }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).uxHeld = true; await new Promise<void>(resolve => { (window as any).releaseUx = resolve; }); }); }, STORAGE_LOCK); await page.waitForFunction(() => (window as any).uxHeld);
       await top.locator('form').evaluate(f => { (f as HTMLFormElement).requestSubmit(); f.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }); await top.locator('fieldset:disabled').waitFor(); await page.keyboard.press('Escape'); assert.equal(await editor(page).count(), 1);

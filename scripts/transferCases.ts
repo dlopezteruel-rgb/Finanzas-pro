@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit} from './browserNavigation';
 import assert from 'node:assert/strict';
@@ -118,7 +119,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
         const other = await context.newPage(); await other.goto(url);
         const before = await raw(other);
         await concurrentFinancialEdit(other);
-        await other.waitForFunction(async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before }); await other.close();
+        await waitForStoredCondition(other,async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before }); await other.close();
       }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).transferLockHeld = true; await new Promise<void>(resolve => { (window as any).releaseTransferLock = resolve; }); }); }, STORAGE_LOCK);
@@ -170,7 +171,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       await dialog(page).waitFor({ state: 'hidden' });
       assert.ok((await data(page)).transactions.every(t => !t.processed));
       await page.getByRole('button', { name: 'NO', exact: true }).first().click();
-      await page.waitForFunction(async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions.every((t: any) => t.processed), DATA_KEY);
+      await waitForStoredCondition(page,async key => JSON.parse((await window.__fixtureStorage.getItem(key))!).transactions.every((t: any) => t.processed), DATA_KEY);
       await navigate(page, 'Cuentas');
       await page.getByRole('heading', { name: 'OPENBANK', exact: true }).click();
       const walletDialog = page.getByRole('dialog', { name: 'Cartera', exact: true });
@@ -256,7 +257,7 @@ export async function transferCases(t: TestContext, browser: Browser, url: strin
       if (failure === 'conflict') {
         const other = await context.newPage(); await other.goto(url); const previous = await raw(other);
         await concurrentFinancialEdit(other);
-        await other.waitForFunction(async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
+        await waitForStoredCondition(other,async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close();
       }
       const before = await raw(page);
       if (failure === 'validation') {

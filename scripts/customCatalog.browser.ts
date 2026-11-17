@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {STORAGE_LOCK} from '../src/utils/financeStore';
 import test from 'node:test';
@@ -36,7 +37,7 @@ test('Checkpoint B: catálogo editable, archivo e identidades recuperables', {ti
       await p.getByRole('button',{name:'Archivar partida Senderismo ficticio',exact:true}).click();await p.getByRole('button',{name:'Reactivar partida Senderismo ficticio',exact:true}).waitFor();
       await p.getByRole('button',{name:'Reactivar partida Senderismo ficticio',exact:true}).click();await p.getByRole('button',{name:'Archivar partida Senderismo ficticio',exact:true}).waitFor();
       await p.getByRole('button',{name:'Archivar familia Viajes ficticios',exact:true}).click();await p.getByRole('button',{name:'Reactivar familia Viajes ficticios',exact:true}).waitFor();await p.getByRole('button',{name:'Reactivar familia Viajes ficticios',exact:true}).click();await p.getByRole('button',{name:'Archivar familia Viajes ficticios',exact:true}).waitFor();
-      await p.getByRole('button',{name:'Subir familia Viajes ficticios',exact:true}).click();await p.waitForFunction(async ({key,code})=>JSON.parse((await window.__fixtureStorage.getItem(key))!).budgetGroups.filter((g:any)=>g.type==='GASTO')[0].code===code,{key:DATA_KEY,code:family.code});
+      await p.getByRole('button',{name:'Subir familia Viajes ficticios',exact:true}).click();await waitForStoredCondition(p,async ({key,code})=>JSON.parse((await window.__fixtureStorage.getItem(key))!).budgetGroups.filter((g:any)=>g.type==='GASTO')[0].code===code,{key:DATA_KEY,code:family.code});
       await p.getByRole('button',{name:'Eliminar partida Ocio ficticio',exact:true}).click();assert.equal(await dialog('Eliminar partida').getByRole('button',{name:'Confirmar eliminación',exact:true}).isDisabled(),true);assert.match(await dialog('Eliminar partida').innerText(),/Movimientos|Previsiones|subítems/);await p.keyboard.press('Escape');
       const beforeDelete=await raw();await p.getByRole('button',{name:'Eliminar partida Senderismo ficticio',exact:true}).click();await dialog('Eliminar partida').getByRole('button',{name:'Cancelar',exact:true}).click();assert.equal(await raw(),beforeDelete);
       await p.getByRole('button',{name:'Eliminar partida Senderismo ficticio',exact:true}).click();await dialog('Eliminar partida').getByRole('button',{name:'Confirmar eliminación',exact:true}).click();await dialog('Eliminar partida').waitFor({state:'hidden'});assert.equal((await saved()).budgetGroups.find((g:any)=>g.code===family.code).partidas[0].deleted,true);

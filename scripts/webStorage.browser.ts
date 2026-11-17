@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {mkdtemp,rm,mkdir,writeFile} from 'node:fs/promises';
@@ -124,6 +125,14 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
   const final=await pages[0].evaluate(async()=>{const m=(window as any).__m,d=await m.IndexedFinanceDriver.open(),state=await d.inspect(),rows=await d.forensic();d.close();return {wallets:m.parseSnapshot(state.head.snapshot).wallets,operations:rows.operations.length};});
   assert.equal(final.wallets.filter((w:any)=>w.id.startsWith('tab-')).length,1);assert.equal(final.operations,2);
   results.push({scenario:'two-real-tabs-and-direct-cas',passed:true,details:{attempts,direct,oldClientRejected:rejectedOld,operations:final.operations}});await context.close();
+ });
+ await t.test('async predicate polling waits for a true result, preserves timeout and cancels without cached finance',async()=>{
+  const context=await browser.newContext();try{const page=await context.newPage();await page.goto(origin+'/__driver');await page.evaluate(()=>{(window as any).__asyncProbe={calls:0,permit:false};});
+  let resolved=false;const pending=waitForStoredCondition(page,async()=>{const p=(window as any).__asyncProbe;p.calls++;return Promise.resolve(p.permit);},undefined,{timeout:8000}).then(handle=>{resolved=true;return handle;});
+  await page.waitForFunction(()=>(window as any).__asyncProbe.calls>=2);assert.equal(resolved,false);await page.evaluate(()=>(window as any).__asyncProbe.permit=true);const handle=await pending;assert.equal(await handle.jsonValue(),true);await handle.dispose();
+  await assert.rejects(waitForStoredCondition(page,async()=>false,undefined,{timeout:50}),{name:'TimeoutError'});assert.equal(await page.evaluate(()=>Object.keys((window as any).__storageWaitTokens).length),0);
+  results.push({scenario:'async-condition-is-not-a-truthy-promise',passed:true,details:{falseResultsNotAccepted:true,originalTimeoutEnforced:true,noFinancialCache:true}});
+  }finally{await context.close();}
  });
  const directoryOut=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(directoryOut,{recursive:true});await writeFile(path.join(directoryOut,'web-storage-engine.json'),JSON.stringify({scope:'Actual Chromium IndexedDB; faults explicitly injected. No real disk-full, Firefox, WebKit or physical-power-loss certification.',results},null,2)+'\n');
 });

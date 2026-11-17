@@ -1,0 +1,1695 @@
+{
+  "schemaVersion": 1,
+  "node": "v24.22.1",
+  "method": "Production Vite8/Rolldown outputs; actual minified/gzip bytes by chunk. Module renderedLength is pre-final-minification and cannot assign an exact compressed share. Initial means the static entry graph, not dynamic imports.",
+  "chunks": [
+    {
+      "file": "assets/index-CyVeEtAL.js",
+      "entry": true,
+      "initial": true,
+      "bytes": 221607,
+      "gzipBytes": 69036,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/preload-helper-7y9sWmk5.js"
+      ],
+      "dynamicImports": [
+        "assets/App-DkpghQoN.js"
+      ],
+      "modules": [
+        {
+          "file": "node_modules/react-dom/cjs/react-dom-client.production.js",
+          "renderedLength": 529536
+        },
+        {
+          "file": "node_modules/scheduler/cjs/scheduler.production.js",
+          "renderedLength": 9044
+        },
+        {
+          "file": "node_modules/react-dom/cjs/react-dom.production.js",
+          "renderedLength": 6250
+        },
+        {
+          "file": "src/components/LandingPage.tsx",
+          "renderedLength": 5667
+        },
+        {
+          "file": "src/app/Root.tsx",
+          "renderedLength": 2894
+        },
+        {
+          "file": "src/components/LanguageSelector.tsx",
+          "renderedLength": 2365
+        },
+        {
+          "file": "\u0000vite/modulepreload-polyfill.js",
+          "renderedLength": 1185
+        },
+        {
+          "file": "config/appPaths.ts",
+          "renderedLength": 855
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/shared/src/utils.js",
+          "renderedLength": 759
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/Icon.js",
+          "renderedLength": 745
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/calendar-days.js",
+          "renderedLength": 704
+        },
+        {
+          "file": "src/components/Brand.tsx",
+          "renderedLength": 640
+        },
+        {
+          "file": "src/platform/environment.ts",
+          "renderedLength": 546
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chart-no-axes-combined.js",
+          "renderedLength": 538
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/hard-drive.js",
+          "renderedLength": 537
+        },
+        {
+          "file": "node_modules/react-dom/client.js",
+          "renderedLength": 453
+        },
+        {
+          "file": "node_modules/react-dom/index.js",
+          "renderedLength": 448
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/createLucideIcon.js",
+          "renderedLength": 445
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/wallet.js",
+          "renderedLength": 349
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/defaultAttributes.js",
+          "renderedLength": 281
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-up-right.js",
+          "renderedLength": 248
+        },
+        {
+          "file": "node_modules/scheduler/index.js",
+          "renderedLength": 168
+        },
+        {
+          "file": "src/main.tsx",
+          "renderedLength": 159
+        },
+        {
+          "file": "src/app/paths.ts",
+          "renderedLength": 55
+        },
+        {
+          "file": "src/styles/tokens.css",
+          "renderedLength": 0
+        },
+        {
+          "file": "src/index.css",
+          "renderedLength": 0
+        },
+        {
+          "file": "src/responsive.css",
+          "renderedLength": 0
+        },
+        {
+          "file": "src/styles/experience.css",
+          "renderedLength": 0
+        },
+        {
+          "file": "index.html",
+          "renderedLength": 0
+        }
+      ]
+    },
+    {
+      "file": "assets/App-DkpghQoN.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 228588,
+      "gzipBytes": 61754,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/index-CyVeEtAL.js",
+        "assets/financeBinding-BZvjIuqR.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/planningCarry-ColyWIaW.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/personalObligations-AfdO9e9E.js",
+        "assets/intelligentValidation-Cmrrq-xU.js",
+        "assets/SafeDialog-CGE9QYXo.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/deletion-DSE565Lc.js",
+        "assets/Overlay-DSyl_K1L.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/defaultWallet-ntpA98HF.js",
+        "assets/preload-helper-7y9sWmk5.js",
+        "assets/planningAutomation-BpBIZlzi.js",
+        "assets/saveResult-Dp2fT8RK.js",
+        "assets/financeStore--xMfwp2b.js",
+        "assets/backup-D8y9qTqY.js"
+      ],
+      "dynamicImports": [
+        "assets/FinancialCharts-C1yeoFvj.js",
+        "assets/forensic-fMb19W0L.js",
+        "assets/PlanningView-D0xuau2f.js",
+        "assets/CatalogManager-DUAnpLEm.js",
+        "assets/BudgetsView-DM7Cz7Oh.js",
+        "assets/LoansView-BZUcKC1Q.js",
+        "assets/ContactsView-BHBCkwWi.js",
+        "assets/AssistantChatView-C-OXyg9A.js",
+        "assets/TreasuryView-BTBCUR3m.js",
+        "assets/DebtsWorkspace-BN0kbYQW.js",
+        "assets/WalletsView-CKXQKhBc.js"
+      ],
+      "modules": [
+        {
+          "file": "src/App.tsx",
+          "renderedLength": 54210
+        },
+        {
+          "file": "src/components/TransactionModal.tsx",
+          "renderedLength": 25010
+        },
+        {
+          "file": "src/components/RecurringMovementsView.tsx",
+          "renderedLength": 22790
+        },
+        {
+          "file": "src/components/TransactionsView.tsx",
+          "renderedLength": 21672
+        },
+        {
+          "file": "src/components/PartidaDetailModal.tsx",
+          "renderedLength": 20450
+        },
+        {
+          "file": "src/components/DashboardView.tsx",
+          "renderedLength": 18996
+        },
+        {
+          "file": "src/components/TransferModal.tsx",
+          "renderedLength": 18206
+        },
+        {
+          "file": "src/components/ConfirmClearModal.tsx",
+          "renderedLength": 17052
+        },
+        {
+          "file": "src/utils/financialAssistant.ts",
+          "renderedLength": 15180
+        },
+        {
+          "file": "src/components/QuickNaturalLanguageInput.tsx",
+          "renderedLength": 14125
+        },
+        {
+          "file": "src/components/useCatalogDrag.tsx",
+          "renderedLength": 10285
+        },
+        {
+          "file": "src/components/SettleDebtModal.tsx",
+          "renderedLength": 9524
+        },
+        {
+          "file": "src/utils/seedData.ts",
+          "renderedLength": 9209
+        },
+        {
+          "file": "src/components/SharedExpenseDetail.tsx",
+          "renderedLength": 9105
+        },
+        {
+          "file": "src/components/CreateContactModal.tsx",
+          "renderedLength": 8278
+        },
+        {
+          "file": "src/components/PartidaSelector.tsx",
+          "renderedLength": 8131
+        },
+        {
+          "file": "src/utils/treasury.ts",
+          "renderedLength": 8091
+        },
+        {
+          "file": "src/components/SubitemManager.tsx",
+          "renderedLength": 7138
+        },
+        {
+          "file": "src/components/RestorationModal.tsx",
+          "renderedLength": 6768
+        },
+        {
+          "file": "src/utils/recurringMovements.ts",
+          "renderedLength": 6688
+        },
+        {
+          "file": "src/components/Header.tsx",
+          "renderedLength": 6522
+        },
+        {
+          "file": "src/utils/useFinanceData.ts",
+          "renderedLength": 5509
+        },
+        {
+          "file": "src/components/ConfirmDeleteDialog.tsx",
+          "renderedLength": 4909
+        },
+        {
+          "file": "src/components/Navigation.tsx",
+          "renderedLength": 4298
+        },
+        {
+          "file": "src/utils/parser.ts",
+          "renderedLength": 4005
+        },
+        {
+          "file": "src/components/PeriodSelector.tsx",
+          "renderedLength": 3836
+        },
+        {
+          "file": "src/utils/catalogReorder.ts",
+          "renderedLength": 3822
+        },
+        {
+          "file": "src/components/MovementPagination.tsx",
+          "renderedLength": 3796
+        },
+        {
+          "file": "src/components/BudgetWorkspace.tsx",
+          "renderedLength": 3536
+        },
+        {
+          "file": "src/utils/naturalInput.ts",
+          "renderedLength": 3393
+        },
+        {
+          "file": "src/app/intentPreload.ts",
+          "renderedLength": 2981
+        },
+        {
+          "file": "src/i18n/assistantMessages.ts",
+          "renderedLength": 2445
+        },
+        {
+          "file": "src/components/DeferredFeature.tsx",
+          "renderedLength": 2433
+        },
+        {
+          "file": "src/utils/partidaSearch.ts",
+          "renderedLength": 1734
+        },
+        {
+          "file": "src/i18n/bankingReviews.ts",
+          "renderedLength": 1707
+        },
+        {
+          "file": "src/i18n/labels.ts",
+          "renderedLength": 1460
+        },
+        {
+          "file": "src/i18n/countMessages.ts",
+          "renderedLength": 1433
+        },
+        {
+          "file": "src/i18n/naturalMessages.ts",
+          "renderedLength": 1404
+        },
+        {
+          "file": "src/components/FinanceReview.tsx",
+          "renderedLength": 1179
+        },
+        {
+          "file": "src/platform/services.tsx",
+          "renderedLength": 1167
+        },
+        {
+          "file": "src/components/SubitemSelector.tsx",
+          "renderedLength": 1094
+        },
+        {
+          "file": "src/utils/registrationIntent.ts",
+          "renderedLength": 1090
+        },
+        {
+          "file": "src/app/useVisualTheme.ts",
+          "renderedLength": 1014
+        },
+        {
+          "file": "src/components/charts/ChartSlot.tsx",
+          "renderedLength": 962
+        },
+        {
+          "file": "src/app/useIntentPreload.ts",
+          "renderedLength": 899
+        },
+        {
+          "file": "src/components/useCompletePrint.ts",
+          "renderedLength": 876
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/sun.js",
+          "renderedLength": 642
+        },
+        {
+          "file": "src/app/preloadIdle.ts",
+          "renderedLength": 619
+        },
+        {
+          "file": "src/app/themePreference.ts",
+          "renderedLength": 615
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/sparkles.js",
+          "renderedLength": 611
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/grip-vertical.js",
+          "renderedLength": 563
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/landmark.js",
+          "renderedLength": 535
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/car.js",
+          "renderedLength": 522
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/piggy-bank.js",
+          "renderedLength": 508
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/user-plus.js",
+          "renderedLength": 450
+        },
+        {
+          "file": "src/components/transactionTotals.ts",
+          "renderedLength": 446
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/trash-2.js",
+          "renderedLength": 445
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/shopping-bag.js",
+          "renderedLength": 443
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/users.js",
+          "renderedLength": 415
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/receipt.js",
+          "renderedLength": 386
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/circle-alert.js",
+          "renderedLength": 385
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-left-right.js",
+          "renderedLength": 371
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/triangle-alert.js",
+          "renderedLength": 370
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/utensils.js",
+          "renderedLength": 355
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/book-open.js",
+          "renderedLength": 353
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/house.js",
+          "renderedLength": 348
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chart-pie.js",
+          "renderedLength": 347
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/ellipsis.js",
+          "renderedLength": 346
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/download.js",
+          "renderedLength": 328
+        },
+        {
+          "file": "src/utils/confirmation.ts",
+          "renderedLength": 324
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/upload.js",
+          "renderedLength": 320
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/square-check-big.js",
+          "renderedLength": 316
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/zap.js",
+          "renderedLength": 310
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/briefcase.js",
+          "renderedLength": 307
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/credit-card.js",
+          "renderedLength": 306
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/pen.js",
+          "renderedLength": 289
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/rotate-ccw.js",
+          "renderedLength": 276
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/moon.js",
+          "renderedLength": 273
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/circle-check.js",
+          "renderedLength": 264
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/search.js",
+          "renderedLength": 249
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-right.js",
+          "renderedLength": 243
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/plus.js",
+          "renderedLength": 218
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/square.js",
+          "renderedLength": 217
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/x.js",
+          "renderedLength": 211
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chevron-right.js",
+          "renderedLength": 203
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chevron-left.js",
+          "renderedLength": 201
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/check.js",
+          "renderedLength": 182
+        }
+      ]
+    },
+    {
+      "file": "assets/AssistantChatView-C-OXyg9A.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 14526,
+      "gzipBytes": 5076,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/App-DkpghQoN.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/index-CyVeEtAL.js",
+        "assets/defaultWallet-ntpA98HF.js",
+        "assets/backup-D8y9qTqY.js",
+        "assets/SafeDialog-CGE9QYXo.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/AssistantChatView.tsx",
+          "renderedLength": 16202
+        },
+        {
+          "file": "src/components/MovementProposalModal.tsx",
+          "renderedLength": 7320
+        },
+        {
+          "file": "src/utils/chatRegistration.ts",
+          "renderedLength": 1031
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/bot.js",
+          "renderedLength": 467
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/send.js",
+          "renderedLength": 353
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/user.js",
+          "renderedLength": 261
+        }
+      ]
+    },
+    {
+      "file": "assets/BudgetsView-DM7Cz7Oh.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 18212,
+      "gzipBytes": 4829,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/App-DkpghQoN.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/Overlay-DSyl_K1L.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/chevron-down-nBZ1uQQT.js",
+        "assets/index-CyVeEtAL.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/BudgetsView.tsx",
+          "renderedLength": 32236
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/folder-input.js",
+          "renderedLength": 411
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/eye.js",
+          "renderedLength": 323
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/copy.js",
+          "renderedLength": 314
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-down.js",
+          "renderedLength": 239
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-up.js",
+          "renderedLength": 232
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chevron-up.js",
+          "renderedLength": 193
+        }
+      ]
+    },
+    {
+      "file": "assets/CatalogManager-DUAnpLEm.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 11844,
+      "gzipBytes": 3267,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/planningCarry-ColyWIaW.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/SafeDialog-CGE9QYXo.js",
+        "assets/budgetCatalog-BRd3dkB7.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/CatalogManager.tsx",
+          "renderedLength": 18049
+        },
+        {
+          "file": "src/components/CatalogNameReview.tsx",
+          "renderedLength": 3735
+        }
+      ]
+    },
+    {
+      "file": "assets/ContactsView-BHBCkwWi.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 18300,
+      "gzipBytes": 4640,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/Overlay-DSyl_K1L.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/App-DkpghQoN.js",
+        "assets/arrow-down-left-B0M-jaqe.js",
+        "assets/chevron-down-nBZ1uQQT.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/ContactsView.tsx",
+          "renderedLength": 31164
+        }
+      ]
+    },
+    {
+      "file": "assets/DebtsWorkspace-BN0kbYQW.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 11746,
+      "gzipBytes": 3118,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/App-DkpghQoN.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/defaultWallet-ntpA98HF.js",
+        "assets/intelligentValidation-Cmrrq-xU.js",
+        "assets/personalObligations-AfdO9e9E.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/SafeDialog-CGE9QYXo.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/DebtsWorkspace.tsx",
+          "renderedLength": 21277
+        }
+      ]
+    },
+    {
+      "file": "assets/FinancialCharts-C1yeoFvj.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 40982,
+      "gzipBytes": 12650,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/App-DkpghQoN.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/backup-D8y9qTqY.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/charts/FinancialCharts.tsx",
+          "renderedLength": 25214
+        },
+        {
+          "file": "src/components/charts/InteractiveChart.tsx",
+          "renderedLength": 15313
+        },
+        {
+          "file": "src/utils/chartData.ts",
+          "renderedLength": 11358
+        },
+        {
+          "file": "node_modules/d3-shape/src/arc.js",
+          "renderedLength": 6474
+        },
+        {
+          "file": "src/i18n/chartMessages.ts",
+          "renderedLength": 5029
+        },
+        {
+          "file": "node_modules/d3-path/dist/d3-path.mjs",
+          "renderedLength": 3846
+        },
+        {
+          "file": "node_modules/d3-shape/src/pie.js",
+          "renderedLength": 1940
+        },
+        {
+          "file": "node_modules/d3-shape/src/line.js",
+          "renderedLength": 1518
+        },
+        {
+          "file": "node_modules/d3-shape/src/curve/linear.js",
+          "renderedLength": 736
+        },
+        {
+          "file": "node_modules/d3-shape/src/math.js",
+          "renderedLength": 423
+        },
+        {
+          "file": "node_modules/d3-shape/src/path.js",
+          "renderedLength": 357
+        },
+        {
+          "file": "node_modules/d3-shape/src/array.js",
+          "renderedLength": 171
+        },
+        {
+          "file": "node_modules/d3-shape/src/descending.js",
+          "renderedLength": 132
+        },
+        {
+          "file": "node_modules/d3-shape/src/constant.js",
+          "renderedLength": 120
+        },
+        {
+          "file": "node_modules/d3-shape/src/point.js",
+          "renderedLength": 102
+        },
+        {
+          "file": "node_modules/d3-shape/src/identity.js",
+          "renderedLength": 85
+        }
+      ]
+    },
+    {
+      "file": "assets/LoansView-BZUcKC1Q.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 17110,
+      "gzipBytes": 4418,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/App-DkpghQoN.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/deletion-DSE565Lc.js",
+        "assets/Overlay-DSyl_K1L.js",
+        "assets/defaultWallet-ntpA98HF.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/LoanModal.tsx",
+          "renderedLength": 17509
+        },
+        {
+          "file": "src/components/LoansView.tsx",
+          "renderedLength": 12126
+        }
+      ]
+    },
+    {
+      "file": "assets/Overlay-DSyl_K1L.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 3651,
+      "gzipBytes": 1557,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/index-CyVeEtAL.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/Overlay.tsx",
+          "renderedLength": 5637
+        }
+      ]
+    },
+    {
+      "file": "assets/PlanningView-D0xuau2f.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 47359,
+      "gzipBytes": 12192,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/App-DkpghQoN.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/planningAutomation-BpBIZlzi.js",
+        "assets/SafeDialog-CGE9QYXo.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/planningCarry-ColyWIaW.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/PlanningAutomationPanel.tsx",
+          "renderedLength": 40486
+        },
+        {
+          "file": "src/components/PlanningView.tsx",
+          "renderedLength": 36804
+        },
+        {
+          "file": "src/components/PlanningSubitems.tsx",
+          "renderedLength": 4805
+        },
+        {
+          "file": "src/components/PlanningSection.tsx",
+          "renderedLength": 3711
+        },
+        {
+          "file": "src/components/PlanningLiveSummary.tsx",
+          "renderedLength": 3382
+        },
+        {
+          "file": "src/components/planningPreview.ts",
+          "renderedLength": 1204
+        }
+      ]
+    },
+    {
+      "file": "assets/SafeDialog-CGE9QYXo.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 535,
+      "gzipBytes": 367,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/Overlay-DSyl_K1L.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/SafeDialog.tsx",
+          "renderedLength": 727
+        }
+      ]
+    },
+    {
+      "file": "assets/TreasuryView-BTBCUR3m.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 4893,
+      "gzipBytes": 1584,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/App-DkpghQoN.js",
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/TreasuryView.tsx",
+          "renderedLength": 8924
+        }
+      ]
+    },
+    {
+      "file": "assets/WalletsView-CKXQKhBc.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 19071,
+      "gzipBytes": 5278,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/App-DkpghQoN.js",
+        "assets/storageMessages-B-4Fxk-6.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/index-CyVeEtAL.js",
+        "assets/arrow-down-left-B0M-jaqe.js",
+        "assets/deletion-DSE565Lc.js",
+        "assets/Overlay-DSyl_K1L.js",
+        "assets/useAsyncForm-CKz0htg0.js",
+        "assets/defaultWallet-ntpA98HF.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/components/WalletModal.tsx",
+          "renderedLength": 16720
+        },
+        {
+          "file": "src/components/WalletsView.tsx",
+          "renderedLength": 15394
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/coins.js",
+          "renderedLength": 388
+        },
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/history.js",
+          "renderedLength": 325
+        }
+      ]
+    },
+    {
+      "file": "assets/arrow-down-left-B0M-jaqe.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 157,
+      "gzipBytes": 151,
+      "imports": [
+        "assets/index-CyVeEtAL.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/arrow-down-left.js",
+          "renderedLength": 247
+        }
+      ]
+    },
+    {
+      "file": "assets/backup-D8y9qTqY.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 17193,
+      "gzipBytes": 5757,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/planningCarry-ColyWIaW.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/intelligentValidation-Cmrrq-xU.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/planningAutomationValidation-wgMVpPUU.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/backup.ts",
+          "renderedLength": 24138
+        }
+      ]
+    },
+    {
+      "file": "assets/budgetCatalog-BRd3dkB7.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 13499,
+      "gzipBytes": 4299,
+      "imports": [
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/planningCarry-ColyWIaW.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/budgetCatalog.ts",
+          "renderedLength": 15635
+        },
+        {
+          "file": "src/utils/budgetChanges.ts",
+          "renderedLength": 4484
+        }
+      ]
+    },
+    {
+      "file": "assets/chevron-down-nBZ1uQQT.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 117,
+      "gzipBytes": 131,
+      "imports": [
+        "assets/index-CyVeEtAL.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "node_modules/lucide-react/dist/esm/icons/chevron-down.js",
+          "renderedLength": 193
+        }
+      ]
+    },
+    {
+      "file": "assets/defaultWallet-ntpA98HF.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 1835,
+      "gzipBytes": 848,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/defaultWallet.ts",
+          "renderedLength": 2988
+        }
+      ]
+    },
+    {
+      "file": "assets/deletion-DSE565Lc.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 6371,
+      "gzipBytes": 2269,
+      "imports": [
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/deletion.ts",
+          "renderedLength": 8270
+        }
+      ]
+    },
+    {
+      "file": "assets/en-DsK82X3N.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 176653,
+      "gzipBytes": 46950,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/i18n/en.ts",
+          "renderedLength": 182571
+        }
+      ]
+    },
+    {
+      "file": "assets/financeBinding-BZvjIuqR.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 1775,
+      "gzipBytes": 891,
+      "imports": [
+        "assets/financeStore--xMfwp2b.js",
+        "assets/preload-helper-7y9sWmk5.js"
+      ],
+      "dynamicImports": [
+        "assets/openFinance-BVUymrlz.js"
+      ],
+      "modules": [
+        {
+          "file": "src/platform/financeBinding.ts",
+          "renderedLength": 1667
+        }
+      ]
+    },
+    {
+      "file": "assets/financeStore--xMfwp2b.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 8589,
+      "gzipBytes": 3075,
+      "imports": [
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/intelligentValidation-Cmrrq-xU.js",
+        "assets/planningAutomation-BpBIZlzi.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/deletion-DSE565Lc.js",
+        "assets/backup-D8y9qTqY.js",
+        "assets/defaultWallet-ntpA98HF.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/clearData.ts",
+          "renderedLength": 6597
+        },
+        {
+          "file": "src/utils/financeStore.ts",
+          "renderedLength": 4709
+        },
+        {
+          "file": "src/utils/storageSupport.ts",
+          "renderedLength": 569
+        }
+      ]
+    },
+    {
+      "file": "assets/financialCalendar-DJuOrvRe.js",
+      "entry": false,
+      "initial": true,
+      "bytes": 48261,
+      "gzipBytes": 14717,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/constants/categories.ts",
+          "renderedLength": 22899
+        },
+        {
+          "file": "src/utils/sharedExpenses.ts",
+          "renderedLength": 16276
+        },
+        {
+          "file": "src/utils/budgetSubitems.ts",
+          "renderedLength": 11208
+        },
+        {
+          "file": "src/utils/transfers.ts",
+          "renderedLength": 7661
+        },
+        {
+          "file": "src/utils/finance.ts",
+          "renderedLength": 5781
+        },
+        {
+          "file": "src/utils/sharedDistribution.ts",
+          "renderedLength": 3244
+        },
+        {
+          "file": "src/utils/financialCalendar.ts",
+          "renderedLength": 1866
+        },
+        {
+          "file": "src/utils/planningMoney.ts",
+          "renderedLength": 1568
+        },
+        {
+          "file": "src/utils/planningCalendar.ts",
+          "renderedLength": 928
+        }
+      ]
+    },
+    {
+      "file": "assets/forensic-fMb19W0L.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 4388,
+      "gzipBytes": 1994,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/backup-D8y9qTqY.js",
+        "assets/financeStore--xMfwp2b.js",
+        "assets/preload-helper-7y9sWmk5.js"
+      ],
+      "dynamicImports": [
+        "assets/backup-D8y9qTqY.js"
+      ],
+      "modules": [
+        {
+          "file": "src/platform/web/forensic.ts",
+          "renderedLength": 2907
+        },
+        {
+          "file": "src/platform/web/legacy.ts",
+          "renderedLength": 1805
+        },
+        {
+          "file": "src/platform/web/protocol.ts",
+          "renderedLength": 1542
+        }
+      ]
+    },
+    {
+      "file": "assets/fr-ByNEcUPH.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 193695,
+      "gzipBytes": 50668,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/i18n/fr.ts",
+          "renderedLength": 195390
+        }
+      ]
+    },
+    {
+      "file": "assets/i18n-BDeaqZHl.js",
+      "entry": false,
+      "initial": true,
+      "bytes": 199635,
+      "gzipBytes": 54961,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/preload-helper-7y9sWmk5.js",
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [
+        "assets/en-DsK82X3N.js",
+        "assets/it-DlBxfSBR.js",
+        "assets/fr-ByNEcUPH.js",
+        "assets/pt-CW5ThBno.js"
+      ],
+      "modules": [
+        {
+          "file": "src/i18n/es.p1f.ts",
+          "renderedLength": 24372
+        },
+        {
+          "file": "src/i18n/es.p1e.ts",
+          "renderedLength": 21380
+        },
+        {
+          "file": "src/i18n/es.p1g.ts",
+          "renderedLength": 21192
+        },
+        {
+          "file": "node_modules/react/cjs/react.production.js",
+          "renderedLength": 15979
+        },
+        {
+          "file": "src/i18n/es.p1d.ts",
+          "renderedLength": 14599
+        },
+        {
+          "file": "src/i18n/es.p1.ts",
+          "renderedLength": 13819
+        },
+        {
+          "file": "src/i18n/es.p2a.ts",
+          "renderedLength": 13093
+        },
+        {
+          "file": "src/i18n/es.p3.ts",
+          "renderedLength": 12754
+        },
+        {
+          "file": "src/i18n/es.p1b.ts",
+          "renderedLength": 11384
+        },
+        {
+          "file": "src/i18n/es.ts",
+          "renderedLength": 10431
+        },
+        {
+          "file": "src/i18n/es.p2c.ts",
+          "renderedLength": 10430
+        },
+        {
+          "file": "src/i18n/es.p2b.ts",
+          "renderedLength": 10183
+        },
+        {
+          "file": "src/i18n/es.catalog.ts",
+          "renderedLength": 9911
+        },
+        {
+          "file": "src/i18n/es.p1c.ts",
+          "renderedLength": 8710
+        },
+        {
+          "file": "src/i18n/presentation.ts",
+          "renderedLength": 6190
+        },
+        {
+          "file": "src/i18n/messages.ts",
+          "renderedLength": 5417
+        },
+        {
+          "file": "src/i18n/index.tsx",
+          "renderedLength": 4700
+        },
+        {
+          "file": "src/i18n/es.p3b.ts",
+          "renderedLength": 3509
+        },
+        {
+          "file": "src/i18n/es.plurals.ts",
+          "renderedLength": 1705
+        },
+        {
+          "file": "node_modules/react/cjs/react-jsx-runtime.production.js",
+          "renderedLength": 851
+        },
+        {
+          "file": "src/i18n/preference.ts",
+          "renderedLength": 692
+        },
+        {
+          "file": "src/i18n/readiness.ts",
+          "renderedLength": 318
+        },
+        {
+          "file": "node_modules/react/jsx-runtime.js",
+          "renderedLength": 180
+        },
+        {
+          "file": "node_modules/react/index.js",
+          "renderedLength": 156
+        }
+      ]
+    },
+    {
+      "file": "assets/intelligentValidation-Cmrrq-xU.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 7237,
+      "gzipBytes": 2626,
+      "imports": [
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/intelligentValidation.ts",
+          "renderedLength": 9701
+        }
+      ]
+    },
+    {
+      "file": "assets/it-DlBxfSBR.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 185125,
+      "gzipBytes": 49029,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/i18n/it.ts",
+          "renderedLength": 190347
+        }
+      ]
+    },
+    {
+      "file": "assets/openFinance-BVUymrlz.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 15758,
+      "gzipBytes": 4947,
+      "imports": [
+        "assets/backup-D8y9qTqY.js",
+        "assets/financeStore--xMfwp2b.js",
+        "assets/forensic-fMb19W0L.js",
+        "assets/financeBinding-BZvjIuqR.js",
+        "assets/saveResult-Dp2fT8RK.js",
+        "assets/preload-helper-7y9sWmk5.js"
+      ],
+      "dynamicImports": [
+        "assets/backup-D8y9qTqY.js"
+      ],
+      "modules": [
+        {
+          "file": "src/platform/web/indexedDb.ts",
+          "renderedLength": 12293
+        },
+        {
+          "file": "src/platform/web/controller.ts",
+          "renderedLength": 8809
+        },
+        {
+          "file": "src/platform/web/openFinance.ts",
+          "renderedLength": 5164
+        }
+      ]
+    },
+    {
+      "file": "assets/personalObligations-AfdO9e9E.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 4261,
+      "gzipBytes": 1707,
+      "imports": [
+        "assets/intelligentValidation-Cmrrq-xU.js",
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/personalObligations.ts",
+          "renderedLength": 6198
+        }
+      ]
+    },
+    {
+      "file": "assets/planning-BwoY7iy3.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 6930,
+      "gzipBytes": 2576,
+      "imports": [
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/planning.ts",
+          "renderedLength": 7824
+        },
+        {
+          "file": "src/utils/planningBasis.ts",
+          "renderedLength": 3212
+        }
+      ]
+    },
+    {
+      "file": "assets/planningAutomation-BpBIZlzi.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 12363,
+      "gzipBytes": 4389,
+      "imports": [
+        "assets/budgetCatalog-BRd3dkB7.js",
+        "assets/financialCalendar-DJuOrvRe.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/planningAutomationValidation-wgMVpPUU.js",
+        "assets/planningCarry-ColyWIaW.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/planningAutomation.ts",
+          "renderedLength": 18386
+        }
+      ]
+    },
+    {
+      "file": "assets/planningAutomationValidation-wgMVpPUU.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 4328,
+      "gzipBytes": 1822,
+      "imports": [
+        "assets/planningCarry-ColyWIaW.js",
+        "assets/planning-BwoY7iy3.js",
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/planningAutomationValidation.ts",
+          "renderedLength": 5679
+        }
+      ]
+    },
+    {
+      "file": "assets/planningCarry-ColyWIaW.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 5590,
+      "gzipBytes": 2049,
+      "imports": [
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/catalogNames.ts",
+          "renderedLength": 7539
+        },
+        {
+          "file": "src/utils/planningCarry.ts",
+          "renderedLength": 1292
+        }
+      ]
+    },
+    {
+      "file": "assets/preload-helper-7y9sWmk5.js",
+      "entry": false,
+      "initial": true,
+      "bytes": 1615,
+      "gzipBytes": 828,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "\u0000vite/preload-helper.js",
+          "renderedLength": 3188
+        }
+      ]
+    },
+    {
+      "file": "assets/pt-CW5ThBno.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 186115,
+      "gzipBytes": 49073,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/i18n/pt.ts",
+          "renderedLength": 188663
+        }
+      ]
+    },
+    {
+      "file": "assets/rolldown-runtime-XKyaHtl9.js",
+      "entry": false,
+      "initial": true,
+      "bytes": 726,
+      "gzipBytes": 429,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "\u0000rolldown/runtime.js",
+          "renderedLength": 1419
+        }
+      ]
+    },
+    {
+      "file": "assets/saveResult-Dp2fT8RK.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 608,
+      "gzipBytes": 380,
+      "imports": [],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/saveResult.ts",
+          "renderedLength": 967
+        }
+      ]
+    },
+    {
+      "file": "assets/storageMessages-B-4Fxk-6.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 74012,
+      "gzipBytes": 19198,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/planningCarry-ColyWIaW.js",
+        "assets/financialCalendar-DJuOrvRe.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/i18n/storageMessages.ts",
+          "renderedLength": 25635
+        },
+        {
+          "file": "src/i18n/domainMessages.ts",
+          "renderedLength": 12793
+        },
+        {
+          "file": "src/i18n/planningMessages.ts",
+          "renderedLength": 12174
+        },
+        {
+          "file": "src/i18n/bankingMessages.ts",
+          "renderedLength": 11538
+        },
+        {
+          "file": "src/i18n/sharedMessages.ts",
+          "renderedLength": 7396
+        },
+        {
+          "file": "src/i18n/catalogKeys.ts",
+          "renderedLength": 6961
+        },
+        {
+          "file": "src/i18n/catalogNames.tsx",
+          "renderedLength": 2701
+        },
+        {
+          "file": "src/i18n/presenters.ts",
+          "renderedLength": 1254
+        }
+      ]
+    },
+    {
+      "file": "assets/useAsyncForm-CKz0htg0.js",
+      "entry": false,
+      "initial": false,
+      "bytes": 449,
+      "gzipBytes": 310,
+      "imports": [
+        "assets/rolldown-runtime-XKyaHtl9.js",
+        "assets/i18n-BDeaqZHl.js",
+        "assets/saveResult-Dp2fT8RK.js"
+      ],
+      "dynamicImports": [],
+      "modules": [
+        {
+          "file": "src/utils/useAsyncForm.ts",
+          "renderedLength": 694
+        }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "file": "assets/index-DklKeRgQ.css",
+      "bytes": 96305
+    },
+    {
+      "file": "index.html",
+      "bytes": 1530
+    }
+  ],
+  "initial": {
+    "bytes": 471844,
+    "gzipBytes": 139971
+  },
+  "dictionaries": {
+    "es": [
+      {
+        "file": "assets/i18n-BDeaqZHl.js",
+        "initial": true,
+        "bytes": 199635,
+        "gzipBytes": 54961
+      }
+    ],
+    "en": [
+      {
+        "file": "assets/en-DsK82X3N.js",
+        "initial": false,
+        "bytes": 176653,
+        "gzipBytes": 46950
+      }
+    ],
+    "it": [
+      {
+        "file": "assets/it-DlBxfSBR.js",
+        "initial": false,
+        "bytes": 185125,
+        "gzipBytes": 49029
+      }
+    ],
+    "fr": [
+      {
+        "file": "assets/fr-ByNEcUPH.js",
+        "initial": false,
+        "bytes": 193695,
+        "gzipBytes": 50668
+      }
+    ],
+    "pt": [
+      {
+        "file": "assets/pt-CW5ThBno.js",
+        "initial": false,
+        "bytes": 186115,
+        "gzipBytes": 49073
+      }
+    ]
+  }
+}

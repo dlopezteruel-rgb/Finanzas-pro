@@ -134,3 +134,34 @@ La matriz de capacidad insuficiente usa el build real, treinta combinaciones (5i
 La denegación de lectura forense sin contenido recuperable conserva el mensaje histórico traducido de permisos; no crea descargas vacías. Se añade una prueba específica:682/682 unitarias. La fixture de rutas que corrompía localStorage después del arranque se adapta para corromper deliberadamente el registro autoritativo real en una transacción estricta; mantiene todas las comprobaciones de corrupción preservada y salida de recuperación. Escribir en la fuente antigua corresponde ahora a un conflicto preservado, no a una sustitución financiera legítima.
 
 Una ejecución diagnóstica local concurrente con la suite de rutas (que reconstruye dist) produjo404 por recursos sustituidos. Es un error del procedimiento de validación: se conservan sus logs y se repite en secuencia; no se cambia ninguna aserción ni timeout. La suite visual posterior pasa12/12. Los checkpoints y la PR siguen pendientes de regresión completa/CI final y mediciones.
+
+## Exactitud de las esperas de regresión
+
+Durante la adaptación apareció un problema del arnés: Playwright1.64 evalúa la verdad del retorno de waitForFunction antes de esperar su Promise; una condición async podía finalizar devolviendo false. Las aserciones económicas posteriores detectaron el problema (archivo/duplicación de subítems), no se eliminan ni se relajan. Se añade waitForStoredCondition: evalúa reiteradamente la condición asíncrona real hasta verdad, conserva el timeout original y elimina su token de cancelación al terminar. Solo conserva un token, nunca un snapshot ni un valor financiero. El polling se usa para condiciones de prueba, no como prueba de consolidación física; el arnés SIGKILL sigue independiente y sin demora. Subítems pasa19/19 tras la corrección. Se añade una prueba específica de condición falsa, resultado verdadero, timeout y limpieza.
+
+## Rendimiento medido, sin ocultar el coste de seguridad
+
+Builds de producción antesce1ec839/después6e8ae31, Chromium156, Linux, móvil390×900, CPU4×, red1,6Mbit/s y80ms; tres muestras independientes por escenario, mismo host y herramientas. Datos completos de100/1000/5000 movimientos y paginación50filas. Los reportes performance-/writes-/journeys-before/after.json incluyen configuración, heap, red, hashes y trazas; performance-summary.json contiene medianas y rangos. No son teléfonos físicos ni INP de campo.
+
+| Métrica (ms) | Antes mediana [mín–máx] | Después mediana [mín–máx] |
+| --- | --- | --- |
+| Landing es fría | 1515 [1503–1669] | 1561 [1540–1652] |
+| Aplicación100 fría | 2821 [2688–2848] | 2882 [2824–2981] |
+| Aplicación100 recarga caliente | 800 [777–1242] | 1281 [1193–1441] |
+| Carga inicial/migración1000 | 2757 [2731–2825] | 2994 [2839–2997] |
+| Lectura confirmada1000 (incluye puente Playwright) | 20 [19–23] | 66 [58–77] |
+| Guardar cuenta1000 | 342 [333–409] | 740 [619–919] |
+| Guardar movimiento1000 | 523 [411–528] | 816 [747–890] |
+| Guardar transferencia1000 | 436 [381–564] | 814 [693–860] |
+| Restauración verificada100 | 221 [216–221] | 450 [380–464] |
+| Abrir1000 completo /50filas | 561 [559–672] | 601 [537–667] |
+| Abrir5000 completo /50filas | 1073 [866–1181] | 967 [848–1041] |
+| Filtrar5000 completo | 531 [489–563] | 602 [547–614] |
+| Cambiar periodo | 196 [192–260] | 230 [219–284] |
+| Cambiar idioma frío | 710 [658–737] | 683 [667–742] |
+
+Las diferencias pequeñas y los rangos solapados no confirman una mejora. **Hay coste real:** recarga caliente+481ms, cuenta+398ms, movimiento+292ms y transferencia+378ms en las medianas de esta máquina. No se presenta como rendimiento idéntico. El staging vuelve a validar usando el motor original, calcula hashes, coordina revisiones y lee comprobaciones; se prioriza aislar el dominio sin refactorizarlo. Las barreras estrictas medianas son12/33/17ms (cuenta/movimiento/transferencia); antes se medían2/3/3ms de retorno de API, que **no era commit duradero**. La preparación/dispatch mediana pasa192/247/224 a491/509/553ms; posbarrera/UI122/199/170 a187/197/175ms. Son etapas con coste de transporte, no un perfil exclusivo de CPU. No hay guardados por render ni reducción de datos.
+
+El grafo inicial web pasa138072 a139971bytes gzip (+1899;1,38%). Tras abrir módulos se observan249065→262786bytes JS gzip en el recorrido español (+13721;5,51%); el motor se carga al entrar en la aplicación, no por visitar landing. No hay dependencia de base de datos nueva ni SQLite en web. Los bundles anteriores/posteriores están documentados. El incremento se justifica por validación, CAS, recuperación y confirmación de esteP0; optimizar después la carga caliente y staging requerirá nuevas mediciones y equivalencia, sin rebajar el contrato de guardado. Se conservan paginación y precarga.
+
+Las capturas web001-readonly-390/768/1280.png proceden de la aplicación real, datos ficticios y matriz ejecutada. Documentan el nuevo estado de consulta segura, no un rediseño. La pasada final regenerará evidencias correspondientes al código probado.

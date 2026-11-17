@@ -1,3 +1,4 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
 import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import { migrateSharedExpenses, sharedViewTransactions } from '../src/utils/sharedExpenses';
@@ -82,7 +83,7 @@ export async function asyncFormCases(t: TestContext, browser: Browser, url: stri
           const other = await context.newPage();
           await other.goto(url);
           await concurrentFinancialEdit(other);
-          await other.waitForFunction(async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before });
+          await waitForStoredCondition(other,async ({ key, before }) => (await window.__fixtureStorage.getItem(key)) !== before, { key: DATA_KEY, before });
           before = await raw();
           await other.close();
         }
