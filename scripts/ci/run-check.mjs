@@ -1,3 +1,4 @@
+import {browserSuites} from './browser-battery.mjs';
 import {spawn} from 'node:child_process';
 import {createWriteStream} from 'node:fs';
 import {appendFile,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
@@ -25,7 +26,7 @@ export async function runCheck(mode){
     else if(mode==='tools'){const files=(await readdir('scripts/ci')).filter(f=>f.endsWith('.test.mjs')).sort();commands=[[process.execPath,['--test',...files.map(f=>`scripts/ci/${f}`)]]];expected=1;}
     else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']]];
     else if(mode==='browser'){
-      summary.suites=[...manifest.scripts['test:ui'].matchAll(/node --import tsx (scripts\/[^\s&]+\.browser\.ts)/g)].map(m=>m[1]);expected=summary.suites.length;
+      summary.suites=[...browserSuites];expected=summary.suites.length;
       if(!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
       if(expected<45)throw new Error('The complete browser battery must retain the44 integrated suites and mandatory WEB-001 gate.');
       commands=[['npm',['run','test:ui']]];
