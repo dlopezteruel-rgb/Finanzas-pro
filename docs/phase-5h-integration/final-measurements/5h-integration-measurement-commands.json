@@ -1,0 +1,26 @@
+[
+  {
+    "name": "performance",
+    "side": "after",
+    "source": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+    "code": 0,
+    "durationMs": 83983,
+    "log": "/workspace/work/5h-integration-performance-after.log"
+  },
+  {
+    "name": "writes",
+    "side": "after",
+    "source": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+    "code": 0,
+    "durationMs": 23710,
+    "log": "/workspace/work/5h-integration-writes-after.log"
+  },
+  {
+    "name": "journeys",
+    "side": "after",
+    "source": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+    "code": 0,
+    "durationMs": 26555,
+    "log": "/workspace/work/5h-integration-journeys-after.log"
+  }
+]

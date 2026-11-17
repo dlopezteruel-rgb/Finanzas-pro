@@ -1,0 +1,1556 @@
+{
+  "performance": {
+    "application-cold": {
+      "before": {
+        "interactionMs": {
+          "median": 2832.7960000000003,
+          "min": 2794.431488000002,
+          "max": 2832.9967539999925,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 453.907,
+          "min": 408.128,
+          "max": 454.79,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 1127.0610000000001,
+          "min": 1100.54,
+          "max": 1158.807,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 6159736,
+          "min": 5797344,
+          "max": 6257208,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 2810.795415999999,
+          "min": 2802.0150159999976,
+          "max": 2873.7143409999917,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 452.79900000000004,
+          "min": 443.26500000000004,
+          "max": 461.432,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 1146.396,
+          "min": 1051.656,
+          "max": 1163.791,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 6072020,
+          "min": 5776356,
+          "max": 6277216,
+          "samples": 3
+        }
+      }
+    },
+    "application-empty-cold": {
+      "before": {
+        "interactionMs": {
+          "median": 2808.437823,
+          "min": 2766.044133000003,
+          "max": 2870.8373640000063,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 454.683,
+          "min": 398.33299999999997,
+          "max": 468.32,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 1039.088,
+          "min": 1008.886,
+          "max": 1118.7350000000001,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 5044660,
+          "min": 5040360,
+          "max": 5058696,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 2746.676577000001,
+          "min": 2742.484260999998,
+          "max": 2756.591003999998,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 438.313,
+          "min": 395.518,
+          "max": 440.716,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 975.409,
+          "min": 945.1659999999999,
+          "max": 1040.351,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 5075576,
+          "min": 5039572,
+          "max": 5078520,
+          "samples": 3
+        }
+      }
+    },
+    "application-warm": {
+      "before": {
+        "interactionMs": {
+          "median": 835.1150730000008,
+          "min": 832.1554430000106,
+          "max": 1224.6250230000005,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 146.10500000000002,
+          "min": 134.77800000000002,
+          "max": 158.39800000000002,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 516.464,
+          "min": 515.525,
+          "max": 545.734,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 9718960,
+          "min": 9440768,
+          "max": 10398976,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 1211.1759280000006,
+          "min": 849.7305019999912,
+          "max": 1271.0075720000023,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 146.847,
+          "min": 135.717,
+          "max": 168.137,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 555.3860000000001,
+          "min": 546.9000000000001,
+          "max": 676.833,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 9576508,
+          "min": 9434344,
+          "max": 10528656,
+          "samples": 3
+        }
+      }
+    },
+    "catalog-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 1137.322905000001,
+          "min": 1089.2983600000007,
+          "max": 1197.1100480000023,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 928.697,
+          "min": 905.0820000000001,
+          "max": 939.366,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2418.0350000000003,
+          "min": 2350.416,
+          "max": 2452.452,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14269776,
+          "min": 13280488,
+          "max": 14423668,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 962.3857109999954,
+          "min": 818.7696169999999,
+          "max": 1233.105614,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 885.7009999999999,
+          "min": 775.972,
+          "max": 1162.3129999999999,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2311.7580000000003,
+          "min": 2119.4579999999996,
+          "max": 3031.4930000000004,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14042352,
+          "min": 12874428,
+          "max": 15288224,
+          "samples": 3
+        }
+      }
+    },
+    "chart-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 656.9417410000024,
+          "min": 581.9035550000008,
+          "max": 934.0550870000006,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 272.26800000000003,
+          "min": 268.886,
+          "max": 274.48,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 885.015,
+          "min": 869.504,
+          "max": 924.756,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11553020,
+          "min": 9794508,
+          "max": 11815360,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 573.9105380000001,
+          "min": 556.0442979999934,
+          "max": 610.6003300000011,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 289.188,
+          "min": 258.40999999999997,
+          "max": 309.43,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 893.891,
+          "min": 893.6469999999999,
+          "max": 1068.3890000000001,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11451776,
+          "min": 9924308,
+          "max": 11529436,
+          "samples": 3
+        }
+      }
+    },
+    "landing-en-cold": {
+      "before": {
+        "interactionMs": {
+          "median": 2278.204039,
+          "min": 2190.8809899999997,
+          "max": 2354.8135670000047,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 207.72199999999998,
+          "min": 176.321,
+          "max": 212.564,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 669.0840000000001,
+          "min": 653.51,
+          "max": 692.861,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 4274460,
+          "min": 4236384,
+          "max": 4310312,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 2327.7729429999963,
+          "min": 2318.73692,
+          "max": 2354.344409000001,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 191.494,
+          "min": 189.60299999999998,
+          "max": 225.054,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 729.465,
+          "min": 679.206,
+          "max": 741.442,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 4294084,
+          "min": 4280424,
+          "max": 4307680,
+          "samples": 3
+        }
+      }
+    },
+    "landing-es-cold": {
+      "before": {
+        "interactionMs": {
+          "median": 1601.982664,
+          "min": 1543.8967200000006,
+          "max": 1641.9512380000015,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 203.926,
+          "min": 178.119,
+          "max": 252.193,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 609.371,
+          "min": 554.754,
+          "max": 668.058,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 4138416,
+          "min": 4130892,
+          "max": 4150492,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 1619.5516910000006,
+          "min": 1542.8788290000011,
+          "max": 1762.7459139999999,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 206.547,
+          "min": 170.004,
+          "max": 289.97299999999996,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 604.3389999999999,
+          "min": 528.613,
+          "max": 729.7810000000001,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 4134700,
+          "min": 4134512,
+          "max": 4223680,
+          "samples": 3
+        }
+      }
+    },
+    "language-cached-es": {
+      "before": {
+        "interactionMs": {
+          "median": 227.44783900000039,
+          "min": 202.1119609999987,
+          "max": 234.32907900000282,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1239.812,
+          "min": 1225.261,
+          "max": 1304.5720000000001,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3901.255,
+          "min": 3873.2700000000004,
+          "max": 4126.187,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 15061440,
+          "min": 14985328,
+          "max": 19434196,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 195.36124700000073,
+          "min": 185.2102040000027,
+          "max": 204.20902000000206,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1158.0490000000002,
+          "min": 1070.921,
+          "max": 1573.8300000000002,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3668.034,
+          "min": 3649.757,
+          "max": 4915.51,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 15429104,
+          "min": 15179488,
+          "max": 19976324,
+          "samples": 3
+        }
+      }
+    },
+    "language-first-fr": {
+      "before": {
+        "interactionMs": {
+          "median": 673.0500260000117,
+          "min": 672.198679000001,
+          "max": 732.2407529999982,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1214.76,
+          "min": 1211.0320000000002,
+          "max": 1296.0100000000002,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3704.329,
+          "min": 3679.7580000000003,
+          "max": 3975.384,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14439176,
+          "min": 14389964,
+          "max": 18818164,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 717.0394769999984,
+          "min": 661.0922220000066,
+          "max": 747.3747949999961,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1140.1019999999999,
+          "min": 1050.406,
+          "max": 1553.528,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3514.153,
+          "min": 3484.988,
+          "max": 4753.611,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14833528,
+          "min": 14552420,
+          "max": 19354488,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-100-filter": {
+      "before": {
+        "interactionMs": {
+          "median": 256.62244700000156,
+          "min": 247.6283870000043,
+          "max": 281.4040860000023,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1162.366,
+          "min": 1152.395,
+          "max": 1232.518,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3414.8450000000003,
+          "min": 3371.422,
+          "max": 3595.595,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 15751768,
+          "min": 15388880,
+          "max": 15782740,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 272.9145170000047,
+          "min": 257.0437219999876,
+          "max": 304.4259520000014,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1080.3259999999998,
+          "min": 972.071,
+          "max": 1480.517,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3182.728,
+          "min": 3121.083,
+          "max": 4346.872,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 15793172,
+          "min": 15647416,
+          "max": 16758316,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-100-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 871.1170619999975,
+          "min": 805.1739730000118,
+          "max": 972.6218039999985,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1118.734,
+          "min": 1103.631,
+          "max": 1168.769,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3206.449,
+          "min": 3160.809,
+          "max": 3347.901,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 13534432,
+          "min": 13529624,
+          "max": 18466360,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 809.1456180000005,
+          "min": 692.5199469999934,
+          "max": 1116.596983000003,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1029.902,
+          "min": 917.333,
+          "max": 1423.039,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2953.995,
+          "min": 2862.542,
+          "max": 4086.056,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14550128,
+          "min": 13550024,
+          "max": 18031340,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-1000-filter": {
+      "before": {
+        "interactionMs": {
+          "median": 713.2792670000053,
+          "min": 594.2342369999969,
+          "max": 731.771177999999,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 818.588,
+          "min": 799.205,
+          "max": 866.563,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2905.13,
+          "min": 2890.199,
+          "max": 2996.28,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14202740,
+          "min": 14125976,
+          "max": 15902564,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 583.5218280000045,
+          "min": 497.90875400000004,
+          "max": 656.1853229999979,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 790.804,
+          "min": 686.64,
+          "max": 939.272,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2787.6240000000003,
+          "min": 2505.5260000000003,
+          "max": 3103.6549999999997,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14848244,
+          "min": 14084052,
+          "max": 15241372,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-1000-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 681.4536220000009,
+          "min": 650.5115770000048,
+          "max": 704.7344469999989,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 640.817,
+          "min": 631.614,
+          "max": 667.708,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2249.741,
+          "min": 2163.725,
+          "max": 2282.293,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11185688,
+          "min": 11146800,
+          "max": 13197128,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 696.3269759999966,
+          "min": 651.0308140000016,
+          "max": 717.4444649999932,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 632.452,
+          "min": 577.123,
+          "max": 790.428,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 2178.186,
+          "min": 2041.038,
+          "max": 2529.925,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 12296660,
+          "min": 11073052,
+          "max": 12927768,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-5000-filter": {
+      "before": {
+        "interactionMs": {
+          "median": 551.6389060000074,
+          "min": 513.442966999999,
+          "max": 557.064201000001,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1198.949,
+          "min": 1186.067,
+          "max": 1225.948,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 4402.852,
+          "min": 4086.03,
+          "max": 4570.199,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 29578816,
+          "min": 24579460,
+          "max": 29691128,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 508.53013899999496,
+          "min": 484.4323319999967,
+          "max": 534.2260449999958,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1159.2,
+          "min": 1132.6419999999998,
+          "max": 1571.1589999999999,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 4333.678,
+          "min": 4085.8309999999997,
+          "max": 4825.482,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 24730896,
+          "min": 24630500,
+          "max": 29564596,
+          "samples": 3
+        }
+      }
+    },
+    "ledger-5000-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 1019.9178829999983,
+          "min": 857.4274330000044,
+          "max": 1035.3578849999976,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1072.656,
+          "min": 1041.339,
+          "max": 1078.8690000000001,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3803.212,
+          "min": 3611.762,
+          "max": 4076.955,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 22650024,
+          "min": 17650848,
+          "max": 22700492,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 959.048487,
+          "min": 877.4473279999984,
+          "max": 1053.2549100000033,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 1036.805,
+          "min": 976.559,
+          "max": 1437.4869999999999,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 3826.403,
+          "min": 3624.651,
+          "max": 4360.414,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 17815812,
+          "min": 17687664,
+          "max": 22615240,
+          "samples": 3
+        }
+      }
+    },
+    "planning-first-open": {
+      "before": {
+        "interactionMs": {
+          "median": 1015.3027039999997,
+          "min": 685.6276859999925,
+          "max": 1056.9598689999984,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 550.819,
+          "min": 543.256,
+          "max": 560.26,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 1435.8509999999999,
+          "min": 1413.5230000000001,
+          "max": 1549.98,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11055384,
+          "min": 10950228,
+          "max": 11488068,
+          "samples": 3
+        }
+      },
+      "after": {
+        "interactionMs": {
+          "median": 723.3227279999992,
+          "min": 697.4378209999995,
+          "max": 1106.9837530000004,
+          "samples": 3
+        },
+        "scriptDurationMs": {
+          "median": 545.351,
+          "min": 518.9390000000001,
+          "max": 730.8249999999999,
+          "samples": 3
+        },
+        "taskDurationMs": {
+          "median": 1470.051,
+          "min": 1438.165,
+          "max": 1912.844,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 10884968,
+          "min": 10856820,
+          "max": 11715952,
+          "samples": 3
+        }
+      }
+    }
+  },
+  "writes": {
+    "account-confirmed-save": {
+      "before": {
+        "totalMs": {
+          "median": 845.0923440000006,
+          "min": 648.9554189999999,
+          "max": 931.5945820000015,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 524,
+          "min": 417,
+          "max": 682,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 10,
+          "min": 9,
+          "max": 22,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 6,
+          "min": 5,
+          "max": 6,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 188,
+          "min": 155,
+          "max": 282,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 194,
+          "min": 160,
+          "max": 288,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 822,
+          "min": 599,
+          "max": 885,
+          "samples": 3
+        }
+      },
+      "after": {
+        "totalMs": {
+          "median": 672.3995270000005,
+          "min": 656.1951259999987,
+          "max": 804.6928200000002,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 415,
+          "min": 369,
+          "max": 551,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 18,
+          "min": 12,
+          "max": 23,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 6,
+          "min": 5,
+          "max": 6,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 175,
+          "min": 169,
+          "max": 265,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 181,
+          "min": 176,
+          "max": 270,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 651,
+          "min": 614,
+          "max": 750,
+          "samples": 3
+        }
+      }
+    },
+    "confirmed-document-read-1000": {
+      "before": {
+        "totalMs": {
+          "median": 61.82992100000047,
+          "min": 57.50652999999875,
+          "max": 67.91243799999938,
+          "samples": 3
+        }
+      },
+      "after": {
+        "totalMs": {
+          "median": 62.187369999999646,
+          "min": 61.82669200000055,
+          "max": 64.81261899999981,
+          "samples": 3
+        }
+      }
+    },
+    "initial-load-and-migration-1000": {
+      "before": {
+        "totalMs": {
+          "median": 3056.248829,
+          "min": 2965.0705650000004,
+          "max": 3254.8812639999996,
+          "samples": 3
+        }
+      },
+      "after": {
+        "totalMs": {
+          "median": 2911.538181,
+          "min": 2865.7716709999986,
+          "max": 2968.2680950000013,
+          "samples": 3
+        }
+      }
+    },
+    "movement-confirmed-save": {
+      "before": {
+        "totalMs": {
+          "median": 888.0289619999994,
+          "min": 746.6290599999993,
+          "max": 1089.1940220000033,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 582,
+          "min": 391,
+          "max": 700,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 45,
+          "min": 36,
+          "max": 66,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 24,
+          "min": 10,
+          "max": 29,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 201,
+          "min": 189,
+          "max": 243,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 230,
+          "min": 214,
+          "max": 253,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 832,
+          "min": 689,
+          "max": 996,
+          "samples": 3
+        }
+      },
+      "after": {
+        "totalMs": {
+          "median": 752.3076270000001,
+          "min": 706.7081489999991,
+          "max": 825.1227739999995,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 435,
+          "min": 388,
+          "max": 457,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 33,
+          "min": 21,
+          "max": 43,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 22,
+          "min": 7,
+          "max": 28,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 216,
+          "min": 197,
+          "max": 221,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 228,
+          "min": 225,
+          "max": 239,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 684,
+          "min": 646,
+          "max": 739,
+          "samples": 3
+        }
+      }
+    },
+    "transfer-confirmed-save": {
+      "before": {
+        "totalMs": {
+          "median": 774.7645590000011,
+          "min": 685.9846969999999,
+          "max": 839.0072600000021,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 517,
+          "min": 399,
+          "max": 571,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 17,
+          "min": 13,
+          "max": 24,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 12,
+          "min": 4,
+          "max": 13,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 165,
+          "min": 164,
+          "max": 249,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 179,
+          "min": 176,
+          "max": 253,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 713,
+          "min": 665,
+          "max": 771,
+          "samples": 3
+        }
+      },
+      "after": {
+        "totalMs": {
+          "median": 709.4581409999992,
+          "min": 679.6624589999992,
+          "max": 720.8751060000013,
+          "samples": 3
+        },
+        "preparationAndDispatchMs": {
+          "median": 414,
+          "min": 395,
+          "max": 446,
+          "samples": 3
+        },
+        "storageBarrierMs": {
+          "median": 15,
+          "min": 13,
+          "max": 17,
+          "samples": 3
+        },
+        "verificationReadMs": {
+          "median": 6,
+          "min": 4,
+          "max": 7,
+          "samples": 3
+        },
+        "remainingVerificationAndRenderMs": {
+          "median": 211,
+          "min": 185,
+          "max": 273,
+          "samples": 3
+        },
+        "postBarrierToUiMs": {
+          "median": 217,
+          "min": 192,
+          "max": 277,
+          "samples": 3
+        },
+        "submitToConfirmationMs": {
+          "median": 676,
+          "min": 621,
+          "max": 689,
+          "samples": 3
+        }
+      }
+    }
+  },
+  "journeys": {
+    "assistant-first-open": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 1127.003,
+          "min": 1099.173,
+          "max": 1284.885,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 16553688,
+          "min": 12156848,
+          "max": 16646896,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 1288.3213079999987,
+          "min": 1228.9457469999998,
+          "max": 1293.955113,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 1216.817,
+          "min": 1209.801,
+          "max": 1231.575,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14533528,
+          "min": 12215492,
+          "max": 14591380,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 1227.5962450000006,
+          "min": 1219.0975660000004,
+          "max": 1612.6419419999993,
+          "samples": 3
+        }
+      }
+    },
+    "assistant-proposal": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 1178.666,
+          "min": 1145.005,
+          "max": 1346.56,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11810840,
+          "min": 11788980,
+          "max": 13684132,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 216.58128899999792,
+          "min": 205.54927000000134,
+          "max": 221.8371670000015,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 1274.8319999999999,
+          "min": 1266.593,
+          "max": 1283.487,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 16054620,
+          "min": 13741348,
+          "max": 16118572,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 208.01695999999902,
+          "min": 202.631822000003,
+          "max": 215.41981300000043,
+          "samples": 3
+        }
+      }
+    },
+    "import-validate-preview": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 1238.519,
+          "min": 1220.085,
+          "max": 1419.792,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 17403076,
+          "min": 12907120,
+          "max": 17483504,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 183.67125300000043,
+          "min": 140.66884700000082,
+          "max": 226.0129909999996,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 1351.181,
+          "min": 1347.37,
+          "max": 1351.4630000000002,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 13933008,
+          "min": 13004272,
+          "max": 13962684,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 206.83054300000003,
+          "min": 190.08883799999967,
+          "max": 252.52095299999928,
+          "samples": 3
+        }
+      }
+    },
+    "month-previous": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 523.749,
+          "min": 523.657,
+          "max": 560.2660000000001,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 7281280,
+          "min": 7207944,
+          "max": 7281496,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 116.96939500000008,
+          "min": 112.20591000000059,
+          "max": 120.35401699999966,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 520.404,
+          "min": 512.5150000000001,
+          "max": 542.283,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 8829524,
+          "min": 7272960,
+          "max": 8857772,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 106.61019999999917,
+          "min": 105.49129200000061,
+          "max": 111.93748800000049,
+          "samples": 3
+        }
+      }
+    },
+    "movement-amount-input": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 651.645,
+          "min": 644.599,
+          "max": 720.524,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 7891796,
+          "min": 7819028,
+          "max": 10653848,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 89.13560599999983,
+          "min": 81.03997700000036,
+          "max": 117.44105399999899,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 641.2139999999999,
+          "min": 639.574,
+          "max": 659.4100000000001,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 9213780,
+          "min": 9196604,
+          "max": 10688804,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 86.23803800000042,
+          "min": 77.55669599999965,
+          "max": 87.07180299999891,
+          "samples": 3
+        }
+      }
+    },
+    "movement-form-open": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 637.259,
+          "min": 631.207,
+          "max": 703.798,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 9281876,
+          "min": 9210196,
+          "max": 9318504,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 272.1705379999994,
+          "min": 218.28099600000132,
+          "max": 320.3207089999996,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 628.815,
+          "min": 618.565,
+          "max": 644.773,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 7769896,
+          "min": 7737924,
+          "max": 9247840,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 252.41997900000206,
+          "min": 246.28981900000144,
+          "max": 291.95769800000016,
+          "samples": 3
+        }
+      }
+    },
+    "restore-verified-confirmation": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 1343.98,
+          "min": 1343.5159999999998,
+          "max": 1544.484,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 18011464,
+          "min": 14227868,
+          "max": 18249300,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 442.8999669999994,
+          "min": 398.2025040000008,
+          "max": 462.27546000000075,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 1469.971,
+          "min": 1458.826,
+          "max": 1508.469,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 14201588,
+          "min": 13999540,
+          "max": 15856152,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 458.54077099999995,
+          "min": 371.962822999998,
+          "max": 472.41579900000033,
+          "samples": 3
+        }
+      }
+    },
+    "shared-expense-open": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 903.2900000000001,
+          "min": 877.1060000000001,
+          "max": 1029.8039999999999,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 11964288,
+          "min": 11877736,
+          "max": 12338540,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 763.0309699999998,
+          "min": 752.8581690000001,
+          "max": 876.0029630000026,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 905.226,
+          "min": 902.361,
+          "max": 959.866,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 12473472,
+          "min": 12322452,
+          "max": 12507828,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 694.1696579999998,
+          "min": 675.1785009999985,
+          "max": 726.8462719999989,
+          "samples": 3
+        }
+      }
+    },
+    "theme-change": {
+      "before": {
+        "scriptDurationMs": {
+          "median": 490.933,
+          "min": 488.00300000000004,
+          "max": 530.588,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 8248036,
+          "min": 8161012,
+          "max": 8499824,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 319.02382099999886,
+          "min": 295.82126199999766,
+          "max": 364.9354800000001,
+          "samples": 3
+        }
+      },
+      "after": {
+        "scriptDurationMs": {
+          "median": 492.536,
+          "min": 484.64099999999996,
+          "max": 514.597,
+          "samples": 3
+        },
+        "heapUsedBytes": {
+          "median": 6953704,
+          "min": 6920164,
+          "max": 8300124,
+          "samples": 3
+        },
+        "durationMs": {
+          "median": 332.0486459999993,
+          "min": 265.2193220000004,
+          "max": 357.4562880000012,
+          "samples": 3
+        }
+      }
+    }
+  }
+}

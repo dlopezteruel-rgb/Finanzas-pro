@@ -1,0 +1,495 @@
+{
+  "trace": [
+    {
+      "kind": "input",
+      "at": 861.6999999955297,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "pending": true
+    },
+    {
+      "kind": "input",
+      "at": 863,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "pending": true
+    },
+    {
+      "kind": "focus",
+      "at": 863.3999999985099,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": false
+    },
+    {
+      "kind": "blur",
+      "at": 1258.1999999955297,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": ""
+    },
+    {
+      "kind": "focus",
+      "at": 1258.6000000014901,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": true
+    },
+    {
+      "kind": "blur",
+      "at": 1311.8999999985099,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": ""
+    },
+    {
+      "kind": "input",
+      "at": 1312.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "pending": false
+    },
+    {
+      "kind": "focus",
+      "at": 1312.3999999985099,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "target": "budget-tab-catalog",
+      "visible": true
+    },
+    {
+      "kind": "schedule",
+      "at": 1512.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1513.1999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 45.6
+    },
+    {
+      "kind": "schedule",
+      "at": 1513.1999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1559.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.7
+    },
+    {
+      "kind": "schedule",
+      "at": 1559.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1610.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49
+    },
+    {
+      "kind": "schedule",
+      "at": 1610.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1659.6000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 40.5
+    },
+    {
+      "kind": "schedule",
+      "at": 1659.7999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1700.7999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 8.7
+    },
+    {
+      "kind": "schedule",
+      "at": 1701,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1709.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 11.8
+    },
+    {
+      "kind": "schedule",
+      "at": 1709.7999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1721.7999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 35.5
+    },
+    {
+      "kind": "schedule",
+      "at": 1722,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1757.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 2.1
+    },
+    {
+      "kind": "schedule",
+      "at": 1757.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1759.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 50
+    },
+    {
+      "kind": "schedule",
+      "at": 1759.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1810.1000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 33.8
+    },
+    {
+      "kind": "schedule",
+      "at": 1810.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1844.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 30
+    },
+    {
+      "kind": "schedule",
+      "at": 1844.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1845,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 29.3
+    },
+    {
+      "kind": "schedule",
+      "at": 1845.1000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1874.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.7
+    },
+    {
+      "kind": "schedule",
+      "at": 1875.3999999985099,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1924.8999999985099,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.7
+    },
+    {
+      "kind": "schedule",
+      "at": 1925.1000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1974.8999999985099,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.8
+    },
+    {
+      "kind": "schedule",
+      "at": 1975.1000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2025.1000000014901,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2025.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2075.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2075.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2125.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2125.60000000149,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2175.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2175.89999999851,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2225.7999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2226.10000000149,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2276.10000000149,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2276.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2326.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.8
+    },
+    {
+      "kind": "schedule",
+      "at": 2326.39999999851,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2376.2999999970198,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 49.9
+    },
+    {
+      "kind": "schedule",
+      "at": 2376.5,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2426.39999999851,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 50
+    },
+    {
+      "kind": "schedule",
+      "at": 2426.60000000149,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2476.60000000149,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 50
+    },
+    {
+      "kind": "schedule",
+      "at": 2476.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 2526.6999999955297,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 50
+    }
+  ],
+  "requests": [
+    "http://127.0.0.1:37087/app",
+    "http://127.0.0.1:37087/assets/index-ByEht66E.js",
+    "http://127.0.0.1:37087/assets/rolldown-runtime-XKyaHtl9.js",
+    "http://127.0.0.1:37087/assets/preload-helper-7y9sWmk5.js",
+    "http://127.0.0.1:37087/assets/financialCalendar-DJuOrvRe.js",
+    "http://127.0.0.1:37087/assets/i18n-Cn-dyJ6a.js",
+    "http://127.0.0.1:37087/assets/index-DklKeRgQ.css",
+    "http://127.0.0.1:37087/assets/App-CqWiJIGV.js",
+    "http://127.0.0.1:37087/assets/financeBinding-BXflCxYg.js",
+    "http://127.0.0.1:37087/assets/financeStore--xMfwp2b.js",
+    "http://127.0.0.1:37087/assets/budgetCatalog-BRd3dkB7.js",
+    "http://127.0.0.1:37087/assets/planningCarry-ColyWIaW.js",
+    "http://127.0.0.1:37087/assets/intelligentValidation-Cmrrq-xU.js",
+    "http://127.0.0.1:37087/assets/planningAutomation-BpBIZlzi.js",
+    "http://127.0.0.1:37087/assets/planning-BwoY7iy3.js",
+    "http://127.0.0.1:37087/assets/planningAutomationValidation-wgMVpPUU.js",
+    "http://127.0.0.1:37087/assets/deletion-DSE565Lc.js",
+    "http://127.0.0.1:37087/assets/backup-D8y9qTqY.js",
+    "http://127.0.0.1:37087/assets/defaultWallet-ntpA98HF.js",
+    "http://127.0.0.1:37087/assets/storageMessages-DoJEjT7c.js",
+    "http://127.0.0.1:37087/assets/personalObligations-AfdO9e9E.js",
+    "http://127.0.0.1:37087/assets/SafeDialog-C4VlnKRJ.js",
+    "http://127.0.0.1:37087/assets/Overlay-FSSihbCO.js",
+    "http://127.0.0.1:37087/assets/useAsyncForm-DiFa3H9F.js",
+    "http://127.0.0.1:37087/assets/saveResult-Dp2fT8RK.js",
+    "http://127.0.0.1:37087/brand/finanzas-mark.svg",
+    "http://127.0.0.1:37087/brand/finanzas-mark.svg",
+    "http://127.0.0.1:37087/brand/finanzas-mark.svg",
+    "http://127.0.0.1:37087/assets/openFinance-DyqQUDyp.js",
+    "http://127.0.0.1:37087/assets/forensic--cqTuhWj.js",
+    "http://127.0.0.1:37087/assets/PlanningView-DsGc3Yh1.js"
+  ],
+  "errors": []
+}

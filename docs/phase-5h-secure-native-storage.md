@@ -1,6 +1,6 @@
 # Fase 5H — Persistencia financiera nativa segura
 
-> El informe de entrega original y sus checkpoints describen la PR32 anterior. La actualización sobre main31a8e8d se documenta al final en «Integración de PR #33 — Persistencia web duradera», con evidencias separadas; no se atribuyen las pruebas históricas al código integrado.
+> El informe original y sus checkpoints describen PR32 antes de integrar PR33. Sus cifras y el P0 abierto son evidencia histórica, no el estado actual. PR33 corrigió el P0 mediante IndexedDB strict; su preservación se comprueba de nuevo en la integración. El estado actual, los resultados y los bloqueos móviles se documentan en «Integración de PR #33 — Persistencia web duradera», con evidencias separadas; no se atribuyen pruebas históricas al código integrado.
 
 ## Estado de entrega y límites
 
@@ -296,6 +296,8 @@ La API Android execSQL no debe usarse para PRAGMA que devuelven filas. El motor4
 
 ## Incidencia crítica preexistente de la web — 5H-WEB-001
 
+Este apartado y sus comandos son históricos: el [arnés original de ceb08c7](https://github.com/dlopezteruel-rgb/Finanzas-pro/blob/ceb08c7fa3d05ea8c448855bf46fdec03e8af947/scripts/native/webCrashRecovery.ts) conserva la reproducción2/3. El archivo actual es el arnés de PR33, integrado sin cambios de criterio; sus resultados nuevos figuran al final.
+
 | Campo | Evidencia |
 | --- | --- |
 | Gravedad / estado | **P0, abierto**, pérdida de una escritura que la interfaz ya había confirmado, bajo cierre abrupto de todos los procesos del navegador |
@@ -380,13 +382,13 @@ Antes de resolver se registraron14conflictos por archivo y las incompatibilidade
 | Recuperación | Forense IndexedDB+origen antiguo | Copias/recibos del vault | Capacidades discriminadas; forense web no existe en nativo |
 | UI | Carga/migración, errores, recarga | Preparación/clave, sandbox, consentimiento de exportación | Estados separados sin diálogos web duplicados en nativo |
 | Traducciones | webStore en5idiomas | vault en5idiomas | Unión de claves, sin duplicados de significado |
-| Regresión navegador |45suites/957resultados anteriores |45suites/920anteriores |46suites únicas,996resultados mínimos previstos; no suma ciega |
+| Regresión navegador |45suites/957resultados anteriores |45suites/920anteriores |46suites:996en8e79f4e;997traselcasonegativodeidle; no suma ciega |
 
 FinanceSession decide usando servicios del entry real, no user-agent. Un shell nativo no puede seleccionar FinanceBinding.open ni el navegador recibir un controlador vault. Web se abre en effect, con loading/migration antes de la UI financiera. Nativo se entrega ya abierto y verificado por bootstrap después de consentimiento; no lee ni migra WebView localStorage. Memoria se admite solo en el prototipo explícito. Idioma/tema/render no crean sesiones nuevas. Los callbacks del hook dejan de publicar al desmontarse; el controlador nativo se cierra serialmente por bootstrap y el web cierra su propia conexión sin fingir rollback.
 
 Se conservan Web Locks, CAS, estricta comprobación de durabilidad, complete/recibo/hash, copias atómicas, migración archivada, señal de autoridad y detección de divergencia. Se conservan SQLCipher4.20, DELETE/EXTRA, Keystore, WhenUnlockedThisDeviceOnly, no iCloud y las políticas de no borrar claves/bases. [Huellas de código protegido](phase-5h-integration/protected-files.json). No cambian FinanceStore, backup, identificadores, redondeos ni lectura JSON2.5–3.5; el documento sigue3.5.
 
-Resultados previos al commit de merge: instalación npm ci306paquetes correcta;733/733unitarias y50/50infraestructura; lint/build correctos.38/38casos de UI de vault con SQLite real de escritorio:35anteriores+3nuevos (idioma/tema sin reinicialización, copia vía vault con consentimiento y fallo de clave sin IndexedDB/defaults). Las91superficies axe nativas simuladas conservan cero violaciones. Estos resultados no certifican Android/iOS. SQLCipher realLinux11/11,4.20.0community,SQLite3.54.1,OpenSSL3.5.7,DELETE yEXTRA. Los logs y versiones de este checkpoint se guardan separadamente en phase-5h-integration/checkpoint-merge-*. Todavía faltan SIGKILL integrado, batería completa, mediciones, compilaciones y CI del SHA final.
+Resultados previos al commit de merge: instalación npm ci306paquetes correcta;733/733unitarias y50/50infraestructura; lint/build correctos.38/38casos de UI de vault con SQLite real de escritorio:35anteriores+3nuevos (idioma/tema sin reinicialización, copia vía vault con consentimiento y fallo de clave sin IndexedDB/defaults). Las91superficies axe nativas simuladas conservan cero violaciones. Estos resultados no certifican Android/iOS. SQLCipher realLinux11/11,4.20.0community,SQLite3.54.1,OpenSSL3.5.7,DELETE yEXTRA. Los logs y versiones de este checkpoint se guardan separadamente en phase-5h-integration/checkpoint-merge-*. En ese checkpoint aún faltaban SIGKILL integrado, batería completa, mediciones, compilaciones y CI; sus evidencias posteriores se presentan por separado.
 
 El primer ensayo del planificador detectó el cambio de barrera de nativeFoundation; se corrigió manteniendo ambas compilaciones nativas exclusivas, sin cambiar aserciones financieras ni límites. Los12casos de planificación de ambos padres están registrados en archivos separados y usan un único ejecutor. El manifiesto conserva44suites comunes, nativeVault y webDurability. Solo fixtures independientes ya identificadas pueden solaparse con máximo2; rutas, auditoría general, volumen y SIGKILL son barreras. La UI se compila una sola vez antes de la batería. Se mantiene el workflow de50min y los tres checks; resultados faltantes/omitidos/cancelados o informes P0 ausentes rechazan la CI.
 
@@ -402,7 +404,7 @@ iOS: native:sync:ios correcto con SPM y plugin nativo. Compilación y runtime bl
 
 El APK y las fuentes preservan invalid.finanzas.prototype y todos los bloqueos de producto. No hay claves financieras enJS, nuevos permisos generales, backend móvil ni distribución.
 
-La preparación de rendimiento usa main31a8e8d: su árbol es idéntico al checkout168c03a de PR33; se compila en un outDir nuevo sin cambiar su dist original. Se instrumenta pasivamente la primera lectura readonly posterior a complete para separar el readback; el residual incluye hash/validación y React, no es pintura aislada. Se añade medición de cambio de tema excluyendo únicamente su preferencia visual del contador financiero. Ambas comparaciones usan exactamente el mismo instrumental y datos ficticios. Las métricas finales se añadirán tras completar todas las muestras.
+La preparación de rendimiento usa main31a8e8d: su árbol es idéntico al checkout168c03a de PR33; se compila en un outDir nuevo sin cambiar su dist original. Se instrumenta pasivamente la primera lectura readonly posterior a complete para separar el readback; el residual incluye hash/validación y React, no es pintura aislada. Se añade medición de cambio de tema excluyendo únicamente su preferencia visual del contador financiero. Ambas comparaciones usan exactamente el mismo instrumental y datos ficticios. Las métricas finales se presentan más abajo, después de completar todas las muestras.
 
 Incidencia de procedimiento: una edición auxiliar de medición y la carpeta nueva de evidencias se escribieron temporalmente en el checkout web anterior por cwd incorrecto. Se trasladaron a5H y se restauraron exactamente sus bytes originales; gitstatus volvió al estado inicial limpio. No cambió código financiero ni se ejecutaron mediciones con esa edición accidental. La corrección queda registrada separadamente en directory-correction.json.
 
@@ -413,3 +415,138 @@ La medición intermedia frente a main31a detectó una apertura caliente más len
 La prueba usa el hook real con transportes controlados para verificar carga sin defaults visibles, apertura única, ausencia de fallback, cierre web por su propietario, resolución/rechazo tardíos tras desmontar y commit nativo pendiente sin publicación a un componente desmontado. No es una certificación nativa de durabilidad. Se añade al manifiesto existente: no sustituye casos previos. Los39 resultados de esta suite y el mínimo996 de la batería conjunta incluyen este caso. La primera preparación del arnés falló por configuración de bundle de pruebas (React sin entorno definido); se corrigió exclusivamente su configuración. La segunda ejecución reprodujo el render adicional esperado; después de corregir el hook, el caso de ciclo de vida pasa. La batería completa y las nuevas mediciones se documentarán aparte.
 
 La ejecución focalizada corregida finaliza39/39,0fallos/omitidas/canceladas,89,25s; unitarias733/733,infraestructura50/50 y lint correctos. Los [logs previos y posteriores](phase-5h-integration/hydration/) conservan tanto el fallo del arnés como la reproducción3≠2 y el resultado corregido.
+
+### Rendimiento frente al main corregido
+
+Builds de producción, tres muestras por escenario,390×900,CPU4×,1,6Mbit/s/80ms; Chromium156.0.8078.79 y Node24.22.1, contenedor2vCPU/8GiB (los datos de host del informe no equivalen a recursos asignados). Antes: main31a8e8d; después: código8e79f4e. No se ejecutaron otras suites locales durante las mediciones. Se conservan datos completos, snapshots/hash y los costes de preparación, commit estricto, readback y confirmación; no se miden dispositivos físicos.
+
+Cada celda es mediana [mínimo–máximo] en ms.
+
+| Operación | Main corregido | Integración |
+| --- | --- | --- |
+| Landing ES | 1602 [1544–1642] | 1620 [1543–1763] |
+| Aplicación fría | 2833 [2794–2833] | 2811 [2802–2874] |
+| Aplicación caliente | 835 [832–1225] | 1211 [850–1271] |
+| Inicio y migración de1.000 | 3056 [2965–3255] | 2912 [2866–2968] |
+| Lectura documento1.000 | 62 [58–68] | 62 [62–65] |
+| Guardar cuenta | 845 [649–932] | 672 [656–805] |
+| Guardar movimiento | 888 [747–1089] | 752 [707–825] |
+| Transferencia | 775 [686–839] | 709 [680–721] |
+| Restauración verificada | 443 [398–462] | 459 [372–472] |
+| Abrir1.000 movimientos | 681 [651–705] | 696 [651–717] |
+| Abrir5.000 movimientos | 1020 [857–1035] | 959 [877–1053] |
+| Filtrar5.000 | 552 [513–557] | 509 [484–534] |
+| Catálogo | 1137 [1089–1197] | 962 [819–1233] |
+| Planificación | 1015 [686–1057] | 723 [697–1107] |
+| Asistente | 1288 [1229–1294] | 1228 [1219–1613] |
+| Idioma FR inicial | 673 [672–732] | 717 [661–747] |
+| Tema | 319 [296–365] | 332 [265–357] |
+| Periodo anterior | 117 [112–120] | 107 [105–112] |
+
+Los intervalos se solapan en muchos escenarios. Tres muestras no permiten atribuir diferencias pequeñas a una mejora estadística. La reapertura caliente presenta mediana mayor835→1211ms, con rangos832–1225 frente a850–1271; se conserva expresamente como variabilidad/coste pendiente de seguimiento, sin ocultar la medición intermedia ni prometer una ganancia. La corrección del render duplicado queda demostrada por el caso reproducible3→2, no por una supuesta aceleración universal. No cambian paginación, totales, filtros o precarga.
+
+| Guardado | Preparación/despacho antes→después | Commit antes→después | Readback antes→después | Residual verificación/UI antes→después |
+| --- | --- | --- | --- | --- |
+| Cuenta | 524 [417–682] → 415 [369–551] | 10 [9–22] → 18 [12–23] | 6 [5–6] → 6 [5–6] | 188 [155–282] → 175 [169–265] |
+| Movimiento | 582 [391–700] → 435 [388–457] | 45 [36–66] → 33 [21–43] | 24 [10–29] → 22 [7–28] | 201 [189–243] → 216 [197–221] |
+| Transferencia | 517 [399–571] → 414 [395–446] | 17 [13–24] → 15 [13–17] | 12 [4–13] → 6 [4–7] | 165 [164–249] → 211 [185–273] |
+
+El residual incluye hash/validación, transporte y React; no se etiqueta como pintura aislada. Los timestamps son observación pasiva de solicitudes/transacciones existentes, sin operaciones financieras extra. Los guardados no se confirman antes de complete y verificación.
+
+Bundle inicial web:139.970→140.656bytes gzip (+686;0,49%). El análisis de **todos** los chunks confirma cero módulos Capacitor, plugin vault, SQLCipher, Keystore o Keychain. Las traducciones extranjeras siguen diferidas. La incorporación de Capacitor no descarga su puente en la landing.
+
+Memoria aproximada, heap JavaScript de CDP (no RSS ni memoria nativa):
+
+| Escenario | Main, MiB | Integración, MiB |
+| --- | --- | --- |
+| Aplicación caliente | 9 [9–10] | 9 [9–10] |
+| Lista1.000 | 11 [11–13] | 12 [11–12] |
+| Lista5.000 | 22 [17–22] | 17 [17–22] |
+
+[Informe completo y rangos](phase-5h-integration/final-measurements/summary.json), [bundles](phase-5h-integration/final-measurements/5h-integration-bundles-after.json), perfiles CPU gzip y datos brutos se conservan en la misma carpeta. Los hashes previos/posteriores de operaciones puramente visuales permanecen iguales; transferencias verifican ambos extremos y no alteran el resultado económico. No hay llamadas reales al backend de IA.
+
+### Plataformas, recuperación y limitaciones de ejecución
+
+El APK reconstruido con8e79f4e ocupa13.469.846bytes; SHA256c78fcc3cc7be2d9f19909711920667d2fc728e0ff9af07df8e755cf112946970. Gradle assembleDebug correcto en18s,207tareas (21ejecutadas/186actualizadas), cuatro ABI SQLCipher y ningún servidor Express/certificado de distribución. [Manifiesto](phase-5h-integration/final-measurements/apk.json). Se conserva local, sin instalar ni distribuir. Las fuentes iOS se sincronizan correctamente mediante Capacitor/SPM.
+
+Los resultados anteriores al cambio de hook y los de este rebuild permanecen separados. No hay /dev/kvm ni dispositivo Android autorizado; ADB encuentra el bloqueo documentado de filesystem. No se cambia HOME ni se usan teléfonos personales. Linux carece de macOS/Xcode. Compilación Android y SQLCipherLinux11/11 no validan runtime, Keystore, Keychain, persistencia móvil o protección física.
+
+| Capacidad | Web | Android | iOS |
+| --- | --- | --- | --- |
+| Build/recursos | Aprobado | Aprobado, APK debug unsigned | Aprobado, solo sync; compilación bloqueada |
+| Lectura/escritura, CAS y recibos | Aprobado enCI8e79; entrega final: registroPR32 | Bloqueado en runtime | Bloqueado en runtime |
+| Cierre abrupto/recuperación | Aprobado enCI8e79; entrega final: registroPR32 | Bloqueado | Bloqueado |
+| Migración histórica/copias/restauración | Aprobado enCI8e79; entrega final: registroPR32 | Bloqueado para datos reales | Bloqueado para datos reales |
+| Cifrado y claves del SO | No ejecutado, fuera del contrato web | Bloqueado; fuentes preservadas | Bloqueado; fuentes preservadas |
+| Idiomas/tema/foco/teclado | Aprobado enCI8e79; entrega final: registroPR32 | Aprobado solo adaptador Chromium; runtime bloqueado | Aprobado solo adaptador Chromium; runtime bloqueado |
+| SQLCipher4.20 real | Aprobado en Linux,11/11, no motor web | Bloqueado en Android | Bloqueado en iOS |
+
+No se prueban Firefox/WebKit en esta integración ni lectores de pantalla o dispositivos físicos. No se atribuye el SIGKILL de Chromium a cortes eléctricos, hardware u otros navegadores. Las restricciones de lectura/exportación por capacidades insuficientes y la migración recuperable son las originales de PR33.
+
+Los archivos web y nativos permanecen separados: forense web conserva IndexedDB/origen antiguo, mientras el vault usa sus copias internas cifradas y sus recibos. Las exportaciones nativas de diagnóstico requieren consentimiento explícito de texto plano; importación externa real y copia portable cifrada siguen bloqueadas. No hay migración automática web→móvil ni sincronización entre dispositivos. JSON sigue3.5, con lectura2.5–3.5.
+
+### Auditoría de dependencias actual
+
+La ejecución nueva de npm audit **falla con salida1**:5paquetes high,0critical. El main31a8e8d, auditado con su lockfile original, devuelve exactamente los mismos cinco:picomatch,fdir,tinyglobby,vite y@vitejs/plugin-react. No son cinco vulnerabilidades independientes: propagan [GHSA-fc5q-39xc-vjpf](https://github.com/advisories/GHSA-fc5q-39xc-vjpf), ReDoS por extglobs repetidos, publicada2026-10-19 y actualizada2026-11-17T15:56:44Z. La consulta oficial no indica una primera versión corregida; npm sugiere cambios mayores de Vite/pluginReact. No se ejecuta audit fix ni una degradación automática de la infraestructura. El alcance de explotabilidad no se declara certificado.
+
+Es una incidencia heredada de dependencias pendiente de remediación separada, no causada por unir los controladores. Se conservan tanto el [informe de main](phase-5h-integration/security/main-npm-audit.json) como el [de integración](phase-5h-integration/security/final-npm-audit.json) y la [alerta consultada](phase-5h-integration/security/advisory.json). Los ceros de la entrega histórica son sus resultados de entonces y no sustituyen esta ejecución. Los tres checks obligatorios y npm audit se informan por separado; no se presenta esta auditoría como aprobada.
+
+Capacitor sync iOS no resuelve ni compila por sí solo las dependencias mediante Xcode: resolución SPM nativa, compilación y runtime permanecen bloqueados. La caché npm predeterminada de este host no es escribible; los comandos usan npm_config_cache dentro de workspace, sin cambiar HOME.
+
+### Resolución efectiva de los conflictos
+
+| Archivo | Resolución integrada |
+| --- | --- |
+| docs/phase-5b-inventory.json | Regenerado con las fuentes combinadas y validado por su prueba AST; no se selecciona un inventario antiguo. |
+| package.json | Un manifiesto de46suites y un solo build inicial; conserva comandos nativos y la puerta de durabilidad. Sin actualizaciones de dependencias. |
+| scripts/ci/browser-battery.mjs | Un planificador, máximo2; barreras para builds/rutas/volumen/auditoría/SIGKILL. Misma semántica de fallo para ambos contratos anteriores. |
+| scripts/ci/browser-battery.test.mjs | Sus dos grupos de6casos se preservan en browser-battery.web.test.mjs y browser-battery.vault.test.mjs; no hay registros duplicados. |
+| scripts/ci/run-check.mjs | Exige46resúmenes, mínimo997resultados (996en8e79f4e), informes de motor/UI,91superficies native y los20+2+8 con SHA exacto. |
+| scripts/native/webCrashRecovery.ts | Versión de main/PR33 intacta. La reproducción histórica2/3 conserva su SHA, arnés y JSON anteriores. |
+| src/App.tsx | Capacidades discriminadas: forense y estados IndexedDB solo web; copia/exportación/picker nativos bajo sus protecciones. |
+| src/utils/useFinanceData.ts | Apertura web asíncrona o controlador nativo entregado por bootstrap; estado confirmado, errores y cierre por propietario. Prueba de hidratación/desmontaje. |
+| src/tests.ts | Unión de importaciones web+nativas y4casos de selección;733casos reales, sin duplicados. |
+| src/i18n/es.ts, en.ts, it.ts, fr.ts, pt.ts | Unión completa de claves webStore/vault en cada idioma, conservando parámetros y códigos internos. |
+
+La revisión semántica adicional incluye FinanceBinding.open, PlatformServices.durable, bootstrap y storageMessages, aunque Git no los marcara como conflicto. [Conservación de pruebas y objetos protegidos](phase-5h-integration/test-retention.json): las45suites web eran idénticas a main en8e79f4e (el ajuste posterior del fixture se documenta abajo); FinanceStore, backup, todos los drivers web y todo el almacén nativo original conservan sus bytes. [Identidades de fuentes compiladas/probadas](phase-5h-integration/validation-source.json) permiten verificar que los commits finales de documentación no cambian el código8e79f4e.
+
+### CI completa del código integrado y accesibilidad consolidada
+
+La ejecución [44183972725](https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44183972725), SHA8e79f4e9b538c015d9f30f0fde4e4000ed8931ad, termina con los tres checks aprobados:733/733unitarias,50/50infraestructura, lint/build/diff y996/996resultados Chromium en46suites. Cero fallos, omisiones, cancelaciones o todo. Artefactos descargados y verificados:20/20SIGKILL después de confirmar,2controles,8/8interrupciones de frontera, con ese SHA; Chromium156.0.8078.4. No se reutilizan informes históricos. [Run y resúmenes](phase-5h-integration/checkpoint-ci/). El workflow conserva50min, permisos y versiones; no hay reintentos.
+
+Consolidación de29informes/1.702observaciones: **cero violaciones automatizadas**,1.013grupos incompletos/58conjuntos equivalentes. La agrupación es informe+superficie+regla y conserva referencias, causas y ejemplos; no son1.013defectos independientes ni revisiones manuales aprobadas.
+
+| Procedencia | Observaciones | Grupos incompletos | Conjuntos equivalentes |
+| --- | --- | --- | --- |
+| Web general heredada | 1.571 | 946 | 53 |
+| Persistencia web de PR33 | 40 | 36 | 3 |
+| Adaptador nativo de PR32, Chromium+SQLite de escritorio | 91 | 31 | 2 |
+| Integración consolidada | 1.702 | 1.013 | 58 |
+
+Los947grupos/53conjuntos históricos de5G siguen abiertos; no se suman otra vez ni se consideran resueltos por variaciones del navegador. La integración vuelve a ejecutar sus superficies, sin duplicarlas por provenir de dos ramas. El arnés diagnóstico de ciclo de vida no se presenta como una superficie financiera nativa adicional. No hay ejecución Android/iOS ni lector de pantalla.
+
+Clasificación contextual:1.012grupos color-contrast (glifos no BMP, imágenes/gráficos, contenido corto y capas solapadas);1grupo aria-valid-attr-value/controlsWithinPopup. Se conservan los mecanismos por nodo/check, que tampoco son defectos únicos. El contraste bajo superposición y la relación ARIA del popup requieren revisión contextual/manual; no se ignora ninguna regla ni se convierten incompletos en aprobaciones. [Alcances y pendientes](phase-5h-integration/checkpoint-ci/accessibility-scopes.json), [ejemplos y referencias completos](phase-5h-integration/checkpoint-ci/axe-review.json).
+
+Las ejecuciones44179286170 y44181715313 fueron sustituidas por nuevos checkpoints y canceladas por la concurrencia del workflow; no se declaran aprobadas. El último commit de cierre documental tendrá su propia CI y su SHA exacto registrado en la PR32; solo se entregará después de verificar sus tres checks y su nueva puerta SIGKILL. Las fuentes probadas se identifican mediante objetos Git para distinguir resultados de código frente a cambios de documentación.
+
+### Incidencia local del fixture de precarga y corrección reproducible
+
+La primera batería local del código8e79f4e **falla**:42suites/828resultados aprobados; intentPreload ejecuta15/17resultados aprobados (un timeout y el fallo del padre), y las tres suites siguientes quedan sin ejecutar. No se reintenta automáticamente ni se declara aprobada. El mismo código completó996/996 en GitHub; esa aprobación no borra este fallo local. Se conservan [resúmenes, logs y captura del fallo](phase-5h-integration/preload-fixture/).
+
+El caso esperaba una descarga con red/CPU/RAM simuladas como rápidas, pero dejaba disponibles el input pendiente y presupuesto idle reales del host. El diagnóstico aislado con observación del planificador pasa; al conceder deliberadamente presupuesto idle0 reproduce el mismo timeout de8s, mientras la aplicación se abstiene correctamente de precargar. La traza original no retenía el presupuesto idle: no se afirma que ese fuera su único estado concreto. Se demuestra que el escenario positivo dependía de una condición del host no controlada y podía exigir una descarga que la política legítimamente rechaza.
+
+La corrección controla esas capacidades únicamente en el fixture de pruebas, igual que red/CPU/RAM. Los casos transientInput, firstIdleBusy y noIdle conservan sus condiciones diferenciadas. Se añade un caso negativo con presupuesto0 hasta que la política original caduca: cero descarga anticipada, espera acotada, navegación explícita correcta y documento financiero íntegro sin escrituras. Las16pruebas originales y todas sus aserciones se conservan byte a byte, sin ampliar8s/120s ni cambiar código productivo, política1s/60oportunidades, reglas axe o reintentos. [Prueba de conservación y diff](phase-5h-integration/preload-fixture/assertion-retention.json). Suite focalizada corregida18/18. La batería conjunta pasa a997resultados previstos en las mismas46suites y se vuelve a ejecutar completa.
+
+La comprobación adicional de apertura caliente usa seis muestras por build, alternando main/integración. Medianas de interacción1212[772–1272]→1187[862–1212]ms; intervalos solapados y misma identidad del documento completo en las12muestras, sin commits financieros. No confirma una regresión ni una ganancia estadística. Conserva todas las muestras anteriores; no reemplaza selectivamente las lentas. [Datos y método](phase-5h-integration/final-measurements/warm-diagnosis.json). Los marcadores DOM/RAF son ticks absolutos del reloj virtual de Playwright entre recargas y no duraciones de navegación; solo se comparan tiempos de interacción del host. No son INP ni prueba de un dispositivo físico.
+
+### Registro definitivo de entrega
+
+La [PR Draft32](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32) conserva el registro definitivo asociado al **HEAD final exacto**: SHA de entrega, URL de ejecución, resultado individual de los tres checks, duraciones, resúmenes locales y remotos,997resultados esperados y puerta20+2+8. Los [checks del HEAD actual](https://github.com/dlopezteruel-rgb/Finanzas-pro/pull/32/checks) y sus artefactos son verificables. Esta referencia evita atribuir al commit documental pruebas ejecutadas antes de que existiera; el registro se completa solo tras verificar la ejecución final. La tabla anterior y checkpoint-ci conservan explícitamente la ejecución8e79, sin renombrarla como si fuera la final.
+
+Las fuentes productivas de8e79 permanecen idénticas: el cambio posterior corrige únicamente el fixture de capacidades y su umbral de cobertura CI. La nueva batería completa y la orden independiente npm run test:durability se ejecutan de nuevo sobre el HEAD de entrega; una omisión, cancelación, falta de reporte o pérdida de snapshot rechaza la validación. No se da por aprobada la primera batería local fallida ni se oculta por la CI verde de8e79. La prueba focalizada nueva18/18,733unitarias,50infraestructura y lint pasan antes de publicar el cierre.
+
+Capturas de la aplicación real con datos ficticios: [resultado incierto, formulario preservado](phase-5h-integration/captures/vault-uncertain-commit.png), [francés/móvil/claro](phase-5h-integration/captures/vault-test-fr-light.png), [inglés/móvil/oscuro](phase-5h-integration/captures/vault-test-en-dark.png). [Hashes y alcance](phase-5h-integration/captures/manifest.json). No hay cambios de diseño; las capturas son Chromium+adaptador SQLite, no dispositivos móviles. La captura del fallo de precarga se conserva separadamente con su log original.
+
+**Bloqueos de producto:** datos reales Android/iOS, importación externa real, copia portable cifrada, backend móvil, beta, tiendas y sincronización siguen deshabilitados. Android runtime/Keystore y iOS compilación/runtime/Keychain no están validados. Los grupos axe incompletos requieren revisión contextual; no hay pruebas con lector de pantalla o dispositivos físicos. npm audit falla por una alerta heredada propagada a5paquetes high; no se presenta como cero vulnerabilidades. La infraestructura integrada puede revisarse, pero una CI web verde no equivale a aceptación completa de5H ni autorización para datos reales.
+
+No se fusiona, despliega, publica, distribuye APK/IPA ni sincroniza Google AI Studio. Main, sus protecciones, el historial original y los demás worktrees se conservan.

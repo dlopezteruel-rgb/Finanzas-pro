@@ -1,0 +1,25 @@
+{
+  "codeCommit": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+  "comparisonMain": "31a8e8d5fb5c51f1befe08d464620b55c854bc63",
+  "objects": {
+    "src": "93861cb041a597e4f549e91bbedd2cb926587f67",
+    "native/secure-vault": "52c9f93df18a599f868b2d79b1524b5234d87a46",
+    "android": "855ec4996e3791a02d9b2f991feb8c0032a79c69",
+    "ios": "f71103f4ba2c66145f2077238a5a998e0ece7ea0",
+    "package.json": "ad20f422a6eda785ffb2c2d8edfa2340688aa262",
+    "package-lock.json": "fe84af20b20ac2b3db5fa3353c1c8e8b4e434616",
+    "vite.config.ts": "4bd0f6817fd29a6247a7f68cc2543b1f8f2a7c53",
+    "vite.native.config.ts": "8def7faa440a44f0af0f1d5ffe6a915f3ab62118",
+    ".github/workflows/ci.yml": "8c6ba72d42f451b2aec829bbf181f68500cf4c0c",
+    "scripts/native/webCrashRecovery.ts": "e3cc4f7e2cc7a03dcd5bd1b5737baf20be515be0",
+    "scripts/webDurability.browser.ts": "138fad664cd10878576543b24cbc7ae99c901c76",
+    "scripts/webStorage.browser.ts": "012113ca81dc914a4393afbff2d46673bf394e95",
+    "scripts/webStorageUi.browser.ts": "bd701041fa2c5565ad8b0d38fb11cfe4548f9df8",
+    "scripts/native/sqlcipher.integration.py": "5768f116f902d36174464f20109214fba06ccd43"
+  },
+  "method": "Production Git tree/blob identities from8e79f4e remain unchanged. Test-only capability-fixture fix and minimum997 are recorded separately; final CI executes the actual final head SHA.",
+  "testOnlyChangesAfterCodeCommit": [
+    "scripts/intentPreload.browser.ts",
+    "scripts/ci/run-check.mjs"
+  ]
+}
