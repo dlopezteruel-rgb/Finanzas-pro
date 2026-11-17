@@ -16,7 +16,7 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
  const server=await new Promise<ReturnType<typeof app.listen>>(resolve=>{const s=app.listen(0,'127.0.0.1',()=>resolve(s));});t.after(()=>new Promise<void>(r=>server.close(()=>r())));
  const origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']});t.after(()=>browser.close());
  const results:{scenario:string;passed:boolean;details:unknown}[]=[];
- const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate'];
+ const scenarios=['migration-preserves-bytes-and-copies','unsupported-strict-is-readonly','quota-abort-and-explicit-retry','restoration-abort-rolls-back-copies','response-lost-no-duplicate','corrupt-write-readback-aborts','copy-readback-disagreement-aborts','missing-receipt-blocks-opening','legacy-divergence-is-preserved','unknown-schema-forensic-no-recreate','legacy-collections','invalid-source-preserved',...['2.5','2.6','2.7','2.8','2.9','3.0','3.1','3.2','3.3','3.4','3.5'].map(v=>'json-'+v)];
  for(const scenario of scenarios)await t.test(scenario,async()=>{
   const context=await browser.newContext();t.after(()=>context.close());
   await context.route('**/*',r=>new URL(r.request().url()).origin===origin?r.continue():r.abort());
@@ -37,6 +37,24 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
     const c=await m.openWebFinance(data,storage);let failed=false;try{await c.mutate(add());}catch{failed=true;}
     const state=await inspect();c.close();IDBDatabase.prototype.transaction=transaction;
     return {passed:failed&&c.phase==='readonly'&&c.problem==='WEB_STRICT_UNAVAILABLE'&&state.head.snapshot===null&&localStorage.getItem(m.DATA_KEY)===raw,phase:c.phase,problem:c.problem,snapshotUnchanged:localStorage.getItem(m.DATA_KEY)===raw};
+   }
+   if(scenario==='invalid-source-preserved'){
+    const invalid='not valid JSON; FICTITIOUS FORENSIC';localStorage.setItem(m.DATA_KEY,invalid);let failed=false;try{await m.openWebFinance(data,storage);}catch{failed=true;}
+    const state=await inspect(),forensic=JSON.parse(await m.exportWebForensic(()=>storage));return {passed:failed&&state.head.snapshot===null&&localStorage.getItem(m.DATA_KEY)===invalid&&forensic.legacy[m.DATA_KEY]===invalid,preserved:true};
+   }
+   if(scenario==='legacy-collections'){
+    localStorage.removeItem(m.DATA_KEY);localStorage.setItem('finanzas_pro_transactions_v2',JSON.stringify(data.transactions));localStorage.setItem('finanzas_pro_wallets_v2',JSON.stringify(data.wallets));
+    const source=m.legacyInventory(storage),expected=m.sourceData(source,data),c=await m.openWebFinance(data,storage),state=await inspect();c.close();
+    const normalized=(d:any)=>{const {exportedAt,...rest}=d;return JSON.stringify(rest);};
+    return {passed:normalized(m.parseSnapshot(state.head.snapshot))===normalized(expected)&&JSON.stringify(expected.wallets)===JSON.stringify(data.wallets)&&JSON.stringify(expected.transactions)===JSON.stringify(data.transactions)&&Object.entries(source).every(([key,value])=>state.migration.source[key]===value)&&localStorage.getItem('finanzas_pro_transactions_v2')===JSON.stringify(data.transactions),sourceKeys:Object.keys(source)};
+   }
+   if(scenario.startsWith('json-')){
+    const version=scenario.slice(5),initial=version==='3.5'?m.multilingualCatalogFixture():m.intelligentFixture();
+    if(version==='2.9')initial.planningMonths=[{monthYear:'2026-11',savingsCents:0,revision:1}];
+    if(version==='3.0')initial.planningAutomation={rules:[{id:'rule',name:'Regla ficticia',target:'GASTO',code:'g',amountCents:100,frequency:'monthly',startMonth:'2026-11',active:true}],carryovers:[],origins:[],history:[]};
+    if(version==='3.1')initial.intelligentFinance={recurringRules:[],occurrences:[],obligations:[]};if(version==='3.2')initial.defaultWalletId='bank';if(version==='3.3')initial.budgetSubitems={items:[],months:[]};
+    const original=JSON.stringify({...m.makeBackup(initial),version,revision:'historical-'+version});localStorage.setItem(m.DATA_KEY,original);const c=await m.openWebFinance(initial,storage),state=await inspect();c.close();
+    return {passed:state.head.snapshot===original&&state.migration.source[m.DATA_KEY]===original&&state.head.operationId===null&&JSON.stringify(m.parseSnapshot(original))===JSON.stringify(m.parseSnapshot(state.head.snapshot)),version,hash:state.head.hash,revision:JSON.parse(state.head.snapshot).revision};
    }
    const controller=await m.openWebFinance(data,storage);
    if(scenario==='migration-preserves-bytes-and-copies'){
@@ -91,6 +109,21 @@ test('WEB-001: real strict IndexedDB, atomic recovery, capability gates',{timeou
    throw Error('Unimplemented synthetic scenario.');
   },scenario);
   results.push({scenario,passed:result.passed,details:result});assert.equal(result.passed,true,JSON.stringify(result));await context.close();
+ });
+ await t.test('two real tabs: Web Locks, stale writers, transactional CAS and old-code guard',async()=>{
+  const context=await browser.newContext();t.after(()=>context.close());const pages=await Promise.all([context.newPage(),context.newPage()]);for(const p of pages)await p.goto(origin+'/__driver');
+  await pages[0].evaluate(async()=>{(window as any).__name=(f:unknown)=>f;const url='/driver/entry.js',m=await import(/* @vite-ignore */url),initial=m.intelligentFixture(),raw=m.serializeSnapshot(initial);localStorage.setItem(m.DATA_KEY,raw);const storage={getItem:(k:string)=>localStorage.getItem(k),setItem:(k:string,v:string)=>{localStorage.setItem(k,v);return undefined;},key:(i:number)=>localStorage.key(i),get length(){return localStorage.length;}};(window as any).__oldStore=new m.FinanceStore(storage,initial,m.browserExclusiveWrite);});
+  for(const p of pages)await p.evaluate(async()=>{(window as any).__name=(f:unknown)=>f;const url='/driver/entry.js',m=await import(/* @vite-ignore */url),storage={getItem:(k:string)=>localStorage.getItem(k),setItem:(k:string,v:string)=>{localStorage.setItem(k,v);return undefined;},key:(i:number)=>localStorage.key(i),get length(){return localStorage.length;}};(window as any).__m=m;(window as any).__controller=await m.openWebFinance(m.intelligentFixture(),storage);});
+  const attempts=await Promise.all(pages.map((p,i)=>p.evaluate(async id=>{const c=(window as any).__controller;try{await c.mutate((d:any)=>({...d,wallets:[...d.wallets,{id,name:id,type:'BANK',initialBalance:9.99,color:'#fff'}]}));return {ok:true,phase:c.phase};}catch(e){return {ok:false,phase:c.phase,error:e instanceof Error?e.message:'unknown'};}},'tab-'+i)));
+  assert.equal(attempts.filter(r=>r.ok).length,1);assert.equal(attempts.filter(r=>r.phase==='conflict').length,1);
+  const rejectedOld=await pages[0].evaluate(async()=>{try{await (window as any).__oldStore.mutate((d:any)=>({...d,wallets:[]}));return false;}catch{return true;}});assert.equal(rejectedOld,true);
+  // Deliberately bypass the controller lock for this driver test: CAS itself must reject one stale writer.
+  const cas=await Promise.all(pages.map((p,i)=>p.evaluate(async id=>{const m=(window as any).__m,driver=await m.IndexedFinanceDriver.open(),state=await driver.inspect(),next=m.serializeSnapshot({...m.parseSnapshot(state.head.snapshot),theme:id==='direct-0'?'light':'dark'}),request={id:crypto.randomUUID(),expected:state.head.snapshot,next,hash:await m.digest(next),copies:[]};(window as any).__direct={driver,request:{...request,fingerprint:await m.requestFingerprint(request)}};return state.head.snapshot;},'direct-'+i)));
+  assert.equal(cas[0],cas[1]);const direct=await Promise.all(pages.map(p=>p.evaluate(async()=>{const {driver,request}=(window as any).__direct;try{await driver.commit(request);return 'committed';}catch(e){return e instanceof (window as any).__m.StorageConflictError?'StorageConflictError':e instanceof Error?e.message:'error';}finally{driver.close();}})));
+  assert.equal(direct.filter(r=>r==='committed').length,1);assert.equal(direct.filter(r=>r==='StorageConflictError').length,1);
+  const final=await pages[0].evaluate(async()=>{const m=(window as any).__m,d=await m.IndexedFinanceDriver.open(),state=await d.inspect(),rows=await d.forensic();d.close();return {wallets:m.parseSnapshot(state.head.snapshot).wallets,operations:rows.operations.length};});
+  assert.equal(final.wallets.filter((w:any)=>w.id.startsWith('tab-')).length,1);assert.equal(final.operations,2);
+  results.push({scenario:'two-real-tabs-and-direct-cas',passed:true,details:{attempts,direct,oldClientRejected:rejectedOld,operations:final.operations}});await context.close();
  });
  const directoryOut=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts','browser');await mkdir(directoryOut,{recursive:true});await writeFile(path.join(directoryOut,'web-storage-engine.json'),JSON.stringify({scope:'Actual Chromium IndexedDB; faults explicitly injected. No real disk-full, Firefox, WebKit or physical-power-loss certification.',results},null,2)+'\n');
 });

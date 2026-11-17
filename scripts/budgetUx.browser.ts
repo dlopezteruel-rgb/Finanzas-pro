@@ -297,7 +297,7 @@ test('3B UX: pestañas internas y plegado sin efectos financieros', { timeout: 1
         window.__fixtureIo.setItem = function(k, value) { if (k === key) { (window as any).catalogIo.attempts++; if ((window as any).catalogIo.fail) throw new DOMException('Cuota simulada', 'QuotaExceededError'); } return set.call(this, k, value); };
         navigator.locks.request = ((...args: any[]) => (request as any)(args[0], async () => {
           if ((window as any).catalogIo.waiting) await new Promise<void>(resolve => { (window as any).releaseCatalog = resolve; });
-          return args[1]();
+          return args.at(-1)();
         })) as typeof navigator.locks.request;
       }, DATA_KEY);
       const duplicate = page.getByRole('button', { name: 'Duplicar partida Gasto diario', exact: true });

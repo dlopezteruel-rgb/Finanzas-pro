@@ -15,3 +15,8 @@ for(const [name,change]of [
  ['duplicate operation',r=>r.results[1].observation.newWalletCount=2],
  ['wrong source',r=>r.sourceCommit='0'.repeat(40)]
 ])test(`P0 gate fails closed: ${name}`,()=>{const report=structuredClone(evidence);change(report);assert.throws(()=>validateDurabilityReport(report,evidence.sourceCommit),/Mandatory P0/);});
+
+const controls=JSON.parse(readFileSync(new URL('../../docs/web-001-evidence/boundary-controls-intermediate.json',import.meta.url),'utf8'));
+const {validateCrashControls}=await import('./durability-report.mjs');
+test('P0 boundary gate accepts all eight real interruption controls',()=>{assert.equal(validateCrashControls(controls,controls.sourceCommit).controls,8);});
+for(const [name,change]of [['missing boundary',r=>r.results.pop()],['false premature success',r=>r.results[0].callerSettledBeforeKill=true],['failed boundary',r=>r.results[1].passed=false],['wrong boundary source',r=>r.sourceCommit='0'.repeat(40)]])test(`P0 boundary gate rejects ${name}`,()=>{const r=structuredClone(controls);change(r);assert.throws(()=>validateCrashControls(r,controls.sourceCommit),/Mandatory P0/);});

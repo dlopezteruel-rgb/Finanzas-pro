@@ -4,7 +4,7 @@ import {appendFile,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
-import {validateDurabilityReport} from './durability-report.mjs';
+import {validateDurabilityReport,validateCrashControls} from './durability-report.mjs';
 import {execFileSync} from 'node:child_process';
 export async function executeLogged(command,args,{logPath,cwd=process.cwd(),env=process.env,output=process.stdout}={}){
   await mkdir(path.dirname(logPath),{recursive:true});const log=createWriteStream(logPath),start=Date.now();
@@ -44,6 +44,7 @@ export async function runCheck(mode){
     if(mode==='browser'){
       const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
       summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
+      summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
       summary.axe={surfaces:axe.observations.length,violations:0,incompleteGroups:axe.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};

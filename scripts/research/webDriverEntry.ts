@@ -7,4 +7,5 @@ export * from '../../src/platform/web/protocol';
 export {legacyInventory,sourceHash,sourceData} from '../../src/platform/web/legacy';
 export {intelligentFixture} from '../intelligentFixture';
 export {multilingualCatalogFixture} from '../multilingualCatalogFixture';
-export {DATA_KEY,RECOVERY_PREFIX,makeBackup,parseBackup,parseSnapshot,serializeSnapshot} from '../../src/utils/backup';
+export {DATA_KEY,RECOVERY_PREFIX,StorageConflictError,makeBackup,parseBackup,parseSnapshot,serializeSnapshot} from '../../src/utils/backup';
+export {FinanceStore,browserExclusiveWrite} from '../../src/utils/financeStore';

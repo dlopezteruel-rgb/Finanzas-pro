@@ -59,3 +59,5 @@ chromium.launch=async function(options){
  browser.newContext=async function(options){const context=await create(options);await context.addInitScript(installStorageOracle);return context;};
  return browser;
 };
+const launchPersistent=chromium.launchPersistentContext.bind(chromium);
+chromium.launchPersistentContext=async function(directory,options){const context=await launchPersistent(directory,options);await context.addInitScript(installStorageOracle);return context;};
