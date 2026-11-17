@@ -1,3 +1,5 @@
+import {waitForStoredCondition} from './asyncStorageCondition';
+import './webStorageBrowserPrelude.mjs';
 import {concurrentFinancialEdit, chooseMovementPartida} from './browserNavigation';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -25,7 +27,7 @@ function withCash(): FinanceData {
   return saveSettlement(d, { expenseId: 'shared', contactId: 'bea', amount: 7, date: '2026-10-11', kind: 'cash', processed: false, walletId: 'bank' });
 }
 const navigate = (page: Page, name: string) => page.getByRole('button', { name: new RegExp('^(?:\\d+\\s*)?' + name + '(?:\\s*\\d+)?$') }).first().click();
-const raw = (page: Page) => page.evaluate(key => localStorage.getItem(key), DATA_KEY);
+const raw = (page: Page) => page.evaluate(async key => (await window.__fixtureStorage.getItem(key)), DATA_KEY);
 const data = async (page: Page) => JSON.parse((await raw(page))!) as FinanceData;
 const editor = (page: Page) => page.getByRole('dialog', { name: 'Movimiento', exact: true });
 const panel = (page: Page) => page.getByRole('dialog', { name: 'Detalle de partida', exact: true });
@@ -166,7 +168,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       const preview = target.page.getByRole('dialog'); await preview.waitFor(); assert.match(await preview.innerText(), /Formato 2.8/); assert.equal(await raw(target.page), original);
       await preview.getByRole('button', { name: 'Confirmar sustitución', exact: true }).click(); await preview.waitFor({ state: 'hidden' });
       assert.deepEqual((await data(target.page)).transactions, JSON.parse(content).transactions);
-      assert.equal(await target.page.evaluate(prefix => Object.keys(localStorage).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 1);
+      assert.equal(await target.page.evaluate(async prefix => (await window.__fixtureStorage.keys()).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 1);
       await target.page.reload(); await navigate(target.page, 'Movimientos'); await target.page.getByRole('button', { name: /^Editar movimiento Cena de prueba/ }).first().click();
       let d = editor(target.page); assert.equal(await d.getByLabel('Modalidad de reparto').inputValue(), 'weighted'); assert.equal(await d.getByLabel('Peso de Ana', { exact: true }).inputValue(), '2');
       await target.page.keyboard.press('Escape'); await target.page.getByRole('button', { name: /^Editar movimiento Cena de prueba/ }).nth(1).click();
@@ -221,7 +223,7 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       const before = await raw(page); await openPanel(page); const p = panel(page); assert.match(await p.innerText(), /Tu gasto: 60,00/); assert.match(await p.innerText(), /Histórico sin migrar/);
       await p.getByRole('button', { name: 'Ver reparto', exact: true }).click(); const detail = await assertTop(page, 'Reparto del gasto'); assert.match(await detail.innerText(), /Compartido histórico · pendiente de revisión/); assert.match(await detail.innerText(), /missing-receipt · movimiento no disponible/);
       assert.equal(await detail.locator('input,select,textarea').count(), 0); await page.keyboard.press('Escape'); await p.getByRole('button', { name: 'Editar movimiento', exact: true }).click(); await p.getByRole('alert').waitFor(); assert.match(await p.getByRole('alert').innerText(), /migración/);
-      assert.equal(await raw(page), before); assert.equal(await page.evaluate(prefix => Object.keys(localStorage).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 0);
+      assert.equal(await raw(page), before); assert.equal(await page.evaluate(async prefix => (await window.__fixtureStorage.keys()).filter(k => k.startsWith(prefix)).length, RECOVERY_PREFIX), 0);
     } finally { await close(); }
   });
 
@@ -242,8 +244,8 @@ test('Ampliación UX 2B: catálogo, modalidades y jerarquía de ventanas', { tim
       await top.getByLabel('Modalidad de reparto').selectOption(method);
       if (method === 'weighted') await top.getByLabel('Peso de Ana', { exact: true }).fill('2'); else { await top.getByLabel('Importe de Tú', { exact: true }).fill('15'); await top.getByLabel('Importe de Ana', { exact: true }).fill('25'); }
       const fields = () => top.locator('input,select').evaluateAll(els => els.map(e => ({ value: (e as HTMLInputElement).value, checked: (e as HTMLInputElement).checked }))), draft = await fields();
-      await page.evaluate(key => { const original = Storage.prototype.setItem; (window as any).uxSave = { fail: false, attempts: 0 }; Storage.prototype.setItem = function(k, v) { if (k === key) { (window as any).uxSave.attempts++; if ((window as any).uxSave.fail) throw new DOMException('Cuota', 'QuotaExceededError'); } return original.call(this, k, v); }; }, DATA_KEY);
-      if (failure === 'quota') await page.evaluate(() => { (window as any).uxSave.fail = true; }); else { const other = await context.newPage(); await other.goto(url); const previous = await raw(other); await concurrentFinancialEdit(other); await other.waitForFunction(({ key, previous }) => localStorage.getItem(key) !== previous, { key: DATA_KEY, previous }); await other.close(); }
+      await page.evaluate(key => { const original = window.__fixtureIo.setItem; (window as any).uxSave = { fail: false, attempts: 0 }; window.__fixtureIo.setItem = function(k, v) { if (k === key) { (window as any).uxSave.attempts++; if ((window as any).uxSave.fail) throw new DOMException('Cuota', 'QuotaExceededError'); } return original.call(this, k, v); }; }, DATA_KEY);
+      if (failure === 'quota') await page.evaluate(() => { (window as any).uxSave.fail = true; }); else { const other = await context.newPage(); await other.goto(url); const previous = await raw(other); await concurrentFinancialEdit(other); await waitForStoredCondition(other,async ({ key, previous }) => (await window.__fixtureStorage.getItem(key)) !== previous, { key: DATA_KEY, previous }); await other.close(); }
       const before = await raw(page);
       await page.evaluate(lock => { void navigator.locks.request(lock, async () => { (window as any).uxHeld = true; await new Promise<void>(resolve => { (window as any).releaseUx = resolve; }); }); }, STORAGE_LOCK); await page.waitForFunction(() => (window as any).uxHeld);
       await top.locator('form').evaluate(f => { (f as HTMLFormElement).requestSubmit(); f.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })); }); await top.locator('fieldset:disabled').waitFor(); await page.keyboard.press('Escape'); assert.equal(await editor(page).count(), 1);

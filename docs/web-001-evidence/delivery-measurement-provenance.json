@@ -1,0 +1,26 @@
+{
+  "productionBuildSource": "6221e76da770418a3090663be707105672a8d89f",
+  "baseSource": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "baselineFiles": [
+    "final-performance-before.json",
+    "final-writes-before.json",
+    "final-journeys-before.json"
+  ],
+  "afterFiles": [
+    "delivery-performance-after.json",
+    "delivery-writes-after.json",
+    "delivery-journeys-after.json"
+  ],
+  "samplesPerScenario": 3,
+  "containerCpuQuota": "200000 100000",
+  "containerMemoryLimitBytes": 8589934592,
+  "isolatedLocalMeasurement": true,
+  "cpuSlowdown": 4,
+  "networkMegabitsPerSecond": 1.6,
+  "networkLatencyMs": 80,
+  "viewport": [
+    390,
+    900
+  ],
+  "scope": "Fresh build of current application source, unchanged throughout. Same host and settings as quiet baseline. CI is on a separate host.3samples do not establish statistical improvement; all earlier measurements retained."
+}

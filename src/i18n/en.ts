@@ -1,6 +1,30 @@
 import type { Messages } from './messages';
 
 export const en = {
+  "webStore.forensicPartial": "The download contains only accessible data. It is not a complete backup and does not confirm that all data has been recovered.",
+  "webStore.loading": "Loading confirmed data",
+  "webStore.migrating": "Preparing safe storage",
+  "webStore.loadingSafe": "Previous data is retained. Please wait for verification to finish.",
+  "webStore.saving": "Saving. The form will close only after the transaction is confirmed.",
+  "webStore.checking": "Checking the save result. Do not submit the operation again.",
+  "webStore.recoveryRequired": "The result cannot be confirmed. New writes are blocked. Keep the form and check the save before continuing.",
+  "webStore.reloadRequired": "The operation is confirmed. Reload the data before continuing and do not submit it again.",
+  "webStore.ready": "Save confirmed.",
+  "webStore.readonly": "Read and export only. Saving is blocked.",
+  "webStore.conflict": "Another tab has changed the data. Reload before continuing.",
+  "webStore.review": "Review save status",
+  "webStore.reconcile": "Check save",
+  "webStore.strictUnavailable": "This browser cannot confirm saves with the required guarantees. You can read and export, but cannot save. Use an up-to-date compatible browser.",
+  "webStore.openBlocked": "Another tab is blocking storage. Close older versions and reopen the application. Your data has not been replaced.",
+  "webStore.unavailable": "Storage cannot be accessed. No data has been deleted. You can download any recoverable data.",
+  "webStore.legacyView": "Current storage cannot be verified. An earlier copy is shown for reading and export only; it may be out of date. Saving is blocked.",
+  "webStore.legacyDiverged": "An older version has changed local data. Saving is blocked to preserve both versions. Download the data for recovery; it has not been merged automatically.",
+  "webStore.corrupt": "Stored data failed integrity checks. Saving is blocked. No data has been deleted or recreated; download a copy for recovery.",
+  "webStore.schema": "This version does not recognise the existing storage. Update the application or download the data for recovery. No data has been replaced.",
+  "webStore.notCommitted": "The save was aborted without applying changes. Previous data is retained and the form remains available.",
+  "webStore.uncertain": "It is not possible to confirm whether the operation was saved. Do not submit it again. Check the save status before continuing.",
+  "webStore.forensicEmpty": "Recoverable data could not be obtained. No empty backup was downloaded and nothing was deleted.",
+
   "ledger.page.allShort": "All",
   "ledger.page.pagedShort": "Pages",
 

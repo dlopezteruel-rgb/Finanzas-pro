@@ -1,0 +1,312 @@
+{
+  "scope": "Actual Chromium IndexedDB; faults explicitly injected. No real disk-full, Firefox, WebKit or physical-power-loss certification.",
+  "results": [
+    {
+      "scenario": "migration-preserves-bytes-and-copies",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "sourceHash": "c7c1b9de0627d1a85972d5606277ca14f9e4a817b859fe3738ce01c1d3bd26a9",
+        "hash": "915b8287ec2c36d6073804ab78a928a44d785183e0123a2bf33242bb24b86247",
+        "copies": 1,
+        "guardPresent": true
+      }
+    },
+    {
+      "scenario": "unsupported-strict-is-readonly",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "phase": "readonly",
+        "problem": "WEB_STRICT_UNAVAILABLE",
+        "snapshotUnchanged": true
+      }
+    },
+    {
+      "scenario": "quota-abort-and-explicit-retry",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "QuotaExceededError"
+      }
+    },
+    {
+      "scenario": "restoration-abort-rolls-back-copies",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "copies": 0
+      }
+    },
+    {
+      "scenario": "response-lost-no-duplicate",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "calls": 1,
+        "receipts": 1
+      }
+    },
+    {
+      "scenario": "corrupt-write-readback-aborts",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "unchanged": true
+      }
+    },
+    {
+      "scenario": "copy-readback-disagreement-aborts",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "copies": 0
+      }
+    },
+    {
+      "scenario": "missing-receipt-blocks-opening",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_CORRUPT"
+      }
+    },
+    {
+      "scenario": "legacy-divergence-is-preserved",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_LEGACY_DIVERGED"
+      }
+    },
+    {
+      "scenario": "unknown-schema-forensic-no-recreate",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "unknownPreserved": true
+      }
+    },
+    {
+      "scenario": "legacy-collections",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "sourceKeys": [
+          "finanzas_pro_transactions_v2",
+          "finanzas_pro_wallets_v2"
+        ]
+      }
+    },
+    {
+      "scenario": "invalid-source-preserved",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "preserved": true
+      }
+    },
+    {
+      "scenario": "migration-quota-keeps-source",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "preserved": true,
+        "retryExplicit": true
+      }
+    },
+    {
+      "scenario": "migration-guard-denied-resumes",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "idPreserved": true
+      }
+    },
+    {
+      "scenario": "versionchange-forensic",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "snapshotPreserved": true
+      }
+    },
+    {
+      "scenario": "legacy-denied-readable-database",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "readableConfirmedData": true,
+        "legacyUnavailable": true
+      }
+    },
+    {
+      "scenario": "postcommit-read-abort",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_UNCERTAIN",
+        "uncertain": true,
+        "kept": true,
+        "reload": "WEB_RELOAD",
+        "writes": 1,
+        "committedHash": "555f8e3056f587e06eb3f27d05246cb8dca7ade9bc6cedd33f01d672b43f6d1d"
+      }
+    },
+    {
+      "scenario": "postcommit-read-quota",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_UNCERTAIN",
+        "uncertain": true,
+        "kept": true,
+        "reload": "WEB_RELOAD",
+        "writes": 1,
+        "committedHash": "b8b5faf23fe06f7035cd13535facb92415c516dae802444550ed38b78d94aadd"
+      }
+    },
+    {
+      "scenario": "json-2.5",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.5",
+        "hash": "8a27f8216031f03a588d8e5e93044ec0d402cb68e6bbf375734c5a2b86e13ce4",
+        "revision": "historical-2.5"
+      }
+    },
+    {
+      "scenario": "json-2.6",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.6",
+        "hash": "482bd5ec5660e4f3ffddbabcab0ec7d02d95107857c7250e33f758c203729f2c",
+        "revision": "historical-2.6"
+      }
+    },
+    {
+      "scenario": "json-2.7",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.7",
+        "hash": "7fd1fc0ecb2e8c99f95422d09b5a200868fa284ce7cce0a54077125ba8553e06",
+        "revision": "historical-2.7"
+      }
+    },
+    {
+      "scenario": "json-2.8",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.8",
+        "hash": "40995e4a7a0e5e31c8ddee3a1c30b4a091f80df3b934580ef18fe4712e1ebaab",
+        "revision": "historical-2.8"
+      }
+    },
+    {
+      "scenario": "json-2.9",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.9",
+        "hash": "dbf22c165f8822b21c353982afbc3d1070a5f3a61547206ac7871829a0329bf7",
+        "revision": "historical-2.9"
+      }
+    },
+    {
+      "scenario": "json-3.0",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.0",
+        "hash": "6f10c104c543f4bed5fe869398807ab06027d6e794ae7b7065c2c20a8937f1e4",
+        "revision": "historical-3.0"
+      }
+    },
+    {
+      "scenario": "json-3.1",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.1",
+        "hash": "ce29774010154af9993543bf23a58c61904fb2e019959e4df790c18f94e90292",
+        "revision": "historical-3.1"
+      }
+    },
+    {
+      "scenario": "json-3.2",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.2",
+        "hash": "806a8d14033ad896bc4793631640500c958fcc1dd2cee09ba592ef0a89ada7a5",
+        "revision": "historical-3.2"
+      }
+    },
+    {
+      "scenario": "json-3.3",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.3",
+        "hash": "051c7106bbd4622c1dd9fbdc3bacbe2e5123c351f9acdb0ac7196c54d9d8a842",
+        "revision": "historical-3.3"
+      }
+    },
+    {
+      "scenario": "json-3.4",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.4",
+        "hash": "1a90a992b3685f9082f5b1bd176016a0958352c026a9995f648f59196e577fab",
+        "revision": "historical-3.4"
+      }
+    },
+    {
+      "scenario": "json-3.5",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.5",
+        "hash": "02ab18368426011930561e11a22ffe723b2d0d66d5d476a69219f72e56c9c708",
+        "revision": "historical-3.5"
+      }
+    },
+    {
+      "scenario": "two-real-tabs-and-direct-cas",
+      "passed": true,
+      "details": {
+        "attempts": [
+          {
+            "ok": true,
+            "phase": "ready"
+          },
+          {
+            "ok": false,
+            "phase": "conflict",
+            "error": "Otra pestaña ha cambiado los datos. No se ha guardado esta operación. Recarga para trabajar con la última versión."
+          }
+        ],
+        "direct": [
+          "committed",
+          "StorageConflictError"
+        ],
+        "oldClientRejected": true,
+        "operations": 2
+      }
+    },
+    {
+      "scenario": "async-condition-is-not-a-truthy-promise",
+      "passed": true,
+      "details": {
+        "falseResultsNotAccepted": true,
+        "originalTimeoutEnforced": true,
+        "noFinancialCache": true
+      }
+    }
+  ]
+}

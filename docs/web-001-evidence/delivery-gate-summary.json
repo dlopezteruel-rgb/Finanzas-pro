@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "6221e76da770418a3090663be707105672a8d89f",
+  "command": "CHROMIUM_PATH=/usr/bin/chromium npm run test:durability",
+  "exitCode": 0,
+  "results": {
+    "tests": 72,
+    "pass": 72,
+    "fail": 0,
+    "skipped": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "fullLocalCheckpoint": {
+    "sourceCommit": "00b4acf0e25c0dbefcbab264c952e35163a92cf9",
+    "results": 955,
+    "suites": 45,
+    "passed": true
+  },
+  "scope": "Do not add the72rerun results to955 to invent a full final battery. Complete final delivery SHA coverage is mandatory in GitHub CI."
+}

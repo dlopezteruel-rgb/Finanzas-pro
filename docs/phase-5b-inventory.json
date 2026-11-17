@@ -3,11 +3,11 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1012,
-    "review": 3225,
-    "translation-key": 1528,
-    "ui-message-candidate": 382,
-    "attribute-internal": 2169,
+    "type-or-import": 1073,
+    "review": 3436,
+    "translation-key": 1539,
+    "ui-message-candidate": 398,
+    "attribute-internal": 2189,
     "visible-text": 76,
     "visible-attribute": 11
   },
@@ -569,37 +569,40 @@
     {
       "file": "src/App.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "6a43e5e884ad35785b43d8a8a76fda013e76bdd16f372f1221fee4d6f48223d6",
+      "sourceSha256": "9321830f7a747dbb89a96b4df5c6e3a42a54850a52189c4446c8f07089d880a1",
       "counts": {
         "type-or-import": 63,
-        "review": 80,
-        "translation-key": 39,
-        "ui-message-candidate": 23,
-        "attribute-internal": 75
+        "review": 95,
+        "translation-key": 50,
+        "ui-message-candidate": 27,
+        "attribute-internal": 95
       },
       "visibleCandidateLines": [
-        194,
-        195,
-        208,
-        210,
-        343,
-        345,
+        137,
+        198,
+        199,
+        212,
+        214,
+        347,
         349,
-        377,
-        397,
-        451,
-        518,
-        524,
-        550,
+        353,
+        381,
+        401,
+        455,
+        522,
+        528,
+        544,
         554,
-        567,
-        570,
-        690,
-        692,
+        558,
+        571,
+        574,
+        578,
+        689,
+        691,
+        696,
         697,
         698,
-        699,
-        700
+        699
       ],
       "presentationCalls": []
     },
@@ -1987,10 +1990,10 @@
     {
       "file": "src/platform/financeBinding.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "1bb20bfb3f1d630ce0844176981adc06635e137e30482ad1243a9853bbcc2d36",
+      "sourceSha256": "ff586a4ed6584d67af95e70c3bf4d872ad9b04defd71eff4f10f5ce7978f7026",
       "counts": {
-        "type-or-import": 5,
-        "review": 6
+        "type-or-import": 8,
+        "review": 9
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2066,11 +2069,87 @@
       "presentationCalls": []
     },
     {
+      "file": "src/platform/web/controller.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "6867ed586c065f43e917e798fea96001044505a2530a83ea65d806ea91a5b421",
+      "counts": {
+        "type-or-import": 6,
+        "review": 55
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/forensic.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "e64622a20540296b94f3dbede12cf837e54973368470a117113c84cc03f70f07",
+      "counts": {
+        "type-or-import": 4,
+        "ui-message-candidate": 2,
+        "review": 13
+      },
+      "visibleCandidateLines": [
+        10,
+        13
+      ],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/indexedDb.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "fd9c6cf3f07680a9af63b860d3c1996114aba4fc750dc453a8c85f0f50675c91",
+      "counts": {
+        "type-or-import": 2,
+        "review": 62,
+        "ui-message-candidate": 6
+      },
+      "visibleCandidateLines": [
+        14,
+        16,
+        17,
+        24
+      ],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/legacy.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "a94e24a8778c2efbd4e67e395dddca652f548963f60ac0a719db7b5a1c166bf5",
+      "counts": {
+        "type-or-import": 4,
+        "review": 6
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/openFinance.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "e86de9d8066053e9af90da7afa399eb22f014589ac50b1901179d891b5943a8b",
+      "counts": {
+        "type-or-import": 11,
+        "review": 32
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
+      "file": "src/platform/web/protocol.ts",
+      "policy": "Review each candidate; not presumed translated",
+      "sourceSha256": "37c9f048da056c35023172ca5ab403a4c41a292fefa1fe2ac2cee77cd8e6545f",
+      "counts": {
+        "type-or-import": 27,
+        "review": 17
+      },
+      "visibleCandidateLines": [],
+      "presentationCalls": []
+    },
+    {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "209a14f15af2eb72156b10332c86e249da113d7857cd50552f9795d00274d86c",
+      "sourceSha256": "a4806fa35e5823f5b41e7249d9144918a8e9d7cc0c638186f2b07556e9d97124",
       "counts": {
-        "type-or-import": 50
+        "type-or-import": 51
       },
       "visibleCandidateLines": [],
       "presentationCalls": []
@@ -2895,14 +2974,18 @@
     {
       "file": "src/utils/useFinanceData.ts",
       "policy": "Domain implementation protected; review owned UI output for boundary adapters",
-      "sourceSha256": "e182d11e046958b3fe52ecd59922ff10f92d8c07856bb20856ab64c5c970a813",
+      "sourceSha256": "578a1fb82f0c28ebaeaadd3ff24415cae89662bcef89aec623b52eee60fcb5f8",
       "counts": {
-        "type-or-import": 5,
-        "review": 2,
-        "ui-message-candidate": 2
+        "type-or-import": 8,
+        "review": 10,
+        "ui-message-candidate": 6
       },
       "visibleCandidateLines": [
-        15
+        15,
+        28,
+        29,
+        34,
+        47
       ],
       "presentationCalls": []
     }
@@ -2925,7 +3008,7 @@
     },
     {
       "file": "src/i18n/storageMessages.ts",
-      "knownStaticMessages": 154,
+      "knownStaticMessages": 168,
       "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
     },
     {

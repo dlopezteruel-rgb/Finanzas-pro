@@ -1,0 +1,17 @@
+{
+  "productionBuildSource": "c1515973156925a5fb6362ae478265bceef32e3c",
+  "reviewedSourceAfterTestOnlyFix": "00b4acf0e25c0dbefcbab264c952e35163a92cf9",
+  "applicationFilesUnchangedBetweenTheseCommits": true,
+  "applicationPathsCompared": [
+    "src",
+    "public",
+    "config",
+    "index.html",
+    "server.ts",
+    "vite.config.ts",
+    "package-lock.json"
+  ],
+  "containerCpuQuota": "200000 100000",
+  "containerMemoryLimitBytes": 8589934592,
+  "scope": "Fresh production comparisons without another local browser battery running.3 samples each. CI runs on a separate host. Actual container limits documented separately from the host values reported by os.cpus/totalmem."
+}

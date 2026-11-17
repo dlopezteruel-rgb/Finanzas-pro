@@ -1,0 +1,414 @@
+{
+  "performance": {
+    "landing-es-cold": {
+      "before": {
+        "medianMs": 1569.262382,
+        "minMs": 1531.9427250000008,
+        "maxMs": 1570.5892129999993,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 1574.6318589999973,
+        "minMs": 1537.2867340000012,
+        "maxMs": 1913.131974,
+        "samples": 3
+      }
+    },
+    "landing-en-cold": {
+      "before": {
+        "medianMs": 2212.3298280000004,
+        "minMs": 2208.2831480000023,
+        "maxMs": 2310.509556000001,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 2274.7277919999997,
+        "minMs": 2223.669571000002,
+        "maxMs": 2367.3367110000036,
+        "samples": 3
+      }
+    },
+    "application-empty-cold": {
+      "before": {
+        "medianMs": 2755.5066429999997,
+        "minMs": 2749.1647500000036,
+        "maxMs": 2772.128448000003,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 2841.3399659999995,
+        "minMs": 2791.432184999998,
+        "maxMs": 2853.257011999999,
+        "samples": 3
+      }
+    },
+    "application-cold": {
+      "before": {
+        "medianMs": 2750.427789000001,
+        "minMs": 2737.168967000005,
+        "maxMs": 2753.47509,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 2889.7732800000013,
+        "minMs": 2840.481525000001,
+        "maxMs": 2948.799697000002,
+        "samples": 3
+      }
+    },
+    "application-warm": {
+      "before": {
+        "medianMs": 750.0821680000008,
+        "minMs": 743.3614159999997,
+        "maxMs": 787.6137220000019,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 1271.626306,
+        "minMs": 1171.1155100000033,
+        "maxMs": 1281.3566150000042,
+        "samples": 3
+      }
+    },
+    "chart-first-open": {
+      "before": {
+        "medianMs": 603.1222679999992,
+        "minMs": 549.4607690000048,
+        "maxMs": 662.171703,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 649.5871719999996,
+        "minMs": 643.4332119999999,
+        "maxMs": 984.1096340000076,
+        "samples": 3
+      }
+    },
+    "planning-first-open": {
+      "before": {
+        "medianMs": 763.8712159999995,
+        "minMs": 701.7392719999989,
+        "maxMs": 768.4688999999998,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 1033.0432089999958,
+        "minMs": 664.1974100000007,
+        "maxMs": 1076.6769029999996,
+        "samples": 3
+      }
+    },
+    "catalog-first-open": {
+      "before": {
+        "medianMs": 1013.0376560000004,
+        "minMs": 879.7895559999997,
+        "maxMs": 1070.2117270000017,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 1076.678700999997,
+        "minMs": 1036.6818309999999,
+        "maxMs": 1128.2753289999964,
+        "samples": 3
+      }
+    },
+    "ledger-100-first-open": {
+      "before": {
+        "medianMs": 651.2663250000005,
+        "minMs": 562.4543730000005,
+        "maxMs": 934.0296239999952,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 775.1371340000042,
+        "minMs": 722.0505359999952,
+        "maxMs": 866.4737229999992,
+        "samples": 3
+      }
+    },
+    "ledger-100-filter": {
+      "before": {
+        "medianMs": 231.81669500000135,
+        "minMs": 183.7069679999986,
+        "maxMs": 254.92147000000114,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 219.99891599999683,
+        "minMs": 212.98474900000292,
+        "maxMs": 255.339304000001,
+        "samples": 3
+      }
+    },
+    "language-first-fr": {
+      "before": {
+        "medianMs": 700.8838459999988,
+        "minMs": 652.3169789999956,
+        "maxMs": 806.1381029999975,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 676.0216170000022,
+        "minMs": 658.1999090000027,
+        "maxMs": 705.160474999997,
+        "samples": 3
+      }
+    },
+    "language-cached-es": {
+      "before": {
+        "medianMs": 168.87800699999934,
+        "minMs": 168.41457599999558,
+        "maxMs": 223.21204299999954,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 196.21249299999909,
+        "minMs": 182.93178699999407,
+        "maxMs": 201.20753100000002,
+        "samples": 3
+      }
+    },
+    "ledger-1000-first-open": {
+      "before": {
+        "medianMs": 589.7756120000013,
+        "minMs": 585.63364,
+        "maxMs": 735.1418209999974,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 622.2604330000031,
+        "minMs": 541.594333999994,
+        "maxMs": 626.5546130000002,
+        "samples": 3
+      }
+    },
+    "ledger-1000-filter": {
+      "before": {
+        "medianMs": 595.5356370000009,
+        "minMs": 525.9600189999983,
+        "maxMs": 660.7341710000037,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 588.9811180000106,
+        "minMs": 574.5970630000011,
+        "maxMs": 620.5713079999987,
+        "samples": 3
+      }
+    },
+    "ledger-5000-first-open": {
+      "before": {
+        "medianMs": 1142.3178509999998,
+        "minMs": 1040.7359130000004,
+        "maxMs": 1214.5396709999986,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 912.8471839999984,
+        "minMs": 912.105607999998,
+        "maxMs": 970.6875709999986,
+        "samples": 3
+      }
+    },
+    "ledger-5000-filter": {
+      "before": {
+        "medianMs": 641.3640379999997,
+        "minMs": 490.6623089999921,
+        "maxMs": 668.1515469999977,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 462.79011100000207,
+        "minMs": 435.64090900000156,
+        "maxMs": 521.0223220000044,
+        "samples": 3
+      }
+    }
+  },
+  "writes": {
+    "initial-load-and-migration-1000": {
+      "before": {
+        "medianMs": 2773.3685079999996,
+        "minMs": 2740.516512,
+        "maxMs": 2815.6259500000015,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 2979.631713999999,
+        "minMs": 2953.6135110000014,
+        "maxMs": 3099.4295980000006,
+        "samples": 3
+      }
+    },
+    "confirmed-document-read-1000": {
+      "before": {
+        "medianMs": 22.253893999997672,
+        "minMs": 20.25376800000049,
+        "maxMs": 23.088541000000077,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 62.46792900000037,
+        "minMs": 56.84789000000001,
+        "maxMs": 63.85556500000166,
+        "samples": 3
+      }
+    },
+    "account-confirmed-save": {
+      "before": {
+        "medianMs": 346.58005400000184,
+        "minMs": 338.78301099999953,
+        "maxMs": 372.70947200000046,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 801.4014329999991,
+        "minMs": 671.5903059999982,
+        "maxMs": 813.6822069999998,
+        "samples": 3
+      }
+    },
+    "movement-confirmed-save": {
+      "before": {
+        "medianMs": 421.09535499999765,
+        "minMs": 398.71468599999935,
+        "maxMs": 561.3322269999999,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 839.667430999998,
+        "minMs": 790.246255,
+        "maxMs": 844.8622780000005,
+        "samples": 3
+      }
+    },
+    "transfer-confirmed-save": {
+      "before": {
+        "medianMs": 437.2295529999992,
+        "minMs": 333.377074,
+        "maxMs": 475.6348629999993,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 743.0357160000021,
+        "minMs": 739.3319069999998,
+        "maxMs": 792.2063529999996,
+        "samples": 3
+      }
+    }
+  },
+  "journeys": {
+    "month-previous": {
+      "before": {
+        "medianMs": 217.21751300000142,
+        "minMs": 202.94489099999964,
+        "maxMs": 222.93504400000165,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 201.84209199999896,
+        "minMs": 184.69398499999988,
+        "maxMs": 203.16580599999998,
+        "samples": 3
+      }
+    },
+    "movement-form-open": {
+      "before": {
+        "medianMs": 218.5017970000008,
+        "minMs": 216.85159399999975,
+        "maxMs": 296.4008790000007,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 227.20560199999818,
+        "minMs": 226.19852900000114,
+        "maxMs": 285.93634099999963,
+        "samples": 3
+      }
+    },
+    "movement-amount-input": {
+      "before": {
+        "medianMs": 120.85378000000037,
+        "minMs": 109.17955799999982,
+        "maxMs": 121.94197900000108,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 78.36501599999974,
+        "minMs": 76.77018300000054,
+        "maxMs": 96.69049300000006,
+        "samples": 3
+      }
+    },
+    "shared-expense-open": {
+      "before": {
+        "medianMs": 728.7122229999986,
+        "minMs": 723.1851189999998,
+        "maxMs": 824.5219050000005,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 624.6251550000015,
+        "minMs": 598.5455379999985,
+        "maxMs": 798.0846650000003,
+        "samples": 3
+      }
+    },
+    "assistant-first-open": {
+      "before": {
+        "medianMs": 1319.967181000001,
+        "minMs": 1277.0670600000012,
+        "maxMs": 1459.2721259999998,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 1344.032247000001,
+        "minMs": 1277.0912589999998,
+        "maxMs": 1352.8182970000016,
+        "samples": 3
+      }
+    },
+    "assistant-proposal": {
+      "before": {
+        "medianMs": 218.0924279999981,
+        "minMs": 203.01110399999925,
+        "maxMs": 219.85559999999896,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 229.2137479999983,
+        "minMs": 192.36169100000188,
+        "maxMs": 237.10394600000018,
+        "samples": 3
+      }
+    },
+    "import-validate-preview": {
+      "before": {
+        "medianMs": 254.92633800000112,
+        "minMs": 249.1778579999991,
+        "maxMs": 278.521084,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 228.42136799999935,
+        "minMs": 220.09228399999847,
+        "maxMs": 236.3002350000006,
+        "samples": 3
+      }
+    },
+    "restore-verified-confirmation": {
+      "before": {
+        "medianMs": 215.1353280000003,
+        "minMs": 205.34132499999942,
+        "maxMs": 234.31349500000215,
+        "samples": 3
+      },
+      "after": {
+        "medianMs": 421.0629919999992,
+        "minMs": 360.59245399999963,
+        "maxMs": 521.1862959999999,
+        "samples": 3
+      }
+    }
+  }
+}

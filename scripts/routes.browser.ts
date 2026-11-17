@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {catalogClassificationFixture} from './catalogClassificationFixture';
 import {editCatalog} from '../src/utils/budgetCatalog';
 import test from 'node:test';
@@ -40,8 +41,8 @@ test('integración: rutas reales en desarrollo, producción y previsualización 
         await context.addInitScript(({ key, value }) => {
           if (localStorage.getItem(key) === null) localStorage.setItem(key, value);
           (window as any).routeWrites = 0;
-          const set = Storage.prototype.setItem;
-          Storage.prototype.setItem = function(k, v) { (window as any).routeWrites++; return set.call(this, k, v); };
+          const set = Storage.prototype.setItem;const financial=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){(window as any).routeWrites++;return financial.call(this,k,v);};
+          Storage.prototype.setItem = function(k, v) { if(!window.__fixtureIo.isGuardWrite(k,v))(window as any).routeWrites++; return set.call(this, k, v); };
         }, { key: DATA_KEY, value: backup });
         const page = await context.newPage(); page.setDefaultTimeout(10000);
         page.on('pageerror', e => errors.push(e.message)); page.on('console', m => { if (m.type() === 'error') errors.push(m.text()); });
@@ -69,9 +70,9 @@ test('integración: rutas reales en desarrollo, producción y previsualización 
           await open.click(); await page.waitForURL(home + 'app');
           await page.getByLabel('Seleccionar periodo contable').waitFor();
           assert.equal(await page.evaluate(() => location.origin), origin);
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           await page.reload(); await page.getByLabel('Seleccionar periodo contable').waitFor();
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           for (const module of ['Movimientos', 'Presupuestos', 'Cuentas', 'Contactos', 'Deudas', 'Asistente', 'Inicio']) await navigateModule(page, module);
           await navigateModule(page, 'Asistente');
           await page.getByRole('textbox', { name: 'Mensaje para el asistente' }).fill('Dame orientación general');
@@ -81,23 +82,23 @@ test('integración: rutas reales en desarrollo, producción y previsualización 
           assert.deepEqual(api, [base + 'api/assistant-chat']);
           const parsed = await context.request.post(home + 'api/parse-movement', { data: { text: 'Ejemplo ficticio de prueba', referenceDate: '2026-11-11' } });
           assert.equal(parsed.status(), 200); assert.deepEqual(await parsed.json(), { success: false, fallback: true });
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           const custom=catalogClassificationFixture();const actual=await context.request.post(home+'api/parse-movement',{data:{text:'Gasté 12 en kayak azul',referenceDate:'2026-11-11',budgetGroups:custom.budgetGroups}});assert.equal(actual.status(),200);assert.equal((await actual.json()).parsed.code,'partida-ticket');
           const archived=editCatalog(custom,{kind:'archiveFamily',code:'family-travel',archived:true});const unavailable=await context.request.post(home+'api/parse-movement',{data:{text:'Gasté 12 en kayak azul',referenceDate:'2026-11-11',budgetGroups:archived.budgetGroups}});assert.equal((await unavailable.json()).parsed.code,'');
           assert.equal(await page.evaluate(() => (window as any).routeWrites), 0);
           await page.goto(home + 'app/?vista=ficticia#resumen'); await page.getByLabel('Seleccionar periodo contable').waitFor();
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           await page.goto(home); await open.waitFor(); await open.click(); await page.getByLabel('Seleccionar periodo contable').waitFor();
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), backup);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           // A deliberately invalid fixture must retain the recovery exit within this host prefix.
           const invalid = '{"version":"3.1","ficticio_invalido":true}';
-          await page.evaluate(({ key, value }) => localStorage.setItem(key, value), { key: DATA_KEY, value: invalid });
+          await page.evaluate(async({key,value})=>{const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open('finanzas-pro-web-v1');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});try{await new Promise<void>((resolve,reject)=>{const tx=db.transaction('finance','readwrite',{durability:'strict'});tx.objectStore('finance').put(value,key);tx.oncomplete=()=>resolve();tx.onabort=()=>reject(tx.error);});}finally{db.close();}}, {key:DATA_KEY,value:invalid});
           await page.reload(); await page.getByRole('alert').filter({ hasText: 'No se han podido cargar' }).waitFor();
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), invalid);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), invalid);
           assert.equal(await page.evaluate(() => (window as any).routeWrites), 0);
           const back = page.getByRole('link', { name: 'Volver a la presentación', exact: true });
           assert.equal(await back.getAttribute('href'), base); await back.click(); await open.waitFor();
-          assert.equal(await page.evaluate(k => localStorage.getItem(k), DATA_KEY), invalid);
+          assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), invalid);
           assert.deepEqual(failures, []); assert.deepEqual(errors, []); assert.deepEqual(external, []);
         } finally {
           await context.close(); server.kill();

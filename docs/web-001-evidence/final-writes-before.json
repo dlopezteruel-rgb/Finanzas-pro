@@ -1,0 +1,244 @@
+{
+  "backend": "legacy",
+  "sourceCommit": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+  "browser": "156.0.8078.79",
+  "node": "v24.22.1",
+  "environment": {
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "cores": 3,
+    "memoryBytes": 10452459520
+  },
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    }
+  ],
+  "samples": 3,
+  "rows": [
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 2740.516512,
+      "trace": []
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 23.088541000000077
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 372.70947200000046,
+      "submitToConfirmationMs": 338,
+      "preparationAndDispatchMs": 212,
+      "storageBarrierMs": 3,
+      "postBarrierToUiMs": 123,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 4546,
+          "end": 4549,
+          "status": "returned",
+          "characters": 259848
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 561.3322269999999,
+      "submitToConfirmationMs": 530,
+      "preparationAndDispatchMs": 288,
+      "storageBarrierMs": 15,
+      "postBarrierToUiMs": 227,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 5954,
+          "end": 5969,
+          "status": "returned",
+          "characters": 260151
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 0,
+      "totalMs": 333.377074,
+      "submitToConfirmationMs": 311,
+      "preparationAndDispatchMs": 199,
+      "storageBarrierMs": 2,
+      "postBarrierToUiMs": 110,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 7002,
+          "end": 7004,
+          "status": "returned",
+          "characters": 261029
+        }
+      ]
+    },
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 2773.3685079999996,
+      "trace": []
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 20.25376800000049
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 338.78301099999953,
+      "submitToConfirmationMs": 315,
+      "preparationAndDispatchMs": 191,
+      "storageBarrierMs": 3,
+      "postBarrierToUiMs": 121,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 4526,
+          "end": 4529,
+          "status": "returned",
+          "characters": 259848
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 398.71468599999935,
+      "submitToConfirmationMs": 377,
+      "preparationAndDispatchMs": 177,
+      "storageBarrierMs": 3,
+      "postBarrierToUiMs": 197,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 5715,
+          "end": 5718,
+          "status": "returned",
+          "characters": 260151
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 1,
+      "totalMs": 437.2295529999992,
+      "submitToConfirmationMs": 411,
+      "preparationAndDispatchMs": 248,
+      "storageBarrierMs": 17,
+      "postBarrierToUiMs": 146,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 6789,
+          "end": 6806,
+          "status": "returned",
+          "characters": 261029
+        }
+      ]
+    },
+    {
+      "scenario": "initial-load-and-migration-1000",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 2815.6259500000015,
+      "trace": []
+    },
+    {
+      "scenario": "confirmed-document-read-1000",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 22.253893999997672
+    },
+    {
+      "scenario": "account-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 346.58005400000184,
+      "submitToConfirmationMs": 325,
+      "preparationAndDispatchMs": 196,
+      "storageBarrierMs": 2,
+      "postBarrierToUiMs": 127,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 4636,
+          "end": 4638,
+          "status": "returned",
+          "characters": 259848
+        }
+      ]
+    },
+    {
+      "scenario": "movement-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 421.09535499999765,
+      "submitToConfirmationMs": 399,
+      "preparationAndDispatchMs": 194,
+      "storageBarrierMs": 3,
+      "postBarrierToUiMs": 202,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 5840,
+          "end": 5843,
+          "status": "returned",
+          "characters": 260151
+        }
+      ]
+    },
+    {
+      "scenario": "transfer-confirmed-save",
+      "profile": "mobile",
+      "sample": 2,
+      "totalMs": 475.6348629999993,
+      "submitToConfirmationMs": 450,
+      "preparationAndDispatchMs": 264,
+      "storageBarrierMs": 10,
+      "postBarrierToUiMs": 176,
+      "barrierKind": "legacy-api-return-NOT-durable-commit",
+      "trace": [
+        {
+          "kind": "legacy-api-return-NOT-durable-commit",
+          "start": 6881,
+          "end": 6891,
+          "status": "returned",
+          "characters": 261029
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "method": "Real production gzip UI, 1000-record complete document. Passive request/transaction timestamps. Explicit IndexedDB authoritative read for corrected build. Legacy barrier is synchronous API return, NOT a durable commit. Dispatch/preparation and post-barrier UI include Playwright transport, not pure CPU work. CPU/network emulated; no physical device."
+}

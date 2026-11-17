@@ -1,0 +1,104 @@
+{
+  "sourceCommit": "6221e76da770418a3090663be707105672a8d89f",
+  "scope": "Source frozen throughout. No other local browser battery or profiling process. Prior npm ci succeeded on the unchanged lockfile; final GitHub CI will install afresh.",
+  "commands": [
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "exitCode": 0,
+      "durationMs": 1862,
+      "log": "/workspace/work/web001-delivery-build.log"
+    },
+    {
+      "command": [
+        "npm",
+        "test"
+      ],
+      "exitCode": 0,
+      "durationMs": 5178,
+      "log": "/workspace/work/web001-delivery-unit.log"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "exitCode": 0,
+      "durationMs": 3651,
+      "log": "/workspace/work/web001-delivery-lint.log"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "scripts/ci/async-storage-conditions.test.mjs",
+        "scripts/ci/browser-battery.test.mjs",
+        "scripts/ci/browser-diagnostics.test.mjs",
+        "scripts/ci/check-diff.test.mjs",
+        "scripts/ci/durability-report.test.mjs",
+        "scripts/ci/run-check.test.mjs",
+        "scripts/ci/test-results.test.mjs"
+      ],
+      "exitCode": 0,
+      "durationMs": 1578,
+      "log": "/workspace/work/web001-delivery-tools.log"
+    },
+    {
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "scripts/performance/measure.ts"
+      ],
+      "exitCode": 0,
+      "durationMs": 85467,
+      "log": "/workspace/work/web001-delivery-performance.log"
+    },
+    {
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "scripts/performance/webWriteJourneys.ts"
+      ],
+      "exitCode": 0,
+      "durationMs": 25326,
+      "log": "/workspace/work/web001-delivery-writes.log"
+    },
+    {
+      "command": [
+        "node",
+        "--import",
+        "tsx",
+        "scripts/performance/mobileJourneys.ts"
+      ],
+      "exitCode": 0,
+      "durationMs": 26131,
+      "log": "/workspace/work/web001-delivery-journeys.log"
+    },
+    {
+      "command": [
+        "node",
+        "scripts/performance/bundles.mjs",
+        "/workspace/work/Finanzas-pro-web-durable/docs/web-001-evidence/delivery-bundles-after.json"
+      ],
+      "exitCode": 0,
+      "durationMs": 1148,
+      "log": "/workspace/work/web001-delivery-bundles.log"
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0,
+      "durationMs": 5,
+      "log": "/workspace/work/web001-delivery-diff.log"
+    }
+  ]
+}

@@ -62,7 +62,7 @@ import { PartidaDetailModal } from './components/PartidaDetailModal';
 import { ConfirmClearModal, ClearDataOptions } from './components/ConfirmClearModal';
 import { SettleDebtModal, DebtItemToSettle } from './components/SettleDebtModal';
 import { CreateContactModal } from './components/CreateContactModal';
-import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup, recoveryCopies } from './utils/backup';
+import { Backup, FinanceData, makeBackup, MAX_BACKUP_BYTES, parseBackup } from './utils/backup';
 import { useFinanceData } from './utils/useFinanceData';
 import { RestorationModal } from './components/RestorationModal';
 import { SafeDialog } from './components/SafeDialog';
@@ -106,7 +106,7 @@ export default function App() {
   const platform=usePlatformServices(),exportPending=useRef(false);
   const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t,pendingLanguage } = useI18n();
-  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,financeStorage } = useFinanceData(DEMO_DATA);
+  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,loading,loadingPhase,persistencePhase,persistenceRevision,readRecoveryCopies,exportJSON,exportForensic,reconcile } = useFinanceData(DEMO_DATA);
   const downloadJSON=async(content:string,filename:string)=>{
     if(exportPending.current)return;exportPending.current=true;
     try{await platform.exportText(content,filename,'application/json',uiText('native.exportTitle'));}
@@ -131,6 +131,10 @@ export default function App() {
   const [dataError, setDataError] = useState('');
   const [dataNotice, setDataNotice] = useState('');
   const [showRecovery, setShowRecovery] = useState(false);
+  const [copies,setCopies]=useState<{key:string;content:string}[]>([]),[copiesLoading,setCopiesLoading]=useState(false),[copiesError,setCopiesError]=useState('');
+  const [storageRecovery,setStorageRecovery]=useState(false);
+  useEffect(()=>{if(['recoveryRequired','reloadRequired'].includes(persistencePhase))setStorageRecovery(true);else if(persistencePhase==='ready')setStorageRecovery(false);},[persistencePhase,persistenceRevision]);
+  useEffect(()=>{if(!showRecovery)return;let active=true;setCopiesLoading(true);setCopiesError('');readRecoveryCopies().then(value=>{if(active)setCopies(value);}).catch(error=>{if(active)setCopiesError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}).finally(()=>{if(active)setCopiesLoading(false);});return()=>{active=false;};},[showRecovery]);
   const restorationGuard = useRef<ReturnType<typeof confirmOnceAsync<Backup>> | null>(null);
   const importRequest = useRef(0);
   const clearPending = useRef(false);
@@ -537,7 +541,7 @@ export default function App() {
   };
   const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
-  const handleExportJSON = () => downloadJSON(JSON.stringify(makeBackup(data), null, 2), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);
+  const handleExportJSON = async() => {try{downloadJSON(await exportJSON(), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);}catch(error){setDataError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}};
   const handleImportJSON = () => {if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}fileInputRef.current?.click();};
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -566,26 +570,21 @@ export default function App() {
         setRestoration(null);
         setDataNotice('Datos sustituidos. La copia anterior está disponible en «Copias de recuperación».');
       }
-    } catch {
-      setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
+    } catch(error) {
+      if(error instanceof Error&&error.message.startsWith('WEB_')&&error.message!=='WEB_NOT_COMMITTED')setDataError(error.message);else setDataError('No se pudo guardar la copia de recuperación o los datos nuevos. No se ha aplicado la sustitución. Comprueba el espacio disponible y si los datos cambiaron en otra pestaña.');
     } finally { setRestoring(false); }
   };
+
+  const handleExportForensic=async()=>{try{const raw=await exportForensic(),report=JSON.parse(raw);downloadJSON(raw,'finanzas_pro_datos_locales_para_recuperar.json');if(report.kind==='finanzas-web-forensic'&&!report.complete)setDataNotice('WEB_FORENSIC_PARTIAL');}catch(error){setDataError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}};
+
+  if(loading)return <main className="app-splash" role="status" aria-live="polite"><Brand/><h1>{t(`webStore.${loadingPhase}`)}</h1><p>{t('webStore.loadingSafe')}</p></main>;
 
   if (loadError) return <main className="app-recovery">
     <Brand /><h1>{t('recovery.title')}</h1>
     <p role="alert">{storageOwnedText(loadError,uiText)}</p>
-    {dataError && <p role="alert">{storageOwnedText(dataError,uiText)}</p>}
+    {dataError && <p role="alert">{storageOwnedText(dataError,uiText)}</p>}{dataNotice&&<p role="status">{storageOwnedText(dataNotice,uiText)}</p>}
     <p>{uiText("app.conserva_una_copia_de_los_datos_locales_antes_de")}</p>
-    <button className="button-primary" onClick={() => {
-      try {
-      const raw: Record<string, string | null> = {};
-      for (let i = 0; i < financeStorage().length; i++) {
-        const key = financeStorage().key(i);
-        if (key?.startsWith('finanzas_pro_')) raw[key] = financeStorage().getItem(key);
-      }
-      downloadJSON(JSON.stringify(raw, null, 2), 'finanzas_pro_datos_locales_para_recuperar.json');
-      } catch { setDataError(t('recovery.blocked')); }
-    }}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>
+    <button className="button-primary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>
     <a href={paths.home}>{t('recovery.back')}</a>
   </main>;
 
@@ -629,7 +628,7 @@ export default function App() {
       />
 
       {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
-        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}</div>}
+        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button></div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p>{legacyTransferNotice(legacyTransfers.pairs.length,legacyTransfers.unresolved.length,language,uiText,formatNumber)}</p>
         {legacyTransfers.missingWalletPairs.length > 0 && <p>{uiText(pluralCategory(legacyTransfers.missingWalletPairs.length,language)==='one'?'storage.warning.missingWalletPairs.one':'storage.warning.missingWalletPairs',{count:formatNumber(legacyTransfers.missingWalletPairs.length)})}</p>}
@@ -774,8 +773,9 @@ export default function App() {
       {restoration && <RestorationModal backup={restoration.backup} label={restoration.label} onCancel={cancelRestoration} onConfirm={confirmRestoration} busy={restoring} error={dataError} onDismissError={() => setDataError('')} />}
       {showRecovery && <SafeDialog title={uiText("app.copias_de_recuperacion")} onCancel={() => setShowRecovery(false)}>
           <p className="text-sm text-slate-300">{uiText("app.descarga_una_copia_y_utiliza_importar_json_para_revisarla")}</p>
-          {recoveryCopies(financeStorage()).length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
-          {recoveryCopies(financeStorage()).map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
+          {copiesLoading&&<p role="status">{t('webStore.loading')}</p>}{copiesError&&<p role="alert">{storageOwnedText(copiesError,uiText)}</p>}
+          {!copiesLoading&&!copiesError&&copies.length === 0 && <p>{uiText("app.no_hay_copias_anteriores")}</p>}
+          {copies.map(copy => <button key={copy.key} className="block text-sky-400 text-sm" onClick={() => downloadJSON(copy.content, `${copy.key}.json`)}><I18nText id="app.descargar" values={{ timestamp: formatDate(copy.key.slice('finanzas_pro_recovery_'.length, -37),{year:'numeric',month:'numeric',day:'numeric',hour:'numeric',minute:'numeric',second:'numeric'}) }} /></button>)}
           <button onClick={() => setShowRecovery(false)} className="bg-white/10 rounded-xl px-4 py-2">{uiText("app.cerrar")}</button>
       </SafeDialog>}
 
@@ -867,6 +867,8 @@ export default function App() {
         onSaveContact={handleSaveContact}
         contactToEdit={contactToEdit}
       />
-    </div></CatalogNamesProvider>
+    {['saving','checking','recoveryRequired','reloadRequired'].includes(persistencePhase)&&<aside className="app-banner p-4" role={persistencePhase==='saving'||persistencePhase==='checking'?'status':'alert'} aria-live="polite"><p>{t(`webStore.${persistencePhase}`)}</p>{['recoveryRequired','reloadRequired'].includes(persistencePhase)&&<button className="button-secondary" onClick={()=>setStorageRecovery(true)}>{t('webStore.review')}</button>}</aside>}
+      {storageRecovery&&<SafeDialog title={t('webStore.review')} onCancel={()=>setStorageRecovery(false)}><p role="alert">{t(`webStore.${persistencePhase}`)}</p>{dataError&&<p role="alert">{storageOwnedText(dataError,uiText)}</p>}{dataNotice&&<p role="status">{storageOwnedText(dataNotice,uiText)}</p>}<div className="flex flex-wrap gap-3">{persistencePhase==='recoveryRequired'?<button className="button-primary" onClick={()=>void reconcile()}>{t('webStore.reconcile')}</button>:persistencePhase==='reloadRequired'?<button autoFocus className="button-primary" onClick={()=>window.location.reload()}>{uiText("app.recargar_datos_actualizados")}</button>:null}<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button><button className="button-secondary" onClick={()=>setStorageRecovery(false)}>{uiText("app.cerrar")}</button></div></SafeDialog>}
+      </div></CatalogNamesProvider>
   );
 }

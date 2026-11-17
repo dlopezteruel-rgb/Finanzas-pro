@@ -13,6 +13,30 @@ import { p1b } from './es.p1b';
 import { plurals } from './es.plurals';
 import { p1 } from './es.p1';
 export const es = {
+  "webStore.forensicPartial": "La descarga contiene solo los datos accesibles. No es una copia completa y no confirma que se hayan recuperado todos los datos.",
+  "webStore.loading": "Cargando datos confirmados",
+  "webStore.migrating": "Preparando el almacenamiento seguro",
+  "webStore.loadingSafe": "Los datos anteriores se conservan. Espera a que termine la comprobación.",
+  "webStore.saving": "Guardando. El formulario solo se cerrará cuando se confirme la transacción.",
+  "webStore.checking": "Comprobando el resultado del guardado. No vuelvas a enviar la operación.",
+  "webStore.recoveryRequired": "No se puede confirmar el resultado. Las nuevas escrituras están bloqueadas. Conserva el formulario y comprueba el guardado antes de continuar.",
+  "webStore.reloadRequired": "La operación está confirmada. Recarga los datos antes de continuar y no vuelvas a enviarla.",
+  "webStore.ready": "Guardado confirmado.",
+  "webStore.readonly": "Solo consulta y exportación. El guardado está bloqueado.",
+  "webStore.conflict": "Otra pestaña ha cambiado los datos. Recarga antes de continuar.",
+  "webStore.review": "Revisar el estado del guardado",
+  "webStore.reconcile": "Comprobar guardado",
+  "webStore.strictUnavailable": "Este navegador no permite confirmar el guardado con las garantías requeridas. Puedes consultar y exportar, pero no guardar. Utiliza un navegador actualizado compatible.",
+  "webStore.openBlocked": "Otra pestaña bloquea el almacenamiento. Cierra las versiones antiguas y vuelve a abrir la aplicación. Tus datos no se han sustituido.",
+  "webStore.unavailable": "No se puede acceder al almacenamiento. No se han borrado datos. Puedes descargar los datos que se puedan recuperar.",
+  "webStore.legacyView": "No se puede comprobar el almacenamiento actual. Se muestra una copia anterior solo para consulta y exportación; puede no estar actualizada. El guardado está bloqueado.",
+  "webStore.legacyDiverged": "Una versión anterior ha cambiado los datos locales. El guardado está bloqueado para conservar ambas versiones. Descarga los datos para recuperarlos; no se han combinado automáticamente.",
+  "webStore.corrupt": "Los datos guardados no superan las comprobaciones de integridad. El guardado está bloqueado. No se han borrado ni recreado datos; descarga una copia para recuperarlos.",
+  "webStore.schema": "Esta versión no reconoce el almacenamiento existente. Actualiza la aplicación o descarga los datos para recuperarlos. No se ha sustituido ningún dato.",
+  "webStore.notCommitted": "El guardado se ha cancelado sin aplicar cambios. Los datos anteriores se conservan y el formulario sigue disponible.",
+  "webStore.uncertain": "No se puede confirmar si la operación se guardó. No vuelvas a enviarla. Comprueba el estado del guardado antes de continuar.",
+  "webStore.forensicEmpty": "No se han podido obtener datos recuperables. No se ha descargado una copia vacía ni se ha borrado nada.",
+
   "ledger.page.allShort": "Todos",
   "ledger.page.pagedShort": "Páginas",
 

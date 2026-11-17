@@ -1,0 +1,42 @@
+/** Comparative production UI writes, measuring the actual storage boundary separately. */
+import express from 'express';
+import path from 'node:path';
+import {readFile,writeFile,mkdir} from 'node:fs/promises';
+import {gzipSync} from 'node:zlib';
+import os from 'node:os';
+import {chromium,type Page,type Locator} from 'playwright-core';
+import assert from 'node:assert/strict';
+import {DATA_KEY,parseSnapshot} from '../../src/utils/backup';
+import {calculateMonthlySummary,calculateWalletBalances} from '../../src/utils/finance';
+import {volumeFixture} from './fixture';
+import {observePersistence} from './persistenceProbe';
+import {navigateModule,chooseMovementPartida} from '../browserNavigation';
+import {readCommittedWebSnapshot} from '../webStorageFixture';
+const backend=process.env.PERF_BACKEND??'indexeddb',dist=path.resolve(process.env.PERF_DIST??'dist'),output=process.env.PERF_OUTPUT??'ci-artifacts/web-write-journeys.json',samples=Number(process.env.PERF_SAMPLES??3);
+assert.ok(['legacy','indexeddb'].includes(backend));
+const profiles=[{name:'mobile',width:390,cpu:4,latency:80,mbps:1.6},{name:'tablet',width:768,cpu:2,latency:40,mbps:5},{name:'desktop',width:1280,cpu:1,latency:20,mbps:10}].filter(p=>!process.env.PERF_PROFILE||p.name===process.env.PERF_PROFILE);
+const app=express(),compressed=new Map<string,Buffer>();app.get(/\.(?:js|css)$/,async(req,res,next)=>{try{const file=path.resolve(dist,'.'+req.path);if(!file.startsWith(dist+path.sep))return res.sendStatus(403);let bytes=compressed.get(file);if(!bytes){bytes=gzipSync(await readFile(file));compressed.set(file,bytes);}res.set({'Content-Type':file.endsWith('.js')?'text/javascript':'text/css','Content-Encoding':'gzip','Cache-Control':'public,max-age=3600'}).send(bytes);}catch{next();}});app.use(express.static(dist));app.get('*',(_q,r)=>r.sendFile(path.join(dist,'index.html')));
+const server=await new Promise<ReturnType<typeof app.listen>>(r=>{const s=app.listen(0,'127.0.0.1',()=>r(s));}),origin=`http://127.0.0.1:${(server.address() as {port:number}).port}`,browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH??'/usr/bin/chromium',args:['--no-sandbox']}),rows:any[]=[],errors:string[]=[];
+const read=(page:Page)=>backend==='indexeddb'?readCommittedWebSnapshot(page):page.evaluate(key=>localStorage.getItem(key),DATA_KEY);
+try{
+ for(const profile of profiles)for(let sample=0;sample<samples;sample++){
+  const context=await browser.newContext({viewport:{width:profile.width,height:900},isMobile:profile.width===390,hasTouch:profile.width===390,timezoneId:'Europe/Madrid',serviceWorkers:'block'});
+  try{
+   const fixture=volumeFixture(1000),raw=JSON.stringify(fixture);await context.addInitScript(({key,raw})=>{(window as any).__name=(f:unknown)=>f;localStorage.setItem(key,raw);localStorage.setItem('finanzas.ui.language','es');},{key:DATA_KEY,raw});await context.addInitScript(observePersistence);
+   const page=await context.newPage();page.setDefaultTimeout(15000);page.on('pageerror',e=>errors.push(e.message));await page.clock.setFixedTime(new Date('2026-11-14T12:00:00Z'));const cdp=await context.newCDPSession(page);await cdp.send('Network.enable');await cdp.send('Network.setBlockedURLs',{urls:['https://*']});await cdp.send('Network.emulateNetworkConditions',{offline:false,latency:profile.latency,downloadThroughput:profile.mbps*1000000/8,uploadThroughput:profile.mbps*1000000/8});await cdp.send('Emulation.setCPUThrottlingRate',{rate:profile.cpu});
+   let start=performance.now();await page.goto(origin+'/app');await page.locator('.home-quick').waitFor();rows.push({scenario:'initial-load-and-migration-1000',profile:profile.name,sample,totalMs:performance.now()-start,trace:await page.evaluate(()=>(window as any).__persistenceTrace)});
+   start=performance.now();const loaded=await read(page);rows.push({scenario:'confirmed-document-read-1000',profile:profile.name,sample,totalMs:performance.now()-start});assert.equal(loaded,raw);
+   async function save(scenario:string,form:Locator){
+    const before=await page.evaluate(()=>({start:performance.now(),index:(window as any).__persistenceTrace.length})),start=performance.now();await form.locator('button[type=submit]').click();await form.waitFor({state:'hidden'});const confirmed=await page.evaluate(()=>performance.now());await page.evaluate(()=>new Promise<void>(r=>requestAnimationFrame(()=>requestAnimationFrame(()=>r()))));
+    const trace=await page.evaluate(index=>(window as any).__persistenceTrace.slice(index),before.index),commits=trace.filter((e:any)=>['financial-commit','legacy-api-return-NOT-durable-commit'].includes(e.kind));assert.equal(commits.length,1);const commit=commits[0];assert.equal(commit.status,backend==='indexeddb'?'complete':'returned');
+    rows.push({scenario,profile:profile.name,sample,totalMs:performance.now()-start,submitToConfirmationMs:confirmed-before.start,preparationAndDispatchMs:commit.start-before.start,storageBarrierMs:commit.end-commit.start,postBarrierToUiMs:confirmed-commit.end,barrierKind:commit.kind,trace});console.log(JSON.stringify(rows.at(-1)));
+   }
+   await navigateModule(page,'Cuentas');await page.getByRole('button',{name:'Nueva Cuenta',exact:true}).click();let form=page.getByRole('dialog',{name:'Cartera',exact:true});await form.getByLabel('Nombre de la cuenta',{exact:true}).fill('BENCH FICTICIO');await form.locator('input[type=number]').fill('123.45');await save('account-confirmed-save',form);
+   let data=parseSnapshot((await read(page))!);assert.equal(data.wallets.length,fixture.wallets.length+1);assert.equal(data.wallets.at(-1)!.initialBalance,123.45);
+   await navigateModule(page,'Inicio');await page.locator('.home-actions').getByRole('button',{name:'Añadir',exact:true}).click();form=page.getByRole('dialog',{name:'Movimiento',exact:true});await form.locator('input[type=number]').fill('19.75');await form.getByLabel('Cartera u Origen',{exact:true}).selectOption(fixture.wallets[0].name);await form.getByPlaceholder('ej. Cena restaurante, Compra Zara, Supermercado...').fill('BENCH MOVIMIENTO FICTICIO');await form.locator('input[type=date]').fill('2026-11-03');await chooseMovementPartida(form);await save('movement-confirmed-save',form);
+   data=parseSnapshot((await read(page))!);assert.equal(data.transactions.length,fixture.transactions.length+1);assert.equal(data.transactions.find(t=>t.description==='BENCH MOVIMIENTO FICTICIO')!.amount,19.75);
+   const prior=data;await navigateModule(page,'Cuentas');await page.getByRole('button',{name:'Ordenar Traspaso',exact:true}).click();form=page.getByRole('dialog',{name:'Traspaso',exact:true});await form.getByLabel('Cuenta de origen',{exact:true}).selectOption('bank');await form.getByLabel('Cuenta de destino',{exact:true}).selectOption('rev');await form.getByLabel('Importe a transferir (€)',{exact:true}).fill('12.34');await form.getByLabel('Fecha',{exact:true}).fill('2026-11-03');await form.getByLabel('Concepto / Nota',{exact:true}).fill('BENCH TRASPASO FICTICIO');await save('transfer-confirmed-save',form);
+   data=parseSnapshot((await read(page))!);assert.equal(data.transactions.length,prior.transactions.length+2);assert.deepEqual(calculateMonthlySummary('2026-11',data.transactions,data.budgetPlans),calculateMonthlySummary('2026-11',prior.transactions,prior.budgetPlans));const a=calculateWalletBalances(prior.wallets,prior.transactions),b=calculateWalletBalances(data.wallets,data.transactions);assert.equal(Math.round(b.BANCO*100)-Math.round(a.BANCO*100),-1234);assert.equal(Math.round(b.OTRA*100)-Math.round(a.OTRA*100),1234);
+  }finally{await context.close();}
+ }
+}finally{await mkdir(path.dirname(output),{recursive:true});await writeFile(output,JSON.stringify({backend,sourceCommit:process.env.PERF_SOURCE_SHA??null,browser:browser.version(),node:process.version,environment:{cpu:os.cpus()[0]?.model,cores:os.cpus().length,memoryBytes:os.totalmem()},profiles,samples,rows,errors,method:'Real production gzip UI, 1000-record complete document. Passive request/transaction timestamps. Explicit IndexedDB authoritative read for corrected build. Legacy barrier is synchronous API return, NOT a durable commit. Dispatch/preparation and post-barrier UI include Playwright transport, not pure CPU work. CPU/network emulated; no physical device.'},null,2)+'\n');await browser.close();await new Promise<void>(r=>server.close(()=>r()));}assert.deepEqual(errors,[]);

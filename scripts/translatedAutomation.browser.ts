@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import {assertNoSpanishOwnedText} from './i18n/residuals';
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -30,7 +31,7 @@ test('5B automatizaciones y errores: cinco idiomas previstos, sin modificar soli
   await c.addInitScript(({key,value,pref,language})=>{(window as any).__name=(fn:unknown)=>fn;if(localStorage.getItem(key)===null)localStorage.setItem(key,value);if(localStorage.getItem(pref)===null)localStorage.setItem(pref,language);},{key:DATA_KEY,value:JSON.stringify(backup),pref:LANGUAGE_KEY,language});
   const p=await c.newPage();p.setDefaultTimeout(8000);p.on('pageerror',e=>errors.push(e.message));await p.clock.setFixedTime(new Date('2026-11-13T12:00:00Z'));await p.goto(origin+'/app');const tr=translatorFor(language);
   await p.getByRole('navigation',{name:tr('nav.label')}).filter({visible:true}).getByRole('button',{name:tr('nav.budgets'),exact:true}).click();const editor=p.getByRole('region',{name:tr('planning.planificacion_financiera'),exact:true});await editor.getByLabel(tr('planning.mes_de_planificacion_358662'),{exact:true}).fill(month);
-  const raw=()=>p.evaluate(k=>localStorage.getItem(k),DATA_KEY),before=await raw();await p.evaluate(key=>{(window as any).__financialWrites=0;const original=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
+  const raw=()=>p.evaluate(async k=>(await window.__fixtureStorage.getItem(k)),DATA_KEY),before=await raw();await p.evaluate(key=>{(window as any).__financialWrites=0;const original=window.__fixtureIo.setItem;window.__fixtureIo.setItem=function(k,v){if(k===key)(window as any).__financialWrites++;return original.call(this,k,v);};},DATA_KEY);
   await p.addScriptTag({content:axe});async function audit(surface:string){const result=await p.evaluate(async()=>{const r=await (window as any).axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return {violations:r.violations,incomplete:r.incomplete.map((v:any)=>({id:v.id,nodes:v.nodes.length,review:v.nodes.map((n:any)=>({target:n.target,html:n.html,checks:[...n.any,...n.all,...n.none].map((c:any)=>({id:c.id,message:c.message,data:c.data,relatedNodes:c.relatedNodes}))}))}))};});observations.push({language,width,theme:data.theme,surface,...result});assert.deepEqual(result.violations,[]);await assertNoSpanishOwnedText(p,language,data);assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth+1),true);}
   return {p,c,tr,editor,backup,raw,before,audit,close:async()=>{await c.close();assert.deepEqual(errors,[]);assert.deepEqual(external,[]);}};
  }

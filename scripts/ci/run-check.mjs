@@ -1,9 +1,12 @@
+import {browserSuites} from './browser-battery.mjs';
 import {spawn} from 'node:child_process';
 import {createWriteStream} from 'node:fs';
 import {appendFile,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
+import {validateDurabilityReport,validateCrashControls} from './durability-report.mjs';
+import {execFileSync} from 'node:child_process';
 export async function executeLogged(command,args,{logPath,cwd=process.cwd(),env=process.env,output=process.stdout}={}){
   await mkdir(path.dirname(logPath),{recursive:true});const log=createWriteStream(logPath),start=Date.now();
   return new Promise((resolve,reject)=>{
@@ -23,8 +26,9 @@ export async function runCheck(mode){
     else if(mode==='tools'){const files=(await readdir('scripts/ci')).filter(f=>f.endsWith('.test.mjs')).sort();commands=[[process.execPath,['--test',...files.map(f=>`scripts/ci/${f}`)]]];expected=1;}
     else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']]];
     else if(mode==='browser'){
-      summary.suites=[...manifest.scripts['test:ui'].matchAll(/node --import tsx (scripts\/[^\s&]+\.browser\.ts)/g)].map(m=>m[1]);expected=summary.suites.length;
-      if(expected<21)throw new Error('The complete browser battery must contain at least the 21 integrated suites.');
+      summary.suites=[...browserSuites];expected=summary.suites.length;
+      if(!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
+      if(expected<45)throw new Error('The complete browser battery must retain the44 integrated suites and mandatory WEB-001 gate.');
       commands=[['npm',['run','test:ui']]];
     }else throw new Error(`Unknown mode: ${mode}`);
     const env={...process.env,CI:'true',FORCE_COLOR:'0',GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
@@ -39,6 +43,12 @@ export async function runCheck(mode){
       if(expected)summary.tests=requireCompleteTests(result.stdout,expected);
     }
     if(mode==='browser'){
+      const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+      summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
+      summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
+      const engine=JSON.parse(await readFile(path.join(dir,'web-storage-engine.json'),'utf8')),ui=JSON.parse(await readFile(path.join(dir,'web-storage-ui.json'),'utf8'));
+      if(summary.tests.reduce((n,r)=>n+r.tests,0)<957||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      summary.webStorage={engineCases:engine.results.length,uiSurfaces:ui.observations.length,violations:0,incompleteGroups:ui.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
       summary.axe={surfaces:axe.observations.length,violations:0,incompleteGroups:axe.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};

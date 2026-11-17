@@ -1,3 +1,4 @@
+import './webStorageBrowserPrelude.mjs';
 import { selectPlanningArea } from './browserNavigation';
 import { navigateModule } from './browserNavigation';
 import test from 'node:test';
@@ -16,7 +17,7 @@ const artifactDir = process.env.RESPONSIVE_ARTIFACT_DIR;
 const planner = (p: Page) => p.getByRole('region', { name: 'Planificación financiera', exact: true });
 const live = (p: Page) => p.getByRole('complementary', { name: 'Asignación del mes en directo', exact: true });
 const nav = navigateModule;
-const raw = (p: Page) => p.evaluate(() => Object.fromEntries(Object.entries(localStorage)));
+const raw = (p: Page) => p.evaluate(async () => Object.fromEntries((await window.__fixtureStorage.entries())));
 const metric = (p: Page, label: string) => live(p).getByText(label, { exact: true }).locator('..').locator('dd');
 const field = (p: Page, label: string) => planner(p).getByRole('textbox', { name: label, exact: true });
 async function noOverflow(page: Page) {
@@ -46,8 +47,8 @@ test('Fase 4: módulos fluidos, asignación local, arrastres, zoom y accesibilid
     await context.route('**/*', route => new URL(route.request().url()).origin === new URL(url).origin ? route.continue() : route.abort());
     await context.addInitScript(({ key, value }) => {
       if (localStorage.getItem(key) === null) localStorage.setItem(key, value);
-      const set = Storage.prototype.setItem; (window as any).layoutWrites = 0;
-      Storage.prototype.setItem = function (k, v) { (window as any).layoutWrites++; return set.call(this, k, v); };
+      const set = window.__fixtureIo.setItem; (window as any).layoutWrites = 0;
+      window.__fixtureIo.setItem = function (k, v) { (window as any).layoutWrites++; return set.call(this, k, v); };
     }, { key: DATA_KEY, value: JSON.stringify(makeBackup({ ...responsiveFixture(), theme })) });
   }
   async function setup(width = 1440, theme: 'dark' | 'light' = 'dark') {
