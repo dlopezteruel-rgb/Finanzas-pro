@@ -3,8 +3,8 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1072,
-    "review": 3421,
+    "type-or-import": 1073,
+    "review": 3423,
     "translation-key": 1539,
     "ui-message-candidate": 398,
     "attribute-internal": 2189,
@@ -2082,11 +2082,11 @@
     {
       "file": "src/platform/web/forensic.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "c06fcb7f535cc52bd5237be56ef5a6d98dc635f089375a6ac835b27ab1500d5d",
+      "sourceSha256": "71168f1071105da7c84dc962a4f1f8923724b687d057f5b34c9dbb520b36dedc",
       "counts": {
         "type-or-import": 4,
         "ui-message-candidate": 2,
-        "review": 10
+        "review": 12
       },
       "visibleCandidateLines": [
         10,
@@ -2136,9 +2136,9 @@
     {
       "file": "src/platform/web/protocol.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "a9c4f9a7d8140ff7cf8514d753d427e5acc35086b466462e2993d9901a3971ea",
+      "sourceSha256": "37c9f048da056c35023172ca5ab403a4c41a292fefa1fe2ac2cee77cd8e6545f",
       "counts": {
-        "type-or-import": 26,
+        "type-or-import": 27,
         "review": 17
       },
       "visibleCandidateLines": [],
@@ -3008,7 +3008,7 @@
     },
     {
       "file": "src/i18n/storageMessages.ts",
-      "knownStaticMessages": 167,
+      "knownStaticMessages": 168,
       "policy": "Owned diagnostics/dependency labels only; unknown messages retained literally; never user fields or stored history"
     },
     {

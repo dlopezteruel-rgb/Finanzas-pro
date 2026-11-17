@@ -7,7 +7,7 @@ export const WEB_META='metadata';
 export const WEB_OPERATIONS='operations';
 export const WEB_INTERNAL_PREFIX='finanzas_pro_web_';
 export type WebPhase='ready'|'readonly'|'saving'|'checking'|'recoveryRequired'|'reloadRequired'|'conflict';
-export type WebCode='WEB_STRICT_UNAVAILABLE'|'WEB_OPEN_BLOCKED'|'WEB_UNAVAILABLE'|'WEB_LEGACY_VIEW'|'WEB_LEGACY_DIVERGED'|'WEB_CORRUPT'|'WEB_SCHEMA'|'WEB_NOT_COMMITTED'|'WEB_UNCERTAIN'|'WEB_RELOAD'|'WEB_MIGRATING'|'WEB_FORENSIC_EMPTY';
+export type WebCode='WEB_STRICT_UNAVAILABLE'|'WEB_OPEN_BLOCKED'|'WEB_UNAVAILABLE'|'WEB_LEGACY_VIEW'|'WEB_LEGACY_DIVERGED'|'WEB_CORRUPT'|'WEB_SCHEMA'|'WEB_NOT_COMMITTED'|'WEB_UNCERTAIN'|'WEB_RELOAD'|'WEB_MIGRATING'|'WEB_FORENSIC_EMPTY'|'WEB_READ_BLOCKED';
 export class WebStorageError extends Error {
  constructor(public readonly code:WebCode){super(code);this.name='WebStorageError';}
 }

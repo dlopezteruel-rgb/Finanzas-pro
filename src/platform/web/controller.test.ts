@@ -125,3 +125,5 @@ test('WEB-001: a readonly legacy view detects drift and refuses to export stale 
  const data=intelligentFixture(),storage=memoryFinanceStorage();storage.setItem(DATA_KEY,serializeSnapshot(data));const c=new ReadOnlyWebController(data,'WEB_LEGACY_VIEW',storage);assert.equal(await c.checkForConflict(),false);
  const changed=serializeSnapshot(addWallet()(data));storage.setItem(DATA_KEY,changed);assert.equal(await c.checkForConflict(),true);await assert.rejects(c.exportJSON(),/Otra pestaña/);assert.equal(storage.getItem(DATA_KEY),changed);assert.equal(c.data.wallets.length,1);
 });
+
+test('WEB-001: forensic access denial is explicit, preserves the profile and never exports an empty recovery',async()=>{const {exportWebForensic}=await import('./forensic');await assert.rejects(exportWebForensic(()=>{throw new DOMException('Synthetic denied storage','SecurityError');}),/WEB_READ_BLOCKED/);});

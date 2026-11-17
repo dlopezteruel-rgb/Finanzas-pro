@@ -92,7 +92,7 @@ test('integración: rutas reales en desarrollo, producción y previsualización 
           assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), backup);
           // A deliberately invalid fixture must retain the recovery exit within this host prefix.
           const invalid = '{"version":"3.1","ficticio_invalido":true}';
-          await page.evaluate(({ key, value }) => localStorage.setItem(key, value), { key: DATA_KEY, value: invalid });
+          await page.evaluate(async({key,value})=>{const db=await new Promise<IDBDatabase>((resolve,reject)=>{const r=indexedDB.open('finanzas-pro-web-v1');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});try{await new Promise<void>((resolve,reject)=>{const tx=db.transaction('finance','readwrite',{durability:'strict'});tx.objectStore('finance').put(value,key);tx.oncomplete=()=>resolve();tx.onabort=()=>reject(tx.error);});}finally{db.close();}}, {key:DATA_KEY,value:invalid});
           await page.reload(); await page.getByRole('alert').filter({ hasText: 'No se han podido cargar' }).waitFor();
           assert.equal(await page.evaluate(async k => (await window.__fixtureStorage.getItem(k)), DATA_KEY), invalid);
           assert.equal(await page.evaluate(() => (window as any).routeWrites), 0);

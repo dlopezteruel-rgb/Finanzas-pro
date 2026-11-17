@@ -20,6 +20,7 @@ const keys={
   "WEB_RELOAD": "webStore.reloadRequired",
   "WEB_MIGRATING": "webStore.migrating",
   "WEB_FORENSIC_EMPTY": "webStore.forensicEmpty",
+  "WEB_READ_BLOCKED": "recovery.blocked",
 
   "versión no compatible. Se admiten los formatos 2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4 y 3.5; no se ha modificado ningún dato.": "storage_message.version_no_compatible_se_admiten_los_formatos_2_5_2_6_2",
   "JSON 3.5: nombres de catálogo de sistema elegidos explícitamente. Las copias anteriores conservan sus nombres; utiliza la copia recuperable previa para volver atrás.": "catalog.names.backup35",
