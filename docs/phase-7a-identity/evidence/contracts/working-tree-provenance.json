@@ -1,0 +1,17 @@
+{
+  "baseHead": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "workingTreeDirty": true,
+  "note": "Standalone evidence was executed before committing these 7A.1 additions. A source HEAD208 field is the base, not a claim that main contained the new contracts. CI/full-battery report requires the clean feature SHA.",
+  "fileSHA256": {
+    "scripts/identityContractEntry.ts": "e098acb44106ab34cf70c6dacb233afd406e8616fdd3ce55847b64a6ddf99886",
+    "scripts/identityFoundationCases.ts": "e68947063c9df66a64b95105dd757ba30f77f99f4797db7837fe36577d66d8a7",
+    "src/identity/contracts.ts": "6d1987d7127b20d10e28c7ca15549b27143acf07322aa3a08bec0a661246222f",
+    "src/identity/coordinator.ts": "612a982d6a15312a2f64e4cb4f27080af847ba51d9f949259ce2f5d34440789b",
+    "src/identity/demo.ts": "06716672241f033b729fbedaa2b7d3cb4c7ce5d74042cb25ed0a82fcd9820fe2",
+    "src/identity/demoEntry.ts": "420c4dfe0e9d7cb875ed7571dea8c31c7fbc723a0f6fe1d1cb2a7aab8e617171",
+    "src/identity/identity.test.ts": "140061e48e7ac787ab7fd489dbba853f4e5cdd14ed96d1011e22b37c587fc01a",
+    "src/identity/index.ts": "fcdcb6df82c7f3d3750136e7cf962351275804595589c93777e4d171eb1ac4c7",
+    "src/identity/policy.ts": "ea3a462c8d291b8f869b35f29a138b6883934e1c450b956f6d24773b37393b36",
+    "src/identity/testing/simulation.ts": "cfef1cfed681971f075b286780dbe2d9609c0fbc71bdd9f028bea5dc28978f9e"
+  }
+}

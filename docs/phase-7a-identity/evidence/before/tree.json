@@ -1,0 +1,153 @@
+{
+  "version": "0.0.0",
+  "name": "react-example",
+  "dependencies": {
+    "@capacitor/android": {
+      "version": "8.6.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/android/-/android-8.6.2.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/app": {
+      "version": "8.1.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/app/-/app-8.1.2.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/browser": {
+      "version": "8.0.5",
+      "resolved": "https://registry.npmjs.org/@capacitor/browser/-/browser-8.0.5.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/core": {
+      "version": "8.6.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/core/-/core-8.6.2.tgz",
+      "overridden": false
+    },
+    "@capacitor/filesystem": {
+      "version": "8.1.5",
+      "resolved": "https://registry.npmjs.org/@capacitor/filesystem/-/filesystem-8.1.5.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/ios": {
+      "version": "8.6.2",
+      "resolved": "https://registry.npmjs.org/@capacitor/ios/-/ios-8.6.2.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/keyboard": {
+      "version": "8.0.6",
+      "resolved": "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-8.0.6.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/preferences": {
+      "version": "8.0.1",
+      "resolved": "https://registry.npmjs.org/@capacitor/preferences/-/preferences-8.0.1.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@capacitor/share": {
+      "version": "8.0.3",
+      "resolved": "https://registry.npmjs.org/@capacitor/share/-/share-8.0.3.tgz",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@finanzas/native-vault": {
+      "version": "0.1.0",
+      "resolved": "file:../../native/secure-vault",
+      "overridden": false,
+      "dependencies": {
+        "@capacitor/core": {
+          "version": "8.6.2"
+        }
+      }
+    },
+    "@tailwindcss/vite": {
+      "version": "4.3.5",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.5.tgz",
+      "overridden": false,
+      "dependencies": {
+        "vite": {
+          "version": "8.3.7"
+        }
+      }
+    },
+    "@vitejs/plugin-react": {
+      "version": "6.3.0",
+      "resolved": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.3.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "vite": {
+          "version": "8.3.7"
+        }
+      }
+    },
+    "vite": {
+      "version": "8.3.7",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.7.tgz",
+      "overridden": false,
+      "dependencies": {
+        "picomatch": {
+          "version": "4.0.7",
+          "resolved": "https://registry.npmjs.org/picomatch/-/picomatch-4.0.7.tgz",
+          "overridden": false
+        },
+        "tinyglobby": {
+          "version": "0.2.17",
+          "resolved": "https://registry.npmjs.org/tinyglobby/-/tinyglobby-0.2.17.tgz",
+          "overridden": false,
+          "dependencies": {
+            "fdir": {
+              "version": "6.5.0",
+              "resolved": "https://registry.npmjs.org/fdir/-/fdir-6.5.0.tgz",
+              "overridden": false,
+              "dependencies": {
+                "picomatch": {
+                  "version": "4.0.7"
+                }
+              }
+            },
+            "picomatch": {
+              "version": "4.0.7"
+            }
+          }
+        }
+      }
+    }
+  }
+}

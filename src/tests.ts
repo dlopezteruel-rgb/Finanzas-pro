@@ -84,3 +84,5 @@ import '../scripts/native/build-policy.test';
 import './platform/web/controller.test';
 
 import './platform/financeSession.test';
+
+import './identity/identity.test';

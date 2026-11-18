@@ -1,0 +1,39 @@
+{
+  "source": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "scope": "Architecture harness plus unchanged production landing; not real login, native credentials or server authorization.",
+  "rows": [
+    {
+      "name": "production-no-demo-entry",
+      "passed": true
+    },
+    {
+      "name": "offline-demo-preserves-confirmed-profile",
+      "passed": true,
+      "detail": {
+        "profileSHA256": "62bfb17d09f98e81add989327eb19e243088d82dad67b242f649edaa5a52288c",
+        "persistentAccesses": 0,
+        "remoteCalls": 0
+      }
+    },
+    {
+      "name": "two-tabs-separate-sandboxes-and-owner-preflight",
+      "passed": true
+    },
+    {
+      "name": "session-fail-closed-and-no-manual-identity",
+      "passed": true
+    },
+    {
+      "name": "retirement-and-navigation-reset",
+      "passed": true
+    },
+    {
+      "name": "auth-contract-independent-of-demo-and-storage",
+      "passed": true
+    },
+    {
+      "name": "product-entry-excludes-unapproved-identity-and-demo-code",
+      "passed": true
+    }
+  ]
+}

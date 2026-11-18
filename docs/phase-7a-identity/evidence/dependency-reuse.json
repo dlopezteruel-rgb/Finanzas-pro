@@ -1,0 +1,5 @@
+{
+  "files": 11704,
+  "linkedBytes": 272268056,
+  "method": "Byte-identical installed dependency tree, matching main package-lock; private cache directories excluded. No local npm ci claim; clean npm ci will run in GitHub CI. Low-disk host, no dependencies changed."
+}
