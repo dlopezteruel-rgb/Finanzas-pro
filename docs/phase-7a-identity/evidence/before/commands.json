@@ -1,0 +1,102 @@
+[
+  {
+    "name": "node",
+    "command": [
+      "node",
+      "--version"
+    ],
+    "code": 0,
+    "durationMs": 67.68560409545898,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "npm",
+    "command": [
+      "npm",
+      "--version"
+    ],
+    "code": 0,
+    "durationMs": 194.9450969696045,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "tree",
+    "command": [
+      "npm",
+      "ls",
+      "picomatch",
+      "vite",
+      "@capacitor/core",
+      "--json"
+    ],
+    "code": 0,
+    "durationMs": 663.6106967926025,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "audit",
+    "command": [
+      "npm",
+      "audit",
+      "--json"
+    ],
+    "code": 1,
+    "durationMs": 1429.805040359497,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "audit-production",
+    "command": [
+      "npm",
+      "audit",
+      "--omit=dev",
+      "--json"
+    ],
+    "code": 1,
+    "durationMs": 1317.6872730255127,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "unit",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "code": 0,
+    "durationMs": 9011.992454528809,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "tools",
+    "command": [
+      "node",
+      "scripts/ci/run-check.mjs",
+      "tools"
+    ],
+    "code": 0,
+    "durationMs": 1900.015115737915,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "code": 0,
+    "durationMs": 3143.8136100769043,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  },
+  {
+    "name": "build",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "code": 0,
+    "durationMs": 1460.256576538086,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e"
+  }
+]

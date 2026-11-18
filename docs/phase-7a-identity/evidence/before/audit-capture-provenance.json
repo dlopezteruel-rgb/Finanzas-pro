@@ -1,0 +1,45 @@
+[
+  {
+    "command": [
+      "npm",
+      "audit",
+      "--json"
+    ],
+    "code": 1,
+    "durationMs": 1353.9385795593262,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e",
+    "workingTreeDirty": true,
+    "dependencyLockUnchanged": true,
+    "counts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 6,
+      "critical": 0,
+      "total": 6
+    },
+    "reason": "Initial combined stderr/stdout contained npm update notices after valid JSON. Original combined bytes retained; this is a new actual invocation with separated streams, not a rewritten audit."
+  },
+  {
+    "command": [
+      "npm",
+      "audit",
+      "--omit=dev",
+      "--json"
+    ],
+    "code": 1,
+    "durationMs": 1241.2776947021484,
+    "source": "208f1830581dc6c424118ee0edb77903ec83042e",
+    "workingTreeDirty": true,
+    "dependencyLockUnchanged": true,
+    "counts": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 6,
+      "critical": 0,
+      "total": 6
+    },
+    "reason": "Initial combined stderr/stdout contained npm update notices after valid JSON. Original combined bytes retained; this is a new actual invocation with separated streams, not a rewritten audit."
+  }
+]

@@ -5,6 +5,7 @@ import {appendFile,mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
+import {validateIdentityReport} from './identity-report.mjs';
 import {validateDurabilityReport,validateCrashControls} from './durability-report.mjs';
 import {execFileSync} from 'node:child_process';
 export {executeLogged} from './logged-command.mjs';
@@ -37,10 +38,11 @@ export async function runCheck(mode){
     }
     if(mode==='browser'){
       const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+      summary.identity=validateIdentityReport(JSON.parse(await readFile(path.join(dir,'identity-foundation.json'),'utf8')),sha);
       summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
       summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
       const engine=JSON.parse(await readFile(path.join(dir,'web-storage-engine.json'),'utf8')),ui=JSON.parse(await readFile(path.join(dir,'web-storage-ui.json'),'utf8'));
-      if(summary.tests.reduce((n,r)=>n+r.tests,0)<997||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      if(summary.tests.reduce((n,r)=>n+r.tests,0)<1005||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('All997 original results plus8 identity contract results and mandatory WEB-001 engine/UI/crash coverage are required.');
       const native=JSON.parse(await readFile(path.join(dir,'native-vault-adapter-axe.json'),'utf8'));if(native.observations?.length!==91||native.observations.some(o=>o.violations.length))throw Error('All91 native adapter axe surfaces are required.');summary.nativeVault={surfaces:91,violations:0,manualReviewRequired:true};
       summary.webStorage={engineCases:engine.results.length,uiSurfaces:ui.observations.length,violations:0,incompleteGroups:ui.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));

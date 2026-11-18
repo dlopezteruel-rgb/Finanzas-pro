@@ -109,3 +109,5 @@ test('5G: prototipo local y adaptadores en Chromium; no es ejecución nativa',{t
   await writeFile(path.join(reports,`translated-native-preview-${language}.json`),JSON.stringify({scope:'Production native build in Chromium only. No device,WebView or durable native storage validation.',observations},null,2)+'\n');
  }
 });
+
+import './identityFoundationCases';

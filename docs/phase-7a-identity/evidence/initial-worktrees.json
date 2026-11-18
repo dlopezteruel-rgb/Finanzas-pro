@@ -1,0 +1,64 @@
+[
+  {
+    "path": "/workspace/work/Finanzas-pro-rebuild",
+    "head": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
+    "status": [
+      "?? docs/phase-5e-performance-optimization.md",
+      "?? scripts/performance/"
+    ]
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5d-baseline",
+    "head": "0a155a81ac31a96f28d515f64502507c91773f30",
+    "status": [
+      "?? node_modules"
+    ]
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5e",
+    "head": "ddcf3a97a0a2a9078706c0b76b8403142036a63e",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5f",
+    "head": "b2eb33277c8f15a92fb6b5ad76b595a652a7c49e",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5f-base",
+    "head": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5g",
+    "head": "4796e3f7585bc258acef73d440a6bd147bb6010f",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5g-base",
+    "head": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-5h",
+    "head": "472d2ed6f280f6373aa48ac67eebab0bbf3ea761",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-security",
+    "head": "c18638c57c062d0295fb352d00e75889c89d3526",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-web-durable",
+    "head": "168c03a9a5fe00ada839739f0c11aec1f6e7a0b4",
+    "status": []
+  },
+  {
+    "path": "/workspace/work/Finanzas-pro-web001-baseline",
+    "head": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+    "status": [
+      "?? node_modules"
+    ]
+  }
+]
