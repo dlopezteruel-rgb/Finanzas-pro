@@ -1,0 +1,18 @@
+{
+  "version": "0.0.0",
+  "name": "react-example",
+  "dependencies": {
+    "vite": {
+      "version": "8.3.7",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.7.tgz",
+      "overridden": false,
+      "dependencies": {
+        "rolldown": {
+          "version": "1.2.18",
+          "resolved": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.18.tgz",
+          "overridden": false
+        }
+      }
+    }
+  }
+}

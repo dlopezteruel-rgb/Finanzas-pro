@@ -1,0 +1,20 @@
+[
+  {
+    "kind": "browser",
+    "zipSHA256": "1cc9c717f4d4869b38aca334d44972037d7f1ab39f96a70c9edbb594f40d72bb",
+    "files": 1090,
+    "digestVerified": true
+  },
+  {
+    "kind": "unit",
+    "zipSHA256": "2b53b59641f0ed12b9279a3c7369fda52d54e0f13285bb13513b8be39daf5297",
+    "files": 4,
+    "digestVerified": true
+  },
+  {
+    "kind": "code",
+    "zipSHA256": "03fd923b2a9b5bf23fc506287e8cb62b532d0e5ef0e65a728cba800281e25431",
+    "files": 19,
+    "digestVerified": true
+  }
+]

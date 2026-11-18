@@ -31,7 +31,9 @@
     "native:android:assemble": "npm run native:sync:android && node scripts/native/android-build.mjs",
     "test:native:engine": "python3 scripts/native/sqlcipher.integration.py",
     "test:ui:native-vault": "node --import tsx scripts/nativeVault.browser.ts",
-    "test:durability": "node --import tsx scripts/webDurability.browser.ts"
+    "test:durability": "node --import tsx scripts/webDurability.browser.ts",
+    "test:security:server": "node --test scripts/security/server.test.mjs",
+    "audit:security": "node scripts/security/audit.mjs"
   },
   "dependencies": {
     "@capacitor/android": "8.6.2",

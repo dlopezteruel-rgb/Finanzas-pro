@@ -1,0 +1,77 @@
+{
+  "before": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "after": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "method": "5 alternating launches each; same Node/installed lockfile/root production assets; no module tracer; HTTP readiness including polling, not pure CPU; immediate /proc RSS approximation; cold process with warm OS/dependency cache; no financial writes or remote API",
+  "rows": [
+    {
+      "label": "before",
+      "sample": 0,
+      "readyMs": 1327.140431,
+      "rssKiB": 237408,
+      "passed": true
+    },
+    {
+      "label": "after",
+      "sample": 0,
+      "readyMs": 320.82067900000015,
+      "rssKiB": 76532,
+      "passed": true
+    },
+    {
+      "label": "after",
+      "sample": 1,
+      "readyMs": 353.59826199999975,
+      "rssKiB": 76140,
+      "passed": true
+    },
+    {
+      "label": "before",
+      "sample": 1,
+      "readyMs": 693.843296,
+      "rssKiB": 223588,
+      "passed": true
+    },
+    {
+      "label": "before",
+      "sample": 2,
+      "readyMs": 591.3787299999999,
+      "rssKiB": 213572,
+      "passed": true
+    },
+    {
+      "label": "after",
+      "sample": 2,
+      "readyMs": 306.7408230000001,
+      "rssKiB": 76748,
+      "passed": true
+    },
+    {
+      "label": "after",
+      "sample": 3,
+      "readyMs": 299.7327049999999,
+      "rssKiB": 76460,
+      "passed": true
+    },
+    {
+      "label": "before",
+      "sample": 3,
+      "readyMs": 767.5519510000004,
+      "rssKiB": 228116,
+      "passed": true
+    },
+    {
+      "label": "before",
+      "sample": 4,
+      "readyMs": 758.7983540000005,
+      "rssKiB": 232112,
+      "passed": true
+    },
+    {
+      "label": "after",
+      "sample": 4,
+      "readyMs": 300.10153100000025,
+      "rssKiB": 76688,
+      "passed": true
+    }
+  ]
+}

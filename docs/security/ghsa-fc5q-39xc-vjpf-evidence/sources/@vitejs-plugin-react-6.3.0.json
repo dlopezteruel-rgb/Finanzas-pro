@@ -1,0 +1,145 @@
+{
+  "bugs": {
+    "url": "https://github.com/vitejs/vite-plugin-react/issues"
+  },
+  "dist": {
+    "shasum": "28b3ec6e786601a362fbfdf8b12725931b619669",
+    "tarball": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.3.0.tgz",
+    "fileCount": 10,
+    "integrity": "sha512-H9E955aVvD2F4zNHCw4eIZbIfF6xKldlh7MNu+hSU7xwQzh65lI/N+CJWqmfhi0PEjDXIt/H7T7J/4wU63KJiw==",
+    "signatures": [
+      {
+        "sig": "MEUCIQCdgoLcWpn5c/hgOwsF06lY3sfxx6chA3ormfqyYHkKlgIgI/pmYq23G0NGS8l1p0hRrtTWifpljVPsPIRJ9bv7Xro=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEYCIQCdWO3ej7Y4B4HA3uIQuk1m5VOzg4qaIaOxbsq7rFbrtwIhAOVFoXYM361j2ejjnuJ9mg/UG84OEeuFRZBsoWmajAD5",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/@vitejs%2fplugin-react@6.3.0",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 47551
+  },
+  "name": "@vitejs/plugin-react",
+  "type": "module",
+  "author": {
+    "name": "Evan You"
+  },
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./preamble": "./types/preamble.d.ts"
+  },
+  "gitHead": "0e95069a8f90489da74371c9ad35dfc619c1b72e",
+  "imports": {
+    "#babelPreset": "./dist/reactCompilerBabelPreset.js",
+    "#optionalTypes": "./types/optionalTypes.d.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "tsdown --watch ./src --watch ../common",
+    "build": "tsdown",
+    "test-unit": "vitest run",
+    "prepublishOnly": "npm run build"
+  },
+  "_npmUser": {
+    "name": "GitHub Actions",
+    "email": "npm-oidc-no-reply@github.com",
+    "trustedPublisher": {
+      "id": "github",
+      "oidcConfigId": "edf31d29-a728-45df-ba8b-a16b612e2d5f"
+    }
+  },
+  "homepage": "https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#readme",
+  "keywords": [
+    "fast refresh",
+    "react",
+    "react-refresh",
+    "vite",
+    "vite-plugin"
+  ],
+  "repository": {
+    "url": "git+https://github.com/vitejs/vite-plugin-react.git",
+    "type": "git",
+    "directory": "packages/plugin-react"
+  },
+  "_npmVersion": "11.21.2",
+  "description": "The default Vite plugin for React projects",
+  "directories": {},
+  "maintainers": [
+    {
+      "name": "yyx990803",
+      "email": "yyx990803@gmail.com"
+    },
+    {
+      "name": "vitebot",
+      "email": "vite@voidzero.dev"
+    }
+  ],
+  "_nodeVersion": "24.22.2",
+  "contributors": [
+    {
+      "name": "Alec Larson"
+    },
+    {
+      "name": "Arnaud Barr\u00e9"
+    }
+  ],
+  "dependencies": {
+    "@rolldown/pluginutils": "^1.0.1"
+  },
+  "_hasShrinkwrap": false,
+  "devDependencies": {
+    "vite": "^8.3.5",
+    "react": "^19.3.1",
+    "tsdown": "^0.23.4",
+    "rolldown": "^1.2.16",
+    "react-dom": "^19.3.1",
+    "oxc-transform-react": "^0.156.0",
+    "@vitejs/react-common": "workspace:*",
+    "@rolldown/plugin-babel": "^0.3.0",
+    "babel-plugin-react-compiler": "^1.0.0"
+  },
+  "peerDependencies": {
+    "vite": "^8.0.0",
+    "oxc-transform-react": ">=0.152.0 <0.157.0",
+    "@rolldown/plugin-babel": "^0.1.7 || ^0.2.0 || ^0.3.0",
+    "babel-plugin-react-compiler": "^1.0.0"
+  },
+  "compatiblePackages": {
+    "rollup": {
+      "type": "incompatible",
+      "reason": "Uses Rolldown-specific APIs or Vite-specific APIs"
+    },
+    "rolldown": {
+      "note": "You can use Rolldown's built-in feature directly.",
+      "type": "compatible",
+      "versions": "^1.0.0"
+    },
+    "schemaVersion": 1
+  },
+  "peerDependenciesMeta": {
+    "oxc-transform-react": {
+      "optional": true
+    },
+    "@rolldown/plugin-babel": {
+      "optional": true
+    },
+    "babel-plugin-react-compiler": {
+      "optional": true
+    }
+  },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/plugin-react_6.3.0_1794204750921_0.3833916306135",
+    "host": "s3://npm-registry-packages-npm-production"
+  },
+  "_id": "@vitejs/plugin-react@6.3.0",
+  "version": "6.3.0"
+}

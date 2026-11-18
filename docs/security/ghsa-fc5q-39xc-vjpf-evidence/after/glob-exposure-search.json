@@ -1,0 +1,44 @@
+{
+  "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "results": [
+    {
+      "command": [
+        "rg",
+        "-n",
+        "picomatch|tinyglobby|globSync|glob\\(",
+        "src",
+        "server.ts",
+        "config",
+        "vite.config.ts",
+        "vite.native.config.ts"
+      ],
+      "code": 1,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rg",
+        "-n",
+        "picomatch|tinyglobby",
+        "node_modules/vite/dist/node/chunks/node.js"
+      ],
+      "code": 0,
+      "stdout": "14:import pm from \"picomatch\";\n26:import { escapePath, glob, globSync, isDynamicPattern } from \"tinyglobby\";\n9088:\tconst picomatch = __require(\"picomatch\");\n9127:\t\t\tconst glob = picomatch(filter.trim());\n9135:\t\t\t\tif (trimmed.charAt(0) === BANG) negative.push(picomatch(trimmed.slice(1)));\n9136:\t\t\t\telse positive.push(picomatch(trimmed));\n9364:\tconst picomatch = __require(\"picomatch\");\n9382:\t\t\tconst glob = picomatch(matcher, options);\n9422:\t\tconst negatedGlobs = mtchers.filter((item) => typeof item === \"string\" && item.charAt(0) === BANG).map((item) => item.slice(1)).map((item) => picomatch(item, opts));\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "rg",
+        "-n",
+        "picomatch|glob\\(",
+        "node_modules/fdir/dist/index.mjs",
+        "node_modules/tinyglobby/dist/index.mjs"
+      ],
+      "code": 0,
+      "stdout": "node_modules/tinyglobby/dist/index.mjs:5:import picomatch from \"picomatch\";\nnode_modules/tinyglobby/dist/index.mjs:22:\t\tfor (j = 0; j < partsCount; j++) partMatchers[j] = picomatch(parts[j], options);\nnode_modules/tinyglobby/dist/index.mjs:82:\tconst result = picomatch.scan(path, splitPatternOptions);\nnode_modules/tinyglobby/dist/index.mjs:123:\tconst scan = picomatch.scan(pattern);\nnode_modules/tinyglobby/dist/index.mjs:217:\tconst matcher = picomatch(processed.match, matchOptions);\nnode_modules/tinyglobby/dist/index.mjs:218:\tconst ignore = picomatch(processed.ignore, matchOptions);\nnode_modules/tinyglobby/dist/index.mjs:298:async function glob(globInput, options) {\nnode_modules/fdir/dist/index.mjs:443:\t__require.resolve(\"picomatch\");\nnode_modules/fdir/dist/index.mjs:444:\tpm = __require(\"picomatch\");\nnode_modules/fdir/dist/index.mjs:551:\tglob(...patterns) {\n",
+      "stderr": ""
+    }
+  ],
+  "scope": "Authored runtime/config entry points and installed Vite/fdir/tinyglobby; an empty authored match is not an exhaustive proof of absence of reachable upstream behavior."
+}

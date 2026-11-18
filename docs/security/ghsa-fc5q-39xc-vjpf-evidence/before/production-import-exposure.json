@@ -1,0 +1,29 @@
+{
+  "source": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "readyMs": 1140.7505520000002,
+  "response": {
+    "status": 200,
+    "reply": {
+      "success": true,
+      "reply": "FICTITIOUS FALLBACK"
+    }
+  },
+  "loaded": {
+    "vite": [
+      "file:///workspace/work/Finanzas-pro-security/node_modules/vite/dist/node/index.js",
+      "file:///workspace/work/Finanzas-pro-security/node_modules/vite/dist/node/chunks/node.js",
+      "file:///workspace/work/Finanzas-pro-security/node_modules/vite/dist/node/module-runner.js",
+      "file:///workspace/work/Finanzas-pro-security/node_modules/vite/misc/true.js"
+    ],
+    "picomatch": [
+      "file:///workspace/work/Finanzas-pro-security/node_modules/picomatch/index.js"
+    ],
+    "tinyglobby": [
+      "file:///workspace/work/Finanzas-pro-security/node_modules/tinyglobby/dist/index.mjs"
+    ],
+    "fdir": [
+      "file:///workspace/work/Finanzas-pro-security/node_modules/fdir/dist/index.mjs"
+    ]
+  },
+  "scope": "Actual production server import trace and safe fictional API request. Loading a module does not itself prove exploitable glob input."
+}

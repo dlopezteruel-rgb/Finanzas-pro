@@ -1,0 +1,62 @@
+[
+  {
+    "name": "picomatch-pr194-files",
+    "endpoint": "repos/micromatch/picomatch/pulls/194/files?per_page=100",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "picomatch-advisories",
+    "endpoint": "advisories?affects=npm%2Fpicomatch&per_page=100",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "vite-advisories",
+    "endpoint": "advisories?affects=npm%2Fvite&per_page=100",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "vite-releases",
+    "endpoint": "repos/vitejs/vite/releases?per_page=3",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "fdir-releases",
+    "endpoint": "repos/thecodrr/fdir/releases?per_page=3",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "fdir-commits",
+    "endpoint": "repos/thecodrr/fdir/commits?per_page=5",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "fdir-advisories",
+    "endpoint": "advisories?affects=npm%2Ffdir&per_page=100",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "tinyglobby-releases",
+    "endpoint": "repos/SuperchupuDev/tinyglobby/releases?per_page=3",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "tinyglobby-commits",
+    "endpoint": "repos/SuperchupuDev/tinyglobby/commits?per_page=5",
+    "code": 0,
+    "stderr": ""
+  },
+  {
+    "name": "tinyglobby-advisories",
+    "endpoint": "advisories?affects=npm%2Ftinyglobby&per_page=100",
+    "code": 0,
+    "stderr": ""
+  }
+]

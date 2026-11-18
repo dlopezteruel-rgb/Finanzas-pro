@@ -1,0 +1,11 @@
+{
+  "version": "0.0.0",
+  "name": "react-example",
+  "dependencies": {
+    "@tailwindcss/vite": {
+      "version": "4.3.5",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.5.tgz",
+      "overridden": false
+    }
+  }
+}

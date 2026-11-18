@@ -1,0 +1,11 @@
+{
+  "main": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "head": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "onlyServerChangeIsImportPlacement": true,
+  "existingWorkflowJobsUnchanged": true,
+  "lockfileByteIdentical": true,
+  "financialDomainAndNativeChangedFiles": [],
+  "browserManifestUnchanged": true,
+  "modifiedExistingTestFiles": [],
+  "remoteMainRechecked": "208f1830581dc6c424118ee0edb77903ec83042e"
+}

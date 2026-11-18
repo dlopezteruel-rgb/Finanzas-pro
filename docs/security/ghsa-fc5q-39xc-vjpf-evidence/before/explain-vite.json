@@ -1,0 +1,66 @@
+[
+  {
+    "name": "vite",
+    "version": "8.3.7",
+    "location": "node_modules/vite",
+    "isWorkspace": false,
+    "dependents": [
+      {
+        "type": "prod",
+        "name": "vite",
+        "spec": "^8.3.0",
+        "from": {
+          "location": "/workspace/work/Finanzas-pro-security"
+        }
+      },
+      {
+        "type": "peer",
+        "name": "vite",
+        "spec": "^5.2.0 || ^6 || ^7 || ^8",
+        "from": {
+          "name": "@tailwindcss/vite",
+          "version": "4.3.5",
+          "location": "node_modules/@tailwindcss/vite",
+          "isWorkspace": false,
+          "dependents": [
+            {
+              "type": "prod",
+              "name": "@tailwindcss/vite",
+              "spec": "^4.3.3",
+              "from": {
+                "location": "/workspace/work/Finanzas-pro-security"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "peer",
+        "name": "vite",
+        "spec": "^8.0.0",
+        "from": {
+          "name": "@vitejs/plugin-react",
+          "version": "6.3.0",
+          "location": "node_modules/@vitejs/plugin-react",
+          "isWorkspace": false,
+          "dependents": [
+            {
+              "type": "prod",
+              "name": "@vitejs/plugin-react",
+              "spec": "^6.1.1",
+              "from": {
+                "location": "/workspace/work/Finanzas-pro-security"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "dev": false,
+    "optional": false,
+    "devOptional": false,
+    "peer": false,
+    "bundled": false,
+    "overridden": false
+  }
+]

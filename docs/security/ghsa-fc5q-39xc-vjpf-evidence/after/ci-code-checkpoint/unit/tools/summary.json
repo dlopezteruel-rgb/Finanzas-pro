@@ -1,0 +1,37 @@
+{
+  "mode": "tools",
+  "node": "v24.22.1",
+  "passed": true,
+  "commands": [
+    {
+      "command": [
+        "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+        "--test",
+        "scripts/ci/async-storage-conditions.test.mjs",
+        "scripts/ci/browser-battery.vault.test.mjs",
+        "scripts/ci/browser-battery.web.test.mjs",
+        "scripts/ci/browser-diagnostics.test.mjs",
+        "scripts/ci/check-diff.test.mjs",
+        "scripts/ci/durability-report.test.mjs",
+        "scripts/ci/run-check.test.mjs",
+        "scripts/ci/security-report.test.mjs",
+        "scripts/ci/test-results.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 816
+    }
+  ],
+  "tests": [
+    {
+      "tests": 56,
+      "suites": 0,
+      "pass": 56,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  ],
+  "error": null
+}

@@ -1,0 +1,333 @@
+{
+  "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "generatedAt": "2026-11-18T02:36:48.167Z",
+  "node": "v24.22.1",
+  "passed": false,
+  "state": "vulnerabilities-present",
+  "exitCode": 1,
+  "audits": {
+    "audit": {
+      "code": 1,
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 5,
+        "critical": 0,
+        "total": 5
+      },
+      "affectedPackages": [
+        "@vitejs/plugin-react",
+        "fdir",
+        "picomatch",
+        "tinyglobby",
+        "vite"
+      ],
+      "advisories": [
+        "https://github.com/advisories/GHSA-fc5q-39xc-vjpf"
+      ]
+    },
+    "audit-production": {
+      "code": 1,
+      "counts": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 5,
+        "critical": 0,
+        "total": 5
+      },
+      "affectedPackages": [
+        "@vitejs/plugin-react",
+        "fdir",
+        "picomatch",
+        "tinyglobby",
+        "vite"
+      ],
+      "advisories": [
+        "https://github.com/advisories/GHSA-fc5q-39xc-vjpf"
+      ]
+    }
+  },
+  "errors": [],
+  "targetOpen": true,
+  "dependencies": [
+    {
+      "name": "picomatch",
+      "directDependency": false,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/picomatch",
+          "version": "4.0.7",
+          "integrity": "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": ">=12"
+          }
+        }
+      ]
+    },
+    {
+      "name": "fdir",
+      "directDependency": false,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/fdir",
+          "version": "6.5.0",
+          "integrity": "sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": ">=12.0.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "tinyglobby",
+      "directDependency": false,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/tinyglobby",
+          "version": "0.2.17",
+          "integrity": "sha512-wXR/dYpcqKmfWpEdZjiKJOwCNFndD0DMnrW/cYjVGttEkBfVgcLFHoNrlj47mjOVic9yyNu65alsgF4NQyTa2g==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": ">=12.0.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "vite",
+      "directDependency": true,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/vite",
+          "version": "8.3.7",
+          "integrity": "sha512-oxh0dMxrayBr33ScJvvBJ2HBQ2jc1TBrXKR2NyL/MJ9WPuX19mN2DXWUmywKdyw5RFVQBo8hmtb2FMC0LHrnng==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": "^20.19.0 || >=22.12.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "directDependency": true,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/@vitejs/plugin-react",
+          "version": "6.3.0",
+          "integrity": "sha512-H9E955aVvD2F4zNHCw4eIZbIfF6xKldlh7MNu+hSU7xwQzh65lI/N+CJWqmfhi0PEjDXIt/H7T7J/4wU63KJiw==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": "^20.19.0 || >=22.12.0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "@tailwindcss/vite",
+      "directDependency": true,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/@tailwindcss/vite",
+          "version": "4.3.5",
+          "integrity": "sha512-BCNiY0a1ZjdOHVqw7kyb7U72BwfMF3dfUuN+tQsLWky/J5JOI/r7abibglXfygrZhVO/3u3V+E25kkKTeMkXaQ==",
+          "dev": false,
+          "optional": false,
+          "engines": null
+        }
+      ]
+    },
+    {
+      "name": "rolldown",
+      "directDependency": false,
+      "directDevDependency": false,
+      "copies": [
+        {
+          "path": "node_modules/rolldown",
+          "version": "1.2.18",
+          "integrity": "sha512-C1uuT3UR60SShuCaPQFAAZyefJCWZlAKB02BV3BuPE2Rs4fevRQltEKoFO2tV5W9/eJhU5RieV6vJj3euulfNQ==",
+          "dev": false,
+          "optional": false,
+          "engines": {
+            "node": "^20.19.0 || >=22.12.0"
+          }
+        }
+      ]
+    }
+  ],
+  "commands": [
+    {
+      "name": "node",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 8.728910999999997
+    },
+    {
+      "name": "npm",
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 86.46252
+    },
+    {
+      "name": "ls-picomatch",
+      "command": [
+        "npm",
+        "ls",
+        "picomatch",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 511.25086799999997
+    },
+    {
+      "name": "ls-fdir",
+      "command": [
+        "npm",
+        "ls",
+        "fdir",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 476.8314250000001
+    },
+    {
+      "name": "ls-tinyglobby",
+      "command": [
+        "npm",
+        "ls",
+        "tinyglobby",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 816.6608679999999
+    },
+    {
+      "name": "ls-vite",
+      "command": [
+        "npm",
+        "ls",
+        "vite",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 482.0040700000002
+    },
+    {
+      "name": "ls-@vitejs-plugin-react",
+      "command": [
+        "npm",
+        "ls",
+        "@vitejs/plugin-react",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 452.25784699999986
+    },
+    {
+      "name": "ls-@tailwindcss-vite",
+      "command": [
+        "npm",
+        "ls",
+        "@tailwindcss/vite",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 484.59292300000016
+    },
+    {
+      "name": "ls-rolldown",
+      "command": [
+        "npm",
+        "ls",
+        "rolldown",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 706.9777690000001
+    },
+    {
+      "name": "explain-picomatch",
+      "command": [
+        "npm",
+        "explain",
+        "picomatch",
+        "--json"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 427.7985880000001
+    },
+    {
+      "name": "explain-vite",
+      "command": [
+        "npm",
+        "explain",
+        "vite",
+        "--json"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 440.66110500000013
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "code": 1,
+      "signal": null,
+      "durationMs": 1444.8191610000003
+    },
+    {
+      "name": "audit-production",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "code": 1,
+      "signal": null,
+      "durationMs": 713.3354990000007
+    }
+  ]
+}

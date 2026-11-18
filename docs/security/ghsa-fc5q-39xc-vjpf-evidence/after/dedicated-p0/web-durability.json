@@ -1,0 +1,739 @@
+{
+  "backend": "indexeddb",
+  "repetitions": 20,
+  "runStartedAt": "2026-11-18T01:49:01.180Z",
+  "finishedAt": "2026-11-18T01:50:33.721Z",
+  "sourceCommit": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "scope": "Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.",
+  "productionDist": "/workspace/work/Finanzas-pro-security/dist",
+  "browser": {
+    "version": "156.0.8078.79",
+    "executable": "/usr/bin/chromium"
+  },
+  "results": [
+    {
+      "scenario": "graceful-after-confirmed-save",
+      "repetition": 0,
+      "profileId": "profile-iE6kP4",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "5796d0a0310ab6deb2eacd8a3a2d09e0d2711e9b2f2fd9b94f4511052d4df045",
+        "observedSnapshotHash": "5796d0a0310ab6deb2eacd8a3a2d09e0d2711e9b2f2fd9b94f4511052d4df045",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "b20363af-1596-4e4a-ab61-914652264065",
+        "recoveredRevision": "b20363af-1596-4e4a-ab61-914652264065",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966543888"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966543888"
+        ],
+        "confirmationToKillMs": 8.623152000000118,
+        "submitToConfirmationMs": 123.69630899999993
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 0,
+      "profileId": "profile-Dov1ZM",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "1a4648d51acb5902080c39220c5bde15aa30ea9e83a026d6694f300e9a8d0a19",
+        "observedSnapshotHash": "1a4648d51acb5902080c39220c5bde15aa30ea9e83a026d6694f300e9a8d0a19",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "1f0a7fe0-85f5-41ad-9e8c-d8306aad016c",
+        "recoveredRevision": "1f0a7fe0-85f5-41ad-9e8c-d8306aad016c",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966548419"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966548419"
+        ],
+        "confirmationToKillMs": 4.265172000000348,
+        "submitToConfirmationMs": 128.80445400000008
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 1,
+      "profileId": "profile-z0z5TT",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "c4942661cbefa52f4519568a8af91d26729f97649dfcb94b3f302041e4d13ed5",
+        "observedSnapshotHash": "c4942661cbefa52f4519568a8af91d26729f97649dfcb94b3f302041e4d13ed5",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "273ef4b5-89e8-4f59-a6f0-b6d9402ba44e",
+        "recoveredRevision": "273ef4b5-89e8-4f59-a6f0-b6d9402ba44e",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966552652"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966552652"
+        ],
+        "confirmationToKillMs": 3.4480810000004567,
+        "submitToConfirmationMs": 123.41444899999988
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 2,
+      "profileId": "profile-wgJXKB",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "35659ff15d693a1eb725b659e4976c5cb1740819effdf70cb0719f537a79244e",
+        "observedSnapshotHash": "35659ff15d693a1eb725b659e4976c5cb1740819effdf70cb0719f537a79244e",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "7fb71212-65c4-4beb-9ac6-5917eb76c756",
+        "recoveredRevision": "7fb71212-65c4-4beb-9ac6-5917eb76c756",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966557136"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966557136"
+        ],
+        "confirmationToKillMs": 4.641540000000532,
+        "submitToConfirmationMs": 132.99830199999997
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 3,
+      "profileId": "profile-WReSiN",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "93c8787acef34579cb181d3f31af30ef964497186cff7eb105289791bd50b52c",
+        "observedSnapshotHash": "93c8787acef34579cb181d3f31af30ef964497186cff7eb105289791bd50b52c",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "ad46373a-b3c9-48d6-9f83-ca9b9b6bdcf6",
+        "recoveredRevision": "ad46373a-b3c9-48d6-9f83-ca9b9b6bdcf6",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966560952"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966560952"
+        ],
+        "confirmationToKillMs": 8.593333999997412,
+        "submitToConfirmationMs": 166.5498950000001
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 4,
+      "profileId": "profile-tSOFFR",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "f0581e5c48370d38418507572e5ba3466a84ae82826e60beaed9a0ac90b32128",
+        "observedSnapshotHash": "f0581e5c48370d38418507572e5ba3466a84ae82826e60beaed9a0ac90b32128",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "25f4ec75-537c-4de7-ac1b-76deb34d8261",
+        "recoveredRevision": "25f4ec75-537c-4de7-ac1b-76deb34d8261",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966564619"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966564619"
+        ],
+        "confirmationToKillMs": 3.744160999998712,
+        "submitToConfirmationMs": 127.71812499999942
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 5,
+      "profileId": "profile-742HZa",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "1f2f46f7af9ccbb994d9f581b550c016076ee4163e390bfb121c96e8f3d3af65",
+        "observedSnapshotHash": "1f2f46f7af9ccbb994d9f581b550c016076ee4163e390bfb121c96e8f3d3af65",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "2fd634d1-f80f-429d-a928-2804f3041e29",
+        "recoveredRevision": "2fd634d1-f80f-429d-a928-2804f3041e29",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966569071"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966569071"
+        ],
+        "confirmationToKillMs": 5.410733000000619,
+        "submitToConfirmationMs": 96.09560200000124
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 6,
+      "profileId": "profile-hgEaMX",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "73c7efdefe8dc391472d8675927d008a7ef447886c603be31a17d7234bdd779b",
+        "observedSnapshotHash": "73c7efdefe8dc391472d8675927d008a7ef447886c603be31a17d7234bdd779b",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "805f1637-af9a-44a4-8ce8-e09830148197",
+        "recoveredRevision": "805f1637-af9a-44a4-8ce8-e09830148197",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966573402"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966573402"
+        ],
+        "confirmationToKillMs": 3.9553000000014435,
+        "submitToConfirmationMs": 137.2255109999969
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 7,
+      "profileId": "profile-be4PTP",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "e67d4623f8880d1c05fd44b39ddb1e19d30cb4887a98e3c551d52c152ea2065d",
+        "observedSnapshotHash": "e67d4623f8880d1c05fd44b39ddb1e19d30cb4887a98e3c551d52c152ea2065d",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "282b8f05-cf76-4f0e-9f82-a77aed948bb9",
+        "recoveredRevision": "282b8f05-cf76-4f0e-9f82-a77aed948bb9",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966578020"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966578020"
+        ],
+        "confirmationToKillMs": 6.397108999997727,
+        "submitToConfirmationMs": 102.0916520000028
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 8,
+      "profileId": "profile-BUhAkw",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "37881e1dc962617d007c9bc65231245c605192450cab36db352595ddcc06ceea",
+        "observedSnapshotHash": "37881e1dc962617d007c9bc65231245c605192450cab36db352595ddcc06ceea",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "5a5fbfc3-8acc-4136-8e0f-263d1b42b576",
+        "recoveredRevision": "5a5fbfc3-8acc-4136-8e0f-263d1b42b576",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966582286"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966582286"
+        ],
+        "confirmationToKillMs": 4.372799000004306,
+        "submitToConfirmationMs": 135.63718900000094
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 9,
+      "profileId": "profile-YOJpEv",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "8a10dace07d7c4f94854abec6ea785f995cf2f49681a69058ca5072e1b7464f5",
+        "observedSnapshotHash": "8a10dace07d7c4f94854abec6ea785f995cf2f49681a69058ca5072e1b7464f5",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "4d5d6848-6934-4e74-9ae5-8a6ed82645ac",
+        "recoveredRevision": "4d5d6848-6934-4e74-9ae5-8a6ed82645ac",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966586219"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966586219"
+        ],
+        "confirmationToKillMs": 12.358323000000382,
+        "submitToConfirmationMs": 138.84084699999948
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 10,
+      "profileId": "profile-MJcwCO",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "e976ad4d4580b08ab9ec9c21b744143aafd9de805e8edd7c4ad63361c9df18b1",
+        "observedSnapshotHash": "e976ad4d4580b08ab9ec9c21b744143aafd9de805e8edd7c4ad63361c9df18b1",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "453d8e26-480a-4d1f-817c-e5f5a6cde5c2",
+        "recoveredRevision": "453d8e26-480a-4d1f-817c-e5f5a6cde5c2",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966590601"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966590601"
+        ],
+        "confirmationToKillMs": 4.417974000003596,
+        "submitToConfirmationMs": 156.1541950000028
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 11,
+      "profileId": "profile-vH8fUL",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "4a6a4ec05352ab9f08c237cb2c6b55c09f78689cc602f0a881b0eb8af5c54a40",
+        "observedSnapshotHash": "4a6a4ec05352ab9f08c237cb2c6b55c09f78689cc602f0a881b0eb8af5c54a40",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "a078e372-7253-47bd-90cc-6c0f5e9f6b4c",
+        "recoveredRevision": "a078e372-7253-47bd-90cc-6c0f5e9f6b4c",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966595001"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966595001"
+        ],
+        "confirmationToKillMs": 4.3917379999984405,
+        "submitToConfirmationMs": 137.69465900000068
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 12,
+      "profileId": "profile-zHLKNm",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "fea3207f49ffed38f2cabcb81d8a3446da8f53058eeb28d0b7e929b648f7a186",
+        "observedSnapshotHash": "fea3207f49ffed38f2cabcb81d8a3446da8f53058eeb28d0b7e929b648f7a186",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "53cd2fd3-7029-4bc0-a521-60ab1ed90407",
+        "recoveredRevision": "53cd2fd3-7029-4bc0-a521-60ab1ed90407",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966599218"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966599218"
+        ],
+        "confirmationToKillMs": 3.6332340000008116,
+        "submitToConfirmationMs": 148.77852699999494
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 13,
+      "profileId": "profile-e50qq4",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "24cc19bd68828a971e731b1b8b77d502173f59e3feaa094e53de576aa3454d00",
+        "observedSnapshotHash": "24cc19bd68828a971e731b1b8b77d502173f59e3feaa094e53de576aa3454d00",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "24be1034-4afe-4bfc-ba0c-a76519a31547",
+        "recoveredRevision": "24be1034-4afe-4bfc-ba0c-a76519a31547",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966603103"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966603103"
+        ],
+        "confirmationToKillMs": 6.054322000003594,
+        "submitToConfirmationMs": 105.7317619999958
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 14,
+      "profileId": "profile-CHOGWZ",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "13541bfaff599e521edff90b4aa7ae6d69f754bc91b03b27cc4e67fc91a59b04",
+        "observedSnapshotHash": "13541bfaff599e521edff90b4aa7ae6d69f754bc91b03b27cc4e67fc91a59b04",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "4b3ba729-9644-49b4-9a8c-52a12ae7a61f",
+        "recoveredRevision": "4b3ba729-9644-49b4-9a8c-52a12ae7a61f",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966607753"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966607753"
+        ],
+        "confirmationToKillMs": 8.894404000006034,
+        "submitToConfirmationMs": 172.84118599999056
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 15,
+      "profileId": "profile-hw1OLY",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "e7ddf8a033dd3e622b2b7825f50ae89d1c296a903f7fb97d582bfb8faffbd003",
+        "observedSnapshotHash": "e7ddf8a033dd3e622b2b7825f50ae89d1c296a903f7fb97d582bfb8faffbd003",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "aa4f5e40-3bb8-4106-beb1-5df3bdeb459d",
+        "recoveredRevision": "aa4f5e40-3bb8-4106-beb1-5df3bdeb459d",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966612285"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966612285"
+        ],
+        "confirmationToKillMs": 4.513812000004691,
+        "submitToConfirmationMs": 164.65545500000007
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 16,
+      "profileId": "profile-oDQG3R",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "e30f5ca3dd15e438676db47927957bef2f4e8fdd44df665bbe19a1bdb0b6ad72",
+        "observedSnapshotHash": "e30f5ca3dd15e438676db47927957bef2f4e8fdd44df665bbe19a1bdb0b6ad72",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "0f9bb3ad-71cc-40d6-bbb1-7badfef3ffe9",
+        "recoveredRevision": "0f9bb3ad-71cc-40d6-bbb1-7badfef3ffe9",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966616134"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966616134"
+        ],
+        "confirmationToKillMs": 5.671833000000333,
+        "submitToConfirmationMs": 128.86300199999823
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 17,
+      "profileId": "profile-nhk8wQ",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "61107ef75a50898ee2a9e413e759dcba27975bf3493bc5696702e587a7cc2d42",
+        "observedSnapshotHash": "61107ef75a50898ee2a9e413e759dcba27975bf3493bc5696702e587a7cc2d42",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "38bba1c8-b9ad-4a5f-93db-48c29c3766c6",
+        "recoveredRevision": "38bba1c8-b9ad-4a5f-93db-48c29c3766c6",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966620504"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966620504"
+        ],
+        "confirmationToKillMs": 7.782684000005247,
+        "submitToConfirmationMs": 120.00404599998728
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 18,
+      "profileId": "profile-Gyofz6",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "dd6529e06ab99c0e6194434be721f6057339edac18d6c719e69c9b0143e3150d",
+        "observedSnapshotHash": "dd6529e06ab99c0e6194434be721f6057339edac18d6c719e69c9b0143e3150d",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "3111d921-d5ee-42ce-81b4-fad5aba11327",
+        "recoveredRevision": "3111d921-d5ee-42ce-81b4-fad5aba11327",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966624834"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966624834"
+        ],
+        "confirmationToKillMs": 4.682694999995874,
+        "submitToConfirmationMs": 131.57558000000427
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "repetition": 19,
+      "profileId": "profile-jmjUJq",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "8bfdd568c0ddaa8ca5c611fe2c703b985a51c02180ecaab9f1509b67c4959d55",
+        "observedSnapshotHash": "8bfdd568c0ddaa8ca5c611fe2c703b985a51c02180ecaab9f1509b67c4959d55",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "f104b97d-475f-4d88-b059-366d398d3e1a",
+        "recoveredRevision": "f104b97d-475f-4d88-b059-366d398d3e1a",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966628700"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty",
+          "wallet-1794966628700"
+        ],
+        "confirmationToKillMs": 7.755149999997229,
+        "submitToConfirmationMs": 109.4732570000051
+      }
+    },
+    {
+      "scenario": "before-write-lock-callback",
+      "repetition": 0,
+      "profileId": "profile-fKVv1V",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "confirmedSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "observedSnapshotHash": "8f00088cafb218df5258cf566adbfda0457a31d8f3bf6773638e237ebb1e9a9c",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0,
+        "priorRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "recoveredRevision": "5675d1b6-aad3-476c-90dd-d9628776ae47",
+        "confirmedWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "recoveredWalletIds": [
+          "bank",
+          "rev",
+          "negative",
+          "empty"
+        ],
+        "confirmationToKillMs": 4.229785999996238,
+        "submitToConfirmationMs": 92.81217299999844
+      }
+    }
+  ]
+}

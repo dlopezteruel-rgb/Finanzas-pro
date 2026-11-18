@@ -1,0 +1,171 @@
+{
+  "sourceCommit": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "browser": "156.0.8078.4",
+  "scope": "Actual driver, real isolated Chromium SIGKILL at native request-success/complete signals. Pending transactions held open only by explicit test fault injection. Not production delays, native mobile or physical power-loss certification.",
+  "results": [
+    {
+      "scenario": "migration-during-prepare",
+      "passed": true,
+      "profileId": "profile-xfrgze",
+      "nativeSignal": "request-success-transaction-kept-open",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 26.406760000000077,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": null,
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "a95a99fd-2ccf-400e-aa8b-7fbcce3bfae8",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "migration-after-prepare-commit",
+      "passed": true,
+      "profileId": "profile-HG5tu4",
+      "nativeSignal": "native-complete-response-withheld",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 26.384692000000086,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": null,
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "8008b1a1-c2d4-4fa4-b37e-aec9c3bd3bc8",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "migration-during-activation",
+      "passed": true,
+      "profileId": "profile-0qsroz",
+      "nativeSignal": "request-success-transaction-kept-open",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 26.24795599999925,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": null,
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "6e7bb68e-924d-4d1c-a02b-e19ffa44475e",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "migration-after-activation-commit",
+      "passed": true,
+      "profileId": "profile-ffwwaX",
+      "nativeSignal": "native-complete-response-withheld",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 24.90646199999992,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": null,
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "bfae0ef3-9b60-43af-acc5-1f8e93dd2cad",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "financial-during-transaction",
+      "passed": true,
+      "profileId": "profile-S9dwyJ",
+      "nativeSignal": "request-success-transaction-kept-open",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 28.89874299999974,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": "dab39cfe06bdf568fd32e1cc44ac46e651c3c8e4119fe45d41581412821a1ac0",
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "755ad6f2-7c0a-4c1f-95c9-1a0c062dc745",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "financial-after-commit-before-response",
+      "passed": true,
+      "profileId": "profile-9H2PQ0",
+      "nativeSignal": "native-complete-response-withheld",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 17.16351399999985,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": "86ca6b74320f83f6432b2cb2098df5747cd93864859760a34555bc07ecaa549e",
+      "recoveredHash": "86ca6b74320f83f6432b2cb2098df5747cd93864859760a34555bc07ecaa549e",
+      "revision": "d0288737-1c94-465f-8f9b-d8569c87cf93",
+      "migrationId": "48732c22-d2ee-4f1b-8b42-03983059b39c",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 1
+    },
+    {
+      "scenario": "restore-during-transaction",
+      "passed": true,
+      "profileId": "profile-66V2vt",
+      "nativeSignal": "request-success-transaction-kept-open",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 36.91426500000125,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": "600a45be07745b3338864c6c496d94642de2c3b68a01c0be1a27c039601e9b16",
+      "recoveredHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "revision": "efbfe367-958a-4bd5-9fd4-9e8b465c93c5",
+      "migrationId": "ebab6a4b-c67a-4713-bfdf-3d4309db13c4",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        }
+      ],
+      "operationReceipts": 0
+    },
+    {
+      "scenario": "restore-after-commit-before-response",
+      "passed": true,
+      "profileId": "profile-ZDn9YR",
+      "nativeSignal": "native-complete-response-withheld",
+      "callerSettledBeforeKill": false,
+      "signalToKillCompleteMs": 33.37764799999968,
+      "priorHash": "118bed1f0929ead379b3c8d68080f15410165a9083361b30405604cc930f5fec",
+      "proposedHash": "fb818fbd0b5a90aac6a30a54b13e83b473c42777f3ccdad3bf45b3e98b8adbbf",
+      "recoveredHash": "fb818fbd0b5a90aac6a30a54b13e83b473c42777f3ccdad3bf45b3e98b8adbbf",
+      "revision": "cb80e241-08d2-43ec-9649-5a58c081a0e9",
+      "migrationId": "911fc4c6-a255-43f6-b8ef-f988ef7bd2a8",
+      "copies": [
+        {
+          "key": "finanzas_pro_recovery_preexisting-control",
+          "hash": "1b3f9c6d00c1f952813d756ee20983893375710877f0099f20d182c1682bbac0"
+        },
+        {
+          "key": "finanzas_pro_recovery_2026-11-18T02:15:55.729Z_c9e5c2b8-1899-4484-9f65-a83d71b96de6",
+          "hash": "2e3cefaeb579a3cfea4b81cc82de2202b12a720c63d3f1588d31c879a6effe30"
+        }
+      ],
+      "operationReceipts": 1
+    }
+  ]
+}

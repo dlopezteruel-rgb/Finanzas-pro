@@ -1,0 +1,8 @@
+{
+  "library": "/workspace/work/5h-sqlcipher-engine/sqlcipher-355d4db92d3404e71faa8088d071a71d767807f4/libsqlcipher.so",
+  "librarySHA256": "07569566358c6a1a19bdd0b7ac439b9cee21a5ae8bc50fd88ec5a922d87f2c3d",
+  "sqlite": "3.54.1",
+  "openssl": "OpenSSL 3.5.7 9 Jun 2026 (Library: OpenSSL 3.5.7 9 Jun 2026)",
+  "ldd": "\tlinux-vdso.so.1 (0x00007f0d3f13a000)\n\tlibcrypto.so.3 => /lib/x86_64-linux-gnu/libcrypto.so.3 (0x00007f0d3e9e1000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f0d3e7ed000)\n\t/lib64/ld-linux-x86-64.so.2 (0x00007f0d3f13c000)\n\tlibz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f0d3e7cd000)\n\tlibzstd.so.1 => /lib/x86_64-linux-gnu/libzstd.so.1 (0x00007f0d3e703000)\n",
+  "scope": "11 real SQLCipher 4.20 Linux tests; not Android Keystore or Apple Keychain validation"
+}

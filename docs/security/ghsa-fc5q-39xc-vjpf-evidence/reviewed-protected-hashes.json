@@ -1,0 +1,14 @@
+[
+  {
+    "file": "server.ts",
+    "before": "ed3b4ae2cceafd2cd51370a4ce4279dd6bc621b63cca19804eb7ae6a883406e6",
+    "after": "b6d1e0cbefb324c59f8d067f6d6d625e7dec6b0bd5b15186baafd885a31267ff",
+    "reason": "Authorized security-only changes: development-only Vite import or independent truthful npm security job. Real server/HMR tests6/6; original three financial jobs and50min unchanged."
+  },
+  {
+    "file": ".github/workflows/ci.yml",
+    "before": "c5240356c8cecc290982aaf85e413e13f3a09df629ef1d5246435fcf7e853556",
+    "after": "699900c4701c9259cabc811b2b59de43c6d173a24fef1e3c9e72b925dfa8de12",
+    "reason": "Authorized security-only changes: development-only Vite import or independent truthful npm security job. Real server/HMR tests6/6; original three financial jobs and50min unchanged."
+  }
+]

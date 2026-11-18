@@ -3,8 +3,8 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1112,
-    "review": 3567,
+    "type-or-import": 1111,
+    "review": 3568,
     "translation-key": 1556,
     "ui-message-candidate": 399,
     "attribute-internal": 2198,
@@ -552,17 +552,17 @@
     {
       "file": "server.ts",
       "policy": "API and prompts protected; localize owned presentation at the UI boundary only",
-      "sourceSha256": "ed3b4ae2cceafd2cd51370a4ce4279dd6bc621b63cca19804eb7ae6a883406e6",
+      "sourceSha256": "b6d1e0cbefb324c59f8d067f6d6d625e7dec6b0bd5b15186baafd885a31267ff",
       "counts": {
-        "type-or-import": 10,
-        "review": 18,
+        "type-or-import": 9,
+        "review": 19,
         "ui-message-candidate": 4
       },
       "visibleCandidateLines": [
-        44,
-        46,
-        51,
-        58
+        43,
+        45,
+        50,
+        57
       ],
       "presentationCalls": []
     },
