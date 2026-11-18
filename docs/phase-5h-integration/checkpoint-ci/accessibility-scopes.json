@@ -1,0 +1,47 @@
+{
+  "source": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+  "run": "https://github.com/dlopezteruel-rgb/Finanzas-pro/actions/runs/44183972725",
+  "scopes": {
+    "inheritedGeneralWeb": {
+      "surfaces": 1571,
+      "incompleteGroups": 946,
+      "equivalentSets": 53,
+      "automatedViolations": 0,
+      "manualReview": "required"
+    },
+    "main33WebStorage": {
+      "surfaces": 40,
+      "incompleteGroups": 36,
+      "equivalentSets": 3,
+      "automatedViolations": 0,
+      "manualReview": "required"
+    },
+    "native32Adapter": {
+      "surfaces": 91,
+      "incompleteGroups": 31,
+      "equivalentSets": 2,
+      "automatedViolations": 0,
+      "manualReview": "required"
+    }
+  },
+  "combined": {
+    "surfaces": 1702,
+    "violations": 0,
+    "incompleteGroups": 1013,
+    "incompleteNodes": 5830,
+    "equivalentSets": 58
+  },
+  "historical5G": {
+    "incompleteGroups": 947,
+    "equivalentSets": 53,
+    "status": "manual-review-required; not added to current observations or declared resolved"
+  },
+  "classification": {
+    "obscuring/obscured/bgOverlap": "Contrast with overlapping layers; contextual/manual review required.",
+    "nonBmp/shortTextContent/imgNode": "Glyph/chart/image contrast requires contextual review; no automated approval inferred.",
+    "controlsWithinPopup": "ARIA popup relationship requires contextual review; incomplete is not a violation or an approval."
+  },
+  "nativeRuntime": false,
+  "screenReaderTested": false,
+  "physicalDevices": false
+}

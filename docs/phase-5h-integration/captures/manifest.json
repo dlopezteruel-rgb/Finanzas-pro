@@ -1,0 +1,17 @@
+[
+  {
+    "file": "vault-uncertain-commit.png",
+    "sha256": "7ac41eb1eb88e1def5e10190b57e7908ff531017531e48ac79ef69793c5d1946",
+    "scope": "Real Chromium screenshot, fictional profile and desktop SQLite adapter. Application source8e79f4e, identical production src tree to delivery. Not Android or iOS."
+  },
+  {
+    "file": "vault-test-fr-light.png",
+    "sha256": "18408f6b2f149d1b4fdfe0354a83890a18a10a42e044bd020d1621ef38d4b7c6",
+    "scope": "Real Chromium screenshot, fictional profile and desktop SQLite adapter. Application source8e79f4e, identical production src tree to delivery. Not Android or iOS."
+  },
+  {
+    "file": "vault-test-en-dark.png",
+    "sha256": "013dbca574f4fe7e2811e122aaf8eeeadaf1ddfb36a0d00c2b7cd95077361a0e",
+    "scope": "Real Chromium screenshot, fictional profile and desktop SQLite adapter. Application source8e79f4e, identical production src tree to delivery. Not Android or iOS."
+  }
+]

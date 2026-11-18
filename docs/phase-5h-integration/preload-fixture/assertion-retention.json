@@ -1,0 +1,9 @@
+{
+  "base": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+  "file": "scripts/intentPreload.browser.ts",
+  "originalCasesAndAssertionsByteIdentical": true,
+  "change": "Controlled idle/input availability in the existing mocked fast-capability fixture; one additional negative idle-expiry case. No production preloading change, timeout increase, assertion removal, axe change or retry.",
+  "oldResults": 17,
+  "newResults": 18,
+  "diagnosticLimit": "Original failure did not record idle budgets. Isolated real-idle diagnostic passed; forced zero granted budget reproduces the exact timeout. This demonstrates the unmodelled host eligibility dependency, not the unique scheduler state during the original failure."
+}

@@ -1,0 +1,535 @@
+{
+  "scope": "Focused real-browser validation of changed scheduling only: 22/45 suites, not a complete battery.",
+  "durationMs": 649450,
+  "passed": true,
+  "plan": [
+    {
+      "concurrency": 1,
+      "suites": [
+        "scripts/phase1.browser.ts"
+      ]
+    },
+    {
+      "concurrency": 2,
+      "suites": [
+        "scripts/sharedUx.browser.ts",
+        "scripts/deletion.browser.ts",
+        "scripts/planning.browser.ts",
+        "scripts/budgetUx.browser.ts",
+        "scripts/charts.browser.ts",
+        "scripts/automation.browser.ts",
+        "scripts/responsive.browser.ts",
+        "scripts/intelligent.browser.ts",
+        "scripts/visualUx.browser.ts"
+      ]
+    },
+    {
+      "concurrency": 1,
+      "suites": [
+        "scripts/routes.browser.ts"
+      ]
+    },
+    {
+      "concurrency": 2,
+      "suites": [
+        "scripts/defaultWallet.browser.ts",
+        "scripts/budgetSubitems.browser.ts",
+        "scripts/catalogPresentation.browser.ts",
+        "scripts/customCatalog.browser.ts",
+        "scripts/catalogReorder.browser.ts",
+        "scripts/catalogClassification.browser.ts",
+        "scripts/catalogArchive.browser.ts",
+        "scripts/phase4aSafety.browser.ts",
+        "scripts/phase4aLoans.browser.ts",
+        "scripts/nativeFoundation.browser.ts",
+        "scripts/nativeVault.browser.ts"
+      ]
+    }
+  ],
+  "perSuite": [
+    {
+      "suite": "scripts/phase1.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/phase1.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 114633,
+      "tests": {
+        "tests": 57,
+        "suites": 0,
+        "pass": 57,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/sharedUx.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/sharedUx.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 48843,
+      "tests": {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/deletion.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/deletion.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 67391,
+      "tests": {
+        "tests": 23,
+        "suites": 0,
+        "pass": 23,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/planning.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/planning.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 40009,
+      "tests": {
+        "tests": 13,
+        "suites": 0,
+        "pass": 13,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/budgetUx.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/budgetUx.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 58249,
+      "tests": {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/charts.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/charts.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 23749,
+      "tests": {
+        "tests": 8,
+        "suites": 0,
+        "pass": 8,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/automation.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/automation.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 43550,
+      "tests": {
+        "tests": 15,
+        "suites": 0,
+        "pass": 15,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/responsive.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/responsive.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 98500,
+      "tests": {
+        "tests": 16,
+        "suites": 0,
+        "pass": 16,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/intelligent.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/intelligent.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 62423,
+      "tests": {
+        "tests": 25,
+        "suites": 0,
+        "pass": 25,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/visualUx.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/visualUx.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 28579,
+      "tests": {
+        "tests": 12,
+        "suites": 0,
+        "pass": 12,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/routes.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/routes.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 35914,
+      "tests": {
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/defaultWallet.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/defaultWallet.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 49047,
+      "tests": {
+        "tests": 14,
+        "suites": 0,
+        "pass": 14,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/budgetSubitems.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/budgetSubitems.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 57176,
+      "tests": {
+        "tests": 19,
+        "suites": 0,
+        "pass": 19,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/catalogPresentation.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/catalogPresentation.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 30615,
+      "tests": {
+        "tests": 7,
+        "suites": 0,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/customCatalog.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/customCatalog.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 19477,
+      "tests": {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/catalogReorder.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/catalogReorder.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 44946,
+      "tests": {
+        "tests": 10,
+        "suites": 0,
+        "pass": 10,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/catalogClassification.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/catalogClassification.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 19090,
+      "tests": {
+        "tests": 5,
+        "suites": 0,
+        "pass": 5,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/catalogArchive.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/catalogArchive.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 35664,
+      "tests": {
+        "tests": 11,
+        "suites": 0,
+        "pass": 11,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/phase4aSafety.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/phase4aSafety.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 23255,
+      "tests": {
+        "tests": 6,
+        "suites": 0,
+        "pass": 6,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/phase4aLoans.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/phase4aLoans.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 7194,
+      "tests": {
+        "tests": 3,
+        "suites": 0,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/nativeFoundation.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/nativeFoundation.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 87032,
+      "tests": {
+        "tests": 40,
+        "suites": 0,
+        "pass": 40,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    },
+    {
+      "suite": "scripts/nativeVault.browser.ts",
+      "status": "passed",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/node/bin/node",
+        "--import",
+        "tsx",
+        "scripts/nativeVault.browser.ts"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 106866,
+      "tests": {
+        "tests": 35,
+        "suites": 0,
+        "pass": 35,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0
+      }
+    }
+  ]
+}

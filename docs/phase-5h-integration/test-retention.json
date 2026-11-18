@@ -1,0 +1,310 @@
+{
+  "source": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+  "browserManifest": [
+    {
+      "file": "scripts/phase1.browser.ts",
+      "integrated": "acb2754bde640f2b4a75edf5e594793762b8fab0",
+      "web": "acb2754bde640f2b4a75edf5e594793762b8fab0",
+      "native": "8001a4179cd5023cd01d257e5950f0138dfd3558"
+    },
+    {
+      "file": "scripts/sharedUx.browser.ts",
+      "integrated": "6dcaee8c09aa10ad328a431fcd968bca6e025a2f",
+      "web": "6dcaee8c09aa10ad328a431fcd968bca6e025a2f",
+      "native": "65eb88c4f7b5ea81217fc164c58f146a5380f7eb"
+    },
+    {
+      "file": "scripts/deletion.browser.ts",
+      "integrated": "3d7485a7d07e8b36f243e3d05c2ca4e221dd188b",
+      "web": "3d7485a7d07e8b36f243e3d05c2ca4e221dd188b",
+      "native": "9a94309bc1e234865fe2c4e760fc678397ee3aff"
+    },
+    {
+      "file": "scripts/planning.browser.ts",
+      "integrated": "d140206f0416b230aceabd60b695ef095ebaa855",
+      "web": "d140206f0416b230aceabd60b695ef095ebaa855",
+      "native": "a24665dbaf299754fb03690c3ef77d013714e105"
+    },
+    {
+      "file": "scripts/budgetUx.browser.ts",
+      "integrated": "500d3d0a98fdcec59c54822395751430d4762a84",
+      "web": "500d3d0a98fdcec59c54822395751430d4762a84",
+      "native": "1d6424422af114d0420b076cbadc247a1d7d885d"
+    },
+    {
+      "file": "scripts/charts.browser.ts",
+      "integrated": "06ca5da7759d3738a7f3205ebea8685a11a63850",
+      "web": "06ca5da7759d3738a7f3205ebea8685a11a63850",
+      "native": "b039504654ef1bed23c1c76513df37a4d7e475b7"
+    },
+    {
+      "file": "scripts/automation.browser.ts",
+      "integrated": "f99e0b417694fa16644ab2e299c3d3f8016b40f1",
+      "web": "f99e0b417694fa16644ab2e299c3d3f8016b40f1",
+      "native": "831a25fca20efc23c8cdef05ec8134d0dff6fd25"
+    },
+    {
+      "file": "scripts/responsive.browser.ts",
+      "integrated": "0215a02ef8f35de1192ca54e5379f70c76039094",
+      "web": "0215a02ef8f35de1192ca54e5379f70c76039094",
+      "native": "d36592955b33bf4c0ac60790bbfbc97fdb936c7f"
+    },
+    {
+      "file": "scripts/intelligent.browser.ts",
+      "integrated": "f7afb7de24bbaf6919e66f9745812601fb43890d",
+      "web": "f7afb7de24bbaf6919e66f9745812601fb43890d",
+      "native": "a85d92da6ce1d47f07c5561a9e7caf15e3d0731f"
+    },
+    {
+      "file": "scripts/visualUx.browser.ts",
+      "integrated": "1e8898cb877eebafc71d7f631df167760c2bdaf9",
+      "web": "1e8898cb877eebafc71d7f631df167760c2bdaf9",
+      "native": "047e4171a48241b63f85c3807af3dba6a6ef63ac"
+    },
+    {
+      "file": "scripts/routes.browser.ts",
+      "integrated": "93be0164cbceec98baedb57704685811036b050a",
+      "web": "93be0164cbceec98baedb57704685811036b050a",
+      "native": "6b4e6f7ffacd7574757226a82fa321ee26fb70e6"
+    },
+    {
+      "file": "scripts/defaultWallet.browser.ts",
+      "integrated": "deae5042793ccea1412d1b685119d790f285fb60",
+      "web": "deae5042793ccea1412d1b685119d790f285fb60",
+      "native": "52eb4576f6544a723de49094a0edeacaaf299a5c"
+    },
+    {
+      "file": "scripts/budgetSubitems.browser.ts",
+      "integrated": "8263637d3068483bf347d26937ac090080954152",
+      "web": "8263637d3068483bf347d26937ac090080954152",
+      "native": "d51c56e10dd4d39a435f7f9367e1fe4e3d7ea632"
+    },
+    {
+      "file": "scripts/catalogPresentation.browser.ts",
+      "integrated": "ebbf101068afb392b26d08dfac4c582637d08c15",
+      "web": "ebbf101068afb392b26d08dfac4c582637d08c15",
+      "native": "c8086c83282c7fea323ebc448a74e3986273d7fd"
+    },
+    {
+      "file": "scripts/customCatalog.browser.ts",
+      "integrated": "ff73b9b2ab245c75f4687c415e69e0f292063bf8",
+      "web": "ff73b9b2ab245c75f4687c415e69e0f292063bf8",
+      "native": "a46288f2bc29685b698454dd8bf6a14dc88fc7bd"
+    },
+    {
+      "file": "scripts/catalogReorder.browser.ts",
+      "integrated": "cc96f674996e574a93279378f9d8d1971a99d6db",
+      "web": "cc96f674996e574a93279378f9d8d1971a99d6db",
+      "native": "3f75e869252314d73b2d55ec3c74dac9cb601853"
+    },
+    {
+      "file": "scripts/catalogClassification.browser.ts",
+      "integrated": "28f1cbd032830ba5d043c21042b69cc41822a89a",
+      "web": "28f1cbd032830ba5d043c21042b69cc41822a89a",
+      "native": "c23eacbd57ce35c4963555d53ac14aacf55b75bc"
+    },
+    {
+      "file": "scripts/catalogArchive.browser.ts",
+      "integrated": "eb53b98ef29ab75b1a0530fdd88ac2b7cd2be299",
+      "web": "eb53b98ef29ab75b1a0530fdd88ac2b7cd2be299",
+      "native": "7ae26ef7a97bfac770222bfdb574ca5f9fbfaf0f"
+    },
+    {
+      "file": "scripts/phase4aSafety.browser.ts",
+      "integrated": "bc6eb9645592c6d3eca09ff009af460f6e83237b",
+      "web": "bc6eb9645592c6d3eca09ff009af460f6e83237b",
+      "native": "b8da1f49d4126950c6a2e5b0ce9769b30b66a631"
+    },
+    {
+      "file": "scripts/phase4aLoans.browser.ts",
+      "integrated": "1dd7df50347a38cfaec46a8908736373a2a69c65",
+      "web": "1dd7df50347a38cfaec46a8908736373a2a69c65",
+      "native": "af671f3a239afd6007f880561da8d4ad198f6cec"
+    },
+    {
+      "file": "scripts/phase4aAudit.browser.ts",
+      "integrated": "3366761331150b73e2896521e4c3158e8a3bec95",
+      "web": "3366761331150b73e2896521e4c3158e8a3bec95",
+      "native": "efb509942e32b2746c5ff5b95bf3c23c9053efc2"
+    },
+    {
+      "file": "scripts/i18n.browser.ts",
+      "integrated": "e775315343ccac537f08f7058a9e0dbc8efcb9d1",
+      "web": "e775315343ccac537f08f7058a9e0dbc8efcb9d1",
+      "native": "f2f859a6e8206701d27c7d9f88f67c84aa707020"
+    },
+    {
+      "file": "scripts/translatedBanking.browser.ts",
+      "integrated": "40251e432f7a7d188e212d72c657f30232f76c7e",
+      "web": "40251e432f7a7d188e212d72c657f30232f76c7e",
+      "native": "de477c8ae81ad3b03c9db63f500cd33b07f20168"
+    },
+    {
+      "file": "scripts/translatedPlanning.browser.ts",
+      "integrated": "9c00a5bb6887a35c501e4d1ccc982620ba5852e8",
+      "web": "9c00a5bb6887a35c501e4d1ccc982620ba5852e8",
+      "native": "f35429406f6893577f27e96f5c45bc539817cdce"
+    },
+    {
+      "file": "scripts/translatedCatalog.browser.ts",
+      "integrated": "1806e43f9ab1614966eb3912ca5db085fd0da0b6",
+      "web": "1806e43f9ab1614966eb3912ca5db085fd0da0b6",
+      "native": "41b88c7cb7e337ef0b891e567c9c7112641621b9"
+    },
+    {
+      "file": "scripts/translatedCatalogDrag.browser.ts",
+      "integrated": "343ad0b465c706ff08e6212dbc7224b00b25b1f0",
+      "web": "343ad0b465c706ff08e6212dbc7224b00b25b1f0",
+      "native": "503d9c92c36a240ee2e7823b0f99c0144d92b6ee"
+    },
+    {
+      "file": "scripts/translatedAutomation.browser.ts",
+      "integrated": "540a698558724db5f867a674363098c05b4eaf8e",
+      "web": "540a698558724db5f867a674363098c05b4eaf8e",
+      "native": "4610737c57ba705cd6977cffa26cced865013ba8"
+    },
+    {
+      "file": "scripts/translatedObligations.browser.ts",
+      "integrated": "09eb8a00a8732f92a1f6e4540ea23f543b235dbf",
+      "web": "09eb8a00a8732f92a1f6e4540ea23f543b235dbf",
+      "native": "cce04a00f61f3a16bc47a1c273db9a313a0c004a"
+    },
+    {
+      "file": "scripts/translatedStorage.browser.ts",
+      "integrated": "9d67d9a3114ad94dc9cf6c1a7f15770a9cb7f619",
+      "web": "9d67d9a3114ad94dc9cf6c1a7f15770a9cb7f619",
+      "native": "c08c9dd09cb6bf90b1f2a03ca28d41ad6b0ac8f3"
+    },
+    {
+      "file": "scripts/translatedShared.browser.ts",
+      "integrated": "0d2905a5ec6f328dbe9ff8adc7a2397a73622fa7",
+      "web": "0d2905a5ec6f328dbe9ff8adc7a2397a73622fa7",
+      "native": "cf7962d7566a6e2cb5862847f8a8d3da66b8466a"
+    },
+    {
+      "file": "scripts/translatedCharts.browser.ts",
+      "integrated": "6c2370df9197dd8ad3f0a47fd5ea6040aa37e98f",
+      "web": "6c2370df9197dd8ad3f0a47fd5ea6040aa37e98f",
+      "native": "8717284f5ddfc1d988b253f49ae9ed28a337d12a"
+    },
+    {
+      "file": "scripts/translatedAssistant.browser.ts",
+      "integrated": "4c1d16a89506381cf69a882e3755f03523ce15a3",
+      "web": "4c1d16a89506381cf69a882e3755f03523ce15a3",
+      "native": "f426933eb8cb2fff61bef2ccfff896a3c10c9dfd"
+    },
+    {
+      "file": "scripts/translatedPresentation.browser.ts",
+      "integrated": "806cf05b996d885abe5cc20cce2759b2ec648f1a",
+      "web": "806cf05b996d885abe5cc20cce2759b2ec648f1a",
+      "native": "46034c32ff20a731e99624ca1fc3543ea5f6d717"
+    },
+    {
+      "file": "scripts/translatedCompletion.browser.ts",
+      "integrated": "fe72756c8ce20d235aade4bb9f4af323bef3617b",
+      "web": "fe72756c8ce20d235aade4bb9f4af323bef3617b",
+      "native": "78b8aa5cb4886bcbd2ee78e0892116b6513aacd0"
+    },
+    {
+      "file": "scripts/landingLanguage.browser.ts",
+      "integrated": "14ba1ee7c9fb0f3b73165e663a10d1c6c9872e43",
+      "web": "14ba1ee7c9fb0f3b73165e663a10d1c6c9872e43",
+      "native": "1b9c214eee57b73de0702d9e53cfbca91a0a8905"
+    },
+    {
+      "file": "scripts/multilingualCatalog.browser.ts",
+      "integrated": "5b985739e4f7790ad1a0747814a8b6806f57128e",
+      "web": "5b985739e4f7790ad1a0747814a8b6806f57128e",
+      "native": "fcb44f8001eb0f8553b309975021b8a03fa7ea16"
+    },
+    {
+      "file": "scripts/catalogQuickReceipt.browser.ts",
+      "integrated": "6c5c45aefd662a47afd8762ca904633321889ac5",
+      "web": "6c5c45aefd662a47afd8762ca904633321889ac5",
+      "native": "e93b9d301d4b0e89081990d07284af70b0e64ace"
+    },
+    {
+      "file": "scripts/lazyLanguage.browser.ts",
+      "integrated": "8258dcd7c8692d7d90dee911b982de31ddef86ea",
+      "web": "8258dcd7c8692d7d90dee911b982de31ddef86ea",
+      "native": "3bb11b400ccbb59112e1797e46757cb91910c554"
+    },
+    {
+      "file": "scripts/deferredFeatures.browser.ts",
+      "integrated": "3384446f58527d159a16f43bb7323c3ed1061648",
+      "web": "3384446f58527d159a16f43bb7323c3ed1061648",
+      "native": "6ab6c05c6d0d5b0654e1183df0615d08995a609a"
+    },
+    {
+      "file": "scripts/performanceVolume.browser.ts",
+      "integrated": "d6e22427e6193ec1b89667066c31daccd9ee9787",
+      "web": "d6e22427e6193ec1b89667066c31daccd9ee9787",
+      "native": "e87a8d5fe739b04daf8821c08705c9dd5c5c65f9"
+    },
+    {
+      "file": "scripts/visualTheme.browser.ts",
+      "integrated": "973a5c7aad16cb46093232b19fa84d37ece566df",
+      "web": "973a5c7aad16cb46093232b19fa84d37ece566df",
+      "native": "01ccd3fff63769b4b1c42d2e049c571191d5c878"
+    },
+    {
+      "file": "scripts/largeLedger.browser.ts",
+      "integrated": "b38bcf8830e6c83caa0379f825faed1f81507723",
+      "web": "b38bcf8830e6c83caa0379f825faed1f81507723",
+      "native": "62b8349c7b3e810b56079422b3110c1bcd65bc34"
+    },
+    {
+      "file": "scripts/intentPreload.browser.ts",
+      "integrated": "101d66df102af91c58bdf60b8c281329945f95d2",
+      "web": "101d66df102af91c58bdf60b8c281329945f95d2",
+      "native": "736a1111743f1ad2297cf076e93c7b7b5032c960"
+    },
+    {
+      "file": "scripts/nativeFoundation.browser.ts",
+      "integrated": "baa800a4996553dc43e3034104984fe1ea3d8fce",
+      "web": "baa800a4996553dc43e3034104984fe1ea3d8fce",
+      "native": "baa800a4996553dc43e3034104984fe1ea3d8fce"
+    },
+    {
+      "file": "scripts/nativeVault.browser.ts",
+      "integrated": "3a1dd798fdb50292180795da0894dbe34e16a432",
+      "web": null,
+      "native": "cbd9a178e5eae7d572cd99499b90975df764ff5d"
+    },
+    {
+      "file": "scripts/webDurability.browser.ts",
+      "integrated": "138fad664cd10878576543b24cbc7ae99c901c76",
+      "web": "138fad664cd10878576543b24cbc7ae99c901c76",
+      "native": null
+    }
+  ],
+  "protected": {
+    "web": {
+      "parent": "31a8e8d5fb5c51f1befe08d464620b55c854bc63",
+      "paths": [
+        "src/platform/web",
+        "src/utils/financeStore.ts",
+        "src/utils/backup.ts"
+      ],
+      "unchanged": true
+    },
+    "native": {
+      "parent": "ceb08c7fa3d05ea8c448855bf46fdec03e8af947",
+      "paths": [
+        "native/secure-vault",
+        "src/platform/vault"
+      ],
+      "unchanged": true
+    }
+  },
+  "review": "All45 web suites byte-identical to main at checkpoint8e79f4e. Afterwards intentPreload changes only its capability fixture and adds one negative case, retaining every original case/assertion byte for byte. The other44 web suites stay identical. NativeVault retains35original plus4integration cases. Unit733 and both6-case scheduler groups retained.",
+  "laterFixtureCorrection": {
+    "base": "8e79f4e9b538c015d9f30f0fde4e4000ed8931ad",
+    "file": "scripts/intentPreload.browser.ts",
+    "originalCasesAndAssertionsByteIdentical": true,
+    "change": "Controlled idle/input availability in the existing mocked fast-capability fixture; one additional negative idle-expiry case. No production preloading change, timeout increase, assertion removal, axe change or retry.",
+    "oldResults": 17,
+    "newResults": 18,
+    "diagnosticLimit": "Original failure did not record idle budgets. Isolated real-idle diagnostic passed; forced zero granted budget reproduces the exact timeout. This demonstrates the unmodelled host eligibility dependency, not the unique scheduler state during the original failure."
+  }
+}

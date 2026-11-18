@@ -1,0 +1,7 @@
+{
+  "incident": "One auxiliary measurement file and the new evidence folder were temporarily written in prior web worktree because of wrong cwd.",
+  "scope": "No financial code or existing pending files changed. No measurements ran with that accidental state.",
+  "correction": "Own changes moved to5H; exact Git bytes restored in prior worktree; its status returned to initialclean.",
+  "baselineBuild": "Separate outDir; Vite app source unchanged and tree identical to31a8e8d.",
+  "preservedDiff": "/workspace/work/5h-integration-directory-correction.patch"
+}

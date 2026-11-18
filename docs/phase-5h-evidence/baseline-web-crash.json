@@ -1,0 +1,48 @@
+{
+  "scope": "Real Chromium SIGKILL with isolated fictitious persistent profiles. Web only; not mobile, reader, device, power-cut or all-browser certification.",
+  "productionDist": "/workspace/work/Finanzas-pro-5g/dist",
+  "browser": {
+    "version": "156.0.8078.79",
+    "executable": "/usr/bin/chromium"
+  },
+  "results": [
+    {
+      "scenario": "graceful-after-confirmed-save",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "confirmedSnapshotHash": "dbda8a5b4f9ab884d93d6ffc6434e43014c0690415d18ec9e748fecebe227964",
+        "observedSnapshotHash": "dbda8a5b4f9ab884d93d6ffc6434e43014c0690415d18ec9e748fecebe227964",
+        "priorSnapshotRetained": false,
+        "newWalletCount": 1
+      }
+    },
+    {
+      "scenario": "after-confirmed-save",
+      "passed": false,
+      "confirmedRevisionPreserved": false,
+      "stage": "verify-confirmed-snapshot",
+      "observation": {
+        "priorSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "confirmedSnapshotHash": "151e20c628cb3448ea542b9af20b5ccfaff0dfa1ab85370fa8aa3d5da32c68c0",
+        "observedSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0
+      },
+      "error": "AssertionError"
+    },
+    {
+      "scenario": "before-write-lock-callback",
+      "passed": true,
+      "confirmedRevisionPreserved": true,
+      "observation": {
+        "priorSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "confirmedSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "observedSnapshotHash": "7b50209be0e55695be320c57b3a25cad3d0263bde7cc018a413da28bfab12ba2",
+        "priorSnapshotRetained": true,
+        "newWalletCount": 0
+      }
+    }
+  ]
+}

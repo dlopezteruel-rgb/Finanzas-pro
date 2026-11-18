@@ -177,7 +177,9 @@ const keys={
   "Reintegros": "storage_message.reintegros",
   "Transferencias": "storage_message.transferencias"
 } as const;
+const vaultMessages={VAULT_DISABLED:'vault.VAULT_DISABLED',VAULT_LOCKED:'vault.VAULT_LOCKED',VAULT_KEY_MISSING:'vault.VAULT_KEY_MISSING',VAULT_KEY_INVALIDATED:'vault.VAULT_KEY_INVALIDATED',VAULT_CORRUPT:'vault.VAULT_CORRUPT',VAULT_SCHEMA:'vault.VAULT_SCHEMA',VAULT_CONFLICT:'vault.VAULT_CONFLICT',VAULT_QUOTA:'vault.VAULT_QUOTA',VAULT_UNCERTAIN:'vault.VAULT_UNCERTAIN',VAULT_RELOAD:'vault.VAULT_RELOAD',VAULT_NOT_COMMITTED:'vault.VAULT_NOT_COMMITTED',VAULT_INVALID:'vault.VAULT_INVALID',VAULT_FAILED:'vault.VAULT_FAILED'} as const;
 export function storageOwnedText(value:string,t:typeof translate,depth=0):string{
+ if(/^VAULT_[A-Z_]+$/.test(value)&&Object.hasOwn(vaultMessages,value))return t(vaultMessages[value as keyof typeof vaultMessages]);
  const catalogDiagnostic=catalogNamesDiagnostic(value,t);if(catalogDiagnostic)return catalogDiagnostic;
  if(Object.hasOwn(keys,value))return t(keys[value as keyof typeof keys]);
  if(depth>8)return value;

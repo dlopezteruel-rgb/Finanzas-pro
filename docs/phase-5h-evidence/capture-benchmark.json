@@ -1,0 +1,86 @@
+{
+  "scope": "Diagnostic viewport captures only; real production web in isolated Chromium; no test/assertion or application changes.",
+  "browser": "156.0.8078.79",
+  "rows": [
+    {
+      "width": 390,
+      "surface": "home",
+      "method": "playwright",
+      "n": 20,
+      "median": 17.894140000000107,
+      "min": 14.929793000000245,
+      "max": 34.367499999999836,
+      "total": 363.11609600000065
+    },
+    {
+      "width": 390,
+      "surface": "home",
+      "method": "cdp",
+      "n": 20,
+      "median": 15.93066150000027,
+      "min": 8.650594000000183,
+      "max": 17.269308999999794,
+      "total": 313.82510500000126
+    },
+    {
+      "width": 390,
+      "surface": "dialog",
+      "method": "playwright",
+      "n": 20,
+      "median": 17.406257000000096,
+      "min": 11.265322000000197,
+      "max": 30.194156999999905,
+      "total": 353.8199599999998
+    },
+    {
+      "width": 390,
+      "surface": "dialog",
+      "method": "cdp",
+      "n": 20,
+      "median": 16.448717500000157,
+      "min": 14.224321000000145,
+      "max": 18.450439000000188,
+      "total": 325.4334309999999
+    },
+    {
+      "width": 1280,
+      "surface": "home",
+      "method": "playwright",
+      "n": 20,
+      "median": 34.60877000000028,
+      "min": 19.737544999999955,
+      "max": 65.71805399999994,
+      "total": 732.7533910000011
+    },
+    {
+      "width": 1280,
+      "surface": "home",
+      "method": "cdp",
+      "n": 20,
+      "median": 32.14916149999999,
+      "min": 15.30109899999934,
+      "max": 41.48142800000005,
+      "total": 573.8297610000027
+    },
+    {
+      "width": 1280,
+      "surface": "dialog",
+      "method": "playwright",
+      "n": 20,
+      "median": 34.99354100000028,
+      "min": 27.8981330000006,
+      "max": 80.7774730000001,
+      "total": 740.2988689999993
+    },
+    {
+      "width": 1280,
+      "surface": "dialog",
+      "method": "cdp",
+      "n": 20,
+      "median": 31.733249500000056,
+      "min": 15.677776999999878,
+      "max": 35.006444999999985,
+      "total": 576.3328809999994
+    }
+  ]
+}

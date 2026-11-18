@@ -1,0 +1,23 @@
+{
+  "sourceCommit": "4ba232966c7246c06a8af02c7a01a1bc0576a2b7",
+  "captures": [
+    {
+      "file": "vault-adapter-en-dark.png",
+      "sha256": "de7eb2d1f9be0aa1315782558d8b82fa4b550759ca9cbdb4ea64b6bf76bd931f",
+      "bytes": 64311,
+      "scope": "Real production diagnostic build in Chromium, fictitious data; not Android/iOS runtime."
+    },
+    {
+      "file": "vault-adapter-fr-light.png",
+      "sha256": "b5b5ea56151de7c2c1710a8212dc6cb3241b8e67f6368cd6e7cdc109f8f35b7a",
+      "bytes": 65931,
+      "scope": "Real production diagnostic build in Chromium, fictitious data; not Android/iOS runtime."
+    },
+    {
+      "file": "vault-uncertain-commit.png",
+      "sha256": "7ac41eb1eb88e1def5e10190b57e7908ff531017531e48ac79ef69793c5d1946",
+      "bytes": 74690,
+      "scope": "Real production diagnostic build in Chromium, fictitious data; not Android/iOS runtime."
+    }
+  ]
+}

@@ -43,5 +43,6 @@
   "scripts/largeLedger.browser.ts",
   "scripts/intentPreload.browser.ts",
   "scripts/nativeFoundation.browser.ts",
+  "scripts/nativeVault.browser.ts",
   "scripts/webDurability.browser.ts"
 ]

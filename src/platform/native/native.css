@@ -10,3 +10,6 @@ html[data-native-keyboard="open"] .mobile-navigation { display: none; }
 .native-prototype-bar { display: flex; gap: .75rem; padding: .75rem; align-items: center; border-bottom: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: .8rem; }
 .native-prototype-bar button { min-width: 44px; min-height: 44px; flex-shrink: 0; }
 .native-notice { position: fixed; z-index: 1000; bottom: calc(90px + env(safe-area-inset-bottom,0px)); left: 1rem; right: 1rem; max-width: 40rem; margin-inline: auto; padding: .75rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); color: var(--ink); pointer-events: none; overflow-wrap: anywhere; }
+
+.native-vault-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.native-vault-actions button { min-height: 44px; padding: .625rem .875rem; border: 1px solid var(--line); border-radius: .75rem; }

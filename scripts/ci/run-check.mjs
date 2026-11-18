@@ -7,15 +7,8 @@ import {fileURLToPath,pathToFileURL} from 'node:url';
 import {parseTestSummaries,requireCompleteTests} from './test-results.mjs';
 import {validateDurabilityReport,validateCrashControls} from './durability-report.mjs';
 import {execFileSync} from 'node:child_process';
-export async function executeLogged(command,args,{logPath,cwd=process.cwd(),env=process.env,output=process.stdout}={}){
-  await mkdir(path.dirname(logPath),{recursive:true});const log=createWriteStream(logPath),start=Date.now();
-  return new Promise((resolve,reject)=>{
-    const child=spawn(command,args,{cwd,env,stdio:['ignore','pipe','pipe']});let stdout='';
-    child.stdout.on('data',data=>{stdout+=data;log.write(data);output.write(data);});child.stderr.on('data',data=>{log.write(data);output.write(data);});
-    child.on('error',error=>{log.end(()=>reject(error));});
-    child.on('close',(code,signal)=>{log.end(()=>resolve({command:[command,...args],code,signal,durationMs:Date.now()-start,stdout}));});
-  });
-}
+export {executeLogged} from './logged-command.mjs';
+import {executeLogged} from './logged-command.mjs';
 export async function runCheck(mode){
   const root=path.resolve(process.env.CI_ARTIFACT_DIR??'ci-artifacts'),dir=path.join(root,mode);await mkdir(dir,{recursive:true});
   const summary={mode,node:process.version,passed:false,commands:[],tests:[],error:null};
@@ -27,8 +20,8 @@ export async function runCheck(mode){
     else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']]];
     else if(mode==='browser'){
       summary.suites=[...browserSuites];expected=summary.suites.length;
-      if(!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
-      if(expected<45)throw new Error('The complete browser battery must retain the44 integrated suites and mandatory WEB-001 gate.');
+      if(!summary.suites.includes('scripts/nativeVault.browser.ts')||!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
+      if(expected<46)throw new Error('The complete browser battery must retain the44 integrated suites and mandatory WEB-001 gate.');
       commands=[['npm',['run','test:ui']]];
     }else throw new Error(`Unknown mode: ${mode}`);
     const env={...process.env,CI:'true',FORCE_COLOR:'0',GEMINI_API_KEY:'',GOOGLE_API_KEY:''};delete env.GH_TOKEN;delete env.GITHUB_TOKEN;
@@ -47,7 +40,8 @@ export async function runCheck(mode){
       summary.durability=validateDurabilityReport(JSON.parse(await readFile(path.join(dir,'web-durability.json'),'utf8')),sha);
       summary.crashControls=validateCrashControls(JSON.parse(await readFile(path.join(dir,'web-crash-controls.json'),'utf8')),sha);
       const engine=JSON.parse(await readFile(path.join(dir,'web-storage-engine.json'),'utf8')),ui=JSON.parse(await readFile(path.join(dir,'web-storage-ui.json'),'utf8'));
-      if(summary.tests.reduce((n,r)=>n+r.tests,0)<957||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      if(summary.tests.reduce((n,r)=>n+r.tests,0)<997||engine.results?.length<33||engine.results.some(r=>!r.passed)||ui.observations?.length!==40||ui.observations.some(o=>o.violations.length))throw new Error('Complete baseline885 plus mandatory WEB-001 engine/UI/crash coverage is required.');
+      const native=JSON.parse(await readFile(path.join(dir,'native-vault-adapter-axe.json'),'utf8'));if(native.observations?.length!==91||native.observations.some(o=>o.violations.length))throw Error('All91 native adapter axe surfaces are required.');summary.nativeVault={surfaces:91,violations:0,manualReviewRequired:true};
       summary.webStorage={engineCases:engine.results.length,uiSurfaces:ui.observations.length,violations:0,incompleteGroups:ui.observations.reduce((n,o)=>n+o.incomplete.length,0),manualReviewRequired:true};
       const axe=JSON.parse(await readFile(env.PHASE4A_AUDIT_REPORT,'utf8'));
       if(axe.observations.length!==128||axe.observations.some(o=>o.violations.length))throw new Error('Strict axe audit must complete all 128 surfaces without violations.');
@@ -60,6 +54,9 @@ export async function runCheck(mode){
     const complete=result&&result.tests>0&&result.tests===result.pass&&['fail','cancelled','skipped','todo'].every(key=>result[key]===0);
     return {suite,status:!result?'not_executed':complete?'passed':'failed',...(result??{})};
   });
+  if(mode==='browser'){
+    try{const scheduled=JSON.parse(await readFile(path.join(dir,'schedule.json'),'utf8'));if(scheduled.perSuite.length!==summary.suites.length||scheduled.perSuite.some((s,i)=>s.suite!==summary.suites[i]))throw Error('Scheduled identities differ from manifest');summary.executionPlan=scheduled.plan;summary.perSuite=scheduled.perSuite.map(s=>({suite:s.suite,status:s.status,...(s.tests??{}),code:s.code,signal:s.signal,durationMs:s.durationMs,error:s.error}));if(summary.passed&&(!scheduled.passed||scheduled.perSuite.some(s=>s.status!=='passed')))throw Error('Incomplete scheduled battery');}catch(error){summary.passed=false;summary.error??=error.message;}
+  }
   await writeFile(path.join(dir,'summary.json'),JSON.stringify(summary,null,2)+'\n');
   const totals=summary.tests.reduce((n,t)=>n+(t.tests??0),0),passed=summary.tests.reduce((n,t)=>n+(t.pass??0),0);
   const commands=summary.commands.map(c=>`| ${c.command.join(' ')} | ${c.code===0&&!c.signal?'PASS':'FAIL'} | ${(c.durationMs/1000).toFixed(2)} s |`).join('\n');

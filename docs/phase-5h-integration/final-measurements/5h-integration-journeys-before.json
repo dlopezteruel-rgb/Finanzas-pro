@@ -1,0 +1,1128 @@
+{
+  "schemaVersion": 1,
+  "backend": "indexeddb",
+  "sourceCommit": "31a8e8d5fb5c51f1befe08d464620b55c854bc63",
+  "dist": "/workspace/work/5h-integration-main-dist",
+  "samples": 3,
+  "profiles": [
+    {
+      "name": "mobile",
+      "width": 390,
+      "cpu": 4,
+      "latency": 80,
+      "mbps": 1.6
+    }
+  ],
+  "browser": "156.0.8078.79",
+  "method": "Production gzip, same CDP CPU/network profiles.3 samples per profile. Latency includes dispatch and2frames. No temporal gates. Financial mutation is allowed only at explicit verified restoration confirmation; every other step requires zero writes. Fixed wall clock2026-11-14T12Z does not freeze performance clock. No service/API calls permitted.",
+  "rows": [
+    {
+      "scenario": "theme-change",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 364.9354800000001,
+      "heapUsedBytes": 8499824,
+      "scriptDurationMs": 488.00300000000004,
+      "longTasks": [
+        81
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 120.35401699999966,
+      "heapUsedBytes": 7207944,
+      "scriptDurationMs": 523.657,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 272.1705379999994,
+      "heapUsedBytes": 9210196,
+      "scriptDurationMs": 637.259,
+      "longTasks": [
+        183
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 89.13560599999983,
+      "heapUsedBytes": 10653848,
+      "scriptDurationMs": 651.645,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 752.8581690000001,
+      "heapUsedBytes": 11877736,
+      "scriptDurationMs": 903.2900000000001,
+      "longTasks": [
+        500
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 1293.955113,
+      "heapUsedBytes": 16553688,
+      "scriptDurationMs": 1127.003,
+      "longTasks": [
+        339,
+        324,
+        58
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 205.54927000000134,
+      "heapUsedBytes": 11788980,
+      "scriptDurationMs": 1178.666,
+      "longTasks": [
+        113
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 140.66884700000082,
+      "heapUsedBytes": 17403076,
+      "scriptDurationMs": 1238.519,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 0,
+      "durationMs": 442.8999669999994,
+      "heapUsedBytes": 18011464,
+      "scriptDurationMs": 1343.5159999999998,
+      "longTasks": [
+        58,
+        83
+      ],
+      "writes": [
+        "idb:finance:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_fa706da3-d101-4c53-bb47-e1079fd872fa",
+        "idb:metadata:copy:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_fa706da3-d101-4c53-bb47-e1079fd872fa",
+        "idb:finance:finanzas_pro_data_v1",
+        "idb:metadata:head",
+        "idb:operations:068f45f4-bcc8-4d96-af9c-da7c6cffd532"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3274,
+          "end": 3276,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3350,
+          "end": 3356,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3378,
+          "end": 3382,
+          "status": "complete",
+          "characters": 0
+        },
+        {
+          "kind": "financial-commit",
+          "start": 8827,
+          "end": 8844,
+          "status": "complete",
+          "characters": 48163
+        },
+        {
+          "kind": "verification-read",
+          "start": 8845,
+          "end": 8848,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "66b858144463b53d261ed20905672721b4c03636ad16c04edb1ecf7613e86abb",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    },
+    {
+      "scenario": "theme-change",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 319.02382099999886,
+      "heapUsedBytes": 8161012,
+      "scriptDurationMs": 490.933,
+      "longTasks": [
+        103
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 112.20591000000059,
+      "heapUsedBytes": 7281496,
+      "scriptDurationMs": 523.749,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 218.28099600000132,
+      "heapUsedBytes": 9318504,
+      "scriptDurationMs": 631.207,
+      "longTasks": [
+        140
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 81.03997700000036,
+      "heapUsedBytes": 7891796,
+      "scriptDurationMs": 644.599,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 763.0309699999998,
+      "heapUsedBytes": 12338540,
+      "scriptDurationMs": 877.1060000000001,
+      "longTasks": [
+        536
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 1228.9457469999998,
+      "heapUsedBytes": 12156848,
+      "scriptDurationMs": 1099.173,
+      "longTasks": [
+        335,
+        299,
+        56
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 216.58128899999792,
+      "heapUsedBytes": 13684132,
+      "scriptDurationMs": 1145.005,
+      "longTasks": [
+        131
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 183.67125300000043,
+      "heapUsedBytes": 12907120,
+      "scriptDurationMs": 1220.085,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 1,
+      "durationMs": 462.27546000000075,
+      "heapUsedBytes": 14227868,
+      "scriptDurationMs": 1343.98,
+      "longTasks": [
+        62,
+        101
+      ],
+      "writes": [
+        "idb:finance:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_10ba0479-27d7-425c-8aff-09c6e44f2c79",
+        "idb:metadata:copy:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_10ba0479-27d7-425c-8aff-09c6e44f2c79",
+        "idb:finance:finanzas_pro_data_v1",
+        "idb:metadata:head",
+        "idb:operations:c29a455f-adef-456c-93ed-5a65734e9c5b"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3257,
+          "end": 3259,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3360,
+          "end": 3368,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3393,
+          "end": 3398,
+          "status": "complete",
+          "characters": 0
+        },
+        {
+          "kind": "financial-commit",
+          "start": 8794,
+          "end": 8805,
+          "status": "complete",
+          "characters": 48163
+        },
+        {
+          "kind": "verification-read",
+          "start": 8805,
+          "end": 8808,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "bbe33ff9bed3bfaff7a8110662c791f8f7a109e93dd57794f654f35412131412",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    },
+    {
+      "scenario": "theme-change",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 295.82126199999766,
+      "heapUsedBytes": 8248036,
+      "scriptDurationMs": 530.588,
+      "longTasks": [
+        87
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "month-previous",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 116.96939500000008,
+      "heapUsedBytes": 7281280,
+      "scriptDurationMs": 560.2660000000001,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-form-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 320.3207089999996,
+      "heapUsedBytes": 9281876,
+      "scriptDurationMs": 703.798,
+      "longTasks": [
+        211
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "movement-amount-input",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 117.44105399999899,
+      "heapUsedBytes": 7819028,
+      "scriptDurationMs": 720.524,
+      "longTasks": [],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "shared-expense-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 876.0029630000026,
+      "heapUsedBytes": 11964288,
+      "scriptDurationMs": 1029.8039999999999,
+      "longTasks": [
+        542
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-first-open",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 1288.3213079999987,
+      "heapUsedBytes": 16646896,
+      "scriptDurationMs": 1284.885,
+      "longTasks": [
+        341,
+        344,
+        91
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "assistant-proposal",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 221.8371670000015,
+      "heapUsedBytes": 11810840,
+      "scriptDurationMs": 1346.56,
+      "longTasks": [
+        126
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "import-validate-preview",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 226.0129909999996,
+      "heapUsedBytes": 17483504,
+      "scriptDurationMs": 1419.792,
+      "longTasks": [
+        72
+      ],
+      "writes": [],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "domainHash": "295ded408ed2a8f9959854fdadd54d4afb227b0364bc0a542f52b19f7da8676a",
+      "expectedFinancialMutation": false
+    },
+    {
+      "scenario": "restore-verified-confirmation",
+      "profile": "mobile",
+      "sample": 2,
+      "durationMs": 398.2025040000008,
+      "heapUsedBytes": 18249300,
+      "scriptDurationMs": 1544.484,
+      "longTasks": [
+        74,
+        105
+      ],
+      "writes": [
+        "idb:finance:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_f69b5d13-f2be-45a0-b3c6-7d9a8c09b459",
+        "idb:metadata:copy:finanzas_pro_recovery_2026-11-14T12:00:00.000Z_f69b5d13-f2be-45a0-b3c6-7d9a8c09b459",
+        "idb:finance:finanzas_pro_data_v1",
+        "idb:metadata:head",
+        "idb:operations:86dc0907-bea7-4eaa-acd6-163d918e550e"
+      ],
+      "persistenceTrace": [
+        {
+          "kind": "capability-probe",
+          "start": 3334,
+          "end": 3336,
+          "status": "abort",
+          "characters": 0
+        },
+        {
+          "kind": "migration-prepare",
+          "start": 3451,
+          "end": 3469,
+          "status": "complete",
+          "characters": 47871
+        },
+        {
+          "kind": "migration-activate",
+          "start": 3515,
+          "end": 3523,
+          "status": "complete",
+          "characters": 0
+        },
+        {
+          "kind": "financial-commit",
+          "start": 9178,
+          "end": 9193,
+          "status": "complete",
+          "characters": 48163
+        },
+        {
+          "kind": "verification-read",
+          "start": 9193,
+          "end": 9195,
+          "status": "complete",
+          "characters": 0
+        }
+      ],
+      "horizontalOverflow": false,
+      "financialHash": "85e9211700c8ccb1dd352ef971d415d6261eed07875bdb27f02ff83d92f76033",
+      "domainHash": "35b71de57de22dd1d656e53a771e98ff0eb9b637c9203b3883c0abc6b8f98494",
+      "expectedFinancialMutation": true
+    }
+  ],
+  "errors": [],
+  "unexpectedAPI": []
+}

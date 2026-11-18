@@ -29,6 +29,8 @@
     "native:open:android": "cap open android",
     "native:open:ios": "cap open ios",
     "native:android:assemble": "npm run native:sync:android && node scripts/native/android-build.mjs",
+    "test:native:engine": "python3 scripts/native/sqlcipher.integration.py",
+    "test:ui:native-vault": "node --import tsx scripts/nativeVault.browser.ts",
     "test:durability": "node --import tsx scripts/webDurability.browser.ts"
   },
   "dependencies": {
@@ -41,6 +43,7 @@
     "@capacitor/keyboard": "8.0.6",
     "@capacitor/preferences": "8.0.1",
     "@capacitor/share": "8.0.3",
+    "@finanzas/native-vault": "file:native/secure-vault",
     "@google/genai": "^2.4.0",
     "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",

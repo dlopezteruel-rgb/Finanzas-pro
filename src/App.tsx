@@ -106,7 +106,7 @@ export default function App() {
   const platform=usePlatformServices(),exportPending=useRef(false);
   const { t: uiText , formatMoney: formatCurrency , formatCents,formatNumber,formatDate,language } = useI18n();
   const { t,pendingLanguage } = useI18n();
-  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,loading,loadingPhase,persistencePhase,persistenceRevision,readRecoveryCopies,exportJSON,exportForensic,reconcile } = useFinanceData(DEMO_DATA);
+  const { data, update, mutate, restore, conflict, capabilityError, loadError, saveError,loading,loadingPhase,persistenceKind,persistencePhase,persistenceRevision,readRecoveryCopies,exportJSON,exportForensic,reconcile } = useFinanceData(DEMO_DATA);
   const downloadJSON=async(content:string,filename:string)=>{
     if(exportPending.current)return;exportPending.current=true;
     try{await platform.exportText(content,filename,'application/json',uiText('native.exportTitle'));}
@@ -133,7 +133,7 @@ export default function App() {
   const [showRecovery, setShowRecovery] = useState(false);
   const [copies,setCopies]=useState<{key:string;content:string}[]>([]),[copiesLoading,setCopiesLoading]=useState(false),[copiesError,setCopiesError]=useState('');
   const [storageRecovery,setStorageRecovery]=useState(false);
-  useEffect(()=>{if(['recoveryRequired','reloadRequired'].includes(persistencePhase))setStorageRecovery(true);else if(persistencePhase==='ready')setStorageRecovery(false);},[persistencePhase,persistenceRevision]);
+  useEffect(()=>{if(persistenceKind==='web'&&['recoveryRequired','reloadRequired'].includes(persistencePhase))setStorageRecovery(true);else if(persistencePhase==='ready')setStorageRecovery(false);},[persistenceKind,persistencePhase,persistenceRevision]);
   useEffect(()=>{if(!showRecovery)return;let active=true;setCopiesLoading(true);setCopiesError('');readRecoveryCopies().then(value=>{if(active)setCopies(value);}).catch(error=>{if(active)setCopiesError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}).finally(()=>{if(active)setCopiesLoading(false);});return()=>{active=false;};},[showRecovery]);
   const restorationGuard = useRef<ReturnType<typeof confirmOnceAsync<Backup>> | null>(null);
   const importRequest = useRef(0);
@@ -542,7 +542,13 @@ export default function App() {
   const handleResetDemo = () => prepareRestoration(makeBackup({ ...DEMO_DATA, theme }), 'Restablecer datos de demostración');
 
   const handleExportJSON = async() => {try{downloadJSON(await exportJSON(), `finanzas_pro_backup_${new Date().toISOString().slice(0, 10)}.json`);}catch(error){setDataError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}};
-  const handleImportJSON = () => {if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}fileInputRef.current?.click();};
+  const handleImportJSON = async () => {
+    if(!platform.canImport){setDataError(uiText('native.importBlocked'));return;}
+    if(!platform.pickBackup){fileInputRef.current?.click();return;}
+    const request=++importRequest.current;setDataError('');setDataNotice('');
+    try{const selected=await platform.pickBackup();if(selected&&request===importRequest.current)prepareRestoration(selected.backup,`Importar «${selected.name}»`);}
+    catch(error){if(request===importRequest.current)setDataError(`${error instanceof Error?error.message:'No se pudo leer el archivo.'} No se ha modificado ningún dato.`);}
+  };
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     e.target.value = '';
@@ -575,7 +581,7 @@ export default function App() {
     } finally { setRestoring(false); }
   };
 
-  const handleExportForensic=async()=>{try{const raw=await exportForensic(),report=JSON.parse(raw);downloadJSON(raw,'finanzas_pro_datos_locales_para_recuperar.json');if(report.kind==='finanzas-web-forensic'&&!report.complete)setDataNotice('WEB_FORENSIC_PARTIAL');}catch(error){setDataError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}};
+  const handleExportForensic=async()=>{if(!exportForensic)return;try{const raw=await exportForensic(),report=JSON.parse(raw);downloadJSON(raw,'finanzas_pro_datos_locales_para_recuperar.json');if(report.kind==='finanzas-web-forensic'&&!report.complete)setDataNotice('WEB_FORENSIC_PARTIAL');}catch(error){setDataError(error instanceof Error?error.message:'WEB_UNAVAILABLE');}};
 
   if(loading)return <main className="app-splash" role="status" aria-live="polite"><Brand/><h1>{t(`webStore.${loadingPhase}`)}</h1><p>{t('webStore.loadingSafe')}</p></main>;
 
@@ -584,7 +590,7 @@ export default function App() {
     <p role="alert">{storageOwnedText(loadError,uiText)}</p>
     {dataError && <p role="alert">{storageOwnedText(dataError,uiText)}</p>}{dataNotice&&<p role="status">{storageOwnedText(dataNotice,uiText)}</p>}
     <p>{uiText("app.conserva_una_copia_de_los_datos_locales_antes_de")}</p>
-    <button className="button-primary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>
+    {exportForensic&&<button className="button-primary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>}
     <a href={paths.home}>{t('recovery.back')}</a>
   </main>;
 
@@ -628,7 +634,7 @@ export default function App() {
       />
 
       {capabilityError && <div role="alert" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] border border-amber-500/40 rounded-xl">
-        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button></div>}
+        <strong>{uiText("app.guardado_no_disponible")}</strong> {storageOwnedText(capabilityError,uiText)}{uiText("app.puedes_consultar_y_exportar_tus_datos_los_formularios_conservaran")}{exportForensic&&<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>}</div>}
       {(legacyTransfers.pairs.length > 0 || legacyTransfers.unresolved.length > 0) && <div role="status" className="app-banner p-4 text-sm text-amber-300 bg-[#141926] rounded-xl">
         <p>{legacyTransferNotice(legacyTransfers.pairs.length,legacyTransfers.unresolved.length,language,uiText,formatNumber)}</p>
         {legacyTransfers.missingWalletPairs.length > 0 && <p>{uiText(pluralCategory(legacyTransfers.missingWalletPairs.length,language)==='one'?'storage.warning.missingWalletPairs.one':'storage.warning.missingWalletPairs',{count:formatNumber(legacyTransfers.missingWalletPairs.length)})}</p>}
@@ -867,8 +873,8 @@ export default function App() {
         onSaveContact={handleSaveContact}
         contactToEdit={contactToEdit}
       />
-    {['saving','checking','recoveryRequired','reloadRequired'].includes(persistencePhase)&&<aside className="app-banner p-4" role={persistencePhase==='saving'||persistencePhase==='checking'?'status':'alert'} aria-live="polite"><p>{t(`webStore.${persistencePhase}`)}</p>{['recoveryRequired','reloadRequired'].includes(persistencePhase)&&<button className="button-secondary" onClick={()=>setStorageRecovery(true)}>{t('webStore.review')}</button>}</aside>}
-      {storageRecovery&&<SafeDialog title={t('webStore.review')} onCancel={()=>setStorageRecovery(false)}><p role="alert">{t(`webStore.${persistencePhase}`)}</p>{dataError&&<p role="alert">{storageOwnedText(dataError,uiText)}</p>}{dataNotice&&<p role="status">{storageOwnedText(dataNotice,uiText)}</p>}<div className="flex flex-wrap gap-3">{persistencePhase==='recoveryRequired'?<button className="button-primary" onClick={()=>void reconcile()}>{t('webStore.reconcile')}</button>:persistencePhase==='reloadRequired'?<button autoFocus className="button-primary" onClick={()=>window.location.reload()}>{uiText("app.recargar_datos_actualizados")}</button>:null}<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button><button className="button-secondary" onClick={()=>setStorageRecovery(false)}>{uiText("app.cerrar")}</button></div></SafeDialog>}
+    {persistenceKind==='web'&&['saving','checking','recoveryRequired','reloadRequired'].includes(persistencePhase)&&<aside className="app-banner p-4" role={persistencePhase==='saving'||persistencePhase==='checking'?'status':'alert'} aria-live="polite"><p>{t(`webStore.${persistencePhase}`)}</p>{['recoveryRequired','reloadRequired'].includes(persistencePhase)&&<button className="button-secondary" onClick={()=>setStorageRecovery(true)}>{t('webStore.review')}</button>}</aside>}
+      {persistenceKind==='web'&&storageRecovery&&<SafeDialog title={t('webStore.review')} onCancel={()=>setStorageRecovery(false)}><p role="alert">{t(`webStore.${persistencePhase}`)}</p>{dataError&&<p role="alert">{storageOwnedText(dataError,uiText)}</p>}{dataNotice&&<p role="status">{storageOwnedText(dataNotice,uiText)}</p>}<div className="flex flex-wrap gap-3">{persistencePhase==='recoveryRequired'?<button className="button-primary" onClick={()=>void reconcile()}>{t('webStore.reconcile')}</button>:persistencePhase==='reloadRequired'?<button autoFocus className="button-primary" onClick={()=>window.location.reload()}>{uiText("app.recargar_datos_actualizados")}</button>:null}{exportForensic&&<button className="button-secondary" onClick={()=>void handleExportForensic()}>{uiText("app.descargar_datos_locales_sin_modificar")}</button>}<button className="button-secondary" onClick={()=>setStorageRecovery(false)}>{uiText("app.cerrar")}</button></div></SafeDialog>}
       </div></CatalogNamesProvider>
   );
 }

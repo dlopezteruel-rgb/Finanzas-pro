@@ -1,0 +1,173 @@
+{
+  "trace": [
+    {
+      "kind": "input",
+      "at": 893.8000000044703,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "pending": true
+    },
+    {
+      "kind": "input",
+      "at": 895.1000000014901,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "pending": true
+    },
+    {
+      "kind": "focus",
+      "at": 895.6000000014901,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": false
+    },
+    {
+      "kind": "blur",
+      "at": 1289.5,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": ""
+    },
+    {
+      "kind": "focus",
+      "at": 1290,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": true
+    },
+    {
+      "kind": "blur",
+      "at": 1323.6000000014901,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": ""
+    },
+    {
+      "kind": "input",
+      "at": 1324.2000000029802,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "pending": false
+    },
+    {
+      "kind": "focus",
+      "at": 1324.3000000044703,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "target": "budget-tab-catalog",
+      "visible": true
+    },
+    {
+      "kind": "schedule",
+      "at": 1524.9000000059605,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false
+    },
+    {
+      "kind": "idle",
+      "at": 1526,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "budget": 42.6
+    },
+    {
+      "kind": "input",
+      "at": 1526.2000000029802,
+      "active": "budget-tab-catalog",
+      "ready": "complete",
+      "busy": false,
+      "pending": false
+    },
+    {
+      "kind": "blur",
+      "at": 2057.4000000059605,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "budget-tab-catalog"
+    },
+    {
+      "kind": "focus",
+      "at": 2058.4000000059605,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": false
+    },
+    {
+      "kind": "blur",
+      "at": 2104.8000000044703,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": ""
+    },
+    {
+      "kind": "focus",
+      "at": 2105.8000000044703,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "target": "",
+      "visible": true
+    },
+    {
+      "kind": "input",
+      "at": 2186.5,
+      "active": "",
+      "ready": "complete",
+      "busy": false,
+      "pending": false
+    }
+  ],
+  "requests": [
+    "http://127.0.0.1:45821/app",
+    "http://127.0.0.1:45821/assets/index-ByEht66E.js",
+    "http://127.0.0.1:45821/assets/rolldown-runtime-XKyaHtl9.js",
+    "http://127.0.0.1:45821/assets/preload-helper-7y9sWmk5.js",
+    "http://127.0.0.1:45821/assets/financialCalendar-DJuOrvRe.js",
+    "http://127.0.0.1:45821/assets/i18n-Cn-dyJ6a.js",
+    "http://127.0.0.1:45821/assets/index-DklKeRgQ.css",
+    "http://127.0.0.1:45821/assets/App-CqWiJIGV.js",
+    "http://127.0.0.1:45821/assets/financeBinding-BXflCxYg.js",
+    "http://127.0.0.1:45821/assets/financeStore--xMfwp2b.js",
+    "http://127.0.0.1:45821/assets/budgetCatalog-BRd3dkB7.js",
+    "http://127.0.0.1:45821/assets/planningCarry-ColyWIaW.js",
+    "http://127.0.0.1:45821/assets/intelligentValidation-Cmrrq-xU.js",
+    "http://127.0.0.1:45821/assets/planningAutomation-BpBIZlzi.js",
+    "http://127.0.0.1:45821/assets/planning-BwoY7iy3.js",
+    "http://127.0.0.1:45821/assets/planningAutomationValidation-wgMVpPUU.js",
+    "http://127.0.0.1:45821/assets/deletion-DSE565Lc.js",
+    "http://127.0.0.1:45821/assets/backup-D8y9qTqY.js",
+    "http://127.0.0.1:45821/assets/defaultWallet-ntpA98HF.js",
+    "http://127.0.0.1:45821/assets/storageMessages-DoJEjT7c.js",
+    "http://127.0.0.1:45821/assets/personalObligations-AfdO9e9E.js",
+    "http://127.0.0.1:45821/assets/SafeDialog-C4VlnKRJ.js",
+    "http://127.0.0.1:45821/assets/Overlay-FSSihbCO.js",
+    "http://127.0.0.1:45821/assets/useAsyncForm-DiFa3H9F.js",
+    "http://127.0.0.1:45821/assets/saveResult-Dp2fT8RK.js",
+    "http://127.0.0.1:45821/brand/finanzas-mark.svg",
+    "http://127.0.0.1:45821/brand/finanzas-mark.svg",
+    "http://127.0.0.1:45821/brand/finanzas-mark.svg",
+    "http://127.0.0.1:45821/assets/openFinance-DyqQUDyp.js",
+    "http://127.0.0.1:45821/assets/forensic--cqTuhWj.js",
+    "http://127.0.0.1:45821/assets/PlanningView-DsGc3Yh1.js",
+    "http://127.0.0.1:45821/assets/CatalogManager-DZY_F4q7.js",
+    "http://127.0.0.1:45821/assets/BudgetsView-DgsAlhpR.js",
+    "http://127.0.0.1:45821/assets/chevron-down-CylPt7kW.js"
+  ],
+  "errors": []
+}
