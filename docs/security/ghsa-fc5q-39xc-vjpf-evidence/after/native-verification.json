@@ -1,0 +1,33 @@
+{
+  "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "platform": "Linux",
+  "androidRuntime": "blocked: no emulator/device/KVM; compilation is not execution",
+  "iosRuntime": "blocked: Linux without macOS/Xcode",
+  "kvmExists": false,
+  "apk": {
+    "path": "android/app/build/outputs/apk/debug/app-debug-unsigned.apk",
+    "bytes": 13351679,
+    "sha256": "fd61924ceee39182b6519cf5472c1a12e78241defd69bd32b8ed6d22440b4c54",
+    "cipherLibraries": [
+      "lib/arm64-v8a/libsqlcipher.so",
+      "lib/armeabi-v7a/libsqlcipher.so",
+      "lib/x86/libsqlcipher.so",
+      "lib/x86_64/libsqlcipher.so"
+    ],
+    "signatureEntries": [],
+    "localWebResourceCount": 54
+  },
+  "protectedNativeSourceDiff": "",
+  "apkSignatureVerification": {
+    "command": [
+      "/workspace/work/5g-toolchain/android-sdk/build-tools/36.0.0/apksigner",
+      "verify",
+      "--verbose",
+      "app-debug-unsigned.apk"
+    ],
+    "code": 1,
+    "stdout": "",
+    "stderr": "DOES NOT VERIFY\nERROR: Missing META-INF/MANIFEST.MF\n",
+    "expected": "nonzero, unsigned development artifact; never distributed"
+  }
+}

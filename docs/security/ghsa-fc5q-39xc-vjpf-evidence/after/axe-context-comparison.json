@@ -1,0 +1,29 @@
+{
+  "localGroups": 54,
+  "ciGroups": 58,
+  "union": 58,
+  "ciOnly": [
+    [
+      "axe.json",
+      "Catalogo",
+      "color-contrast"
+    ],
+    [
+      "axe.json",
+      "Movimientos",
+      "color-contrast"
+    ],
+    [
+      "translated-deferred-features.json",
+      "planning-loading",
+      "color-contrast"
+    ],
+    [
+      "translated-large-ledger-es.json",
+      "large-ledger-paged",
+      "color-contrast"
+    ]
+  ],
+  "localOnly": [],
+  "status": "manual-review-required; environment-dependent absence is not resolution"
+}

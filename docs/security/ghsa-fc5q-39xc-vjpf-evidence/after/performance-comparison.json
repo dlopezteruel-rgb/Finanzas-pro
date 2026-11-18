@@ -1,0 +1,638 @@
+{
+  "sourceBefore": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "sourceAfter": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "profiles": "390x900; CPU4x;1.6Mbps;80ms; gzip production; Chromium156.0.8078.79",
+  "note": "Three samples each; byte-identical web assets; variable host/cache/GC and low n do not establish client performance improvement or regression. Real confirmed financial writes verified separately; no timing gate relaxed.",
+  "rows": [
+    {
+      "family": "loading",
+      "scenario": "landing-es-cold",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 1591.5367239999978,
+        "range": [
+          1567.0170990000006,
+          1709.709604
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 1565.6156760000013,
+        "range": [
+          1560.6738889999997,
+          1579.448550000001
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "landing-en-cold",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 2308.6809339999995,
+        "range": [
+          2238.640887999998,
+          2380.013961000004
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 2291.552922,
+        "range": [
+          2288.849115000001,
+          2294.391997999999
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "application-empty-cold",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 2839.0209170000007,
+        "range": [
+          2804.5828210000036,
+          2873.2791460000008
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 2762.202236,
+        "range": [
+          2761.2528900000034,
+          2766.741806000002
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "application-cold",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 2849.882402000001,
+        "range": [
+          2812.897060000003,
+          2930.767516999993
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 2793.5594839999976,
+        "range": [
+          2787.3650830000006,
+          2925.8988979999995
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "application-warm",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 928.547939,
+        "range": [
+          858.9798140000057,
+          1276.80876
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 1246.171586000004,
+        "range": [
+          1205.8797809999996,
+          1251.6512359999979
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "chart-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 574.9156709999952,
+        "range": [
+          573.7083350000012,
+          615.124140999993
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 572.81538,
+        "range": [
+          520.401933000001,
+          591.7903959999967
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "planning-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 1060.3813090000003,
+        "range": [
+          634.6894830000019,
+          1078.347584999996
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 709.164533000001,
+        "range": [
+          624.718194000001,
+          1073.6557200000025
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "catalog-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 998.5706689999934,
+        "range": [
+          929.238824,
+          1022.4349250000014
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 1061.8152420000006,
+        "range": [
+          828.6574129999935,
+          1067.5041070000007
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-100-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 752.7573430000011,
+        "range": [
+          743.692759000005,
+          845.1551440000039
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 801.1345860000001,
+        "range": [
+          695.1659559999971,
+          826.1316349999997
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-100-filter",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 240.31510400000116,
+        "range": [
+          228.487003000002,
+          275.6308480000007
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 259.1242319999874,
+        "range": [
+          230.7932920000021,
+          279.22383699999955
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "language-first-fr",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 679.4724229999993,
+        "range": [
+          629.0853070000012,
+          710.6248410000007
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 668.6227409999992,
+        "range": [
+          636.5092430000077,
+          695.3293259999991
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "language-cached-es",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 189.56534000000102,
+        "range": [
+          154.56398599999375,
+          205.25623600000108
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 172.9688540000061,
+        "range": [
+          172.83613400000104,
+          212.99900000000343
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-1000-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 634.3981769999955,
+        "range": [
+          566.3226869999999,
+          640.731659000001
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 613.4085360000026,
+        "range": [
+          576.9994869999973,
+          806.0144670000009
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-1000-filter",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 557.8054530000009,
+        "range": [
+          509.3591759999981,
+          657.1362289999961
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 634.3787450000018,
+        "range": [
+          508.5286330000017,
+          919.3172150000028
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-5000-first-open",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 961.250172,
+        "range": [
+          882.5586130000011,
+          1169.9961569999869
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 1006.7580569999991,
+        "range": [
+          896.3521499999988,
+          1063.910732999997
+        ]
+      }
+    },
+    {
+      "family": "loading",
+      "scenario": "ledger-5000-filter",
+      "metric": "interactionMs",
+      "before": {
+        "n": 3,
+        "median": 507.83497799999896,
+        "range": [
+          481.724086000002,
+          589.8726110000025
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 536.3535780000093,
+        "range": [
+          525.7006860000001,
+          598.9968330000047
+        ]
+      }
+    },
+    {
+      "family": "writes",
+      "scenario": "initial-load-and-migration-1000",
+      "metric": "totalMs",
+      "before": {
+        "n": 3,
+        "median": 3034.9727300000004,
+        "range": [
+          2909.488031000001,
+          3050.7364610000004
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 2978.647184999998,
+        "range": [
+          2944.617989999999,
+          3031.1919550000002
+        ]
+      }
+    },
+    {
+      "family": "writes",
+      "scenario": "confirmed-document-read-1000",
+      "metric": "totalMs",
+      "before": {
+        "n": 3,
+        "median": 56.817558000000645,
+        "range": [
+          48.165265999999974,
+          111.96676899999875
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 75.99192100000073,
+        "range": [
+          69.67247899999984,
+          94.08698500000173
+        ]
+      }
+    },
+    {
+      "family": "writes",
+      "scenario": "account-confirmed-save",
+      "metric": "totalMs",
+      "before": {
+        "n": 3,
+        "median": 756.0525269999998,
+        "range": [
+          732.5948250000001,
+          779.5117489999993
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 743.3027899999997,
+        "range": [
+          603.1662400000005,
+          890.9411599999985
+        ]
+      }
+    },
+    {
+      "family": "writes",
+      "scenario": "movement-confirmed-save",
+      "metric": "totalMs",
+      "before": {
+        "n": 3,
+        "median": 764.5266560000018,
+        "range": [
+          750.2926770000013,
+          791.183411
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 809.9217380000009,
+        "range": [
+          720.8110260000003,
+          929.990162
+        ]
+      }
+    },
+    {
+      "family": "writes",
+      "scenario": "transfer-confirmed-save",
+      "metric": "totalMs",
+      "before": {
+        "n": 3,
+        "median": 729.6191239999989,
+        "range": [
+          708.1887549999992,
+          758.3306900000007
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 736.4551009999996,
+        "range": [
+          666.9330419999987,
+          750.6717289999997
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "theme-change",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 332.68457599999965,
+        "range": [
+          303.65067699999963,
+          393.89485800000057
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 370.6586060000009,
+        "range": [
+          336.4040849999983,
+          537.4531029999998
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "month-previous",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 114.5162249999994,
+        "range": [
+          97.97351699999945,
+          114.64102899999853
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 106.64259399999901,
+        "range": [
+          97.43397600000026,
+          128.3118829999994
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "movement-form-open",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 219.59205800000018,
+        "range": [
+          219.56141999999818,
+          260.6798140000001
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 266.57459500000004,
+        "range": [
+          258.77955400000064,
+          330.4811929999996
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "movement-amount-input",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 77.62096300000121,
+        "range": [
+          74.46307899999738,
+          89.81339200000002
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 87.04318799999965,
+        "range": [
+          79.6732860000011,
+          96.30835399999978
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "shared-expense-open",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 668.8911759999992,
+        "range": [
+          649.0059030000002,
+          704.2266649999983
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 713.860861000001,
+        "range": [
+          703.0876550000012,
+          811.2838769999998
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "assistant-first-open",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 1348.580258,
+        "range": [
+          1198.2623419999982,
+          1378.5892099999992
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 1355.5642359999983,
+        "range": [
+          1132.6300029999984,
+          1549.646095
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "assistant-proposal",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 218.74387500000012,
+        "range": [
+          186.96694099999877,
+          232.06497200000013
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 238.89791200000036,
+        "range": [
+          207.7446830000008,
+          265.17391099999986
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "import-validate-preview",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 174.1301280000007,
+        "range": [
+          158.54766799999925,
+          186.88481599999977
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 197.35956599999918,
+        "range": [
+          165.5603680000022,
+          221.77477699999872
+        ]
+      }
+    },
+    {
+      "family": "journeys",
+      "scenario": "restore-verified-confirmation",
+      "metric": "durationMs",
+      "before": {
+        "n": 3,
+        "median": 439.7349379999978,
+        "range": [
+          389.17350499999884,
+          462.7420489999986
+        ]
+      },
+      "after": {
+        "n": 3,
+        "median": 504.73586200000136,
+        "range": [
+          419.7942179999991,
+          561.0815520000015
+        ]
+      }
+    }
+  ]
+}

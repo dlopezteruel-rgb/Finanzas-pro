@@ -1,0 +1,307 @@
+[
+  {
+    "name": "npm-ci",
+    "command": [
+      "npm",
+      "ci"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 7547.7142333984375,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "unit",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 8468.13178062439,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "tools",
+    "command": [
+      "node",
+      "scripts/ci/run-check.mjs",
+      "tools"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 1682.0952892303467,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "lint",
+    "command": [
+      "npm",
+      "run",
+      "lint"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 2740.7679557800293,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "build-web",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 1219.9428081512451,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "server",
+    "command": [
+      "npm",
+      "run",
+      "test:security:server"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 11376.95837020874,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "sqlcipher",
+    "command": [
+      "npm",
+      "run",
+      "test:native:engine"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 3261.7993354797363,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "android",
+    "command": [
+      "bash",
+      "-c",
+      "source /workspace/work/5g-toolchain/environment.sh\nnpm run native:android:assemble"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 45065.50359725952,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "ios-sync",
+    "command": [
+      "npm",
+      "run",
+      "native:sync:ios"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 1767.8520679473877,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "build-web-restored",
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 1164.08109664917,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "bundles",
+    "command": [
+      "npm",
+      "run",
+      "audit:bundles",
+      "--",
+      "/workspace/work/security-final-validation/bundles-after.json"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 1552.0472526550293,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "baseline-build",
+    "command": [
+      "node",
+      "node_modules/vite/bin/vite.js",
+      "build",
+      "--outDir",
+      "/workspace/work/security-final-validation/baseline-dist",
+      "--emptyOutDir"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-5h",
+    "code": 0,
+    "durationMs": 1313.096046447754,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "baseline-bundles",
+    "command": [
+      "node",
+      "scripts/performance/bundles.mjs",
+      "/workspace/work/security-final-validation/bundles-before.json"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-5h",
+    "code": 0,
+    "durationMs": 1220.1893329620361,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-before-loading",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/measure.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 83828.03869247437,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-before-writes",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/webWriteJourneys.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 24907.008409500122,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-before-journeys",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/mobileJourneys.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 26229.087591171265,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-after-loading",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/measure.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 83359.61484909058,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-after-writes",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/webWriteJourneys.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 24348.50311279297,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "perf-after-journeys",
+    "command": [
+      "node",
+      "--import",
+      "tsx",
+      "scripts/performance/mobileJourneys.ts"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 28098.40488433838,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "durability",
+    "command": [
+      "npm",
+      "run",
+      "test:durability"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 224092.1654701233,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "browser",
+    "command": [
+      "node",
+      "scripts/ci/run-check.mjs",
+      "browser"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 2746220.3710079193,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "security",
+    "command": [
+      "npm",
+      "run",
+      "audit:security"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 1,
+    "durationMs": 7264.268636703491,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "diff",
+    "command": [
+      "git",
+      "diff",
+      "--check"
+    ],
+    "cwd": "/workspace/work/Finanzas-pro-security",
+    "code": 0,
+    "durationMs": 3.142833709716797,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "server-startup",
+    "command": [
+      "node",
+      "/workspace/work/security-startup.mjs"
+    ],
+    "code": 0,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e"
+  },
+  {
+    "name": "code-replayed-pr-event",
+    "command": [
+      "node",
+      "scripts/ci/run-check.mjs",
+      "code"
+    ],
+    "code": 0,
+    "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+    "event": "Actual GitHub PR34 snapshot including base208/headcf; not a diff exemption"
+  }
+]

@@ -1,0 +1,336 @@
+{
+  "scope": "Actual Chromium IndexedDB; faults explicitly injected. No real disk-full, Firefox, WebKit or physical-power-loss certification.",
+  "results": [
+    {
+      "scenario": "migration-preserves-bytes-and-copies",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "sourceHash": "4b57ba2e2f20f9114f1014cd46967aa5472a36efa426876485ba15bedb721246",
+        "hash": "3460185e87039f0ddcedb2880964f2a53b2e1918550215eed46c9d3ae10e45df",
+        "copies": 1,
+        "guardPresent": true
+      }
+    },
+    {
+      "scenario": "unsupported-strict-is-readonly",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "phase": "readonly",
+        "problem": "WEB_STRICT_UNAVAILABLE",
+        "snapshotUnchanged": true
+      }
+    },
+    {
+      "scenario": "quota-abort-and-explicit-retry",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "QuotaExceededError"
+      }
+    },
+    {
+      "scenario": "restoration-abort-rolls-back-copies",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "copies": 0
+      }
+    },
+    {
+      "scenario": "response-lost-no-duplicate",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "calls": 1,
+        "receipts": 1
+      }
+    },
+    {
+      "scenario": "corrupt-write-readback-aborts",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "unchanged": true
+      }
+    },
+    {
+      "scenario": "copy-readback-disagreement-aborts",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "copies": 0
+      }
+    },
+    {
+      "scenario": "missing-receipt-blocks-opening",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_CORRUPT"
+      }
+    },
+    {
+      "scenario": "legacy-divergence-is-preserved",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_LEGACY_DIVERGED"
+      }
+    },
+    {
+      "scenario": "unknown-schema-forensic-no-recreate",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "unknownPreserved": true
+      }
+    },
+    {
+      "scenario": "legacy-collections",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "sourceKeys": [
+          "finanzas_pro_transactions_v2",
+          "finanzas_pro_wallets_v2"
+        ]
+      }
+    },
+    {
+      "scenario": "invalid-source-preserved",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "preserved": true
+      }
+    },
+    {
+      "scenario": "migration-quota-keeps-source",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "preserved": true,
+        "retryExplicit": true
+      }
+    },
+    {
+      "scenario": "migration-guard-denied-resumes",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "idPreserved": true
+      }
+    },
+    {
+      "scenario": "versionchange-forensic",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "snapshotPreserved": true
+      }
+    },
+    {
+      "scenario": "legacy-denied-readable-database",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "readableConfirmedData": true,
+        "legacyUnavailable": true
+      }
+    },
+    {
+      "scenario": "postcommit-read-abort",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_UNCERTAIN",
+        "uncertain": true,
+        "kept": true,
+        "reload": "WEB_RELOAD",
+        "writes": 1,
+        "committedHash": "c6ee19afad9af98ccb6b6d71f5cd76ce1a7a20012508adb77659f354000e8fb3"
+      }
+    },
+    {
+      "scenario": "postcommit-read-quota",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "error": "WEB_UNCERTAIN",
+        "uncertain": true,
+        "kept": true,
+        "reload": "WEB_RELOAD",
+        "writes": 1,
+        "committedHash": "6df2137246803cd335e0b6ab4bd1d0f32391ce43ea26b055ae959727dde01a18"
+      }
+    },
+    {
+      "scenario": "prepared-old-client-drift-after",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "detected": true,
+        "exportBlocked": true,
+        "legacyChanged": true,
+        "preparedSnapshotPreserved": true,
+        "phase": "readonly"
+      }
+    },
+    {
+      "scenario": "prepared-old-client-drift-before",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "detected": true,
+        "exportBlocked": true,
+        "legacyChanged": true,
+        "preparedSnapshotPreserved": true,
+        "phase": "readonly"
+      }
+    },
+    {
+      "scenario": "json-2.5",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.5",
+        "hash": "235e0b3f486c845c1b24df71246dc545425ec79c8baac29233e8ba7f8ed99680",
+        "revision": "historical-2.5"
+      }
+    },
+    {
+      "scenario": "json-2.6",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.6",
+        "hash": "66a075332376f5ab80228988d7932ca55efeb59ff9e476b17bc9d88af0d37c84",
+        "revision": "historical-2.6"
+      }
+    },
+    {
+      "scenario": "json-2.7",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.7",
+        "hash": "f8f34e758bfa40b787b9a1aede6197acf3fdfe374550b321bff7284acb12aee3",
+        "revision": "historical-2.7"
+      }
+    },
+    {
+      "scenario": "json-2.8",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.8",
+        "hash": "40a9dfb2b1a4995b0eccd78716f8999ddb7fab4686c01ebd9c87769fbc0bb4c3",
+        "revision": "historical-2.8"
+      }
+    },
+    {
+      "scenario": "json-2.9",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "2.9",
+        "hash": "f0f8319a08dfcf6417d69086e93634bb285db99910b88b5cbddd8f87f255460c",
+        "revision": "historical-2.9"
+      }
+    },
+    {
+      "scenario": "json-3.0",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.0",
+        "hash": "48c61ec869e34975242c9b6c66a6c4f72df264d61dc79dd2c588a091ca4036f2",
+        "revision": "historical-3.0"
+      }
+    },
+    {
+      "scenario": "json-3.1",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.1",
+        "hash": "5c93e50cd59c2de9ec115d66bc89115607d08fe24880518b79844bdf1e0afaaf",
+        "revision": "historical-3.1"
+      }
+    },
+    {
+      "scenario": "json-3.2",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.2",
+        "hash": "6ff048e6cbb140c553a17a046d2b60bf7f6801b94bb102c0f7ace5bc1b36bcbd",
+        "revision": "historical-3.2"
+      }
+    },
+    {
+      "scenario": "json-3.3",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.3",
+        "hash": "ff4d501978bda80b71ec2c552cd5a762e0d01a2d5e4583e8c14d7b64dd3a35ea",
+        "revision": "historical-3.3"
+      }
+    },
+    {
+      "scenario": "json-3.4",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.4",
+        "hash": "547790a556ac9062514a638ca3471c5f1b08b6cc102c1ee8ee2265f79cbf6ecb",
+        "revision": "historical-3.4"
+      }
+    },
+    {
+      "scenario": "json-3.5",
+      "passed": true,
+      "details": {
+        "passed": true,
+        "version": "3.5",
+        "hash": "165ff3972437c46297a1bab2e0cfcf37219df2c2c309525bf9d103d3e159be5d",
+        "revision": "historical-3.5"
+      }
+    },
+    {
+      "scenario": "two-real-tabs-and-direct-cas",
+      "passed": true,
+      "details": {
+        "attempts": [
+          {
+            "ok": true,
+            "phase": "ready"
+          },
+          {
+            "ok": false,
+            "phase": "conflict",
+            "error": "Otra pestaña ha cambiado los datos. No se ha guardado esta operación. Recarga para trabajar con la última versión."
+          }
+        ],
+        "direct": [
+          "committed",
+          "StorageConflictError"
+        ],
+        "oldClientRejected": true,
+        "operations": 2
+      }
+    },
+    {
+      "scenario": "async-condition-is-not-a-truthy-promise",
+      "passed": true,
+      "details": {
+        "falseResultsNotAccepted": true,
+        "originalTimeoutEnforced": true,
+        "noFinancialCache": true
+      }
+    }
+  ]
+}

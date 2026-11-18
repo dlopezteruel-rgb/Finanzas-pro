@@ -1,0 +1,59 @@
+{
+  "mode": "code",
+  "node": "v24.22.1",
+  "passed": true,
+  "commands": [
+    {
+      "command": [
+        "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+        "scripts/ci/check-diff.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 59
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 2168
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 1288
+    },
+    {
+      "command": [
+        "/opt/hostedtoolcache/node/24.22.1/x64/bin/node",
+        "--test",
+        "scripts/security/server.test.mjs"
+      ],
+      "code": 0,
+      "signal": null,
+      "durationMs": 12460
+    }
+  ],
+  "tests": [],
+  "error": null,
+  "serverTests": [
+    {
+      "tests": 6,
+      "suites": 0,
+      "pass": 6,
+      "fail": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0
+    }
+  ]
+}

@@ -1,0 +1,610 @@
+[
+  {
+    "file": "ci-code-checkpoint/code/code/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 1001,
+    "storedBytes": 1001,
+    "rawSHA256": "22c4046013ec33ee1f37ff07264cd73688afd3ebeecb8c8ee683504b426d5697",
+    "storedSHA256": "22c4046013ec33ee1f37ff07264cd73688afd3ebeecb8c8ee683504b426d5697"
+  },
+  {
+    "file": "ci-code-checkpoint/code/code/diff.json.gz",
+    "rawName": "diff.json",
+    "rawBytes": 237,
+    "storedBytes": 164,
+    "rawSHA256": "15996ed267a8de1e3f39d3f373127c5cc1793157d22a99dd0c29a6e4c68f3fa1",
+    "storedSHA256": "a9d856f1d37de23dd2ca7c4dffa259dca99a5b8d4dab16d051e671ac1fb60d7c"
+  },
+  {
+    "file": "ci-code-checkpoint/code/security-server/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 1108,
+    "storedBytes": 1108,
+    "rawSHA256": "2182b359fd53b68a7c369407f25770bdfba54900a4b472c81989fb5bd7c0b2d5",
+    "storedSHA256": "2182b359fd53b68a7c369407f25770bdfba54900a4b472c81989fb5bd7c0b2d5"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 25826,
+    "storedBytes": 25826,
+    "rawSHA256": "9848398ff8670bbadd80804b1e885ecbb18c59ec992dbdeb4da1d7a31fe53288",
+    "storedSHA256": "9848398ff8670bbadd80804b1e885ecbb18c59ec992dbdeb4da1d7a31fe53288"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-obligations.json.gz",
+    "rawName": "translated-obligations.json",
+    "rawBytes": 241711,
+    "storedBytes": 5425,
+    "rawSHA256": "d015d1f9aa6b6121b528802b0be207890773762146f7c665482943be9989c927",
+    "storedSHA256": "7d4b2c01b01e860a2f3dee6a16a2d8aed03b24a78f2f57f3f15cf0950ad18f61"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-storage.json.gz",
+    "rawName": "translated-storage.json",
+    "rawBytes": 360017,
+    "storedBytes": 8309,
+    "rawSHA256": "a827edf39d6a40fe1560ee1074ee6fc8f881952c6f1ede8d9c0072b5c0a5178e",
+    "storedSHA256": "f1f24ed89b4b249a92cac0b472f80aeaf173ef626dcbaa456e43865e57cbc8de"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-large-ledger-es.json.gz",
+    "rawName": "translated-large-ledger-es.json",
+    "rawBytes": 5411,
+    "storedBytes": 936,
+    "rawSHA256": "4dbbd9374efb46b6dd3086e3f721521d4d6e1e2305394f35b8d0f5b48d0b80a0",
+    "storedSHA256": "f004b3eb2e977800492e44c8264a708f13e1825820a1a3c764c973ad26b06fff"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/multilingual-catalog.json.gz",
+    "rawName": "multilingual-catalog.json",
+    "rawBytes": 49220,
+    "storedBytes": 2072,
+    "rawSHA256": "358231dce58359dfc313e2e1dc334d536da7501c9fb65f29819416aa91187a25",
+    "storedSHA256": "a2f110991e5d5532e7acf4ad54c8f1d5eb3cbd8ca1c9f62ff21619ea9293afa1"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-native-preview-en.json.gz",
+    "rawName": "translated-native-preview-en.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "ed9c63070d5fadd4734b9359a796d5eed8bcd5725b9841f5d3179891f12a7c5a",
+    "storedSHA256": "4eaac2437a532d46ce52b7f24cad992dfefca3d74d55720d66031f667aadfcfe"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-lazy-language.json.gz",
+    "rawName": "translated-lazy-language.json",
+    "rawBytes": 1457,
+    "storedBytes": 259,
+    "rawSHA256": "32f2dcf70650ac70ec0ea22f4f2896321c5d308feca75825d72392b02e01d3d3",
+    "storedSHA256": "3cdbd50c50616b5a75d1c3ff372d61b4c21702055bdb7289d180bd967d5336a5"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/landing-language.json.gz",
+    "rawName": "landing-language.json",
+    "rawBytes": 59751,
+    "storedBytes": 3336,
+    "rawSHA256": "aae89ad8f4a7e69f7e7e6eab315b8a3b6d8a557e10a5bff7e11f564bf91fcc0d",
+    "storedSHA256": "88dfc744afcbe5cd8765359815250ee273e3e0b60d1fa3e03d07c2122dae6391"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-planning.json.gz",
+    "rawName": "translated-planning.json",
+    "rawBytes": 111227,
+    "storedBytes": 2901,
+    "rawSHA256": "616fc9eef890a096e8d269d561477ff1965323e41b5c1ab80b1f22ebad0ba036",
+    "storedSHA256": "e173c91e69ebec5fa8ebc3b149190078b82a130ca60bfa3eab8a6be720435e04"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/environment.json.gz",
+    "rawName": "environment.json",
+    "rawBytes": 319,
+    "storedBytes": 217,
+    "rawSHA256": "988cbf9b1364eeccc43fd37c1f82a4f8f46223d3450a71f54babc9e6ac9bff15",
+    "storedSHA256": "cd144104def69d10c486cb6cd09866575eede68d20d4880eb32da7abe4cd17b9"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/axe.json.gz",
+    "rawName": "axe.json",
+    "rawBytes": 217374,
+    "storedBytes": 4567,
+    "rawSHA256": "945c15fd40f16ed945095d731fd67a6fc44ca2fb5d6493fdaf31c69c1051f441",
+    "storedSHA256": "5abd47bd1aa4b9d424316d6416e6a193c7312b11f5fc7a157b543af9e1b5dba9"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/schedule.json",
+    "rawName": "schedule.json",
+    "rawBytes": 25711,
+    "storedBytes": 25711,
+    "rawSHA256": "e187e3e8b7a84ccb859d339f1c63331c5a3607b3321d88ca7634d2bae9ae8a95",
+    "storedSHA256": "e187e3e8b7a84ccb859d339f1c63331c5a3607b3321d88ca7634d2bae9ae8a95"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/native-vault-adapter-axe.json.gz",
+    "rawName": "native-vault-adapter-axe.json",
+    "rawBytes": 80671,
+    "storedBytes": 2403,
+    "rawSHA256": "38f0075082c981c00d6e3cc108cc13625b289225c2a94810e54d568cb66d26f1",
+    "storedSHA256": "26dca405971b9a4fc5399e61608fbdf75cb11bc5265ca753ee71722bb1f63a31"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/web-durability.json",
+    "rawName": "web-durability.json",
+    "rawBytes": 26698,
+    "storedBytes": 26698,
+    "rawSHA256": "1a54dd4fbeb2279c86e1e72314b9eecd8f5918ef912ae9d394af75281919b6fe",
+    "storedSHA256": "1a54dd4fbeb2279c86e1e72314b9eecd8f5918ef912ae9d394af75281919b6fe"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-deferred-features.json.gz",
+    "rawName": "translated-deferred-features.json",
+    "rawBytes": 3064,
+    "storedBytes": 887,
+    "rawSHA256": "63ecec540a9e49463bdebe4aec62d7fc5ce31f2265db1cc60ed8a7acd2622733",
+    "storedSHA256": "c2fdcd02b0f6416d2b153cf4adc7d6633dac2af0c67ca1cd114176656cac9869"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-native-preview-pt.json.gz",
+    "rawName": "translated-native-preview-pt.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "9f3017e5f5b34c5511cfcccafefd20d60fd4960621b535274b842d5dd4c6396f",
+    "storedSHA256": "3c6729c78be17c508619630cf2cf0112178dd830e254c66d12a76dccbfaa49b2"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-large-ledger-en.json.gz",
+    "rawName": "translated-large-ledger-en.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "e96e015a2b6cbd88dfdceb30e48bc0b22f039f8b8e01086d0e9adc38a3ba12a5",
+    "storedSHA256": "6d202be139921c11dcdc36b9404eba13294b578da19299c4c6c5ea26722d52e4"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-large-ledger-pt.json.gz",
+    "rawName": "translated-large-ledger-pt.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "45e530e53374729110c42a8a403bb68243ba7f089dbbd587d77e0861051567f6",
+    "storedSHA256": "bf902c3fb4cd2c1c44e9563cb5f0f33d01e4af7d0c3ff36c0fca0a3211f2b737"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/web-crash-controls.json",
+    "rawName": "web-crash-controls.json",
+    "rawBytes": 7416,
+    "storedBytes": 7416,
+    "rawSHA256": "647677aa085ec439e02b69b693aae154b8f2aa7b32e8542b18bbfb64dc80616e",
+    "storedSHA256": "647677aa085ec439e02b69b693aae154b8f2aa7b32e8542b18bbfb64dc80616e"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-shared.json.gz",
+    "rawName": "translated-shared.json",
+    "rawBytes": 385228,
+    "storedBytes": 10447,
+    "rawSHA256": "7add30a234fd4ceb47ae8189f4c73098f0c7580cdf25146854c3c1d125f5f73f",
+    "storedSHA256": "a8a791e8c132204675668ec8b9ce34f2ae209efb5844c4959716ad2f308bc6cd"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/web-storage-ui.json.gz",
+    "rawName": "web-storage-ui.json",
+    "rawBytes": 104963,
+    "storedBytes": 3756,
+    "rawSHA256": "9c213a4be12b0be8e8ec9e82e3396915ec632255b76169d1a1452d23324c1da3",
+    "storedSHA256": "b3f7f41497dcd584df9247defba75951cb5c36938de6f258cf4dc2d13870f695"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-native-preview-es.json.gz",
+    "rawName": "translated-native-preview-es.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "1ffeb06f3b531af33b54f56f217370609c22bfd3d5d2fbad26bf843c2e38babb",
+    "storedSHA256": "1f2087f220e934073e5943c18f25c163dbc0b14383947d4f1ad2f6e1672c6d2b"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-native-preview-fr.json.gz",
+    "rawName": "translated-native-preview-fr.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "2161edd1cbce1e002c475da906a0e4e8df11af1ad97b7987ab70f41152a95d11",
+    "storedSHA256": "6193cdca3d2f08361840f2e2b53f040db315b46ccbe041bf19e1652cf1cd1ea8"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-large-ledger-it.json.gz",
+    "rawName": "translated-large-ledger-it.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "aa73b38af8631a3e4e9eaf42821b0e847ade93b170e1ef886b23138e70c8163e",
+    "storedSHA256": "ea31c8a2fb4820c26dbcdd30112aaaec0a03e78fbbce5f70365a7292968317de"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-large-ledger-fr.json.gz",
+    "rawName": "translated-large-ledger-fr.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "3b45a1d45a30b7bcbb3739e1df828b07609fcd9f62a2614c65d977e0227a90b9",
+    "storedSHA256": "e3d0c24f9d7260a2d2513706710f31c6ea83ba91090a86a7a23ed2b4330c731c"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-presentation.json.gz",
+    "rawName": "translated-presentation.json",
+    "rawBytes": 147351,
+    "storedBytes": 3899,
+    "rawSHA256": "da17c9dee6fdca7ba6df24a2f371b9207a35376d920a47bdbe55bc870894ac2d",
+    "storedSHA256": "25eb83e7be02a5fd2c94df9d9eac9d3093c8b8abb2e92f4c557ea13294dc2681"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-completion.json.gz",
+    "rawName": "translated-completion.json",
+    "rawBytes": 389205,
+    "storedBytes": 10578,
+    "rawSHA256": "61f45a755588ecbb277cb9751cd1be92ca85f7b7a4d839427bb8880f4272c919",
+    "storedSHA256": "c92524c9e768928f8195e110b9fb9435f6a805dbe895f478d05e6f2022d48748"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-visual-theme.json.gz",
+    "rawName": "translated-visual-theme.json",
+    "rawBytes": 1102,
+    "storedBytes": 227,
+    "rawSHA256": "bef3b00df7cd01a34b568dc26dba1497754d1711ddee19e054c519e91f23d754",
+    "storedSHA256": "6799f3cf8c19b30c4d9dab19c2cca8ed049c592b6c5535e81cc42969f5f41450"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-native-preview-it.json.gz",
+    "rawName": "translated-native-preview-it.json",
+    "rawBytes": 3101,
+    "storedBytes": 320,
+    "rawSHA256": "8e74bb735226db17549b1175b4990629d72140cccf10c006e4f0e92bf606f2f0",
+    "storedSHA256": "f0f89f8e1e6752488ad131173c93c2aaff0b1bd8429febe75c6ddeb8f150b249"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-catalog.json.gz",
+    "rawName": "translated-catalog.json",
+    "rawBytes": 171439,
+    "storedBytes": 2864,
+    "rawSHA256": "4acf8d2e343231f3559cb7be01e1ded6da5e9acab41f68a705c26970c2fc8245",
+    "storedSHA256": "bc5f506834c7945d2cfdbaf5f723be9f4ab7a85a38d6cada6fcf286a5a41e9aa"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/web-storage-engine.json",
+    "rawName": "web-storage-engine.json",
+    "rawBytes": 8305,
+    "storedBytes": 8305,
+    "rawSHA256": "0fabc14a34dd1c69c20f271837e4c3c9230ea097e9a8514aaa439a6858cf7974",
+    "storedSHA256": "0fabc14a34dd1c69c20f271837e4c3c9230ea097e9a8514aaa439a6858cf7974"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-banking.json.gz",
+    "rawName": "translated-banking.json",
+    "rawBytes": 2090,
+    "storedBytes": 311,
+    "rawSHA256": "15838ff1f08fddf5226938d8b8c4e691de1f9df445ec37013e059ef217d5ff62",
+    "storedSHA256": "eb769640fa84ec2d56dff80148f89ad11b41569b9f97944e576e402be1056444"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-automation.json.gz",
+    "rawName": "translated-automation.json",
+    "rawBytes": 412582,
+    "storedBytes": 9898,
+    "rawSHA256": "d635fd4911554fb3dad91e2b322264c44cbba526b8b8bb521b0bc96757384d7e",
+    "storedSHA256": "73d73b065e55ee24f42f222a0c305a27f6228da60cd1b367a3fc21bf46207aa5"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-charts.json.gz",
+    "rawName": "translated-charts.json",
+    "rawBytes": 3881900,
+    "storedBytes": 81905,
+    "rawSHA256": "f298f89032c04c0b58e44403908b0b3ff43c4082e7b22c309adba5f56dc958c0",
+    "storedSHA256": "506c9c628307ee1f55756af71f03e1cf53e2c57247ea43d34613bd7771348b57"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/browser/translated-assistant.json.gz",
+    "rawName": "translated-assistant.json",
+    "rawBytes": 20830,
+    "storedBytes": 870,
+    "rawSHA256": "e9201d25661d2584f54630a2573b19f2c46e12cb0c6b57f6c340d707046e3e2c",
+    "storedSHA256": "032d381b668eea774fec42c7b2ff60a84a2cf32371540525139965bacf5a2850"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/native-preview/finanzas-native-build.json.gz",
+    "rawName": "finanzas-native-build.json",
+    "rawBytes": 192,
+    "storedBytes": 157,
+    "rawSHA256": "2c03afce7e9aa383ea2877cc095f1f8256402ece0083ee732e4b26b0287afed1",
+    "storedSHA256": "1018213c67530a1d93421593d3ad309d45964b0947735b844fbd8f2679d3c027"
+  },
+  {
+    "file": "ci-code-checkpoint/browser/vault-test-preview/finanzas-native-build.json.gz",
+    "rawName": "finanzas-native-build.json",
+    "rawBytes": 71,
+    "storedBytes": 81,
+    "rawSHA256": "b060d7eea723d377a30f891ca8209ce1d903ae15547ab58e49131b00941cd1d1",
+    "storedSHA256": "9fce7394ae37346f5051df88392f7b1e97dbf642e011598ed625b7d3d76837dc"
+  },
+  {
+    "file": "ci-code-checkpoint/unit/unit/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 396,
+    "storedBytes": 396,
+    "rawSHA256": "1203bc10e85286b7f0adf560d17b234b63bea4732d9f720c591c62e2229e7580",
+    "storedSHA256": "1203bc10e85286b7f0adf560d17b234b63bea4732d9f720c591c62e2229e7580"
+  },
+  {
+    "file": "ci-code-checkpoint/unit/tools/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 873,
+    "storedBytes": 873,
+    "rawSHA256": "90bf7c77b6cbd2a052e9e82a0b2ecc78745121680ca2e54f487ae0f2b2d34bbc",
+    "storedSHA256": "90bf7c77b6cbd2a052e9e82a0b2ecc78745121680ca2e54f487ae0f2b2d34bbc"
+  },
+  {
+    "file": "browser/summary.json",
+    "rawName": "summary.json",
+    "rawBytes": 25831,
+    "storedBytes": 25831,
+    "rawSHA256": "d300eaff77b296c8499d5dc818dff926d162058a07f75e23b31b87dcb32348fa",
+    "storedSHA256": "d300eaff77b296c8499d5dc818dff926d162058a07f75e23b31b87dcb32348fa"
+  },
+  {
+    "file": "browser/translated-obligations.json.gz",
+    "rawName": "translated-obligations.json",
+    "rawBytes": 217039,
+    "storedBytes": 4778,
+    "rawSHA256": "52b54ec677d98144c38992d1c318b02041628f959e2dc43b6d277773a95c7a0e",
+    "storedSHA256": "993954e6a0a16efb5922bb95eed1c068dd851701f51c59474523c5fea4ab7315"
+  },
+  {
+    "file": "browser/translated-storage.json.gz",
+    "rawName": "translated-storage.json",
+    "rawBytes": 342187,
+    "storedBytes": 8154,
+    "rawSHA256": "feff31471d32ddef70fb7b80fb1fdf0ded56b7fb5352e265a90cd6147f419d9e",
+    "storedSHA256": "9d6d2a19f8702765922eb03366f5fee02fa83504822e0fb821bf6dcf80236d5c"
+  },
+  {
+    "file": "browser/translated-large-ledger-es.json.gz",
+    "rawName": "translated-large-ledger-es.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "98e1407b4a989c9d7d110e09082213671353ef89f9c0cfb6a5505221cafc21a8",
+    "storedSHA256": "da2df3e60ca72b5254cbb2ab38856513fdcd94cb0c8acc8aa0f334d1499ff3d3"
+  },
+  {
+    "file": "browser/multilingual-catalog.json.gz",
+    "rawName": "multilingual-catalog.json",
+    "rawBytes": 41204,
+    "storedBytes": 1845,
+    "rawSHA256": "fc7b29df05bf896509bbb5fbe447e1bf2575affbc3b29ab33d5c92b7285bdfa8",
+    "storedSHA256": "6b2fb36da2235cd58f42469898b4444902816005cd7a45ce061323f421e24097"
+  },
+  {
+    "file": "browser/translated-native-preview-en.json.gz",
+    "rawName": "translated-native-preview-en.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "ed9c63070d5fadd4734b9359a796d5eed8bcd5725b9841f5d3179891f12a7c5a",
+    "storedSHA256": "4eaac2437a532d46ce52b7f24cad992dfefca3d74d55720d66031f667aadfcfe"
+  },
+  {
+    "file": "browser/translated-lazy-language.json.gz",
+    "rawName": "translated-lazy-language.json",
+    "rawBytes": 1457,
+    "storedBytes": 259,
+    "rawSHA256": "32f2dcf70650ac70ec0ea22f4f2896321c5d308feca75825d72392b02e01d3d3",
+    "storedSHA256": "3cdbd50c50616b5a75d1c3ff372d61b4c21702055bdb7289d180bd967d5336a5"
+  },
+  {
+    "file": "browser/landing-language.json.gz",
+    "rawName": "landing-language.json",
+    "rawBytes": 57558,
+    "storedBytes": 3266,
+    "rawSHA256": "5ffc965341644319b5552b217df5e305abc6e372b04e8d6d47c6c109860a41b0",
+    "storedSHA256": "dc258d0748b89dac3861f57512db9e1d9e9a23194cb17362107cf9300eabf714"
+  },
+  {
+    "file": "browser/translated-planning.json.gz",
+    "rawName": "translated-planning.json",
+    "rawBytes": 90951,
+    "storedBytes": 2523,
+    "rawSHA256": "014702c76010488d42b1b03f97fbd5048ea0f17d77c3583bf86af90bf6b30d7d",
+    "storedSHA256": "f0c5af6fb599830e236185a803b635a1f307860a5c75eafbc99df6f74f8903f2"
+  },
+  {
+    "file": "browser/axe.json.gz",
+    "rawName": "axe.json",
+    "rawBytes": 207366,
+    "storedBytes": 4369,
+    "rawSHA256": "effb36ecbc3afc02b51fdf440bcd8e8c11d6d05101744951b36107c4ad617614",
+    "storedSHA256": "06f4401966d86aad9fd2c7d9c6f646099305d597b0422a319c3de3310c52bad6"
+  },
+  {
+    "file": "browser/schedule.json",
+    "rawName": "schedule.json",
+    "rawBytes": 26726,
+    "storedBytes": 26726,
+    "rawSHA256": "1af12d9f65543338a78d7cadddce6c99d09e6a0fed694ca02d3f6bcf3d3cbbc2",
+    "storedSHA256": "1af12d9f65543338a78d7cadddce6c99d09e6a0fed694ca02d3f6bcf3d3cbbc2"
+  },
+  {
+    "file": "browser/native-vault-adapter-axe.json.gz",
+    "rawName": "native-vault-adapter-axe.json",
+    "rawBytes": 80671,
+    "storedBytes": 2403,
+    "rawSHA256": "38f0075082c981c00d6e3cc108cc13625b289225c2a94810e54d568cb66d26f1",
+    "storedSHA256": "26dca405971b9a4fc5399e61608fbdf75cb11bc5265ca753ee71722bb1f63a31"
+  },
+  {
+    "file": "browser/web-durability.json",
+    "rawName": "web-durability.json",
+    "rawBytes": 26621,
+    "storedBytes": 26621,
+    "rawSHA256": "7d72dfe7ccc2679f196e80248eafebcd46e39c2922f88e9f56560aca12f503a2",
+    "storedSHA256": "7d72dfe7ccc2679f196e80248eafebcd46e39c2922f88e9f56560aca12f503a2"
+  },
+  {
+    "file": "browser/translated-deferred-features.json.gz",
+    "rawName": "translated-deferred-features.json",
+    "rawBytes": 944,
+    "storedBytes": 234,
+    "rawSHA256": "e99c01b117a07dede1d9826ecab84bdbde005c78f888814a6e4f41b884c86168",
+    "storedSHA256": "67e06a63eeaf0bebe7fd4bcb5a8443383cee3b75b78279f203c2b011cb83e431"
+  },
+  {
+    "file": "browser/translated-native-preview-pt.json.gz",
+    "rawName": "translated-native-preview-pt.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "9f3017e5f5b34c5511cfcccafefd20d60fd4960621b535274b842d5dd4c6396f",
+    "storedSHA256": "3c6729c78be17c508619630cf2cf0112178dd830e254c66d12a76dccbfaa49b2"
+  },
+  {
+    "file": "browser/translated-large-ledger-en.json.gz",
+    "rawName": "translated-large-ledger-en.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "e96e015a2b6cbd88dfdceb30e48bc0b22f039f8b8e01086d0e9adc38a3ba12a5",
+    "storedSHA256": "6d202be139921c11dcdc36b9404eba13294b578da19299c4c6c5ea26722d52e4"
+  },
+  {
+    "file": "browser/translated-large-ledger-pt.json.gz",
+    "rawName": "translated-large-ledger-pt.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "45e530e53374729110c42a8a403bb68243ba7f089dbbd587d77e0861051567f6",
+    "storedSHA256": "bf902c3fb4cd2c1c44e9563cb5f0f33d01e4af7d0c3ff36c0fca0a3211f2b737"
+  },
+  {
+    "file": "browser/web-crash-controls.json",
+    "rawName": "web-crash-controls.json",
+    "rawBytes": 7418,
+    "storedBytes": 7418,
+    "rawSHA256": "d6284de82065e387b223e0fb15eb529523e7a01e68f4c92f0c111dafc74ea748",
+    "storedSHA256": "d6284de82065e387b223e0fb15eb529523e7a01e68f4c92f0c111dafc74ea748"
+  },
+  {
+    "file": "browser/translated-shared.json.gz",
+    "rawName": "translated-shared.json",
+    "rawBytes": 354532,
+    "storedBytes": 10418,
+    "rawSHA256": "7170e4f2400567a702e1671d50bb9b295525105658fd93d5b2b225bf3403ecbf",
+    "storedSHA256": "1748cb06efe49fe80635b9b65e813b1f1833c3e209535732d54183abcbf8155a"
+  },
+  {
+    "file": "browser/web-storage-ui.json.gz",
+    "rawName": "web-storage-ui.json",
+    "rawBytes": 96617,
+    "storedBytes": 3502,
+    "rawSHA256": "eba24db43918bd4ca03b12e5b35ac6112e2175ca23258d4749d0ac76d856ad50",
+    "storedSHA256": "6f66fab01e4ce324f9fc8f85038fc3e8896157a1d4a481a527165726793efabb"
+  },
+  {
+    "file": "browser/translated-native-preview-es.json.gz",
+    "rawName": "translated-native-preview-es.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "1ffeb06f3b531af33b54f56f217370609c22bfd3d5d2fbad26bf843c2e38babb",
+    "storedSHA256": "1f2087f220e934073e5943c18f25c163dbc0b14383947d4f1ad2f6e1672c6d2b"
+  },
+  {
+    "file": "browser/translated-native-preview-fr.json.gz",
+    "rawName": "translated-native-preview-fr.json",
+    "rawBytes": 3101,
+    "storedBytes": 321,
+    "rawSHA256": "2161edd1cbce1e002c475da906a0e4e8df11af1ad97b7987ab70f41152a95d11",
+    "storedSHA256": "6193cdca3d2f08361840f2e2b53f040db315b46ccbe041bf19e1652cf1cd1ea8"
+  },
+  {
+    "file": "browser/translated-large-ledger-it.json.gz",
+    "rawName": "translated-large-ledger-it.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "aa73b38af8631a3e4e9eaf42821b0e847ade93b170e1ef886b23138e70c8163e",
+    "storedSHA256": "ea31c8a2fb4820c26dbcdd30112aaaec0a03e78fbbce5f70365a7292968317de"
+  },
+  {
+    "file": "browser/translated-large-ledger-fr.json.gz",
+    "rawName": "translated-large-ledger-fr.json",
+    "rawBytes": 1147,
+    "storedBytes": 254,
+    "rawSHA256": "3b45a1d45a30b7bcbb3739e1df828b07609fcd9f62a2614c65d977e0227a90b9",
+    "storedSHA256": "e3d0c24f9d7260a2d2513706710f31c6ea83ba91090a86a7a23ed2b4330c731c"
+  },
+  {
+    "file": "browser/translated-presentation.json.gz",
+    "rawName": "translated-presentation.json",
+    "rawBytes": 133617,
+    "storedBytes": 3576,
+    "rawSHA256": "b1587bca2dc5b2b46ed28d77b4c1f2f1ba6e205d01dc85cd69ea4540a87deba9",
+    "storedSHA256": "46ade795d01e869c58aab3e66c0f24d09eb8d60e041cadcc6150a0aa7060edd2"
+  },
+  {
+    "file": "browser/translated-completion.json.gz",
+    "rawName": "translated-completion.json",
+    "rawBytes": 386429,
+    "storedBytes": 10886,
+    "rawSHA256": "b94ce0534ab957225bc6994a9cbc3a9572c943969aed6ccaf15110ea3d93b6ba",
+    "storedSHA256": "e75cd53ed1c035b5eaaa955214035f71b4626eeee5c4b9fa3d7d872e576bf53f"
+  },
+  {
+    "file": "browser/translated-visual-theme.json.gz",
+    "rawName": "translated-visual-theme.json",
+    "rawBytes": 1102,
+    "storedBytes": 227,
+    "rawSHA256": "bef3b00df7cd01a34b568dc26dba1497754d1711ddee19e054c519e91f23d754",
+    "storedSHA256": "6799f3cf8c19b30c4d9dab19c2cca8ed049c592b6c5535e81cc42969f5f41450"
+  },
+  {
+    "file": "browser/translated-native-preview-it.json.gz",
+    "rawName": "translated-native-preview-it.json",
+    "rawBytes": 3101,
+    "storedBytes": 320,
+    "rawSHA256": "8e74bb735226db17549b1175b4990629d72140cccf10c006e4f0e92bf606f2f0",
+    "storedSHA256": "f0f89f8e1e6752488ad131173c93c2aaff0b1bd8429febe75c6ddeb8f150b249"
+  },
+  {
+    "file": "browser/translated-catalog.json.gz",
+    "rawName": "translated-catalog.json",
+    "rawBytes": 158389,
+    "storedBytes": 2762,
+    "rawSHA256": "da93e1235a82bc5f6b6956cd3da947db635b812ff927fa76f63609042895c006",
+    "storedSHA256": "586b209cb5737c9fe282a4f94964994e64bdc29391d6887d6ebf1597e3d3fefe"
+  },
+  {
+    "file": "browser/web-storage-engine.json",
+    "rawName": "web-storage-engine.json",
+    "rawBytes": 8305,
+    "storedBytes": 8305,
+    "rawSHA256": "53a83af317dd182bba7e2e2e5c18c8740fa9cdb07241747a234d61b0e8371f27",
+    "storedSHA256": "53a83af317dd182bba7e2e2e5c18c8740fa9cdb07241747a234d61b0e8371f27"
+  },
+  {
+    "file": "browser/translated-banking.json.gz",
+    "rawName": "translated-banking.json",
+    "rawBytes": 2090,
+    "storedBytes": 311,
+    "rawSHA256": "15838ff1f08fddf5226938d8b8c4e691de1f9df445ec37013e059ef217d5ff62",
+    "storedSHA256": "eb769640fa84ec2d56dff80148f89ad11b41569b9f97944e576e402be1056444"
+  },
+  {
+    "file": "browser/translated-automation.json.gz",
+    "rawName": "translated-automation.json",
+    "rawBytes": 414857,
+    "storedBytes": 9944,
+    "rawSHA256": "2cd392250ab26346116c538b0f7da91c71bc0acdcb5ea820da95c2bda85cd1c4",
+    "storedSHA256": "33e17dda64280eb0b4e002d0d1ef8ebea4acb098f570ffc91b675df9d4b04005"
+  },
+  {
+    "file": "browser/translated-charts.json.gz",
+    "rawName": "translated-charts.json",
+    "rawBytes": 3808368,
+    "storedBytes": 79617,
+    "rawSHA256": "f6f2a578c689a3148bcde424698f67742084c3db3f66c7db5455bd305a5b3a49",
+    "storedSHA256": "53dd3bd33b805b64b093dc12880f6ff1f33b4fbd0068e6491c5bc3f96e8472d1"
+  },
+  {
+    "file": "browser/translated-assistant.json.gz",
+    "rawName": "translated-assistant.json",
+    "rawBytes": 20830,
+    "storedBytes": 870,
+    "rawSHA256": "e9201d25661d2584f54630a2573b19f2c46e12cb0c6b57f6c340d707046e3e2c",
+    "storedSHA256": "032d381b668eea774fec42c7b2ff60a84a2cf32371540525139965bacf5a2850"
+  }
+]

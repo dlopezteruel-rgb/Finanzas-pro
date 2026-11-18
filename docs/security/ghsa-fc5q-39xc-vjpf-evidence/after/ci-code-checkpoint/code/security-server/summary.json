@@ -1,0 +1,46 @@
+{
+  "source": "cf460d0ce4869b1f9fc4f05abc14c00415513b0e",
+  "results": [
+    {
+      "mode": "production",
+      "base": "/",
+      "passed": true,
+      "readyMs": 581.818201,
+      "buildDependenciesLoaded": false
+    },
+    {
+      "mode": "production",
+      "base": "/security-finanzas/",
+      "passed": true,
+      "readyMs": 411.8405120000002,
+      "buildDependenciesLoaded": false
+    },
+    {
+      "mode": "development",
+      "base": "/",
+      "passed": true,
+      "readyMs": 1051.851608,
+      "hmrDisabled": true
+    },
+    {
+      "mode": "development",
+      "base": "/security-finanzas/",
+      "passed": true,
+      "readyMs": 971.3517430000002,
+      "hmrDisabled": true
+    },
+    {
+      "mode": "development",
+      "base": "/",
+      "passed": true,
+      "hmrUpdated": true
+    },
+    {
+      "mode": "development",
+      "base": "/security-finanzas/",
+      "passed": true,
+      "hmrUpdated": true
+    }
+  ],
+  "scope": "Real Express/Vite HTTP and HMR on owned processes; fictional API data and no financial persistence operations. No ReDoS payloads. Tokens are never logged."
+}
