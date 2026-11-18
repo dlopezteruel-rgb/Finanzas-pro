@@ -17,7 +17,7 @@ export async function runCheck(mode){
     let commands,expected=0;
     if(mode==='unit'){commands=[['npm',['test']]];expected=1;}
     else if(mode==='tools'){const files=(await readdir('scripts/ci')).filter(f=>f.endsWith('.test.mjs')).sort();commands=[[process.execPath,['--test',...files.map(f=>`scripts/ci/${f}`)]]];expected=1;}
-    else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']]];
+    else if(mode==='code')commands=[[process.execPath,['scripts/ci/check-diff.mjs']],['npm',['run','lint']],['npm',['run','build']],[process.execPath,['--test','scripts/security/server.test.mjs']]];
     else if(mode==='browser'){
       summary.suites=[...browserSuites];expected=summary.suites.length;
       if(!summary.suites.includes('scripts/nativeVault.browser.ts')||!summary.suites.includes('scripts/webDurability.browser.ts'))throw new Error('Mandatory P0 WEB-001 real SIGKILL suite missing.');
@@ -34,6 +34,7 @@ export async function runCheck(mode){
       if(expected)summary.tests=parseTestSummaries(result.stdout);
       if(result.code!==0||result.signal)throw new Error(`${command} ${args.join(' ')} failed (${result.code??result.signal}).`);
       if(expected)summary.tests=requireCompleteTests(result.stdout,expected);
+      if(mode==='code'&&args.includes('scripts/security/server.test.mjs')){summary.serverTests=requireCompleteTests(result.stdout,1);if(summary.serverTests[0].tests!==6)throw Error('All6 production/dev/HMR isolation tests are required.');}
     }
     if(mode==='browser'){
       const sha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
