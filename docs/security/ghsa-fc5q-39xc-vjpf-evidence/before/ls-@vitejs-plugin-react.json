@@ -1,0 +1,11 @@
+{
+  "version": "0.0.0",
+  "name": "react-example",
+  "dependencies": {
+    "@vitejs/plugin-react": {
+      "version": "6.3.0",
+      "resolved": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.3.0.tgz",
+      "overridden": false
+    }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-18T01:17:44.983434+00:00",
+  "base": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "referenceMatches": true,
+  "PR32": "merged at00:44UTC on2026-11-18",
+  "branch": "fix/security-picomatch-redos",
+  "worktreesBefore": [
+    {
+      "path": "/workspace/work/Finanzas-pro-rebuild",
+      "head": "c9d70bf85f20ad983d13f5652b26f7fe91c231a8",
+      "status": [
+        "?? docs/phase-5e-performance-optimization.md",
+        "?? scripts/performance/"
+      ]
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5d-baseline",
+      "head": "0a155a81ac31a96f28d515f64502507c91773f30",
+      "status": [
+        "?? node_modules"
+      ]
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5e",
+      "head": "ddcf3a97a0a2a9078706c0b76b8403142036a63e",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5f",
+      "head": "b2eb33277c8f15a92fb6b5ad76b595a652a7c49e",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5f-base",
+      "head": "540cfcf269024e3b0d3399b653a2d5b16b1845c5",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5g",
+      "head": "4796e3f7585bc258acef73d440a6bd147bb6010f",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5g-base",
+      "head": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-5h",
+      "head": "472d2ed6f280f6373aa48ac67eebab0bbf3ea761",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-web-durable",
+      "head": "168c03a9a5fe00ada839739f0c11aec1f6e7a0b4",
+      "status": []
+    },
+    {
+      "path": "/workspace/work/Finanzas-pro-web001-baseline",
+      "head": "ce1ec8398fed0eb6a39f0c362567b8a6613eaf81",
+      "status": [
+        "?? node_modules"
+      ]
+    }
+  ],
+  "npmInheritedAuditConfiguration": false,
+  "explicitAuditCommandsExecuted": true,
+  "dependencyChanges": false,
+  "installerCacheVerification": [
+    {
+      "archive": "/workspace/work/5g-toolchain/downloads/jdk21.tar.gz",
+      "bytes": 207858352,
+      "sha256": "d7f5d5cf865a2902b70ff549b97586a7d3f234e016f041ab447ea740c7d66d1c",
+      "installedRegularFilesVerified": 249,
+      "scope": "Regenerable public tool installer; installed tools, sources, worktrees and historical evidence preserved."
+    },
+    {
+      "archive": "/workspace/work/5g-toolchain/downloads/android-commandlinetools.zip",
+      "bytes": 181833628,
+      "sha256": "4e4c464f145a7512b57d088ac6c278c03c9eea610886b35a5e0804e74eedf583",
+      "installedRegularFilesVerified": 141,
+      "scope": "Regenerable public tool installer; installed tools, sources, worktrees and historical evidence preserved."
+    }
+  ]
+}

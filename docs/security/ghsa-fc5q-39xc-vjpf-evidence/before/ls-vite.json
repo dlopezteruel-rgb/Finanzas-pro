@@ -1,0 +1,31 @@
+{
+  "version": "0.0.0",
+  "name": "react-example",
+  "dependencies": {
+    "@tailwindcss/vite": {
+      "version": "4.3.5",
+      "resolved": "https://registry.npmjs.org/@tailwindcss/vite/-/vite-4.3.5.tgz",
+      "overridden": false,
+      "dependencies": {
+        "vite": {
+          "version": "8.3.7"
+        }
+      }
+    },
+    "@vitejs/plugin-react": {
+      "version": "6.3.0",
+      "resolved": "https://registry.npmjs.org/@vitejs/plugin-react/-/plugin-react-6.3.0.tgz",
+      "overridden": false,
+      "dependencies": {
+        "vite": {
+          "version": "8.3.7"
+        }
+      }
+    },
+    "vite": {
+      "version": "8.3.7",
+      "resolved": "https://registry.npmjs.org/vite/-/vite-8.3.7.tgz",
+      "overridden": false
+    }
+  }
+}

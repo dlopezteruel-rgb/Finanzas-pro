@@ -1,0 +1,213 @@
+{
+  "bin": {
+    "rolldown": "./bin/cli.mjs"
+  },
+  "bugs": {
+    "url": "https://github.com/rolldown/rolldown/issues"
+  },
+  "dist": {
+    "shasum": "feb4b3de1b4b6f24d6ebb6eb220c405880c320ba",
+    "tarball": "https://registry.npmjs.org/rolldown/-/rolldown-1.2.18.tgz",
+    "fileCount": 54,
+    "integrity": "sha512-C1uuT3UR60SShuCaPQFAAZyefJCWZlAKB02BV3BuPE2Rs4fevRQltEKoFO2tV5W9/eJhU5RieV6vJj3euulfNQ==",
+    "signatures": [
+      {
+        "sig": "MEUCIAvyZxWnhKBFdh5nDVDkp1F1uKte/Rf2hfDoxVUBra4nAiEA6rjhkLTJrnrX6mrGvcceECD/rO9Ia0fopnlPtcfEIMQ=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      },
+      {
+        "sig": "MEUCIQDJi5hVKtUftQOT6BmGgYAILAgzgxxKA3NsBeL+REIZ7QIgNv9HLTEMq3xre1kdbdOh9MK58o0NugzYRxu8FzWjsPs=",
+        "keyid": "SHA256:DhQ8wR5APBvFHLF/+Tc+AYvPOdTpcIDqOhxsBHRwC7U"
+      }
+    ],
+    "attestations": {
+      "url": "https://registry.npmjs.org/-/npm/v1/attestations/rolldown@1.2.18",
+      "provenance": {
+        "predicateType": "https://slsa.dev/provenance/v1"
+      }
+    },
+    "unpackedSize": 884636
+  },
+  "main": "./dist/index.mjs",
+  "name": "rolldown",
+  "napi": {
+    "wasm": {
+      "browser": {
+        "fs": true,
+        "asyncInit": true,
+        "errorEvent": true
+      },
+      "initialMemory": 16384
+    },
+    "targets": [
+      "aarch64-apple-darwin",
+      "aarch64-linux-android",
+      "aarch64-pc-windows-msvc",
+      "aarch64-unknown-linux-gnu",
+      "aarch64-unknown-linux-musl",
+      "aarch64-unknown-linux-ohos",
+      "armv7-linux-androideabi",
+      "armv7-unknown-linux-gnueabihf",
+      "powerpc64le-unknown-linux-gnu",
+      "s390x-unknown-linux-gnu",
+      "wasm32-wasip1-threads",
+      "x86_64-apple-darwin",
+      "x86_64-pc-windows-msvc",
+      "x86_64-unknown-freebsd",
+      "x86_64-unknown-linux-gnu",
+      "x86_64-unknown-linux-musl"
+    ],
+    "dtsHeader": "type MaybePromise<T> = T | Promise<T>\ntype Nullable<T> = T | null | undefined\ntype VoidNullable<T = void> = T | null | undefined | void\nexport type BindingStringOrRegex = string | RegExp\nexport type BindingResult<T> = { errors: BindingError[], isBindingErrors: boolean } | T\n\n",
+    "binaryName": "rolldown-binding",
+    "packageName": "@rolldown/binding"
+  },
+  "type": "module",
+  "types": "./dist/index.d.mts",
+  "module": "./dist/index.mjs",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./utils": "./dist/utils-index.mjs",
+    "./config": "./dist/config.mjs",
+    "./filter": "./dist/filter-index.mjs",
+    "./plugins": "./dist/plugins-index.mjs",
+    "./parseAst": "./dist/parse-ast-index.mjs",
+    "./experimental": "./dist/experimental-index.mjs",
+    "./getLogFilter": "./dist/get-log-filter.mjs",
+    "./package.json": "./package.json",
+    "./parallelPlugin": "./dist/parallel-plugin.mjs",
+    "./experimental/runtime": {
+      "types": "./dist/experimental-runtime.d.ts",
+      "default": "./dist/experimental-runtime.mjs"
+    },
+    "./experimental/runtime-types": {
+      "types": "./dist/experimental-runtime-types.d.ts"
+    }
+  },
+  "imports": {
+    "#parallel-plugin-worker": "./dist/parallel-plugin-worker.mjs"
+  },
+  "license": "MIT",
+  "scripts": {
+    "publint": "publint .",
+    "artifacts": "napi artifacts --cwd ./src --package-json-path ../package.json -o=../artifacts --npm-dir ../npm",
+    "build-node": "node --enable-source-maps --import @oxc-node/core/register -C dev ./build.ts",
+    "build-binding": "oxnode ./build-binding.ts",
+    "build-js-glue": "pnpm run --sequential '/^build-(node|types-check)$/'",
+    "build-wasi:debug": "TARGET='rolldown-wasi' pnpm run --sequential '/^build-(binding|binding:wasi|node)$/'",
+    "build-types-check": "tsc -p ./tsconfig.check.json",
+    "build-binding:wasi": "pnpm build-binding --target wasm32-wasip1-threads",
+    "build-native:debug": "pnpm run --sequential '/^build-(binding|js-glue)$/'",
+    "build-wasi:release": "TARGET='rolldown-wasi' pnpm run --sequential '/^build-(binding|binding:wasi:release|node)$/'",
+    "# Scrips for docs #": "_",
+    "# Scrips for node #": "_",
+    "build-native:profile": "pnpm run build-binding:profile && pnpm run build-js-glue",
+    "build-native:release": "pnpm run --sequential '/^build-(binding:release|js-glue)$/'",
+    "build-binding:profile": "pnpm build-binding --profile profile --features chrome-tracing",
+    "build-binding:release": "pnpm build-binding --release",
+    "# Scrips for binding #": "_",
+    "build-browser-pkg:debug": "TARGET='browser' pnpm run --sequential '/^build-(binding:wasi|node)$/'",
+    "build-browser-pkg:release": "TARGET='browser' pnpm run --sequential '/^build-(binding:wasi:release|node)$/'",
+    "build-binding:wasi:release": "pnpm build-binding --profile release-wasi --target wasm32-wasip1-threads",
+    "build-native:memory-profile": "pnpm run build-binding:profile --features default_global_allocator && pnpm run build-js-glue"
+  },
+  "_npmUser": {
+    "name": "GitHub Actions",
+    "email": "npm-oidc-no-reply@github.com",
+    "trustedPublisher": {
+      "id": "github",
+      "oidcConfigId": "9271c60d-4fef-436d-b3e6-0398ed1a4ba4"
+    }
+  },
+  "homepage": "https://rolldown.rs/",
+  "keywords": [
+    "bundler",
+    "esbuild",
+    "parcel",
+    "rolldown",
+    "rollup",
+    "webpack"
+  ],
+  "repository": {
+    "url": "git+https://github.com/rolldown/rolldown.git",
+    "type": "git",
+    "directory": "packages/rolldown"
+  },
+  "description": "Fast JavaScript/TypeScript bundler in Rust with Rollup-compatible API.",
+  "directories": {},
+  "maintainers": [
+    {
+      "name": "broooooklyn",
+      "email": "lynweklm@gmail.com"
+    },
+    {
+      "name": "yyx990803",
+      "email": "yyx990803@gmail.com"
+    },
+    {
+      "name": "rolldownbot",
+      "email": "rolldown@voidzero.dev"
+    },
+    {
+      "name": "sapphi-red",
+      "email": "green@sapphi.red"
+    }
+  ],
+  "dependencies": {
+    "@oxc-project/types": "=0.156.0",
+    "@rolldown/pluginutils": "^1.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "_hasShrinkwrap": false,
+  "devDependencies": {
+    "cac": "^7.1.0",
+    "glob": "^13.0.0",
+    "execa": "^9.2.0",
+    "pathe": "^2.0.3",
+    "emnapi": "2.0.0-beta.2",
+    "remeda": "^2.53.0",
+    "rollup": "^4.63.0",
+    "consola": "^3.4.2",
+    "valibot": "1.5.0",
+    "rolldown": "1.2.18",
+    "oxc-parser": "=0.156.0",
+    "source-map": "0.8.0",
+    "typescript": "^6.0.0",
+    "signal-exit": "4.1.0",
+    "@emnapi/core": "2.0.0-beta.2",
+    "@napi-rs/cli": "^3.10.0",
+    "fresh-import": "^0.2.1",
+    "@oxc-node/cli": "^0.1.0",
+    "@emnapi/runtime": "2.0.0-beta.2",
+    "rolldown-plugin-dts": "^0.28.0",
+    "@napi-rs/wasm-runtime": "1.2.6"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-darwin-x64": "1.2.18",
+    "@rolldown/binding-freebsd-x64": "1.2.18",
+    "@rolldown/binding-darwin-arm64": "1.2.18",
+    "@rolldown/binding-android-arm64": "1.2.18",
+    "@rolldown/binding-linux-x64-gnu": "1.2.18",
+    "@rolldown/binding-linux-x64-musl": "1.2.18",
+    "@rolldown/binding-win32-x64-msvc": "1.2.18",
+    "@rolldown/binding-linux-arm64-gnu": "1.2.18",
+    "@rolldown/binding-linux-ppc64-gnu": "1.2.18",
+    "@rolldown/binding-linux-s390x-gnu": "1.2.18",
+    "@rolldown/binding-android-arm-eabi": "1.2.18",
+    "@rolldown/binding-linux-arm64-musl": "1.2.18",
+    "@rolldown/binding-win32-arm64-msvc": "1.2.18",
+    "@rolldown/binding-openharmony-arm64": "1.2.18",
+    "@rolldown/binding-linux-arm-gnueabihf": "1.2.18"
+  },
+  "_npmOperationalInternal": {
+    "tmp": "tmp/rolldown_1.2.18_1794218854182_0.2534856457302578",
+    "host": "s3://npm-registry-packages-npm-production"
+  },
+  "_id": "rolldown@1.2.18",
+  "version": "1.2.18"
+}

@@ -1,0 +1,174 @@
+{
+  "source": "208f1830581dc6c424118ee0edb77903ec83042e",
+  "commands": [
+    {
+      "name": "node",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "code": 0,
+      "durationMs": 7.37755699083209
+    },
+    {
+      "name": "npm",
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "code": 0,
+      "durationMs": 142.83319300739095
+    },
+    {
+      "name": "npm-ci",
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "code": 0,
+      "durationMs": 5551.571765012341
+    },
+    {
+      "name": "ls-picomatch",
+      "command": [
+        "npm",
+        "ls",
+        "picomatch",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "durationMs": 394.77082900702953
+    },
+    {
+      "name": "ls-fdir",
+      "command": [
+        "npm",
+        "ls",
+        "fdir",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "durationMs": 352.69513599632774
+    },
+    {
+      "name": "ls-tinyglobby",
+      "command": [
+        "npm",
+        "ls",
+        "tinyglobby",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "durationMs": 392.58283100207336
+    },
+    {
+      "name": "ls-vite",
+      "command": [
+        "npm",
+        "ls",
+        "vite",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "durationMs": 365.170021992526
+    },
+    {
+      "name": "ls-@vitejs-plugin-react",
+      "command": [
+        "npm",
+        "ls",
+        "@vitejs/plugin-react",
+        "--json",
+        "--all"
+      ],
+      "code": 0,
+      "durationMs": 369.0372469864087
+    },
+    {
+      "name": "explain-picomatch",
+      "command": [
+        "npm",
+        "explain",
+        "picomatch",
+        "--json"
+      ],
+      "code": 0,
+      "durationMs": 390.5771919962717
+    },
+    {
+      "name": "explain-vite",
+      "command": [
+        "npm",
+        "explain",
+        "vite",
+        "--json"
+      ],
+      "code": 0,
+      "durationMs": 324.1836140077794
+    },
+    {
+      "name": "audit",
+      "command": [
+        "npm",
+        "audit",
+        "--json"
+      ],
+      "code": 1,
+      "durationMs": 1231.4160999958403
+    },
+    {
+      "name": "audit-production",
+      "command": [
+        "npm",
+        "audit",
+        "--omit=dev",
+        "--json"
+      ],
+      "code": 1,
+      "durationMs": 748.215743995388
+    },
+    {
+      "name": "unit",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "code": 0,
+      "durationMs": 8987.347233996843
+    },
+    {
+      "name": "tools",
+      "command": [
+        "node",
+        "scripts/ci/run-check.mjs",
+        "tools"
+      ],
+      "code": 0,
+      "durationMs": 1635.4888820060296
+    },
+    {
+      "name": "lint",
+      "command": [
+        "npm",
+        "run",
+        "lint"
+      ],
+      "code": 0,
+      "durationMs": 2541.6659100010293
+    },
+    {
+      "name": "build",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "code": 0,
+      "durationMs": 1204.1127020056592
+    }
+  ]
+}
