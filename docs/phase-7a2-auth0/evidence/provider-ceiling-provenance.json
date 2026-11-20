@@ -1,0 +1,5 @@
+{
+  "parentSource": "61ab16987cdc451c1bfe8c38c65bb80dc478d5f0",
+  "workingTreeDirty": true,
+  "scope": "Focused failing reproduction followed by callback fix;30/30 SDK unit cases and796/796 total before publication. No remote Auth0 tenant. The earlier partial full run is superseded, not approved."
+}

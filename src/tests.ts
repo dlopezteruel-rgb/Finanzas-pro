@@ -86,3 +86,5 @@ import './platform/web/controller.test';
 import './platform/financeSession.test';
 
 import './identity/identity.test';
+
+import "./identity/auth0.test";

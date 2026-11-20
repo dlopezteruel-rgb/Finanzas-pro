@@ -5,6 +5,7 @@ import { I18nProvider, useI18n } from '../i18n';
 import { isApplicationPath } from '../../config/appPaths';
 import { paths } from './paths';
 import {installedContainer} from '../platform/environment';
+const Access = lazy(() => import('../components/AccessPage'));
 const Application = lazy(() => import('../App'));
 export function AppSplash() {
   const { t } = useI18n();
@@ -22,5 +23,5 @@ class LoadBoundary extends React.Component<{ children: React.ReactNode }, { fail
 function NativeBuildRequired(){const {t}=useI18n();return <main className="app-load-failure"><Brand/><h1>{t('native.title')}</h1><p role="alert">{t('native.packagingError')}</p></main>;}
 export function Root({blockedContainer=false}:{blockedContainer?:boolean}) {
   const appRoute = isApplicationPath(window.location.pathname, paths.home);
-  return <I18nProvider><LoadBoundary>{blockedContainer||installedContainer()?<NativeBuildRequired/>:appRoute ? <Suspense fallback={<AppSplash />}><Application /></Suspense> : <LandingPage />}</LoadBoundary></I18nProvider>;
+  return <I18nProvider><LoadBoundary>{blockedContainer||installedContainer()?<NativeBuildRequired/>:window.location.pathname===paths.home+'access' ? <Suspense fallback={<AppSplash/>}><Access/></Suspense> : appRoute ? <Suspense fallback={<AppSplash />}><Application /></Suspense> : <LandingPage />}</LoadBoundary></I18nProvider>;
 }

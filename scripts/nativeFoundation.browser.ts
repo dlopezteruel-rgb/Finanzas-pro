@@ -111,3 +111,5 @@ test('5G: prototipo local y adaptadores en Chromium; no es ejecución nativa',{t
 });
 
 import './identityFoundationCases';
+
+import "./auth0Access.browser";
