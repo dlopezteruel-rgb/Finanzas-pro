@@ -1,0 +1,15 @@
+{
+  "base": "40c16e6602bef8338d43fd833fe578fced9d670f",
+  "workingTreeDirty": true,
+  "scope": "Precommit working-tree checkpoint; fictitious fixtures, no remote Auth0 tenant. Final source/CI recorded in PR.",
+  "uiSHA256": {
+    "src/components/AccessPage.tsx": "4965c16c69a2b34707152a6f790ba21eaedcda3c5c1897b2fabe491e1424a650",
+    "src/components/access.css": "dc84ff141b8b1d124bef0be55557a82e9f23c8d676733e1395db97fc666eee55",
+    "src/app/auth0Session.ts": "f22cb0f85ccf42db14e2a461834dfb752216f0e983f000fb21f63f67ecd66355",
+    "src/app/Root.tsx": "72c559e0774b045d8546f47e0f9b84ea3867d2d6d5bdadc6d78d170c85781de9"
+  },
+  "captures": {
+    "access-es-390-dark.jpg": "06cbf1f998c9b32aa9cdc5c5ff44a23a35e14c3c8af8b8837ca8cc56ae19caab",
+    "access-fr-1280-light.jpg": "e6accf6198c836c02259b7d31184db72e9e13afdedd683c6d731b0d05975d45f"
+  }
+}
