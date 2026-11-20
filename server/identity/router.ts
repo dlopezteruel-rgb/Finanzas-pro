@@ -34,7 +34,10 @@ export function createIdentityRouter(config:AuthConfig, transport?:ConfigParams[
    if(!c||c.iss!==config.issuer||typeof c.sub!=='string'||!c.sub||!Number.isFinite(c.exp)||!Number.isFinite(c.iat))throw Error('INVALID_IDENTITY');
    if(state.expectedSubject&&(c.sub!==state.expectedSubject||!Number.isFinite(c.auth_time)||Date.now()/1000-Number(c.auth_time)>60))throw Error('REAUTH_IDENTITY_MISMATCH');
    // No API access/refresh token is needed for this identity-only surface.
-   return {id_token:session.id_token,access_token:'',refresh_token:'',token_type:'',expires_at:'',reference:randomUUID(),deadline:Math.min(Number(c.exp)*1000,Date.now()+900000)};
+   const providerCeiling=typeof session.sessionExpiresAt==='number'?session.sessionExpiresAt*1000-30000:Infinity;
+   return {id_token:session.id_token,access_token:'',refresh_token:'',token_type:'',expires_at:'',sid:session.sid,
+    ...(session.sessionExpiresAt!==undefined?{sessionExpiresAt:session.sessionExpiresAt}:{}),
+    reference:randomUUID(),deadline:Math.min(Number(c.exp)*1000,Date.now()+900000,providerCeiling)};
   }};
  const sdk=auth(sdkConfig);
  router.use((req,res,next)=>req.path.startsWith(p+'/')?sdk(req,res,next):next());

@@ -23,7 +23,7 @@ async function fixture(overrides:Record<string,string>={}){
    if(mode==='revoked')return Response.json({error:'invalid_grant',error_description:'SECRET_PROVIDER_DESCRIPTION'}, {status:400});
    const body=new URLSearchParams(init?.body as string);assert.equal(body.get('code'),'fixture-code');assert.equal(body.get('grant_type'),'authorization_code');assert.equal(body.get('redirect_uri'),origin+'/api/identity/callback');
    assert.equal(createHash('sha256').update(body.get('code_verifier')!).digest('base64url'),active.get('code_challenge'));
-   const now=Math.floor(Date.now()/1000);const id=await new SignJWT({nonce:mode==='nonce'?'wrong':active.get('nonce'),email:'same@fictional.invalid',email_verified:true,auth_time:now}).setProtectedHeader({alg:'RS256',kid:'fixture-key'}).setIssuer(mode==='issuer'?'https://wrong.invalid/':issuer).setAudience(mode==='audience'?'WRONG':env.AUTH0_CLIENT_ID).setSubject(subject).setIssuedAt(now).setExpirationTime(mode==='expired'?now-60:now+600).sign(privateKey);
+   const now=Math.floor(Date.now()/1000);const id=await new SignJWT({nonce:mode==='nonce'?'wrong':active.get('nonce'),email:'same@fictional.invalid',email_verified:true,auth_time:now,...(mode==='ceiling'?{session_expiry:now+60}:{})}).setProtectedHeader({alg:'RS256',kid:'fixture-key'}).setIssuer(mode==='issuer'?'https://wrong.invalid/':issuer).setAudience(mode==='audience'?'WRONG':env.AUTH0_CLIENT_ID).setSubject(subject).setIssuedAt(now).setExpirationTime(mode==='expired'?now-60:now+600).sign(privateKey);
    return Response.json({token_type:'Bearer',access_token:'FAKE_ACCESS_NEVER_PROJECT',id_token:id,expires_in:600});
   }
   throw Error('Unexpected network request');
@@ -91,3 +91,5 @@ test('Auth0 cookie is an authenticated JWE; tampering or another application is 
   const i=Math.floor(cookie.length/2);a.jar.set('finanzasAuth',cookie.slice(0,i)+(cookie[i]==='a'?'b':'a')+cookie.slice(i+1));assert.equal((await(await a.request('/api/identity/session')).json()).status,'signed-out');
  }finally{await a.close();}
 });
+
+test('Auth0 provider session_expiry ceiling is preserved and bounds the public session',async()=>{const f=await fixture();try{f.setMode('ceiling');await f.start();await f.callback();const value=await(await f.request('/api/identity/session')).json();assert.equal(value.status,'authenticated');assert.ok(value.session.expiresAtMs<=Date.now()+35000,'Provider ceiling, including SDK30s leeway, must precede the ID token expiration');assert.equal(value.financialAccess,false);}finally{await f.close();}});
