@@ -13,7 +13,7 @@ export function LandingPage() {
     <main id="landing-content" tabIndex={-1}>
       <section className="landing-hero">
         <div><p className="eyebrow">{t('landing.eyebrow')}</p><h1>{t('landing.title')}</h1><p className="landing-intro">{t('landing.description')}</p>
-          <div className="landing-cta"><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={20} aria-hidden="true" /></a><a className="button-secondary" href={paths.home+'access'}>{t('auth.login')}</a><a className="button-secondary" href="#beneficios">{t('landing.details')}</a></div>
+          <div className="landing-cta"><a className="button-primary" href={paths.app}>{t('landing.open')}<ArrowUpRight size={20} aria-hidden="true" /></a><a className="button-secondary" href="#beneficios">{t('landing.details')}</a><a className="button-secondary" href={paths.home+'access'}>{t('auth.login')}</a></div>
           <p className="landing-local"><HardDrive size={20} aria-hidden="true" />{t('landing.local')}</p>
         </div>
         <figure className="landing-preview"><img src={preview} width="1440" height="900" alt={t('landing.previewAlt')} fetchPriority="high" /><figcaption>{t('landing.preview')}</figcaption></figure>

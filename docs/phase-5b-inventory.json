@@ -1098,7 +1098,7 @@
     {
       "file": "src/components/LandingPage.tsx",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "846d0f73154713879a38e5267c396abb8a5b9490791aa544ba34e92b00ac6e49",
+      "sourceSha256": "07528f1cb47699a9a50ccd5cd2475e9f4859e5f76c021ee9e5ab45ee3f8f4fc6",
       "counts": {
         "type-or-import": 6,
         "review": 8,
