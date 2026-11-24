@@ -4,14 +4,14 @@ Base efectiva `40c16e6602bef8338d43fd833fe578fced9d670f`, merge de #35. Rama `fe
 
 Se implementa un BFF de identidad sobre Express con **express-openid-connect 3.4.0**, SDK oficial de Auth0, fijado en el lockfile y compatible con Node24.22.1. No se añade un SDK al navegador. `/access` es un host React independiente, con cinco idiomas; no importa App, FinanceStore, PlatformServices ni los adaptadores financieros. Los botones se muestran sólo para conexiones configuradas en servidor. El formulario hace POST al mismo origen y el SDK redirige a Universal Login; no captura credenciales.
 
-**No existe tenant autorizado en este entorno. Ninguna autenticación contra Auth0 real está validada.** No se crean cuentas, aplicaciones externas, conexiones, dominios, facturación, claves de distribución ni infraestructura. No se activan datos financieros reales móviles.
+**Estado del checkpoint automatizado original:** no existía tenant autorizado en el entorno de Codex y no se había validado autenticación contra Auth0 real. **Actualización 24–25/11/2026:** el propietario comunica pruebas manuales satisfactorias de correo y sesión en su tenant de desarrollo; véase el [registro manual y sus límites](manual-validation-2026-11-24-25.md). Esta actualización documental no crea cuentas, aplicaciones externas, conexiones, dominios, facturación, claves de distribución ni infraestructura. No se activan datos financieros reales móviles.
 
 | Capacidad | Código preparado | Evidencia disponible | Pendiente |
 | --- | --- | --- | --- |
-| Correo/contraseña | Universal Login, signup, recovery | SDK oficial frente a IdP ficticio aislado | Tenant, conexión DB, correo y pruebas de entrega/recuperación reales |
+| Correo/contraseña | Universal Login, signup, recovery | SDK frente a IdP ficticio; registro, verificación y recuperación reales comunicados por el propietario | Ampliación de evidencia según registro manual |
 | Google | Conexión permitida elegida por servidor | Parámetros/redirects simulados | Proyecto/consentimiento/credenciales Google y conexión autorizada |
 | Apple | Conexión permitida elegida por servidor | Flujo OIDC común simulado | Apple Developer, IDs/dominio/clave/consentimiento y conexión autorizada |
-| Sesión | Cookie SDK cifrada, HttpOnly, límite15min; reauth explícita | Recarga, nueva instancia servidor, logout, respuestas erróneas | Validación Auth0 real y política de revocación para beta |
+| Sesión | Cookie SDK cifrada, HttpOnly, límite15min; reauth explícita | Automatizadas simuladas; login/logout, recarga, reapertura de pestaña y expiración observada por el propietario | Revocación global, duración cronometrada y reauth con otra identidad |
 | Identidad de aplicación | Contratos7A.1 preservados; issuer/sub verificados | Subject equivocado y correo coincidente rechazados/sin unión | Registro confiable de UUID/bindings; applicationSubject=null hasta provisionarlo |
 | Finanzas multiusuario | **Siempre bloqueadas** en el host autenticado | Sin accesos a perfiles locales/SQLCipher | Autorización, ownership y namespaces validados antes de beta |
 | Android/iOS | Contrato NativeIdentityPort y diseño de flujos | Bloqueo del host BFF en WebView simulado | SDK/cache OS/callbacks finales y runtime real; no implementado ni validado |

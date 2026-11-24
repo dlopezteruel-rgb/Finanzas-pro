@@ -1,6 +1,6 @@
 # Configuración externa pendiente: sólo el propietario tras aprobación
 
-No existe tenant/configuración autorizada en este entorno. Estos pasos no se han ejecutado. No introducir pagos, contratar planes, activar trials facturables, usar credenciales de desarrollo del proveedor como si fueran producción ni registrar nombres definitivos sin aprobación.
+Estado original del entorno de Codex: no existía tenant/configuración autorizada y estos pasos no se habían ejecutado. Posteriormente el propietario comunica Auth0 Free, tenant `finanzas-pro-dev`, EU-2 y Regular Web Application con Express local en `127.0.0.1:3000`; véase el [registro manual 24–25/11/2026](manual-validation-2026-11-24-25.md). No se atribuye a Codex la creación o configuración del tenant. Las instrucciones siguientes se conservan como runbook y los pendientes no cubiertos continúan vigentes. No introducir pagos, contratar planes, activar trials facturables, usar credenciales de desarrollo del proveedor como si fueran producción ni registrar nombres definitivos sin aprobación.
 
 ## Región y plan
 
@@ -52,4 +52,4 @@ Apple: se necesitan cuenta Apple Developer autorizada, App/Service IDs, Team ID,
 
 Los flags de conexión indican configuración declarada por el operador, no una prueba remota. No configurarlos hasta completar su checklist. No activar linking, extensiones automáticas o Connected Accounts. Cuando haya plan/autorización, diseñar prueba de ambas credenciales, consentimiento, desafío único y CAS del registro de identidades; ninguna vinculación de identidad debe fusionar perfiles financieros.
 
-Checklist remoto aún **no ejecutado**: signup y correo real, password login, password reset, Google, Apple, callbacks incorrectos/cancelados, logout/SSO, caducidad, reauth con mismo/otro usuario, revocación y ventanas reales, recarga/reinicio, dos usuarios/navegador compartido. Registrar tenant público/región, fechas, versiones y cuentas ficticias, sin tokens ni datos personales. No habilitar beta por aprobar sólo mocks.
+Checklist remoto original (el registro manual posterior cubre parcialmente correo y sesión; el resto permanece pendiente): signup y correo real, password login, password reset, Google, Apple, callbacks incorrectos/cancelados, logout/SSO, caducidad, reauth con mismo/otro usuario, revocación y ventanas reales, recarga/reinicio, dos usuarios/navegador compartido. Registrar tenant público/región, fechas, versiones y cuentas ficticias, sin tokens ni datos personales. No habilitar beta por aprobar sólo mocks.

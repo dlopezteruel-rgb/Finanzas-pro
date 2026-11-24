@@ -2,6 +2,10 @@
 
 Referencia conservada:766 unitarias,52 infraestructura,1005 resultados Chromium en46 suites, SIGKILL20+2+8, SQLCipher Linux11 y cero violaciones axe. Los58 conjuntos incompletos de la CI7A.1 siguen pendientes de revisión contextual; no se suman repeticiones como defectos nuevos ni se consideran aprobaciones manuales.
 
+## Actualización manual posterior
+
+Los [resultados de las pruebas manuales del 24–25/11/2026 comunicados por el propietario](manual-validation-2026-11-24-25.md) corresponden al SHA `79b33d6f83533931c1b29fe515d01199c1434276` y se distinguen de las pruebas automatizadas siguientes. No los ejecutó ni verificó de forma independiente Codex. Las evidencias originales se conservan.
+
 ## Pruebas añadidas
 
 - SDK oficial3.4.0 contra IdP **ficticio**, sin red externa: discovery/JWKS/token con firma estándar de prueba, Code+PKCE real del SDK, nonce/issuer/audience/exp, state inválido, CSRF, redirects fijos, signup/recovery, cookies cifradas/HttpOnly, recarga/nueva instancia y logout. No es un tenant Auth0 ni un test de entrega de email, Google o Apple.
@@ -45,4 +49,4 @@ npm audit --omit=dev --json
 git diff origin/main...HEAD --check
 ```
 
-No activar AUTH0_ENABLED en CI: el protocolo externo se simula aisladamente y los secretos reales no son necesarios. Pruebas remotas, correo entregado, Google/Apple, Apple relay, Auth0 real y runtimes móviles **no ejecutados/bloqueados** hasta la intervención y validación autorizadas del propietario. No se altera el límite Chromium50min, no se reintentan casos para ocultar fallos ni se deshabilita axe.
+No activar AUTH0_ENABLED en CI: el protocolo externo se simula aisladamente y los secretos reales no son necesarios. En el checkpoint automatizado original, las pruebas remotas, correo entregado, Google/Apple, Apple relay, Auth0 real y runtimes móviles estaban **no ejecutados/bloqueados**. El registro manual posterior actualiza únicamente los recorridos de correo y sesión comunicados por el propietario; Google, Apple, reautenticación con otra identidad, aislamiento financiero multiusuario, validación nativa y revocación global siguen pendientes. No se altera el límite Chromium50min, no se reintentan casos para ocultar fallos ni se deshabilita axe.
