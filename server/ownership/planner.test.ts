@@ -42,3 +42,8 @@ test('7B.1 database disconnection fails closed without leaking error text',async
 test('7B.1 closing a context cancels publication without touching profiles',async()=>{const a=deferred<Plan>();const c=new AssessmentCoordinator({assess:()=>a.promise});const first=c.assess(request());c.close();a.resolve(planAccess(snapshot(),request(),now));assert.equal((await first).reason,'STALE_RESULT');assert.equal(c.current.financialAccess,false);});
 test('7B.1 cannot return an executable grant from a simulation port',async()=>{const c=new AssessmentCoordinator({assess:async()=>({...planAccess(snapshot(),request(),now),financialAccess:true})as unknown as Plan});assert.equal((await c.assess(request())).reason,'UNAVAILABLE');});
 test('7B.1 architecture stays disconnected from active runtime entrypoints',async()=>{for(const file of ['server.ts','server/identity/router.ts','src/app/Root.tsx','src/utils/useFinanceData.ts']){const text=await readFile(file,'utf8');assert.equal(/(?:from\s*|import\s*\()['"][^'"]*ownership\//.test(text),false,file);}assert.equal((await readFile('server/identity/router.ts','utf8')).includes('financialAccess:false'),true);});
+test('7B.1 malformed adapter decisions cannot expose diagnostics or inconsistent eligibility',async()=>{
+ for(const result of [{mode:'architecture-only',financialAccess:false,eligibility:'denied',reason:'private database diagnostic'}, {mode:'architecture-only',financialAccess:false,eligibility:'eligible-in-model',reason:'SESSION_REQUIRED'}]){
+  const c=new AssessmentCoordinator({assess:async()=>result as Plan});const outcome=await c.assess(request());assert.equal(outcome.reason,'UNAVAILABLE');assert.equal(JSON.stringify(outcome).includes('private'),false);
+ }
+});

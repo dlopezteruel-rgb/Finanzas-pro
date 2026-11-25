@@ -2,6 +2,7 @@ import type {AccessRequest, AuthorizationSnapshot, Denial, ExternalSubject, Plan
 
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const revision = (n: unknown): n is number => Number.isSafeInteger(n) && Number(n) >= 0;
+const denials: readonly Denial[] = ['INVALID_REQUEST','SESSION_REQUIRED','SESSION_EXPIRED','SESSION_REVOKED','UNPROVISIONED','RESOURCE_DENIED','REVISION_CONFLICT','UNAVAILABLE','STALE_RESULT'];
 const deny = (reason: Denial): Plan => Object.freeze({mode: 'architecture-only', financialAccess: false, eligibility: 'denied', reason});
 /** Exact pair; never normalize subjects, collapse issuers, or look up an email. */
 export function externalIdentityKey(subject: ExternalSubject): string {
@@ -61,7 +62,8 @@ export class AssessmentCoordinator {
     try {
       result = await this.port.assess(request, abort.signal);
       if (result.mode !== 'architecture-only' || result.financialAccess !== false ||
-          !['eligible-in-model','denied'].includes(result.eligibility)) result = deny('UNAVAILABLE');
+          !['eligible-in-model','denied'].includes(result.eligibility) ||
+          (result.eligibility === 'eligible-in-model' ? result.reason !== 'TRANSACTIONAL_ENFORCEMENT_REQUIRED' : !denials.includes(result.reason as Denial))) result = deny('UNAVAILABLE');
     } catch { result = deny('UNAVAILABLE'); }
     if (generation !== this.generation || this.closed) return deny('STALE_RESULT');
     this.result = {mode: 'architecture-only', financialAccess: false, eligibility: result.eligibility, reason: result.reason}; return this.current;
