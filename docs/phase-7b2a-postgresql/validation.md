@@ -53,3 +53,5 @@ Para binarios locales usar PG18_BIN, PG18_SHARE y PG18_LIB según README. El ver
 ## Checkpoint local antes de publicar
 
 849/849 unitarias, 56/56 infraestructura, 24/24 resultados PostgreSQL real (23casos y padre), lint/build/diff correctos. npm audit completo: código0 y0alertas. Bundle inicial141263bytes gzip; ningún módulo PG en el grafo web. Estos resultados corresponden a fuentes de trabajo aún sin commit; la CI del SHA final se registra aparte en la PR.
+
+CI45667168011 del checkpoint758f588: Unitarias y Lint/build/diff pasaron, pero el job PostgreSQL falló antes de los casos por inicialización Docker. El script HBA se copiaba root700, ilegible para postgres; se fija modo755 y se añade diagnóstico por fase/señales cerradas, sin logs crudos ni credenciales. La ejecución anterior no se presenta como aprobada. La CI vuelve a ejecutar el código corregido, sin aumentar tiempos ni omitir casos.

@@ -149,6 +149,6 @@ jobs:
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: postgres-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ci-artifacts/postgres/results.json
+          path: ci-artifacts/postgres/*.json
           retention-days: 7
           if-no-files-found: warn

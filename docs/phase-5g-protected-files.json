@@ -2,7 +2,7 @@
   "base": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
   "policy": "Financial/domain/validators/parsers/API/prompts/identities/schema and existing web server/config/workflow unchanged. useFinanceData is the explicit presentation/storage-adapter boundary, not the financial core. Lockfile changes only for pinned native dependencies.",
   "files": {
-    ".github/workflows/ci.yml": "56b34fbbc4c7a3c07d199921eb5fd786bbb7b9983fcbe5695b4bcf1989e769c7",
+    ".github/workflows/ci.yml": "ddb529458ad5b729c87463ef1d98b848db6099d6f8e893661b00dc2389e037ed",
     "config/appPaths.ts": "4cb32eaedf96076825d3be3036a88f2e8a60325790210bb9d0978644e78cad5c",
     "server.ts": "529f50be8010ecbf51cc8029f6ae8976e63c101016fcf39c432caf4fecf3fe7f",
     "src/constants/categories.ts": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",

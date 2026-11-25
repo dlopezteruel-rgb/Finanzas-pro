@@ -14,7 +14,7 @@ const docker=(args:string[],env:NodeJS.ProcessEnv=dockerEnv)=>exec('docker',['--
 export async function startLab(){
  const dir=await mkdtemp(path.join(tmpdir(),'finanzas-pg18-')),cert=path.join(dir,'cert');await mkdir(cert,{mode:0o700});
  const password=randomBytes(24).toString('hex'),migrator=randomBytes(24).toString('hex'),runtime=randomBytes(24).toString('hex');
- let container='',running=false;const bin=process.env.PG18_BIN;
+ let container='',running=false,phase='certificates';const bin=process.env.PG18_BIN;
  const env={...process.env,LD_LIBRARY_PATH:process.env.PG18_LIB??process.env.LD_LIBRARY_PATH};
  const run=async(cmd:string,args:string[])=>exec(cmd,args,{env,maxBuffer:2*1024*1024});
  await run('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',cert+'/ca.key','-out',cert+'/ca.crt','-days','2','-subj','/CN=FICTIONAL-PG18-TEST-CA']);
@@ -26,6 +26,7 @@ export async function startLab(){
  const stop=async()=>{if(container)await docker(['rm','-f','-v',container]).catch(()=>{});else if(running&&bin)await run(path.join(bin,'pg_ctl'),['-D',dir+'/data','stop','-m','fast']).catch(()=>{});await rm(dir,{recursive:true,force:true});};
  try{
   if(bin){
+   phase='binary-init';
    if(!path.isAbsolute(bin))throw Error('PG18_BIN must be absolute');
    await writeFile(dir+'/password',password,{mode:0o600});
    await run(path.join(bin,'initdb'),['-D',dir+'/data','-U','neondb_owner','--pwfile='+dir+'/password','--auth-host=scram-sha-256','--auth-local=trust','--no-locale','--encoding=UTF8',...(process.env.PG18_SHARE?['-L',process.env.PG18_SHARE]:[])]);
@@ -33,14 +34,14 @@ export async function startLab(){
    await writeFile(dir+'/data/postgresql.auto.conf',`listen_addresses='127.0.0.1'\nport=${port}\nssl=on\nssl_cert_file='${cert}/server.crt'\nssl_key_file='${cert}/server.key'\nunix_socket_directories='${dir}'\nshared_buffers='16MB'\nmax_connections=25\njit=off\nfsync=on\nfull_page_writes=on\nsynchronous_commit=on\nlog_statement='none'\n`);
    await run(path.join(bin,'pg_ctl'),['-D',dir+'/data','-l',dir+'/server.log','-w','start']);running=true;
   }else{
-   const name='finanzas-pg18-'+randomBytes(6).toString('hex');
-   await writeFile(cert+'/00-hba.sh',"#!/bin/sh\nprintf 'local all all trust\\nhostssl all all all scram-sha-256\\nhostnossl all all all reject\\n' > \"$PGDATA/pg_hba.conf\"\n",{mode:0o700});
-   const r=await docker(['create','--rm','--name',name,'-p',`127.0.0.1:${port}:5432`,'-e','POSTGRES_PASSWORD','-e','POSTGRES_USER=neondb_owner','-e','POSTGRES_DB=neondb','--entrypoint','sh',image,'-c',"mkdir -p /var/lib/postgresql/tls; cp /tmp/tls-fixture/* /var/lib/postgresql/tls/; cp /var/lib/postgresql/tls/00-hba.sh /docker-entrypoint-initdb.d/; chown -R postgres:postgres /var/lib/postgresql/tls; chmod 600 /var/lib/postgresql/tls/server.key; exec docker-entrypoint.sh postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/tls/server.crt -c ssl_key_file=/var/lib/postgresql/tls/server.key -c log_statement=none"],{...dockerEnv,POSTGRES_PASSWORD:password});container=r.stdout.trim();
-   await docker(['cp',cert,container+':/tmp/tls-fixture']);await docker(['start',container]);running=true;
+   phase='docker-create';const name='finanzas-pg18-'+randomBytes(6).toString('hex');
+   await writeFile(cert+'/00-hba.sh',"#!/bin/sh\nprintf 'local all all trust\\nhostssl all all all scram-sha-256\\nhostnossl all all all reject\\n' > \"$PGDATA/pg_hba.conf\"\n",{mode:0o755});
+   const r=await docker(['create','--rm','--name',name,'-p',`127.0.0.1:${port}:5432`,'-e','POSTGRES_PASSWORD','-e','POSTGRES_USER=neondb_owner','-e','POSTGRES_DB=neondb','--entrypoint','sh',image,'-c',"mkdir -p /var/lib/postgresql/tls; cp /tmp/tls-fixture/* /var/lib/postgresql/tls/; cp /var/lib/postgresql/tls/00-hba.sh /docker-entrypoint-initdb.d/; chown -R postgres:postgres /var/lib/postgresql/tls; chmod 755 /docker-entrypoint-initdb.d/00-hba.sh; chmod 600 /var/lib/postgresql/tls/server.key; exec docker-entrypoint.sh postgres -c ssl=on -c ssl_cert_file=/var/lib/postgresql/tls/server.crt -c ssl_key_file=/var/lib/postgresql/tls/server.key -c log_statement=none"],{...dockerEnv,POSTGRES_PASSWORD:password});container=r.stdout.trim();
+   phase='docker-copy';await docker(['cp',cert,container+':/tmp/tls-fixture']);phase='docker-start';await docker(['start',container]);running=true;
   }
   const envConfig={FINANZAS_DB_TARGET:'local-test',FINANZAS_DB_CA_FILE:cert+'/ca.crt',...Object.fromEntries([['ADMIN','neondb_owner',password],['MIGRATOR','finanzas_migrator',migrator],['RUNTIME','finanzas_runtime',runtime]].map(([role,user,pass])=>['FINANZAS_DB_'+role+'_URL',`postgresql://${user}:${pass}@127.0.0.1:${port}/neondb`]))};
   const config=readDatabaseConfig(envConfig);
-  let ready=false;for(let i=0;i<80;i++){const c=new Client({...config.connections.admin,database:'postgres'});try{await c.connect();ready=true;}catch{}finally{await c.end().catch(()=>{});}if(ready)break;await new Promise(r=>setTimeout(r,100));}
+  phase='readiness';let ready=false;for(let i=0;i<80;i++){const c=new Client({...config.connections.admin,database:'postgres'});try{await c.connect();ready=true;}catch{}finally{await c.end().catch(()=>{});}if(ready)break;await new Promise(r=>setTimeout(r,100));}
   if(!ready)throw Error('LOCAL_POSTGRES_START_FAILED');
   const admin=new Client({...config.connections.admin,database:'postgres'});await admin.connect();await admin.query('CREATE DATABASE neondb').catch(e=>{if(e.code!=='42P04')throw e;});await admin.end();
   return {config,dir,cert,port,mode:bin?'local-binaries':'docker',stop,async backupRoundtrip(){
@@ -48,5 +49,9 @@ export async function startLab(){
    if(bin){await exec(path.join(bin,'pg_dump'),['-Fc','-f',dir+'/backup.dump'],{env:dbEnv});const c=new Client(config.connections.admin);await c.connect();await c.query('CREATE DATABASE recovery_fixture');await c.end();await exec(path.join(bin,'pg_restore'),['-d','recovery_fixture',dir+'/backup.dump'],{env:dbEnv});}
    else{const e={...dockerEnv,PGPASSWORD:password};await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'pg_dump','-h','localhost','-U','neondb_owner','-d','neondb','-Fc','-f','/tmp/backup.dump','--no-password'],e);await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'createdb','-h','localhost','-U','neondb_owner','recovery_fixture'],e);await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'pg_restore','-h','localhost','-U','neondb_owner','-d','recovery_fixture','/tmp/backup.dump'],e);}
   }};
- }catch(error){await stop();throw Error('LOCAL_POSTGRES_FIXTURE_FAILED');}
+ }catch(error){
+  const signals:Record<string,boolean>={};if(container)try{const log=await docker(['logs',container]);const text=log.stdout+log.stderr;for(const word of ['Permission denied','private key','could not access file','ready to accept connections'])signals[word]=text.includes(word);}catch{}
+  const out=path.resolve(process.env.PG_ARTIFACT_DIR??'ci-artifacts/postgres');await mkdir(out,{recursive:true});await writeFile(out+'/fixture-failure.json',JSON.stringify({fixtureOnly:true,neonTested:false,phase,signals},null,2)+'\n');
+  await stop();throw Error('LOCAL_POSTGRES_FIXTURE_FAILED:'+phase);
+ }
 }
