@@ -1,3 +1,5 @@
+import {readAuthConfig} from './server/identity/config';
+import {createIdentityRouter} from './server/identity/router';
 import express, { Request, Response } from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
@@ -19,6 +21,7 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 const isProduction = process.env.NODE_ENV === 'production';
 const paths = applicationPaths(process.env.APP_BASE_PATH);
 
+app.use(createIdentityRouter(readAuthConfig(process.env)));
 app.use(express.json());
 if (paths.home !== '/') {
   app.get(paths.home.slice(0, -1), (req, res, next) => {

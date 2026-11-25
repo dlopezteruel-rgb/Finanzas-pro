@@ -1,0 +1,5 @@
+export const expectedAuth0Cases=[...['es','en','it','fr','pt'].flatMap(l=>[390,768,1280].flatMap(w=>['dark','light'].map(t=>`${l}/${w}/${t}`))),'configured-post','reload-logout','expired','provider-error','native-blocked','late-identity-response','shared-browser-logout','bundle-secrets'];
+export function validateAuth0Report(report,source){
+ if(report?.source!==source||report.workingTreeDirty!==false||report.remoteAuth0Validated!==false||report.fixtureOnly!==true||!Array.isArray(report.results)||JSON.stringify(report.results)!==JSON.stringify(expectedAuth0Cases)||report.observations?.length!==34||report.observations.some((o,i)=>(i<30?`${o.language}/${o.width}/${o.theme}`!==expectedAuth0Cases[i]:o.surface!==['auth0-access-configured','auth0-access-authenticated','auth0-access-expired','auth0-access-error'][i-30])||!Array.isArray(o.violations)||o.violations.length||!Array.isArray(o.incomplete)))throw Error('All Auth0 simulated access/axe cases must pass on the clean source SHA. Remote Auth0 is not certified by this gate.');
+ return {passed:true,source,cases:38,axeSurfaces:34,violations:0,remoteAuth0Validated:false,nativeRuntimeValidated:false};
+}

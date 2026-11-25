@@ -3,10 +3,10 @@ export type SignInMethod = 'email-password' | 'google' | 'apple';
 export type ProviderCandidate = 'supabase' | 'firebase' | 'clerk' | 'auth0';
 export type IdentityProjection = Readonly<{
   /** Assigned by a future trusted application identity registry, never derived from email. */
-  applicationSubject: string;
+  applicationSubject: string | null;
   issuer: string;
   providerSubject: string;
-  method: SignInMethod;
+  method: SignInMethod | 'unknown';
 }>;
 export interface ApplicationIdentityRecord {
   applicationSubject: string;
@@ -23,7 +23,7 @@ export type SessionProjection = Readonly<{
 export type IdentityState =
   | {status: 'signed-out'}
   | {status: 'initializing'}
-  | {status: 'authenticated'; assurance: 'simulation-only'; session: SessionProjection}
+  | {status: 'authenticated'; assurance: 'simulation-only' | 'auth0-bff'; session: SessionProjection}
   | {status: 'expired'}
   | {status: 'revoked'}
   | {status: 'error'; code: 'PROVIDER_UNCONFIGURED' | 'INVALID_PROJECTION' | 'AUTH_UNAVAILABLE'}
@@ -75,4 +75,14 @@ export interface IdentityLinkProposal {
 export interface AccountAuthorizationPort {
   /** Must run on a trusted server and enforce ownership, not accept a client owner as authority. */
   authorize(request: {profileReference: string; action: 'read' | 'write' | 'export' | 'restore'; operationId: string}): Promise<{allowed: boolean; decisionReference: string}>;
+}
+
+/** Native implementation is blocked until final identifiers, OS cache and callbacks are verified.
+ * Implement with the official Auth0/Capacitor system-browser flow, not a WebView credential form.
+ * URLs/codes are ephemeral; never log or persist them in financial storage.
+ */
+export interface NativeIdentityPort extends VerifiedIdentityPort {
+  handleAuthorizedCallback(url: URL): Promise<void>;
+  resumeAndVerify(): Promise<SessionProjection | null>;
+  cancelPendingAuthorization(): Promise<void>;
 }

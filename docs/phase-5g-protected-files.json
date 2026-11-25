@@ -4,7 +4,7 @@
   "files": {
     ".github/workflows/ci.yml": "c5240356c8cecc290982aaf85e413e13f3a09df629ef1d5246435fcf7e853556",
     "config/appPaths.ts": "4cb32eaedf96076825d3be3036a88f2e8a60325790210bb9d0978644e78cad5c",
-    "server.ts": "ed3b4ae2cceafd2cd51370a4ce4279dd6bc621b63cca19804eb7ae6a883406e6",
+    "server.ts": "529f50be8010ecbf51cc8029f6ae8976e63c101016fcf39c432caf4fecf3fe7f",
     "src/constants/categories.ts": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
     "src/types/finance.ts": "7cd4904a98956836f592376b33a57f03c0d0b2e17bed94865fc9a1ab6f1443f8",
     "src/utils/backup.ts": "ce4df2e20046344ba501bc3955a68de87b3945a8ba9d4e14a454d754b53aa12d",
@@ -46,5 +46,10 @@
     "src/utils/treasury.ts": "45677fbda4b8109e4e864b47810717c0d417b3c9162e1f561e804536ac934edd",
     "src/utils/useAsyncForm.ts": "41b96e6befa30cbf56879c1c09e14f17028b81f1b66928be0eda5298afb3778a",
     "vite.config.ts": "870124ea7370e307b259b03a5e998ca15250ce99990b6d7c03981f19c7928489"
+  },
+  "audited7A2Change": {
+    "base": "40c16e6602bef8338d43fd833fe578fced9d670f",
+    "file": "server.ts",
+    "reason": "Two imports and identity-only middleware before JSON parser. Existing financial endpoints, prompts and 43 other protected files unchanged."
   }
 }

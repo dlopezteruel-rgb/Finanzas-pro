@@ -1,0 +1,12 @@
+{
+  "run": 44826903229,
+  "source": "768e1ecd5e8ebb18c795ea01c3677fac906c2563",
+  "status": "failure",
+  "tests": 655,
+  "pass": 624,
+  "fail": 31,
+  "remainingSuites": "not executed after failure",
+  "cause": "new landing access link interrupted existing Open -> Details Tab order; fixed in UI, no original test changed",
+  "resultsArtifact": 14676056377,
+  "artifactSHA256": "524d975d75a9f713147040706559242ab744ee1f66f0c89ce32a5502cb537fdc"
+}
