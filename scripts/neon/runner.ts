@@ -1,12 +1,13 @@
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {reviewPlan,migrationPlan,sqlFile} from '../../server/neon/plans';
+import {reviewPlan,migrationPlan,sqlFile,adminPreflightPlan} from '../../server/neon/plans';
 import {NeonFailure,openRemoteValidation} from '../../server/neon/approval';
 
 export async function main(args: string[]) {
   const [operation] = args;
   if (operation === 'plan' && args.length === 1) return JSON.stringify(await reviewPlan(),null,2);
   if (operation === 'sql' && args.length === 2) {
+    if (args[1] === 'admin-preflight') return adminPreflightPlan;
     if (args[1] === 'migrate') return migrationPlan();
     if (args[1] === 'bootstrap' || args[1] === 'privileges') return sqlFile(args[1]);
   }

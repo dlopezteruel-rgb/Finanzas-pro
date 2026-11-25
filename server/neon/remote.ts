@@ -8,7 +8,7 @@ import {authorizeConfiguredTarget,releaseAttestation} from './attestation';
 import {NeonFailure,requireStageBAuthorization,sha256} from './approval';
 import {preparedValidation,type ValidationClients} from './validation';
 import {inspectConnectionStrings,reviewedRemoteClient,psqlLauncher,type SecretConnections} from './libpq';
-import {sqlFile,migrationPlan} from './plans';
+import {sqlFile,migrationPlan,adminPreflightPlan,verifyAdminPreflight} from './plans';
 import {newFixtures,cleanupFixtures,validateFixtures,changeFingerprint} from './fixtures';
 import {verifyPrivileges} from './privileges';
 const exec=promisify(execFile);
@@ -45,7 +45,11 @@ export async function stageBCommand(args: string[]) {
     const ca=path.join(dir,'roots.pem');await writeFile(ca,rootCertificates.join('\n'),{mode:0o600,flag:'wx'});
     const launch=psqlLauncher(psql);
     const clients=Object.fromEntries((['adminDirect','migratorDirect','runtimeDirect','runtimePooled'] as const).map(key=>[key,reviewedRemoteClient(target,key,urls,ca,launch)])) as unknown as ValidationClients;
-    if(operation==='bootstrap'){await clients.adminDirect(await sqlFile('bootstrap'));return {operation,rolesCreatedNoLogin:true,financialAccess:false};}
+    if(operation==='connect-admin'||operation==='bootstrap'){
+      const admin=parseObservation(await clients.adminDirect(adminPreflightPlan));verifyAdminPreflight(admin);
+      if(operation==='connect-admin')return {operation,admin,channelBinding:'require',sslMode:'verify-full',financialAccess:false};
+      await clients.adminDirect(await sqlFile('bootstrap'));return {operation,rolesCreatedNoLogin:true,financialAccess:false};
+    }
     if(operation==='migrate'){await clients.migratorDirect(await migrationPlan());verifyPrivileges(parseObservation(await clients.runtimeDirect(await sqlFile('privileges'))));return {operation,confirmed:true,financialAccess:false};}
     if(operation==='connect-diagnostics'){
       const results=[];for(const [name,query]of Object.entries(clients)){const r=parseObservation(await query("SELECT json_build_object('login',session_user,'role',current_user,'database',current_database(),'version',current_setting('server_version_num'));"));const expected=name.startsWith('admin')?'neondb_owner':name.startsWith('migrator')?'finanzas_migrator':'finanzas_runtime';if(r.login!==expected||r.role!==expected||r.database!=='neondb'||!/^18\d{4}$/.test(r.version))throw new NeonFailure('TARGET_REFUSED');results.push({connection:name,...r});}

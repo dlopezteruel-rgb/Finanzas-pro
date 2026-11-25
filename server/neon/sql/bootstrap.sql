@@ -6,7 +6,8 @@ SELECT pg_advisory_xact_lock(78234199421);
 DO $bootstrap$
 DECLARE name text; existing pg_roles%ROWTYPE;
 BEGIN
-  IF current_database() <> 'neondb' OR current_user <> 'neondb_owner' OR session_user <> 'neondb_owner' THEN
+  IF current_database() <> 'neondb' OR current_user <> 'neondb_owner' OR session_user <> 'neondb_owner'
+     OR current_setting('server_version_num')::int NOT BETWEEN 180000 AND 189999 THEN
     RAISE EXCEPTION 'BOOTSTRAP_CONTEXT_REFUSED';
   END IF;
   FOREACH name IN ARRAY ARRAY['finanzas_migrator','finanzas_runtime'] LOOP

@@ -72,3 +72,5 @@ No se modifican FinanceStore, cálculos, almacenamiento financiero, parsers de m
 ## Checkpoint local de implementación, antes de publicar
 
 873/873 unitarias, 58/58 de infraestructura, 24/24 resultados del PostgreSQL anterior (23 casos y padre), 22/22 del cliente libpq/planes nuevos (21 casos y padre), lint y build correctos. Son resultados de preparación con fuentes aún sin commit; no equivalen a la CI del SHA final. No hay omisiones o cancelaciones. Se mantiene separado el rechazo esperado de neon:run, que demuestra el bloqueo de etapa B y no un intento de conexión.
+
+La revisión añade después un preflight admin de sólo lectura anterior al bootstrap, probado contra el mismo motor real y mediante un contrato unitario adicional. El checkpoint previo de 873 unitarias se conserva como histórico; el nuevo total y sus cuatro checks corresponden al SHA posterior indicado en la PR, sin presentar una ejecución cancelada por actualización como aprobación completa.

@@ -28,7 +28,7 @@ async function getJson(url:string,token:string):Promise<any>{
 export async function authorizeConfiguredTarget(operation:string,token:string){
   requireStageBAuthorization();
   const policy=reviewedConfiguration(),plan=await reviewPlan();
-  if(!policy.target||!policy.planHash||policy.planHash!==plan.planHash||!policy.operations.includes(operation)||!['control-plane-read','connect-diagnostics','bootstrap','migrate','fixtures','cleanup-fixtures'].includes(operation)||!token||/[\r\n]/.test(token)||process.env.NODE_TLS_REJECT_UNAUTHORIZED==='0')throw new NeonFailure('STAGE_B_NOT_AUTHORIZED');
+  if(!policy.target||!policy.planHash||policy.planHash!==plan.planHash||!policy.operations.includes(operation)||!['control-plane-read','connect-admin','connect-diagnostics','bootstrap','migrate','fixtures','cleanup-fixtures'].includes(operation)||!token||/[\r\n]/.test(token)||process.env.NODE_TLS_REJECT_UNAUTHORIZED==='0')throw new NeonFailure('STAGE_B_NOT_AUTHORIZED');
   const target=Object.freeze({...policy.target});
   const [p,b,e]=await Promise.all(controlPlaneRequestPlan(target).map(url=>getJson(url,token)));
   const evidence:ControlPlaneEvidence={project:{id:p.project?.id,region_id:p.project?.region_id},branch:{id:b.branch?.id,project_id:b.branch?.project_id??target.projectId,name:b.branch?.name,default:b.branch?.default},endpoints:e.endpoints?.map((v:any)=>({id:v.id,project_id:v.project_id,branch_id:v.branch_id,host:v.host,type:v.type})),fetchedAt:new Date().toISOString()};

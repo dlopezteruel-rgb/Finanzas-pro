@@ -6,7 +6,7 @@ import {execFileSync} from 'node:child_process';
 import {randomUUID} from 'node:crypto';
 import {startLab} from '../postgres/lab';
 import {direct} from '../../server/postgres/database';
-import {sqlFile,migrationPlan,registryChecksum} from '../../server/neon/plans';
+import {sqlFile,migrationPlan,registryChecksum,adminPreflightPlan,verifyAdminPreflight} from '../../server/neon/plans';
 import {newFixtures,createFixtures,isolationProbe,reuseProbe,forgedReceipt,mutateFixture,cleanupFixtures,FixtureOperation} from '../../server/neon/fixtures';
 import {verifyPrivileges} from '../../server/neon/privileges';
 import {localTestConnection,strictEnvironment} from '../../server/neon/libpq';
@@ -34,6 +34,7 @@ test('7B.2A.1 official libpq18 strict channel binding and reviewed plans on isol
     assert.match(version,/^psql \(PostgreSQL\) 18\./);
     const r = json(await admin("SELECT json_build_object('version',current_setting('server_version_num'),'ssl',(SELECT ssl FROM pg_stat_ssl WHERE pid=pg_backend_pid()));"));
     assert.match(r.version,/^18\d{4}$/);assert.equal(r.ssl,true);
+    verifyAdminPreflight(json(await admin(adminPreflightPlan)));
   });
   await check('Neon-specific SQL creates restricted NOLOGIN roles without passwords or memberships',async () => {
     await admin(bootstrap);

@@ -4,7 +4,7 @@
 
 ## Revisión del destino y de las operaciones
 
-`npm run neon:plan` imprime alcances y hashes actuales. `node --import tsx scripts/neon/runner.ts sql <bootstrap|migrate|privileges>` permite revisar el SQL exacto sin credenciales. El registro `server/neon/approved.ts` sigue con target/planHash nulos y listas vacías. La aprobación requiere IDs públicos reales revisados, hosts direct/pooled exactos, neondb, Frankfurt y planHash. No incorporar passwords/API keys a ese registro.
+`npm run neon:plan` imprime alcances y hashes actuales. `node --import tsx scripts/neon/runner.ts sql <admin-preflight|bootstrap|migrate|privileges>` permite revisar el SQL exacto sin credenciales. El registro `server/neon/approved.ts` sigue con target/planHash nulos y listas vacías. La aprobación requiere IDs públicos reales revisados, hosts direct/pooled exactos, neondb, Frankfurt y planHash. No incorporar passwords/API keys a ese registro.
 
 GET previstos, siempre desde servidor/runner autorizado y no desde React:
 
@@ -43,6 +43,7 @@ Comandos de referencia **sólo después de aprobación y del cambio revisado de 
 
 ```powershell
 npm run neon:run -- --operation control-plane-read
+npm run neon:run -- --operation connect-admin --secrets .secrets/neon-7b2a1/connections.json --psql $Psql
 npm run neon:run -- --operation bootstrap --secrets .secrets/neon-7b2a1/connections.json --psql $Psql
 npm run neon:run -- --operation migrate --secrets .secrets/neon-7b2a1/connections.json --psql $Psql
 npm run neon:run -- --operation connect-diagnostics --secrets .secrets/neon-7b2a1/connections.json --psql $Psql
@@ -50,6 +51,8 @@ npm run neon:run -- --operation fixtures --secrets .secrets/neon-7b2a1/connectio
 ```
 
 Bootstrap es anterior a la configuración manual de passwords/LOGIN; migrate y diagnóstico completo requieren que el propietario haya completado ese paso. Las cuatro URLs pueden prepararse con passwords elegidos en un gestor antes de crear los roles; no se prueban los logins inexistentes durante bootstrap. No ejecutar todos los comandos de una vez sin revisar cada resultado.
+
+connect-admin permite comprobar login, base, propiedad y PostgreSQL 18 en una transacción READ ONLY antes de crear roles o esquema. No requiere que runtime/migrador existan y no realiza DDL. Bootstrap repite esta comprobación antes de su SQL. connect-diagnostics es el ensayo completo posterior a provisión/migración, no un sustituto de ese primer diagnóstico.
 
 Los escenarios usan UUID y nombres 7B2A1-FICTIONAL, identidades bajo 7b2a1-fixtures.invalid, perfiles y recibos exclusivamente ficticios. Cubren A/B, ausencia de contexto, WITH CHECK (SQLSTATE 42501), conexiones directas/pooled, transacciones COMMIT/ROLLBACK, CAS concurrente (40001), idempotencia y reconciliación de respuesta incierta. No se escriben documentos financieros.
 

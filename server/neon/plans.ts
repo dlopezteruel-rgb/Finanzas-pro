@@ -4,6 +4,16 @@ import {NeonFailure,sha256} from './approval';
 export const registryChecksum = '05550060416a67f34610725504ca67965d3554a7536addaf31826a6a6c322afc';
 export const sqlFile = (name: 'bootstrap' | 'privileges') => readFile(new URL(`./sql/${name}.sql`,import.meta.url),'utf8');
 
+export const adminPreflightPlan = `BEGIN READ ONLY;
+SELECT json_build_object('login',session_user,'role',current_user,'database',current_database(),
+ 'version',current_setting('server_version_num'),
+ 'databaseOwner',(SELECT datdba='neondb_owner'::regrole FROM pg_database WHERE datname=current_database()),
+ 'backendSsl',(SELECT ssl FROM pg_stat_ssl WHERE pid=pg_backend_pid()));
+COMMIT;\n`;
+export function verifyAdminPreflight(r: any): void {
+  if(!r||r.login!=='neondb_owner'||r.role!=='neondb_owner'||r.database!=='neondb'||!/^18\d{4}$/.test(r.version)||r.databaseOwner!==true)throw new NeonFailure('TARGET_REFUSED');
+}
+
 /** Existing registry migration wrapped for official psql/libpq, no alternate domain schema. */
 export async function migrationPlan(): Promise<string> {
   const source = await readFile(new URL('../postgres/migrations/001_registry.sql',import.meta.url),'utf8');
@@ -12,7 +22,7 @@ export async function migrationPlan(): Promise<string> {
 SET LOCAL lock_timeout='5s';
 SELECT pg_advisory_xact_lock(78234199421);
 DO $context$ BEGIN
- IF current_user <> 'finanzas_migrator' OR session_user <> 'finanzas_migrator' OR current_database() <> 'neondb' THEN RAISE EXCEPTION 'MIGRATION_CONTEXT_REFUSED'; END IF;
+ IF current_user <> 'finanzas_migrator' OR session_user <> 'finanzas_migrator' OR current_database() <> 'neondb' OR current_setting('server_version_num')::int NOT BETWEEN 180000 AND 189999 THEN RAISE EXCEPTION 'MIGRATION_CONTEXT_REFUSED'; END IF;
  IF EXISTS(SELECT 1 FROM pg_namespace WHERE nspname='finanzas' AND (nspowner<>current_user::regrole OR to_regclass('finanzas.schema_migrations') IS NULL)) THEN RAISE EXCEPTION 'SCHEMA_REFUSED'; END IF;
 END $context$;
 CREATE SCHEMA IF NOT EXISTS finanzas AUTHORIZATION finanzas_migrator;
@@ -31,6 +41,7 @@ COMMIT;
 export async function reviewPlan() {
   const operations = [
     {id:'control-plane-read',effect:'Read project/branch/endpoint metadata through independently authorized control plane'},
+    {id:'connect-admin',effect:'Read-only direct administrator identity database ownership and PG18 preflight before any DDL; restricted roles need not exist'},
     {id:'connect-diagnostics',effect:'TLS verify-full + channel binding require, direct and pooled; no domain writes'},
     {id:'bootstrap',effect:'Create restricted NOLOGIN roles; revoke PUBLIC database privileges; grant least privileges'},
     {id:'credentials',effect:'Owner interactive password setup and explicit LOGIN; no secrets in SQL files'},
