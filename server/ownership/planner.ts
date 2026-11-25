@@ -17,7 +17,7 @@ export function parseAccessRequest(value: unknown): AccessRequest | null {
   const v = value as Record<string, unknown>;
   if (Object.keys(v).sort().join() !== ['action','expectedProfileRevision','operationId','profileId'].sort().join() ||
       typeof v.profileId !== 'string' || !uuid.test(v.profileId) || typeof v.operationId !== 'string' || !uuid.test(v.operationId) ||
-      !revision(v.expectedProfileRevision) || !['read','write','export','restore','financial-operation'].includes(String(v.action)) || typeof v.action !== 'string') return null;
+      !revision(v.expectedProfileRevision) || typeof v.action !== 'string' || !['read','write','export','restore','financial-operation'].includes(v.action)) return null;
   return {profileId: v.profileId, operationId: v.operationId, expectedProfileRevision: v.expectedProfileRevision, action: v.action as AccessRequest['action']};
 }
 /** Pure specification, NOT authorization middleware. Always financialAccess=false. */

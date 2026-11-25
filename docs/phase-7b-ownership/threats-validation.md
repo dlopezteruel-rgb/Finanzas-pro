@@ -50,3 +50,5 @@ El registro final en la descripción de la PR enlaza SHA/base, comandos y salida
 831/831 unitarias (796 conservadas + 35 nuevas), 54/54 pruebas de infraestructura, lint y build correctos; SQLCipher Linux 11/11. Este checkpoint utiliza el código de trabajo de esta rama, no el SHA de base. La CI del commit publicado y su batería Chromium completa se registran por separado en la PR; no se reutilizan resultados antiguos como evidencia de esta rama.
 
 La revisión del contrato reprodujo además que un adaptador simulado podía devolver un motivo arbitrario que se propagaba al resultado. Se conserva el caso fallido y se añade validación cerrada de motivos y coherencia de elegibilidad; errores/proyecciones malformados se convierten en UNAVAILABLE. Es una corrección del contrato nuevo, sin conexión DB o rutas activas.
+
+La ampliación del caso de peticiones malformadas reprodujo una excepción al convertir una acción objeto con toString nulo. Se verifica el tipo string antes de consultar la lista permitida; esa entrada ahora se rechaza sin conversión ni excepción. Se mantiene el mismo caso de prueba y no se relajan aserciones.
