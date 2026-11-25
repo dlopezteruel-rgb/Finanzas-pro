@@ -3,7 +3,7 @@
   "schemaVersion": 3,
   "status": "reviewed-static-inventory-runtime-validation-recorded-separately",
   "currentCounts": {
-    "type-or-import": 1200,
+    "type-or-import": 1201,
     "review": 3721,
     "translation-key": 1577,
     "ui-message-candidate": 404,
@@ -2338,9 +2338,9 @@
     {
       "file": "src/tests.ts",
       "policy": "Review each candidate; not presumed translated",
-      "sourceSha256": "7088757c8e3ef7cd724cd6ae7e6e78d1d74027707e91396e4478ac8571422400",
+      "sourceSha256": "27e24c99c8da88ed757e645b33b6975f45cb402024b405fac48ff30bb9558731",
       "counts": {
-        "type-or-import": 59
+        "type-or-import": 60
       },
       "visibleCandidateLines": [],
       "presentationCalls": []

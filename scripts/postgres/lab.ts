@@ -44,7 +44,15 @@ export async function startLab(){
   phase='readiness';let ready=false;for(let i=0;i<80;i++){const c=new Client({...config.connections.admin,database:'postgres'});try{await c.connect();ready=true;}catch{}finally{await c.end().catch(()=>{});}if(ready)break;await new Promise(r=>setTimeout(r,100));}
   if(!ready)throw Error('LOCAL_POSTGRES_START_FAILED');
   const admin=new Client({...config.connections.admin,database:'postgres'});await admin.connect();await admin.query('CREATE DATABASE neondb').catch(e=>{if(e.code!=='42P04')throw e;});await admin.end();
-  return {config,dir,cert,port,mode:bin?'local-binaries':'docker',stop,async backupRoundtrip(){
+  return {config,dir,cert,port,containerId:container,mode:bin?'local-binaries':'docker',stop,
+  async setAuthenticationForTests(method:'scram-sha-256'|'password'|'trust'){
+   if(!['scram-sha-256','password','trust'].includes(method))throw Error('INVALID_FIXTURE_AUTH');
+   const hba=`local all all trust\nhostssl all all all ${method}\nhostnossl all all all reject\n`;
+   if(bin){await writeFile(dir+'/data/pg_hba.conf',hba);await run(path.join(bin,'pg_ctl'),['-D',dir+'/data','-l',dir+'/server.log','-w','restart']);}
+   else{await writeFile(dir+'/fixture-hba.conf',hba);await docker(['cp',dir+'/fixture-hba.conf',container+':/tmp/fixture-hba.conf']);await docker(['exec',container,'sh','-c','cp /tmp/fixture-hba.conf "$PGDATA/pg_hba.conf"; chown postgres:postgres "$PGDATA/pg_hba.conf"']);await docker(['restart',container]);
+    let ready=false;for(let i=0;i<50;i++){const c=new Client(config.connections.admin);try{await c.connect();await c.query('SELECT 1');ready=true;}catch{}finally{await c.end().catch(()=>{});}if(ready)break;await new Promise(r=>setTimeout(r,100));}if(!ready)throw Error('FIXTURE_RESTART_UNAVAILABLE');
+   }
+  },async backupRoundtrip(){
    const dbEnv={...env,PGHOST:'127.0.0.1',PGPORT:String(port),PGUSER:'neondb_owner',PGPASSWORD:password,PGDATABASE:'neondb',PGSSLMODE:'verify-full',PGSSLROOTCERT:cert+'/ca.crt'};
    if(bin){await exec(path.join(bin,'pg_dump'),['-Fc','-f',dir+'/backup.dump'],{env:dbEnv});const c=new Client(config.connections.admin);await c.connect();await c.query('CREATE DATABASE recovery_fixture');await c.end();await exec(path.join(bin,'pg_restore'),['-d','recovery_fixture',dir+'/backup.dump'],{env:dbEnv});}
    else{const e={...dockerEnv,PGPASSWORD:password};await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'pg_dump','-h','localhost','-U','neondb_owner','-d','neondb','-Fc','-f','/tmp/backup.dump','--no-password'],e);await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'createdb','-h','localhost','-U','neondb_owner','recovery_fixture'],e);await docker(['exec','-e','PGPASSWORD','-e','PGSSLMODE=verify-full','-e','PGSSLROOTCERT=/var/lib/postgresql/tls/ca.crt',container,'pg_restore','-h','localhost','-U','neondb_owner','-d','recovery_fixture','/tmp/backup.dump'],e);}

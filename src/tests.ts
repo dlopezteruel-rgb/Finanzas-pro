@@ -92,3 +92,5 @@ import "./identity/auth0.test";
 import "../server/ownership/planner.test";
 
 import "../server/postgres/config.test";
+
+import "../server/neon/preparation.test";

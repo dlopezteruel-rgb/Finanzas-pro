@@ -1,0 +1,8 @@
+{
+  "stage": "A",
+  "remoteAuthorized": false,
+  "approvedTarget": null,
+  "approvedPlanHash": null,
+  "approvedOperations": [],
+  "note": "Public metadata only. No hosts are authorized. Filling this example does not unlock stage B."
+}

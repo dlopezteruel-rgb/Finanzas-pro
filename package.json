@@ -32,7 +32,10 @@
     "test:native:engine": "python3 scripts/native/sqlcipher.integration.py",
     "test:ui:native-vault": "node --import tsx scripts/nativeVault.browser.ts",
     "test:durability": "node --import tsx scripts/webDurability.browser.ts",
-    "test:postgres": "node --import tsx scripts/postgres/integration.ts"
+    "test:postgres": "node --import tsx scripts/postgres/integration.ts",
+    "test:neon:local": "node --import tsx scripts/neon/libpq.integration.ts",
+    "neon:plan": "node --import tsx scripts/neon/runner.ts plan",
+    "neon:run": "node --import tsx scripts/neon/runner.ts run"
   },
   "dependencies": {
     "@capacitor/android": "8.6.2",
