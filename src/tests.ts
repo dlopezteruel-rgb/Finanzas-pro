@@ -90,3 +90,5 @@ import './identity/identity.test';
 import "./identity/auth0.test";
 
 import "../server/ownership/planner.test";
+
+import "../server/postgres/config.test";

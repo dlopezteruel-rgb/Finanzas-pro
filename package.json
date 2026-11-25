@@ -31,7 +31,8 @@
     "native:android:assemble": "npm run native:sync:android && node scripts/native/android-build.mjs",
     "test:native:engine": "python3 scripts/native/sqlcipher.integration.py",
     "test:ui:native-vault": "node --import tsx scripts/nativeVault.browser.ts",
-    "test:durability": "node --import tsx scripts/webDurability.browser.ts"
+    "test:durability": "node --import tsx scripts/webDurability.browser.ts",
+    "test:postgres": "node --import tsx scripts/postgres/integration.ts"
   },
   "dependencies": {
     "@capacitor/android": "8.6.2",
@@ -55,7 +56,8 @@
     "motion": "^12.23.24",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "pg": "8.23.1"
   },
   "devDependencies": {
     "@capacitor/cli": "8.6.2",
@@ -70,6 +72,7 @@
     "playwright-core": "1.64.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.21.0",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "@types/pg": "8.23.1"
   }
 }
