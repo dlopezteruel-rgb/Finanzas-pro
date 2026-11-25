@@ -30,6 +30,22 @@ El ensayo local corto no demuestra cumplir esos objetivos ante caída de proveed
 
 El plan aprobado es Free, exclusivamente desarrollo ficticio; no se activa facturación ni upgrade. Confirmar en Dashboard y [pricing oficial](https://neon.com/pricing) los límites vigentes de compute CU-h, almacenamiento, ramas, conexiones, transferencia, suspensión, historial, soporte/SLA y funciones de seguridad. No se fijan cuotas/precios no comprobados ni se garantiza que Free cubra una carga futura. Registrar consumo e incidencias sin datos personales; si se alcanza un límite, detener la prueba o marcarla bloqueada, sin comprar capacidad automáticamente.
 
+Consulta pública del25/11/2026, página comercial actualizada el4/11/2026 (no es consulta al proyecto del propietario):
+
+| Free publicado | Límite anunciado |
+| --- | --- |
+| Precio | USD0/mes, sin tarjeta requerida |
+| Compute | 100CU-h/mes por proyecto; hasta2CU/8GB RAM |
+| Almacenamiento | 1GB por proyecto |
+| Ramas incluidas | 10por proyecto |
+| Suspensión por inactividad | Después de5min |
+| Historial | Hasta6h **o1GB de cambios**; no prometer seis horas completas bajo cualquier carga |
+| Snapshot | 1; no sustituye una copia independiente probada |
+| Egress público | 5GB por proyecto incluidos |
+| Observabilidad y soporte | Un día de métricas/logs; comunidad |
+
+Son condiciones públicas variables, no cuotas efectivas verificadas de finanzas-pro-dev ni garantía contractual. Confirmar en Dashboard antes de pruebas remotas; no activar otros servicios incluidos, Better Auth, AI Gateway, tarjeta o facturación. Presupuestar actividad de conexiones/pools, pruebas y restauraciones contra el consumo total del proyecto, no sólo el tamaño de estas tablas. La suspensión puede añadir latencia al primer acceso: medirla posteriormente, sin ocultarla como error de RLS.
+
 No considerar Free apto para producción si no satisface retención ante incidentes detectados después de6h, backup independiente, RPO/RTO, capacidad/concurrencia, cold start y disponibilidad, controles de red/identidad requeridos, residencia de réplicas/logs/backups/soporte, DPA/retención y recuperación ensayada. La región Frankfurt no certifica por sí sola residencia de todos los datos operativos. Sin restricciones IP configuradas, la protección de credenciales y privilegios es especialmente relevante; no se cambian políticas remotas en esta fase.
 
 [PITR/restauración Neon](https://neon.com/docs/introduction/point-in-time-restore), [PostgreSQL backup](https://www.postgresql.org/docs/18/backup.html). Verificar condiciones comerciales/operativas antes de cualquier aprobación productiva; ninguna prueba local/CI sustituye esa verificación.

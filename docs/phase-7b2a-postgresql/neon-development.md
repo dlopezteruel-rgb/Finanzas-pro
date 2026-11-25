@@ -51,4 +51,6 @@ No ejecutar ciegamente scripts/postgres/integration.ts contra development: crea 
 
 [Roles Neon](https://neon.com/docs/manage/roles), [pooling](https://neon.com/docs/connect/connection-pooling), [conexión segura](https://neon.com/docs/connect/connect-securely), [branching](https://neon.com/docs/introduction/branching).
 
+La documentación pública de roles, consultada el25/11/2026 y actualizada el19/11/2026, distingue roles creados por Console/API (miembros de neon_superuser) de los creados mediante SQL con privilegios básicos. También describe roles por rama y su copia al crear una rama hija. Esto informa el diseño; **no demuestra los privilegios efectivos del proyecto concreto**. Antes de ejecutar SQL, contrastar development/endpoint y membresías reales; preferir creación SQL revisada de runtime/migrador, sin heredar neon_superuser. NOINHERIT no basta si existe posibilidad de SET ROLE: el laboratorio ya prueba ese caso. El bootstrap local no debe trasladarse ciegamente a un administrador gestionado con restricciones diferentes.
+
 La autorización futura debe aprobar endpoint/roles, CA/política CB, bootstrap y backups, ámbito de pruebas destructivas, límites Free y procedimientos de recuperación. No se solicita ahora ninguna credencial ni se habilitan cuentas financieras mediante Auth0.
