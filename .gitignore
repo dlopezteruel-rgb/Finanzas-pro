@@ -30,3 +30,6 @@ ios/capacitor-cordova-ios-plugins/
 
 # Generated cache from optional desktop SQLCipher test scripts
 scripts/native/__pycache__/
+
+# Owner-configured Neon development credentials. Never include in artifacts or bundles.
+.secrets/

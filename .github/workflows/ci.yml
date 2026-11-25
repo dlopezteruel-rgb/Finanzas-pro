@@ -144,11 +144,17 @@ jobs:
         run: npm run test:postgres
       - name: Verificar evidencia del motor y SHA limpio
         run: node --import tsx scripts/postgres/verify.ts
+      - name: Libpq 18 strict y planes Neon, sólo laboratorio ficticio
+        run: npm run test:neon:local
+      - name: Verificar evidencia de etapa A sin atribuir resultados a Neon
+        run: node --import tsx scripts/neon/verify.ts
       - name: Conservar informe sin credenciales ni archivos de base de datos
         if: always()
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
         with:
           name: postgres-${{ github.run_id }}-${{ github.run_attempt }}
-          path: ci-artifacts/postgres/*.json
+          path: |
+            ci-artifacts/postgres/*.json
+            ci-artifacts/neon/*.json
           retention-days: 7
           if-no-files-found: warn

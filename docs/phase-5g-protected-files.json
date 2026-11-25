@@ -2,7 +2,7 @@
   "base": "871e6304a5dccf7ceab601755cd08bcdda81e7df",
   "policy": "Financial/domain/validators/parsers/API/prompts/identities/schema and existing web server/config/workflow unchanged. useFinanceData is the explicit presentation/storage-adapter boundary, not the financial core. Lockfile changes only for pinned native dependencies.",
   "files": {
-    ".github/workflows/ci.yml": "ddb529458ad5b729c87463ef1d98b848db6099d6f8e893661b00dc2389e037ed",
+    ".github/workflows/ci.yml": "020249fc7c65e2daf60e14578b862289b8a73e58fb426da8e2435bb9afcec5a1",
     "config/appPaths.ts": "4cb32eaedf96076825d3be3036a88f2e8a60325790210bb9d0978644e78cad5c",
     "server.ts": "529f50be8010ecbf51cc8029f6ae8976e63c101016fcf39c432caf4fecf3fe7f",
     "src/constants/categories.ts": "c90905d1b19f9e1be13afae75913fec8dc8538343a68061f75990eb7790171bf",
@@ -57,5 +57,10 @@
     "base": "2ae61a6121344b1108dba9b5130c4d72420a55cb",
     "originalJobsSHA256": "c5240356c8cecc290982aaf85e413e13f3a09df629ef1d5246435fcf7e853556",
     "reason": "Append standalone PostgreSQL18/RLS job only. A new test verifies the complete original workflow prefix byte-for-byte. The other43 protected files remain unchanged."
+  },
+  "audited7B2A1Change": {
+    "file": ".github/workflows/ci.yml",
+    "base": "ba7dbb1d9d9a4732da918c89dc84baa9e4c11c5c",
+    "reason": "Preserve four jobs and old PostgreSQL cases/gates; append independent official-libpq local tests and stage A evidence gate inside PostgreSQL job only. Original three-job prefix remains verified byte-for-byte."
   }
 }

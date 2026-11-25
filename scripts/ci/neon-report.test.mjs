@@ -1,0 +1,6 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateNeonPreparation} from './neon-report.mjs';
+const fixture=()=>({source:'sha',workingTreeDirty:false,stage:'A',passed:true,cleanupComplete:true,neonTested:false,pgBouncerTested:false,remoteAuthorized:false,financialAccess:false,engine:'PostgreSQL18',client:'psql (PostgreSQL) 18.7',mode:'docker',channelBinding:'require',requireAuth:'scram-sha-256',sslMode:'verify-full',tests:Array.from({length:21},(_,i)=>'case'+i)});
+test('Neon prep gate rejects incomplete or weaker TLS/auth and dirty/mismatched source',()=>{assert.equal(validateNeonPreparation(fixture(),'sha',{dockerRequired:true}).passed,true);for(const change of [r=>r.tests.pop(),r=>r.cleanupComplete=false,r=>r.workingTreeDirty=true,r=>r.source='other',r=>r.mode='local-binaries',r=>r.channelBinding='prefer',r=>r.sslMode='require',r=>r.requireAuth='password']){const r=fixture();change(r);assert.throws(()=>validateNeonPreparation(r,'sha',{dockerRequired:true}));}});
+test('Local or simulated evidence cannot be attributed to real Neon PgBouncer or remote authorization',()=>{for(const k of ['neonTested','pgBouncerTested','remoteAuthorized','financialAccess']){const r=fixture();r[k]=true;assert.throws(()=>validateNeonPreparation(r,'sha'));}});
